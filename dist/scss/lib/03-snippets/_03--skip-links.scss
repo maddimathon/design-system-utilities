@@ -3,9 +3,10 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
-// @use '../../config';
+@use '../../config';
 // @use '../../tokens';
 
 @use '../01-functions' as *;
@@ -15,80 +16,74 @@
 
 @use '03-05-forms' as *;
 
+$_mixin_button: meta.get-mixin('snippet-button');
+$_mixin_buttonColourSingle: meta.get-mixin(
+    'snippet-button-colour-single-state'
+);
+
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin snippet-support-skip-links {
-    // prettier-ignore
+@mixin snippet-support-skip-links(
+    $mixin_button: null,
+    $mixin_buttonColourSingle: null
+) {
+    $mixin_button: config.config-valid-mixin(
+        $mixin_button,
+        '$mixin_button',
+        $default: $_mixin_button,
+        $prefix: '[snippet-support-skip-links] '
+    );
+
+    $mixin_buttonColourSingle: config.config-valid-mixin(
+        $mixin_buttonColourSingle,
+        '$mixin_buttonColourSingle',
+        $default: $_mixin_buttonColourSingle,
+        $prefix: '[snippet-support-skip-links] '
+    );
+
     @include utils.snippet-support-skip-links(
-        $focus_top: var-scroll-padding-top(),
-        $zIndex: var-z-index(skipLink),
-    ) using ($location) {
-
+            $focus_top: var-scroll-padding-top(),
+            $zIndex: var-z-index(skipLink),
+            $includeBaseStyles: false
+        )
+        using ($location) {
         @if $location == link-root {
-            $fontStyle: var-style(button-font-style);
+            @include meta.apply(
+                $mixin_button,
+                $asSimpleButton: true,
+                $includePosition: false,
+                $includeColours: false
+            );
 
-            @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
-            
-            // @include prop-display( block );
-            padding-block: var-style(button-padding-block);
-            padding-inline: var-style(button-padding-inline);
-
-            border-width: var-style(button-border-width);
-            border-radius: var-style(button-border-radius);
-            border-style: var-style(button-border-style);
-
-            font-weight: var-style(button-font-weight);
-            font-style: $fontStyle;
-            font-size: var-style(button-font-size);
-            line-height: var-style(button-line-height);
-            letter-spacing: var-style(button-letter-spacing);
-
-            text-transform: var-style(button-text-transform);
-            text-decoration: none;
-            text-wrap: balance;
-
-            transition: do-var(transition);
-
-            appearance: button;
-            cursor: pointer;
-            
             @content ($location);
-            
-            @include visited {
-                @include snippet-button-colour-single-state(hover) {
-                    @content (#{$location}--colours);
+
+            @include visited($appendToSelector: true) {
+                @include meta.apply($mixin_buttonColourSingle, '') {
+                    @content (link-colours);
                 }
             }
 
-            @if $fontStyle == italic {
-                em {
-                    font-style: normal;
-        
-                    em {
-                        font-style: italic;
-                    }
+            @include apply-interactive-mixin(
+                $focus: true,
+                $focusWithin: true,
+                $hover: true
+            ) {
+                @include meta.apply($mixin_buttonColourSingle, hover) {
+                    @content (link-focus-colours);
                 }
             }
-        }
 
-        @else if $location == link-focus {
-            @include snippet-button-colour-single-state(hover){
-                @content ($location);
+            @include apply-interactive-mixin(
+                $active: true,
+                $activeWithin: true
+            ) {
+                @include meta.apply($mixin_buttonColourSingle, active) {
+                    @content (link-active-colours);
+                }
             }
-        }
-
-        @else if $location == link-active {
-            @include snippet-button-colour-single-state(active){
-                @content ($location);
-            }
-        }
-
-        @else {
+        } @else {
             @content ($location);
         }
-    }
-
-    %skip-link {
     }
 }

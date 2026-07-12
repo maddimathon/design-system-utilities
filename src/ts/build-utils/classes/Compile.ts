@@ -97,16 +97,16 @@ export class Compile extends CompileStage {
 
     protected async templates(
         sassDebugCheckpoints: boolean = false,
-        args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>,
+        { maxConcurrent, ...args }: Partial<AbstractStage.runCustomScssDirSubStage.Opts> = {},
     ): Promise<void> {
 
         await this.runCustomScssDirSubStage(
             'template',
             this.getDistDir( undefined, 'css' ),
             {
-                maxConcurrent: sassDebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 5,
                 postCSS: true,
                 ...args,
+                maxConcurrent: maxConcurrent ?? ( sassDebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 10 ),
                 srcDir: 'src/scss',
             },
         );

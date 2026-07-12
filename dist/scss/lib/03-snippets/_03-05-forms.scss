@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -56,10 +57,16 @@
 @mixin snippet-button-colour-single-state(
     $state,
     $variation: tokens.$button_variation_default,
+    $buttonType: null,
+    // $buttonType opts: null, 'file-input', 'inline'
     $includeVisited: true,
     $args...
 ) {
-    $stateSlug: if($state == '$' or not $state, '', '-#{$state}');
+    @if not meta.is-truthy($state) {
+        $state: '$';
+    }
+
+    $stateSlug: if($state == '$', '', '-#{$state}');
 
     @if $includeVisited and $stateSlug == '' {
         @include visited {
@@ -82,6 +89,10 @@
     }
 }
 
+$_mixin_button_colour_single_state: meta.get-mixin(
+    'snippet-button-colour-single-state'
+);
+
 ///
 /// Colour properties for an input element.
 ///
@@ -101,12 +112,21 @@
     $includeRoot: true,
     $includeVisited: true,
     //
+    $mixin_button_colour_single_state: null,
     $args...
 ) {
+    $mixin_button_colour_single_state: config.config-valid-mixin(
+        $mixin_button_colour_single_state,
+        '$_mixin_button_colour_single_state',
+        $default: $_mixin_button_colour_single_state,
+        $prefix: '[snippet-button-colours] '
+    );
+
     @if $includeRoot {
         @if $includeVisited {
             @include visited {
-                @include snippet-button-colour-single-state(
+                @include meta.apply(
+                    $mixin_button_colour_single_state,
                     '$',
                     $variation: $variation,
                     $includeVisited: false,
@@ -116,7 +136,8 @@
                 @content (root-colours);
             }
         } @else {
-            @include snippet-button-colour-single-state(
+            @include meta.apply(
+                $mixin_button_colour_single_state,
                 '$',
                 $variation: $variation,
                 $includeVisited: $includeVisited,
@@ -138,7 +159,8 @@
             $includeNoWhereSelectorFallback:
                 $focus_includeNoWhereSelectorFallback
         ) {
-            @include snippet-button-colour-single-state(
+            @include meta.apply(
+                $mixin_button_colour_single_state,
                 hover,
                 $variation: $variation,
                 $args...
@@ -150,7 +172,8 @@
 
     @if $includeActive {
         @include active {
-            @include snippet-button-colour-single-state(
+            @include meta.apply(
+                $mixin_button_colour_single_state,
                 active,
                 $variation: $variation,
                 $args...
@@ -292,6 +315,363 @@
     }
 }
 
+$_mixin_button_colours: meta.get-mixin('snippet-button-colours');
+
+///
+/// Override styles for a disabled button (assuming snippet-button was assigned
+/// to the base element/selector).
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-button-disabled(
+    $buttonType: null,
+    $borderStyle: null,
+    $fontWeight: var-style(button-disabled-font-weight),
+    $fontStyle: var-style(button-disabled-font-style),
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback:
+        config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    //
+    $includeColours: true,
+    $includePseudoIcons: config.$include_button_inlineIcons,
+    $includeVisited: true,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
+    //
+    $mixin_button_colours: null,
+    $args...
+) {
+    $mixin_button_colours: config.config-valid-mixin(
+        $mixin_button_colours,
+        '$mixin_button_colours',
+        $default: $_mixin_button_colours,
+        $prefix: '[snippet-button-disabled] '
+    );
+
+    $args: meta.keywords($args);
+
+    $borderStyle: if(
+        $borderStyle != null,
+        $borderStyle,
+        var-style(button-disabled-border-style)
+    );
+
+    border-radius: var-style(button-disabled-border-radius);
+    border-style: $borderStyle;
+
+    font-weight: $fontWeight;
+    font-style: $fontStyle;
+
+    letter-spacing: var-style(button-disabled-letter-spacing);
+    text-transform: var-style(button-disabled-text-transform);
+
+    cursor: not-allowed;
+
+    @content (root);
+
+    @if $includeColours {
+        @include meta.apply(
+                $mixin_button_colours,
+                disabled,
+                $buttonType: $buttonType,
+                $focusWithin: $focusWithin,
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks,
+                $focus_includeNoWhereSelectorFallback:
+                    $focus_includeNoWhereSelectorFallback,
+                $includeVisited: $includeVisited
+            )
+            using ($location) {
+            @content ($location);
+        }
+    } @else {
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            $hover: true,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback:
+                $focus_includeNoWhereSelectorFallback
+        ) {
+            @if $borderStyle != solid {
+                border-style: solid;
+            }
+
+            @content (hover-focus);
+        }
+
+        @include active {
+            @content (active);
+        }
+    }
+
+    @if $includePseudoIcons {
+        &::before {
+            @include snippet-icon-pseudo-element(
+                forbidden,
+                before,
+                $useIconFont: $useIconFont
+            ) {
+                align-self: center;
+                justify-self: center;
+            }
+        }
+    }
+}
+
+$_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
+
+///
+/// Override styles for an inline button (assuming snippet-button was assigned
+/// to the base element/selector).
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-button-inline(
+    $variation: null,
+    //
+    $includeBaseProps: false,
+    $includeChildren: true,
+    $includeColours: $variation != null,
+    $includeDisabled: $includeColours,
+    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
+    //
+    $borderRadius: null,
+    $borderStyle: null,
+    $borderWidth: null,
+    $display: null,
+    $fontSize: null,
+    $fontStyle: null,
+    $fontWeight: null,
+    $letterSpacing: null,
+    $marginBlockEnd: null,
+    $marginBlockStart: null,
+    $paddingBlock: null,
+    $paddingInline: null,
+    $textTransform: null,
+    $width: null,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback:
+        config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    //
+    $mixin_button_colours: null
+) {
+    $mixin_button_colours: config.config-valid-mixin(
+        $mixin_button_colours,
+        '$mixin_button_colours',
+        $default: $_mixin_button_colours,
+        $prefix: '[snippet-button-inline] '
+    );
+
+    $borderStyle: if(
+        $borderStyle != null,
+        $borderStyle,
+        var-style(button-inline-border-style)
+    );
+    $display: if($display != null, $display, inline);
+    $fontStyle: if(
+        $fontStyle != null,
+        $fontStyle,
+        var-style(button-inline-font-style)
+    );
+
+    $paddingBlock: if(
+        $paddingBlock != null,
+        $paddingBlock,
+        var-style(button-inline-padding-block)
+    );
+    $paddingInline: if(
+        $paddingInline != null,
+        $paddingInline,
+        var-style(button-inline-padding-inline)
+    );
+
+    $variation: if(
+        $variation != null,
+        $variation,
+        tokens.$button_inline_variation_default
+    );
+
+    @include cx-prop(
+        focus-ring-outline-offset,
+        var-style(button-inline-focus-offset)
+    );
+
+    @include cx-prop(
+        icon-inline-buffer,
+        var-style(button-inline-icon-buffer) !important
+    );
+    @include cx-prop(
+        icon-inline-buffer-start,
+        var-style(button-inline-icon-buffer-start) !important
+    );
+    @include cx-prop(
+        icon-inline-buffer-end,
+        var-style(button-inline-icon-buffer-end) !important
+    );
+
+    @include cx-prop(icon-size-font, var-style(button-inline-icon-size-font));
+    @include cx-prop(
+        icon-size-pseudo,
+        var-style(button-inline-icon-size-pseudo)
+    );
+
+    @include cx-prop(
+        icon-vertical-align,
+        var-style(button-inline-icon-vertical-align) !important
+    );
+
+    @include prop-display($display);
+
+    // prettier-ignore
+    @if $display == flex or $display == inline-flex or $display == grid or $display == inline-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        justify-content: start;
+        align-content: start;
+        align-items: start;
+    }
+
+    @if $includeBaseProps {
+        @include _snippet-button-base;
+    }
+
+    width: if($width, $width, var-style(button-inline-width));
+
+    margin-block-start: 0;
+
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
+
+    border-width: if(
+        $borderWidth,
+        $borderWidth,
+        var-style(button-border-width)
+    );
+    border-radius: if(
+        $borderRadius,
+        $borderRadius,
+        var-style(button-inline-border-radius)
+    );
+    border-style: $borderStyle;
+
+    font-weight: if(
+        $fontWeight,
+        $fontWeight,
+        var-style(button-inline-font-weight)
+    );
+    font-style: $fontStyle;
+
+    @if $fontSize != false {
+        font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
+    }
+
+    line-height: var-style(button-inline-line-height);
+
+    @if $letterSpacing != false {
+        letter-spacing: if(
+            $letterSpacing,
+            $letterSpacing,
+            var-style(button-inline-letter-spacing)
+        );
+    }
+
+    @if $textTransform != false {
+        text-transform: if(
+            $textTransform,
+            $textTransform,
+            var-style(button-inline-text-transform)
+        );
+    }
+
+    vertical-align: var-style(button-inline-vertical-align);
+
+    @content (root);
+
+    @if $includeColours and $variation != null {
+        @include meta.apply(
+                $mixin_button_colours,
+                $variation,
+                $focusWithin: $focusWithin,
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks,
+                $focus_includeNoWhereSelectorFallback:
+                    $focus_includeNoWhereSelectorFallback
+            )
+            using ($location) {
+            @content ($location);
+        }
+
+        @if $includeDisabled {
+            @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+                @include meta.apply(
+                        $mixin_button_colours,
+                        disabled,
+                        $focusWithin: $focusWithin,
+                        $focus_fallbacksOnly: $focus_fallbacksOnly,
+                        $focus_includeFallbacks: $focus_includeFallbacks,
+                        $focus_includeNoWhereSelectorFallback:
+                            $focus_includeNoWhereSelectorFallback
+                    )
+                    using ($location) {
+                    @content ($location);
+                }
+            }
+        }
+    } @else {
+        @include apply-interactive-mixin(
+            $focus: true,
+            $focusWithin: $focusWithin,
+            $hover: true,
+            //
+            $fallbacksOnly: $focus_fallbacksOnly,
+            $includeFallbacks: $focus_includeFallbacks,
+            $includeNoWhereSelectorFallback:
+                $focus_includeNoWhereSelectorFallback
+        ) {
+            @content (hover-focus);
+        }
+
+        @include active {
+            @content (active);
+        }
+    }
+
+    /// BLOCK ///
+
+    @if $fontStyle == italic {
+        em {
+            font-style: normal;
+
+            em {
+                font-style: italic;
+            }
+        }
+    }
+
+    @if $includeChildren {
+        @if $includeBaseProps {
+            @include _snippet-button-base--children;
+        }
+
+        @include _snippet-button--icon-child(
+            $iconSize: var-style(button-icon-size-pseudo),
+            $embeddedBottom: var-style(button-icon-embedded-bottom),
+            $verticalAlign: var-style(button-icon-vertical-align)
+        );
+    }
+}
+
+$_mixin_button_inline: meta.get-mixin('snippet-button-inline');
+
 ///
 /// Base styles for a button element.
 ///
@@ -300,15 +680,19 @@
 @mixin snippet-button(
     $variation: tokens.$button_variation_default,
     //
-    $includeChildren: true,
+    // i.e., only basic properties, used for button-like elements
+    $asSimpleButton: false,
+    //
+    $includeChildren: not $asSimpleButton,
     $includeColours: true,
-    $includeDisabled: true,
-    $includeEmpty: true,
-    $includeInline: true,
+    $includeDisabled: not $asSimpleButton,
+    $includeEmpty: not $asSimpleButton,
+    $includeInline: not $asSimpleButton,
     $includeMarginBlock: false,
     $includeOnlyChild: $includeChildren,
     $includePadding: true,
-    $includePseudoIcons: config.$include_button_inlineIcons,
+    $includePseudoIcons: not $asSimpleButton and
+        config.$include_button_inlineIcons,
     $includeTextBasics: true,
     $includeVisited: true,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
@@ -336,9 +720,33 @@
     $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
     $focus_includeNoWhereSelectorFallback:
         config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    $mixin_button_colours: null,
+    $mixin_button_disabled: null,
+    $mixin_button_inline: null,
     //
     $args...
 ) {
+    $mixin_button_colours: config.config-valid-mixin(
+        $mixin_button_colours,
+        '$mixin_button_colours',
+        $default: $_mixin_button_colours,
+        $prefix: '[snippet-button] '
+    );
+
+    $mixin_button_disabled: config.config-valid-mixin(
+        $mixin_button_disabled,
+        '$mixin_button_disabled',
+        $default: $_mixin_button_disabled,
+        $prefix: '[snippet-button] '
+    );
+
+    $mixin_button_inline: config.config-valid-mixin(
+        $mixin_button_inline,
+        '$mixin_button_inline',
+        $default: $_mixin_button_inline,
+        $prefix: '[snippet-button] '
+    );
+
     $borderStyle: if(
         $borderStyle != null,
         $borderStyle,
@@ -500,20 +908,18 @@
     @content (root);
 
     @if $includeColours {
-        @include snippet-button-colours(
+        @include meta.apply(
+                $mixin_button_colours,
                 $variation,
                 $focusWithin: $focusWithin,
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
                 $focus_includeFallbacks: $focus_includeFallbacks,
                 $focus_includeNoWhereSelectorFallback:
                     $focus_includeNoWhereSelectorFallback,
+
                 $includeVisited: $includeVisited
             )
             using ($location) {
-            @if $location == focus and $borderStyle != solid {
-                border-style: solid;
-            }
-
             @content ($location);
         }
     } @else {
@@ -527,10 +933,6 @@
             $includeNoWhereSelectorFallback:
                 $focus_includeNoWhereSelectorFallback
         ) {
-            @if $borderStyle != solid {
-                border-style: solid;
-            }
-
             @content (hover-focus);
         }
 
@@ -599,17 +1001,19 @@
         &[aria-disabled='true'],
         &[disabled] {
             // prettier-ignore
-            @include snippet-button-disabled(
-                $fontWeight: var-style(button-disabled-font-weight),
-                $fontStyle: var-style(button-disabled-font-style),
-
-                $focusWithin: $focusWithin,
+            @include meta.apply(
+                $mixin_button_disabled,
+                
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
                 $focus_includeFallbacks: $focus_includeFallbacks,
-
+                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
+                
+                $includeBaseProps: false,
                 $includeColours: $includeColours,
                 $includePseudoIcons: $includePseudoIcons,
-                $useIconFont: $useIconFont,
+                
+            $mixin_button_colours: $mixin_button_colours,
+            $useIconFont: $useIconFont,
             ) using ($location) {
                 @content(disabled-#{$location});
             }
@@ -617,29 +1021,40 @@
     }
 
     @if $includeInline {
-        @at-root #{selector.unify(&, '.display-inline')} {
+        &:is(.display-inline) {
             // prettier-ignore
-            @include snippet-button-inline(
+            @include meta.apply(
+                $_mixin_button_inline,
+                
+                $focus_fallbacksOnly: $focus_fallbacksOnly,
+                $focus_includeFallbacks: $focus_includeFallbacks,
+                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
+                
                 $includeBaseProps: false,
                 $includeColours: false,
+                $includeDisabled: $includeDisabled,
+                
+                $mixin_button_colours: $mixin_button_colours,
                 $useIconFont: $useIconFont,
             ) using ($location) {
                 @content(inline-#{$location});
             }
-        }
 
-        @if $includeColours and
-            (
-                tokens.$button_variation_default !=
-                    tokens.$button_inline_variation_default
-            )
-        {
-            &:where(.display-inline) {
-                @include snippet-button-colours(
+            @if $includeColours and
+                (
+                    tokens.$button_variation_default !=
+                        tokens.$button_inline_variation_default
+                )
+            {
+                @include meta.apply(
+                        $mixin_button_colours,
                         tokens.$button_inline_variation_default,
                         $focusWithin: $focusWithin,
                         $focus_fallbacksOnly: $focus_fallbacksOnly,
                         $focus_includeFallbacks: $focus_includeFallbacks,
+                        $focus_includeNoWhereSelectorFallback:
+                            $focus_includeNoWhereSelectorFallback,
+
                         $includeVisited: $includeVisited
                     )
                     using ($location) {
@@ -647,14 +1062,18 @@
                 }
 
                 @if $includeDisabled {
-                    @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+                    &:is([aria-disabled='true'], [disabled]) {
                         @content (inline--colours--disabled);
 
-                        @include snippet-button-colours(
+                        @include meta.apply(
+                                $mixin_button_colours,
                                 disabled,
                                 $focusWithin: $focusWithin,
                                 $focus_fallbacksOnly: $focus_fallbacksOnly,
                                 $focus_includeFallbacks: $focus_includeFallbacks,
+                                $focus_includeNoWhereSelectorFallback:
+                                    $focus_includeNoWhereSelectorFallback,
+
                                 $includeVisited: $includeVisited
                             )
                             using ($location) {
@@ -706,336 +1125,6 @@
 }
 
 ///
-/// Override styles for a disabled button (assuming snippet-button was assigned
-/// to the base element/selector).
-///
-/// @since 0.1.0-beta.0.draft
-///
-@mixin snippet-button-disabled(
-    $borderStyle: null,
-    $fontWeight: var-style(button-disabled-font-weight),
-    $fontStyle: var-style(button-disabled-font-style),
-    //
-    $focusWithin: false,
-    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
-    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
-    $focus_includeNoWhereSelectorFallback:
-        config.$mx_focusVisible_includeNoWhereSelectorFallback,
-    //
-    $includeColours: true,
-    $includePseudoIcons: config.$include_button_inlineIcons,
-    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
-    $includeVisited: true,
-    $args...
-) {
-    $args: meta.keywords($args);
-
-    $borderStyle: if(
-        $borderStyle != null,
-        $borderStyle,
-        var-style(button-disabled-border-style)
-    );
-
-    border-radius: var-style(button-disabled-border-radius);
-    border-style: $borderStyle;
-
-    font-weight: $fontWeight;
-    font-style: $fontStyle;
-
-    letter-spacing: var-style(button-disabled-letter-spacing);
-    text-transform: var-style(button-disabled-text-transform);
-
-    cursor: not-allowed;
-
-    @content (root);
-
-    @if $includeColours {
-        @include snippet-button-colours(
-                disabled,
-                $focusWithin: $focusWithin,
-                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks,
-                $focus_includeNoWhereSelectorFallback:
-                    $focus_includeNoWhereSelectorFallback,
-                $includeVisited: $includeVisited
-            )
-            using ($location) {
-            //
-            @if $location == focus and $borderStyle != solid {
-                border-style: solid;
-
-                @content ($location);
-            }
-            //
-            @else {
-                @content ($location);
-            }
-        }
-    } @else {
-        @include apply-interactive-mixin(
-            $focus: true,
-            $focusWithin: $focusWithin,
-            $hover: true,
-            //
-            $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks,
-            $includeNoWhereSelectorFallback:
-                $focus_includeNoWhereSelectorFallback
-        ) {
-            @if $borderStyle != solid {
-                border-style: solid;
-            }
-
-            @content (hover-focus);
-        }
-
-        @include active {
-            @content (active);
-        }
-    }
-
-    @if $includePseudoIcons {
-        &::before {
-            @include snippet-icon-pseudo-element(
-                forbidden,
-                before,
-                $useIconFont: $useIconFont
-            ) {
-                align-self: center;
-                justify-self: center;
-            }
-        }
-    }
-}
-
-///
-/// Override styles for an inline button (assuming snippet-button was assigned
-/// to the base element/selector).
-///
-/// @since 0.1.0-beta.0.draft
-///
-@mixin snippet-button-inline(
-    $variation: null,
-    //
-    $includeChildren: true,
-    $includeColours: $variation != null,
-    $includeBaseProps: false,
-    $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
-    //
-    $borderRadius: null,
-    $borderStyle: null,
-    $borderWidth: null,
-    $display: null,
-    $fontSize: null,
-    $fontStyle: null,
-    $fontWeight: null,
-    $letterSpacing: null,
-    $marginBlockEnd: null,
-    $marginBlockStart: null,
-    $paddingBlock: null,
-    $paddingInline: null,
-    $textTransform: null,
-    $width: null,
-    //
-    $focusWithin: false,
-    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
-    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
-    $focus_includeNoWhereSelectorFallback:
-        config.$mx_focusVisible_includeNoWhereSelectorFallback
-) {
-    $borderStyle: if(
-        $borderStyle != null,
-        $borderStyle,
-        var-style(button-inline-border-style)
-    );
-    $display: if($display != null, $display, inline);
-    $fontStyle: if(
-        $fontStyle != null,
-        $fontStyle,
-        var-style(button-inline-font-style)
-    );
-
-    $paddingBlock: if(
-        $paddingBlock != null,
-        $paddingBlock,
-        var-style(button-inline-padding-block)
-    );
-    $paddingInline: if(
-        $paddingInline != null,
-        $paddingInline,
-        var-style(button-inline-padding-inline)
-    );
-
-    $variation: if(
-        $variation != null,
-        $variation,
-        tokens.$button_inline_variation_default
-    );
-
-    @include cx-prop(
-        focus-ring-outline-offset,
-        var-style(button-inline-focus-offset)
-    );
-
-    @include cx-prop(
-        icon-inline-buffer,
-        var-style(button-inline-icon-buffer) !important
-    );
-    @include cx-prop(
-        icon-inline-buffer-start,
-        var-style(button-inline-icon-buffer-start) !important
-    );
-    @include cx-prop(
-        icon-inline-buffer-end,
-        var-style(button-inline-icon-buffer-end) !important
-    );
-
-    @include cx-prop(icon-size-font, var-style(button-inline-icon-size-font));
-    @include cx-prop(
-        icon-size-pseudo,
-        var-style(button-inline-icon-size-pseudo)
-    );
-
-    @include cx-prop(
-        icon-vertical-align,
-        var-style(button-inline-icon-vertical-align) !important
-    );
-
-    @include prop-display($display);
-
-    // prettier-ignore
-    @if $display == flex or $display == inline-flex or $display == grid or $display == inline-grid {
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        justify-content: start;
-        align-content: start;
-        align-items: start;
-    }
-
-    @if $includeBaseProps {
-        @include _snippet-button-base;
-    }
-
-    width: if($width, $width, var-style(button-inline-width));
-
-    margin-block-start: 0;
-
-    padding-block: $paddingBlock;
-    padding-inline: $paddingInline;
-
-    // gap: var-style(button-inline-gap-block) var-style(button-inline-gap-inline);
-
-    border-width: if(
-        $borderWidth,
-        $borderWidth,
-        var-style(button-border-width)
-    );
-    border-radius: if(
-        $borderRadius,
-        $borderRadius,
-        var-style(button-inline-border-radius)
-    );
-    border-style: $borderStyle;
-
-    font-weight: if(
-        $fontWeight,
-        $fontWeight,
-        var-style(button-inline-font-weight)
-    );
-    font-style: $fontStyle;
-
-    @if $fontSize != false {
-        font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
-    }
-
-    line-height: var-style(button-inline-line-height);
-
-    @if $letterSpacing != false {
-        letter-spacing: if(
-            $letterSpacing,
-            $letterSpacing,
-            var-style(button-inline-letter-spacing)
-        );
-    }
-
-    @if $textTransform != false {
-        text-transform: if(
-            $textTransform,
-            $textTransform,
-            var-style(button-inline-text-transform)
-        );
-    }
-
-    vertical-align: var-style(button-inline-vertical-align);
-
-    @content (root);
-
-    @if $includeColours and $variation != null {
-        @include snippet-button-colours(
-                $variation,
-                $focusWithin: $focusWithin,
-                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks,
-                $focus_includeNoWhereSelectorFallback:
-                    $focus_includeNoWhereSelectorFallback
-            )
-            using ($location) {
-            @if $location == focus and $borderStyle != solid {
-                border-style: solid;
-            }
-
-            @content ($location);
-        }
-    } @else {
-        @include apply-interactive-mixin(
-            $focus: true,
-            $focusWithin: $focusWithin,
-            $hover: true,
-            //
-            $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks,
-            $includeNoWhereSelectorFallback:
-                $focus_includeNoWhereSelectorFallback
-        ) {
-            @if $borderStyle != solid {
-                border-style: solid;
-            }
-
-            @content (hover-focus);
-        }
-
-        @include active {
-            @content (active);
-        }
-    }
-
-    /// BLOCK ///
-
-    @if $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
-            }
-        }
-    }
-
-    @if $includeChildren {
-        @if $includeBaseProps {
-            @include _snippet-button-base--children;
-        }
-
-        @include _snippet-button--icon-child(
-            $iconSize: var-style(button-icon-size-pseudo),
-            $embeddedBottom: var-style(button-icon-embedded-bottom),
-            $verticalAlign: var-style(button-icon-vertical-align)
-        );
-    }
-}
-
-///
 /// Base styles for the `::file-selector-button` selector.
 ///
 /// If you nest this mixin, its parent should be an `input` selector.
@@ -1053,10 +1142,29 @@
     $width: false,
     //
     $includeColours: true,
+    $includeDisabled: true,
     $selector: '%file-selector-button',
     //
+    $mixin_button_colour_single_state: null,
+    $mixin_button_disabled: null,
     $args...
 ) {
+    $mixin_button_colour_single_state: config.config-valid-mixin(
+        $mixin_button_colour_single_state,
+        '$_mixin_button_colour_single_state',
+        $default: $_mixin_button_colour_single_state,
+        $prefix: '[snippet-add-pseudo-file-selector-button] '
+    );
+
+    $mixin_button_disabled: config.config-valid-mixin(
+        $mixin_button_disabled,
+        '$mixin_button_disabled',
+        $default: $_mixin_button_disabled,
+        $prefix: '[snippet-add-pseudo-file-selector-button] '
+    );
+
+    $buttonType: 'file-input';
+
     $_parent_exists: selector.parent-exists();
 
     $selector_root: if(
@@ -1100,9 +1208,11 @@
                 @content (root);
 
                 @if $includeColours {
-                    @include snippet-button-colour-single-state(
+                    @include meta.apply(
+                        $mixin_button_colour_single_state,
                         '$',
                         $variation,
+                        $buttonType: $buttonType,
                         $includeVisited: false
                     );
                     @content (root-colours);
@@ -1118,7 +1228,12 @@
     @at-root #{$selector_hover} {
         @at-root #{selector.unify(&, $selector)} {
             @if $includeColours {
-                @include snippet-button-colour-single-state(hover, $variation);
+                @include meta.apply(
+                    $mixin_button_colour_single_state,
+                    hover,
+                    $variation,
+                    $buttonType: $buttonType
+                );
             }
 
             @content (hover);
@@ -1128,7 +1243,12 @@
     @include focus-visible-or-within {
         @at-root #{selector.unify(&, $selector)} {
             @if $includeColours {
-                @include snippet-button-colour-single-state(hover, $variation);
+                @include meta.apply(
+                    $mixin_button_colour_single_state,
+                    hover,
+                    $variation,
+                    $buttonType: $buttonType
+                );
             }
 
             @content (focus-visible-or-within);
@@ -1138,7 +1258,12 @@
     @include active {
         @at-root #{selector.unify(&, $selector)} {
             @if $includeColours {
-                @include snippet-button-colour-single-state(active, $variation);
+                @include meta.apply(
+                    $mixin_button_colour_single_state,
+                    active,
+                    $variation,
+                    $buttonType: $buttonType
+                );
             }
 
             @content (active);
@@ -1147,16 +1272,17 @@
 
     /// BLOCK ///
 
-    @at-root #{$selector_disabled} {
-        @at-root #{selector.unify(&, $selector)} {
-            @if $includeColours {
-                @include snippet-button-disabled(
-                        $includePseudoIcons: false,
-                        $includeVisited: false
-                    )
-                    using ($location) {
-                    @content (disabled-#{$location});
-                }
+    @if $includeDisabled {
+        @at-root #{selector.unify($selector_disabled, $selector)} {
+            @include meta.apply(
+                    $mixin_button_disabled,
+                    $buttonType: $buttonType,
+                    $includeColours: $includeColours,
+                    $includePseudoIcons: false,
+                    $includeVisited: false
+                )
+                using ($location) {
+                @content (disabled-#{$location});
             }
         }
     }
@@ -2143,7 +2269,6 @@
 }
 
 $_mixin_button: meta.get-mixin('snippet-button');
-$_mixin_buttonColours: meta.get-mixin('snippet-button-colours');
 $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     'snippet-add-pseudo-file-selector-button'
 );
@@ -2153,8 +2278,9 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
 ///
 @mixin snippet-support-all-buttons(
     $mixin_button: null,
-    $mixin_buttonColours: null,
-    $mixin_addPseudoFileSelectorButton: null
+    $mixin_button_colours: null,
+    $mixin_addPseudoFileSelectorButton: null,
+    $mixin_button_colour_single_state: null
 ) {
     $mixin_button: config.config-valid-mixin(
         $mixin_button,
@@ -2163,10 +2289,10 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
         $prefix: '[snippet-support-all-buttons] '
     );
 
-    $mixin_buttonColours: config.config-valid-mixin(
-        $mixin_buttonColours,
-        '$mixin_buttonColours',
-        $default: $_mixin_buttonColours,
+    $mixin_button_colours: config.config-valid-mixin(
+        $mixin_button_colours,
+        '$mixin_button_colours',
+        $default: $_mixin_button_colours,
         $prefix: '[snippet-support-all-buttons] '
     );
 
@@ -2197,7 +2323,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
 
     %button-form-reset {
         @include meta.apply(
-            $_mixin_buttonColours,
+            $_mixin_button_colours,
             $variation: tokens.$button_variation_secondary,
             $includeVisited: false
         );
@@ -2226,7 +2352,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     @each $variation in tokens.$themesMeta_buttonVariations {
         %button-#{$variation} {
             @include meta.apply(
-                $_mixin_buttonColours,
+                $_mixin_button_colours,
                 $variation: $variation,
                 $includeVisited: false
             );
@@ -2234,7 +2360,10 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     }
 
     // file-selector-button
-    @include snippet-add-pseudo-file-selector-button;
+    @include meta.apply(
+        $mixin_addPseudoFileSelectorButton,
+        $mixin_button_colour_single_state: $mixin_button_colour_single_state
+    );
 }
 
 $_mixin_input: meta.get-mixin('snippet-input');

@@ -10042,6 +10042,7 @@
 /*! END of @maddimathon/design-system-utilities/template/demo - custom property prefixes (with fallback) */
 /* # ANIMATIONS
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/demo - custom property prefixes (with fallback) */
 /* #region Animations - Keyframes */
 @keyframes fade-in {
     0% {
@@ -10060,6 +10061,7 @@
     }
 }
 /* #endregion Animations - Keyframes */
+/*! END of @maddimathon/design-system-utilities/template/demo - custom property prefixes (with fallback) */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
 /*! START of @maddimathon/utility-sass/template */
@@ -10186,15 +10188,10 @@
 /*! END of @maddimathon/design-system-utilities/template/demo - custom property prefixes (with fallback) */
 /* ## Accessibility - Skip Links ==================================== */
 /*! START of @maddimathon/design-system-utilities/template/demo - custom property prefixes (with fallback) */
-.skip-link,
 a.skip-link[href] {
-    --fallback-display: block;
-    --display: block;
-    display: var(--fallback-display, block);
-    position: fixed;
     margin: 0;
+    position: fixed;
     top: -100%;
-    width: fit-content;
     z-index: var(--z-index-skipLink, 99999);
     --fallback-focus-ring-outline-offset: var(
         --button-focus-offset,
@@ -10203,6 +10200,33 @@ a.skip-link[href] {
             var(--fallback-stroke-relative-400, 0.1875em)
         )
     );
+    --fallback-icon-inline-buffer: var(--button-icon-buffer, 0.25em) !important;
+    --fallback-icon-inline-buffer-start: var(
+        --button-icon-buffer-start,
+        2
+    ) !important;
+    --fallback-icon-inline-buffer-end: var(
+        --button-icon-buffer-end,
+        0
+    ) !important;
+    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em);
+    --fallback-icon-pseudo-top: var(--button-icon-pseudo-top, -0.0625em);
+    --fallback-icon-size-font: var(--button-icon-size-font, 1em);
+    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em);
+    --fallback-icon-vertical-align: var(
+        --button-icon-vertical-align,
+        middle
+    ) !important;
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    height: auto;
+    text-decoration: none;
+    text-wrap: balance;
+    transition: var(--transition, var(--fallback-transition));
+    appearance: button;
+    cursor: pointer;
+    width: var(--button-width, fit-content);
     padding-block: var(
         --button-padding-block,
         var(--pad-soft-200, var(--fallback-pad-soft-200, 0.3125em))
@@ -10226,16 +10250,64 @@ a.skip-link[href] {
     );
     letter-spacing: var(--button-letter-spacing, normal);
     text-transform: var(--button-text-transform, none);
-    text-decoration: none;
-    text-wrap: balance;
-    transition: var(--transition, var(--fallback-transition));
-    appearance: button;
-    cursor: pointer;
+    user-select: text;
 }
-.skip-link,
 a.skip-link[href],
-.skip-link:visited,
 a.skip-link[href]:visited {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline,
+        var(--fallback-theme-button-primary-outline, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline,
+        var(--fallback-theme-button-primary-outline, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui,
+        var(--fallback-theme-button-primary-ui, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui,
+        var(--fallback-theme-button-primary-ui, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui,
+        var(--fallback-theme-button-primary-ui, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border,
+        var(--fallback-theme-button-primary-border, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background,
+        var(--fallback-theme-button-primary-background, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border,
+        var(--fallback-theme-button-primary-border, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text,
+        var(--fallback-theme-button-primary-text, ButtonText)
+    );
+}
+a.skip-link[href] *,
+a.skip-link[href]:visited * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui,
+        var(--fallback-theme-button-primary-ui, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui,
+        var(--fallback-theme-button-primary-ui, ButtonText)
+    );
+    color: inherit !important;
+}
+
+a.skip-link[href]:hover,
+a.skip-link[href][data-state-focus="true"],
+.no-js a.skip-link[href]:focus,
+.js__no-whereSelector a.skip-link[href]:focus {
     --fallback-focus-ring-outline-color: var(
         --theme-button-primary-outline-hover,
         var(--fallback-theme-button-primary-outline-hover, ButtonFace)
@@ -10273,10 +10345,10 @@ a.skip-link[href]:visited {
         var(--fallback-theme-button-primary-text-hover, ButtonText)
     );
 }
-.skip-link *,
-a.skip-link[href] *,
-.skip-link:visited *,
-a.skip-link[href]:visited * {
+a.skip-link[href]:hover *,
+a.skip-link[href][data-state-focus="true"] *,
+.no-js a.skip-link[href]:focus *,
+.js__no-whereSelector a.skip-link[href]:focus * {
     --fallback-icon-color: var(
         --theme-button-primary-ui-hover,
         var(--fallback-theme-button-primary-ui-hover, ButtonText)
@@ -10287,9 +10359,307 @@ a.skip-link[href]:visited * {
     );
 }
 
-.skip-link:focus,
+:where(.js__no-focusVisible) a.skip-link[href]:focus {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background-hover,
+        var(--fallback-theme-button-primary-background-hover, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--fallback-theme-button-primary-text-hover, ButtonText)
+    );
+}
+:where(.js__no-focusVisible) a.skip-link[href]:focus * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+}
+
+a.skip-link[href]:focus-visible {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background-hover,
+        var(--fallback-theme-button-primary-background-hover, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--fallback-theme-button-primary-text-hover, ButtonText)
+    );
+}
+a.skip-link[href]:focus-visible * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+}
+
+a.skip-link[href]:focus-within {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background-hover,
+        var(--fallback-theme-button-primary-background-hover, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--fallback-theme-button-primary-text-hover, ButtonText)
+    );
+}
+a.skip-link[href]:focus-within * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+}
+
+a.skip-link[href]:has([data-state-focus="true"]) {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-hover,
+        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background-hover,
+        var(--fallback-theme-button-primary-background-hover, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border-hover,
+        var(--fallback-theme-button-primary-border-hover, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text-hover,
+        var(--fallback-theme-button-primary-text-hover, ButtonText)
+    );
+}
+a.skip-link[href]:has([data-state-focus="true"]) * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-hover,
+        var(--fallback-theme-button-primary-ui-hover, ButtonText)
+    );
+}
+
+a.skip-link[href]:active,
+a.skip-link[href][data-state-active="true"] {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline-active,
+        var(--fallback-theme-button-primary-outline-active, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-active,
+        var(--fallback-theme-button-primary-outline-active, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border-active,
+        var(--fallback-theme-button-primary-border-active, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background-active,
+        var(--fallback-theme-button-primary-background-active, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border-active,
+        var(--fallback-theme-button-primary-border-active, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text-active,
+        var(--fallback-theme-button-primary-text-active, ButtonText)
+    );
+}
+a.skip-link[href]:active *,
+a.skip-link[href][data-state-active="true"] * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+}
+
+a.skip-link[href]:has(:active),
+a.skip-link[href]:has([data-state-active="true"]) {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-primary-outline-active,
+        var(--fallback-theme-button-primary-outline-active, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-primary-outline-active,
+        var(--fallback-theme-button-primary-outline-active, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-primary-border-active,
+        var(--fallback-theme-button-primary-border-active, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-primary-background-active,
+        var(--fallback-theme-button-primary-background-active, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-primary-border-active,
+        var(--fallback-theme-button-primary-border-active, ButtonFace)
+    );
+    color: var(
+        --theme-button-primary-text-active,
+        var(--fallback-theme-button-primary-text-active, ButtonText)
+    );
+}
+a.skip-link[href]:has(:active) *,
+a.skip-link[href]:has([data-state-active="true"]) * {
+    --fallback-icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-primary-ui-active,
+        var(--fallback-theme-button-primary-ui-active, ButtonText)
+    );
+}
+
 a.skip-link[href]:focus,
-.skip-link[data-state-focus="true"],
+a.skip-link[href]:active,
+a.skip-link[href][data-state-active="true"],
 a.skip-link[href][data-state-focus="true"] {
     top: var(
         --scroll-padding-top,
@@ -10307,58 +10677,8 @@ a.skip-link[href][data-state-focus="true"] {
             )
         )
     );
-    --fallback-focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
-        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
-    );
-    --focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
-        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
-    );
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --fallback-theme-link-icon: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    accent-color: var(
-        --theme-button-primary-border-hover,
-        var(--fallback-theme-button-primary-border-hover, ButtonFace)
-    );
-    background-color: var(
-        --theme-button-primary-background-hover,
-        var(--fallback-theme-button-primary-background-hover, ButtonFace)
-    );
-    border-color: var(
-        --theme-button-primary-border-hover,
-        var(--fallback-theme-button-primary-border-hover, ButtonFace)
-    );
-    color: var(
-        --theme-button-primary-text-hover,
-        var(--fallback-theme-button-primary-text-hover, ButtonText)
-    );
-}
-.skip-link:focus *,
-a.skip-link[href]:focus *,
-.skip-link[data-state-focus="true"] *,
-a.skip-link[href][data-state-focus="true"] * {
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
 }
 
-.skip-link:focus-within,
 a.skip-link[href]:focus-within {
     top: var(
         --scroll-padding-top,
@@ -10376,196 +10696,10 @@ a.skip-link[href]:focus-within {
             )
         )
     );
-    --fallback-focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
-        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
-    );
-    --focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
-        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
-    );
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --fallback-theme-link-icon: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    accent-color: var(
-        --theme-button-primary-border-hover,
-        var(--fallback-theme-button-primary-border-hover, ButtonFace)
-    );
-    background-color: var(
-        --theme-button-primary-background-hover,
-        var(--fallback-theme-button-primary-background-hover, ButtonFace)
-    );
-    border-color: var(
-        --theme-button-primary-border-hover,
-        var(--fallback-theme-button-primary-border-hover, ButtonFace)
-    );
-    color: var(
-        --theme-button-primary-text-hover,
-        var(--fallback-theme-button-primary-text-hover, ButtonText)
-    );
-}
-.skip-link:focus-within *,
-a.skip-link[href]:focus-within * {
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
 }
 
-.skip-link:has([data-state-focus="true"]),
-a.skip-link[href]:has([data-state-focus="true"]) {
-    top: var(
-        --scroll-padding-top,
-        var(
-            --fallback-scroll-padding-top,
-            calc(
-                var(
-                        --height-nav-primary,
-                        var(--fallback-height-nav-primary, 0)
-                    ) +
-                    var(
-                        --gap-block-layout,
-                        var(--fallback-gap-block-layout, 5vw)
-                    )
-            )
-        )
-    );
-    --fallback-focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
-        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
-    );
-    --focus-ring-outline-color: var(
-        --theme-button-primary-outline-hover,
-        var(--fallback-theme-button-primary-outline-hover, ButtonFace)
-    );
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --fallback-theme-link-icon: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    accent-color: var(
-        --theme-button-primary-border-hover,
-        var(--fallback-theme-button-primary-border-hover, ButtonFace)
-    );
-    background-color: var(
-        --theme-button-primary-background-hover,
-        var(--fallback-theme-button-primary-background-hover, ButtonFace)
-    );
-    border-color: var(
-        --theme-button-primary-border-hover,
-        var(--fallback-theme-button-primary-border-hover, ButtonFace)
-    );
-    color: var(
-        --theme-button-primary-text-hover,
-        var(--fallback-theme-button-primary-text-hover, ButtonText)
-    );
-}
-.skip-link:has([data-state-focus="true"]) *,
-a.skip-link[href]:has([data-state-focus="true"]) * {
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-hover,
-        var(--fallback-theme-button-primary-ui-hover, ButtonText)
-    );
-}
-
-.skip-link:active,
-a.skip-link[href]:active,
-.skip-link[data-state-active="true"],
-a.skip-link[href][data-state-active="true"] {
-    top: var(
-        --scroll-padding-top,
-        var(
-            --fallback-scroll-padding-top,
-            calc(
-                var(
-                        --height-nav-primary,
-                        var(--fallback-height-nav-primary, 0)
-                    ) +
-                    var(
-                        --gap-block-layout,
-                        var(--fallback-gap-block-layout, 5vw)
-                    )
-            )
-        )
-    );
-    --fallback-focus-ring-outline-color: var(
-        --theme-button-primary-outline-active,
-        var(--fallback-theme-button-primary-outline-active, ButtonFace)
-    );
-    --focus-ring-outline-color: var(
-        --theme-button-primary-outline-active,
-        var(--fallback-theme-button-primary-outline-active, ButtonFace)
-    );
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    --fallback-theme-link-icon: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    accent-color: var(
-        --theme-button-primary-border-active,
-        var(--fallback-theme-button-primary-border-active, ButtonFace)
-    );
-    background-color: var(
-        --theme-button-primary-background-active,
-        var(--fallback-theme-button-primary-background-active, ButtonFace)
-    );
-    border-color: var(
-        --theme-button-primary-border-active,
-        var(--fallback-theme-button-primary-border-active, ButtonFace)
-    );
-    color: var(
-        --theme-button-primary-text-active,
-        var(--fallback-theme-button-primary-text-active, ButtonText)
-    );
-}
-.skip-link:active *,
-a.skip-link[href]:active *,
-.skip-link[data-state-active="true"] *,
-a.skip-link[href][data-state-active="true"] * {
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-}
-
-.skip-link:has(:active),
+a.skip-link[href]:has([data-state-focus="true"]),
 a.skip-link[href]:has(:active),
-.skip-link:has([data-state-active="true"]),
 a.skip-link[href]:has([data-state-active="true"]) {
     top: var(
         --scroll-padding-top,
@@ -10582,55 +10716,6 @@ a.skip-link[href]:has([data-state-active="true"]) {
                     )
             )
         )
-    );
-    --fallback-focus-ring-outline-color: var(
-        --theme-button-primary-outline-active,
-        var(--fallback-theme-button-primary-outline-active, ButtonFace)
-    );
-    --focus-ring-outline-color: var(
-        --theme-button-primary-outline-active,
-        var(--fallback-theme-button-primary-outline-active, ButtonFace)
-    );
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    --fallback-theme-link-icon: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    accent-color: var(
-        --theme-button-primary-border-active,
-        var(--fallback-theme-button-primary-border-active, ButtonFace)
-    );
-    background-color: var(
-        --theme-button-primary-background-active,
-        var(--fallback-theme-button-primary-background-active, ButtonFace)
-    );
-    border-color: var(
-        --theme-button-primary-border-active,
-        var(--fallback-theme-button-primary-border-active, ButtonFace)
-    );
-    color: var(
-        --theme-button-primary-text-active,
-        var(--fallback-theme-button-primary-text-active, ButtonText)
-    );
-}
-.skip-link:has(:active) *,
-a.skip-link[href]:has(:active) *,
-.skip-link:has([data-state-active="true"]) *,
-a.skip-link[href]:has([data-state-active="true"]) * {
-    --fallback-icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-primary-ui-active,
-        var(--fallback-theme-button-primary-ui-active, ButtonText)
     );
 }
 
@@ -16936,14 +17021,14 @@ a[disabled][href].button::before {
     align-self: center;
     justify-self: center;
 }
-a.display-inline[href].button-grey,
-a.display-inline[href].button-secondary,
-button.display-inline,
-.display-inline[role="button"],
-input.display-inline[type="button"],
-input.display-inline[type="reset"],
-input.display-inline[type="submit"],
-a.display-inline[href].button {
+a[href].button-grey:is(.display-inline),
+a[href].button-secondary:is(.display-inline),
+button:is(.display-inline),
+[role="button"]:is(.display-inline),
+input[type="button"]:is(.display-inline),
+input[type="reset"]:is(.display-inline),
+input[type="submit"]:is(.display-inline),
+a[href].button:is(.display-inline) {
     --fallback-focus-ring-outline-offset: var(
         --button-inline-focus-offset,
         var(
@@ -17002,71 +17087,14 @@ a.display-inline[href].button {
     text-transform: var(--button-inline-text-transform, none);
     vertical-align: var(--button-inline-vertical-align, baseline);
 }
-a.display-inline[href].button-grey:hover,
-a.display-inline[href].button-secondary:hover,
-button.display-inline:hover,
-.display-inline[role="button"]:hover,
-input.display-inline[type="button"]:hover,
-input.display-inline[type="reset"]:hover,
-input.display-inline[type="submit"]:hover,
-a.display-inline[href].button:hover,
-a.display-inline[data-state-focus="true"][href].button-grey,
-a.display-inline[data-state-focus="true"][href].button-secondary,
-button.display-inline[data-state-focus="true"],
-.display-inline[data-state-focus="true"][role="button"],
-input.display-inline[data-state-focus="true"][type="button"],
-input.display-inline[data-state-focus="true"][type="reset"],
-input.display-inline[data-state-focus="true"][type="submit"],
-a.display-inline[data-state-focus="true"][href].button,
-.no-js a.display-inline[href].button-grey:focus,
-.no-js a.display-inline[href].button-secondary:focus,
-.no-js button.display-inline:focus,
-.no-js .display-inline[role="button"]:focus,
-.no-js input.display-inline[type="button"]:focus,
-.no-js input.display-inline[type="reset"]:focus,
-.no-js input.display-inline[type="submit"]:focus,
-.no-js a.display-inline[href].button:focus,
-.js__no-whereSelector a.display-inline[href].button-grey:focus,
-.js__no-whereSelector a.display-inline[href].button-secondary:focus,
-.js__no-whereSelector button.display-inline:focus,
-.js__no-whereSelector .display-inline[role="button"]:focus,
-.js__no-whereSelector input.display-inline[type="button"]:focus,
-.js__no-whereSelector input.display-inline[type="reset"]:focus,
-.js__no-whereSelector input.display-inline[type="submit"]:focus,
-.js__no-whereSelector a.display-inline[href].button:focus {
-    border-style: solid;
-}
-
-:where(.js__no-focusVisible) a.display-inline[href].button-grey:focus,
-:where(.js__no-focusVisible) a.display-inline[href].button-secondary:focus,
-:where(.js__no-focusVisible) button.display-inline:focus,
-:where(.js__no-focusVisible) .display-inline[role="button"]:focus,
-:where(.js__no-focusVisible) input.display-inline[type="button"]:focus,
-:where(.js__no-focusVisible) input.display-inline[type="reset"]:focus,
-:where(.js__no-focusVisible) input.display-inline[type="submit"]:focus,
-:where(.js__no-focusVisible) a.display-inline[href].button:focus {
-    border-style: solid;
-}
-
-a.display-inline[href].button-grey:focus-visible,
-a.display-inline[href].button-secondary:focus-visible,
-button.display-inline:focus-visible,
-.display-inline[role="button"]:focus-visible,
-input.display-inline[type="button"]:focus-visible,
-input.display-inline[type="reset"]:focus-visible,
-input.display-inline[type="submit"]:focus-visible,
-a.display-inline[href].button:focus-visible {
-    border-style: solid;
-}
-
-a.display-inline[href].button-grey .icon,
-a.display-inline[href].button-secondary .icon,
-button.display-inline .icon,
-.display-inline[role="button"] .icon,
-input.display-inline[type="button"] .icon,
-input.display-inline[type="reset"] .icon,
-input.display-inline[type="submit"] .icon,
-a.display-inline[href].button .icon {
+a[href].button-grey:is(.display-inline) .icon,
+a[href].button-secondary:is(.display-inline) .icon,
+button:is(.display-inline) .icon,
+[role="button"]:is(.display-inline) .icon,
+input[type="button"]:is(.display-inline) .icon,
+input[type="reset"]:is(.display-inline) .icon,
+input[type="submit"]:is(.display-inline) .icon,
+a[href].button:is(.display-inline) .icon {
     --fallback-display: inline-block;
     --display: inline-block;
     display: var(--fallback-display, inline-block);
@@ -17080,19 +17108,21 @@ a.display-inline[href].button .icon {
         )
     );
 }
-a.display-inline[href].button-grey
+a[href].button-grey:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon),
-a.display-inline[href].button-secondary
+a[href].button-secondary:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon),
-button.display-inline .icon:not(.settings-menu-icon):not(.toggle-icon),
-.display-inline[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
-input.display-inline[type="button"]
+button:is(.display-inline) .icon:not(.settings-menu-icon):not(.toggle-icon),
+[role="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon),
-input.display-inline[type="reset"]
+input[type="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon),
-input.display-inline[type="submit"]
+input[type="reset"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon),
-a.display-inline[href].button .icon:not(.settings-menu-icon):not(.toggle-icon) {
+input[type="submit"]:is(.display-inline)
+    .icon:not(.settings-menu-icon):not(.toggle-icon),
+a[href].button:is(.display-inline)
+    .icon:not(.settings-menu-icon):not(.toggle-icon) {
     margin-inline: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
             var(
@@ -17105,21 +17135,21 @@ a.display-inline[href].button .icon:not(.settings-menu-icon):not(.toggle-icon) {
             )
     );
 }
-a.display-inline[href].button-grey
+a[href].button-grey:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-a.display-inline[href].button-secondary
+a[href].button-secondary:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-button.display-inline
+button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-.display-inline[role="button"]
+[role="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-input.display-inline[type="button"]
+input[type="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-input.display-inline[type="reset"]
+input[type="reset"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-input.display-inline[type="submit"]
+input[type="submit"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-a.display-inline[href].button
+a[href].button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child) {
     --fallback-icon-size: var(--button-icon-size-pseudo, 1em);
     --icon-size: var(--button-icon-size-pseudo, 1em);
@@ -17193,21 +17223,21 @@ a.display-inline[href].button
     margin: 0;
     bottom: var(--button-icon-embedded-bottom, 0.0625em);
 }
-a.display-inline[href].button-grey
+a[href].button-grey:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-a.display-inline[href].button-secondary
+a[href].button-secondary:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-button.display-inline
+button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-.display-inline[role="button"]
+[role="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-input.display-inline[type="button"]
+input[type="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-input.display-inline[type="reset"]
+input[type="reset"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-input.display-inline[type="submit"]
+input[type="submit"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-a.display-inline[href].button
+a[href].button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):first-child {
     margin-inline-start: 0;
     margin-inline-end: calc(
@@ -17222,21 +17252,21 @@ a.display-inline[href].button
             )
     );
 }
-a.display-inline[href].button-grey
+a[href].button-grey:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-a.display-inline[href].button-secondary
+a[href].button-secondary:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-button.display-inline
+button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-.display-inline[role="button"]
+[role="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-input.display-inline[type="button"]
+input[type="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-input.display-inline[type="reset"]
+input[type="reset"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-input.display-inline[type="submit"]
+input[type="submit"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-a.display-inline[href].button
+a[href].button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):last-child {
     margin-inline-start: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
@@ -17251,21 +17281,21 @@ a.display-inline[href].button
     );
     margin-inline-end: 0;
 }
-a.display-inline[href].button-grey
+a[href].button-grey:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-a.display-inline[href].button-secondary
+a[href].button-secondary:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-button.display-inline
+button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-.display-inline[role="button"]
+[role="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-input.display-inline[type="button"]
+input[type="button"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-input.display-inline[type="reset"]
+input[type="reset"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-input.display-inline[type="submit"]
+input[type="submit"]:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-a.display-inline[href].button
+a[href].button:is(.display-inline)
     .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
     --fallback-icon-inline-margin-block-start: 0;
     --fallback-icon-inline-buffer-start: 0;
@@ -17274,21 +17304,16 @@ a.display-inline[href].button
     margin-inline: 0;
     letter-spacing: normal !important;
 }
-
-a[href].button-grey:where(.display-inline),
-a[href].button-secondary:where(.display-inline),
-button:where(.display-inline),
-[role="button"]:where(.display-inline),
-input[type="button"]:where(.display-inline),
-input[type="reset"]:where(.display-inline),
-input[type="submit"]:where(.display-inline),
-a[href].button:where(.display-inline),
-[role="button"].button-grey:where(.display-inline):visited,
-a[href].button-grey:where(.display-inline):visited,
-[role="button"].button-secondary:where(.display-inline):visited,
-a[href].button-secondary:where(.display-inline):visited,
-[role="button"]:where(.display-inline):visited,
-a[href].button:where(.display-inline):visited {
+a[href].button-grey:is(.display-inline),
+a[href].button-secondary:is(.display-inline),
+button:is(.display-inline),
+[role="button"]:is(.display-inline),
+input[type="button"]:is(.display-inline),
+input[type="reset"]:is(.display-inline),
+input[type="submit"]:is(.display-inline),
+a[href].button:is(.display-inline),
+[role="button"].button-grey:is(.display-inline):visited,
+[role="button"].button-secondary:is(.display-inline):visited {
     --fallback-focus-ring-outline-color: var(
         --theme-button-grey-outline,
         var(--fallback-theme-button-grey-outline, ButtonFace)
@@ -17326,20 +17351,16 @@ a[href].button:where(.display-inline):visited {
         var(--fallback-theme-button-grey-text, ButtonText)
     );
 }
-a[href].button-grey:where(.display-inline) *,
-a[href].button-secondary:where(.display-inline) *,
-button:where(.display-inline) *,
-[role="button"]:where(.display-inline) *,
-input[type="button"]:where(.display-inline) *,
-input[type="reset"]:where(.display-inline) *,
-input[type="submit"]:where(.display-inline) *,
-a[href].button:where(.display-inline) *,
-[role="button"].button-grey:where(.display-inline):visited *,
-a[href].button-grey:where(.display-inline):visited *,
-[role="button"].button-secondary:where(.display-inline):visited *,
-a[href].button-secondary:where(.display-inline):visited *,
-[role="button"]:where(.display-inline):visited *,
-a[href].button:where(.display-inline):visited * {
+a[href].button-grey:is(.display-inline) *,
+a[href].button-secondary:is(.display-inline) *,
+button:is(.display-inline) *,
+[role="button"]:is(.display-inline) *,
+input[type="button"]:is(.display-inline) *,
+input[type="reset"]:is(.display-inline) *,
+input[type="submit"]:is(.display-inline) *,
+a[href].button:is(.display-inline) *,
+[role="button"].button-grey:is(.display-inline):visited *,
+[role="button"].button-secondary:is(.display-inline):visited * {
     --fallback-icon-color: var(
         --theme-button-grey-ui,
         var(--fallback-theme-button-grey-ui, ButtonText)
@@ -17351,38 +17372,38 @@ a[href].button:where(.display-inline):visited * {
     color: inherit !important;
 }
 
-a[href].button-grey:where(.display-inline):hover,
-a[href].button-secondary:where(.display-inline):hover,
-button:where(.display-inline):hover,
-[role="button"]:where(.display-inline):hover,
-input[type="button"]:where(.display-inline):hover,
-input[type="reset"]:where(.display-inline):hover,
-input[type="submit"]:where(.display-inline):hover,
-a[href].button:where(.display-inline):hover,
-a[data-state-focus="true"][href].button-grey:where(.display-inline),
-a[data-state-focus="true"][href].button-secondary:where(.display-inline),
-button[data-state-focus="true"]:where(.display-inline),
-[data-state-focus="true"][role="button"]:where(.display-inline),
-input[data-state-focus="true"][type="button"]:where(.display-inline),
-input[data-state-focus="true"][type="reset"]:where(.display-inline),
-input[data-state-focus="true"][type="submit"]:where(.display-inline),
-a[data-state-focus="true"][href].button:where(.display-inline),
-.no-js a[href].button-grey:where(.display-inline):focus,
-.no-js a[href].button-secondary:where(.display-inline):focus,
-.no-js button:where(.display-inline):focus,
-.no-js [role="button"]:where(.display-inline):focus,
-.no-js input[type="button"]:where(.display-inline):focus,
-.no-js input[type="reset"]:where(.display-inline):focus,
-.no-js input[type="submit"]:where(.display-inline):focus,
-.no-js a[href].button:where(.display-inline):focus,
-.js__no-whereSelector a[href].button-grey:where(.display-inline):focus,
-.js__no-whereSelector a[href].button-secondary:where(.display-inline):focus,
-.js__no-whereSelector button:where(.display-inline):focus,
-.js__no-whereSelector [role="button"]:where(.display-inline):focus,
-.js__no-whereSelector input[type="button"]:where(.display-inline):focus,
-.js__no-whereSelector input[type="reset"]:where(.display-inline):focus,
-.js__no-whereSelector input[type="submit"]:where(.display-inline):focus,
-.js__no-whereSelector a[href].button:where(.display-inline):focus {
+a[href].button-grey:is(.display-inline):hover,
+a[href].button-secondary:is(.display-inline):hover,
+button:is(.display-inline):hover,
+[role="button"]:is(.display-inline):hover,
+input[type="button"]:is(.display-inline):hover,
+input[type="reset"]:is(.display-inline):hover,
+input[type="submit"]:is(.display-inline):hover,
+a[href].button:is(.display-inline):hover,
+a[data-state-focus="true"][href].button-grey:is(.display-inline),
+a[data-state-focus="true"][href].button-secondary:is(.display-inline),
+button[data-state-focus="true"]:is(.display-inline),
+[data-state-focus="true"][role="button"]:is(.display-inline),
+input[data-state-focus="true"][type="button"]:is(.display-inline),
+input[data-state-focus="true"][type="reset"]:is(.display-inline),
+input[data-state-focus="true"][type="submit"]:is(.display-inline),
+a[data-state-focus="true"][href].button:is(.display-inline),
+.no-js a[href].button-grey:is(.display-inline):focus,
+.no-js a[href].button-secondary:is(.display-inline):focus,
+.no-js button:is(.display-inline):focus,
+.no-js [role="button"]:is(.display-inline):focus,
+.no-js input[type="button"]:is(.display-inline):focus,
+.no-js input[type="reset"]:is(.display-inline):focus,
+.no-js input[type="submit"]:is(.display-inline):focus,
+.no-js a[href].button:is(.display-inline):focus,
+.js__no-whereSelector a[href].button-grey:is(.display-inline):focus,
+.js__no-whereSelector a[href].button-secondary:is(.display-inline):focus,
+.js__no-whereSelector button:is(.display-inline):focus,
+.js__no-whereSelector [role="button"]:is(.display-inline):focus,
+.js__no-whereSelector input[type="button"]:is(.display-inline):focus,
+.js__no-whereSelector input[type="reset"]:is(.display-inline):focus,
+.js__no-whereSelector input[type="submit"]:is(.display-inline):focus,
+.js__no-whereSelector a[href].button:is(.display-inline):focus {
     --fallback-focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         var(--fallback-theme-button-grey-outline-hover, ButtonFace)
@@ -17420,38 +17441,38 @@ a[data-state-focus="true"][href].button:where(.display-inline),
         var(--fallback-theme-button-grey-text-hover, ButtonText)
     );
 }
-a[href].button-grey:where(.display-inline):hover *,
-a[href].button-secondary:where(.display-inline):hover *,
-button:where(.display-inline):hover *,
-[role="button"]:where(.display-inline):hover *,
-input[type="button"]:where(.display-inline):hover *,
-input[type="reset"]:where(.display-inline):hover *,
-input[type="submit"]:where(.display-inline):hover *,
-a[href].button:where(.display-inline):hover *,
-a[data-state-focus="true"][href].button-grey:where(.display-inline) *,
-a[data-state-focus="true"][href].button-secondary:where(.display-inline) *,
-button[data-state-focus="true"]:where(.display-inline) *,
-[data-state-focus="true"][role="button"]:where(.display-inline) *,
-input[data-state-focus="true"][type="button"]:where(.display-inline) *,
-input[data-state-focus="true"][type="reset"]:where(.display-inline) *,
-input[data-state-focus="true"][type="submit"]:where(.display-inline) *,
-a[data-state-focus="true"][href].button:where(.display-inline) *,
-.no-js a[href].button-grey:where(.display-inline):focus *,
-.no-js a[href].button-secondary:where(.display-inline):focus *,
-.no-js button:where(.display-inline):focus *,
-.no-js [role="button"]:where(.display-inline):focus *,
-.no-js input[type="button"]:where(.display-inline):focus *,
-.no-js input[type="reset"]:where(.display-inline):focus *,
-.no-js input[type="submit"]:where(.display-inline):focus *,
-.no-js a[href].button:where(.display-inline):focus *,
-.js__no-whereSelector a[href].button-grey:where(.display-inline):focus *,
-.js__no-whereSelector a[href].button-secondary:where(.display-inline):focus *,
-.js__no-whereSelector button:where(.display-inline):focus *,
-.js__no-whereSelector [role="button"]:where(.display-inline):focus *,
-.js__no-whereSelector input[type="button"]:where(.display-inline):focus *,
-.js__no-whereSelector input[type="reset"]:where(.display-inline):focus *,
-.js__no-whereSelector input[type="submit"]:where(.display-inline):focus *,
-.js__no-whereSelector a[href].button:where(.display-inline):focus * {
+a[href].button-grey:is(.display-inline):hover *,
+a[href].button-secondary:is(.display-inline):hover *,
+button:is(.display-inline):hover *,
+[role="button"]:is(.display-inline):hover *,
+input[type="button"]:is(.display-inline):hover *,
+input[type="reset"]:is(.display-inline):hover *,
+input[type="submit"]:is(.display-inline):hover *,
+a[href].button:is(.display-inline):hover *,
+a[data-state-focus="true"][href].button-grey:is(.display-inline) *,
+a[data-state-focus="true"][href].button-secondary:is(.display-inline) *,
+button[data-state-focus="true"]:is(.display-inline) *,
+[data-state-focus="true"][role="button"]:is(.display-inline) *,
+input[data-state-focus="true"][type="button"]:is(.display-inline) *,
+input[data-state-focus="true"][type="reset"]:is(.display-inline) *,
+input[data-state-focus="true"][type="submit"]:is(.display-inline) *,
+a[data-state-focus="true"][href].button:is(.display-inline) *,
+.no-js a[href].button-grey:is(.display-inline):focus *,
+.no-js a[href].button-secondary:is(.display-inline):focus *,
+.no-js button:is(.display-inline):focus *,
+.no-js [role="button"]:is(.display-inline):focus *,
+.no-js input[type="button"]:is(.display-inline):focus *,
+.no-js input[type="reset"]:is(.display-inline):focus *,
+.no-js input[type="submit"]:is(.display-inline):focus *,
+.no-js a[href].button:is(.display-inline):focus *,
+.js__no-whereSelector a[href].button-grey:is(.display-inline):focus *,
+.js__no-whereSelector a[href].button-secondary:is(.display-inline):focus *,
+.js__no-whereSelector button:is(.display-inline):focus *,
+.js__no-whereSelector [role="button"]:is(.display-inline):focus *,
+.js__no-whereSelector input[type="button"]:is(.display-inline):focus *,
+.js__no-whereSelector input[type="reset"]:is(.display-inline):focus *,
+.js__no-whereSelector input[type="submit"]:is(.display-inline):focus *,
+.js__no-whereSelector a[href].button:is(.display-inline):focus * {
     --fallback-icon-color: var(
         --theme-button-grey-ui-hover,
         var(--fallback-theme-button-grey-ui-hover, ButtonText)
@@ -17462,15 +17483,14 @@ a[data-state-focus="true"][href].button:where(.display-inline) *,
     );
 }
 
-:where(.js__no-focusVisible) a[href].button-grey:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[href].button-secondary:where(.display-inline):focus,
-:where(.js__no-focusVisible) button:where(.display-inline):focus,
-:where(.js__no-focusVisible) [role="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) input[type="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) input[type="reset"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) input[type="submit"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) a[href].button:where(.display-inline):focus {
+:where(.js__no-focusVisible) a[href].button-grey:is(.display-inline):focus,
+:where(.js__no-focusVisible) a[href].button-secondary:is(.display-inline):focus,
+:where(.js__no-focusVisible) button:is(.display-inline):focus,
+:where(.js__no-focusVisible) [role="button"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) input[type="button"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus {
     --fallback-focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         var(--fallback-theme-button-grey-outline-hover, ButtonFace)
@@ -17508,20 +17528,16 @@ a[data-state-focus="true"][href].button:where(.display-inline) *,
         var(--fallback-theme-button-grey-text-hover, ButtonText)
     );
 }
-:where(.js__no-focusVisible) a[href].button-grey:where(.display-inline):focus *,
+:where(.js__no-focusVisible) a[href].button-grey:is(.display-inline):focus *,
 :where(.js__no-focusVisible)
-    a[href].button-secondary:where(.display-inline):focus
+    a[href].button-secondary:is(.display-inline):focus
     *,
-:where(.js__no-focusVisible) button:where(.display-inline):focus *,
-:where(.js__no-focusVisible) [role="button"]:where(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    input[type="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) input[type="reset"]:where(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    input[type="submit"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) a[href].button:where(.display-inline):focus * {
+:where(.js__no-focusVisible) button:is(.display-inline):focus *,
+:where(.js__no-focusVisible) [role="button"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) input[type="button"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus * {
     --fallback-icon-color: var(
         --theme-button-grey-ui-hover,
         var(--fallback-theme-button-grey-ui-hover, ButtonText)
@@ -17532,14 +17548,14 @@ a[data-state-focus="true"][href].button:where(.display-inline) *,
     );
 }
 
-a[href].button-grey:where(.display-inline):focus-visible,
-a[href].button-secondary:where(.display-inline):focus-visible,
-button:where(.display-inline):focus-visible,
-[role="button"]:where(.display-inline):focus-visible,
-input[type="button"]:where(.display-inline):focus-visible,
-input[type="reset"]:where(.display-inline):focus-visible,
-input[type="submit"]:where(.display-inline):focus-visible,
-a[href].button:where(.display-inline):focus-visible {
+a[href].button-grey:is(.display-inline):focus-visible,
+a[href].button-secondary:is(.display-inline):focus-visible,
+button:is(.display-inline):focus-visible,
+[role="button"]:is(.display-inline):focus-visible,
+input[type="button"]:is(.display-inline):focus-visible,
+input[type="reset"]:is(.display-inline):focus-visible,
+input[type="submit"]:is(.display-inline):focus-visible,
+a[href].button:is(.display-inline):focus-visible {
     --fallback-focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         var(--fallback-theme-button-grey-outline-hover, ButtonFace)
@@ -17577,14 +17593,14 @@ a[href].button:where(.display-inline):focus-visible {
         var(--fallback-theme-button-grey-text-hover, ButtonText)
     );
 }
-a[href].button-grey:where(.display-inline):focus-visible *,
-a[href].button-secondary:where(.display-inline):focus-visible *,
-button:where(.display-inline):focus-visible *,
-[role="button"]:where(.display-inline):focus-visible *,
-input[type="button"]:where(.display-inline):focus-visible *,
-input[type="reset"]:where(.display-inline):focus-visible *,
-input[type="submit"]:where(.display-inline):focus-visible *,
-a[href].button:where(.display-inline):focus-visible * {
+a[href].button-grey:is(.display-inline):focus-visible *,
+a[href].button-secondary:is(.display-inline):focus-visible *,
+button:is(.display-inline):focus-visible *,
+[role="button"]:is(.display-inline):focus-visible *,
+input[type="button"]:is(.display-inline):focus-visible *,
+input[type="reset"]:is(.display-inline):focus-visible *,
+input[type="submit"]:is(.display-inline):focus-visible *,
+a[href].button:is(.display-inline):focus-visible * {
     --fallback-icon-color: var(
         --theme-button-grey-ui-hover,
         var(--fallback-theme-button-grey-ui-hover, ButtonText)
@@ -17595,22 +17611,22 @@ a[href].button:where(.display-inline):focus-visible * {
     );
 }
 
-a[href].button-grey:where(.display-inline):active,
-a[href].button-secondary:where(.display-inline):active,
-button:where(.display-inline):active,
-[role="button"]:where(.display-inline):active,
-input[type="button"]:where(.display-inline):active,
-input[type="reset"]:where(.display-inline):active,
-input[type="submit"]:where(.display-inline):active,
-a[href].button:where(.display-inline):active,
-a[data-state-active="true"][href].button-grey:where(.display-inline),
-a[data-state-active="true"][href].button-secondary:where(.display-inline),
-button[data-state-active="true"]:where(.display-inline),
-[data-state-active="true"][role="button"]:where(.display-inline),
-input[data-state-active="true"][type="button"]:where(.display-inline),
-input[data-state-active="true"][type="reset"]:where(.display-inline),
-input[data-state-active="true"][type="submit"]:where(.display-inline),
-a[data-state-active="true"][href].button:where(.display-inline) {
+a[href].button-grey:is(.display-inline):active,
+a[href].button-secondary:is(.display-inline):active,
+button:is(.display-inline):active,
+[role="button"]:is(.display-inline):active,
+input[type="button"]:is(.display-inline):active,
+input[type="reset"]:is(.display-inline):active,
+input[type="submit"]:is(.display-inline):active,
+a[href].button:is(.display-inline):active,
+a[data-state-active="true"][href].button-grey:is(.display-inline),
+a[data-state-active="true"][href].button-secondary:is(.display-inline),
+button[data-state-active="true"]:is(.display-inline),
+[data-state-active="true"][role="button"]:is(.display-inline),
+input[data-state-active="true"][type="button"]:is(.display-inline),
+input[data-state-active="true"][type="reset"]:is(.display-inline),
+input[data-state-active="true"][type="submit"]:is(.display-inline),
+a[data-state-active="true"][href].button:is(.display-inline) {
     --fallback-focus-ring-outline-color: var(
         --theme-button-grey-outline-active,
         var(--fallback-theme-button-grey-outline-active, ButtonFace)
@@ -17648,22 +17664,22 @@ a[data-state-active="true"][href].button:where(.display-inline) {
         var(--fallback-theme-button-grey-text-active, ButtonText)
     );
 }
-a[href].button-grey:where(.display-inline):active *,
-a[href].button-secondary:where(.display-inline):active *,
-button:where(.display-inline):active *,
-[role="button"]:where(.display-inline):active *,
-input[type="button"]:where(.display-inline):active *,
-input[type="reset"]:where(.display-inline):active *,
-input[type="submit"]:where(.display-inline):active *,
-a[href].button:where(.display-inline):active *,
-a[data-state-active="true"][href].button-grey:where(.display-inline) *,
-a[data-state-active="true"][href].button-secondary:where(.display-inline) *,
-button[data-state-active="true"]:where(.display-inline) *,
-[data-state-active="true"][role="button"]:where(.display-inline) *,
-input[data-state-active="true"][type="button"]:where(.display-inline) *,
-input[data-state-active="true"][type="reset"]:where(.display-inline) *,
-input[data-state-active="true"][type="submit"]:where(.display-inline) *,
-a[data-state-active="true"][href].button:where(.display-inline) * {
+a[href].button-grey:is(.display-inline):active *,
+a[href].button-secondary:is(.display-inline):active *,
+button:is(.display-inline):active *,
+[role="button"]:is(.display-inline):active *,
+input[type="button"]:is(.display-inline):active *,
+input[type="reset"]:is(.display-inline):active *,
+input[type="submit"]:is(.display-inline):active *,
+a[href].button:is(.display-inline):active *,
+a[data-state-active="true"][href].button-grey:is(.display-inline) *,
+a[data-state-active="true"][href].button-secondary:is(.display-inline) *,
+button[data-state-active="true"]:is(.display-inline) *,
+[data-state-active="true"][role="button"]:is(.display-inline) *,
+input[data-state-active="true"][type="button"]:is(.display-inline) *,
+input[data-state-active="true"][type="reset"]:is(.display-inline) *,
+input[data-state-active="true"][type="submit"]:is(.display-inline) *,
+a[data-state-active="true"][href].button:is(.display-inline) * {
     --fallback-icon-color: var(
         --theme-button-grey-ui-active,
         var(--fallback-theme-button-grey-ui-active, ButtonText)
@@ -17674,38 +17690,17 @@ a[data-state-active="true"][href].button:where(.display-inline) * {
     );
 }
 
-a[aria-disabled="true"][href].button-grey:where(.display-inline),
-a[aria-disabled="true"][href].button-secondary:where(.display-inline),
-button[aria-disabled="true"]:where(.display-inline),
-[aria-disabled="true"][role="button"]:where(.display-inline),
-input[aria-disabled="true"][type="button"]:where(.display-inline),
-input[aria-disabled="true"][type="reset"]:where(.display-inline),
-input[aria-disabled="true"][type="submit"]:where(.display-inline),
-a[aria-disabled="true"][href].button:where(.display-inline),
-a[disabled][href].button-grey:where(.display-inline),
-a[disabled][href].button-secondary:where(.display-inline),
-button[disabled]:where(.display-inline),
-[disabled][role="button"]:where(.display-inline),
-input[disabled][type="button"]:where(.display-inline),
-input[disabled][type="reset"]:where(.display-inline),
-input[disabled][type="submit"]:where(.display-inline),
-a[disabled][href].button:where(.display-inline),
-[role="button"].button-grey[aria-disabled="true"]:where(
-        .display-inline
-    ):visited,
-[role="button"].button-grey[disabled]:where(.display-inline):visited,
-a[href].button-grey[aria-disabled="true"]:where(.display-inline):visited,
-a[href].button-grey[disabled]:where(.display-inline):visited,
-[role="button"].button-secondary[aria-disabled="true"]:where(
-        .display-inline
-    ):visited,
-[role="button"].button-secondary[disabled]:where(.display-inline):visited,
-a[href].button-secondary[aria-disabled="true"]:where(.display-inline):visited,
-a[href].button-secondary[disabled]:where(.display-inline):visited,
-[role="button"][aria-disabled="true"]:where(.display-inline):visited,
-[role="button"][disabled]:where(.display-inline):visited,
-a[href].button[aria-disabled="true"]:where(.display-inline):visited,
-a[href].button[disabled]:where(.display-inline):visited {
+a[href].button-grey:is(.display-inline):is([aria-disabled="true"], [disabled]),
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ),
+button:is(.display-inline):is([aria-disabled="true"], [disabled]),
+[role="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+input[type="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+input[type="reset"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+input[type="submit"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]) {
     --fallback-focus-ring-outline-color: var(
         --theme-button-disabled-outline,
         var(--fallback-theme-button-disabled-outline, ButtonFace)
@@ -17743,38 +17738,22 @@ a[href].button[disabled]:where(.display-inline):visited {
         var(--fallback-theme-button-disabled-text, ButtonText)
     );
 }
-a[aria-disabled="true"][href].button-grey:where(.display-inline) *,
-a[aria-disabled="true"][href].button-secondary:where(.display-inline) *,
-button[aria-disabled="true"]:where(.display-inline) *,
-[aria-disabled="true"][role="button"]:where(.display-inline) *,
-input[aria-disabled="true"][type="button"]:where(.display-inline) *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline) *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline) *,
-a[aria-disabled="true"][href].button:where(.display-inline) *,
-a[disabled][href].button-grey:where(.display-inline) *,
-a[disabled][href].button-secondary:where(.display-inline) *,
-button[disabled]:where(.display-inline) *,
-[disabled][role="button"]:where(.display-inline) *,
-input[disabled][type="button"]:where(.display-inline) *,
-input[disabled][type="reset"]:where(.display-inline) *,
-input[disabled][type="submit"]:where(.display-inline) *,
-a[disabled][href].button:where(.display-inline) *,
-[role="button"].button-grey[aria-disabled="true"]:where(.display-inline):visited
+a[href].button-grey:is(.display-inline):is([aria-disabled="true"], [disabled])
     *,
-[role="button"].button-grey[disabled]:where(.display-inline):visited *,
-a[href].button-grey[aria-disabled="true"]:where(.display-inline):visited *,
-a[href].button-grey[disabled]:where(.display-inline):visited *,
-[role="button"].button-secondary[aria-disabled="true"]:where(
-        .display-inline
-    ):visited
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    )
     *,
-[role="button"].button-secondary[disabled]:where(.display-inline):visited *,
-a[href].button-secondary[aria-disabled="true"]:where(.display-inline):visited *,
-a[href].button-secondary[disabled]:where(.display-inline):visited *,
-[role="button"][aria-disabled="true"]:where(.display-inline):visited *,
-[role="button"][disabled]:where(.display-inline):visited *,
-a[href].button[aria-disabled="true"]:where(.display-inline):visited *,
-a[href].button[disabled]:where(.display-inline):visited * {
+button:is(.display-inline):is([aria-disabled="true"], [disabled]) *,
+[role="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]) *,
+input[type="button"]:is(.display-inline):is([aria-disabled="true"], [disabled])
+    *,
+input[type="reset"]:is(.display-inline):is([aria-disabled="true"], [disabled])
+    *,
+input[type="submit"]:is(.display-inline):is([aria-disabled="true"], [disabled])
+    *,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]) * {
     --fallback-icon-color: var(
         --theme-button-disabled-ui,
         var(--fallback-theme-button-disabled-ui, ButtonText)
@@ -17786,99 +17765,137 @@ a[href].button[disabled]:where(.display-inline):visited * {
     color: inherit !important;
 }
 
-a[aria-disabled="true"][href].button-grey:where(.display-inline):hover,
-a[aria-disabled="true"][href].button-secondary:where(.display-inline):hover,
-button[aria-disabled="true"]:where(.display-inline):hover,
-[aria-disabled="true"][role="button"]:where(.display-inline):hover,
-input[aria-disabled="true"][type="button"]:where(.display-inline):hover,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):hover,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):hover,
-a[aria-disabled="true"][href].button:where(.display-inline):hover,
-a[disabled][href].button-grey:where(.display-inline):hover,
-a[disabled][href].button-secondary:where(.display-inline):hover,
-button[disabled]:where(.display-inline):hover,
-[disabled][role="button"]:where(.display-inline):hover,
-input[disabled][type="button"]:where(.display-inline):hover,
-input[disabled][type="reset"]:where(.display-inline):hover,
-input[disabled][type="submit"]:where(.display-inline):hover,
-a[disabled][href].button:where(.display-inline):hover,
-a[aria-disabled="true"][data-state-focus="true"][href].button-grey:where(
-        .display-inline
+a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover,
+a[data-state-focus="true"][href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[aria-disabled="true"][data-state-focus="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-focus="true"][href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-button[aria-disabled="true"][data-state-focus="true"]:where(.display-inline),
-[aria-disabled="true"][data-state-focus="true"][role="button"]:where(
-        .display-inline
+button[data-state-focus="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-focus="true"][type="button"]:where(
-        .display-inline
+[data-state-focus="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-focus="true"][type="reset"]:where(
-        .display-inline
+input[data-state-focus="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-focus="true"][type="submit"]:where(
-        .display-inline
+input[data-state-focus="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[aria-disabled="true"][data-state-focus="true"][href].button:where(
-        .display-inline
+input[data-state-focus="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[disabled][data-state-focus="true"][href].button-grey:where(.display-inline),
-a[disabled][data-state-focus="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-focus="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-button[disabled][data-state-focus="true"]:where(.display-inline),
-[disabled][data-state-focus="true"][role="button"]:where(.display-inline),
-input[disabled][data-state-focus="true"][type="button"]:where(.display-inline),
-input[disabled][data-state-focus="true"][type="reset"]:where(.display-inline),
-input[disabled][data-state-focus="true"][type="submit"]:where(.display-inline),
-a[disabled][data-state-focus="true"][href].button:where(.display-inline),
-.no-js a[aria-disabled="true"][href].button-grey:where(.display-inline):focus,
 .no-js
-    a[aria-disabled="true"][href].button-secondary:where(.display-inline):focus,
-.no-js button[aria-disabled="true"]:where(.display-inline):focus,
-.no-js [aria-disabled="true"][role="button"]:where(.display-inline):focus,
-.no-js input[aria-disabled="true"][type="button"]:where(.display-inline):focus,
-.no-js input[aria-disabled="true"][type="reset"]:where(.display-inline):focus,
-.no-js input[aria-disabled="true"][type="submit"]:where(.display-inline):focus,
-.no-js a[aria-disabled="true"][href].button:where(.display-inline):focus,
+    a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus,
+.no-js
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    a[aria-disabled="true"][href].button-grey:where(.display-inline):focus,
+    a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    a[aria-disabled="true"][href].button-secondary:where(.display-inline):focus,
-.js__no-whereSelector button[aria-disabled="true"]:where(.display-inline):focus,
+    a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus,
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus,
 .js__no-whereSelector
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus,
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus,
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus,
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    a[aria-disabled="true"][href].button:where(.display-inline):focus,
-.no-js a[disabled][href].button-grey:where(.display-inline):focus,
-.no-js a[disabled][href].button-secondary:where(.display-inline):focus,
-.no-js button[disabled]:where(.display-inline):focus,
-.no-js [disabled][role="button"]:where(.display-inline):focus,
-.no-js input[disabled][type="button"]:where(.display-inline):focus,
-.no-js input[disabled][type="reset"]:where(.display-inline):focus,
-.no-js input[disabled][type="submit"]:where(.display-inline):focus,
-.no-js a[disabled][href].button:where(.display-inline):focus,
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    a[disabled][href].button-grey:where(.display-inline):focus,
-.js__no-whereSelector
-    a[disabled][href].button-secondary:where(.display-inline):focus,
-.js__no-whereSelector button[disabled]:where(.display-inline):focus,
-.js__no-whereSelector [disabled][role="button"]:where(.display-inline):focus,
-.js__no-whereSelector
-    input[disabled][type="button"]:where(.display-inline):focus,
-.js__no-whereSelector
-    input[disabled][type="reset"]:where(.display-inline):focus,
-.js__no-whereSelector
-    input[disabled][type="submit"]:where(.display-inline):focus,
-.js__no-whereSelector a[disabled][href].button:where(.display-inline):focus {
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus {
     --fallback-focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         var(--fallback-theme-button-disabled-outline-hover, ButtonFace)
@@ -17916,251 +17933,165 @@ a[disabled][data-state-focus="true"][href].button:where(.display-inline),
         var(--fallback-theme-button-disabled-text-hover, ButtonText)
     );
 }
-a[aria-disabled="true"][href].button-grey:where(.display-inline):hover *,
-a[aria-disabled="true"][href].button-secondary:where(.display-inline):hover *,
-button[aria-disabled="true"]:where(.display-inline):hover *,
-[aria-disabled="true"][role="button"]:where(.display-inline):hover *,
-input[aria-disabled="true"][type="button"]:where(.display-inline):hover *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):hover *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):hover *,
-a[aria-disabled="true"][href].button:where(.display-inline):hover *,
-a[disabled][href].button-grey:where(.display-inline):hover *,
-a[disabled][href].button-secondary:where(.display-inline):hover *,
-button[disabled]:where(.display-inline):hover *,
-[disabled][role="button"]:where(.display-inline):hover *,
-input[disabled][type="button"]:where(.display-inline):hover *,
-input[disabled][type="reset"]:where(.display-inline):hover *,
-input[disabled][type="submit"]:where(.display-inline):hover *,
-a[disabled][href].button:where(.display-inline):hover *,
-a[aria-disabled="true"][data-state-focus="true"][href].button-grey:where(
-        .display-inline
+a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover *,
+[role="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]):hover
+    *,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover
+    *,
+a[data-state-focus="true"][href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[aria-disabled="true"][data-state-focus="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-focus="true"][href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-button[aria-disabled="true"][data-state-focus="true"]:where(.display-inline) *,
-[aria-disabled="true"][data-state-focus="true"][role="button"]:where(
-        .display-inline
+button[data-state-focus="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-focus="true"][type="button"]:where(
-        .display-inline
+[data-state-focus="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-focus="true"][type="reset"]:where(
-        .display-inline
+input[data-state-focus="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-focus="true"][type="submit"]:where(
-        .display-inline
+input[data-state-focus="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[aria-disabled="true"][data-state-focus="true"][href].button:where(
-        .display-inline
+input[data-state-focus="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[disabled][data-state-focus="true"][href].button-grey:where(.display-inline) *,
-a[disabled][data-state-focus="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-focus="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-button[disabled][data-state-focus="true"]:where(.display-inline) *,
-[disabled][data-state-focus="true"][role="button"]:where(.display-inline) *,
-input[disabled][data-state-focus="true"][type="button"]:where(.display-inline)
-    *,
-input[disabled][data-state-focus="true"][type="reset"]:where(.display-inline) *,
-input[disabled][data-state-focus="true"][type="submit"]:where(.display-inline)
-    *,
-a[disabled][data-state-focus="true"][href].button:where(.display-inline) *,
-.no-js a[aria-disabled="true"][href].button-grey:where(.display-inline):focus *,
 .no-js
-    a[aria-disabled="true"][href].button-secondary:where(.display-inline):focus
+    a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.no-js button[aria-disabled="true"]:where(.display-inline):focus *,
-.no-js [aria-disabled="true"][role="button"]:where(.display-inline):focus *,
 .no-js
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus
+    a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.no-js input[aria-disabled="true"][type="reset"]:where(.display-inline):focus *,
 .no-js
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus
     *,
-.no-js a[aria-disabled="true"][href].button:where(.display-inline):focus *,
-.js__no-whereSelector
-    a[aria-disabled="true"][href].button-grey:where(.display-inline):focus
+.no-js
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    a[aria-disabled="true"][href].button-secondary:where(.display-inline):focus
+.no-js
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    button[aria-disabled="true"]:where(.display-inline):focus
+.no-js
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus
+.no-js
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus
-    *,
-.js__no-whereSelector
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus
-    *,
-.js__no-whereSelector
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus
-    *,
-.js__no-whereSelector
-    a[aria-disabled="true"][href].button:where(.display-inline):focus
-    *,
-.no-js a[disabled][href].button-grey:where(.display-inline):focus *,
-.no-js a[disabled][href].button-secondary:where(.display-inline):focus *,
-.no-js button[disabled]:where(.display-inline):focus *,
-.no-js [disabled][role="button"]:where(.display-inline):focus *,
-.no-js input[disabled][type="button"]:where(.display-inline):focus *,
-.no-js input[disabled][type="reset"]:where(.display-inline):focus *,
-.no-js input[disabled][type="submit"]:where(.display-inline):focus *,
-.no-js a[disabled][href].button:where(.display-inline):focus *,
-.js__no-whereSelector
-    a[disabled][href].button-grey:where(.display-inline):focus
+.no-js
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
 .js__no-whereSelector
-    a[disabled][href].button-secondary:where(.display-inline):focus
-    *,
-.js__no-whereSelector button[disabled]:where(.display-inline):focus *,
-.js__no-whereSelector [disabled][role="button"]:where(.display-inline):focus *,
-.js__no-whereSelector
-    input[disabled][type="button"]:where(.display-inline):focus
+    a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
 .js__no-whereSelector
-    input[disabled][type="reset"]:where(.display-inline):focus
+    a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
 .js__no-whereSelector
-    input[disabled][type="submit"]:where(.display-inline):focus
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus
     *,
-.js__no-whereSelector a[disabled][href].button:where(.display-inline):focus * {
-    --fallback-icon-color: var(
-        --theme-button-disabled-ui-hover,
-        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-disabled-ui-hover,
-        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
-    );
-}
-
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button-grey:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button-secondary:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    button[aria-disabled="true"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[disabled][href].button-grey:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[disabled][href].button-secondary:where(.display-inline):focus,
-:where(.js__no-focusVisible) button[disabled]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    [disabled][role="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[disabled][type="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[disabled][type="reset"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[disabled][type="submit"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[disabled][href].button:where(.display-inline):focus {
-    --fallback-focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        var(--fallback-theme-button-disabled-outline-hover, ButtonFace)
-    );
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        var(--fallback-theme-button-disabled-outline-hover, ButtonFace)
-    );
-    --fallback-icon-color: var(
-        --theme-button-disabled-ui-hover,
-        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
-    );
-    --icon-color: var(
-        --theme-button-disabled-ui-hover,
-        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
-    );
-    --fallback-theme-link-icon: var(
-        --theme-button-disabled-ui-hover,
-        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
-    );
-    accent-color: var(
-        --theme-button-disabled-border-hover,
-        var(--fallback-theme-button-disabled-border-hover, ButtonFace)
-    );
-    background-color: var(
-        --theme-button-disabled-background-hover,
-        var(--fallback-theme-button-disabled-background-hover, ButtonFace)
-    );
-    border-color: var(
-        --theme-button-disabled-border-hover,
-        var(--fallback-theme-button-disabled-border-hover, ButtonFace)
-    );
-    color: var(
-        --theme-button-disabled-text-hover,
-        var(--fallback-theme-button-disabled-text-hover, ButtonText)
-    );
-}
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button-grey:where(.display-inline):focus
+.js__no-whereSelector
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button-secondary:where(.display-inline):focus
+.js__no-whereSelector
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    button[aria-disabled="true"]:where(.display-inline):focus
+.js__no-whereSelector
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus
+.js__no-whereSelector
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    a[disabled][href].button-grey:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    a[disabled][href].button-secondary:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) button[disabled]:where(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    [disabled][role="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[disabled][type="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[disabled][type="reset"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[disabled][type="submit"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    a[disabled][href].button:where(.display-inline):focus
+.js__no-whereSelector
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     * {
     --fallback-icon-color: var(
         --theme-button-disabled-ui-hover,
@@ -18172,24 +18103,43 @@ a[disabled][data-state-focus="true"][href].button:where(.display-inline) *,
     );
 }
 
-a[aria-disabled="true"][href].button-grey:where(.display-inline):focus-visible,
-a[aria-disabled="true"][href].button-secondary:where(
-        .display-inline
-    ):focus-visible,
-button[aria-disabled="true"]:where(.display-inline):focus-visible,
-[aria-disabled="true"][role="button"]:where(.display-inline):focus-visible,
-input[aria-disabled="true"][type="button"]:where(.display-inline):focus-visible,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):focus-visible,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):focus-visible,
-a[aria-disabled="true"][href].button:where(.display-inline):focus-visible,
-a[disabled][href].button-grey:where(.display-inline):focus-visible,
-a[disabled][href].button-secondary:where(.display-inline):focus-visible,
-button[disabled]:where(.display-inline):focus-visible,
-[disabled][role="button"]:where(.display-inline):focus-visible,
-input[disabled][type="button"]:where(.display-inline):focus-visible,
-input[disabled][type="reset"]:where(.display-inline):focus-visible,
-input[disabled][type="submit"]:where(.display-inline):focus-visible,
-a[disabled][href].button:where(.display-inline):focus-visible {
+:where(.js__no-focusVisible)
+    a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus,
+:where(.js__no-focusVisible)
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus {
     --fallback-focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         var(--fallback-theme-button-disabled-outline-hover, ButtonFace)
@@ -18227,29 +18177,51 @@ a[disabled][href].button:where(.display-inline):focus-visible {
         var(--fallback-theme-button-disabled-text-hover, ButtonText)
     );
 }
-a[aria-disabled="true"][href].button-grey:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-a[aria-disabled="true"][href].button-secondary:where(
-        .display-inline
-    ):focus-visible
+:where(.js__no-focusVisible)
+    a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-button[aria-disabled="true"]:where(.display-inline):focus-visible *,
-[aria-disabled="true"][role="button"]:where(.display-inline):focus-visible *,
-input[aria-disabled="true"][type="button"]:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus
     *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-a[aria-disabled="true"][href].button:where(.display-inline):focus-visible *,
-a[disabled][href].button-grey:where(.display-inline):focus-visible *,
-a[disabled][href].button-secondary:where(.display-inline):focus-visible *,
-button[disabled]:where(.display-inline):focus-visible *,
-[disabled][role="button"]:where(.display-inline):focus-visible *,
-input[disabled][type="button"]:where(.display-inline):focus-visible *,
-input[disabled][type="reset"]:where(.display-inline):focus-visible *,
-input[disabled][type="submit"]:where(.display-inline):focus-visible *,
-a[disabled][href].button:where(.display-inline):focus-visible * {
+:where(.js__no-focusVisible)
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
+    *,
+:where(.js__no-focusVisible)
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
+    *,
+:where(.js__no-focusVisible)
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
+    * {
     --fallback-icon-color: var(
         --theme-button-disabled-ui-hover,
         var(--fallback-theme-button-disabled-ui-hover, ButtonText)
@@ -18260,54 +18232,180 @@ a[disabled][href].button:where(.display-inline):focus-visible * {
     );
 }
 
-a[aria-disabled="true"][href].button-grey:where(.display-inline):active,
-a[aria-disabled="true"][href].button-secondary:where(.display-inline):active,
-button[aria-disabled="true"]:where(.display-inline):active,
-[aria-disabled="true"][role="button"]:where(.display-inline):active,
-input[aria-disabled="true"][type="button"]:where(.display-inline):active,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):active,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):active,
-a[aria-disabled="true"][href].button:where(.display-inline):active,
-a[disabled][href].button-grey:where(.display-inline):active,
-a[disabled][href].button-secondary:where(.display-inline):active,
-button[disabled]:where(.display-inline):active,
-[disabled][role="button"]:where(.display-inline):active,
-input[disabled][type="button"]:where(.display-inline):active,
-input[disabled][type="reset"]:where(.display-inline):active,
-input[disabled][type="submit"]:where(.display-inline):active,
-a[disabled][href].button:where(.display-inline):active,
-a[aria-disabled="true"][data-state-active="true"][href].button-grey:where(
-        .display-inline
+a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus-visible,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible {
+    --fallback-focus-ring-outline-color: var(
+        --theme-button-disabled-outline-hover,
+        var(--fallback-theme-button-disabled-outline-hover, ButtonFace)
+    );
+    --focus-ring-outline-color: var(
+        --theme-button-disabled-outline-hover,
+        var(--fallback-theme-button-disabled-outline-hover, ButtonFace)
+    );
+    --fallback-icon-color: var(
+        --theme-button-disabled-ui-hover,
+        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-disabled-ui-hover,
+        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
+    );
+    --fallback-theme-link-icon: var(
+        --theme-button-disabled-ui-hover,
+        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
+    );
+    accent-color: var(
+        --theme-button-disabled-border-hover,
+        var(--fallback-theme-button-disabled-border-hover, ButtonFace)
+    );
+    background-color: var(
+        --theme-button-disabled-background-hover,
+        var(--fallback-theme-button-disabled-background-hover, ButtonFace)
+    );
+    border-color: var(
+        --theme-button-disabled-border-hover,
+        var(--fallback-theme-button-disabled-border-hover, ButtonFace)
+    );
+    color: var(
+        --theme-button-disabled-text-hover,
+        var(--fallback-theme-button-disabled-text-hover, ButtonText)
+    );
+}
+a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus-visible
+    *,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    * {
+    --fallback-icon-color: var(
+        --theme-button-disabled-ui-hover,
+        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
+    );
+    --icon-color: var(
+        --theme-button-disabled-ui-hover,
+        var(--fallback-theme-button-disabled-ui-hover, ButtonText)
+    );
+}
+
+a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):active,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+a[data-state-active="true"][href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[aria-disabled="true"][data-state-active="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-active="true"][href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-button[aria-disabled="true"][data-state-active="true"]:where(.display-inline),
-[aria-disabled="true"][data-state-active="true"][role="button"]:where(
-        .display-inline
+button[data-state-active="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-active="true"][type="button"]:where(
-        .display-inline
+[data-state-active="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-active="true"][type="reset"]:where(
-        .display-inline
+input[data-state-active="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-active="true"][type="submit"]:where(
-        .display-inline
+input[data-state-active="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[aria-disabled="true"][data-state-active="true"][href].button:where(
-        .display-inline
+input[data-state-active="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[disabled][data-state-active="true"][href].button-grey:where(.display-inline),
-a[disabled][data-state-active="true"][href].button-secondary:where(
-        .display-inline
-    ),
-button[disabled][data-state-active="true"]:where(.display-inline),
-[disabled][data-state-active="true"][role="button"]:where(.display-inline),
-input[disabled][data-state-active="true"][type="button"]:where(.display-inline),
-input[disabled][data-state-active="true"][type="reset"]:where(.display-inline),
-input[disabled][data-state-active="true"][type="submit"]:where(.display-inline),
-a[disabled][data-state-active="true"][href].button:where(.display-inline) {
+a[data-state-active="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ) {
     --fallback-focus-ring-outline-color: var(
         --theme-button-disabled-outline-active,
         var(--fallback-theme-button-disabled-outline-active, ButtonFace)
@@ -18345,66 +18443,79 @@ a[disabled][data-state-active="true"][href].button:where(.display-inline) {
         var(--fallback-theme-button-disabled-text-active, ButtonText)
     );
 }
-a[aria-disabled="true"][href].button-grey:where(.display-inline):active *,
-a[aria-disabled="true"][href].button-secondary:where(.display-inline):active *,
-button[aria-disabled="true"]:where(.display-inline):active *,
-[aria-disabled="true"][role="button"]:where(.display-inline):active *,
-input[aria-disabled="true"][type="button"]:where(.display-inline):active *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):active *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):active *,
-a[aria-disabled="true"][href].button:where(.display-inline):active *,
-a[disabled][href].button-grey:where(.display-inline):active *,
-a[disabled][href].button-secondary:where(.display-inline):active *,
-button[disabled]:where(.display-inline):active *,
-[disabled][role="button"]:where(.display-inline):active *,
-input[disabled][type="button"]:where(.display-inline):active *,
-input[disabled][type="reset"]:where(.display-inline):active *,
-input[disabled][type="submit"]:where(.display-inline):active *,
-a[disabled][href].button:where(.display-inline):active *,
-a[aria-disabled="true"][data-state-active="true"][href].button-grey:where(
-        .display-inline
+a[href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+a[href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):active *,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]):active
+    *,
+a[data-state-active="true"][href].button-grey:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[aria-disabled="true"][data-state-active="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-active="true"][href].button-secondary:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-button[aria-disabled="true"][data-state-active="true"]:where(.display-inline) *,
-[aria-disabled="true"][data-state-active="true"][role="button"]:where(
-        .display-inline
+button[data-state-active="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-active="true"][type="button"]:where(
-        .display-inline
+[data-state-active="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-active="true"][type="reset"]:where(
-        .display-inline
+input[data-state-active="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-active="true"][type="submit"]:where(
-        .display-inline
+input[data-state-active="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[aria-disabled="true"][data-state-active="true"][href].button:where(
-        .display-inline
+input[data-state-active="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[disabled][data-state-active="true"][href].button-grey:where(.display-inline)
-    *,
-a[disabled][data-state-active="true"][href].button-secondary:where(
-        .display-inline
+a[data-state-active="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
-    *,
-button[disabled][data-state-active="true"]:where(.display-inline) *,
-[disabled][data-state-active="true"][role="button"]:where(.display-inline) *,
-input[disabled][data-state-active="true"][type="button"]:where(.display-inline)
-    *,
-input[disabled][data-state-active="true"][type="reset"]:where(.display-inline)
-    *,
-input[disabled][data-state-active="true"][type="submit"]:where(.display-inline)
-    *,
-a[disabled][data-state-active="true"][href].button:where(.display-inline) * {
+    * {
     --fallback-icon-color: var(
         --theme-button-disabled-ui-active,
         var(--fallback-theme-button-disabled-ui-active, ButtonText)
@@ -19900,21 +20011,6 @@ input[data-state-active="true"][type="submit"].button-grey * {
     );
     color: inherit !important;
 }
-:hover::file-selector-button,
-[data-state-focus="true"]::file-selector-button,
-.no-js :focus::file-selector-button,
-.js__no-whereSelector :focus::file-selector-button {
-    border-style: solid;
-}
-
-:where(.js__no-focusVisible) :focus::file-selector-button {
-    border-style: solid;
-}
-
-:focus-visible::file-selector-button {
-    border-style: solid;
-}
-
 :hover::file-selector-button {
     --fallback-focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,

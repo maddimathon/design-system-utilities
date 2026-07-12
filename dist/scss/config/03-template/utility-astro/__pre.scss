@@ -58,8 +58,12 @@ $fn_var_replaceWithValue_fontSize: config-valid-bool(
 ///
 /// @since 0.1.0-alpha
 ///
-$fn_var_replaceWithValue_strokeRelative: not lib.$include_html and not
-    $fn_var_replaceWithValue_resist !default;
+$fn_var_replaceWithValue_strokeRelative: null !default;
+$fn_var_replaceWithValue_strokeRelative: config-valid-bool(
+    $fn_var_replaceWithValue_strokeRelative,
+    'fn_var_replaceWithValue_strokeRelative',
+    $default: not lib.$include_html and not $fn_var_replaceWithValue_resist
+);
 
 ///
 /// List of slugs that should default to $allPrefixes: true in the

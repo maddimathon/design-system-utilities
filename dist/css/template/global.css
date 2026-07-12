@@ -4683,6 +4683,7 @@
 /*! END of @maddimathon/design-system-utilities/template/global */
 /* # ANIMATIONS
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
 /* #region Animations - Keyframes */
 @keyframes fade-in {
     0% {
@@ -4705,6 +4706,7 @@
     }
 }
 /* #endregion Animations - Keyframes */
+/*! END of @maddimathon/design-system-utilities/template/global */
 /* # GLOBALS - ACCESSIBILITY
  * ======================================================================== */
 /*! START of @maddimathon/utility-sass/template */
@@ -7579,12 +7581,12 @@ a[disabled][data-state-active="true"][href].button * {
     --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
 }
 
-button.display-inline,
-.display-inline[role="button"],
-input.display-inline[type="button"],
-input.display-inline[type="reset"],
-input.display-inline[type="submit"],
-a.display-inline[href].button {
+button:is(.display-inline),
+[role="button"]:is(.display-inline),
+input[type="button"]:is(.display-inline),
+input[type="reset"]:is(.display-inline),
+input[type="submit"]:is(.display-inline),
+a[href].button:is(.display-inline) {
     --focus-ring-outline-offset: 0.1875em;
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;
@@ -7611,14 +7613,12 @@ a.display-inline[href].button {
     text-transform: none;
     vertical-align: baseline;
 }
-button:where(.display-inline),
-[role="button"]:where(.display-inline),
-input[type="button"]:where(.display-inline),
-input[type="reset"]:where(.display-inline),
-input[type="submit"]:where(.display-inline),
-a[href].button:where(.display-inline),
-[role="button"]:where(.display-inline):visited,
-a[href].button:where(.display-inline):visited {
+button:is(.display-inline),
+[role="button"]:is(.display-inline),
+input[type="button"]:is(.display-inline),
+input[type="reset"]:is(.display-inline),
+input[type="submit"]:is(.display-inline),
+a[href].button:is(.display-inline) {
     --focus-ring-outline-color: var(--theme-button-grey-outline, ButtonFace);
     --icon-color: var(--theme-button-grey-ui, ButtonText);
     --theme-link-icon: var(--theme-button-grey-ui, ButtonText);
@@ -7631,42 +7631,40 @@ a[href].button:where(.display-inline):visited {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-grey-text, ButtonText);
 }
-button:where(.display-inline) *,
-[role="button"]:where(.display-inline) *,
-input[type="button"]:where(.display-inline) *,
-input[type="reset"]:where(.display-inline) *,
-input[type="submit"]:where(.display-inline) *,
-a[href].button:where(.display-inline) *,
-[role="button"]:where(.display-inline):visited *,
-a[href].button:where(.display-inline):visited * {
+button:is(.display-inline) *,
+[role="button"]:is(.display-inline) *,
+input[type="button"]:is(.display-inline) *,
+input[type="reset"]:is(.display-inline) *,
+input[type="submit"]:is(.display-inline) *,
+a[href].button:is(.display-inline) * {
     --icon-color: var(--theme-button-grey-ui, ButtonText);
     color: inherit !important;
 }
 
-button:where(.display-inline):hover,
-[role="button"]:where(.display-inline):hover,
-input[type="button"]:where(.display-inline):hover,
-input[type="reset"]:where(.display-inline):hover,
-input[type="submit"]:where(.display-inline):hover,
-a[href].button:where(.display-inline):hover,
-button[data-state-focus="true"]:where(.display-inline),
-[data-state-focus="true"][role="button"]:where(.display-inline),
-input[data-state-focus="true"][type="button"]:where(.display-inline),
-input[data-state-focus="true"][type="reset"]:where(.display-inline),
-input[data-state-focus="true"][type="submit"]:where(.display-inline),
-a[data-state-focus="true"][href].button:where(.display-inline),
-.no-js button:where(.display-inline):focus,
-.no-js [role="button"]:where(.display-inline):focus,
-.no-js input[type="button"]:where(.display-inline):focus,
-.no-js input[type="reset"]:where(.display-inline):focus,
-.no-js input[type="submit"]:where(.display-inline):focus,
-.no-js a[href].button:where(.display-inline):focus,
-.js__no-whereSelector button:where(.display-inline):focus,
-.js__no-whereSelector [role="button"]:where(.display-inline):focus,
-.js__no-whereSelector input[type="button"]:where(.display-inline):focus,
-.js__no-whereSelector input[type="reset"]:where(.display-inline):focus,
-.js__no-whereSelector input[type="submit"]:where(.display-inline):focus,
-.js__no-whereSelector a[href].button:where(.display-inline):focus {
+button:is(.display-inline):hover,
+[role="button"]:is(.display-inline):hover,
+input[type="button"]:is(.display-inline):hover,
+input[type="reset"]:is(.display-inline):hover,
+input[type="submit"]:is(.display-inline):hover,
+a[href].button:is(.display-inline):hover,
+button[data-state-focus="true"]:is(.display-inline),
+[data-state-focus="true"][role="button"]:is(.display-inline),
+input[data-state-focus="true"][type="button"]:is(.display-inline),
+input[data-state-focus="true"][type="reset"]:is(.display-inline),
+input[data-state-focus="true"][type="submit"]:is(.display-inline),
+a[data-state-focus="true"][href].button:is(.display-inline),
+.no-js button:is(.display-inline):focus,
+.no-js [role="button"]:is(.display-inline):focus,
+.no-js input[type="button"]:is(.display-inline):focus,
+.no-js input[type="reset"]:is(.display-inline):focus,
+.no-js input[type="submit"]:is(.display-inline):focus,
+.no-js a[href].button:is(.display-inline):focus,
+.js__no-whereSelector button:is(.display-inline):focus,
+.js__no-whereSelector [role="button"]:is(.display-inline):focus,
+.js__no-whereSelector input[type="button"]:is(.display-inline):focus,
+.js__no-whereSelector input[type="reset"]:is(.display-inline):focus,
+.js__no-whereSelector input[type="submit"]:is(.display-inline):focus,
+.js__no-whereSelector a[href].button:is(.display-inline):focus {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         ButtonFace
@@ -7682,39 +7680,39 @@ a[data-state-focus="true"][href].button:where(.display-inline),
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-grey-text-hover, ButtonText);
 }
-button:where(.display-inline):hover *,
-[role="button"]:where(.display-inline):hover *,
-input[type="button"]:where(.display-inline):hover *,
-input[type="reset"]:where(.display-inline):hover *,
-input[type="submit"]:where(.display-inline):hover *,
-a[href].button:where(.display-inline):hover *,
-button[data-state-focus="true"]:where(.display-inline) *,
-[data-state-focus="true"][role="button"]:where(.display-inline) *,
-input[data-state-focus="true"][type="button"]:where(.display-inline) *,
-input[data-state-focus="true"][type="reset"]:where(.display-inline) *,
-input[data-state-focus="true"][type="submit"]:where(.display-inline) *,
-a[data-state-focus="true"][href].button:where(.display-inline) *,
-.no-js button:where(.display-inline):focus *,
-.no-js [role="button"]:where(.display-inline):focus *,
-.no-js input[type="button"]:where(.display-inline):focus *,
-.no-js input[type="reset"]:where(.display-inline):focus *,
-.no-js input[type="submit"]:where(.display-inline):focus *,
-.no-js a[href].button:where(.display-inline):focus *,
-.js__no-whereSelector button:where(.display-inline):focus *,
-.js__no-whereSelector [role="button"]:where(.display-inline):focus *,
-.js__no-whereSelector input[type="button"]:where(.display-inline):focus *,
-.js__no-whereSelector input[type="reset"]:where(.display-inline):focus *,
-.js__no-whereSelector input[type="submit"]:where(.display-inline):focus *,
-.js__no-whereSelector a[href].button:where(.display-inline):focus * {
+button:is(.display-inline):hover *,
+[role="button"]:is(.display-inline):hover *,
+input[type="button"]:is(.display-inline):hover *,
+input[type="reset"]:is(.display-inline):hover *,
+input[type="submit"]:is(.display-inline):hover *,
+a[href].button:is(.display-inline):hover *,
+button[data-state-focus="true"]:is(.display-inline) *,
+[data-state-focus="true"][role="button"]:is(.display-inline) *,
+input[data-state-focus="true"][type="button"]:is(.display-inline) *,
+input[data-state-focus="true"][type="reset"]:is(.display-inline) *,
+input[data-state-focus="true"][type="submit"]:is(.display-inline) *,
+a[data-state-focus="true"][href].button:is(.display-inline) *,
+.no-js button:is(.display-inline):focus *,
+.no-js [role="button"]:is(.display-inline):focus *,
+.no-js input[type="button"]:is(.display-inline):focus *,
+.no-js input[type="reset"]:is(.display-inline):focus *,
+.no-js input[type="submit"]:is(.display-inline):focus *,
+.no-js a[href].button:is(.display-inline):focus *,
+.js__no-whereSelector button:is(.display-inline):focus *,
+.js__no-whereSelector [role="button"]:is(.display-inline):focus *,
+.js__no-whereSelector input[type="button"]:is(.display-inline):focus *,
+.js__no-whereSelector input[type="reset"]:is(.display-inline):focus *,
+.js__no-whereSelector input[type="submit"]:is(.display-inline):focus *,
+.js__no-whereSelector a[href].button:is(.display-inline):focus * {
     --icon-color: var(--theme-button-grey-ui-hover, ButtonText);
 }
 
-:where(.js__no-focusVisible) button:where(.display-inline):focus,
-:where(.js__no-focusVisible) [role="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) input[type="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) input[type="reset"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) input[type="submit"]:where(.display-inline):focus,
-:where(.js__no-focusVisible) a[href].button:where(.display-inline):focus {
+:where(.js__no-focusVisible) button:is(.display-inline):focus,
+:where(.js__no-focusVisible) [role="button"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) input[type="button"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus,
+:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         ButtonFace
@@ -7730,25 +7728,21 @@ a[data-state-focus="true"][href].button:where(.display-inline) *,
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-grey-text-hover, ButtonText);
 }
-:where(.js__no-focusVisible) button:where(.display-inline):focus *,
-:where(.js__no-focusVisible) [role="button"]:where(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    input[type="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) input[type="reset"]:where(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    input[type="submit"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) a[href].button:where(.display-inline):focus * {
+:where(.js__no-focusVisible) button:is(.display-inline):focus *,
+:where(.js__no-focusVisible) [role="button"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) input[type="button"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus *,
+:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus * {
     --icon-color: var(--theme-button-grey-ui-hover, ButtonText);
 }
 
-button:where(.display-inline):focus-visible,
-[role="button"]:where(.display-inline):focus-visible,
-input[type="button"]:where(.display-inline):focus-visible,
-input[type="reset"]:where(.display-inline):focus-visible,
-input[type="submit"]:where(.display-inline):focus-visible,
-a[href].button:where(.display-inline):focus-visible {
+button:is(.display-inline):focus-visible,
+[role="button"]:is(.display-inline):focus-visible,
+input[type="button"]:is(.display-inline):focus-visible,
+input[type="reset"]:is(.display-inline):focus-visible,
+input[type="submit"]:is(.display-inline):focus-visible,
+a[href].button:is(.display-inline):focus-visible {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         ButtonFace
@@ -7764,27 +7758,27 @@ a[href].button:where(.display-inline):focus-visible {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-grey-text-hover, ButtonText);
 }
-button:where(.display-inline):focus-visible *,
-[role="button"]:where(.display-inline):focus-visible *,
-input[type="button"]:where(.display-inline):focus-visible *,
-input[type="reset"]:where(.display-inline):focus-visible *,
-input[type="submit"]:where(.display-inline):focus-visible *,
-a[href].button:where(.display-inline):focus-visible * {
+button:is(.display-inline):focus-visible *,
+[role="button"]:is(.display-inline):focus-visible *,
+input[type="button"]:is(.display-inline):focus-visible *,
+input[type="reset"]:is(.display-inline):focus-visible *,
+input[type="submit"]:is(.display-inline):focus-visible *,
+a[href].button:is(.display-inline):focus-visible * {
     --icon-color: var(--theme-button-grey-ui-hover, ButtonText);
 }
 
-button:where(.display-inline):active,
-[role="button"]:where(.display-inline):active,
-input[type="button"]:where(.display-inline):active,
-input[type="reset"]:where(.display-inline):active,
-input[type="submit"]:where(.display-inline):active,
-a[href].button:where(.display-inline):active,
-button[data-state-active="true"]:where(.display-inline),
-[data-state-active="true"][role="button"]:where(.display-inline),
-input[data-state-active="true"][type="button"]:where(.display-inline),
-input[data-state-active="true"][type="reset"]:where(.display-inline),
-input[data-state-active="true"][type="submit"]:where(.display-inline),
-a[data-state-active="true"][href].button:where(.display-inline) {
+button:is(.display-inline):active,
+[role="button"]:is(.display-inline):active,
+input[type="button"]:is(.display-inline):active,
+input[type="reset"]:is(.display-inline):active,
+input[type="submit"]:is(.display-inline):active,
+a[href].button:is(.display-inline):active,
+button[data-state-active="true"]:is(.display-inline),
+[data-state-active="true"][role="button"]:is(.display-inline),
+input[data-state-active="true"][type="button"]:is(.display-inline),
+input[data-state-active="true"][type="reset"]:is(.display-inline),
+input[data-state-active="true"][type="submit"]:is(.display-inline),
+a[data-state-active="true"][href].button:is(.display-inline) {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-active,
         ButtonFace
@@ -7800,37 +7794,27 @@ a[data-state-active="true"][href].button:where(.display-inline) {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-grey-text-active, ButtonText);
 }
-button:where(.display-inline):active *,
-[role="button"]:where(.display-inline):active *,
-input[type="button"]:where(.display-inline):active *,
-input[type="reset"]:where(.display-inline):active *,
-input[type="submit"]:where(.display-inline):active *,
-a[href].button:where(.display-inline):active *,
-button[data-state-active="true"]:where(.display-inline) *,
-[data-state-active="true"][role="button"]:where(.display-inline) *,
-input[data-state-active="true"][type="button"]:where(.display-inline) *,
-input[data-state-active="true"][type="reset"]:where(.display-inline) *,
-input[data-state-active="true"][type="submit"]:where(.display-inline) *,
-a[data-state-active="true"][href].button:where(.display-inline) * {
+button:is(.display-inline):active *,
+[role="button"]:is(.display-inline):active *,
+input[type="button"]:is(.display-inline):active *,
+input[type="reset"]:is(.display-inline):active *,
+input[type="submit"]:is(.display-inline):active *,
+a[href].button:is(.display-inline):active *,
+button[data-state-active="true"]:is(.display-inline) *,
+[data-state-active="true"][role="button"]:is(.display-inline) *,
+input[data-state-active="true"][type="button"]:is(.display-inline) *,
+input[data-state-active="true"][type="reset"]:is(.display-inline) *,
+input[data-state-active="true"][type="submit"]:is(.display-inline) *,
+a[data-state-active="true"][href].button:is(.display-inline) * {
     --icon-color: var(--theme-button-grey-ui-active, ButtonText);
 }
 
-button[aria-disabled="true"]:where(.display-inline),
-[aria-disabled="true"][role="button"]:where(.display-inline),
-input[aria-disabled="true"][type="button"]:where(.display-inline),
-input[aria-disabled="true"][type="reset"]:where(.display-inline),
-input[aria-disabled="true"][type="submit"]:where(.display-inline),
-a[aria-disabled="true"][href].button:where(.display-inline),
-button[disabled]:where(.display-inline),
-[disabled][role="button"]:where(.display-inline),
-input[disabled][type="button"]:where(.display-inline),
-input[disabled][type="reset"]:where(.display-inline),
-input[disabled][type="submit"]:where(.display-inline),
-a[disabled][href].button:where(.display-inline),
-[role="button"][aria-disabled="true"]:where(.display-inline):visited,
-[role="button"][disabled]:where(.display-inline):visited,
-a[href].button[aria-disabled="true"]:where(.display-inline):visited,
-a[href].button[disabled]:where(.display-inline):visited {
+button:is(.display-inline):is([aria-disabled="true"], [disabled]),
+[role="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+input[type="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+input[type="reset"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+input[type="submit"]:is(.display-inline):is([aria-disabled="true"], [disabled]),
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]) {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline,
         ButtonFace
@@ -7846,92 +7830,114 @@ a[href].button[disabled]:where(.display-inline):visited {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-disabled-text, ButtonText);
 }
-button[aria-disabled="true"]:where(.display-inline) *,
-[aria-disabled="true"][role="button"]:where(.display-inline) *,
-input[aria-disabled="true"][type="button"]:where(.display-inline) *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline) *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline) *,
-a[aria-disabled="true"][href].button:where(.display-inline) *,
-button[disabled]:where(.display-inline) *,
-[disabled][role="button"]:where(.display-inline) *,
-input[disabled][type="button"]:where(.display-inline) *,
-input[disabled][type="reset"]:where(.display-inline) *,
-input[disabled][type="submit"]:where(.display-inline) *,
-a[disabled][href].button:where(.display-inline) *,
-[role="button"][aria-disabled="true"]:where(.display-inline):visited *,
-[role="button"][disabled]:where(.display-inline):visited *,
-a[href].button[aria-disabled="true"]:where(.display-inline):visited *,
-a[href].button[disabled]:where(.display-inline):visited * {
+button:is(.display-inline):is([aria-disabled="true"], [disabled]) *,
+[role="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]) *,
+input[type="button"]:is(.display-inline):is([aria-disabled="true"], [disabled])
+    *,
+input[type="reset"]:is(.display-inline):is([aria-disabled="true"], [disabled])
+    *,
+input[type="submit"]:is(.display-inline):is([aria-disabled="true"], [disabled])
+    *,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]) * {
     --icon-color: var(--theme-button-disabled-ui, ButtonText);
     color: inherit !important;
 }
 
-button[aria-disabled="true"]:where(.display-inline):hover,
-[aria-disabled="true"][role="button"]:where(.display-inline):hover,
-input[aria-disabled="true"][type="button"]:where(.display-inline):hover,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):hover,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):hover,
-a[aria-disabled="true"][href].button:where(.display-inline):hover,
-button[disabled]:where(.display-inline):hover,
-[disabled][role="button"]:where(.display-inline):hover,
-input[disabled][type="button"]:where(.display-inline):hover,
-input[disabled][type="reset"]:where(.display-inline):hover,
-input[disabled][type="submit"]:where(.display-inline):hover,
-a[disabled][href].button:where(.display-inline):hover,
-button[aria-disabled="true"][data-state-focus="true"]:where(.display-inline),
-[aria-disabled="true"][data-state-focus="true"][role="button"]:where(
-        .display-inline
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover,
+button[data-state-focus="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-focus="true"][type="button"]:where(
-        .display-inline
+[data-state-focus="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-focus="true"][type="reset"]:where(
-        .display-inline
+input[data-state-focus="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-focus="true"][type="submit"]:where(
-        .display-inline
+input[data-state-focus="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[aria-disabled="true"][data-state-focus="true"][href].button:where(
-        .display-inline
+input[data-state-focus="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-button[disabled][data-state-focus="true"]:where(.display-inline),
-[disabled][data-state-focus="true"][role="button"]:where(.display-inline),
-input[disabled][data-state-focus="true"][type="button"]:where(.display-inline),
-input[disabled][data-state-focus="true"][type="reset"]:where(.display-inline),
-input[disabled][data-state-focus="true"][type="submit"]:where(.display-inline),
-a[disabled][data-state-focus="true"][href].button:where(.display-inline),
-.no-js button[aria-disabled="true"]:where(.display-inline):focus,
-.no-js [aria-disabled="true"][role="button"]:where(.display-inline):focus,
-.no-js input[aria-disabled="true"][type="button"]:where(.display-inline):focus,
-.no-js input[aria-disabled="true"][type="reset"]:where(.display-inline):focus,
-.no-js input[aria-disabled="true"][type="submit"]:where(.display-inline):focus,
-.no-js a[aria-disabled="true"][href].button:where(.display-inline):focus,
-.js__no-whereSelector button[aria-disabled="true"]:where(.display-inline):focus,
+a[data-state-focus="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ),
+.no-js button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus,
+.no-js
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+.no-js
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus,
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus,
 .js__no-whereSelector
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus,
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus,
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus,
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    a[aria-disabled="true"][href].button:where(.display-inline):focus,
-.no-js button[disabled]:where(.display-inline):focus,
-.no-js [disabled][role="button"]:where(.display-inline):focus,
-.no-js input[disabled][type="button"]:where(.display-inline):focus,
-.no-js input[disabled][type="reset"]:where(.display-inline):focus,
-.no-js input[disabled][type="submit"]:where(.display-inline):focus,
-.no-js a[disabled][href].button:where(.display-inline):focus,
-.js__no-whereSelector button[disabled]:where(.display-inline):focus,
-.js__no-whereSelector [disabled][role="button"]:where(.display-inline):focus,
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
 .js__no-whereSelector
-    input[disabled][type="button"]:where(.display-inline):focus,
-.js__no-whereSelector
-    input[disabled][type="reset"]:where(.display-inline):focus,
-.js__no-whereSelector
-    input[disabled][type="submit"]:where(.display-inline):focus,
-.js__no-whereSelector a[disabled][href].button:where(.display-inline):focus {
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         ButtonFace
@@ -7947,183 +7953,152 @@ a[disabled][data-state-focus="true"][href].button:where(.display-inline),
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-disabled-text-hover, ButtonText);
 }
-button[aria-disabled="true"]:where(.display-inline):hover *,
-[aria-disabled="true"][role="button"]:where(.display-inline):hover *,
-input[aria-disabled="true"][type="button"]:where(.display-inline):hover *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):hover *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):hover *,
-a[aria-disabled="true"][href].button:where(.display-inline):hover *,
-button[disabled]:where(.display-inline):hover *,
-[disabled][role="button"]:where(.display-inline):hover *,
-input[disabled][type="button"]:where(.display-inline):hover *,
-input[disabled][type="reset"]:where(.display-inline):hover *,
-input[disabled][type="submit"]:where(.display-inline):hover *,
-a[disabled][href].button:where(.display-inline):hover *,
-button[aria-disabled="true"][data-state-focus="true"]:where(.display-inline) *,
-[aria-disabled="true"][data-state-focus="true"][role="button"]:where(
-        .display-inline
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover *,
+[role="button"]:is(.display-inline):is([aria-disabled="true"], [disabled]):hover
+    *,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):hover
+    *,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]):hover
+    *,
+button[data-state-focus="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-focus="true"][type="button"]:where(
-        .display-inline
+[data-state-focus="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-focus="true"][type="reset"]:where(
-        .display-inline
+input[data-state-focus="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-focus="true"][type="submit"]:where(
-        .display-inline
+input[data-state-focus="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[aria-disabled="true"][data-state-focus="true"][href].button:where(
-        .display-inline
+input[data-state-focus="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-button[disabled][data-state-focus="true"]:where(.display-inline) *,
-[disabled][data-state-focus="true"][role="button"]:where(.display-inline) *,
-input[disabled][data-state-focus="true"][type="button"]:where(.display-inline)
+a[data-state-focus="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    )
     *,
-input[disabled][data-state-focus="true"][type="reset"]:where(.display-inline) *,
-input[disabled][data-state-focus="true"][type="submit"]:where(.display-inline)
-    *,
-a[disabled][data-state-focus="true"][href].button:where(.display-inline) *,
-.no-js button[aria-disabled="true"]:where(.display-inline):focus *,
-.no-js [aria-disabled="true"][role="button"]:where(.display-inline):focus *,
 .no-js
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus
     *,
-.no-js input[aria-disabled="true"][type="reset"]:where(.display-inline):focus *,
 .no-js
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.no-js a[aria-disabled="true"][href].button:where(.display-inline):focus *,
-.js__no-whereSelector
-    button[aria-disabled="true"]:where(.display-inline):focus
+.no-js
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus
+.no-js
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus
+.no-js
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus
-    *,
-.js__no-whereSelector
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus
-    *,
-.js__no-whereSelector
-    a[aria-disabled="true"][href].button:where(.display-inline):focus
-    *,
-.no-js button[disabled]:where(.display-inline):focus *,
-.no-js [disabled][role="button"]:where(.display-inline):focus *,
-.no-js input[disabled][type="button"]:where(.display-inline):focus *,
-.no-js input[disabled][type="reset"]:where(.display-inline):focus *,
-.no-js input[disabled][type="submit"]:where(.display-inline):focus *,
-.no-js a[disabled][href].button:where(.display-inline):focus *,
-.js__no-whereSelector button[disabled]:where(.display-inline):focus *,
-.js__no-whereSelector [disabled][role="button"]:where(.display-inline):focus *,
-.js__no-whereSelector
-    input[disabled][type="button"]:where(.display-inline):focus
+.no-js
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
 .js__no-whereSelector
-    input[disabled][type="reset"]:where(.display-inline):focus
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus
     *,
 .js__no-whereSelector
-    input[disabled][type="submit"]:where(.display-inline):focus
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-.js__no-whereSelector a[disabled][href].button:where(.display-inline):focus * {
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-}
-
-:where(.js__no-focusVisible)
-    button[aria-disabled="true"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button:where(.display-inline):focus,
-:where(.js__no-focusVisible) button[disabled]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    [disabled][role="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[disabled][type="button"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[disabled][type="reset"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    input[disabled][type="submit"]:where(.display-inline):focus,
-:where(.js__no-focusVisible)
-    a[disabled][href].button:where(.display-inline):focus {
-    --focus-ring-outline-color: var(
-        --theme-button-disabled-outline-hover,
-        ButtonFace
-    );
-    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
-    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
-    accent-color: hsl(339.45, 0%, 22.38%);
-    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    background-color: hsl(339.45, 0%, 22.38%);
-    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
-    color: hsl(339.45, 0%, 91.26%);
-    color: var(--theme-button-disabled-text-hover, ButtonText);
-}
-:where(.js__no-focusVisible)
-    button[aria-disabled="true"]:where(.display-inline):focus
+.js__no-whereSelector
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    [aria-disabled="true"][role="button"]:where(.display-inline):focus
+.js__no-whereSelector
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="button"]:where(.display-inline):focus
+.js__no-whereSelector
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="reset"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[aria-disabled="true"][type="submit"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    a[aria-disabled="true"][href].button:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) button[disabled]:where(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    [disabled][role="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[disabled][type="button"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[disabled][type="reset"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    input[disabled][type="submit"]:where(.display-inline):focus
-    *,
-:where(.js__no-focusVisible)
-    a[disabled][href].button:where(.display-inline):focus
+.js__no-whereSelector
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     * {
     --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
 }
 
-button[aria-disabled="true"]:where(.display-inline):focus-visible,
-[aria-disabled="true"][role="button"]:where(.display-inline):focus-visible,
-input[aria-disabled="true"][type="button"]:where(.display-inline):focus-visible,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):focus-visible,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):focus-visible,
-a[aria-disabled="true"][href].button:where(.display-inline):focus-visible,
-button[disabled]:where(.display-inline):focus-visible,
-[disabled][role="button"]:where(.display-inline):focus-visible,
-input[disabled][type="button"]:where(.display-inline):focus-visible,
-input[disabled][type="reset"]:where(.display-inline):focus-visible,
-input[disabled][type="submit"]:where(.display-inline):focus-visible,
-a[disabled][href].button:where(.display-inline):focus-visible {
+:where(.js__no-focusVisible)
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus,
+:where(.js__no-focusVisible)
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus,
+:where(.js__no-focusVisible)
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-hover,
         ButtonFace
@@ -8139,58 +8114,153 @@ a[disabled][href].button:where(.display-inline):focus-visible {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-disabled-text-hover, ButtonText);
 }
-button[aria-disabled="true"]:where(.display-inline):focus-visible *,
-[aria-disabled="true"][role="button"]:where(.display-inline):focus-visible *,
-input[aria-disabled="true"][type="button"]:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus
     *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    [role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):focus-visible
+:where(.js__no-focusVisible)
+    input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
     *,
-a[aria-disabled="true"][href].button:where(.display-inline):focus-visible *,
-button[disabled]:where(.display-inline):focus-visible *,
-[disabled][role="button"]:where(.display-inline):focus-visible *,
-input[disabled][type="button"]:where(.display-inline):focus-visible *,
-input[disabled][type="reset"]:where(.display-inline):focus-visible *,
-input[disabled][type="submit"]:where(.display-inline):focus-visible *,
-a[disabled][href].button:where(.display-inline):focus-visible * {
+:where(.js__no-focusVisible)
+    input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
+    *,
+:where(.js__no-focusVisible)
+    input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
+    *,
+:where(.js__no-focusVisible)
+    a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus
+    * {
     --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
 }
 
-button[aria-disabled="true"]:where(.display-inline):active,
-[aria-disabled="true"][role="button"]:where(.display-inline):active,
-input[aria-disabled="true"][type="button"]:where(.display-inline):active,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):active,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):active,
-a[aria-disabled="true"][href].button:where(.display-inline):active,
-button[disabled]:where(.display-inline):active,
-[disabled][role="button"]:where(.display-inline):active,
-input[disabled][type="button"]:where(.display-inline):active,
-input[disabled][type="reset"]:where(.display-inline):active,
-input[disabled][type="submit"]:where(.display-inline):active,
-a[disabled][href].button:where(.display-inline):active,
-button[aria-disabled="true"][data-state-active="true"]:where(.display-inline),
-[aria-disabled="true"][data-state-active="true"][role="button"]:where(
-        .display-inline
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus-visible,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible,
+a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible {
+    --focus-ring-outline-color: var(
+        --theme-button-disabled-outline-hover,
+        ButtonFace
+    );
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+    --theme-link-icon: var(--theme-button-disabled-ui-hover, ButtonText);
+    accent-color: hsl(339.45, 0%, 22.38%);
+    accent-color: var(--theme-button-disabled-border-hover, ButtonFace);
+    background-color: hsl(339.45, 0%, 22.38%);
+    background-color: var(--theme-button-disabled-background-hover, ButtonFace);
+    border-color: hsl(339.45, 0%, 22.38%);
+    border-color: var(--theme-button-disabled-border-hover, ButtonFace);
+    color: hsl(339.45, 0%, 91.26%);
+    color: var(--theme-button-disabled-text-hover, ButtonText);
+}
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):focus-visible
+    *,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    *,
+a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):focus-visible
+    * {
+    --icon-color: var(--theme-button-disabled-ui-hover, ButtonText);
+}
+
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):active,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+a[href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active,
+button[data-state-active="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-active="true"][type="button"]:where(
-        .display-inline
+[data-state-active="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-active="true"][type="reset"]:where(
-        .display-inline
+input[data-state-active="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-input[aria-disabled="true"][data-state-active="true"][type="submit"]:where(
-        .display-inline
+input[data-state-active="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-a[aria-disabled="true"][data-state-active="true"][href].button:where(
-        .display-inline
+input[data-state-active="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     ),
-button[disabled][data-state-active="true"]:where(.display-inline),
-[disabled][data-state-active="true"][role="button"]:where(.display-inline),
-input[disabled][data-state-active="true"][type="button"]:where(.display-inline),
-input[disabled][data-state-active="true"][type="reset"]:where(.display-inline),
-input[disabled][data-state-active="true"][type="submit"]:where(.display-inline),
-a[disabled][data-state-active="true"][href].button:where(.display-inline) {
+a[data-state-active="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ) {
     --focus-ring-outline-color: var(
         --theme-button-disabled-outline-active,
         ButtonFace
@@ -8209,48 +8279,59 @@ a[disabled][data-state-active="true"][href].button:where(.display-inline) {
     color: hsl(339.45, 0%, 91.26%);
     color: var(--theme-button-disabled-text-active, ButtonText);
 }
-button[aria-disabled="true"]:where(.display-inline):active *,
-[aria-disabled="true"][role="button"]:where(.display-inline):active *,
-input[aria-disabled="true"][type="button"]:where(.display-inline):active *,
-input[aria-disabled="true"][type="reset"]:where(.display-inline):active *,
-input[aria-disabled="true"][type="submit"]:where(.display-inline):active *,
-a[aria-disabled="true"][href].button:where(.display-inline):active *,
-button[disabled]:where(.display-inline):active *,
-[disabled][role="button"]:where(.display-inline):active *,
-input[disabled][type="button"]:where(.display-inline):active *,
-input[disabled][type="reset"]:where(.display-inline):active *,
-input[disabled][type="submit"]:where(.display-inline):active *,
-a[disabled][href].button:where(.display-inline):active *,
-button[aria-disabled="true"][data-state-active="true"]:where(.display-inline) *,
-[aria-disabled="true"][data-state-active="true"][role="button"]:where(
-        .display-inline
+button:is(.display-inline):is([aria-disabled="true"], [disabled]):active *,
+[role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+input[type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+input[type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+input[type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    ):active
+    *,
+a[href].button:is(.display-inline):is([aria-disabled="true"], [disabled]):active
+    *,
+button[data-state-active="true"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-active="true"][type="button"]:where(
-        .display-inline
+[data-state-active="true"][role="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-active="true"][type="reset"]:where(
-        .display-inline
+input[data-state-active="true"][type="button"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-input[aria-disabled="true"][data-state-active="true"][type="submit"]:where(
-        .display-inline
+input[data-state-active="true"][type="reset"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-a[aria-disabled="true"][data-state-active="true"][href].button:where(
-        .display-inline
+input[data-state-active="true"][type="submit"]:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
     )
     *,
-button[disabled][data-state-active="true"]:where(.display-inline) *,
-[disabled][data-state-active="true"][role="button"]:where(.display-inline) *,
-input[disabled][data-state-active="true"][type="button"]:where(.display-inline)
-    *,
-input[disabled][data-state-active="true"][type="reset"]:where(.display-inline)
-    *,
-input[disabled][data-state-active="true"][type="submit"]:where(.display-inline)
-    *,
-a[disabled][data-state-active="true"][href].button:where(.display-inline) * {
+a[data-state-active="true"][href].button:is(.display-inline):is(
+        [aria-disabled="true"],
+        [disabled]
+    )
+    * {
     --icon-color: var(--theme-button-disabled-ui-active, ButtonText);
 }
 

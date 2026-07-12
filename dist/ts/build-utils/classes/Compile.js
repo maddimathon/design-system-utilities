@@ -55,11 +55,11 @@ export class Compile extends CompileStage {
     async scss() {
         await this.runCustomDirCopySubStage('scss');
     }
-    async templates(sassDebugCheckpoints = false, args) {
+    async templates(sassDebugCheckpoints = false, { maxConcurrent, ...args } = {}) {
         await this.runCustomScssDirSubStage('template', this.getDistDir(undefined, 'css'), {
-            maxConcurrent: sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 5,
             postCSS: true,
             ...args,
+            maxConcurrent: maxConcurrent ?? (sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 10),
             srcDir: 'src/scss',
         });
     }
