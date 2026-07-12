@@ -75,10 +75,10 @@ $_closing_time: var-tr-time(toggle-closing);
             @content($location);
 
             > :first-child {
-                @include snippet-first-child-no-top-margin;
+                margin-block-start: 0 !important;
             }
             > :last-child {
-                @include snippet-last-child-no-bottom-margin;
+                margin-block-end: 0 !important;
             }
         }
         
@@ -162,6 +162,7 @@ $_closing_time: var-tr-time(toggle-closing);
         }
         
         @else if $location == js--settings-menu--open--content--container {
+            margin-block: do-var(flow-margin-firm-end);
             padding-block: var-style(widget-padding-block);
 
             @content($location);

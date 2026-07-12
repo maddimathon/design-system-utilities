@@ -30,7 +30,9 @@
         $separator: comma
     );
 
-    @each $variant in tokens.$themesMeta_buttonVariations_extra {
+    $all: list.join($all, utils.get-extend-selectors-button(selector-buttons-basic(), primary));
+
+    @each $variant in tokens.$themesMeta_buttonVariations {
         $all: list.join(
             $all,
             list.join(
@@ -68,6 +70,7 @@
         ((('%figure', '%img'), image), dd, dt, img, figure, figcaption, svg)
     );
 
+    $additional: list.join($additional, _get-extend-selectors-all-buttons--additions());
     $additional: list.join($additional, get-extend-selectors-layout-globals());
 
     $additional: list.append(
@@ -160,8 +163,6 @@
     $additional: list.join($additional, get-extend-selectors-icon-utils());
     $additional: list.join($additional, get-extend-selectors-layout-utils());
     $additional: list.join($additional, get-extend-selectors-width-utils());
-
-    $additional: list.join($additional, _get-extend-selectors-all-buttons--additions());
 
     $additional: list.append($additional, ('.alert-block', alert));
 

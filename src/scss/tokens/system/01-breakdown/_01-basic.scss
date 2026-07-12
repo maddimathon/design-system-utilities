@@ -269,11 +269,22 @@ $button_variation_secondary: config.config-valid-string(
 ///
 /// @since ___PKG_VERSION___
 ///
+$button_variation_reset: null !default;
+$button_variation_reset: config.config-valid-string(
+    $button_variation_reset,
+    'button_variation_reset',
+    $default: $button_variation_secondary,
+    $options: $_buttonVariationOpts
+);
+
+///
+/// @since ___PKG_VERSION___
+///
 $button_variation_siteSettings: null !default;
 $button_variation_siteSettings: config.config-valid-string(
     $button_variation_siteSettings,
     'button_variation_siteSettings',
-    $default: 'primary',
+    $default: $button_variation_default,
     $options: $_buttonVariationOpts
 );
 
