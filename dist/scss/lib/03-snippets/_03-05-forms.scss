@@ -16,6 +16,7 @@
 @use '../02-mixins' as *;
 
 @use '03-00-tokens' as *;
+@use '03-02-objects' as *;
 @use '03-03-typography' as *;
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
@@ -784,28 +785,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
-    @include cx-prop(
-        icon-inline-buffer,
-        var-style(button-icon-buffer) !important
-    );
-    @include cx-prop(
-        icon-inline-buffer-start,
-        var-style(button-icon-buffer-start) !important
-    );
-    @include cx-prop(
-        icon-inline-buffer-end,
-        var-style(button-icon-buffer-end) !important
-    );
-
-    @include cx-prop(icon-font-top, var-style(button-icon-font-top));
-    @include cx-prop(icon-pseudo-top, var-style(button-icon-pseudo-top));
-
-    @include cx-prop(icon-size-font, var-style(button-icon-size-font));
-    @include cx-prop(icon-size-pseudo, var-style(button-icon-size-pseudo));
-
-    @include cx-prop(
-        icon-vertical-align,
-        var-style(button-icon-vertical-align) !important
+    @include snippet-icon-spacing-props(
+        button,
+        $includeBase: $includeTextBasics,
+        $important: true
     );
 
     @include prop-display($display);

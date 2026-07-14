@@ -486,10 +486,13 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @content(#{$location}--all-headings);
                 
                 [data-toggle-control] {
-                    // font: inherit;
-                    // line-height: inherit;
-                    // letter-spacing: inherit;
-                    // text-transform: inherit;
+                    @include snippet-heading(
+                        $slug: null,
+                        $includeBase: true,
+                        $includeChildren_link: false,
+                        $includeHGroup: false,
+                        $includeMargin: false,
+                    );
                     
                     @content(#{$location}--all-headings--control);
                 }
@@ -503,7 +506,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     [data-toggle-control] {
                         @include snippet-heading(
                             $slug: $slug,
-                            $includeChildren: false,
+                            $includeBase: false,
+                            $includeChildren_link: false,
                             $includeHGroup: false,
                             $includeMargin: false,
                         );
@@ -520,7 +524,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 
                 [data-toggle-control] {
                     @include snippet-heading(
-                        $includeChildren: false,
+                        $includeChildren_link: false,
+                        $includeBase: false,
                         $includeColor: false,
                         $includeHGroup: false,
                         $includeMargin: false,

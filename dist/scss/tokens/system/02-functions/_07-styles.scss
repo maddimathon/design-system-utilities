@@ -454,6 +454,8 @@
     $fallbackOnly: false,
     $raw: false,
     $rawUnit: 1,
+    $value_failureReturn: $slug,
+    $value_warnOnFail: true,
     $args...
 ) {
     // returns - flow margins are always dealt with the same way
@@ -489,7 +491,9 @@
             $slug,
             $raw: $raw,
             $rawUnit: $rawUnit,
-            $asFallbackValue: true
+            $asFallbackValue: true,
+            $failureReturn: $value_failureReturn,
+            $warnOnFail: $value_warnOnFail
         );
     }
 

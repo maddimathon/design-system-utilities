@@ -677,6 +677,7 @@ export class Tokens_Icons extends AbstractTokens {
             warning,
         }, ([key, obj]) => ({
             ...obj,
+            ariaLabel: obj.ariaLabel ?? `${obj.label} icon`,
             meta: {
                 ...obj.meta,
                 codepoint: codepoints[key],

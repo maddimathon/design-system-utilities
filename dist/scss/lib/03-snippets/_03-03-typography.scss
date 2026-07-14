@@ -19,6 +19,7 @@
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 @use '03-00-tokens' as *;
+@use '03-02-objects' as *;
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -232,7 +233,8 @@
                 )
                 0;
 
-            %unstyled-heading {
+            %unstyled-heading,
+            %unstyled-heading__hgroup {
                 margin-block: $_var_unstyledHeading;
             }
 
@@ -517,6 +519,11 @@
         _snippet-subheading--var-style($slug, text-transform)
     );
 
+    @include snippet-icon-spacing-props(
+        if($slug, subheading-#{$slug}, null),
+        $includeBase: $includeBase
+    );
+
     @if $iconColor != false {
         @include cx-prop(icon-color, $iconColor);
     }
@@ -610,8 +617,12 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     //
     $includeBase: true,
     $includeChildren: true,
+    $includeChildren_code: $includeChildren,
+    $includeChildren_link: $includeChildren,
+    $includeChildren_strong: $includeChildren,
     $includeColor: true,
     $includeHGroup: true,
+    $includeIconSpacingProps: true,
     $includeMargin: true,
     $includeMarginSiblings: $includeMargin,
     $includePadding: $includeBase,
@@ -621,10 +632,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 ) {
     @if $slug == title {
         $slug: '1';
+    } @else if not meta.is-truthy($slug) {
+        $slug: null;
     }
 
-    $slug_is_truthy: meta.is-truthy($slug);
-    $slug_is_number: $slug != unstyled and $slug_is_truthy;
+    $slug_is_number: $slug != unstyled and $slug;
 
     $marginBlockStart: if(
         $marginBlockStart != null,
@@ -638,6 +650,13 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $includeBase {
         @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
+    }
+
+    @if $includeIconSpacingProps {
+        @include snippet-icon-spacing-props(
+            if($slug, heading-#{$slug}, null),
+            $includeBase: $includeBase
+        );
     }
 
     @if $includeMargin {
@@ -682,7 +701,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         }
     }
 
-    @if $slug_is_truthy {
+    @if $slug {
         $fontSize: if(
             $fontSize != null,
             $fontSize,
@@ -728,7 +747,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         text-wrap: balance;
     }
 
-    @if $slug_is_truthy and $fontStyle != false {
+    @if $slug and $fontStyle != false {
         $fontStyle: if(
             $fontStyle != null,
             $fontStyle,
@@ -746,7 +765,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         @content (root);
     }
 
-    @if $slug_is_truthy and $includeColor {
+    @if $slug and $includeColor {
         $_color: if(
             $color,
             $color,
@@ -757,11 +776,22 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             )
         );
 
-        @include cx-prop(icon-color, if($iconColor, $iconColor, $_color));
+        @include cx-prop(
+            icon-color,
+            if(
+                $iconColor,
+                $iconColor,
+                var-style(
+                    heading-#{$slug}-icon-color,
+                    $value_failureReturn: $_color,
+                    $value_warnOnFail: false
+                )
+            )
+        );
         color: $_color;
     }
 
-    @if $slug_is_truthy and $fontStyle == italic {
+    @if $slug and $fontStyle == italic {
         em {
             font-style: normal;
 
@@ -839,25 +869,38 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeMarginSiblings {
-        @at-root #{if( $slug, &, ':is(#{&})' )}:has(
-                    + :is(
-                        %button-span,
-                        %margins-flow-firm,
-                        %margins-flow-firm-small,
-                        %margins-flow-firm-large
-                    )
-                ) {
-            @if $includeBase {
-                margin-block-end: 0;
-            }
+        $_parentSel: selector.parse(#{&});
 
-            @if $multipleContentBlocks {
-                @content (margin-siblings--firm);
+        $_sels: if(
+            list.length($_parentSel) >
+                1 and
+                list.separator($_parentSel) ==
+                'comma',
+            ':is(#{&})',
+            &
+        );
+
+        @at-root #{$_sels} {
+            &:has(
+                + :is(
+                    %button-span,
+                    %margins-flow-firm,
+                    %margins-flow-firm-small,
+                    %margins-flow-firm-large
+                )
+            ) {
+                @if $includeBase {
+                    margin-block-end: 0;
+                }
+
+                @if $multipleContentBlocks {
+                    @content (margin-siblings--firm);
+                }
             }
         }
     }
 
-    @if $includeChildren {
+    @if $includeChildren_strong {
         %strong {
             @if $fontWeight_strong {
                 font-weight: $fontWeight_strong;
@@ -867,7 +910,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 @content (children--strong);
             }
         }
+    }
 
+    @if $includeChildren_link {
         %a {
             @if $includeBase {
                 @include cx-prop(
@@ -892,7 +937,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 @content (children--a);
             }
         }
+    }
 
+    @if $includeChildren_code {
         %code,
         %kbd,
         %samp {
@@ -1056,6 +1103,13 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $textUnderlineOffset: var-stroke-relative('600')
 ) {
     @include cx-prop(focus-ring-outline-offset, $focusRingOutlineOffset);
+
+    @include snippet-icon-spacing-props(
+        link,
+        $includeBase: true,
+        $important: true
+    );
+
     @include prop-display(inline);
     border: none;
 

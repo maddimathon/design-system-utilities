@@ -10209,10 +10209,13 @@ a.skip-link[href] {
         --button-icon-buffer-end,
         0
     ) !important;
-    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em);
-    --fallback-icon-pseudo-top: var(--button-icon-pseudo-top, -0.0625em);
-    --fallback-icon-size-font: var(--button-icon-size-font, 1em);
-    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em);
+    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em) !important;
+    --fallback-icon-pseudo-top: var(
+        --button-icon-pseudo-top,
+        -0.0625em
+    ) !important;
+    --fallback-icon-size-font: var(--button-icon-size-font, 1em) !important;
+    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em) !important;
     --fallback-icon-vertical-align: var(
         --button-icon-vertical-align,
         middle
@@ -10735,7 +10738,8 @@ a.skip-link[href]:has([data-state-active="true"]) {
 /* # GLOBALS - FLOW MARGINS
  * ======================================================================== */
 /*! START of @maddimathon/design-system-utilities/template/demo - custom property prefixes (with fallback) */
-.unstyled-heading {
+.unstyled-heading,
+.unstyled-heading__hgroup {
     margin-block: var(
             --flow-margin--heading-unstyled,
             var(
@@ -10746,22 +10750,24 @@ a.skip-link[href]:has([data-state-active="true"]) {
         0;
 }
 
-.h10:is(.unstyled-heading),
-.h9:is(.unstyled-heading),
-.h8:is(.unstyled-heading),
-.h7:is(.unstyled-heading),
-h6:is(.unstyled-heading),
-.h6:is(.unstyled-heading),
-h5:is(.unstyled-heading),
-.h5:is(.unstyled-heading),
-h4:is(.unstyled-heading),
-.h4:is(.unstyled-heading),
-h3:is(.unstyled-heading),
-.h3:is(.unstyled-heading),
-h2:is(.unstyled-heading),
-.h2:is(.unstyled-heading),
-h1:is(.unstyled-heading),
-.h1:is(.unstyled-heading) {
+.unstyled-heading:is(
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    .h5,
+    h6,
+    .h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+) {
     margin-block: var(
             --flow-margin--heading-unstyled,
             var(
@@ -10772,16 +10778,18 @@ h1:is(.unstyled-heading),
         0;
 }
 
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) {
+.unstyled-heading:where(
+    [role="heading"][aria-level="1"],
+    [role="heading"][aria-level="2"],
+    [role="heading"][aria-level="3"],
+    [role="heading"][aria-level="4"],
+    [role="heading"][aria-level="5"],
+    [role="heading"][aria-level="6"],
+    [role="heading"][aria-level="7"],
+    [role="heading"][aria-level="8"],
+    [role="heading"][aria-level="9"],
+    [role="heading"][aria-level="10"]
+) {
     margin-block: var(
             --flow-margin--heading-unstyled,
             var(
@@ -11332,6 +11340,26 @@ a[href] {
         --stroke-relative-200,
         var(--fallback-stroke-relative-200, 0.125em)
     );
+    --fallback-icon-inline-buffer: var(--link-icon-buffer, 0.25em) !important;
+    --fallback-icon-inline-buffer-start: var(
+        --link-icon-buffer-start,
+        1
+    ) !important;
+    --fallback-icon-inline-buffer-end: var(
+        --link-icon-buffer-end,
+        0.125
+    ) !important;
+    --fallback-icon-font-top: var(--link-icon-font-top, 0.1875em) !important;
+    --fallback-icon-pseudo-top: var(
+        --link-icon-pseudo-top,
+        -0.0625em
+    ) !important;
+    --fallback-icon-size-font: var(--link-icon-size-font, 1em) !important;
+    --fallback-icon-size-pseudo: var(--link-icon-size-pseudo, 1em) !important;
+    --fallback-icon-vertical-align: var(
+        --link-icon-vertical-align,
+        middle
+    ) !important;
     --fallback-display: inline;
     --display: inline;
     display: var(--fallback-display, inline);
@@ -12602,21 +12630,35 @@ h6,
 .h9,
 .h10 {
     --fallback-focus-ring-outline-offset: 0;
+    --fallback-icon-inline-buffer: 0.25em;
+    --fallback-icon-inline-buffer-start: 1;
+    --fallback-icon-inline-buffer-end: 0.125;
+    --fallback-icon-font-top: 0.1875em;
+    --fallback-icon-pseudo-top: -0.0625em;
+    --fallback-icon-size-font: 1em;
+    --fallback-icon-size-pseudo: 1em;
+    --fallback-icon-vertical-align: middle;
     padding-block-start: 0;
     padding-block-end: 0;
     text-wrap: balance;
 }
-.unstyled-heading--hgroup,
-.h1--hgroup,
-.h2--hgroup,
-.h3--hgroup,
-.h4--hgroup,
-.h5--hgroup,
-.h6--hgroup,
-.h7--hgroup,
-.h8--hgroup,
-.h9--hgroup,
-.h10--hgroup {
+hgroup .unstyled-heading,
+hgroup .h1,
+hgroup h1,
+hgroup .h2,
+hgroup h2,
+hgroup .h3,
+hgroup h3,
+hgroup .h4,
+hgroup h4,
+hgroup .h5,
+hgroup h5,
+hgroup .h6,
+hgroup h6,
+hgroup .h7,
+hgroup .h8,
+hgroup .h9,
+hgroup .h10 {
     margin-block-start: 0;
 }
 .unstyled-heading__hgroup,
@@ -12712,6 +12754,14 @@ h6,
 .h8__subheading,
 .h9__subheading,
 .h10__subheading {
+    --fallback-icon-inline-buffer: 0.25em;
+    --fallback-icon-inline-buffer-start: 1;
+    --fallback-icon-inline-buffer-end: 0.125;
+    --fallback-icon-font-top: 0.1875em;
+    --fallback-icon-pseudo-top: -0.0625em;
+    --fallback-icon-size-font: 1em;
+    --fallback-icon-size-pseudo: 1em;
+    --fallback-icon-vertical-align: middle;
     margin-block-start: 0;
     text-wrap: balance;
 }
@@ -12843,16 +12893,18 @@ h6 samp,
     font-style: inherit;
     color: inherit;
 }
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]),
+.unstyled-heading:where(
+    [role="heading"][aria-level="1"],
+    [role="heading"][aria-level="2"],
+    [role="heading"][aria-level="3"],
+    [role="heading"][aria-level="4"],
+    [role="heading"][aria-level="5"],
+    [role="heading"][aria-level="6"],
+    [role="heading"][aria-level="7"],
+    [role="heading"][aria-level="8"],
+    [role="heading"][aria-level="9"],
+    [role="heading"][aria-level="10"]
+),
 :where([role="heading"][aria-level="1"]),
 :where([role="heading"][aria-level="2"]),
 :where([role="heading"][aria-level="3"]),
@@ -12864,21 +12916,56 @@ h6 samp,
 :where([role="heading"][aria-level="9"]),
 :where([role="heading"][aria-level="10"]) {
     --fallback-focus-ring-outline-offset: 0;
+    --fallback-icon-inline-buffer: 0.25em;
+    --fallback-icon-inline-buffer-start: 1;
+    --fallback-icon-inline-buffer-end: 0.125;
+    --fallback-icon-font-top: 0.1875em;
+    --fallback-icon-pseudo-top: -0.0625em;
+    --fallback-icon-size-font: 1em;
+    --fallback-icon-size-pseudo: 1em;
+    --fallback-icon-vertical-align: middle;
     padding-block-start: 0;
     padding-block-end: 0;
     text-wrap: balance;
 }
+hgroup
+    .unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    ),
+hgroup :where([role="heading"][aria-level="1"]),
+hgroup :where([role="heading"][aria-level="2"]),
+hgroup :where([role="heading"][aria-level="3"]),
+hgroup :where([role="heading"][aria-level="4"]),
+hgroup :where([role="heading"][aria-level="5"]),
+hgroup :where([role="heading"][aria-level="6"]),
+hgroup :where([role="heading"][aria-level="7"]),
+hgroup :where([role="heading"][aria-level="8"]),
+hgroup :where([role="heading"][aria-level="9"]),
+hgroup :where([role="heading"][aria-level="10"]) {
+    margin-block-start: 0;
+}
 :is(
-    :is(.unstyled-heading):where([role="heading"][aria-level="10"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="9"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="8"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="7"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="6"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="5"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="4"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="3"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="2"]),
-    :is(.unstyled-heading):where([role="heading"][aria-level="1"])
+    .unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
 ):has(
     + :is(
         .button-span,
@@ -12909,16 +12996,19 @@ h6 samp,
     margin-block-end: 0;
 }
 
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) a[href],
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) a[href],
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    a[href],
 :where([role="heading"][aria-level="1"]) a[href],
 :where([role="heading"][aria-level="2"]) a[href],
 :where([role="heading"][aria-level="3"]) a[href],
@@ -12932,36 +13022,45 @@ h6 samp,
     --fallback-focus-ring-outline-offset: 0;
     font-weight: inherit;
 }
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) code,
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) kbd,
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) samp,
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) samp,
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    code,
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    kbd,
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    samp,
 :where([role="heading"][aria-level="1"]) code,
 :where([role="heading"][aria-level="1"]) kbd,
 :where([role="heading"][aria-level="1"]) samp,
@@ -12996,44 +13095,77 @@ h6 samp,
     font-style: inherit;
     color: inherit;
 }
-.h10:is(.unstyled-heading),
-.h9:is(.unstyled-heading),
-.h8:is(.unstyled-heading),
-.h7:is(.unstyled-heading),
-h6:is(.unstyled-heading),
-.h6:is(.unstyled-heading),
-h5:is(.unstyled-heading),
-.h5:is(.unstyled-heading),
-h4:is(.unstyled-heading),
-.h4:is(.unstyled-heading),
-h3:is(.unstyled-heading),
-.h3:is(.unstyled-heading),
-h2:is(.unstyled-heading),
-.h2:is(.unstyled-heading),
-h1:is(.unstyled-heading),
-.h1:is(.unstyled-heading) {
+.unstyled-heading:is(
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    .h5,
+    h6,
+    .h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+) {
     --fallback-focus-ring-outline-offset: 0;
+    --fallback-icon-inline-buffer: 0.25em;
+    --fallback-icon-inline-buffer-start: 1;
+    --fallback-icon-inline-buffer-end: 0.125;
+    --fallback-icon-font-top: 0.1875em;
+    --fallback-icon-pseudo-top: -0.0625em;
+    --fallback-icon-size-font: 1em;
+    --fallback-icon-size-pseudo: 1em;
+    --fallback-icon-vertical-align: middle;
     padding-block-start: 0;
     padding-block-end: 0;
     text-wrap: balance;
 }
+hgroup
+    .unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    ) {
+    margin-block-start: 0;
+}
 :is(
-    .h10:is(.unstyled-heading),
-    .h9:is(.unstyled-heading),
-    .h8:is(.unstyled-heading),
-    .h7:is(.unstyled-heading),
-    h6:is(.unstyled-heading),
-    .h6:is(.unstyled-heading),
-    h5:is(.unstyled-heading),
-    .h5:is(.unstyled-heading),
-    h4:is(.unstyled-heading),
-    .h4:is(.unstyled-heading),
-    h3:is(.unstyled-heading),
-    .h3:is(.unstyled-heading),
-    h2:is(.unstyled-heading),
-    .h2:is(.unstyled-heading),
-    h1:is(.unstyled-heading),
-    .h1:is(.unstyled-heading)
+    .unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
 ):has(
     + :is(
         .button-span,
@@ -13064,73 +13196,85 @@ h1:is(.unstyled-heading),
     margin-block-end: 0;
 }
 
-.h10:is(.unstyled-heading) a[href],
-.h9:is(.unstyled-heading) a[href],
-.h8:is(.unstyled-heading) a[href],
-.h7:is(.unstyled-heading) a[href],
-h6:is(.unstyled-heading) a[href],
-.h6:is(.unstyled-heading) a[href],
-h5:is(.unstyled-heading) a[href],
-.h5:is(.unstyled-heading) a[href],
-h4:is(.unstyled-heading) a[href],
-.h4:is(.unstyled-heading) a[href],
-h3:is(.unstyled-heading) a[href],
-.h3:is(.unstyled-heading) a[href],
-h2:is(.unstyled-heading) a[href],
-.h2:is(.unstyled-heading) a[href],
-h1:is(.unstyled-heading) a[href],
-.h1:is(.unstyled-heading) a[href] {
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    a[href] {
     --fallback-focus-ring-outline-offset: 0;
     font-weight: inherit;
 }
-.h10:is(.unstyled-heading) code,
-.h9:is(.unstyled-heading) code,
-.h8:is(.unstyled-heading) code,
-.h7:is(.unstyled-heading) code,
-h6:is(.unstyled-heading) code,
-.h6:is(.unstyled-heading) code,
-h5:is(.unstyled-heading) code,
-.h5:is(.unstyled-heading) code,
-h4:is(.unstyled-heading) code,
-.h4:is(.unstyled-heading) code,
-h3:is(.unstyled-heading) code,
-.h3:is(.unstyled-heading) code,
-h2:is(.unstyled-heading) code,
-.h2:is(.unstyled-heading) code,
-h1:is(.unstyled-heading) code,
-.h1:is(.unstyled-heading) code,
-.h10:is(.unstyled-heading) kbd,
-.h9:is(.unstyled-heading) kbd,
-.h8:is(.unstyled-heading) kbd,
-.h7:is(.unstyled-heading) kbd,
-h6:is(.unstyled-heading) kbd,
-.h6:is(.unstyled-heading) kbd,
-h5:is(.unstyled-heading) kbd,
-.h5:is(.unstyled-heading) kbd,
-h4:is(.unstyled-heading) kbd,
-.h4:is(.unstyled-heading) kbd,
-h3:is(.unstyled-heading) kbd,
-.h3:is(.unstyled-heading) kbd,
-h2:is(.unstyled-heading) kbd,
-.h2:is(.unstyled-heading) kbd,
-h1:is(.unstyled-heading) kbd,
-.h1:is(.unstyled-heading) kbd,
-.h10:is(.unstyled-heading) samp,
-.h9:is(.unstyled-heading) samp,
-.h8:is(.unstyled-heading) samp,
-.h7:is(.unstyled-heading) samp,
-h6:is(.unstyled-heading) samp,
-.h6:is(.unstyled-heading) samp,
-h5:is(.unstyled-heading) samp,
-.h5:is(.unstyled-heading) samp,
-h4:is(.unstyled-heading) samp,
-.h4:is(.unstyled-heading) samp,
-h3:is(.unstyled-heading) samp,
-.h3:is(.unstyled-heading) samp,
-h2:is(.unstyled-heading) samp,
-.h2:is(.unstyled-heading) samp,
-h1:is(.unstyled-heading) samp,
-.h1:is(.unstyled-heading) samp {
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    code,
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    kbd,
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    samp {
     font-weight: inherit;
     font-style: inherit;
     color: inherit;
@@ -13157,12 +13301,12 @@ h1,
     text-transform: var(--heading-1-text-transform, none);
     font-style: var(--heading-1-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-1,
-        var(--fallback-theme-heading-1, CanvasText)
+        --heading-1-icon-color,
+        var(--theme-heading-1, var(--fallback-theme-heading-1, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-1,
-        var(--fallback-theme-heading-1, CanvasText)
+        --heading-1-icon-color,
+        var(--theme-heading-1, var(--fallback-theme-heading-1, CanvasText))
     );
     color: var(--theme-heading-1, var(--fallback-theme-heading-1, CanvasText));
 }
@@ -13226,12 +13370,12 @@ h1,
     text-transform: var(--heading-1-text-transform, none);
     font-style: var(--heading-1-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-1,
-        var(--fallback-theme-heading-1, CanvasText)
+        --heading-1-icon-color,
+        var(--theme-heading-1, var(--fallback-theme-heading-1, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-1,
-        var(--fallback-theme-heading-1, CanvasText)
+        --heading-1-icon-color,
+        var(--theme-heading-1, var(--fallback-theme-heading-1, CanvasText))
     );
     color: var(--theme-heading-1, var(--fallback-theme-heading-1, CanvasText));
 }
@@ -13255,12 +13399,12 @@ h2 {
     text-transform: var(--heading-2-text-transform, none);
     font-style: var(--heading-2-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-2,
-        var(--fallback-theme-heading-2, CanvasText)
+        --heading-2-icon-color,
+        var(--theme-heading-2, var(--fallback-theme-heading-2, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-2,
-        var(--fallback-theme-heading-2, CanvasText)
+        --heading-2-icon-color,
+        var(--theme-heading-2, var(--fallback-theme-heading-2, CanvasText))
     );
     color: var(--theme-heading-2, var(--fallback-theme-heading-2, CanvasText));
 }
@@ -13310,12 +13454,12 @@ h2 {
     text-transform: var(--heading-2-text-transform, none);
     font-style: var(--heading-2-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-2,
-        var(--fallback-theme-heading-2, CanvasText)
+        --heading-2-icon-color,
+        var(--theme-heading-2, var(--fallback-theme-heading-2, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-2,
-        var(--fallback-theme-heading-2, CanvasText)
+        --heading-2-icon-color,
+        var(--theme-heading-2, var(--fallback-theme-heading-2, CanvasText))
     );
     color: var(--theme-heading-2, var(--fallback-theme-heading-2, CanvasText));
 }
@@ -13339,12 +13483,12 @@ h3 {
     text-transform: var(--heading-3-text-transform, none);
     font-style: var(--heading-3-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-3,
-        var(--fallback-theme-heading-3, CanvasText)
+        --heading-3-icon-color,
+        var(--theme-heading-3, var(--fallback-theme-heading-3, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-3,
-        var(--fallback-theme-heading-3, CanvasText)
+        --heading-3-icon-color,
+        var(--theme-heading-3, var(--fallback-theme-heading-3, CanvasText))
     );
     color: var(--theme-heading-3, var(--fallback-theme-heading-3, CanvasText));
 }
@@ -13394,12 +13538,12 @@ h3 {
     text-transform: var(--heading-3-text-transform, none);
     font-style: var(--heading-3-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-3,
-        var(--fallback-theme-heading-3, CanvasText)
+        --heading-3-icon-color,
+        var(--theme-heading-3, var(--fallback-theme-heading-3, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-3,
-        var(--fallback-theme-heading-3, CanvasText)
+        --heading-3-icon-color,
+        var(--theme-heading-3, var(--fallback-theme-heading-3, CanvasText))
     );
     color: var(--theme-heading-3, var(--fallback-theme-heading-3, CanvasText));
 }
@@ -13423,12 +13567,12 @@ h4 {
     text-transform: var(--heading-4-text-transform, none);
     font-style: var(--heading-4-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-4,
-        var(--fallback-theme-heading-4, CanvasText)
+        --heading-4-icon-color,
+        var(--theme-heading-4, var(--fallback-theme-heading-4, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-4,
-        var(--fallback-theme-heading-4, CanvasText)
+        --heading-4-icon-color,
+        var(--theme-heading-4, var(--fallback-theme-heading-4, CanvasText))
     );
     color: var(--theme-heading-4, var(--fallback-theme-heading-4, CanvasText));
 }
@@ -13478,12 +13622,12 @@ h4 {
     text-transform: var(--heading-4-text-transform, none);
     font-style: var(--heading-4-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-4,
-        var(--fallback-theme-heading-4, CanvasText)
+        --heading-4-icon-color,
+        var(--theme-heading-4, var(--fallback-theme-heading-4, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-4,
-        var(--fallback-theme-heading-4, CanvasText)
+        --heading-4-icon-color,
+        var(--theme-heading-4, var(--fallback-theme-heading-4, CanvasText))
     );
     color: var(--theme-heading-4, var(--fallback-theme-heading-4, CanvasText));
 }
@@ -13507,12 +13651,12 @@ h5 {
     text-transform: var(--heading-5-text-transform, none);
     font-style: var(--heading-5-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-5,
-        var(--fallback-theme-heading-5, CanvasText)
+        --heading-5-icon-color,
+        var(--theme-heading-5, var(--fallback-theme-heading-5, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-5,
-        var(--fallback-theme-heading-5, CanvasText)
+        --heading-5-icon-color,
+        var(--theme-heading-5, var(--fallback-theme-heading-5, CanvasText))
     );
     color: var(--theme-heading-5, var(--fallback-theme-heading-5, CanvasText));
 }
@@ -13562,12 +13706,12 @@ h5 {
     text-transform: var(--heading-5-text-transform, none);
     font-style: var(--heading-5-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-5,
-        var(--fallback-theme-heading-5, CanvasText)
+        --heading-5-icon-color,
+        var(--theme-heading-5, var(--fallback-theme-heading-5, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-5,
-        var(--fallback-theme-heading-5, CanvasText)
+        --heading-5-icon-color,
+        var(--theme-heading-5, var(--fallback-theme-heading-5, CanvasText))
     );
     color: var(--theme-heading-5, var(--fallback-theme-heading-5, CanvasText));
 }
@@ -13591,12 +13735,12 @@ h6 {
     text-transform: var(--heading-6-text-transform, none);
     font-style: var(--heading-6-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-6,
-        var(--fallback-theme-heading-6, CanvasText)
+        --heading-6-icon-color,
+        var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-6,
-        var(--fallback-theme-heading-6, CanvasText)
+        --heading-6-icon-color,
+        var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText))
     );
     color: var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText));
 }
@@ -13646,12 +13790,12 @@ h6 {
     text-transform: var(--heading-6-text-transform, none);
     font-style: var(--heading-6-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-6,
-        var(--fallback-theme-heading-6, CanvasText)
+        --heading-6-icon-color,
+        var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-6,
-        var(--fallback-theme-heading-6, CanvasText)
+        --heading-6-icon-color,
+        var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText))
     );
     color: var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText));
 }
@@ -13674,12 +13818,12 @@ h6 {
     text-transform: var(--heading-7-text-transform, uppercase);
     font-style: var(--heading-7-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-7,
-        var(--fallback-theme-heading-7, CanvasText)
+        --heading-7-icon-color,
+        var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-7,
-        var(--fallback-theme-heading-7, CanvasText)
+        --heading-7-icon-color,
+        var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText))
     );
     color: var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText));
 }
@@ -13729,12 +13873,12 @@ h6 {
     text-transform: var(--heading-7-text-transform, uppercase);
     font-style: var(--heading-7-font-style, normal);
     --fallback-icon-color: var(
-        --theme-heading-7,
-        var(--fallback-theme-heading-7, CanvasText)
+        --heading-7-icon-color,
+        var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-7,
-        var(--fallback-theme-heading-7, CanvasText)
+        --heading-7-icon-color,
+        var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText))
     );
     color: var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText));
 }
@@ -13757,12 +13901,12 @@ h6 {
     text-transform: var(--heading-8-text-transform, uppercase);
     font-style: var(--heading-8-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-8,
-        var(--fallback-theme-heading-8, CanvasText)
+        --heading-8-icon-color,
+        var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-8,
-        var(--fallback-theme-heading-8, CanvasText)
+        --heading-8-icon-color,
+        var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText))
     );
     color: var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText));
 }
@@ -13812,12 +13956,12 @@ h6 {
     text-transform: var(--heading-8-text-transform, uppercase);
     font-style: var(--heading-8-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-8,
-        var(--fallback-theme-heading-8, CanvasText)
+        --heading-8-icon-color,
+        var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-8,
-        var(--fallback-theme-heading-8, CanvasText)
+        --heading-8-icon-color,
+        var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText))
     );
     color: var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText));
 }
@@ -13840,12 +13984,12 @@ h6 {
     text-transform: var(--heading-9-text-transform, uppercase);
     font-style: var(--heading-9-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-9,
-        var(--fallback-theme-heading-9, CanvasText)
+        --heading-9-icon-color,
+        var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-9,
-        var(--fallback-theme-heading-9, CanvasText)
+        --heading-9-icon-color,
+        var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText))
     );
     color: var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText));
 }
@@ -13895,12 +14039,12 @@ h6 {
     text-transform: var(--heading-9-text-transform, uppercase);
     font-style: var(--heading-9-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-9,
-        var(--fallback-theme-heading-9, CanvasText)
+        --heading-9-icon-color,
+        var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-9,
-        var(--fallback-theme-heading-9, CanvasText)
+        --heading-9-icon-color,
+        var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText))
     );
     color: var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText));
 }
@@ -13923,12 +14067,12 @@ h6 {
     text-transform: var(--heading-10-text-transform, uppercase);
     font-style: var(--heading-10-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-10,
-        var(--fallback-theme-heading-10, CanvasText)
+        --heading-10-icon-color,
+        var(--theme-heading-10, var(--fallback-theme-heading-10, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-10,
-        var(--fallback-theme-heading-10, CanvasText)
+        --heading-10-icon-color,
+        var(--theme-heading-10, var(--fallback-theme-heading-10, CanvasText))
     );
     color: var(
         --theme-heading-10,
@@ -13981,12 +14125,12 @@ h6 {
     text-transform: var(--heading-10-text-transform, uppercase);
     font-style: var(--heading-10-font-style, italic);
     --fallback-icon-color: var(
-        --theme-heading-10,
-        var(--fallback-theme-heading-10, CanvasText)
+        --heading-10-icon-color,
+        var(--theme-heading-10, var(--fallback-theme-heading-10, CanvasText))
     );
     --icon-color: var(
-        --theme-heading-10,
-        var(--fallback-theme-heading-10, CanvasText)
+        --heading-10-icon-color,
+        var(--theme-heading-10, var(--fallback-theme-heading-10, CanvasText))
     );
     color: var(
         --theme-heading-10,
@@ -14005,17 +14149,23 @@ h6 {
     text-transform: var(--heading-unstyled-text-transform, none);
     font-style: var(--heading-unstyled-font-style, normal);
     --fallback-icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     --icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     color: var(
@@ -14035,22 +14185,24 @@ h6 {
 .unstyled-heading em em em {
     font-style: italic;
 }
-.h10:is(.unstyled-heading),
-.h9:is(.unstyled-heading),
-.h8:is(.unstyled-heading),
-.h7:is(.unstyled-heading),
-h6:is(.unstyled-heading),
-.h6:is(.unstyled-heading),
-h5:is(.unstyled-heading),
-.h5:is(.unstyled-heading),
-h4:is(.unstyled-heading),
-.h4:is(.unstyled-heading),
-h3:is(.unstyled-heading),
-.h3:is(.unstyled-heading),
-h2:is(.unstyled-heading),
-.h2:is(.unstyled-heading),
-h1:is(.unstyled-heading),
-.h1:is(.unstyled-heading) {
+.unstyled-heading:is(
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3,
+    h4,
+    .h4,
+    h5,
+    .h5,
+    h6,
+    .h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+) {
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-normal, var(--fallback-fs-normal, 1.0625rem));
@@ -14062,17 +14214,23 @@ h1:is(.unstyled-heading),
     text-transform: var(--heading-unstyled-text-transform, none);
     font-style: var(--heading-unstyled-font-style, normal);
     --fallback-icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     --icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     color: var(
@@ -14083,70 +14241,84 @@ h1:is(.unstyled-heading),
         )
     );
 }
-.h10:is(.unstyled-heading) em,
-.h9:is(.unstyled-heading) em,
-.h8:is(.unstyled-heading) em,
-.h7:is(.unstyled-heading) em,
-h6:is(.unstyled-heading) em,
-.h6:is(.unstyled-heading) em,
-h5:is(.unstyled-heading) em,
-.h5:is(.unstyled-heading) em,
-h4:is(.unstyled-heading) em,
-.h4:is(.unstyled-heading) em,
-h3:is(.unstyled-heading) em,
-.h3:is(.unstyled-heading) em,
-h2:is(.unstyled-heading) em,
-.h2:is(.unstyled-heading) em,
-h1:is(.unstyled-heading) em,
-.h1:is(.unstyled-heading) em {
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    em {
     font-style: italic;
 }
-.h10:is(.unstyled-heading) em em,
-.h9:is(.unstyled-heading) em em,
-.h8:is(.unstyled-heading) em em,
-.h7:is(.unstyled-heading) em em,
-h6:is(.unstyled-heading) em em,
-.h6:is(.unstyled-heading) em em,
-h5:is(.unstyled-heading) em em,
-.h5:is(.unstyled-heading) em em,
-h4:is(.unstyled-heading) em em,
-.h4:is(.unstyled-heading) em em,
-h3:is(.unstyled-heading) em em,
-.h3:is(.unstyled-heading) em em,
-h2:is(.unstyled-heading) em em,
-.h2:is(.unstyled-heading) em em,
-h1:is(.unstyled-heading) em em,
-.h1:is(.unstyled-heading) em em {
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    em
+    em {
     font-style: normal;
 }
-.h10:is(.unstyled-heading) em em em,
-.h9:is(.unstyled-heading) em em em,
-.h8:is(.unstyled-heading) em em em,
-.h7:is(.unstyled-heading) em em em,
-h6:is(.unstyled-heading) em em em,
-.h6:is(.unstyled-heading) em em em,
-h5:is(.unstyled-heading) em em em,
-.h5:is(.unstyled-heading) em em em,
-h4:is(.unstyled-heading) em em em,
-.h4:is(.unstyled-heading) em em em,
-h3:is(.unstyled-heading) em em em,
-.h3:is(.unstyled-heading) em em em,
-h2:is(.unstyled-heading) em em em,
-.h2:is(.unstyled-heading) em em em,
-h1:is(.unstyled-heading) em em em,
-.h1:is(.unstyled-heading) em em em {
+.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
+    em
+    em
+    em {
     font-style: italic;
 }
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]),
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) {
+.unstyled-heading:where(
+    [role="heading"][aria-level="1"],
+    [role="heading"][aria-level="2"],
+    [role="heading"][aria-level="3"],
+    [role="heading"][aria-level="4"],
+    [role="heading"][aria-level="5"],
+    [role="heading"][aria-level="6"],
+    [role="heading"][aria-level="7"],
+    [role="heading"][aria-level="8"],
+    [role="heading"][aria-level="9"],
+    [role="heading"][aria-level="10"]
+) {
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-normal, var(--fallback-fs-normal, 1.0625rem));
@@ -14158,17 +14330,23 @@ h1:is(.unstyled-heading) em em em,
     text-transform: var(--heading-unstyled-text-transform, none);
     font-style: var(--heading-unstyled-font-style, normal);
     --fallback-icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     --icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     color: var(
@@ -14179,40 +14357,52 @@ h1:is(.unstyled-heading) em em em,
         )
     );
 }
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) em,
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) em {
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    em {
     font-style: italic;
 }
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) em em {
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    em
+    em {
     font-style: normal;
 }
-:is(.unstyled-heading):where([role="heading"][aria-level="10"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="9"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="8"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="7"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="6"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="5"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="4"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="3"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="2"]) em em em,
-:is(.unstyled-heading):where([role="heading"][aria-level="1"]) em em em {
+.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
+        [role="heading"][aria-level="10"]
+    )
+    em
+    em
+    em {
     font-style: italic;
 }
 /* # GLOBALS - LISTS
@@ -14447,6 +14637,26 @@ fieldset legend {
     --display: block;
     display: var(--fallback-display, block);
     --fallback-focus-ring-outline-offset: 0;
+    --fallback-icon-inline-buffer: var(--heading-unstyled-icon-buffer, 0.25em);
+    --fallback-icon-inline-buffer-start: var(
+        --heading-unstyled-icon-buffer-start,
+        1
+    );
+    --fallback-icon-inline-buffer-end: var(
+        --heading-unstyled-icon-buffer-end,
+        0.125
+    );
+    --fallback-icon-font-top: var(--heading-unstyled-icon-font-top, 0.1875em);
+    --fallback-icon-pseudo-top: var(
+        --heading-unstyled-icon-pseudo-top,
+        -0.0625em
+    );
+    --fallback-icon-size-font: var(--heading-unstyled-icon-size-font, 1em);
+    --fallback-icon-size-pseudo: var(--heading-unstyled-icon-size-pseudo, 1em);
+    --fallback-icon-vertical-align: var(
+        --heading-unstyled-icon-vertical-align,
+        middle
+    );
     font-family: inherit;
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-rel-normal, 1em);
@@ -14459,17 +14669,23 @@ fieldset legend {
     text-wrap: balance;
     font-style: var(--heading-unstyled-font-style, normal);
     --fallback-icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     --icon-color: var(
-        --heading-unstyled-color,
+        --heading-unstyled-icon-color,
         var(
-            --theme-text-primary,
-            var(--fallback-theme-text-primary, CanvasText)
+            --heading-unstyled-color,
+            var(
+                --theme-text-primary,
+                var(--fallback-theme-text-primary, CanvasText)
+            )
         )
     );
     color: var(
@@ -15875,10 +16091,13 @@ a[href].button {
         --button-icon-buffer-end,
         0
     ) !important;
-    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em);
-    --fallback-icon-pseudo-top: var(--button-icon-pseudo-top, -0.0625em);
-    --fallback-icon-size-font: var(--button-icon-size-font, 1em);
-    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em);
+    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em) !important;
+    --fallback-icon-pseudo-top: var(
+        --button-icon-pseudo-top,
+        -0.0625em
+    ) !important;
+    --fallback-icon-size-font: var(--button-icon-size-font, 1em) !important;
+    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em) !important;
     --fallback-icon-vertical-align: var(
         --button-icon-vertical-align,
         middle
@@ -18190,10 +18409,13 @@ input[data-state-active="true"][type="submit"].button-grey * {
         --button-icon-buffer-end,
         0
     ) !important;
-    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em);
-    --fallback-icon-pseudo-top: var(--button-icon-pseudo-top, -0.0625em);
-    --fallback-icon-size-font: var(--button-icon-size-font, 1em);
-    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em);
+    --fallback-icon-font-top: var(--button-icon-font-top, 0.1875em) !important;
+    --fallback-icon-pseudo-top: var(
+        --button-icon-pseudo-top,
+        -0.0625em
+    ) !important;
+    --fallback-icon-size-font: var(--button-icon-size-font, 1em) !important;
+    --fallback-icon-size-pseudo: var(--button-icon-size-pseudo, 1em) !important;
     --fallback-icon-vertical-align: var(
         --button-icon-vertical-align,
         middle
@@ -19015,6 +19237,26 @@ td > :first-child {
 th {
     min-width: 6rem;
     --fallback-focus-ring-outline-offset: 0;
+    --fallback-icon-inline-buffer: var(--heading-unstyled-icon-buffer, 0.25em);
+    --fallback-icon-inline-buffer-start: var(
+        --heading-unstyled-icon-buffer-start,
+        1
+    );
+    --fallback-icon-inline-buffer-end: var(
+        --heading-unstyled-icon-buffer-end,
+        0.125
+    );
+    --fallback-icon-font-top: var(--heading-unstyled-icon-font-top, 0.1875em);
+    --fallback-icon-pseudo-top: var(
+        --heading-unstyled-icon-pseudo-top,
+        -0.0625em
+    );
+    --fallback-icon-size-font: var(--heading-unstyled-icon-size-font, 1em);
+    --fallback-icon-size-pseudo: var(--heading-unstyled-icon-size-pseudo, 1em);
+    --fallback-icon-vertical-align: var(
+        --heading-unstyled-icon-vertical-align,
+        middle
+    );
     font-family: inherit;
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-rel-normal, 1em);
@@ -22229,86 +22471,46 @@ body {
     margin-block-end: var(--alert-heading-unstyled-margin-block-end, 0em);
 }
 
-.alert-block > .alert-block__headline.h10:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h9:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h8:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h7:is(.unstyled-heading),
-.alert-block > h6.alert-block__headline:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h6:is(.unstyled-heading),
-.alert-block > h5.alert-block__headline:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h5:is(.unstyled-heading),
-.alert-block > h4.alert-block__headline:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h4:is(.unstyled-heading),
-.alert-block > h3.alert-block__headline:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h3:is(.unstyled-heading),
-.alert-block > h2.alert-block__headline:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h2:is(.unstyled-heading),
-.alert-block > h1.alert-block__headline:is(.unstyled-heading),
-.alert-block > .alert-block__headline.h1:is(.unstyled-heading) {
+.alert-block
+    > .alert-block__headline.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    ) {
     margin-block: 0;
 }
 .alert-block
-    > .alert-block__headline.h10:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h9:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h8:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h7:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > h6.alert-block__headline:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h6:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > h5.alert-block__headline:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h5:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > h4.alert-block__headline:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h4:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > h3.alert-block__headline:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h3:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > h2.alert-block__headline:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h2:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > h1.alert-block__headline:is(.unstyled-heading)
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline.h1:is(.unstyled-heading)
+    > .alert-block__headline.unstyled-heading:is(
+        h1,
+        .h1,
+        h2,
+        .h2,
+        h3,
+        .h3,
+        h4,
+        .h4,
+        h5,
+        .h5,
+        h6,
+        .h6,
+        .h7,
+        .h8,
+        .h9,
+        .h10
+    )
     > .alert-block__icon
     + * {
     margin-block-start: var(
@@ -22319,104 +22521,32 @@ body {
 }
 
 .alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
+    > .alert-block__headline.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
         [role="heading"][aria-level="10"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="9"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="8"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="7"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="6"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="5"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="4"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="3"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="2"]
-    ),
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="1"]
     ) {
     margin-block: 0;
 }
 .alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
+    > .alert-block__headline.unstyled-heading:where(
+        [role="heading"][aria-level="1"],
+        [role="heading"][aria-level="2"],
+        [role="heading"][aria-level="3"],
+        [role="heading"][aria-level="4"],
+        [role="heading"][aria-level="5"],
+        [role="heading"][aria-level="6"],
+        [role="heading"][aria-level="7"],
+        [role="heading"][aria-level="8"],
+        [role="heading"][aria-level="9"],
         [role="heading"][aria-level="10"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="9"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="8"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="7"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="6"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="5"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="4"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="3"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="2"]
-    )
-    > .alert-block__icon
-    + *,
-.alert-block
-    > .alert-block__headline:is(.unstyled-heading):where(
-        [role="heading"][aria-level="1"]
     )
     > .alert-block__icon
     + * {

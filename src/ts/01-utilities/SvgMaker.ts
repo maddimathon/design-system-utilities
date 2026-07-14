@@ -117,9 +117,7 @@ export class SvgMaker<
     }
 
     public svgCssEmbedded(): string {
-        return `<svg ${ this.svgAttrString( [
-            `title="${ this.ariaLabel }"`,
-        ] ) }>${ this.innerSVG }</svg>`.replace( /\s*\n+\s*/g, '' );
+        return `<svg ${ this.svgAttrString() }>${ this.innerSVG }</svg>`.replace( /\s*\n+\s*/g, '' );
     }
 
     public svgFile(): string {

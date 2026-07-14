@@ -143,7 +143,13 @@ export function astroConfig<
         true,
     ) as AstroUserConfig<T_Locales, T_Driver, T_FontProviders>;
 
-    return astro_astroConfig( parsedInputConfig, envConfig );
+    return astro_astroConfig( parsedInputConfig, {
+        ...envConfig,
+        styles: {
+            icon: false,
+            ...envConfig.styles,
+        },
+    } );
 }
 
 /**

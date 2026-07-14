@@ -929,6 +929,7 @@ export class Tokens_Icons<
             },
             ( [ key, obj ]: [ Tokens_Icons.DefaultIcon, _IconType ] ) => ( {
                 ...obj,
+                ariaLabel: obj.ariaLabel ?? `${ obj.label } icon`,
 
                 meta: {
                     ...obj.meta,

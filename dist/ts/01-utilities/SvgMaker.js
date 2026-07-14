@@ -82,9 +82,7 @@ export class SvgMaker {
         ].join(' ');
     }
     svgCssEmbedded() {
-        return `<svg ${this.svgAttrString([
-            `title="${this.ariaLabel}"`,
-        ])}>${this.innerSVG}</svg>`.replace(/\s*\n+\s*/g, '');
+        return `<svg ${this.svgAttrString()}>${this.innerSVG}</svg>`.replace(/\s*\n+\s*/g, '');
     }
     svgFile() {
         return [

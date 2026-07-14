@@ -199,14 +199,8 @@ export declare namespace Tokens_CSS_Style {
             style: "normal" | "italic";
             weight: WholeTokenLevel;
         };
-        icon: Pick<IconStyles<never>, 'vertical-align'> & {
-            buffer: IconStyles<never>['inline']['buffer'];
-            embedded: {
-                bottom: CSS.Number.Em;
-            };
-            font: Pick<IconStyles<never>['font'], 'top'>;
-            pseudo: Pick<IconStyles<never>['pseudo'], 'top'>;
-            size: Omit<IconStyles<never>['size'], '$' | 'large'>;
+        icon: Omit<IconStyles_Spacing, 'size'> & {
+            size: Omit<IconStyles_Spacing['size'], '$' | 'large'>;
         };
         'letter-spacing': CSS.LetterSpacing;
         'line-height': CSS.LineHeight;
@@ -318,6 +312,13 @@ export declare namespace Tokens_CSS_Style {
             style: "normal" | "italic";
             weight: WholeTokenLevel;
         };
+        icon?: undefined | RecursivePartial<Omit<IconStyles_Spacing, 'size' | 'vertical-align'>> & {
+            /**
+             * This should be a theme slug.
+             */
+            color?: undefined | string;
+            size?: undefined | Partial<Omit<IconStyles_Spacing['size'], '$' | 'large'>>;
+        };
         'letter-spacing': string;
         'line-height': CSS.LineHeight;
         'text-transform': CSS.TextTransform;
@@ -354,25 +355,38 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
+    type IconStyles_Spacing = {
+        buffer: {
+            $: CSS.Number.Em;
+            start: number;
+            end: number;
+        };
+        embedded: {
+            bottom: CSS.Number.Em;
+        };
+        font: {
+            top: CSS.Number.Em;
+        };
+        pseudo: {
+            top: CSS.Number.Em;
+        };
+        size: IconStyles<never>['size'];
+        'vertical-align': IconStyles<never>['vertical-align'];
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
     type IconStyles<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
          * This should be a theme slug.
          */
         color: string;
-        font: {
-            top: CSS.Number.Em;
-        };
+        font: IconStyles_Spacing['font'];
         inline: {
-            buffer: {
-                $: CSS.Number.Em;
-                start: number;
-                end: number;
-            };
+            buffer: IconStyles_Spacing['buffer'];
             'line-height': 'normal' | Exclude<CSS.LineHeight, AnyTokenLevel>;
         };
-        pseudo: {
-            top: CSS.Number.Em;
-        };
+        pseudo: IconStyles_Spacing['pseudo'];
         size: {
             $: CSS.Number.Em;
             large: CSS.Number.Em;
@@ -452,12 +466,6 @@ export declare namespace Tokens_CSS_Style {
          */
         color: string;
         font: Omit<HeadingStyles_Unstyled['font'], 'family'>;
-        icon: {
-            /**
-             * This should be a theme slug.
-             */
-            color: string;
-        };
         margin: HeadingStyles['margin'];
     };
     /**
@@ -679,7 +687,7 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         subheading: {
-            [L in RequiredHeadingLevels]: RecursivePartial<SubheadingStyles>;
+            [L in RequiredHeadingLevels | 'unstyled']?: undefined | RecursivePartial<SubheadingStyles>;
         } & {
             [key: number]: RecursivePartial<SubheadingStyles>;
         };
@@ -772,7 +780,7 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         subheading?: {
-            [L in RequiredHeadingLevels]: RecursivePartial<SubheadingStyles>;
+            [L in RequiredHeadingLevels | 'unstyled']?: undefined | RecursivePartial<SubheadingStyles>;
         } & {
             [key: number]: RecursivePartial<SubheadingStyles>;
         };
