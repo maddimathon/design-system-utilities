@@ -147,6 +147,7 @@
             font-size: var-style(heading-unstyled-font-size);
         }
     }
+    @content (fontSize);
 
     @if $print_textTransform {
         %text-transform-lowercase {
@@ -162,6 +163,7 @@
             font-weight: inherit;
         }
     }
+    @content (textTransform);
 
     @if $print_textAlign {
         %text-align-start {
@@ -176,6 +178,7 @@
             text-align: end;
         }
     }
+    @content (textAlign);
 
     @if $print_fontFamily {
         @if font-family-exists(icons) {
@@ -184,6 +187,7 @@
             }
         }
     }
+    @content (fontFamily);
 }
 
 ///
@@ -231,6 +235,7 @@
             background: transparent !important;
         }
     }
+    @content (background);
 
     @if $print_color {
         %color-default {
@@ -243,6 +248,7 @@
             }
         }
     }
+    @content (color);
 }
 
 ///
@@ -253,20 +259,46 @@
     $print_theme: true,
     $print_typography: true,
     //
+    $content_exists: null,
     $css_headings: null
 ) {
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @content (layout-before);
     @if $print_layout {
-        @include template-content-utilities-layout($css_headings: $css_headings);
+        @include template-content-utilities-layout(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($_loc) {
+            @content (layout--#{$_loc});
+        }
     }
     @content (layout);
 
+    @content (typography-before);
     @if $print_typography {
-        @include template-content-utilities-typography($css_headings: $css_headings);
+        @include template-content-utilities-typography(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($_loc) {
+            @content (typography--#{$_loc});
+        }
     }
     @content (typography);
 
+    @content (theme-before);
     @if $print_theme {
-        @include template-content-utilities-theme($css_headings: $css_headings);
+        @include template-content-utilities-theme(
+                $content_exists: $content_exists,
+                $css_headings: $css_headings
+            )
+            using ($_loc) {
+            @content (theme--#{$_loc});
+        }
     }
     @content (theme);
 }

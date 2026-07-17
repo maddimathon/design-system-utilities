@@ -1,0 +1,86 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+
+@use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+// @use '../03-snippets' as *;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin template-content-abstracts(
+    $print_keyframes: map.get(config.$template_styles, keyframes),
+    $print_tokens: config.$template_tokens,
+    //
+    $css_headings: null,
+    $args...
+) {
+    $_print_any: $print_keyframes or $print_tokens;
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and $_print_any,
+            true,
+            null
+        );
+    }
+
+    @include utils.template-content-abstracts(
+            $print_tokens: false,
+            $css_headings: $css_headings,
+            $args...
+        )
+        using ($location) {
+        @if $location == tokens and $print_tokens {
+            @if $css_headings {
+                /* # TOKENS & PROPERTIES
+                 * ======================================================================== */
+            }
+
+            @include debug-checkpoint(
+                'design-system-utilities/#{config.$template_slug} - tokens start',
+                $level: config.$template_debug_checkpointsLevel
+            );
+
+            @include tokens-all(
+                $checkpointName:
+                    'design-system-utilities/#{config.$template_slug}',
+                $checkpointLevel: config.$template_debug_checkpointsLevel + 1
+            );
+
+            @include debug-checkpoint(
+                'design-system-utilities/#{config.$template_slug} - tokens end',
+                $level: config.$template_debug_checkpointsLevel + 1
+            );
+
+            @content ($location);
+        } @else {
+            @content ($location);
+        }
+    }
+
+    @if $print_keyframes {
+        @if $css_headings {
+            /* # ANIMATIONS
+             * ======================================================================== */
+        }
+
+        @include template-design-system {
+            @include animation-keyframes;
+        }
+
+        @include debug-checkpoint(
+            'design-system-utilities/#{config.$template_slug} - animation keyframes end',
+            $level: config.$template_debug_checkpointsLevel + 1
+        );
+    }
+}

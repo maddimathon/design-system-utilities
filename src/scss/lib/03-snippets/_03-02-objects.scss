@@ -20,57 +20,6 @@
 // @use '03-01-accessbility' as *;
 
 ///
-/// Defines icon spacing properties if those style properties exist, else
-/// fallsback to defaults if $includeBase is true.
-///
-/// @since ___PKG_VERSION___
-///
-@mixin snippet-icon-spacing-props($propPrefix, $includeBase: true, $important: false) {
-    $importantSuffix: if($important, ' !important', '');
-
-    @each $prop,
-        $style
-            in (
-                (icon-inline-buffer, icon-buffer),
-                (icon-inline-buffer-start, icon-buffer-start),
-                (icon-inline-buffer-end, icon-buffer-end),
-                (icon-font-top, icon-font-top),
-                (icon-pseudo-top, icon-pseudo-top),
-                (icon-size-font, icon-size-font),
-                (icon-size-pseudo, icon-size-pseudo),
-                (icon-vertical-align, icon-vertical-align)
-            )
-    {
-        $_value: if(
-            $propPrefix,
-            style-value(#{$propPrefix}-#{$style}, $failureReturn: null, $warnOnFail: false),
-            null
-        );
-
-        @if $_value != null {
-            @include cx-prop(
-                $prop,
-                var-style(#{$propPrefix}-#{$style}, $fallback: $_value) #{$importantSuffix}
-            );
-        } @else if $includeBase {
-            @include cx-prop(
-                $prop,
-                if(
-                        $propPrefix,
-                        var-style(
-                            #{$propPrefix}-#{$style},
-                            $fallback: style-value($prop),
-                            $fallbackOnly: true
-                        ),
-                        style-value($prop)
-                    )
-                    #{$importantSuffix}
-            );
-        }
-    }
-}
-
-///
 /// Outputs selectors and rules for img, figure, figcaption, and similar styles.
 ///
 /// @since ___PKG_VERSION___

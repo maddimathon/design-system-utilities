@@ -6,6 +6,7 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../../config';
 @use '../../../tokens';
@@ -13,6 +14,75 @@
 @use '../../01-functions' as *;
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
+
+///
+/// Defines icon spacing properties if those style properties exist, else
+/// fallsback to defaults if $includeBase is true.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin props-icon-spacing(
+    $propPrefix,
+    $includeBase: true,
+    $includeSizeFallback: true,
+    $important: false,
+    $overrides: ()
+) {
+    $importantSuffix: if($important, ' !important', '');
+
+    $allProperties: (
+        (icon-inline-buffer, icon-buffer, true),
+        (icon-inline-buffer-start, icon-buffer-start, true),
+        (icon-inline-buffer-end, icon-buffer-end, true),
+        (icon-font-top, icon-font-top, true),
+        (icon-pseudo-top, icon-pseudo-top, true),
+        (icon-size-font, icon-size-font, $includeSizeFallback),
+        (icon-size-pseudo, icon-size-pseudo, $includeSizeFallback),
+        (icon-vertical-align, icon-vertical-align, true)
+    );
+
+    @each $prop, $style, $includeFallbackWithBase in $allProperties {
+        $_fallback: if(
+            map.has-key($overrides, $prop),
+            map.get($overrides, $prop),
+            if(
+                $propPrefix,
+                style-value(
+                    #{$propPrefix}-#{$style},
+                    $failureReturn: null,
+                    $warnOnFail: false
+                ),
+                null
+            )
+        );
+
+        @if $_fallback != null or ($includeBase and $includeFallbackWithBase) {
+            @include utils.cx-prop(
+                $prop,
+                string.concat(
+                    if(
+                        $_fallback != null,
+                        var-style(
+                            #{$propPrefix}-#{$style},
+                            $fallback: $_fallback
+                        ),
+                        if(
+                            $propPrefix,
+                            var-style(
+                                #{$propPrefix}-#{$style},
+                                $fallback: style-value($prop),
+                                $fallbackOnly: true
+                            ),
+                            style-value($prop)
+                        )
+                    ),
+                    $importantSuffix
+                ),
+                $allPrefixes: true
+            );
+        }
+    }
+}
 
 ///
 /// Prints out the border width custom property tokens based on config.

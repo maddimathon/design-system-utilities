@@ -459,10 +459,7 @@
         _snippet-subheading--var-style($slug, text-transform)
     );
 
-    @include snippet-icon-spacing-props(
-        if($slug, subheading-#{$slug}, null),
-        $includeBase: $includeBase
-    );
+    @include props-icon-spacing(if($slug, subheading-#{$slug}, null), $includeBase: $includeBase);
 
     @if $iconColor != false {
         @include cx-prop(icon-color, $iconColor);
@@ -589,10 +586,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeIconSpacingProps {
-        @include snippet-icon-spacing-props(
-            if($slug, heading-#{$slug}, null),
-            $includeBase: $includeBase
-        );
+        @include props-icon-spacing(if($slug, heading-#{$slug}, null), $includeBase: $includeBase);
     }
 
     @if $includeMargin {
@@ -1012,7 +1006,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 ) {
     @include cx-prop(focus-ring-outline-offset, $focusRingOutlineOffset);
 
-    @include snippet-icon-spacing-props(link, $includeBase: true, $important: true);
+    @include props-icon-spacing(link, $includeBase: true, $important: true);
 
     @include prop-display(inline);
     border: none;

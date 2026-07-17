@@ -503,6 +503,15 @@
         $neverReplaceWithValue: true;
     } @else if string.index($slug, icon-) == 1 {
         $neverReplaceWithValue: true;
+    } @else if
+        config.$fn_var_neverReplaceWithValue_style_regex and
+        string.match(
+            $slug,
+            config.$fn_var_neverReplaceWithValue_style_regex,
+            $flags: config.$fn_var_neverReplaceWithValue_style_regex_flags
+        )
+    {
+        $neverReplaceWithValue: true;
     }
 
     @return config.config-do-var(

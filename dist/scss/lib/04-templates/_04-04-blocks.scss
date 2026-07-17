@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
 
@@ -35,11 +36,22 @@
     $print_toggle: map.get(config.$template_styles, toggle),
     $print_toggleNav: map.get(config.$template_styles, astro, toggleNav),
     //
+    $content_exists: null,
     $css_headings: null,
     $args...
 ) {
+    $_print_any: $print_alerts or $print_icons or $print_logos or
+        $print_searchForm or $print_sidebarWidgets or $print_siteSettingsMenu or
+        $print_siteSettingsMenu_fontOverrides or $print_stickyToggleNav or
+        $print_toggle or $print_toggleNav;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
     @if $css_headings == null {
-        $css_headings: config.$template_cssHeadings;
+        $css_headings: config.$template_cssHeadings and
+            ($_print_any or $content_exists);
     }
 
     @include debug-checkpoint(
@@ -52,11 +64,19 @@
             $print_toggle: false,
             $print_toggleNav: false,
             $print_siteSettingsMenu: false,
+            $content_exists: $content_exists,
             $css_headings: $css_headings,
             $args...
         )
         using ($location) {
-        @content ($location);
+        @if not
+            string.match(
+                $location,
+                '^(icons|toggle|toggleNav|siteSettingsMenu)(-|$)'
+            )
+        {
+            @content ($location);
+        }
     }
 
     @if $print_icons {
@@ -71,7 +91,9 @@
              * ======================================================================== */
         }
 
-        @include snippet-support-icons;
+        @include snippet-support-icons using ($location) {
+            @content (icons-#{$location});
+        }
     }
 
     @if $print_logos {
@@ -86,7 +108,10 @@
              * ======================================================================== */
         }
 
-        @include snippet-support-logos;
+        @include snippet-support-logos($multipleContentBlocks: true) using
+            ($location) {
+            @content (logos-#{$location});
+        }
     }
 
     @if $print_alerts {
@@ -101,7 +126,9 @@
              * ======================================================================== */
         }
 
-        @include snippet-support-alert-blocks;
+        @include snippet-support-alert-blocks using ($location) {
+            @content (alerts-#{$location});
+        }
     }
 
     @if $print_searchForm {
@@ -133,7 +160,9 @@
              * ======================================================================== */
         }
 
-        @include snippet-support-sidebar-widgets;
+        @include snippet-support-sidebar-widgets using ($location) {
+            @content (sidebarWidgets-#{$location});
+        }
     }
 
     @if $print_toggle {
@@ -149,7 +178,7 @@
         }
 
         @include snippet-support-toggle-block using ($location) {
-            // --toggle-loc: #{$location};
+            @content (toggle-#{$location});
         }
     }
 
@@ -165,7 +194,9 @@
              * ======================================================================== */
         }
 
-        @include snippet-support-astro-toggle-nav-menu;
+        @include snippet-support-astro-toggle-nav-menu using ($location) {
+            @content (toggleNav-#{$location});
+        }
     }
 
     @if $print_stickyToggleNav {
@@ -197,7 +228,9 @@
              * ======================================================================== */
         }
 
-        @include snippet-support-site-settings-menu;
+        @include snippet-support-site-settings-menu using ($location) {
+            @content (siteSettingsMenu-#{$location});
+        }
     }
 
     @if $print_siteSettingsMenu_fontOverrides and

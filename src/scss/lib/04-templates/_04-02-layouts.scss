@@ -43,8 +43,8 @@
 @mixin template-content-layouts-content-header(
     $print_contentHeader: map.get(config.$template_styles, astro, contentHeader),
     //
-    $css_headings: null,
-    $content_exists: null
+    $content_exists: null,
+    $css_headings: null
 ) {
     $_print_any: $print_contentHeader;
 
@@ -95,9 +95,14 @@
     $print_bodyGrid: map.get(config.$template_styles, astro, bodyGrid),
     $print_contentHeader: true,
     //
+    $content_exists: null,
     $css_headings: null,
     $args...
 ) {
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
     @include debug-checkpoint(
         '#{config.$template_slug} - layout - start',
         $level: config.$template_debug_checkpointsLevel + 1,
@@ -107,13 +112,17 @@
     @include utils.template-content-layouts(
             $print_bodyGrid: false,
             $print_contentHeader: false,
+            $content_exists: $content_exists,
             $css_headings: $css_headings,
             $args...
         )
         using ($location) {
         @if $location == body {
             @if $print_bodyGrid {
-                @include template-content-layouts-body-grid($css_headings: $css_headings);
+                @include template-content-layouts-body-grid($css_headings: $css_headings) using
+                    ($_loc) {
+                    @content (bodyGrid--#{$_loc});
+                }
             }
 
             @content ($location);
@@ -121,7 +130,13 @@
         //
         @else if $location == contentHeader {
             @if $print_contentHeader {
-                @include template-content-layouts-content-header($css_headings: $css_headings);
+                @include template-content-layouts-content-header(
+                        $content_exists: $content_exists,
+                        $css_headings: $css_headings
+                    )
+                    using ($_loc) {
+                    @content (contentHeader--#{$_loc});
+                }
             }
 
             @content ($location);

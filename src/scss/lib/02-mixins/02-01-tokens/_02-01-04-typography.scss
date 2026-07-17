@@ -253,10 +253,10 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $spacing: true,
     $spacingProp: margin,
     $top: true,
-    $useIconFont: config.$fn_pseudoIconsUseFont,
     $verticalAlign: true,
     //
-    $includeChildren: false
+    $includeChildren: false,
+    $useIconFont: config.$fn_pseudoIconsUseFont
 ) {
     $_start: if($pseudo == before, end, start);
     $_end: if($pseudo == before, start, end);
@@ -348,18 +348,23 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 ///
 @mixin font-family-icons(
     $display: false,
-    $includeSizeTokens: false,
     $spacing: null,
     $includeChildren: true,
+    $includeIconSpacing: false,
+    $includeSizeTokens: false,
     $args...
 ) {
+    @if $includeIconSpacing {
+        @include props-icon-spacing(null, $includeBase: true, $important: true);
+    }
+
     @if $includeSizeTokens {
         @include font-family-size-tokens(icons, $setLetterSpacing: false, $args...);
     }
 
     @include font-family-icons-base-properties(
         $display: $display,
-        $spacing: if($spacing == null, $display, $spacing),
+        $spacing: if($spacing == null, meta.is-truthy($display), $spacing),
         $useIconFont: true,
         $includeChildren: $includeChildren,
         $args...

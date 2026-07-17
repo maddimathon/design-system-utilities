@@ -28,14 +28,22 @@
         config.$selector_a,
         list.except(
             selector-buttons-basic(),
-            selector.unify(config.$selector_a, '.button')
+            #{selector.unify(config.$selector_a, '.button')}
         ),
         $separator: comma
     );
 
     $all: list.join(
         $all,
-        utils.get-extend-selectors-button(selector-buttons-basic(), primary)
+        utils.get-extend-selectors-button(selector-buttons-basic())
+    );
+
+    $all: list.join(
+        $all,
+        utils.get-extend-selectors-button(
+            selector-buttons-basic(),
+            tokens.$button_variation_default
+        )
     );
 
     @each $variant in tokens.$themesMeta_buttonVariations {
@@ -52,6 +60,32 @@
                     ),
                     $variant: $variant
                 )
+            )
+        );
+    }
+
+    @return $all;
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function get-extend-selectors-button-variations(
+    $selector,
+    $defaultVariant: tokens.$button_variation_default,
+    $args...
+) {
+    $all: list.join(
+        utils.get-extend-selectors-button($selector),
+        utils.get-extend-selectors-button($selector, $defaultVariant)
+    );
+
+    @each $variant in tokens.$themesMeta_buttonVariations {
+        $all: list.join(
+            $all,
+            utils.get-extend-selectors-button(
+                selector.unify($selector, '.button-#{$variant}'),
+                $variant: $variant
             )
         );
     }

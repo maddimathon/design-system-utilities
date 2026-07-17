@@ -130,17 +130,24 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         %site-sidebar {
             @include prop-display(flex);
             @include utils.snippet-content-flex-container($gap: $gap);
+
+            @content (sidebar);
         }
     }
 
     @if $includeWidget {
         %widget-block {
             @include snippet-widget-block(
-                $marginBlock: $widget_marginBlockStart $widget_marginBlockEnd
-            );
+                    $marginBlock: $widget_marginBlockStart $widget_marginBlockEnd
+                )
+                using ($location) {
+                @content (widget--#{$location});
+            }
 
             %site-sidebar > & {
                 margin-block: $widget_marginBlockEnd 0;
+
+                @content (widget--in-sidebar);
             }
         }
     }

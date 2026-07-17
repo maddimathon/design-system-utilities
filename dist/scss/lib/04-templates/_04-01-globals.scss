@@ -3,10 +3,8 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
-@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
-@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
 
@@ -16,77 +14,6 @@
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 @use '../03-snippets' as *;
-
-///
-/// @since 0.1.0-beta.0.draft
-///
-@mixin template-content-abstracts(
-    $print_keyframes: map.get(config.$template_styles, keyframes),
-    $print_tokens: config.$template_tokens,
-    //
-    $css_headings: null,
-    $args...
-) {
-    $_print_any: $print_keyframes or $print_tokens;
-
-    @if $css_headings == null {
-        $css_headings: if(
-            config.$template_cssHeadings and $_print_any,
-            true,
-            null
-        );
-    }
-
-    @include utils.template-content-abstracts(
-            $print_tokens: false,
-            $css_headings: $css_headings,
-            $args...
-        )
-        using ($location) {
-        @if $location == tokens and $print_tokens {
-            @if $css_headings {
-                /* # TOKENS & PROPERTIES
-                 * ======================================================================== */
-            }
-
-            @include debug-checkpoint(
-                'design-system-utilities/#{config.$template_slug} - tokens start',
-                $level: config.$template_debug_checkpointsLevel
-            );
-
-            @include tokens-all(
-                $checkpointName:
-                    'design-system-utilities/#{config.$template_slug}',
-                $checkpointLevel: config.$template_debug_checkpointsLevel + 1
-            );
-
-            @include debug-checkpoint(
-                'design-system-utilities/#{config.$template_slug} - tokens end',
-                $level: config.$template_debug_checkpointsLevel + 1
-            );
-
-            @content ($location);
-        } @else {
-            @content ($location);
-        }
-    }
-
-    @if $print_keyframes {
-        @if $css_headings {
-            /* # ANIMATIONS
-             * ======================================================================== */
-        }
-
-        @include template-design-system {
-            @include animation-keyframes;
-        }
-
-        @include debug-checkpoint(
-            'design-system-utilities/#{config.$template_slug} - animation keyframes end',
-            $level: config.$template_debug_checkpointsLevel + 1
-        );
-    }
-}
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -709,9 +636,14 @@
     $print_tables: true,
     $print_typography: true,
     //
+    $content_exists: null,
     $css_headings: null,
     $args...
 ) {
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
     @include utils.template-content-globals(
             $print_accessibility: false,
             $print_forms: false,
@@ -719,49 +651,74 @@
             $print_objects: false,
             $print_tables: false,
             $print_typography: false,
+            $content_exists: $content_exists,
             $css_headings: $css_headings,
             $args...
         )
         using ($location) {
         @if $location == accessibility and $print_accessibility {
             @include template-content-globals-accessibility(
-                $css_headings: $css_headings
-            );
+                    $content_exists: $content_exists,
+                    $css_headings: $css_headings
+                )
+                using ($_loc) {
+                @content (accessibility--#{$_loc});
+            }
             @content ($location);
         }
         //
         @else if $location == forms and $print_forms {
             @include template-content-globals-forms(
-                $css_headings: $css_headings
-            );
+                    $content_exists: $content_exists,
+                    $css_headings: $css_headings
+                )
+                using ($_loc) {
+                @content (forms--#{$_loc});
+            }
             @content ($location);
         }
         //
         @else if $location == lists and $print_lists {
             @include template-content-globals-lists(
-                $css_headings: $css_headings
-            );
+                    $content_exists: $content_exists,
+                    $css_headings: $css_headings
+                )
+                using ($_loc) {
+                @content (lists--#{$_loc});
+            }
             @content ($location);
         }
         //
         @else if $location == objects and $print_objects {
             @include template-content-globals-objects(
-                $css_headings: $css_headings
-            );
+                    $content_exists: $content_exists,
+                    $css_headings: $css_headings
+                )
+                using ($_loc) {
+                @content (objects--#{$_loc});
+            }
             @content ($location);
         }
         //
         @else if $location == tables and $print_tables {
             @include template-content-globals-tables(
-                $css_headings: $css_headings
-            );
+                    $content_exists: $content_exists,
+                    $css_headings: $css_headings
+                )
+                using ($_loc) {
+                @content (tables--#{$_loc});
+            }
             @content ($location);
         }
         //
         @else if $location == typography and $print_typography {
             @include template-content-globals-typography(
-                $css_headings: $css_headings
-            );
+                    $content_exists: $content_exists,
+                    $css_headings: $css_headings
+                )
+                using ($_loc) {
+                @content (typography--#{$_loc});
+            }
             @content ($location);
         }
         //
