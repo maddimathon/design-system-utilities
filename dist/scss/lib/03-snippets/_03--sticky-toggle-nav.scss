@@ -31,8 +31,8 @@
         $_navHeight: 3.125rem;
         // $_scrollPaddingFallback: calc($_navHeight + var-gap-block(layout));
 
-        @at-root #{selector.unify(&, '%root')},
-            & body {
+        @at-root #{selector.add-root-selector('%root')},
+            #{selector.add-body-selector('body')} {
             @include cx-prop(height-nav-primary, $_navHeight);
             @include cx-prop(scroll-padding-top, scroll-padding-top-value());
 

@@ -401,6 +401,15 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         $includeChildren: $includeChildren,
         $args...
     );
+
+    @if $includeChildren {
+        &:first-child {
+            margin-inline-start: 0;
+        }
+        &:last-child {
+            margin-inline-end: 0;
+        }
+    }
 }
 
 ///
