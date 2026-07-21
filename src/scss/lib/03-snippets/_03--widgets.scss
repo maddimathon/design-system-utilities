@@ -41,7 +41,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $selector_title: '%widget-block-title'
 ) {
     @include prop-display(flex);
-    @include utils.snippet-content-flex-container;
+    @include utils.snippet-body-grid--flex-container;
 
     @if $marginBlock != false {
         margin-block: $marginBlock;
@@ -129,7 +129,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     @if $includeSidebar {
         %site-sidebar {
             @include prop-display(flex);
-            @include utils.snippet-content-flex-container($gap: $gap);
+            @include utils.snippet-body-grid--flex-container($gap: $gap);
 
             @content (sidebar);
         }

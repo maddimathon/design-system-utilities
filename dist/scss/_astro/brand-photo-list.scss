@@ -23,7 +23,7 @@ $_sel_img: (
 .brand-photo-list__container {
     &--flex {
         @include lib.prop-display(flex);
-        @include lib.snippet-content-flex-container(
+        @include lib.snippet-body-grid--flex-container(
             $alignment: (
                 justify-content: start,
             ),
@@ -119,7 +119,7 @@ $_sel_img: (
 
 .brand-photo-list__sample__meta {
     @include lib.prop-display(flex);
-    @include lib.snippet-content-flex-container;
+    @include lib.snippet-body-grid--flex-container;
 
     dt {
     }
@@ -138,7 +138,7 @@ $_sel_img: (
 
     .brand-photo-list__sample__links {
         @include lib.prop-display(flex);
-        @include lib.snippet-content-flex-container;
+        @include lib.snippet-body-grid--flex-container;
 
         // margin-block: lib.var-style(flow-margin-small) 0;
         // margin-inline: 0;
@@ -169,7 +169,7 @@ $_img_maxWidth_unitless: math.deunit($_img_maxWidth);
         );
         grid-auto-rows: auto;
 
-        @include lib.snippet-content-grid-alignment(
+        @include lib.snippet-body-grid--grid-alignment(
             (
                 justify-content: space-between,
             )
@@ -188,7 +188,7 @@ $_img_maxWidth_unitless: math.deunit($_img_maxWidth);
         grid-column: auto;
 
         @include lib.prop-display(flex);
-        @include lib.snippet-content-flex-container;
+        @include lib.snippet-body-grid--flex-container;
 
         > :last-child {
             margin-block-end: 0;

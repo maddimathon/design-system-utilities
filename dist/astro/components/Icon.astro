@@ -12,7 +12,6 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 /* import - functions */
 
 /* import - values */
-import { STYLES_ICON } from 'astro:env/client';
 
 /* import - components */
 
@@ -22,7 +21,6 @@ import { STYLES_ICON } from 'astro:env/client';
 
 export type IconProps = {
     icon: SvgMaker.JsonReturn;
-    includeStyles?: boolean;
 };
 
 type Props = GenericElementProps<IconProps, 'span'>;
@@ -31,7 +29,6 @@ const {
     'aria-hidden': ariaHidden,
     'class': classList,
     icon,
-    includeStyles = STYLES_ICON,
     slot,
     ...attributes
 }: Props = Astro.props?.frontmatter ?? Astro.props;
@@ -42,4 +39,4 @@ const {
     aria-hidden={ariaHidden ? true : undefined}
     class:list={['icon', `icon--${icon.slug}`, { '||': classList }, classList]}
     set:html={icon.svgInlineLabelled.trim()}
-/>{includeStyles && <style lang='scss'>@forward '../css/icon.css';</style>}
+/>

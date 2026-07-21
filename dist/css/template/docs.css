@@ -19077,6 +19077,7 @@ html {
 body,
 body > :is(.body-subgrid),
 body > :where(main, nav, header, footer),
+body > :where(main) > :is(.main-content__article, aside),
 body > :is(.body-subgrid) > :is(.body-subgrid),
 body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     --display: grid;
@@ -19089,6 +19090,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     align-items: start;
     grid-auto-rows: auto;
     grid-auto-flow: row;
+    grid-auto-flow: row dense;
     grid-gap: 0;
     gap: 0;
     /* prettier-ignore */
@@ -19112,6 +19114,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         body,
         body > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
+        body > :where(main) > :is(.main-content__article, aside),
         body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
@@ -19125,6 +19128,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         body,
         body > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
+        body > :where(main) > :is(.main-content__article, aside),
         body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
@@ -19133,6 +19137,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         body,
         body > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
+        body > :where(main) > :is(.main-content__article, aside),
         body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
@@ -19144,6 +19149,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
             body,
             body > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
+            body > :where(main) > :is(.main-content__article, aside),
             body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
@@ -19153,6 +19159,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
             body,
             body > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
+            body > :where(main) > :is(.main-content__article, aside),
             body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
@@ -19166,6 +19173,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         body,
         body > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
+        body > :where(main) > :is(.main-content__article, aside),
         body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
@@ -19180,6 +19188,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
             body,
             body > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
+            body > :where(main) > :is(.main-content__article, aside),
             body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
@@ -19194,6 +19203,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         body,
         body > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
+        body > :where(main) > :is(.main-content__article, aside),
         body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
@@ -19206,6 +19216,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
             body,
             body > :is(.body-subgrid),
             body > :where(main, nav, header, footer),
+            body > :where(main) > :is(.main-content__article, aside),
             body > :is(.body-subgrid) > :is(.body-subgrid),
             body > :where(main, nav, header, footer) > :is(.body-subgrid)
         )
@@ -19218,6 +19229,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         body,
         body > :is(.body-subgrid),
         body > :where(main, nav, header, footer),
+        body > :where(main) > :is(.main-content__article, aside),
         body > :is(.body-subgrid) > :is(.body-subgrid),
         body > :where(main, nav, header, footer) > :is(.body-subgrid)
     )
@@ -19231,11 +19243,11 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
         /* prettier-ignore */
         --grid-template-columns--page: 0 [page-start] minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) var(--gap-inline-layout-half, 4vw) [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) [page-end] 0;
         /* prettier-ignore */
-        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] minmax(auto, calc(18rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(18rem / 2)) [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr [page-start] minmax(auto, calc(18rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(18rem / 2)) [page-end] 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
         grid-template-columns: var(
                 --gap-inline-layout-half,
                 4vw
-            ) [site-start] 1fr 0 [page-start] minmax(
+            ) [site-start] 1fr [page-start] minmax(
                 auto,
                 calc(var(--width-sidebar, 18rem) / 2)
             ) var(
@@ -19250,7 +19262,7 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
             ) minmax(
                 auto,
                 calc(var(--width-sidebar, 18rem) / 2)
-            ) [page-end] 0 1fr [site-end] var(--gap-inline-layout-half, 4vw);
+            ) [page-end] 1fr [site-end] var(--gap-inline-layout-half, 4vw);
     }
 }
 body {
@@ -19275,6 +19287,7 @@ body {
 
 body > :is(.body-subgrid),
 body > :where(main, nav, header, footer),
+body > :where(main) > :is(.main-content__article, aside),
 body > :is(.body-subgrid) > :is(.body-subgrid),
 body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     grid-column: 1/-1;
@@ -19299,11 +19312,12 @@ body > :where(main, nav, header, footer) > :is(.body-subgrid) {
     }
 }
 
-body > :where(aside, .site-sidebar) {
-    --grid-column: sidebar-start/sidebar-end;
-    grid-column: sidebar-start/sidebar-end;
-    grid-column: var(--grid-column, sidebar-start/sidebar-end);
-    width: auto;
+body > :where(aside),
+body > :where(main) > :where(aside) {
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
+    margin-top: max(1.625rem, min(5svw, 3.125rem));
+    margin-top: var(--gap-block-layout, 5vw);
+    margin-bottom: 0;
 }
 
 :where(.layout_content-only) > :where(header) > :where(*) {
@@ -19313,58 +19327,52 @@ body > :where(aside, .site-sidebar) {
     width: auto;
 }
 
-:where(.layout_full-width) > :where(main) > :where(*) {
-    --grid-column: content-start/content-end;
-    grid-column: content-start/content-end;
-    grid-column: var(--grid-column, content-start/content-end);
-    width: auto;
-}
-@media (min-width: 40.875em) {
-    :where(.layout_full-width) > :where(main) > :where(*) {
-        --grid-column: page-start/page-end;
-        grid-column: page-start/page-end;
-        grid-column: var(--grid-column, page-start/page-end);
-        width: auto;
-    }
-}
-
-:where(.layout_extra-wide) > :where(main) > :where(*) {
-    --grid-column: content-start/content-end;
-    grid-column: content-start/content-end;
-    grid-column: var(--grid-column, content-start/content-end);
-    width: auto;
-}
-@media (min-width: 40.875em) {
-    :where(.layout_extra-wide) > :where(main) > :where(*) {
-        --grid-column: page-start/page-end;
-        grid-column: page-start/page-end;
-        grid-column: var(--grid-column, page-start/page-end);
-        width: auto;
-    }
-}
-@media (min-width: 66.75em) {
-    :where(.layout_extra-wide) > :where(main) > :where(*) {
-        --grid-column: site-start/site-end;
-        grid-column: site-start/site-end;
-        grid-column: var(--grid-column, site-start/site-end);
-        width: auto;
-    }
+.layout_full-width,
+.layout_extra-wide {
+    /* prettier-ignore */
+    --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] 0 [content-start] minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) var(--gap-inline-layout-half, 4vw) minmax(auto, var(--width-content, 36rem)) var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) [content-end] 0 [sidebar-end] 0 [page-end] 0;
+    /* prettier-ignore */
+    grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr [page-start] 0 [sidebar-start] 0 [content-start] minmax(auto, calc(18rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, 36rem) max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(18rem / 2)) [content-end] 0 [sidebar-end] 0 [page-end] 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+    grid-template-columns: var(
+            --gap-inline-layout-half,
+            4vw
+        ) [site-start] 1fr [page-start] 0 [sidebar-start] 0 [content-start] minmax(
+            auto,
+            calc(var(--width-sidebar, 18rem) / 2)
+        ) var(--gap-inline-layout-half, 4vw) minmax(
+            auto,
+            var(--width-content, 36rem)
+        ) var(--gap-inline-layout-half, 4vw) minmax(
+            auto,
+            calc(var(--width-sidebar, 18rem) / 2)
+        ) [content-end] 0 [sidebar-end] 0 [page-end] 1fr [site-end] var(
+            --gap-inline-layout-half,
+            4vw
+        );
 }
 
-@media (min-width: 55.625em) {
-    .layout_sidebar-left > :where(main, aside, .site-sidebar),
-    .layout_sidebar-right > :where(main, aside, .site-sidebar) {
-        /* prettier-ignore */
-        --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] 0 [content-start] 1fr [content-end] 0 [sidebar-end] 0 [page-end] 0;
-        /* prettier-ignore */
-        grid-template-columns: 0 [site-start] 0 [page-start] 0 [sidebar-start] 0 [content-start] 1fr [content-end] 0 [sidebar-end] 0 [page-end] 0 [site-end] 0;
-    }
-    .layout_sidebar-left > :where(main),
-    .layout_sidebar-right > :where(main) {
-        --grid-column: content-start/content-end;
-        grid-column: content-start/content-end;
-        grid-column: var(--grid-column, content-start/content-end);
-    }
+.layout_extra-wide > :where(main),
+.layout_extra-wide > :where(main) > :where(.main-content__article) {
+    /* prettier-ignore */
+    --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] 0 [content-start] 1fr minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) var(--gap-inline-layout-half, 4vw) minmax(auto, var(--width-content, 36rem)) var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) 1fr [content-end] 0 [sidebar-end] 0 [page-end] 0;
+    /* prettier-ignore */
+    grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 0 [page-start] 0 [sidebar-start] 0 [content-start] 1fr minmax(auto, calc(18rem / 2)) max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, 36rem) max(0.625rem, min(4svw, 3.5625rem)) minmax(auto, calc(18rem / 2)) 1fr [content-end] 0 [sidebar-end] 0 [page-end] 0 [site-end] max(0.625rem, min(4svw, 3.5625rem));
+    grid-template-columns: var(
+            --gap-inline-layout-half,
+            4vw
+        ) [site-start] 0 [page-start] 0 [sidebar-start] 0 [content-start] 1fr minmax(
+            auto,
+            calc(var(--width-sidebar, 18rem) / 2)
+        ) var(--gap-inline-layout-half, 4vw) minmax(
+            auto,
+            var(--width-content, 36rem)
+        ) var(--gap-inline-layout-half, 4vw) minmax(
+            auto,
+            calc(var(--width-sidebar, 18rem) / 2)
+        ) 1fr [content-end] 0 [sidebar-end] 0 [page-end] 0 [site-end] var(
+            --gap-inline-layout-half,
+            4vw
+        );
 }
 
 @media (min-width: 55.625em) {
@@ -19372,11 +19380,11 @@ body > :where(aside, .site-sidebar) {
         /* prettier-ignore */
         --grid-template-columns--page: 0 [page-start] 0 [sidebar-start] minmax(auto, var(--width-sidebar, 18rem)) [sidebar-end] var(--gap-inline-layout, 8vw) [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [page-end] 0;
         /* prettier-ignore */
-        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(auto, 18rem) [sidebar-end] max(1.25rem, min(8svw, 7.125rem)) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr [page-start] 0 [sidebar-start] minmax(auto, 18rem) [sidebar-end] max(1.25rem, min(8svw, 7.125rem)) [content-start] minmax(auto, 36rem) [content-end] 0 [page-end] 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
         grid-template-columns: var(
                 --gap-inline-layout-half,
                 4vw
-            ) [site-start] 1fr 0 [page-start] 0 [sidebar-start] minmax(
+            ) [site-start] 1fr [page-start] 0 [sidebar-start] minmax(
                 auto,
                 var(--width-sidebar, 18rem)
             ) [sidebar-end] var(
@@ -19385,23 +19393,20 @@ body > :where(aside, .site-sidebar) {
             ) [content-start] minmax(
                 auto,
                 var(--width-content, 36rem)
-            ) [content-end] 0 [page-end] 0 1fr [site-end] var(
+            ) [content-end] 0 [page-end] 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );
     }
-}
-
-@media (min-width: 55.625em) {
     .layout_sidebar-right {
         /* prettier-ignore */
         --grid-template-columns--page: 0 [page-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, var(--width-sidebar, 18rem)) [sidebar-end] 0 [page-end] 0;
         /* prettier-ignore */
-        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] max(1.25rem, min(8svw, 7.125rem)) [sidebar-start] minmax(auto, 18rem) [sidebar-end] 0 [page-end] 0 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
+        grid-template-columns: max(0.625rem, min(4svw, 3.5625rem)) [site-start] 1fr [page-start] 0 [content-start] minmax(auto, 36rem) [content-end] max(1.25rem, min(8svw, 7.125rem)) [sidebar-start] minmax(auto, 18rem) [sidebar-end] 0 [page-end] 1fr [site-end] max(0.625rem, min(4svw, 3.5625rem));
         grid-template-columns: var(
                 --gap-inline-layout-half,
                 4vw
-            ) [site-start] 1fr 0 [page-start] 0 [content-start] minmax(
+            ) [site-start] 1fr [page-start] 0 [content-start] minmax(
                 auto,
                 var(--width-content, 36rem)
             ) [content-end] var(
@@ -19410,13 +19415,30 @@ body > :where(aside, .site-sidebar) {
             ) [sidebar-start] minmax(
                 auto,
                 var(--width-sidebar, 18rem)
-            ) [sidebar-end] 0 [page-end] 0 1fr [site-end] var(
+            ) [sidebar-end] 0 [page-end] 1fr [site-end] var(
                 --gap-inline-layout-half,
                 4vw
             );
     }
+    .layout_sidebar-left > :where(main) > :is(.main-content__article),
+    .layout_sidebar-right > :where(main) > :is(.main-content__article) {
+        --grid-column: content-start/content-end;
+        grid-column: content-start/content-end;
+        grid-column: var(--grid-column, content-start/content-end);
+        width: auto;
+    }
+    .layout_sidebar-left > :is(aside),
+    .layout_sidebar-left > :where(main) > :is(aside),
+    .layout_sidebar-right > :is(aside),
+    .layout_sidebar-right > :where(main) > :is(aside) {
+        --grid-column: sidebar-start/sidebar-end;
+        grid-column: sidebar-start/sidebar-end;
+        grid-column: var(--grid-column, sidebar-start/sidebar-end);
+        width: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
-
 /*! END of @maddimathon/design-system-utilities/template/docs */
 /* # LAYOUTS - CONTENT HEADER
  * ======================================================================== */
@@ -21438,6 +21460,7 @@ body > :where(aside, .site-sidebar) {
     align-items: start;
     grid-auto-rows: auto;
     grid-auto-flow: row;
+    grid-auto-flow: row dense;
     grid-gap: 0 0.8125rem;
     grid-gap: 0 var(--mrg-firm-300, 0.8125rem);
     gap: 0 0.8125rem;
@@ -23789,14 +23812,14 @@ body > nav[data-toggle-container] {
     display: var(--display, grid);
     position: relative;
     /* prettier-ignore */
-    --grid-template-columns--toggle: var(--grid-template-columns--page, 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] 1fr [page-end] 0);
+    --grid-template-columns--toggle: var(--grid-template-columns--page, [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] 1fr [page-end]);
     /* prettier-ignore */
-    grid-template-columns: 0 [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end] 0;
+    grid-template-columns: [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end];
     grid-template-columns: var(
         --grid-template-columns--page,
-        0 [page-start] 1fr [sidebar-start] 0 [content-start]
+        [page-start] 1fr [sidebar-start] 0 [content-start]
             minmax(auto, var(--width-content, 36rem)) [content-end] 0
-            [sidebar-end] 1fr [page-end] 0
+            [sidebar-end] 1fr [page-end]
     );
     grid-template-columns: subgrid;
     justify-content: center;

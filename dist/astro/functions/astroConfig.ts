@@ -12,7 +12,6 @@ import type {
     AstroUserConfig,
     FontProvider,
     Locales,
-    SessionDriverName,
 } from 'astro';
 
 import { } from 'astro/config';
@@ -25,7 +24,7 @@ import {
 
 import {
     astroConfig as astro_astroConfig,
-} from '@maddimathon/utility-astro';
+} from '@maddimathon/utility-astro/functions/astroConfig';
 
 import {
     type Config as BuildConfig,
@@ -51,7 +50,7 @@ import {
  */
 export function astroConfig<
     T_Locales extends Locales = never,
-    T_Driver extends SessionDriverName = never,
+    T_Driver extends string = never,
     T_FontProviders extends Array<FontProvider> = never
 >(
     homepage: URL,
@@ -143,13 +142,7 @@ export function astroConfig<
         true,
     ) as AstroUserConfig<T_Locales, T_Driver, T_FontProviders>;
 
-    return astro_astroConfig( parsedInputConfig, {
-        ...envConfig,
-        styles: {
-            icon: false,
-            ...envConfig.styles,
-        },
-    } );
+    return astro_astroConfig( parsedInputConfig, envConfig );
 }
 
 /**
