@@ -37,7 +37,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 $: '400',
                 large: '600',
                 small: '300',
-                button: '300',
+                button: {
+                    $: '300',
+                    touch: '400',
+                },
             },
             form: {
                 'flow-margin': {
@@ -89,10 +92,27 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
                 Tokens_CSS_Style.toggleStyle(icon, widget, partial.toggle),
             ]);
+            const flowMargin_button_default = partial?.['flow-margin']?.small ?? '200';
+            const flowMargin_button_touch = partial?.['flow-margin']?.$ ?? '300';
+            if (typeof partial['flow-margin'] !== 'object') {
+                partial['flow-margin'] = {};
+            }
+            const partial_flowMargin_button = typeof partial?.['flow-margin']?.button === 'object'
+                ? deleteUndefinedProps({
+                    $: partial?.['flow-margin']?.button?.$ ?? flowMargin_button_default,
+                    touch: partial?.['flow-margin']?.button?.touch ?? flowMargin_button_touch,
+                })
+                : {
+                    $: partial?.['flow-margin']?.button ?? flowMargin_button_default,
+                    touch: flowMargin_button_touch,
+                };
             return {
                 alert,
                 button,
-                'flow-margin': mergeArgs(defaults['flow-margin'], partial['flow-margin'], true),
+                'flow-margin': mergeArgs(defaults['flow-margin'], {
+                    ...partial?.['flow-margin'],
+                    button: partial_flowMargin_button,
+                }, true),
                 form: mergeArgs(defaults.form, partial.form, true),
                 heading,
                 hr: mergeArgs(defaults.hr, partial.hr, true),
@@ -562,12 +582,25 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-beta.0.draft
      */
     static async toggleStyle(iconStyles, widgetStyles, partial = {}) {
+        const flowMargins_widget_button = typeof widgetStyles['flow-margin'].button === 'object'
+            ? widgetStyles['flow-margin'].button
+            : {
+                $: widgetStyles['flow-margin'].button
+            };
+        const button = typeof partial?.['flow-margin']?.button === 'object'
+            ? deleteUndefinedProps({
+                $: partial?.['flow-margin']?.button?.$ ?? flowMargins_widget_button.$,
+                touch: partial?.['flow-margin']?.button?.touch ?? flowMargins_widget_button.touch,
+            })
+            : {
+                $: partial?.['flow-margin']?.button ?? flowMargins_widget_button.$,
+            };
         const flowMargin = {
             $: widgetStyles['flow-margin'].$,
             large: widgetStyles['flow-margin'].large,
             small: widgetStyles['flow-margin'].small,
             ...partial?.['flow-margin'] ?? {},
-            button: partial?.['flow-margin']?.button ?? widgetStyles['flow-margin'].button,
+            button,
             self: 'margins-flow-firm',
         };
         const headingMaker = (num) => {
@@ -696,12 +729,21 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-beta.0.draft
      */
     static async widgetStyle(partial) {
+        const flowMargin_button_default = '200';
+        const button = typeof partial?.['flow-margin']?.button === 'object'
+            ? deleteUndefinedProps({
+                $: partial?.['flow-margin']?.button?.$ ?? flowMargin_button_default,
+                touch: partial?.['flow-margin']?.button?.touch,
+            })
+            : {
+                $: partial?.['flow-margin']?.button ?? flowMargin_button_default,
+            };
         const flowMargin = {
             $: '300',
             large: '500',
             small: '200',
             ...partial?.['flow-margin'] ?? {},
-            button: partial?.['flow-margin']?.button ?? '200',
+            button,
         };
         return {
             background: 'background-grey',

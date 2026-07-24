@@ -241,13 +241,32 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 description: this.description ?? undefined,
                 data: objectKeySort_Tokens({
                     ...this.data,
-                    button: objectMap(this.data.button, ([key, value]) => ({
-                        ...value,
-                        outline: {
-                            $: value.outline.hover,
-                            ...value.outline,
-                        },
-                    })),
+                    button: objectMap(this.data.button, ([key, value]) => {
+                        // returns
+                        if (key === 'disabled') {
+                            const typed_value = value;
+                            const outline = typed_value.outline;
+                            return {
+                                ...typed_value,
+                                outline,
+                            };
+                        }
+                        const typed_value = value;
+                        return {
+                            ...typed_value,
+                            outline: typeof typed_value.outline === 'object'
+                                ? {
+                                    $: typed_value.outline.hover,
+                                    hover: typed_value.outline.hover,
+                                    active: typed_value.outline.active,
+                                }
+                                : {
+                                    $: typed_value.outline,
+                                    hover: typed_value.outline,
+                                    active: typed_value.outline,
+                                },
+                        };
+                    }),
                     link: {
                         ...this.data.link,
                         outline: {
@@ -712,11 +731,35 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         ui: textOrBg,
                     };
                 };
-                const button = objectMap({
-                    ...variations.universal,
-                    grey: variations.text.grey,
-                    disabled: variations.interactive.disabled,
-                }, ([key, clrName]) => overrides.button?.[key] ?? singleButtonMaker(key, clrName));
+                const singleButtonMaker_disabled = (_key, _primaryClr) => {
+                    let _hoverClr;
+                    let _hoverClr_outline;
+                    if (_key === 'disabled') {
+                        _hoverClr = _primaryClr;
+                        _hoverClr_outline = variations.interactive.hover;
+                    }
+                    else {
+                        _hoverClr = _primaryClr === variations.interactive.hover
+                            ? variations.interactive.active
+                            : variations.interactive.hover;
+                        _hoverClr_outline = _hoverClr;
+                    }
+                    const textOrBg_clr = clrOpt(variations.base, levels.background.$);
+                    return {
+                        background: clrOpt(_primaryClr, levels.text.accent),
+                        border: clrOpt(_primaryClr, levels.text.accent),
+                        outline: clrOpt(_hoverClr_outline, levels.text.accent),
+                        text: textOrBg_clr,
+                        ui: textOrBg_clr,
+                    };
+                };
+                const button = {
+                    ...objectMap({
+                        ...variations.universal,
+                        grey: variations.text.grey,
+                    }, ([key, clrName]) => overrides.button?.[key] ?? singleButtonMaker(key, clrName)),
+                    disabled: overrides.button?.disabled ?? singleButtonMaker_disabled('disabled', variations.interactive.disabled),
+                };
                 const singleInputMaker = (_variation) => {
                     const _active_ui = clrOpt(variations.interactive.active, levels.ui.accent);
                     const _hover_ui = clrOpt(variations.interactive.hover, levels.ui.accent);
@@ -881,7 +924,19 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 const button = {
                     ...objectMap(variations.universal, ([key]) => overrides.button?.[key] ?? singleButton),
                     grey: overrides.button?.grey ?? singleButton,
-                    disabled: overrides.button?.disabled ?? singleButton,
+                    disabled: overrides.button?.disabled ?? {
+                        background: 'ButtonFace',
+                        border: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
+                        outline: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
+                        text: 'ButtonText',
+                        ui: 'ButtonText',
+                    },
                 };
                 const inputField = {
                     accent: {

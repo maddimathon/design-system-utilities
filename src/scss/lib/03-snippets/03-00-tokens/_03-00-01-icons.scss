@@ -145,30 +145,22 @@ $_allUniqueIconAspectRatios: ();
             &,
             &-after {
                 @extend %_add-icon-after;
-
-                &::after {
-                    @include snippet-icon-pseudo-element(
-                        $slug,
-                        after,
-                        $includeAspectRatio: false,
-                        $includeBaseProps: false,
-                        $useIconFont: $useIconFont
-                    );
-                }
             }
 
             &-before {
                 @extend %_add-icon-before;
+            }
 
-                &::before {
-                    @include snippet-icon-pseudo-element(
-                        $slug,
-                        before,
-                        $includeAspectRatio: false,
-                        $includeBaseProps: false,
-                        $useIconFont: $useIconFont
-                    );
-                }
+            &::after,
+            &-after::after,
+            &-before::before {
+                @include snippet-icon-pseudo-element(
+                    $slug,
+                    null,
+                    $includeAspectRatio: false,
+                    $includeBaseProps: false,
+                    $useIconFont: $useIconFont
+                );
             }
         }
     }
@@ -193,15 +185,14 @@ $_allUniqueIconAspectRatios: ();
     $args...
 ) {
     @if $useIconFont and font-family-exists(icons) {
-        @if $includeBasePropsOnly or $includeBaseProps {
-            @include font-family-icons-base-properties(
-                $slug: $slug,
-                $pseudo: $pseudo,
-                $letterSpacing: $letterSpacing,
-                $useIconFont: true,
-                $args...
-            );
-        }
+        @include font-family-icons-base-properties(
+            $slug: $slug,
+            $pseudo: $pseudo,
+            $letterSpacing: $letterSpacing,
+            $includeBaseProps: $includeBaseProps or $includeBasePropsOnly,
+            $useIconFont: true,
+            $args...
+        );
 
         @if not $includeBasePropsOnly {
             $glyph: if($glyph == null, if($slug == null, null, icon-glyph-value($slug)), $glyph);

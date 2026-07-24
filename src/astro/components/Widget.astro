@@ -48,20 +48,15 @@ const {
 
 /* CONSTANTS ===================================== */
 
-const ctaButtonsHTML =
-    Astro.slots.has('cta-buttons') &&
-    (await Astro.slots.render('cta-buttons'))?.trim();
+const ctaButtonsHTML = (await Astro.slots.render('cta-buttons'))?.trim();
 
-const headingHTML =
-    Astro.slots.has('heading') && (await Astro.slots.render('heading'))?.trim();
+const headingHTML = (await Astro.slots.render('heading'))?.trim();
 
-const subtitleHTML =
-    Astro.slots.has('subtitle') &&
-    (await Astro.slots.render('subtitle'))?.trim();
+const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
 ---
 
 {
-    (headingHTML || subtitleHTML) && (
+    (headingHTML || subheadingHTML) && (
         <section
             {...attributes}
             class:list={['widget-block', { '||': classList }, classList]}
@@ -83,11 +78,11 @@ const subtitleHTML =
                         class:list='widget-block__title'
                         displayHeading={displayHeading}
                         heading={heading}
-                        set:html={headingHTML}
                     >
+                        <Fragment set:html={headingHTML} />
                         <Fragment
                             slot='subheading'
-                            set:html={subtitleHTML}
+                            set:html={subheadingHTML}
                         />
                     </Heading>
                 </header>

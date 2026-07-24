@@ -13,13 +13,14 @@ config-vars {
     /* "customPropertyPrefix-fallback": <S> "" */
     /* "debug-checkpoints": </> false */
     /* "debug-checkpoints-verbose": </> false */
-    /* "featureCheck-aspectRatio-includeNoWhereSelectorFallback": </> true */
-    /* "featureCheck-defaultToJS": <:> ( "whereSelector": </> true ) */
-    /* "featureCheck-defaultToJS-supports": <:> ( "whereSelector": </> true ) */
-    /* "featureCheck-defaultToJS-supports-not": <:> ( "whereSelector": </> true, "aspectRatio": </> true, "focusVisible": </> true ) */
+    /* "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true ) */
+    /* "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true ) */
+    /* "featureCheck-defaultToJS-supports-not": <:> ( "touch": </> true, "whereSelector": </> true, "aspectRatio": </> true, "focusVisible": </> true ) */
+    /* "featureCheck-includeNoWhereSelectorFallback": </> false */
+    /* "featureCheck-includeNoWhereSelectorFallback-supports-not": <:> ( "aspectRatio": </> true, "focusVisible": </> true, "touch": </> false ) */
     /* "featureCheck-jsOnlyAsNeeded": </> true */
     /* "featureCheck-neverUseJS": </> false */
-    /* "featureCheck-supports": <()> ( <S> aspectRatio, <S> atProperty, <S> backgroundFixed, <S> calc, <S> displayContents, <S> focusWithin, <S> focusVisible, <S> hasSelector, <S> subgrid, <S> variableFonts, <S> whereSelector ) */
+    /* "featureCheck-supports": <()> ( <S> aspectRatio, <S> atProperty, <S> backgroundFixed, <S> calc, <S> displayContents, <S> focusWithin, <S> focusVisible, <S> hasSelector, <S> subgrid, <S> touch, <S> variableFonts, <S> whereSelector ) */
     /* "featureCheck-supportsQueries": <:> ( "aspectRatio": <S> "aspect-ratio: 1 / 2", "backgroundFixed": <S> "background-attachment: fixed", "calc": <S> "width: calc( 0.25em + 10% )", "displayContents": <S> "display: contents", "focusWithin": <S> "selector( a:focus-within )", "focusVisible": <S> "selector( a:focus-visible )", "hasSelector": <S> "selector( :has( a ) )", "subgrid": <S> "grid-template-columns: subgrid", "variableFonts": <S> "font-variation-settings: normal", "whereSelector": <S> "selector( :where( a ) )" ) */
     /* "fn-borderWidthValue-roundToPixelFactor": <#> 16 */
     /* "fn-breakpoints-gapDoubler": <#> 1.5 */
@@ -151,13 +152,17 @@ config-vars {
     /* "regex-tokenFlowMargins": <S> "(^|-)flow-margin(-|$)|^widget-button-span-gap$" */
     /* "regex-tokenFlowMargins-flags": <S> "i" */
     /* "selector-a": <S> a[href] */
+    /* "selector-a-disabled": <S> [aria-disabled=true] */
     /* "selector-body": <S> body */
     /* "selector-body-aliases": <-> null */
+    /* "selector-button-disabled": <()> ( <S> "[aria-disabled=true]", <S> "[disabled]" ) */
+    /* "selector-input-disabled": <()> ( <S> "[aria-disabled=true]", <S> "[disabled]" ) */
+    /* "selector-input-readonly": <S> [readonly] */
     /* "selector-interactiveState-active": <()> ( <()> ( <S> [data-state-active=true] ) ) */
     /* "selector-interactiveState-focus": <()> ( <()> ( <S> [data-state-focus=true] ) ) */
     /* "selector-null": <S> %null */
     /* "selector-root": <S> :root */
-    /* "selector-root-aliases": <()> ( <S> ".js", <S> ".no-js", <S> ".js__aspectRatio", <S> ".js__no-aspectRatio", <S> ".js__atProperty", <S> ".js__no-atProperty", <S> ".js__backgroundFixed", <S> ".js__no-backgroundFixed", <S> ".js__calc", <S> ".js__no-calc", <S> ".js__displayContents", <S> ".js__no-displayContents", <S> ".js__focusWithin", <S> ".js__no-focusWithin", <S> ".js__focusVisible", <S> ".js__no-focusVisible", <S> ".js__hasSelector", <S> ".js__no-hasSelector", <S> ".js__subgrid", <S> ".js__no-subgrid", <S> ".js__variableFonts", <S> ".js__no-variableFonts", <S> ".js__whereSelector", <S> ".js__no-whereSelector" ) */
+    /* "selector-root-aliases": <()> ( <S> ".js", <S> ".no-js", <S> ".js__aspectRatio", <S> ".js__no-aspectRatio", <S> ".js__atProperty", <S> ".js__no-atProperty", <S> ".js__backgroundFixed", <S> ".js__no-backgroundFixed", <S> ".js__calc", <S> ".js__no-calc", <S> ".js__displayContents", <S> ".js__no-displayContents", <S> ".js__focusWithin", <S> ".js__no-focusWithin", <S> ".js__focusVisible", <S> ".js__no-focusVisible", <S> ".js__hasSelector", <S> ".js__no-hasSelector", <S> ".js__subgrid", <S> ".js__no-subgrid", <S> ".js__touch", <S> ".js__no-touch", <S> ".js__variableFonts", <S> ".js__no-variableFonts", <S> ".js__whereSelector", <S> ".js__no-whereSelector" ) */
     /* "selectors-skipLinks-extraModifiers": <()> ( () ) */
     /* "selectorType-mode": <S> "null" */
     /* "selectorType-motion": <S> "null" */
@@ -189,13 +194,14 @@ modules.config-vars {
     /* "colour-allowModernOpacitySyntax": </> true */
     /* "colour-channelLists-separator": <S> space */
     /* "config-validTokenLevels": <()> ( <S> "100", <S> "150", <S> "200", <S> "250", <S> "300", <S> "350", <S> "400", <S> "450", <S> "500", <S> "550", <S> "600", <S> "650", <S> "700", <S> "750", <S> "800", <S> "850", <S> "900" ) */
-    /* "featureCheck-aspectRatio-includeNoWhereSelectorFallback": </> true */
-    /* "featureCheck-defaultToJS": <:> ( "whereSelector": </> true ) */
-    /* "featureCheck-defaultToJS-supports": <:> ( "whereSelector": </> true ) */
-    /* "featureCheck-defaultToJS-supports-not": <:> ( "whereSelector": </> true, "aspectRatio": </> true, "focusVisible": </> true ) */
+    /* "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true ) */
+    /* "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true ) */
+    /* "featureCheck-defaultToJS-supports-not": <:> ( "touch": </> true, "whereSelector": </> true, "aspectRatio": </> true, "focusVisible": </> true ) */
+    /* "featureCheck-includeNoWhereSelectorFallback": </> false */
+    /* "featureCheck-includeNoWhereSelectorFallback-supports-not": <:> ( "aspectRatio": </> true, "focusVisible": </> true, "touch": </> false ) */
     /* "featureCheck-jsOnlyAsNeeded": </> true */
     /* "featureCheck-neverUseJS": </> false */
-    /* "featureCheck-supports": <()> ( <S> aspectRatio, <S> atProperty, <S> backgroundFixed, <S> calc, <S> displayContents, <S> focusWithin, <S> focusVisible, <S> hasSelector, <S> subgrid, <S> variableFonts, <S> whereSelector ) */
+    /* "featureCheck-supports": <()> ( <S> aspectRatio, <S> atProperty, <S> backgroundFixed, <S> calc, <S> displayContents, <S> focusWithin, <S> focusVisible, <S> hasSelector, <S> subgrid, <S> touch, <S> variableFonts, <S> whereSelector ) */
     /* "featureCheck-supportsQueries": <:> ( "aspectRatio": <S> "aspect-ratio: 1 / 2", "backgroundFixed": <S> "background-attachment: fixed", "calc": <S> "width: calc( 0.25em + 10% )", "displayContents": <S> "display: contents", "focusWithin": <S> "selector( a:focus-within )", "focusVisible": <S> "selector( a:focus-visible )", "hasSelector": <S> "selector( :has( a ) )", "subgrid": <S> "grid-template-columns: subgrid", "variableFonts": <S> "font-variation-settings: normal", "whereSelector": <S> "selector( :where( a ) )" ) */
     /* "math-clampFontSize-baseRem": <#> 1 */
     /* "math-clampFontSize-multiplier-max": <#> 1.1875 */
@@ -207,7 +213,7 @@ modules.config-vars {
     /* "selector-body-aliases": <-> null */
     /* "selector-null": <S> %null */
     /* "selector-root": <S> :root */
-    /* "selector-root-aliases": <()> ( <S> ".js", <S> ".no-js", <S> ".js__aspectRatio", <S> ".js__no-aspectRatio", <S> ".js__atProperty", <S> ".js__no-atProperty", <S> ".js__backgroundFixed", <S> ".js__no-backgroundFixed", <S> ".js__calc", <S> ".js__no-calc", <S> ".js__displayContents", <S> ".js__no-displayContents", <S> ".js__focusWithin", <S> ".js__no-focusWithin", <S> ".js__focusVisible", <S> ".js__no-focusVisible", <S> ".js__hasSelector", <S> ".js__no-hasSelector", <S> ".js__subgrid", <S> ".js__no-subgrid", <S> ".js__variableFonts", <S> ".js__no-variableFonts", <S> ".js__whereSelector", <S> ".js__no-whereSelector" ) */
+    /* "selector-root-aliases": <()> ( <S> ".js", <S> ".no-js", <S> ".js__aspectRatio", <S> ".js__no-aspectRatio", <S> ".js__atProperty", <S> ".js__no-atProperty", <S> ".js__backgroundFixed", <S> ".js__no-backgroundFixed", <S> ".js__calc", <S> ".js__no-calc", <S> ".js__displayContents", <S> ".js__no-displayContents", <S> ".js__focusWithin", <S> ".js__no-focusWithin", <S> ".js__focusVisible", <S> ".js__no-focusVisible", <S> ".js__hasSelector", <S> ".js__no-hasSelector", <S> ".js__subgrid", <S> ".js__no-subgrid", <S> ".js__touch", <S> ".js__no-touch", <S> ".js__variableFonts", <S> ".js__no-variableFonts", <S> ".js__whereSelector", <S> ".js__no-whereSelector" ) */
     /* "selectors-skipLinks-extraModifiers": <()> ( () ) */
     /* "warnOnMissingCompilerFunctions": </> true */
 }
@@ -240,6 +246,10 @@ lib.config-vars {
     /* "regex-tokenFlowMargins": <S> "(^|-)flow-margin(-|$)|^widget-button-span-gap$" */
     /* "regex-tokenFlowMargins-flags": <S> "i" */
     /* "selector-a": <S> a[href] */
+    /* "selector-a-disabled": <S> [aria-disabled=true] */
+    /* "selector-button-disabled": <()> ( <S> "[aria-disabled=true]", <S> "[disabled]" ) */
+    /* "selector-input-disabled": <()> ( <S> "[aria-disabled=true]", <S> "[disabled]" ) */
+    /* "selector-input-readonly": <S> [readonly] */
     /* "selectorType-mode": <S> "null" */
     /* "selectorType-motion": <S> "null" */
     /* "template-docBlock": </> false */

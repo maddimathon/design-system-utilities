@@ -735,14 +735,38 @@ export namespace Tokens_Themes_Set {
 
                         button: objectMap(
                             this.data.button,
-                            ( [ key, value ] ) => ( {
-                                ...value,
-                                outline: {
-                                    $: value.outline.hover,
-                                    ...value.outline,
-                                },
-                            } )
-                        ),
+                            ( [ key, value ] ) => {
+                                // returns
+                                if ( key === 'disabled' ) {
+                                    const typed_value = value as typeof this.data.button.disabled;
+
+                                    const outline = typed_value.outline;
+
+                                    return {
+                                        ...typed_value,
+                                        outline,
+                                    } satisfies SingleMode.Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
+                                }
+
+                                const typed_value = value as typeof this.data.button.primary;
+
+                                return {
+                                    ...typed_value,
+
+                                    outline: typeof typed_value.outline === 'object'
+                                        ? {
+                                            $: typed_value.outline.hover,
+                                            hover: typed_value.outline.hover,
+                                            active: typed_value.outline.active,
+                                        }
+                                        : {
+                                            $: typed_value.outline,
+                                            hover: typed_value.outline,
+                                            active: typed_value.outline,
+                                        },
+                                } satisfies SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>[ 'data' ][ 'button' ][ 'primary' ];
+                            }
+                        ) as SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>[ 'data' ][ 'button' ],
 
                         link: {
                             ...this.data.link,
@@ -754,7 +778,7 @@ export namespace Tokens_Themes_Set {
                                 ...this.data.link.outline,
                             },
                         },
-                    },
+                    } satisfies SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>[ 'data' ],
                     true,
                 ),
 
@@ -957,15 +981,11 @@ export namespace Tokens_Themes_Set {
             };
 
             button: {
-                [ K in 'primary' | 'secondary' | 'grey' | 'disabled' ]: Data.Button<
-                    T_ColourTypes,
-                    __T_ColourOption
-                >;
+                [ K in 'primary' | 'secondary' | 'grey' | 'disabled' ]: Data.Button<T_ColourTypes, __T_ColourOption>;
             } & {
-                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: Data.Button<
-                    T_ColourTypes,
-                    __T_ColourOption
-                >;
+                disabled: Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
+            } & {
+                [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]: Data.Button<T_ColourTypes, __T_ColourOption>;
             };
 
             input: {
@@ -1002,12 +1022,14 @@ export namespace Tokens_Themes_Set {
             export type Button<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
+                __T_EachValue extends any = InteractiveStyles<__T_ColourOption>,
+                __T_OutlineValue extends any = Omit<InteractiveStyles<__T_ColourOption>, '$'>,
             > = {
-                background: InteractiveStyles<__T_ColourOption>,
-                border: InteractiveStyles<__T_ColourOption>,
-                outline: Omit<InteractiveStyles<__T_ColourOption>, '$'>,
-                text: InteractiveStyles<__T_ColourOption>,
-                ui: InteractiveStyles<__T_ColourOption>,
+                background: __T_EachValue,
+                border: __T_EachValue,
+                outline: __T_OutlineValue,
+                text: __T_EachValue,
+                ui: __T_EachValue,
             };
 
             /**
@@ -1123,7 +1145,9 @@ export namespace Tokens_Themes_Set {
                 },
 
                 button?: undefined | {
-                    [ K in 'primary' | 'secondary' | 'grey' | 'disabled' ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
+                    [ K in 'primary' | 'secondary' | 'grey' ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
+                } & {
+                    disabled?: undefined | Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
                 } & {
                     [ K in T_ThemeTypes[ 'variations' ][ 'universal' ] ]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 },
@@ -1723,12 +1747,14 @@ export namespace Tokens_Themes_Set {
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
 
                 button: {
-                    [ K in keyof Data<T_ColourTypes, T_ThemeTypes>[ 'button' ] ]: Data.Button<
+                    [ K in Exclude<keyof Data<T_ColourTypes, T_ThemeTypes>[ 'button' ], 'disabled'> ]: Data.Button<
                         T_ColourTypes,
                         __T_ColourOption
                     > & {
                         outline: InteractiveStyles<__T_ColourOption>;
                     };
+                } & {
+                    disabled: Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
                 };
 
                 link: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ] & {
@@ -1755,12 +1781,14 @@ export namespace Tokens_Themes_Set {
         > = Data<T_ColourTypes, T_ThemeTypes> & {
 
             button: {
-                [ K in keyof Data<T_ColourTypes, T_ThemeTypes>[ 'button' ] ]: Data.Button<
+                [ K in Exclude<keyof Data<T_ColourTypes, T_ThemeTypes>[ 'button' ], 'disabled'> ]: Data.Button<
                     T_ColourTypes,
                     __T_ColourOption
                 > & {
                     outline: InteractiveStyles<__T_ColourOption>;
                 };
+            } & {
+                disabled: Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
             };
 
             link: Data<T_ColourTypes, T_ThemeTypes>[ 'link' ] & {
@@ -1873,6 +1901,7 @@ export namespace Tokens_Themes_Set {
             export interface Param<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 T_ThemeTypes extends TokenTypes.Theme.TypeParams,
+                __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
             > {
                 levels: Levels.Parsed<T_ColourTypes>;
                 variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
@@ -1990,7 +2019,8 @@ export namespace Tokens_Themes_Set {
                     NoInfer<T_ThemeTypes>
                 > = {},
             ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
-                type CompleteData = Data<T_ColourTypes, T_ThemeTypes>;
+                type ColourOption = TokenTypes.Theme.ColourOption<T_ColourTypes>;
+                type CompleteData = Data<T_ColourTypes, T_ThemeTypes, ColourOption>;
 
                 const clrOpt = colourOption;
 
@@ -2180,18 +2210,51 @@ export namespace Tokens_Themes_Set {
                     };
                 };
 
-                const button: CompleteData[ 'button' ] = objectMap(
-                    {
-                        ...variations.universal,
-                        grey: variations.text.grey,
-                        disabled: variations.interactive.disabled,
-                    },
-                    <K extends keyof CompleteData[ 'button' ]>(
-                        [ key, clrName ]: [ K, TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]> ]
-                    ) => overrides.button?.[ key ] ?? (
-                        singleButtonMaker( key, clrName ) as CompleteData[ 'button' ][ K ]
+                const singleButtonMaker_disabled = (
+                    _key: keyof CompleteData[ 'button' ],
+                    _primaryClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>,
+                ): Data.Button<T_ColourTypes, ColourOption, ColourOption, ColourOption> => {
+
+                    let _hoverClr: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
+
+                    let _hoverClr_outline: TokenTypes.Colour.GenericName<T_ColourTypes[ 'names' ]>;
+
+                    if ( _key === 'disabled' ) {
+                        _hoverClr = _primaryClr;
+
+                        _hoverClr_outline = variations.interactive.hover;
+                    } else {
+
+                        _hoverClr = _primaryClr === variations.interactive.hover
+                            ? variations.interactive.active
+                            : variations.interactive.hover;
+
+                        _hoverClr_outline = _hoverClr;
+                    }
+
+                    const textOrBg_clr = clrOpt( variations.base, levels.background.$ );
+
+                    return {
+                        background: clrOpt( _primaryClr, levels.text.accent ),
+                        border: clrOpt( _primaryClr, levels.text.accent ),
+                        outline: clrOpt( _hoverClr_outline, levels.text.accent ),
+                        text: textOrBg_clr,
+                        ui: textOrBg_clr,
+                    };
+                };
+
+                const button = {
+                    ...objectMap(
+                        {
+                            ...variations.universal,
+                            grey: variations.text.grey,
+                        },
+                        ( [ key, clrName ] ) => overrides.button?.[ key ] ?? singleButtonMaker( key, clrName ),
                     ),
-                );
+
+                    disabled: overrides.button?.disabled ?? singleButtonMaker_disabled( 'disabled', variations.interactive.disabled ),
+
+                } as CompleteData[ 'button' ];
 
                 const singleInputMaker = (
                     _variation: "primary" | "readonly",
@@ -2414,11 +2477,27 @@ export namespace Tokens_Themes_Set {
                     },
                 };
 
-                const button: CompleteData[ 'button' ] = {
+                const button = {
                     ...objectMap( variations.universal, ( [ key ] ) => overrides.button?.[ key ] ?? singleButton ),
                     grey: overrides.button?.grey ?? singleButton,
-                    disabled: overrides.button?.disabled ?? singleButton,
-                };
+
+                    disabled: overrides.button?.disabled ?? {
+                        background: 'ButtonFace',
+
+                        border: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
+
+                        outline: [
+                            'ButtonFace',
+                            'ButtonBorder',
+                        ],
+
+                        text: 'ButtonText',
+                        ui: 'ButtonText',
+                    },
+                } as CompleteData[ 'button' ];
 
                 const inputField: CompleteData[ 'input' ][ keyof CompleteData[ 'input' ] ] = {
                     accent: {

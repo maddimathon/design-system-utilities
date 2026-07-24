@@ -340,12 +340,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             @content (alert-block--background-#{$variationKey});
         }
 
-        @include set-flow-margins-by-token(
-            $default: alert-flow-margin,
-            $large: alert-flow-margin-large,
-            $small: alert-flow-margin-small,
-            $buttonGapBlock: alert-flow-margin-button
-        );
+        @include set-flow-margins-by-token(alert);
     }
 
     @each $slug, $map in tokens.$icons {

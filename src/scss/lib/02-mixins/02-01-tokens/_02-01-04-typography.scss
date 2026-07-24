@@ -255,41 +255,45 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $top: true,
     $verticalAlign: true,
     //
+    $includeBaseProps: true,
+    $includeBasePropsOnly: false,
     $includeChildren: false,
     $useIconFont: config.$fn_pseudoIconsUseFont
 ) {
-    $_start: if($pseudo == before, end, start);
-    $_end: if($pseudo == before, start, end);
+    @if $includeBaseProps {
+        $height: if($height == null, not $useIconFont, $height);
 
-    $height: if($height == null, not $useIconFont, $height);
+        $letterSpacing: if(
+            $letterSpacing == null,
+            map.get(tokens.$font, family, icons, css, letterSpacing),
+            $letterSpacing
+        );
 
-    $letterSpacing: if(
-        $letterSpacing == null,
-        map.get(tokens.$font, family, icons, css, letterSpacing),
-        $letterSpacing
-    );
+        $lineHeight: if(
+            $lineHeight == null,
+            if($useIconFont, var-style(icon-inline-line-height, $raw: true) !important, 1),
+            $lineHeight
+        );
 
-    $lineHeight: if(
-        $lineHeight == null,
-        if($useIconFont, var-style(icon-inline-line-height, $raw: true) !important, 1),
-        $lineHeight
-    );
+        @if $display != false {
+            @include utils.prop-display($display);
+        }
 
-    @if $display != false {
-        @include utils.prop-display($display);
-    }
+        position: relative;
 
-    position: relative;
-
-    @if $top {
-        @if $useIconFont {
-            top: do-var(icon-font-top);
-        } @else {
-            top: do-var(icon-pseudo-top);
+        @if $top {
+            @if $useIconFont {
+                top: do-var(icon-font-top);
+            } @else {
+                top: do-var(icon-pseudo-top);
+            }
         }
     }
 
-    @if $spacing {
+    @if not $includeBasePropsOnly and $pseudo != null and $spacing {
+        $_start: if($pseudo == before, end, start);
+        $_end: if($pseudo == before, start, end);
+
         #{$spacingProp}-inline-#{$_start}: 0;
         #{$spacingProp}-inline-#{$_start}: font-family-icons--margin-inline(start);
 
@@ -297,47 +301,49 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         #{$spacingProp}-inline-#{$_end}: font-family-icons--margin-inline(end);
     }
 
-    @if $height and not $useIconFont {
-        $_size: var-style(icon-size-pseudo);
+    @if $includeBaseProps {
+        @if $height and not $useIconFont {
+            $_size: var-style(icon-size-pseudo);
 
-        height: $_size !important;
-        height: font-family-icons--icon-size() !important;
-    }
-
-    $_fontSize: var-style(icon-size-font);
-
-    font-size: $_fontSize !important;
-    font-size: font-family-icons--icon-size($_fontSize) !important;
-
-    @if $display != inline {
-        align-self: center;
-        justify-self: center;
-    }
-
-    @include _font-family-icons-base-properties--selector($includeChildren) {
-        @if $verticalAlign {
-            vertical-align: var-style(icon-vertical-align);
+            height: $_size !important;
+            height: font-family-icons--icon-size() !important;
         }
 
-        @if $useIconFont {
-            font-family: var-font-family(icons) !important;
+        $_fontSize: var-style(icon-size-font);
 
-            @if $includeChildren {
-                font-size: 1em !important;
-            }
+        font-size: $_fontSize !important;
+        font-size: font-family-icons--icon-size($_fontSize) !important;
 
-            font-weight: 400 !important;
-
-            @if $lineHeight != false {
-                line-height: $lineHeight;
-            }
-
-            @if $letterSpacing {
-                letter-spacing: math.add-unit($letterSpacing, 1em);
-            }
+        @if $display != inline {
+            align-self: center;
+            justify-self: center;
         }
 
-        color: var-style(icon-color);
+        @include _font-family-icons-base-properties--selector($includeChildren) {
+            @if $verticalAlign {
+                vertical-align: var-style(icon-vertical-align);
+            }
+
+            @if $useIconFont {
+                font-family: var-font-family(icons) !important;
+
+                @if $includeChildren {
+                    font-size: 1em !important;
+                }
+
+                font-weight: 400 !important;
+
+                @if $lineHeight != false {
+                    line-height: $lineHeight;
+                }
+
+                @if $letterSpacing {
+                    letter-spacing: math.add-unit($letterSpacing, 1em);
+                }
+            }
+
+            color: var-style(icon-color);
+        }
     }
 }
 

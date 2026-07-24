@@ -257,6 +257,8 @@ export declare namespace Tokens_Themes_Set {
             button: {
                 [K in 'primary' | 'secondary' | 'grey' | 'disabled']: Data.Button<T_ColourTypes, __T_ColourOption>;
             } & {
+                disabled: Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
+            } & {
                 [K in T_ThemeTypes['variations']['universal']]: Data.Button<T_ColourTypes, __T_ColourOption>;
             };
             input: {
@@ -287,12 +289,12 @@ export declare namespace Tokens_Themes_Set {
              * @since 0.1.0-alpha
              * @since 0.1.0-beta.0.draft — Moved to SingleMode.Data and renamed.
              */
-            type Button<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
-                background: InteractiveStyles<__T_ColourOption>;
-                border: InteractiveStyles<__T_ColourOption>;
-                outline: Omit<InteractiveStyles<__T_ColourOption>, '$'>;
-                text: InteractiveStyles<__T_ColourOption>;
-                ui: InteractiveStyles<__T_ColourOption>;
+            type Button<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>, __T_EachValue extends any = InteractiveStyles<__T_ColourOption>, __T_OutlineValue extends any = Omit<InteractiveStyles<__T_ColourOption>, '$'>> = {
+                background: __T_EachValue;
+                border: __T_EachValue;
+                outline: __T_OutlineValue;
+                text: __T_EachValue;
+                ui: __T_EachValue;
             };
             /**
              * @since 0.1.0-beta.0.draft
@@ -388,7 +390,9 @@ export declare namespace Tokens_Themes_Set {
                     };
                 };
                 button?: undefined | {
-                    [K in 'primary' | 'secondary' | 'grey' | 'disabled']?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
+                    [K in 'primary' | 'secondary' | 'grey']?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
+                } & {
+                    disabled?: undefined | Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
                 } & {
                     [K in T_ThemeTypes['variations']['universal']]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 };
@@ -687,9 +691,11 @@ export declare namespace Tokens_Themes_Set {
             description?: undefined | string;
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
                 button: {
-                    [K in keyof Data<T_ColourTypes, T_ThemeTypes>['button']]: Data.Button<T_ColourTypes, __T_ColourOption> & {
+                    [K in Exclude<keyof Data<T_ColourTypes, T_ThemeTypes>['button'], 'disabled'>]: Data.Button<T_ColourTypes, __T_ColourOption> & {
                         outline: InteractiveStyles<__T_ColourOption>;
                     };
+                } & {
+                    disabled: Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
                 };
                 link: Data<T_ColourTypes, T_ThemeTypes>['link'] & {
                     outline: Data<T_ColourTypes, T_ThemeTypes>['link']['outline'] & {
@@ -708,9 +714,11 @@ export declare namespace Tokens_Themes_Set {
          */
         export type ScssVars<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = Data<T_ColourTypes, T_ThemeTypes> & {
             button: {
-                [K in keyof Data<T_ColourTypes, T_ThemeTypes>['button']]: Data.Button<T_ColourTypes, __T_ColourOption> & {
+                [K in Exclude<keyof Data<T_ColourTypes, T_ThemeTypes>['button'], 'disabled'>]: Data.Button<T_ColourTypes, __T_ColourOption> & {
                     outline: InteractiveStyles<__T_ColourOption>;
                 };
+            } & {
+                disabled: Data.Button<T_ColourTypes, __T_ColourOption, __T_ColourOption, __T_ColourOption>;
             };
             link: Data<T_ColourTypes, T_ThemeTypes>['link'] & {
                 outline: Data<T_ColourTypes, T_ThemeTypes>['link']['outline'] & {
@@ -796,7 +804,7 @@ export declare namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-alpha
              */
-            interface Param<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams> {
+            interface Param<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> {
                 levels: Levels.Parsed<T_ColourTypes>;
                 variations: AllVariations<T_ColourTypes, T_ThemeTypes>;
             }

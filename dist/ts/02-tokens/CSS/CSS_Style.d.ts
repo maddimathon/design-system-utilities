@@ -146,9 +146,7 @@ export declare namespace Tokens_CSS_Style {
         /**
          * Values for the set-flow-margins mixin.
          */
-        'flow-margin': FlowMargin & {
-            self: FlowMargin.SelfFirm;
-        };
+        'flow-margin': FlowMargin.WithSelfFirm;
         padding: {
             block: AnyTokenLevel;
             inline: AnyTokenLevel;
@@ -289,7 +287,13 @@ export declare namespace Tokens_CSS_Style {
         /**
          * Gap for button spans.
          */
-        button: AnyTokenLevel;
+        button: AnyTokenLevel | {
+            $: AnyTokenLevel;
+            /**
+             * Explicitly set a size for the button span gap for touch-screens.
+             */
+            touch?: AnyTokenLevel;
+        };
     };
     /**
      * @since 0.1.0-beta.0.draft
@@ -298,11 +302,29 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
+        type Parsed = Omit<FlowMargin, 'button'> & {
+            button: Extract<FlowMargin['button'], object>;
+        };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
         type Self = 'margins-flow' | 'margins-flow-small' | 'margins-flow-large';
         /**
          * @since 0.1.0-beta.0.draft
          */
         type SelfFirm = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type WithSelf = FlowMargin & {
+            self: Self;
+        };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type WithSelfFirm = FlowMargin & {
+            self: SelfFirm;
+        };
     }
     /**
      * @since 0.1.0-beta.0.draft
@@ -522,9 +544,7 @@ export declare namespace Tokens_CSS_Style {
         /**
          * Values for the set-flow-margins mixin.
          */
-        'flow-margin': FlowMargin & {
-            self: FlowMargin.SelfFirm;
-        };
+        'flow-margin': FlowMargin.WithSelfFirm;
         icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
                 start: CSS.Number.Em;
@@ -617,7 +637,7 @@ export declare namespace Tokens_CSS_Style {
          *
          * @since 0.1.0-beta.0.draft
          */
-        'flow-margin': FlowMargin;
+        'flow-margin': FlowMargin.Parsed;
         /**
          * @since 0.1.0-beta.0.draft
          */

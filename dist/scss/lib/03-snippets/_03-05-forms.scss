@@ -69,8 +69,8 @@
 
     $stateSlug: if($state == '$', '', '-#{$state}');
 
-    @if $includeVisited and $stateSlug == '' {
-        @include visited {
+    @if $stateSlug == '' and $includeVisited {
+        @include visited($appendToSelector: true) {
             @include _snippet-button-colour-single-state--inner(
                 $stateSlug: $stateSlug,
                 $variation: $variation,
@@ -124,19 +124,7 @@ $_mixin_button_colour_single_state: meta.get-mixin(
     );
 
     @if $includeRoot {
-        @if $includeVisited {
-            @include visited {
-                @include meta.apply(
-                    $mixin_button_colour_single_state,
-                    '$',
-                    $variation: $variation,
-                    $includeVisited: false,
-                    $args...
-                );
-
-                @content (root-colours);
-            }
-        } @else {
+        @if $variation != disabled {
             @include meta.apply(
                 $mixin_button_colour_single_state,
                 '$',
@@ -144,25 +132,30 @@ $_mixin_button_colour_single_state: meta.get-mixin(
                 $includeVisited: $includeVisited,
                 $args...
             );
-
-            @content (root-colours);
         }
+
+        @content (root-colours);
     }
 
     @if $includeFocusHover {
         @include apply-interactive-mixin(
+            $active: $variation == disabled,
             $focus: true,
             $focusWithin: $focusWithin,
             $hover: true,
+            $self: $variation == disabled,
+            $visited: $includeVisited and $variation == disabled,
             //
             $fallbacksOnly: $focus_fallbacksOnly,
             $includeFallbacks: $focus_includeFallbacks,
             $includeNoWhereSelectorFallback:
-                $focus_includeNoWhereSelectorFallback
+                $focus_includeNoWhereSelectorFallback,
+            $warnOnSelf: $variation != disabled
         ) {
             @include meta.apply(
                 $mixin_button_colour_single_state,
-                hover,
+                if($variation == disabled, '$', 'hover'),
+                $includeVisited: false,
                 $variation: $variation,
                 $args...
             );
@@ -173,12 +166,14 @@ $_mixin_button_colour_single_state: meta.get-mixin(
 
     @if $includeActive {
         @include active {
-            @include meta.apply(
-                $mixin_button_colour_single_state,
-                active,
-                $variation: $variation,
-                $args...
-            );
+            @if $variation != disabled {
+                @include meta.apply(
+                    $mixin_button_colour_single_state,
+                    active,
+                    $variation: $variation,
+                    $args...
+                );
+            }
 
             @content (active);
         }
@@ -611,7 +606,7 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
         }
 
         @if $includeDisabled {
-            @at-root #{selector.unify(&, ('[aria-disabled=true]', '[disabled]'))} {
+            @include config.selector-button-disabled {
                 @include meta.apply(
                         $mixin_button_colours,
                         disabled,
@@ -982,8 +977,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     @if $includeDisabled {
-        &[aria-disabled='true'],
-        &[disabled] {
+        @include config.selector-button-disabled {
             @include meta.apply(
                     $mixin_button_disabled,
                     $focus_fallbacksOnly: $focus_fallbacksOnly,
@@ -1050,7 +1044,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 }
 
                 @if $includeDisabled {
-                    &:is([aria-disabled='true'], [disabled]) {
+                    @include config.selector-button-disabled($is: true) {
                         @content (inline--colours--disabled);
 
                         @include meta.apply(
@@ -1164,12 +1158,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     $selector_hover: if($_parent_exists, selector.unify(&, ':hover'), ':hover');
 
-    $selector_disabled: ('[aria-disabled=true]', '[disabled]');
-
     $selector_disabled: if(
         $_parent_exists,
-        selector.unify(&, $selector_disabled),
-        $selector_disabled
+        selector.unify(&, config.$selector_button_disabled),
+        config.$selector_button_disabled
     );
 
     @at-root #{$selector_root} {
@@ -1548,8 +1540,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         @content ($location);
     }
 
-    &[aria-disabled='true'],
-    &[disabled] {
+    @include config.selector-input-disabled {
         @include _snippet-input-colours-single(
                 $accentClr: $accentClr_disabled,
                 $accentClr_active: $accentClr_disabled_active,
@@ -1580,7 +1571,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         }
     }
 
-    &[readonly] {
+    @include config.selector-input-readonly {
         @include _snippet-input-colours-single(
                 $accentClr: $accentClr_readonly,
                 $accentClr_active: $accentClr_readonly_active,
@@ -1830,8 +1821,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         @content (box--active);
     }
 
-    &[aria-disabled='true'],
-    &[disabled] {
+    @include config.selector-input-disabled {
         accent-color: $box_accentClr_disabled;
         color: $box_accentClr_disabled;
 
@@ -1859,7 +1849,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         }
     }
 
-    &[readonly] {
+    @include config.selector-input-readonly {
         accent-color: $box_accentClr_readonly;
         color: $box_accentClr_readonly;
 
@@ -1986,8 +1976,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     &[type='reset'] {
         @content (button);
 
-        &[aria-disabled='true'],
-        &[disabled] {
+        @include config.selector-input-disabled {
             @content (button-disabled);
 
             @include snippet-button-colours(
@@ -2266,6 +2255,9 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-support-all-buttons(
+    $includeColours: true,
+    $includeDisabled: true,
+    //
     $mixin_button: null,
     $mixin_button_colours: null,
     $mixin_addPseudoFileSelectorButton: null,
@@ -2310,17 +2302,21 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
         @include meta.apply(
             $mixin_button,
             $includeColours: false,
+            $includeDisabled: $includeDisabled,
             $mixin_button_colours: $mixin_button_colours
         );
     }
 
     %button-form-reset {
-        @include meta.apply(
-            $mixin_button_colours,
-            $variation: tokens.$button_variation_reset,
-            $includeVisited: false,
-            $mixin_button_colour_single_state: $mixin_button_colour_single_state
-        );
+        @if $includeColours {
+            @include meta.apply(
+                $mixin_button_colours,
+                $variation: tokens.$button_variation_reset,
+                $includeVisited: false,
+                $mixin_button_colour_single_state:
+                    $mixin_button_colour_single_state
+            );
+        }
 
         &::before {
             @if config.$include_button_inlineIcons {
@@ -2343,20 +2339,36 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
         }
     }
 
-    @each $variation in tokens.$themesMeta_buttonVariations {
-        %button-#{$variation} {
-            @include meta.apply(
-                $mixin_button_colours,
-                $variation: $variation,
-                $mixin_button_colour_single_state:
-                    $mixin_button_colour_single_state
-            );
+    @if $includeColours {
+        @each $variation in tokens.$themesMeta_buttonVariations {
+            %button-#{$variation} {
+                @include meta.apply(
+                    $mixin_button_colours,
+                    $variation: $variation,
+                    $mixin_button_colour_single_state:
+                        $mixin_button_colour_single_state
+                );
+            }
+        }
+
+        @if $includeDisabled {
+            %button {
+                @include config.selector-input-disabled {
+                    @include meta.apply(
+                        $mixin_button_colours,
+                        $variation: disabled,
+                        $mixin_button_colour_single_state:
+                            $mixin_button_colour_single_state
+                    );
+                }
+            }
         }
     }
 
     // file-selector-button
     @include meta.apply(
         $mixin_addPseudoFileSelectorButton,
+        $includeColours: $includeColours,
         $mixin_button_colour_single_state: $mixin_button_colour_single_state
     );
 }

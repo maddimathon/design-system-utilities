@@ -97,7 +97,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin extend-selectors-globals($additional: (), $allHeadingLevels: token-all-heading-levels()) {
+@mixin extend-selectors-globals(
+    $additional: (),
+    $allHeadingLevels: token-all-heading-levels(),
+    $args...
+) {
     //
     $additional: list.join(
         $additional,
@@ -142,7 +146,8 @@
 
     @include utils.extend-selectors-globals(
         $additional: $additional,
-        $allHeadingLevels: $allHeadingLevels
+        $allHeadingLevels: $allHeadingLevels,
+        $args...
     );
 
     @if map.get(config.$template_styles, astro, bodyGrid) {
@@ -153,7 +158,11 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin extend-selectors-utils($additional: (), $allHeadingLevels: token-all-heading-levels()) {
+@mixin extend-selectors-utils(
+    $additional: (),
+    $allHeadingLevels: token-all-heading-levels(),
+    $args...
+) {
     //
     $additional: list.join($additional, get-extend-selectors-brand-logo-utils());
 
@@ -177,7 +186,7 @@
 
     $additional: list.append($additional, ('.font-family-icons', font-family-icons));
     $additional: list.append($additional, ('form.search-form', search-form));
-    $additional: list.append($additional, ('.site-sidebar', site-sidebar));
+    $additional: list.append($additional, ('.main-sidebar', main-sidebar));
     $additional: list.append($additional, ('.widget-block', widget-block));
 
     $additional: list.join(
@@ -206,7 +215,8 @@
 
     @include utils.extend-selectors-utils(
         $additional: $additional,
-        $allHeadingLevels: $allHeadingLevels
+        $allHeadingLevels: $allHeadingLevels,
+        $args...
     );
 }
 

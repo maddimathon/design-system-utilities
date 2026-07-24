@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
@@ -63,12 +64,15 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin set-flow-margins(
-    $default: style-value(flow-margin, $raw: true),
-    $large: style-value(flow-margin-large, $raw: true),
-    $small: style-value(flow-margin-small, $raw: true),
+    $default: null,
+    $large: null,
+    $small: null,
     //
     $buttonGapBlock: null,
     $buttonGapInline: null,
+    //
+    $buttonGapBlock_touch: null,
+    $buttonGapInline_touch: null,
     //
     $firmStart: null,
     $firmStart_large: null,
@@ -83,9 +87,21 @@
     $defineCustomProps: true,
     $unstyledHeading: null
 ) {
-    $default: _set-flow-margins--to-margin-level($default);
-    $large: _set-flow-margins--to-margin-level($large);
-    $small: _set-flow-margins--to-margin-level($small);
+    $default: if(
+        $default == null,
+        style-value(flow-margin, $raw: true),
+        _set-flow-margins--to-margin-level($default)
+    );
+    $large: if(
+        $large == null,
+        style-value(flow-margin-large, $raw: true),
+        _set-flow-margins--to-margin-level($large)
+    );
+    $small: if(
+        $small == null,
+        style-value(flow-margin-small, $raw: true),
+        _set-flow-margins--to-margin-level($small)
+    );
 
     @if $firmStart == null {
         $firmStart: $default;
@@ -180,6 +196,26 @@
         $val_buttonSpan_block
     );
 
+    $val_buttonSpan_block_touch: if(
+        $buttonGapBlock_touch,
+        var-pad-firm(_set-flow-margins--to-margin-level($buttonGapBlock_touch)),
+        if(
+            $buttonGapInline_touch,
+            var-pad-firm(
+                _set-flow-margins--to-margin-level($buttonGapInline_touch)
+            ),
+            $val_firm_start
+        )
+    );
+
+    $val_buttonSpan_inline_touch: if(
+        $buttonGapInline_touch,
+        var-pad-firm(
+            _set-flow-margins--to-margin-level($buttonGapInline_touch)
+        ),
+        $val_buttonSpan_block_touch
+    );
+
     // CUSTOM PROPS
     @if $defineCustomProps {
         $_sel: if(selector.parent-exists(), '*', config.$selector_root);
@@ -205,12 +241,21 @@
             @include cx-prop(flow-margin-firm-end--large, $val_firm_end_large);
 
             @include cx-prop(
-                flow-margin--button-span-block,
+                flow-margin-button-span-block,
                 $val_buttonSpan_block
             );
             @include cx-prop(
-                flow-margin--button-span-inline,
+                flow-margin-button-span-inline,
                 $val_buttonSpan_inline
+            );
+
+            @include cx-prop(
+                flow-margin-button-span-block--touch,
+                $val_buttonSpan_block_touch
+            );
+            @include cx-prop(
+                flow-margin-button-span-inline--touch,
+                $val_buttonSpan_inline_touch
             );
 
             @if $unstyledHeading != false {
@@ -275,9 +320,16 @@
         :is(%button) {
             + :is(%button) {
                 margin-block-start: do-var(
-                    flow-margin--button-span-block,
-                    $val_buttonSpan_block
+                    flow-margin-button-span-block--touch,
+                    $val_buttonSpan_block_touch
                 );
+
+                @include feature-check.supports-not(touch) {
+                    margin-block-start: do-var(
+                        flow-margin-button-span-block,
+                        $val_buttonSpan_block
+                    );
+                }
             }
 
             &:has(+ %button) {
@@ -302,63 +354,157 @@
         // BUTTON SPAN
 
         %button-span {
-            gap: do-var(flow-margin--button-span-block, $val_buttonSpan_block)
-                do-var(flow-margin--button-span-inline, $val_buttonSpan_inline);
+            gap: do-var(
+                    flow-margin-button-span-block--touch,
+                    $val_buttonSpan_block_touch
+                )
+                do-var(
+                    flow-margin-button-span-inline--touch,
+                    $val_buttonSpan_inline_touch
+                );
+
+            @include feature-check.supports-not(touch) {
+                gap: do-var(
+                        flow-margin-button-span-block,
+                        $val_buttonSpan_block
+                    )
+                    do-var(
+                        flow-margin-button-span-inline,
+                        $val_buttonSpan_inline
+                    );
+            }
         }
     }
 }
 
 ///
+/// Pass values by style token slug. Optionally include only the prefix for the
+/// style tokens (without trailing dash).
+///
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin set-flow-margins-by-token(
-    $default: flow-margin,
-    $large: flow-margin-large,
-    $small: flow-margin-small,
+    $prefix: null,
+    $default: if(meta.is-truthy($prefix), #{$prefix}-flow-margin, null),
+    $large: if(meta.is-truthy($prefix), #{$prefix}-flow-margin-large, null),
+    $small: if(meta.is-truthy($prefix), #{$prefix}-flow-margin-small, null),
     //
     $buttonGapBlock: null,
     $buttonGapInline: null,
+    //
+    $buttonGapBlock_touch: null,
+    $buttonGapInline_touch: null,
     $args...
 ) {
     $buttonGapBlock: if(
-        $buttonGapBlock == null,
-        if($buttonGapInline == null, null, $buttonGapInline),
-        $buttonGapBlock
+        meta.is-truthy($buttonGapBlock),
+        $buttonGapBlock,
+        if(
+            meta.is-truthy($buttonGapInline),
+            $buttonGapInline,
+            if(
+                meta.is-truthy($prefix),
+                #{$prefix}-flow-margin-button,
+                flow-margin-button
+            )
+        )
     );
 
     $buttonGapInline: if(
-        $buttonGapInline == null,
-        $buttonGapBlock,
-        $buttonGapInline
+        meta.is-truthy($buttonGapInline),
+        $buttonGapInline,
+        $buttonGapBlock
     );
 
-    $val_default: style-value($default, $raw: true);
-    $val_large: style-value($large, $raw: true);
-    $val_small: style-value($small, $raw: true);
+    $buttonGapBlock_touch: if(
+        meta.is-truthy($buttonGapBlock_touch),
+        $buttonGapBlock_touch,
+        if(
+            meta.is-truthy($buttonGapInline_touch),
+            $buttonGapInline_touch,
+            if(
+                meta.is-truthy($buttonGapBlock),
+                #{$buttonGapBlock}-touch,
+                if(
+                    meta.is-truthy($prefix),
+                    #{$prefix}-flow-margin-button-touch,
+                    flow-margin-button-touch
+                )
+            )
+        )
+    );
+
+    $buttonGapInline_touch: if(
+        meta.is-truthy($buttonGapInline_touch),
+        $buttonGapInline_touch,
+        $buttonGapBlock_touch
+    );
 
     $val_buttonGapBlock: if(
         $buttonGapBlock == null,
         if(
             $buttonGapInline == null,
             null,
-            style-value($buttonGapInline, $raw: true)
+            style-value($buttonGapInline, $raw: true, $failureReturn: null)
         ),
-        style-value($buttonGapBlock, $raw: true)
+        style-value($buttonGapBlock, $raw: true, $failureReturn: null)
     );
 
-    $val_buttonGapInline: if(
-        $buttonGapInline == null,
-        $val_buttonGapBlock,
-        style-value($buttonGapInline, $raw: true)
+    $val_buttonGapBlock_touch: if(
+        $buttonGapBlock_touch == null,
+        if(
+            $buttonGapInline_touch == null,
+            null,
+            style-value(
+                $buttonGapInline_touch,
+                $raw: true,
+                $failureReturn: null,
+                $warnOnFail: false
+            )
+        ),
+        style-value(
+            $buttonGapBlock_touch,
+            $raw: true,
+            $failureReturn: null,
+            $warnOnFail: false
+        )
     );
 
     @include set-flow-margins(
-        $default: $val_default,
-        $large: $val_large,
-        $small: $val_small,
+        $default: if(
+                meta.is-truthy($default),
+                style-value($default, $raw: true, $failureReturn: null),
+                null
+            ),
+        $large: if(
+                meta.is-truthy($large),
+                style-value($large, $raw: true, $failureReturn: null),
+                null
+            ),
+        $small: if(
+                meta.is-truthy($small),
+                style-value($small, $raw: true, $failureReturn: null),
+                null
+            ),
         //
         $buttonGapBlock: $val_buttonGapBlock,
-        $buttonGapInline: $val_buttonGapInline,
+        $buttonGapInline: if(
+                $buttonGapInline == null,
+                $val_buttonGapBlock,
+                style-value($buttonGapInline, $raw: true, $failureReturn: null)
+            ),
+        //
+        $buttonGapBlock_touch: $val_buttonGapBlock_touch,
+        $buttonGapInline_touch: if(
+                $buttonGapInline_touch == null,
+                $val_buttonGapBlock_touch,
+                style-value(
+                    $buttonGapInline_touch,
+                    $raw: true,
+                    $failureReturn: null,
+                    $warnOnFail: false
+                )
+            ),
         //
         $args...
     );
@@ -1004,25 +1150,24 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeDisabled {
-        &[aria-disabled='true'],
-        &[disabled] {
-            @include snippet-link-colour-single(-disabled);
+        @include config.selector-a-disabled {
             text-decoration-line: underline;
-
             @content (root-disabled);
 
-            /// STATES ///
-
-            @include hover-focus-visible-or-within($args...) {
+            @include apply-interactive-mixin(
+                $active: true,
+                $focus: true,
+                $focusWithin: true,
+                $hover: true,
+                $self: true,
+                $visited: true,
+                $warnOnSelf: false,
+                $args...
+            ) {
+                // /* interactive disabled */
                 @include snippet-link-colour-single(-disabled);
 
-                @content (hover-focus-disabled);
-            }
-
-            @include active {
-                @include snippet-link-colour-single(-disabled);
-
-                @content (active-disabled);
+                @content (disabled);
             }
         }
     }
@@ -1073,22 +1218,19 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeDisabled {
-        &[aria-disabled='true'],
-        &[disabled] {
-            @include snippet-link-colour-single(-disabled);
-
-            @content (disabled-root);
-
-            @include hover-focus-visible-or-within($args...) {
+        @include apply-interactive-mixin(
+            $active: true,
+            $focus: true,
+            $focusWithin: true,
+            $hover: true,
+            $self: true,
+            $visited: true,
+            $warnOnSelf: false,
+            $args...
+        ) {
+            @include config.selector-a-disabled {
                 @include snippet-link-colour-single(-disabled);
-
-                @content (disabled-hover-focus);
-            }
-
-            @include active {
-                @include snippet-link-colour-single(-disabled);
-
-                @content (disabled-active);
+                @content (disabled);
             }
         }
     }
@@ -1100,7 +1242,16 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 @mixin snippet-link(
     $focusRingOutlineOffset: var-stroke-relative('200'),
     $textDecorationThickness: var-stroke-relative('100'),
-    $textUnderlineOffset: var-stroke-relative('600')
+    $textUnderlineOffset: var-stroke-relative('600'),
+    //
+    $includeColours: true,
+    $includeDisabled: true,
+    $includeDisplayExceptions: true,
+    $includeEmpty: true,
+    $includeImages: true,
+    $includeInlineIcons: config.$include_link_inlineIcons,
+    $includeNoStyle: true,
+    $includeTransition: true
 ) {
     @include cx-prop(focus-ring-outline-offset, $focusRingOutlineOffset);
 
@@ -1115,54 +1266,103 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @content (root);
 
-    @include snippet-link-colours using ($location) {
-        @content (colours-#{$location});
+    @if $includeColours {
+        @include snippet-link-colours($includeDisabled: $includeDisabled) using
+            ($location) {
+            @content (colours-#{$location});
+        }
     }
 
-    &,
-    &::before,
-    &::after {
-        transition: do-var(transition);
+    @if $includeTransition {
+        &,
+        &::before,
+        &::after {
+            transition: do-var(transition);
+        }
     }
 
     /// EXCEPTIONS ///
 
-    &:empty {
-        display: none;
-    }
+    @if $includeEmpty {
+        &:empty {
+            display: none;
 
-    &.no-style {
-        text-decoration: none;
-        font-weight: inherit;
-        color: inherit;
-
-        @content (no-style);
-    }
-
-    &[aria-disabled='true'],
-    &[disabled] {
-        cursor: not-allowed;
-
-        @content (disabled);
-
-        @if config.$include_link_inlineIcons {
-            &::before {
-                @include snippet-icon-pseudo-element(disabled, before);
-
-                @content (disabled-before);
-            }
-            &::after {
-                content: none !important;
-
-                @content (disabled-after);
-            }
+            @content (empty);
         }
     }
 
-    @if config.$include_link_inlineIcons {
+    @if $includeDisplayExceptions {
+        &.display-block {
+            @include prop-display(inline-block);
+            vertical-align: baseline;
+        }
+    }
+
+    @if $includeNoStyle {
+        &.unstyled-link {
+            text-decoration: none;
+            font-weight: inherit;
+            color: inherit;
+
+            @content (unstyled-link);
+        }
+    }
+
+    @if $includeDisabled {
+        @include config.selector-a-disabled {
+            cursor: not-allowed;
+
+            @content (disabled);
+        }
+    }
+
+    @if $includeInlineIcons {
+        $_pseudoSels: ('[target=_blank]::after', '[download]::before');
+
+        @if $includeDisabled {
+            $_pseudoSels: list.join(
+                $_pseudoSels,
+                selector.unify(config.$selector_a_disabled, '::before'),
+                $separator: comma
+            );
+        }
+
+        @at-root #{selector.unify(&, $_pseudoSels)} {
+            @include snippet-icon-pseudo-element(
+                null,
+                null,
+                $includeBasePropsOnly: true
+            );
+
+            @content (all-icon);
+        }
+
+        @if $includeDisabled {
+            @include config.selector-a-disabled {
+                &::before {
+                    @include snippet-icon-pseudo-element(
+                        disabled,
+                        before,
+                        $includeBaseProps: false
+                    );
+
+                    @content (disabled-before);
+                }
+                &::after {
+                    content: none !important;
+
+                    @content (disabled-after);
+                }
+            }
+        }
+
         &[target='_blank'] {
             &::after {
-                @include snippet-icon-pseudo-element(external, after);
+                @include snippet-icon-pseudo-element(
+                    external,
+                    after,
+                    $includeBaseProps: false
+                );
 
                 @content (target-blank-icon);
             }
@@ -1170,7 +1370,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
         &[download] {
             &::before {
-                @include snippet-icon-pseudo-element(download, before);
+                @include snippet-icon-pseudo-element(
+                    download,
+                    before,
+                    $includeBaseProps: false
+                );
 
                 @content (download-icon);
             }
@@ -1184,7 +1388,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 @content (no-pseudo-icon);
             }
         }
+    }
 
+    @if $includeImages {
         @include selector.has(
             list.join(
                 list.join(

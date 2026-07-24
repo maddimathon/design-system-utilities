@@ -36,7 +36,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $selector_content: '%widget-block-content',
     $selector_header: '%widget-block-header',
     $selector_hgroup: '%widget-block-hgroup',
-    $selector_sidebar: '%site-sidebar',
+    $selector_sidebar: '%main-sidebar',
     $selector_subtitle: '%widget-block-subtitle',
     $selector_title: '%widget-block-title'
 ) {
@@ -106,12 +106,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     }
 
     @if $includeFlowMargins {
-        @include set-flow-margins-by-token(
-            $default: widget-flow-margin,
-            $large: widget-flow-margin-large,
-            $small: widget-flow-margin-small,
-            $buttonGapBlock: widget-flow-margin-button
-        );
+        @include set-flow-margins-by-token(widget);
     }
 }
 
@@ -128,7 +123,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $widget_marginBlockEnd: do-var(flow-margin-firm-end--large)
 ) {
     @if $includeSidebar {
-        %site-sidebar {
+        %main-sidebar {
             @include prop-display(flex);
             @include utils.snippet-body-grid--flex-container($gap: $gap);
 
@@ -146,7 +141,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 @content (widget--#{$location});
             }
 
-            %site-sidebar > & {
+            %main-sidebar > & {
                 margin-block: $widget_marginBlockEnd 0;
 
                 @content (widget--in-sidebar);

@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
+import type { PartialExcept, RecursivePartial } from '@maddimathon/utility-typescript/types';
 import { deleteUndefinedProps, mergeArgs } from '@maddimathon/utility-typescript';
 
 import type {
@@ -56,7 +56,10 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                 $: '400',
                 large: '600',
                 small: '300',
-                button: '300',
+                button: {
+                    $: '300',
+                    touch: '400',
+                },
             },
 
             form: {
@@ -137,10 +140,34 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     Tokens_CSS_Style.toggleStyle<T_Params>( icon, widget, partial.toggle ),
                 ] );
 
+                const flowMargin_button_default = partial?.[ 'flow-margin' ]?.small ?? '200' satisfies AnyTokenLevel;
+                const flowMargin_button_touch = partial?.[ 'flow-margin' ]?.$ ?? '300' satisfies AnyTokenLevel;
+
+                if ( typeof partial[ 'flow-margin' ] !== 'object' ) {
+                    partial[ 'flow-margin' ] = {};
+                }
+
+                const partial_flowMargin_button = typeof partial?.[ 'flow-margin' ]?.button === 'object'
+                    ? deleteUndefinedProps( {
+                        $: partial?.[ 'flow-margin' ]?.button?.$ ?? flowMargin_button_default,
+                        touch: partial?.[ 'flow-margin' ]?.button?.touch ?? flowMargin_button_touch,
+                    } )
+                    : {
+                        $: partial?.[ 'flow-margin' ]?.button ?? flowMargin_button_default,
+                        touch: flowMargin_button_touch,
+                    };
+
                 return {
                     alert,
                     button,
-                    'flow-margin': mergeArgs( defaults[ 'flow-margin' ], partial[ 'flow-margin' ], true ),
+                    'flow-margin': mergeArgs(
+                        defaults[ 'flow-margin' ],
+                        {
+                            ...partial?.[ 'flow-margin' ],
+                            button: partial_flowMargin_button,
+                        },
+                        true,
+                    ),
                     form: mergeArgs( defaults.form, partial.form, true ),
                     heading,
                     hr: mergeArgs( defaults.hr, partial.hr, true ),
@@ -804,6 +831,24 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         partial: Tokens_CSS_Style.InputParam<T_Params>[ 'toggle' ] = {},
     ): Promise<Tokens_CSS_Style.ToggleStyles> {
 
+        type FlowMargin_Button = PartialExcept<Extract<Tokens_CSS_Style.WidgetStyles[ 'flow-margin' ][ 'button' ], object>, '$'>;
+
+        const flowMargins_widget_button: FlowMargin_Button =
+            typeof widgetStyles[ 'flow-margin' ].button === 'object'
+                ? widgetStyles[ 'flow-margin' ].button
+                : {
+                    $: widgetStyles[ 'flow-margin' ].button
+                };
+
+        const button: FlowMargin_Button = typeof partial?.[ 'flow-margin' ]?.button === 'object'
+            ? deleteUndefinedProps( {
+                $: partial?.[ 'flow-margin' ]?.button?.$ ?? flowMargins_widget_button.$,
+                touch: partial?.[ 'flow-margin' ]?.button?.touch ?? flowMargins_widget_button.touch,
+            } )
+            : {
+                $: partial?.[ 'flow-margin' ]?.button ?? flowMargins_widget_button.$,
+            };
+
         const flowMargin = {
             $: widgetStyles[ 'flow-margin' ].$,
             large: widgetStyles[ 'flow-margin' ].large,
@@ -811,7 +856,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
             ...partial?.[ 'flow-margin' ] ?? {},
 
-            button: partial?.[ 'flow-margin' ]?.button ?? widgetStyles[ 'flow-margin' ].button,
+            button,
             self: 'margins-flow-firm',
         } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'flow-margin' ];
 
@@ -986,7 +1031,22 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     /**
      * @since ___PKG_VERSION___
      */
-    public static async widgetStyle<T_Params extends TokenTypes.Style.TypeParams>( partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'widget' ] ): Promise<Tokens_CSS_Style.WidgetStyles> {
+    public static async widgetStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'widget' ],
+    ): Promise<Tokens_CSS_Style.WidgetStyles> {
+
+        type FlowMargin_Button = PartialExcept<Extract<Tokens_CSS_Style.WidgetStyles[ 'flow-margin' ][ 'button' ], object>, '$'>;
+
+        const flowMargin_button_default = '200' satisfies AnyTokenLevel;
+
+        const button: FlowMargin_Button = typeof partial?.[ 'flow-margin' ]?.button === 'object'
+            ? deleteUndefinedProps( {
+                $: partial?.[ 'flow-margin' ]?.button?.$ ?? flowMargin_button_default,
+                touch: partial?.[ 'flow-margin' ]?.button?.touch,
+            } )
+            : {
+                $: partial?.[ 'flow-margin' ]?.button ?? flowMargin_button_default,
+            };
 
         const flowMargin = {
             $: '300' satisfies AnyTokenLevel,
@@ -995,7 +1055,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
             ...partial?.[ 'flow-margin' ] ?? {},
 
-            button: partial?.[ 'flow-margin' ]?.button ?? '200' satisfies AnyTokenLevel,
+            button,
         } as const;
 
         return {
@@ -1128,9 +1188,7 @@ export namespace Tokens_CSS_Style {
         /**
          * Values for the set-flow-margins mixin.
          */
-        'flow-margin': FlowMargin & {
-            self: FlowMargin.SelfFirm;
-        };
+        'flow-margin': FlowMargin.WithSelfFirm;
 
         padding: {
             block: AnyTokenLevel;
@@ -1303,7 +1361,13 @@ export namespace Tokens_CSS_Style {
         /**
          * Gap for button spans.
          */
-        button: AnyTokenLevel;
+        button: AnyTokenLevel | {
+            $: AnyTokenLevel;
+            /**
+             * Explicitly set a size for the button span gap for touch-screens.
+             */
+            touch?: AnyTokenLevel;
+        };
     };
 
     /**
@@ -1314,12 +1378,33 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
+        export type Parsed = Omit<FlowMargin, 'button'> & {
+            button: Extract<FlowMargin[ 'button' ], object>;
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
         export type Self = 'margins-flow' | 'margins-flow-small' | 'margins-flow-large';
 
         /**
          * @since ___PKG_VERSION___
          */
         export type SelfFirm = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type WithSelf = FlowMargin & {
+            self: Self;
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type WithSelfFirm = FlowMargin & {
+            self: SelfFirm;
+        };
     }
 
     /**
@@ -1607,9 +1692,7 @@ export namespace Tokens_CSS_Style {
         /**
          * Values for the set-flow-margins mixin.
          */
-        'flow-margin': FlowMargin & {
-            self: FlowMargin.SelfFirm;
-        };
+        'flow-margin': FlowMargin.WithSelfFirm;
 
         icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
@@ -1720,7 +1803,7 @@ export namespace Tokens_CSS_Style {
          * 
          * @since ___PKG_VERSION___
          */
-        'flow-margin': FlowMargin;
+        'flow-margin': FlowMargin.Parsed;
 
         /**
          * @since ___PKG_VERSION___
