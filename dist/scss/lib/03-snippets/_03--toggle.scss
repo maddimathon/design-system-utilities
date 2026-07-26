@@ -227,7 +227,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     @include cx-prop(toggle-border-color, var-theme(heading-#{$slug}));
 
                     margin-block-start: max(
-                        var-style(flow-margin-large),
+                        do-var(flow-margin--large),
                         var-style(heading-#{$slug}-margin-block-start)
                     );
 
@@ -814,7 +814,7 @@ $_defaultHeadingSelectors_greaterThan6: ();
             }
 
             %li {
-                margin-block: var-style(flow-margin-small) 0;
+                margin-block: do-var(flow-margin--small) 0;
                 
                 @content (#{$location}--li);
             }

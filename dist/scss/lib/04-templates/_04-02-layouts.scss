@@ -58,7 +58,7 @@
     }
 
     @if $css_headings {
-        /* # LAYOUTS - CONTENT HEADER
+        /* # LAYOUTS - MAIN CONTENT HEADER
          * ======================================================================== */
     }
 
@@ -75,8 +75,12 @@
                         }
                     }
 
-                    + :where(*) {
-                        margin-block-start: var-style(flow-margin-large);
+                    + * {
+                        @include set-flow-margin-conditional-override(
+                            start,
+                            $firm: do-var(flow-margin-firm-start--large),
+                            $soft: do-var(flow-margin--large)
+                        );
                     }
                 }
             }

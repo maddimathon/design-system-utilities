@@ -43,8 +43,15 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
             },
             form: {
-                'flow-margin': {
-                    self: 'margins-flow-firm-large',
+                $: {
+                    'flow-margin': {
+                        self: 'margins-flow-firm-large',
+                    },
+                },
+                search: {
+                    'flow-margin': {
+                        self: 'margins-flow-firm',
+                    },
                 },
             },
             hr: {
@@ -509,6 +516,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 style: 'solid',
                 width: '100',
             },
+            'flow-margin': {
+                self: 'margins-flow-firm',
+            },
             focus: {
                 offset: '400',
             },
@@ -529,13 +539,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 'line-height': '200',
             },
             'line-height': '300',
-            // margin: {
-            //     block: {
-            //         start: '400',
-            //         end: '400',
-            //         gap: '200',
-            //     },
-            // },
             padding: {
                 block: '200',
                 inline: '300',

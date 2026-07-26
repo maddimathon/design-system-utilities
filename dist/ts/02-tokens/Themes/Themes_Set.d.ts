@@ -262,7 +262,9 @@ export declare namespace Tokens_Themes_Set {
                 [K in T_ThemeTypes['variations']['universal']]: Data.Button<T_ColourTypes, __T_ColourOption>;
             };
             input: {
-                [K in "$" | "disabled" | "readonly"]: Data.Input<T_ColourTypes, __T_ColourOption>;
+                $: Data.Input<T_ColourTypes, __T_ColourOption, InteractiveStylesWithFocus<__T_ColourOption>>;
+            } & {
+                [K in "disabled" | "readonly"]: Data.Input<T_ColourTypes, __T_ColourOption>;
             };
             system: {
                 accent: {
@@ -299,10 +301,10 @@ export declare namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-beta.0.draft
              */
-            type Input<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
-                accent: InteractiveStylesWithFocus<__T_ColourOption>;
+            type Input<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>, __T_ColourOptionInteractive extends any = __T_ColourOption> = {
+                accent: __T_ColourOptionInteractive;
                 background: __T_ColourOption;
-                border: InteractiveStylesWithFocus<__T_ColourOption>;
+                border: __T_ColourOptionInteractive;
                 placeholder: __T_ColourOption;
                 text: __T_ColourOption;
             };
@@ -397,7 +399,9 @@ export declare namespace Tokens_Themes_Set {
                     [K in T_ThemeTypes['variations']['universal']]?: undefined | Data.Button<T_ColourTypes, __T_ColourOption>;
                 };
                 input?: undefined | {
-                    [K in "$" | "disabled" | "readonly"]?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>;
+                    $?: undefined | Data.Input<T_ColourTypes, __T_ColourOption, InteractiveStylesWithFocus<__T_ColourOption>>;
+                } & {
+                    [K in "disabled" | "readonly"]?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>;
                 };
                 system?: undefined | {
                     accent?: undefined | {

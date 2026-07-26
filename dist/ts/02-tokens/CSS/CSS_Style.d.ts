@@ -434,6 +434,12 @@ export declare namespace Tokens_CSS_Style {
             style: string;
             width: CSS.BorderWidth;
         };
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': {
+            self: FlowMargin.SelfFirm;
+        };
         focus: {
             offset: AnyTokenLevel;
         };
@@ -476,7 +482,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    type InputStyles_Variation = Omit<InputStyles, 'border' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
+    type InputStyles_Variation = Omit<InputStyles, 'border' | 'flow-margin' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
     };
     /**
@@ -642,8 +648,15 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         form: {
-            'flow-margin': {
-                self: FlowMargin.SelfFirm;
+            $: {
+                'flow-margin': {
+                    self: FlowMargin.SelfFirm;
+                };
+            };
+            search: {
+                'flow-margin': {
+                    self: FlowMargin.SelfFirm;
+                };
             };
         };
         heading: {
@@ -756,7 +769,7 @@ export declare namespace Tokens_CSS_Style {
         /**
          * @since 0.1.0-beta.0.draft
          */
-        form?: RecursivePartial<Data<T_Params>['table']>;
+        form?: RecursivePartial<Data<T_Params>['form']>;
         heading?: {
             unstyled?: RecursivePartial<HeadingStyles_Unstyled>;
         } & {

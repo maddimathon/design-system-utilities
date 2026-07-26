@@ -316,7 +316,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         }
     }
 
-    @if not $includeBasePropsOnly and $pseudo != null and $spacing {
+    @if (not $includeBasePropsOnly or $pseudo != null) and $spacing {
         $_start: if($pseudo == before, end, start);
         $_end: if($pseudo == before, start, end);
 

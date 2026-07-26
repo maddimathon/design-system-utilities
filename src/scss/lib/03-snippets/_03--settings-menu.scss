@@ -35,7 +35,7 @@ $_closing_time: var-tr-time(toggle-closing);
     //
     $fieldset_flexContainer_alignment: (),
     $fieldset_flexContainer_direction: row,
-    $fieldset_flexContainer_gap: var-style(flow-margin-small) var-gap-inline(tab),
+    $fieldset_flexContainer_gap: do-var(flow-margin--small) var-gap-inline(tab),
     $fieldset_marginBlock: do-var(flow-margin-firm-start--small) do-var(flow-margin-firm-end--small),
     $fieldset_marginInline: 0,
     $fieldset_paddingBlock: do-var(flow-margin--small),
@@ -85,7 +85,7 @@ $_closing_time: var-tr-time(toggle-closing);
             margin-inline: $fieldset_marginInline;
 
             padding-block: $fieldset_paddingBlock;
-            padding-inline:$fieldset_paddingInline;
+            padding-inline: $fieldset_paddingInline;
 
             @content($location);
         }
@@ -109,6 +109,7 @@ $_closing_time: var-tr-time(toggle-closing);
                 $includePosition: false,
                 $includeTextBasics: false,
                 $includeVisited: false,
+                $multipleContentBlocks: true,
             ) using ($_button_location) {
                 @if $_button_location == root {
                     @include cx-prop(icon-size, do-var(icon-size-large));

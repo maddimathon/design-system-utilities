@@ -123,10 +123,10 @@ type _ButtonVariation = {
 
 type _ParsedInputField_Single = {
 
-    [ State in "$" | "hover" | "active" ]: {
+    [ State in "$" | "focus" | "hover" | "active" ]: {
 
         [ K in "accent"|"background"|"border"|"text"|"placeholder" ]: {
-            state: null | "$" | "hover" | "active";
+            state: null | "focus" | "hover" | "active";
             variation: "$" | "disabled" | "readonly",
             label: string;
             key: string;
@@ -136,7 +136,9 @@ type _ParsedInputField_Single = {
 };
 
 type _ParsedInputField = {
-    [ InputType in "$"|"disabled"|"readonly" ]: _ParsedInputField_Single;
+    $: _ParsedInputField_Single;
+    disabled: Pick<_ParsedInputField_Single, '$'>;
+    readonly: Pick<_ParsedInputField_Single, '$'>;
 };
 
 /* FUNCTIONS ===================================== */
@@ -308,59 +310,85 @@ const buttons: {
     } ),
 );
 
-const inputField: _ParsedInputField = objectGenerator(
-    [ '$', 'disabled','readonly' ] as const,
-    ( inputType ) => objectGenerator(
-        [ '$', 'hover', 'active' ] as const,
-        ( key ): _ParsedInputField_Single['$'|'active'|'hover'] => {
-            const state =  key == '$' ? null : key;
+function _inputFieldGenerator<
+    T_InputType extends '$',
+    T_State extends '$'|'active'|'focus' |'hover'
+>(inputType: T_InputType, state: T_State): _ParsedInputField[T_InputType][T_State];
 
-            const keySuffix = key == '$' ? '' : `-${key}`;
+function _inputFieldGenerator<
+    T_InputType extends 'disabled'|'readonly',
+    T_State extends '$'
+>(inputType: T_InputType, state: T_State): _ParsedInputField[T_InputType][T_State];
 
-            const keyInputSuffix = inputType == '$' ? '' : `-${key}`;
+function _inputFieldGenerator<
+    T_InputType extends '$'|'disabled'|'readonly',
+    T_State extends '$'|'active'|'focus' |'hover'
+>(inputType: T_InputType, key: T_State) {
+    const state =  key === '$' ? null : key as Exclude<T_State, '$'>;
 
-            const label = `Input Field${inputType !== '$' ? ` (${toTitleCase(inputType)})`: ''}${ state ? ` — ${state}` : '' }`;
-            
-            return {
-                accent: {
-                    key: `input${keyInputSuffix}-accent${keySuffix}`,
-                    state,
-                    label,
-                    variation: inputType,
-                    clrSlug: theme.data.input[inputType].accent[key],
-                },
-                background: {
-                    key: `input${keyInputSuffix}-background${keySuffix}`,
-                    state,
-                    label,
-                    variation: inputType,
-                    clrSlug: theme.data.input[inputType].background,
-                },
-                border: {
-                    key: `input${keyInputSuffix}-border${keySuffix}`,
-                    state,
-                    label,
-                    variation: inputType,
-                    clrSlug: theme.data.input[inputType].border[key],
-                },
-                text: {
-                    key: `input${keyInputSuffix}-color${keySuffix}`,
-                    state,
-                    label,
-                    variation: inputType,
-                    clrSlug: theme.data.input[inputType].text,
-                },
-                placeholder: {
-                    key: `input${keyInputSuffix}-placeholder${keySuffix}`,
-                    state,
-                    label,
-                    variation: inputType,
-                    clrSlug: theme.data.input[inputType].placeholder,
-                },
-            } satisfies _ParsedInputField_Single['$'|'active'|'hover'];
-        }
-    ) as _ParsedInputField_Single
-);
+    const keySuffix = key == '$' ? '' : `-${key}`;
+
+    const keyInputSuffix = inputType == '$' ? '' : `-${key}`;
+
+    const label = `Input Field${inputType !== '$' ? ` (${toTitleCase(inputType)})`: ''}${ state ? ` — ${state}` : '' }`;
+
+    const themeValues = inputType === '$'
+        ? ['full', theme.data.input[inputType as '$']] as const
+        : ['short', theme.data.input[inputType as Exclude<T_InputType, '$'>]] as const;
+
+    return {
+        accent: {
+            key: `input${keyInputSuffix}-accent${keySuffix}`,
+            state,
+            label,
+            variation: inputType,
+            clrSlug: themeValues[0] === 'full' ? themeValues[1].accent[key] : themeValues[1].accent,
+        },
+        background: {
+            key: `input${keyInputSuffix}-background${keySuffix}`,
+            state,
+            label,
+            variation: inputType,
+            clrSlug: themeValues[1].background,
+        },
+        border: {
+            key: `input${keyInputSuffix}-border${keySuffix}`,
+            state,
+            label,
+            variation: inputType,
+            clrSlug: themeValues[0] === 'full' ? themeValues[1].border[key] : themeValues[1].border,
+        },
+        text: {
+            key: `input${keyInputSuffix}-color${keySuffix}`,
+            state,
+            label,
+            variation: inputType,
+            clrSlug: themeValues[1].text,
+        },
+        placeholder: {
+            key: `input${keyInputSuffix}-placeholder${keySuffix}`,
+            state,
+            label,
+            variation: inputType,
+            clrSlug: themeValues[1].placeholder,
+        },
+    } satisfies _ParsedInputField_Single['$'];
+}
+
+const inputField = {
+    $: {
+        $: _inputFieldGenerator( '$', '$' ),
+        hover: _inputFieldGenerator( '$', 'hover' ),
+        focus: _inputFieldGenerator( '$', 'focus' ),
+        active: _inputFieldGenerator( '$', 'active' ),
+    },
+    disabled: {
+        $:_inputFieldGenerator( 'disabled', '$' ),
+    },
+    readonly: {
+        $:_inputFieldGenerator( 'readonly', '$' ),
+    },
+} as const satisfies _ParsedInputField;
 ---
 
 <article

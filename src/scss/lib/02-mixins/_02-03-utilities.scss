@@ -28,10 +28,10 @@ $_firmFlowMarginChildren: list.join(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin _snippet-no-top-or-bottom-margin(
+@mixin set-flow-margin-conditional-override(
     $marginSide,
-    $firmFlowMarginValue: do-var(flow-margin-firm-end),
-    $softFlowMarginValue: 0,
+    $firm: do-var(flow-margin-firm-end),
+    $soft: 0,
     //
     $additionalFirmChildren: (),
     $asImportant: true,
@@ -56,15 +56,15 @@ $_firmFlowMarginChildren: list.join(
 
     @if $includeChildren and $useNotInsteadOfChildren {
         &:not(#{$firmFlowMarginChildren}) {
-            margin-block-#{$marginSide}: $softFlowMarginValue #{$importantSuffix};
+            margin-block-#{$marginSide}: $soft #{$importantSuffix};
         }
     } @else if $includeRoot {
-        margin-block-#{$marginSide}: $softFlowMarginValue #{$importantSuffix};
+        margin-block-#{$marginSide}: $soft #{$importantSuffix};
     }
 
     @if $includeChildren and not $useNotInsteadOfChildren {
         @at-root #{selector.unify(&, $firmFlowMarginChildren)} {
-            margin-block-#{$marginSide}: $firmFlowMarginValue #{$importantSuffix};
+            margin-block-#{$marginSide}: $firm #{$importantSuffix};
         }
     }
 }
@@ -76,7 +76,7 @@ $_firmFlowMarginChildren: list.join(
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-first-child-no-top-margin($args...) {
-    @include _snippet-no-top-or-bottom-margin(start, $args...);
+    @include set-flow-margin-conditional-override(start, $args...);
 }
 
 ///
@@ -86,5 +86,5 @@ $_firmFlowMarginChildren: list.join(
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-last-child-no-bottom-margin($args...) {
-    @include _snippet-no-top-or-bottom-margin(end, $args...);
+    @include set-flow-margin-conditional-override(end, $args...);
 }

@@ -989,7 +989,9 @@ export namespace Tokens_Themes_Set {
             };
 
             input: {
-                [ K in "$" | "disabled" | "readonly" ]: Data.Input<T_ColourTypes, __T_ColourOption>;
+                $: Data.Input<T_ColourTypes, __T_ColourOption, InteractiveStylesWithFocus<__T_ColourOption>>;
+            } & {
+                [ K in "disabled" | "readonly" ]: Data.Input<T_ColourTypes, __T_ColourOption>;
             };
 
             system: {
@@ -1038,10 +1040,11 @@ export namespace Tokens_Themes_Set {
             export type Input<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
                 __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>,
+                __T_ColourOptionInteractive extends any = __T_ColourOption,
             > = {
-                accent: InteractiveStylesWithFocus<__T_ColourOption>;
+                accent: __T_ColourOptionInteractive;
                 background: __T_ColourOption;
-                border: InteractiveStylesWithFocus<__T_ColourOption>;
+                border: __T_ColourOptionInteractive;
                 placeholder: __T_ColourOption;
                 text: __T_ColourOption;
             };
@@ -1153,7 +1156,9 @@ export namespace Tokens_Themes_Set {
                 },
 
                 input?: undefined | {
-                    [ K in "$" | "disabled" | "readonly" ]?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>;
+                    $?: undefined | Data.Input<T_ColourTypes, __T_ColourOption, InteractiveStylesWithFocus<__T_ColourOption>>;
+                } & {
+                    [ K in "disabled" | "readonly" ]?: undefined | Data.Input<T_ColourTypes, __T_ColourOption>;
                 },
 
                 system?: undefined | {
@@ -2257,7 +2262,25 @@ export namespace Tokens_Themes_Set {
                 } as CompleteData[ 'button' ];
 
                 const singleInputMaker = (
-                    _variation: "primary" | "readonly",
+                    _variation: "disabled" | "readonly",
+                ): CompleteData[ 'input' ][ 'disabled' | 'readonly' ] => {
+
+                    const _border = ui[ _variation as Exclude<typeof _variation, 'readonly'> ] ?? ui.grey;
+                    const _text = text[ _variation as Exclude<typeof _variation, 'readonly'> ] ?? (
+                        _variation === 'readonly' ? text.$ : text.grey
+                    );
+
+                    return {
+                        accent: _variation === 'readonly' ? ui.primary : _border,
+                        background: background.grey,
+                        border: _border,
+                        placeholder: text.disabled,
+                        text: _text,
+                    };
+                };
+
+                const singleInputMaker_root = (
+                    _variation: "primary",
                 ): CompleteData[ 'input' ][ '$' ] => {
 
                     const _active_ui = clrOpt( variations.interactive.active, levels.ui.accent );
@@ -2270,47 +2293,18 @@ export namespace Tokens_Themes_Set {
                         active: _active_ui,
                     };
 
-                    const _border: CompleteData[ 'input' ][ '$' ][ 'border' ] = { ..._accent };
-
-                    if ( _variation === 'readonly' ) {
-                        _border.$ = ui.grey;
-                        _border.hover = ui.grey;
-                    }
-
                     return {
                         accent: _accent,
-                        background: _variation === 'readonly' ? background.grey : background.bright,
-                        border: _border,
+                        background: background.bright,
+                        border: _accent,
                         placeholder: text.disabled,
                         text: text.$,
                     };
                 };
 
                 const inputField: CompleteData[ 'input' ] = {
-                    $: overrides.input?.$ ?? singleInputMaker( 'primary' ),
-
-                    disabled: overrides.input?.disabled ?? {
-
-                        accent: {
-                            $: ui.disabled,
-                            focus: ui.disabled,
-                            hover: ui.disabled,
-                            active: ui.disabled,
-                        },
-
-                        background: background.grey,
-
-                        border: {
-                            $: ui.disabled,
-                            focus: ui.disabled,
-                            hover: ui.disabled,
-                            active: ui.disabled,
-                        },
-
-                        placeholder: text.disabled,
-                        text: text.disabled,
-                    },
-
+                    $: overrides.input?.$ ?? singleInputMaker_root( 'primary' ),
+                    disabled: overrides.input?.disabled ?? singleInputMaker( 'disabled' ),
                     readonly: overrides.input?.readonly ?? singleInputMaker( 'readonly' ),
                 };
 
@@ -2499,7 +2493,15 @@ export namespace Tokens_Themes_Set {
                     },
                 } as CompleteData[ 'button' ];
 
-                const inputField: CompleteData[ 'input' ][ keyof CompleteData[ 'input' ] ] = {
+                const inputField: CompleteData[ 'input' ][ 'disabled' ] = {
+                    accent: 'CanvasText',
+                    background: 'Field',
+                    border: 'CanvasText',
+                    placeholder: 'FieldText',
+                    text: 'FieldText',
+                };
+
+                const inputField_root: CompleteData[ 'input' ][ '$' ] = {
                     accent: {
                         $: 'CanvasText',
                         focus: 'CanvasText',
@@ -2524,7 +2526,7 @@ export namespace Tokens_Themes_Set {
                     heading,
 
                     input: {
-                        $: overrides.input?.$ ?? inputField,
+                        $: overrides.input?.$ ?? inputField_root,
                         disabled: overrides.input?.disabled ?? inputField,
                         readonly: overrides.input?.readonly ?? inputField,
                     },

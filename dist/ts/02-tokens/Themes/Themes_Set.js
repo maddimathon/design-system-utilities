@@ -761,6 +761,17 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     disabled: overrides.button?.disabled ?? singleButtonMaker_disabled('disabled', variations.interactive.disabled),
                 };
                 const singleInputMaker = (_variation) => {
+                    const _border = ui[_variation] ?? ui.grey;
+                    const _text = text[_variation] ?? (_variation === 'readonly' ? text.$ : text.grey);
+                    return {
+                        accent: _variation === 'readonly' ? ui.primary : _border,
+                        background: background.grey,
+                        border: _border,
+                        placeholder: text.disabled,
+                        text: _text,
+                    };
+                };
+                const singleInputMaker_root = (_variation) => {
                     const _active_ui = clrOpt(variations.interactive.active, levels.ui.accent);
                     const _hover_ui = clrOpt(variations.interactive.hover, levels.ui.accent);
                     const _accent = {
@@ -769,38 +780,17 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         hover: _hover_ui,
                         active: _active_ui,
                     };
-                    const _border = { ..._accent };
-                    if (_variation === 'readonly') {
-                        _border.$ = ui.grey;
-                        _border.hover = ui.grey;
-                    }
                     return {
                         accent: _accent,
-                        background: _variation === 'readonly' ? background.grey : background.bright,
-                        border: _border,
+                        background: background.bright,
+                        border: _accent,
                         placeholder: text.disabled,
                         text: text.$,
                     };
                 };
                 const inputField = {
-                    $: overrides.input?.$ ?? singleInputMaker('primary'),
-                    disabled: overrides.input?.disabled ?? {
-                        accent: {
-                            $: ui.disabled,
-                            focus: ui.disabled,
-                            hover: ui.disabled,
-                            active: ui.disabled,
-                        },
-                        background: background.grey,
-                        border: {
-                            $: ui.disabled,
-                            focus: ui.disabled,
-                            hover: ui.disabled,
-                            active: ui.disabled,
-                        },
-                        placeholder: text.disabled,
-                        text: text.disabled,
-                    },
+                    $: overrides.input?.$ ?? singleInputMaker_root('primary'),
+                    disabled: overrides.input?.disabled ?? singleInputMaker('disabled'),
                     readonly: overrides.input?.readonly ?? singleInputMaker('readonly'),
                 };
                 return {
@@ -939,6 +929,13 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     },
                 };
                 const inputField = {
+                    accent: 'CanvasText',
+                    background: 'Field',
+                    border: 'CanvasText',
+                    placeholder: 'FieldText',
+                    text: 'FieldText',
+                };
+                const inputField_root = {
                     accent: {
                         $: 'CanvasText',
                         focus: 'CanvasText',
@@ -960,7 +957,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     button,
                     heading,
                     input: {
-                        $: overrides.input?.$ ?? inputField,
+                        $: overrides.input?.$ ?? inputField_root,
                         disabled: overrides.input?.disabled ?? inputField,
                         readonly: overrides.input?.readonly ?? inputField,
                     },

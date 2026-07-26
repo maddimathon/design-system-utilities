@@ -8,6 +8,7 @@
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../config';
 @use '../../tokens';
@@ -58,8 +59,8 @@
 @mixin snippet-button-colour-single-state(
     $state,
     $variation: tokens.$button_variation_default,
+    /// $buttonType opts: null, 'file-input', 'inline'
     $buttonType: null,
-    // $buttonType opts: null, 'file-input', 'inline'
     $includeVisited: true,
     $args...
 ) {
@@ -370,7 +371,7 @@ $_mixin_button_colours: meta.get-mixin('snippet-button-colours');
     @if $includeColours {
         @include meta.apply(
                 $mixin_button_colours,
-                disabled,
+                $variation: disabled,
                 $buttonType: $buttonType,
                 $focusWithin: $focusWithin,
                 $focus_fallbacksOnly: $focus_fallbacksOnly,
@@ -681,6 +682,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     //
     $includeChildren: not $asSimpleButton,
     $includeColours: true,
+    $includeColours_inline: $includeColours,
     $includeDisabled: not $asSimpleButton,
     $includeEmpty: not $asSimpleButton,
     $includeInline: not $asSimpleButton,
@@ -689,8 +691,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $includePadding: true,
     $includePseudoIcons: not $asSimpleButton and
         config.$include_button_inlineIcons,
+    $includePseudoIcons_disabled: $includePseudoIcons,
     $includeTextBasics: true,
     $includeVisited: true,
+    $multipleContentBlocks: false,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
     $borderRadius: null,
@@ -786,10 +790,15 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         $important: true
     );
 
-    @include prop-display($display);
+    @if $display != false {
+        @include prop-display($display);
+    }
 
-    // prettier-ignore
-    @if $display == flex or $display == inline-flex or $display == grid or $display == inline-grid {
+    @if ($display == flex) or
+        ($display == inline-flex) or
+        ($display == grid) or
+        ($display == inline-grid)
+    {
         flex-direction: row;
         flex-wrap: wrap;
 
@@ -884,7 +893,11 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     user-select: text;
 
-    @content (root);
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
 
     @if $includeColours {
         @include meta.apply(
@@ -899,7 +912,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 $includeVisited: $includeVisited
             )
             using ($location) {
-            @content ($location);
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
         }
     } @else {
         @include apply-interactive-mixin(
@@ -912,11 +927,15 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $includeNoWhereSelectorFallback:
                 $focus_includeNoWhereSelectorFallback
         ) {
-            @content (hover-focus);
+            @if $multipleContentBlocks {
+                @content (hover-focus);
+            }
         }
 
         @include active {
-            @content (active);
+            @if $multipleContentBlocks {
+                @content (active);
+            }
         }
     }
 
@@ -924,7 +943,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         &:empty:not(input) {
             padding-inline: $paddingBlock;
 
-            @content (empty);
+            @if $multipleContentBlocks {
+                @content (empty);
+            }
         }
     }
 
@@ -939,7 +960,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
             line-height: 1 !important;
 
-            @content (has-logo-or-icon-only-child);
+            @if $multipleContentBlocks {
+                @content (has-logo-or-icon-only-child);
+            }
 
             &::after,
             &::before {
@@ -952,7 +975,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $direct: true,
             $unifyParent: true
         ) {
-            @content (has-icon-only-child);
+            @if $multipleContentBlocks {
+                @content (has-icon-only-child);
+            }
         }
 
         @include selector.has(
@@ -960,7 +985,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $direct: true,
             $unifyParent: true
         ) {
-            @content (has-logo-only-child);
+            @if $multipleContentBlocks {
+                @content (has-logo-only-child);
+            }
         }
     }
 
@@ -987,39 +1014,43 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
                     $includeBaseProps: false,
                     $includeColours: $includeColours,
-                    $includePseudoIcons: $includePseudoIcons,
+                    $includePseudoIcons: $includePseudoIcons_disabled,
 
                     $mixin_button_colours: $mixin_button_colours,
                     $useIconFont: $useIconFont
                 )
                 using ($location) {
-                @content (disabled-#{$location});
+                @if $multipleContentBlocks {
+                    @content (disabled-#{$location});
+                }
             }
         }
     }
 
     @if $includeInline {
         &:is(.display-inline) {
-            // prettier-ignore
             @include meta.apply(
-                $mixin_button_inline,
-                
-                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks,
-                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
-                
-                $includeBaseProps: false,
-                $includeColours: false,
-                $includeDisabled: $includeDisabled,
-                
-                $mixin_button_colours: $mixin_button_colours,
-                $useIconFont: $useIconFont,
-            ) using ($location) {
-                @content(inline-#{$location});
+                    $mixin_button_inline,
+                    $focus_fallbacksOnly: $focus_fallbacksOnly,
+                    $focus_includeFallbacks: $focus_includeFallbacks,
+                    $focus_includeNoWhereSelectorFallback:
+                        $focus_includeNoWhereSelectorFallback,
+
+                    $includeBaseProps: false,
+                    $includeColours: false,
+                    $includeDisabled: $includeDisabled,
+
+                    $mixin_button_colours: $mixin_button_colours,
+                    $useIconFont: $useIconFont
+                )
+                using ($location) {
+                @if $multipleContentBlocks {
+                    @content (inline-#{$location});
+                }
             }
         }
 
-        @if $includeColours and
+        @if $includeColours_inline and
             (
                 tokens.$button_variation_default !=
                     tokens.$button_inline_variation_default
@@ -1040,12 +1071,16 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                         $includeVisited: $includeVisited
                     )
                     using ($location) {
-                    @content (inline--colours--#{$location});
+                    @if $multipleContentBlocks {
+                        @content (inline--colours--#{$location});
+                    }
                 }
 
                 @if $includeDisabled {
                     @include config.selector-button-disabled($is: true) {
-                        @content (inline--colours--disabled);
+                        @if $multipleContentBlocks {
+                            @content (inline--colours--disabled);
+                        }
 
                         @include meta.apply(
                                 $mixin_button_colours,
@@ -1060,12 +1095,18 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                                 $includeVisited: $includeVisited
                             )
                             using ($location) {
-                            @content (inline--colours--disabled-#{$location});
+                            @if $multipleContentBlocks {
+                                @content (inline--colours--disabled-#{$location});
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    @if $multipleContentBlocks {
+        @content (exceptions-end);
     }
 
     /// BLOCK ///
@@ -1093,7 +1134,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     @if $includeChildren {
         @include _snippet-button-base--children using ($location) {
-            @content (child--#{$location});
+            @if $multipleContentBlocks {
+                @content (child--#{$location});
+            }
         }
 
         @include _snippet-button--icon-child(
@@ -1102,8 +1145,14 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 $verticalAlign: var-style(button-icon-vertical-align)
             )
             using ($location) {
-            @content (child--icon--#{$location});
+            @if $multipleContentBlocks {
+                @content (child--icon--#{$location});
+            }
         }
+    }
+
+    @if $multipleContentBlocks {
+        @content (children-end);
     }
 }
 
@@ -1124,17 +1173,31 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $marginInline: 0 do-var(flow-margin-firm-start--small),
     $width: false,
     //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback:
+        config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    //
     $includeColours: true,
     $includeDisabled: true,
     $selector: '%file-selector-button',
     //
+    $mixin_button: null,
     $mixin_button_colour_single_state: null,
     $mixin_button_disabled: null,
     $args...
 ) {
+    $mixin_button: config.config-valid-mixin(
+        $mixin_button,
+        '$mixin_button',
+        $default: $_mixin_button,
+        $prefix: '[snippet-add-pseudo-file-selector-button] '
+    );
+
     $mixin_button_colour_single_state: config.config-valid-mixin(
         $mixin_button_colour_single_state,
-        '$_mixin_button_colour_single_state',
+        '$mixin_button_colour_single_state',
         $default: $_mixin_button_colour_single_state,
         $prefix: '[snippet-add-pseudo-file-selector-button] '
     );
@@ -1165,20 +1228,24 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     );
 
     @at-root #{$selector_root} {
-        @include snippet-button(
+        @include meta.apply(
+                $mixin_button,
+                //
                 $display: $display,
                 $fontSize: $fontSize,
                 $marginBlockEnd: $marginBlockEnd,
                 $marginBlockStart: $marginBlockStart,
                 $width: $width,
                 //
-                $includeChildren: false,
+                $asSimpleButton: true,
+                // $includeChildren: false,
                 $includeColours: false,
                 $includeDisabled: false,
                 $includeEmpty: false,
-                $includeInline: false,
+                // $includeInline: false,
                 $includeOnlyChild: false,
-                $includePseudoIcons: false,
+                // $includePseudoIcons: false,
+                $multipleContentBlocks: true,
                 //
                 $args...
             )
@@ -1200,28 +1267,36 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 }
             }
 
+            @if $location == exceptions-end {
+            }
+
             @content (button-#{$location});
         }
     }
 
     /// STATES ///
 
-    @at-root #{$selector_hover} {
-        @at-root #{selector.unify(&, $selector)} {
-            @if $includeColours {
-                @include meta.apply(
-                    $mixin_button_colour_single_state,
-                    hover,
-                    $variation,
-                    $buttonType: $buttonType
-                );
-            }
-
-            @content (hover);
+    @at-root #{selector.unify($selector_hover, $selector)} {
+        @if $includeColours {
+            @include meta.apply(
+                $mixin_button_colour_single_state,
+                hover,
+                $variation,
+                $buttonType: $buttonType
+            );
         }
+
+        @content (hover);
     }
 
-    @include focus-visible-or-within {
+    @include apply-interactive-mixin(
+        $focus: true,
+        $focusWithin: $focusWithin,
+        //
+        $fallbacksOnly: $focus_fallbacksOnly,
+        $includeFallbacks: $focus_includeFallbacks,
+        $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+    ) {
         @at-root #{selector.unify(&, $selector)} {
             @if $includeColours {
                 @include meta.apply(
@@ -1353,96 +1428,37 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 ///
 @mixin _snippet-input-colours-single(
     $accentClr,
-    $accentClr_active,
-    $accentClr_focus,
-    $accentClr_hover,
-    //
     $background,
-    $background_active,
-    $background_focus,
-    $background_hover,
-    //
     $borderClr,
-    $borderClr_active,
-    $borderClr_focus,
-    $borderClr_hover,
-    //
     $color,
-    $color_active,
-    $color_focus,
-    $color_hover,
-    //
-    $opacity: false,
-    $opacity_active: $opacity,
-    $opacity_hover: null,
-    $opacity_focus: $opacity_hover,
-    //
-    $focusWithin: false,
-    $focus_fallbacksOnly: true,
-    $focus_includeNoWhereSelectorFallback:
-        config.$mx_focusVisible_includeNoWhereSelectorFallback
+    $opacity,
+    $outlineClr: $accentClr
 ) {
-    $opacity: if($opacity == null, 1, $opacity);
+    @if $outlineClr != false {
+        @include cx-prop(focus-ring-outline-color, $outlineClr);
+    }
 
-    @include cx-prop(focus-ring-outline-color, $accentClr_focus);
-    background-color: $background;
-    border-color: $borderClr;
-    color: $color;
-    accent-color: $accentClr;
+    @if $background != false {
+        background-color: $background;
+    }
+
+    @if $borderClr != false {
+        border-color: $borderClr;
+    }
+
+    @if $color != false {
+        color: $color;
+    }
+
+    @if $accentClr != false {
+        accent-color: $accentClr;
+    }
 
     @if $opacity != false {
-        opacity: $opacity;
+        opacity: if($opacity == null, 1, $opacity);
     }
 
-    @content (root);
-
-    &::placeholder {
-        color: var-theme(input-placeholder);
-
-        @content (placeholder);
-    }
-
-    &:hover {
-        @include cx-prop(focus-ring-outline-color, $accentClr_hover);
-        background-color: $background_hover;
-        border-color: $borderClr_hover;
-        color: $color_hover;
-        accent-color: $accentClr_hover;
-
-        @if $opacity_hover != false {
-            opacity: $opacity_hover;
-        }
-    }
-
-    @include apply-interactive-mixin(
-        $focus: true,
-        $focusWithin: $focusWithin,
-        //
-        $fallbacksOnly: $focus_fallbacksOnly,
-        $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
-    ) {
-        @include cx-prop(focus-ring-outline-color, $accentClr_focus);
-        background-color: $background_focus;
-        border-color: $borderClr_focus;
-        color: $color_focus;
-        accent-color: $accentClr_focus;
-
-        @if $opacity_focus != false {
-            opacity: $opacity_focus;
-        }
-    }
-
-    @include active {
-        @include cx-prop(focus-ring-outline-color, $accentClr_active);
-        background-color: $background_active;
-        border-color: $borderClr_active;
-        color: $color_active;
-        accent-color: $accentClr_active;
-
-        @if $opacity_active != false {
-            opacity: $opacity_active;
-        }
-    }
+    @content;
 }
 
 ///
@@ -1471,173 +1487,244 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $color_focus: var-theme(input-text),
     $color_hover: var-theme(input-text),
     //
+    $placeholder_color: var-theme(input-placeholder),
+    //
     $accentClr_disabled: var-theme(input-disabled-accent),
-    $accentClr_disabled_active: var-theme(input-disabled-accent-active),
-    $accentClr_disabled_focus: var-theme(input-disabled-accent-focus),
-    $accentClr_disabled_hover: var-theme(input-disabled-accent-hover),
-    //
     $background_disabled: var-theme(input-disabled-background),
-    $background_disabled_active: var-theme(input-disabled-background),
-    $background_disabled_focus: var-theme(input-disabled-background),
-    $background_disabled_hover: var-theme(input-disabled-background),
-    //
     $borderClr_disabled: var-theme(input-disabled-border),
-    $borderClr_disabled_active: var-theme(input-disabled-border-active),
-    $borderClr_disabled_focus: var-theme(input-disabled-border-focus),
-    $borderClr_disabled_hover: var-theme(input-disabled-border-hover),
-    //
     $color_disabled: var-theme(input-disabled-text),
-    $color_disabled_active: var-theme(input-disabled-text),
-    $color_disabled_focus: var-theme(input-disabled-text),
-    $color_disabled_hover: var-theme(input-disabled-text),
+    $placeholder_color_disabled: var-theme(input-disabled-placeholder),
     //
     $accentClr_readonly: var-theme(input-readonly-accent),
-    $accentClr_readonly_active: var-theme(input-readonly-accent-active),
-    $accentClr_readonly_focus: var-theme(input-readonly-accent-focus),
-    $accentClr_readonly_hover: var-theme(input-readonly-accent-hover),
-    //
     $background_readonly: var-theme(input-readonly-background),
-    $background_readonly_active: var-theme(input-readonly-background),
-    $background_readonly_focus: var-theme(input-readonly-background),
-    $background_readonly_hover: var-theme(input-readonly-background),
-    //
     $borderClr_readonly: var-theme(input-readonly-border),
-    $borderClr_readonly_active: var-theme(input-readonly-border-active),
-    $borderClr_readonly_focus: var-theme(input-readonly-border-focus),
-    $borderClr_readonly_hover: var-theme(input-readonly-border-hover),
-    //
     $color_readonly: var-theme(input-readonly-text),
-    $color_readonly_active: var-theme(input-readonly-text),
-    $color_readonly_focus: var-theme(input-readonly-text),
-    $color_readonly_hover: var-theme(input-readonly-text),
+    $placeholder_color_readonly: var-theme(input-readonly-placeholder),
     //
+    $opacity: false,
+    $opacity_active: $opacity,
+    $opacity_focus: $opacity,
+    $opacity_hover: $opacity_focus,
+    $opacity_disabled: false,
+    $opacity_readonly: false,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: true,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback:
+        config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    //
+    $includeDisabled: true,
+    $includeHover: null,
+    $includeReadonly: true,
+    $separateHover: null,
     $args...
 ) {
+    @if $opacity_focus == null {
+        $opacity_focus: if($opacity_focus == null, $opacity, $opacity_focus);
+    }
+
+    @if $opacity_hover == null {
+        $opacity_hover: if(
+            $opacity_hover == null,
+            $opacity_focus,
+            $opacity_hover
+        );
+    }
+
+    $includeHover_exceptions: $includeHover;
+
+    @if $includeHover == null {
+        $includeHover_exceptions: true;
+
+        $includeHover: ($accentClr != $accentClr_hover) or
+            ($background != $background_hover) or
+            ($borderClr != $borderClr_hover) or
+            ($color != $color_hover) or
+            ($opacity != $opacity_hover);
+    }
+
+    @if $includeHover and $separateHover == null {
+        $separateHover: ($accentClr_hover != $accentClr_focus) or
+            ($background_hover != $background_focus) or
+            ($borderClr_hover != $borderClr_focus) or
+            ($color_hover != $color_focus) or
+            ($opacity_hover != $opacity_focus);
+    }
+
     @include _snippet-input-colours-single(
-            $accentClr: $accentClr,
-            $accentClr_active: $accentClr_active,
-            $accentClr_focus: $accentClr_focus,
-            $accentClr_hover: $accentClr_hover,
-
-            $background: $background,
-            $background_active: $background_active,
-            $background_focus: $background_focus,
-            $background_hover: $background_hover,
-
-            $borderClr: $borderClr,
-            $borderClr_active: $borderClr_active,
-            $borderClr_focus: $borderClr_focus,
-            $borderClr_hover: $borderClr_hover,
-
-            $color: $color,
-            $color_active: $color_active,
-            $color_focus: $color_focus,
-            $color_hover: $color_hover,
-
-            $args...
-        )
-        using ($location) {
-        @content ($location);
+        $accentClr: $accentClr,
+        $background: $background,
+        $borderClr: $borderClr,
+        $color: $color,
+        $opacity: $opacity,
+        $outlineClr: $accentClr_focus
+    ) {
+        @content (root);
     }
-
-    @include config.selector-input-disabled {
-        @include _snippet-input-colours-single(
-                $accentClr: $accentClr_disabled,
-                $accentClr_active: $accentClr_disabled_active,
-                $accentClr_focus: $accentClr_disabled_focus,
-                $accentClr_hover: $accentClr_disabled_hover,
-
-                $background: $background_disabled,
-                $background_active: $background_disabled_active,
-                $background_focus: $background_disabled_focus,
-                $background_hover: $background_disabled_hover,
-
-                $borderClr: $borderClr_disabled,
-                $borderClr_active: $borderClr_disabled_active,
-                $borderClr_focus: $borderClr_disabled_focus,
-                $borderClr_hover: $borderClr_disabled_hover,
-
-                $color: $color_disabled,
-                $color_active: $color_disabled_active,
-                $color_focus: $color_disabled_focus,
-                $color_hover: $color_disabled_hover,
-
-                $opacity: false,
-
-                $args...
-            )
-            using ($location) {
-            @content (disabled--#{$location});
-        }
-    }
-
-    @include config.selector-input-readonly {
-        @include _snippet-input-colours-single(
-                $accentClr: $accentClr_readonly,
-                $accentClr_active: $accentClr_readonly_active,
-                $accentClr_focus: $accentClr_readonly_focus,
-                $accentClr_hover: $accentClr_readonly_hover,
-
-                $background: $background_readonly,
-                $background_active: $background_readonly_active,
-                $background_focus: $background_readonly_focus,
-                $background_hover: $background_readonly_hover,
-
-                $borderClr: $borderClr_readonly,
-                $borderClr_active: $borderClr_readonly_active,
-                $borderClr_focus: $borderClr_readonly_focus,
-                $borderClr_hover: $borderClr_readonly_hover,
-
-                $color: $color_readonly,
-                $color_active: $color_readonly_active,
-                $color_focus: $color_readonly_focus,
-                $color_hover: $color_readonly_hover,
-
-                $opacity: false,
-
-                $args...
-            )
-            using ($location) {
-            @content (readonly--#{$location});
-        }
-    }
-}
-
-///
-/// @since 0.1.0-beta.0.draft
-///
-@mixin _snippet-input--root(
-    $borderRadius,
-    $paddingBlock,
-    $placeholder_opacity
-) {
-    border-radius: $borderRadius;
-    transition: do-var(transition);
-
-    @content (root);
 
     &::placeholder {
-        font-style: var-style(input-placeholder-font-style);
-        opacity: $placeholder_opacity;
+        @if $placeholder_color != false {
+            color: $placeholder_color;
+        }
 
         @content (placeholder);
     }
 
-    &.font-family-icons {
-        @include cx-prop(icon-size-font, var-style(icon-size));
-        @include cx-prop(icon-size-pseudo, var-style(icon-size));
-        @include cx-prop(icon-vertical-align, text-bottom);
+    @if $separateHover {
+        &:hover {
+            @include _snippet-input-colours-single(
+                $accentClr: if(
+                        $accentClr_hover == $accentClr,
+                        false,
+                        $accentClr_hover
+                    ),
+                $background: if(
+                        $background_hover == $background,
+                        false,
+                        $background_hover
+                    ),
+                $borderClr: if(
+                        $borderClr_hover == $borderClr,
+                        false,
+                        $borderClr_hover
+                    ),
+                $color: if($color_hover == $color, false, $color_hover),
+                $opacity: if($opacity_hover == $opacity, false, $opacity_hover)
+            ) {
+                @content (hover);
+            }
+        }
+    }
 
-        padding-block-start: calc(
-            $paddingBlock + var-style(input-icons-offset-block-start)
-        );
-        padding-block-end: calc(
-            $paddingBlock + var-style(input-icons-offset-block-end)
-        );
+    @include apply-interactive-mixin(
+        $hover: not $separateHover,
+        $focus: true,
+        $focusWithin: $focusWithin,
+        //
+        $fallbacksOnly: $focus_fallbacksOnly,
+        $includeFallbacks: $focus_includeFallbacks,
+        $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+    ) {
+        @include _snippet-input-colours-single(
+            $accentClr: if(
+                    $accentClr_focus == $accentClr,
+                    false,
+                    $accentClr_focus
+                ),
+            $background: if(
+                    $background_focus == $background,
+                    false,
+                    $background_focus
+                ),
+            $borderClr: if(
+                    $borderClr_focus == $borderClr,
+                    false,
+                    $borderClr_focus
+                ),
+            $color: if($color_focus == $color, false, $color_focus),
+            $opacity: if($opacity_focus == $opacity, false, $opacity_focus)
+        ) {
+            @content (focus);
+        }
+    }
 
-        letter-spacing: var-style(input-icons-letter-spacing);
+    @include active {
+        @include _snippet-input-colours-single(
+            $accentClr: if(
+                    $accentClr_active == $accentClr,
+                    false,
+                    $accentClr_active
+                ),
+            $background: if(
+                    $background_active == $background,
+                    false,
+                    $background_active
+                ),
+            $borderClr: if(
+                    $borderClr_active == $borderClr,
+                    false,
+                    $borderClr_active
+                ),
+            $color: if($color_active == $color, false, $color_active),
+            $opacity: if($opacity_active == $opacity, false, $opacity_active)
+        ) {
+            @content (active);
+        }
+    }
 
-        @content (is-icon-font);
+    @if $includeReadonly {
+        @include config.selector-input-readonly {
+            @include apply-interactive-mixin(
+                $active: true,
+                $focus: true,
+                $focusWithin: $focusWithin,
+                $hover: true,
+                $self: true,
+                $warnOnSelf: false,
+                //
+                $fallbacksOnly: true,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback:
+                    $focus_includeNoWhereSelectorFallback
+            ) {
+                @include _snippet-input-colours-single(
+                    $accentClr: $accentClr_readonly,
+                    $background: $background_readonly,
+                    $borderClr: $borderClr_readonly,
+                    $color: $color_readonly,
+                    $opacity: $opacity_readonly,
+                    $outlineClr: $accentClr_focus
+                ) {
+                    @content (readonly);
+                }
+            }
+
+            &::placeholder {
+                @if $placeholder_color_readonly != false {
+                    color: $placeholder_color_readonly;
+                }
+
+                @content (readonly-placeholder);
+            }
+        }
+    }
+
+    @if $includeDisabled {
+        @include config.selector-input-disabled {
+            @include apply-interactive-mixin(
+                $active: true,
+                $focus: true,
+                $focusWithin: $focusWithin,
+                $hover: true,
+                $self: true,
+                $warnOnSelf: false,
+                //
+                $fallbacksOnly: true,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback:
+                    $focus_includeNoWhereSelectorFallback
+            ) {
+                @include _snippet-input-colours-single(
+                    $accentClr: $accentClr_disabled,
+                    $background: $background_disabled,
+                    $borderClr: $borderClr_disabled,
+                    $color: $color_disabled,
+                    $opacity: $opacity_disabled,
+                    $outlineClr: $accentClr_focus
+                ) {
+                    @content (disabled);
+                }
+            }
+
+            &::placeholder {
+                @if $placeholder_color_disabled != false {
+                    color: $placeholder_color_disabled;
+                }
+
+                @content (disabled-placeholder);
+            }
+        }
     }
 }
 
@@ -1652,29 +1739,54 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $borderWidth: var-style(input-border-width),
     $focusOffset: var-style(input-focus-offset),
     $lineHeight: var-style(input-line-height),
-    $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
+    $marginBlock: var-flow-margin-from-token(input-flow-margin-self, start)
+        var-flow-margin-from-token(input-flow-margin-self, end),
     $marginInline: 0,
-    $marginBlockStart_afterLabel: do-var(flow-margin-firm-end),
+    $marginBlockStart_afterLabel: var-flow-margin-from-token(
+            input-flow-margin-self,
+            end
+        ),
     $paddingBlock: var-style(input-padding-block),
     $paddingInline: var-style(input-padding-inline),
     //
-    $focusWithin: true,
-    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $placeholder_fontStyle: var-style(input-placeholder-font-style),
+    $placeholder_opacity: do-var(input-placeholder-opacity, 1),
+    //
+    $accentClr_focus: var-theme(input-accent-focus),
+    //
+    $accentClr_disabled: var-theme(input-disabled-accent),
+    $background_disabled: var-theme(input-disabled-background),
+    $borderClr_disabled: var-theme(input-disabled-border),
+    $color_disabled: var-theme(input-disabled-text),
+    $placeholder_color_disabled: var-theme(input-disabled-placeholder),
+    //
+    $accentClr_readonly: var-theme(input-readonly-accent),
+    $background_readonly: var-theme(input-readonly-background),
+    $borderClr_readonly: var-theme(input-readonly-border),
+    $color_readonly: var-theme(input-readonly-text),
+    $placeholder_color_readonly: var-theme(input-readonly-placeholder),
+    //
+    $opacity_disabled: false,
+    $opacity_readonly: false,
+    //
+    $focusWithin: false,
+    $focus_fallbacksOnly: true,
     $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
     $focus_includeNoWhereSelectorFallback:
         config.$mx_focusVisible_includeNoWhereSelectorFallback,
     //
-    $placeholder_opacity: do-var(input-placeholder-opacity, 1),
-    //
     $includeColours: true,
     $includeDisabled: true,
     $includeLabel: true,
-    $includeUtils: true,
+    $includeMarginBlock: not map.get(config.$template_styles, flowMargins),
+    $includeReadonly: true,
     $args...
 ) {
-    @if $includeUtils {
-        // prettier-ignore
-        @include utils.snippet-input(
+    $clrSkipRegex: 'active|focus(-visible(-or-within))?|hover|placeholder';
+    $clrSkipRegexFlags: 'gi';
+
+    @include utils.snippet-input(
+            $borderRadius: $borderRadius,
             $borderWidth: $borderWidth,
             $focusOffset: $focusOffset,
             $lineHeight: $lineHeight,
@@ -1685,195 +1797,186 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $paddingInline: $paddingInline,
             //
             $includeColours: false,
+            $includeDisabled: $includeDisabled,
+            $includeMarginBlock: $includeMarginBlock,
+            $includeReadonly: $includeReadonly,
             $includePlaceholder: false,
             $args...
-        ) using ($location) {
+        )
+        using ($location) {
+        @if $location == root {
+            @if $includeColours {
+                @include snippet-input-colours(
+                        $accentClr_focus: $accentClr_focus,
+                        $accentClr_disabled: $accentClr_disabled,
+                        $accentClr_readonly: $accentClr_readonly,
+                        $background_disabled: $background_disabled,
+                        $background_readonly: $background_readonly,
+                        $borderClr_disabled: $borderClr_disabled,
+                        $borderClr_readonly: $borderClr_readonly,
+                        $color_disabled: $color_disabled,
+                        $color_readonly: $color_readonly,
+                        $opacity_disabled: $opacity_disabled,
+                        $opacity_readonly: $opacity_readonly,
+                        $placeholder_color_disabled: $placeholder_color_disabled,
+                        $placeholder_color_readonly: $placeholder_color_readonly,
+                        //
+                        $focusWithin: $focusWithin,
+                        $focus_fallbacksOnly: true,
+                        $focus_includeFallbacks: $focus_includeFallbacks,
+                        $focus_includeNoWhereSelectorFallback:
+                            $focus_includeNoWhereSelectorFallback,
+                        //
+                        $includeDisabled: false,
+                        $includeReadonly: false,
+                        $args...
+                    )
+                    using ($clr_location) {
+                    @if $clr_location == root {
+                        transition: do-var(transition);
 
-            @if $location == root {
-                @include _snippet-input--root(
-                    $borderRadius: $borderRadius,
-                    $paddingBlock: $paddingBlock,
-                    $placeholder_opacity: $placeholder_opacity,
-                ) using ($root_location) {
-                    @content ($root_location);
+                        @content ($location);
+                    }
+                    //
+                    @else if $clr_location == placeholder {
+                        font-style: $placeholder_fontStyle;
+                        opacity: $placeholder_opacity;
+
+                        @content (placeholder);
+                    }
+                    //
+                    @else if
+                        (
+                            string.match(
+                                    $clr_location,
+                                    $clrSkipRegex,
+                                    $flags: $clrSkipRegexFlags
+                                ) !=
+                                null
+                        )
+                    {
+                        @content ($clr_location);
+                    }
+                    //
+                    @else {
+                        @content (colour--#{$clr_location});
+                    }
+                }
+            } @else {
+                transition: do-var(transition);
+
+                @content ($location);
+
+                &::placeholder {
+                    font-style: $placeholder_fontStyle;
+                    opacity: $placeholder_opacity;
+
+                    @content (placeholder);
+                }
+
+                $args: meta.keywords($args);
+            }
+
+            &.font-family-icons {
+                @include cx-prop(icon-size-font, var-style(icon-size));
+                @include cx-prop(icon-size-pseudo, var-style(icon-size));
+                @include cx-prop(icon-vertical-align, text-bottom);
+
+                padding-block-start: calc(
+                    $paddingBlock + var-style(input-icons-offset-block-start)
+                );
+                padding-block-end: calc(
+                    $paddingBlock + var-style(input-icons-offset-block-end)
+                );
+
+                letter-spacing: var-style(input-icons-letter-spacing);
+
+                @content (is-icon-font);
+            }
+        }
+        //
+        @else if $location == disabled {
+            @include apply-interactive-mixin(
+                $active: true,
+                $focus: true,
+                $focusWithin: $focusWithin,
+                $hover: true,
+                $self: true,
+                $warnOnSelf: false,
+                //
+                $fallbacksOnly: true,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback:
+                    $focus_includeNoWhereSelectorFallback
+            ) {
+                @include _snippet-input-colours-single(
+                    $accentClr: $accentClr_disabled,
+                    $background: $background_disabled,
+                    $borderClr: $borderClr_disabled,
+                    $color: $color_disabled,
+                    $opacity: $opacity_disabled,
+                    $outlineClr: $accentClr_focus
+                ) {
+                    @content ($location);
                 }
             }
 
-            @else if $location == hover-focus-visible-or-within {
-                
-                @content($location);
-            }
+            &::placeholder {
+                @if $placeholder_color_disabled != false {
+                    color: $placeholder_color_disabled;
+                }
 
-            @else if $location == active {
-                
-                @content($location);
-            }
-
-            // @else if $location == LOCATION {
-                
-            //     @content($location);
-            // }
-
-            @else {
-                @content($location);
+                @content (disabled-placeholder);
             }
         }
-    } @else {
-        @include cx-prop(focus-ring-outline-offset, $focusOffset);
+        //
+        @else if $location == readonly {
+            @include apply-interactive-mixin(
+                $active: true,
+                $focus: true,
+                $focusWithin: $focusWithin,
+                $hover: true,
+                $self: true,
+                $warnOnSelf: false,
+                //
+                $fallbacksOnly: true,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback:
+                    $focus_includeNoWhereSelectorFallback
+            ) {
+                @include _snippet-input-colours-single(
+                    $accentClr: $accentClr_readonly,
+                    $background: $background_readonly,
+                    $borderClr: $borderClr_readonly,
+                    $color: $color_readonly,
+                    $opacity: $opacity_readonly,
+                    $outlineClr: $accentClr_focus
+                ) {
+                    @content ($location);
+                }
+            }
 
-        margin-block: $marginBlock;
-        margin-inline: $marginInline;
+            &::placeholder {
+                @if $placeholder_color_readonly != false {
+                    color: $placeholder_color_readonly;
+                }
 
-        padding-block: $paddingBlock;
-        padding-inline: $paddingInline;
-
-        border-width: $borderWidth;
-        line-height: $lineHeight;
-
-        @include _snippet-input--root(
-                $borderRadius: $borderRadius,
-                $paddingBlock: $paddingBlock,
-                $placeholder_opacity: $placeholder_opacity
+                @content (#{$location}-placeholder);
+            }
+        }
+        //
+        @else if not
+            $includeColours or
+            (
+                string.match(
+                        $location,
+                        $clrSkipRegex,
+                        $flags: $clrSkipRegexFlags
+                    ) ==
+                    null
             )
-            using ($root_location) {
-            @content ($root_location);
-        }
-
-        &:hover {
-            @content (hover);
-        }
-
-        @include apply-interactive-mixin(
-            $focus: true,
-            $focusWithin: $focusWithin,
-            //
-            $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks,
-            $includeNoWhereSelectorFallback:
-                $focus_includeNoWhereSelectorFallback
-        ) {
-            @content (focus-visible-or-within);
-        }
-
-        @include active {
-            @content (active);
-        }
-
-        @if $includeLabel {
-            label + &,
-            label > & {
-                margin-block-start: $marginBlockStart_afterLabel;
-
-                @content (after-or-in-label);
-            }
-        }
-    }
-
-    @if $includeColours {
-        @include snippet-input-colours($args...) using ($clr_location) {
-            @content (colour--#{$clr_location});
-        }
-    } @else {
-        $args: meta.keywords($args);
-    }
-}
-
-///
-/// @since 0.1.0-beta.0.draft
-///
-@mixin _snippet-input-types--box(
-    $box_accentClr,
-    $box_accentClr_active,
-    $box_accentClr_focus,
-    $box_accentClr_hover,
-    $box_accentClr_disabled,
-    $box_accentClr_disabled_active,
-    $box_accentClr_disabled_focus,
-    $box_accentClr_disabled_hover,
-    $box_accentClr_readonly,
-    $box_accentClr_readonly_active,
-    $box_accentClr_readonly_focus,
-    $box_accentClr_readonly_hover
-) {
-    accent-color: $box_accentClr;
-    color: $box_accentClr;
-
-    @content (box);
-
-    &:hover {
-        accent-color: $box_accentClr_hover;
-        color: $box_accentClr_hover;
-
-        @content (box--hover);
-    }
-
-    @include focus-visible-or-within {
-        accent-color: $box_accentClr_focus;
-        color: $box_accentClr_focus;
-
-        @content (box--focus);
-    }
-
-    @include active {
-        accent-color: $box_accentClr_active;
-        color: $box_accentClr_active;
-
-        @content (box--active);
-    }
-
-    @include config.selector-input-disabled {
-        accent-color: $box_accentClr_disabled;
-        color: $box_accentClr_disabled;
-
-        @content (box--disabled);
-
-        &:hover {
-            accent-color: $box_accentClr_disabled_hover;
-            color: $box_accentClr_disabled_hover;
-
-            @content (box--disabled--hover);
-        }
-
-        @include focus-visible-or-within {
-            accent-color: $box_accentClr_disabled_focus;
-            color: $box_accentClr_disabled_focus;
-
-            @content (box--disabled--focus);
-        }
-
-        @include active {
-            accent-color: $box_accentClr_disabled_active;
-            color: $box_accentClr_disabled_active;
-
-            @content (box--disabled--active);
-        }
-    }
-
-    @include config.selector-input-readonly {
-        accent-color: $box_accentClr_readonly;
-        color: $box_accentClr_readonly;
-
-        @content (box--readonly);
-
-        &:hover {
-            accent-color: $box_accentClr_readonly_hover;
-            color: $box_accentClr_readonly_hover;
-
-            @content (box--readonly--hover);
-        }
-
-        @include focus-visible-or-within {
-            accent-color: $box_accentClr_readonly_focus;
-            color: $box_accentClr_readonly_focus;
-
-            @content (box--readonly--focus);
-        }
-
-        @include active {
-            accent-color: $box_accentClr_readonly_active;
-            color: $box_accentClr_readonly_active;
-
-            @content (box--readonly--active);
+        {
+            @content ($location);
         }
     }
 }
@@ -1885,10 +1988,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 ///
 @mixin snippet-input-types(
     $includeBase: true,
-    $includeUtils: true,
-    //
-    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
-    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
     //
     $file_paddingBlock: var-style(input-file-padding-block),
     $file_paddingInline: var-style(input-file-padding-inline),
@@ -1899,96 +1998,91 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $box_accentClr_hover: var-theme(input-accent-hover),
     //
     $box_accentClr_disabled: var-theme(input-disabled-accent),
-    $box_accentClr_disabled_active: var-theme(input-disabled-accent-active),
-    $box_accentClr_disabled_focus: var-theme(input-disabled-accent-focus),
-    $box_accentClr_disabled_hover: var-theme(input-disabled-accent-hover),
-    //
     $box_accentClr_readonly: var-theme(input-readonly-accent),
-    $box_accentClr_readonly_active: var-theme(input-readonly-accent-active),
-    $box_accentClr_readonly_focus: var-theme(input-readonly-accent-focus),
-    $box_accentClr_readonly_hover: var-theme(input-readonly-accent-hover),
     //
+    $focusWithin: false,
+    $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
+    $focus_includeFallbacks: config.$mx_focusVisible_includeFallbacks,
+    $focus_includeNoWhereSelectorFallback:
+        config.$mx_focusVisible_includeNoWhereSelectorFallback,
+    //
+    $includeColours: true,
+    $includeDisabled: true,
+    $includeReadonly: true,
     $args...
 ) {
     $args: meta.keywords($args);
 
-    @if $includeUtils {
-        // prettier-ignore
-        @include utils.snippet-input-types(
+    @include utils.snippet-input-types(
             $includeBase: $includeBase,
             $includeColours: false,
+            $includeDisabled: $includeDisabled,
+            $includeReadonly: $includeReadonly,
             //
             $args...
-        ) using ($location) {
+        )
+        using ($location) {
+        @if $location == box {
+            @content ($location);
 
-            @if $location == box {
-                @include _snippet-input-types--box(
-                    $box_accentClr: $box_accentClr,
-                    $box_accentClr_active: $box_accentClr_active,
-                    $box_accentClr_focus: $box_accentClr_focus,
-                    $box_accentClr_hover: $box_accentClr_hover,
-                    $box_accentClr_disabled: $box_accentClr_disabled,
-                    $box_accentClr_disabled_active: $box_accentClr_disabled_active,
-                    $box_accentClr_disabled_focus: $box_accentClr_disabled_focus,
-                    $box_accentClr_disabled_hover: $box_accentClr_disabled_hover,
-                    $box_accentClr_readonly: $box_accentClr_readonly,
-                    $box_accentClr_readonly_active: $box_accentClr_readonly_active,
-                    $box_accentClr_readonly_focus: $box_accentClr_readonly_focus,
-                    $box_accentClr_readonly_hover: $box_accentClr_readonly_hover,
-                ) using ($box_location) {
-                    @content($box_location);
+            @if $includeColours {
+                @include snippet-input-colours(
+                        $accentClr: $box_accentClr,
+                        $accentClr_active: $box_accentClr_active,
+                        $accentClr_focus: $box_accentClr_focus,
+                        $accentClr_hover: $box_accentClr_hover,
+                        //
+                        $background: false,
+                        $background_active: false,
+                        $background_focus: false,
+                        $background_hover: false,
+                        //
+                        $borderClr: false,
+                        $borderClr_active: false,
+                        $borderClr_focus: false,
+                        $borderClr_hover: false,
+                        //
+                        $color: $box_accentClr,
+                        $color_active: $box_accentClr_active,
+                        $color_focus: $box_accentClr_focus,
+                        $color_hover: $box_accentClr_hover,
+                        $placeholder_color: false,
+                        //
+                        $accentClr_disabled: $box_accentClr_disabled,
+                        $background_disabled: false,
+                        $borderClr_disabled: false,
+                        $color_disabled: $box_accentClr_disabled,
+                        $placeholder_color_disabled: false,
+                        //
+                        $accentClr_readonly: $box_accentClr_readonly,
+                        $background_readonly: false,
+                        $borderClr_readonly: false,
+                        $color_readonly: $box_accentClr_readonly,
+                        $placeholder_color_readonly: false,
+                        //
+                        $opacity: false,
+                        $opacity_active: false,
+                        $opacity_focus: false,
+                        $opacity_hover: false,
+                        $opacity_disabled: false,
+                        $opacity_readonly: false,
+                        //
+                        $focusWithin: $focusWithin,
+                        $focus_fallbacksOnly: $focus_fallbacksOnly,
+                        $focus_includeFallbacks: $focus_includeFallbacks,
+                        $focus_includeNoWhereSelectorFallback:
+                            $focus_includeNoWhereSelectorFallback,
+                        $includeDisabled: $includeDisabled,
+                        $includeReadonly: $includeReadonly
+                    )
+                    using ($clr_location) {
+                    @content (#{$location}--#{$clr_location});
                 }
             }
-
-            // @else if $location == LOCATION {
-
-            //     @content($location);
-            // }
-
-            @else {
-                @content($location);
-            }
         }
-    } @else {
-        &[type='checkbox'],
-        &[type='radio'] {
-            // prettier-ignore
-            @include _snippet-input-types--box(
-                $box_accentClr: $box_accentClr,
-                $box_accentClr_active: $box_accentClr_active,
-                $box_accentClr_focus: $box_accentClr_focus,
-                $box_accentClr_hover: $box_accentClr_hover,
-                $box_accentClr_disabled: $box_accentClr_disabled,
-                $box_accentClr_disabled_active: $box_accentClr_disabled_active,
-                $box_accentClr_disabled_focus: $box_accentClr_disabled_focus,
-                $box_accentClr_disabled_hover: $box_accentClr_disabled_hover,
-                $box_accentClr_readonly: $box_accentClr_readonly,
-                $box_accentClr_readonly_active: $box_accentClr_readonly_active,
-                $box_accentClr_readonly_focus: $box_accentClr_readonly_focus,
-                $box_accentClr_readonly_hover: $box_accentClr_readonly_hover
-            ) using ($box_location) {
-                @content ($box_location);
-            }
-        }
-    }
-
-    &[type='submit'],
-    &[type='reset'] {
-        @content (button);
-
-        @include config.selector-input-disabled {
-            @content (button-disabled);
-
-            @include snippet-button-colours(
-                    disabled,
-                    $focusWithin: false,
-                    $focus_fallbacksOnly: $focus_fallbacksOnly,
-                    $focus_includeFallbacks: $focus_includeFallbacks,
-                    $includeVisited: false
-                )
-                using ($clr_location) {
-                @content (button-disabled--#{$clr_location});
-            }
+        //
+        @else {
+            @content ($location);
         }
     }
 
@@ -2015,24 +2109,23 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $gap_checkradio: do-var(flow-margin--small),
     $lineHeight: var-style(input-label-line-height),
     $lh_checkradio: var-line-height('400'),
-    $marginBlock: do-var(flow-margin-firm-start) 0,
-    $marginBlock_innercheckradio: do-var(flow-margin-firm-end),
+    $marginBlock: var-flow-margin-from-token(input-flow-margin-self, start) 0,
+    $marginBlock_innercheckradio: var-flow-margin-from-token(
+            input-flow-margin-self,
+            end
+        ),
     //
-    $includeUtils: true,
+    $includeColours: true,
+    $includeMarginBlock: not map.get(config.$template_styles, flowMargins),
+    $multipleContentBlocks: false,
+    $selector_boxes: (
+        'input[type=checkbox]',
+        'input[type=radio]',
+    ),
+    $selector_boxes_has: 'input:where( [type=checkbox], [type=radio] )',
     $args...
 ) {
-    $args: meta.keywords($args);
-
-    @if not $includeUtils {
-        margin-block: $marginBlock;
-        font-weight: $fontWeight;
-        line-height: $lineHeight;
-    }
-
-    color: $color;
-
-    @if $includeUtils {
-        @include utils.snippet-label(
+    @include utils.snippet-label(
             $color: $color,
             $color_checkradio: $color_checkradio,
             //
@@ -2044,42 +2137,64 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $marginBlock: $marginBlock,
             $marginBlock_innercheckradio: $marginBlock_innercheckradio,
             //
-            $includeColours: false,
+            $includeColours: $includeColours,
+            $includeMarginBlock: $includeMarginBlock,
+            $multipleContentBlocks: true,
+            $selector_boxes: $selector_boxes,
+            $selector_boxes_has: $selector_boxes_has,
             $args...
-        );
-    }
-
-    &:has(> input:where([type='checkbox'], [type='radio'])) {
-        @if not $includeUtils {
-            gap: $gap_checkradio;
-
-            font-weight: $fontWeight_checkradio;
-            line-height: $lh_checkradio;
-
-            cursor: pointer;
-        }
-
-        color: $color_checkradio;
-
-        & + & {
-            margin-block-start: $marginBlock_innercheckradio;
-        }
-
-        + %select,
-        + %textarea {
-            margin-block-start: do-var(flow-margin-firm-start);
-        }
-
-        + %input {
-            &:not(
-                [type='button'],
-                [type='checkbox'],
-                [type='radio'],
-                [type='reset'],
-                [type='submit']
-            ) {
-                margin-block-start: do-var(flow-margin-firm-start);
+        )
+        using ($location) {
+        @if $location == root {
+            @if $multipleContentBlocks {
+                @content ($location);
+            } @else {
+                @content;
             }
+        }
+        //
+        @else if $location == has-box {
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
+        }
+        //
+        @else if $location == has-box--direct-sibling--box {
+            margin-block-start: $marginBlock_innercheckradio;
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
+        }
+        //
+        @else if $location == has-box--children-end {
+            + %select,
+            + %textarea,
+            + %input-base {
+                margin-block-start: do-var(flow-margin-firm-start);
+
+                @if $multipleContentBlocks {
+                    @content (#{$location}--direct-sibling--input-base);
+                }
+            }
+
+            + %input {
+                &:not([type='checkbox'], [type='radio']) {
+                    margin-block-start: do-var(flow-margin-firm-start);
+
+                    @if $multipleContentBlocks {
+                        @content (#{$location}--direct-sibling--input-base);
+                    }
+                }
+            }
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
+        }
+        //
+        @else if $multipleContentBlocks {
+            @content ($location);
         }
     }
 }
@@ -2118,8 +2233,14 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     ),
     $flex_direction: row,
     $flex_wrap: nowrap,
-    $marginBlockFirm: do-var(flow-margin-firm-start),
-    $marginBlockHalf: do-var(flow-margin-firm-end),
+    $marginBlockFirm: var-flow-margin-from-token(
+            form-search-flow-margin-self,
+            start
+        ),
+    $marginBlockHalf: var-flow-margin-from-token(
+            form-search-flow-margin-self,
+            end
+        ),
     $trTime: var-tr-time(normal),
     //
     $includeFocusWithinTransition: true,
@@ -2257,10 +2378,14 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
 @mixin snippet-support-all-buttons(
     $includeColours: true,
     $includeDisabled: true,
+    $includeFileSelector: true,
+    $includeInline: true,
+    $includePseudoIcons: config.$include_button_inlineIcons,
     //
+    $mixin_addPseudoFileSelectorButton: null,
     $mixin_button: null,
     $mixin_button_colours: null,
-    $mixin_addPseudoFileSelectorButton: null,
+    $mixin_button_disabled: null,
     $mixin_button_colour_single_state: null
 ) {
     $mixin_button: config.config-valid-mixin(
@@ -2274,6 +2399,13 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
         $mixin_button_colours,
         '$mixin_button_colours',
         $default: $_mixin_button_colours,
+        $prefix: '[snippet-support-all-buttons] '
+    );
+
+    $mixin_button_disabled: config.config-valid-mixin(
+        $mixin_button_disabled,
+        '$mixin_button_disabled',
+        $default: $_mixin_button_disabled,
         $prefix: '[snippet-support-all-buttons] '
     );
 
@@ -2300,40 +2432,87 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
 
     %button {
         @include meta.apply(
-            $mixin_button,
-            $includeColours: false,
-            $includeDisabled: $includeDisabled,
-            $mixin_button_colours: $mixin_button_colours
-        );
-    }
+                $mixin_button,
+                $includeColours: false,
+                $includeDisabled: $includeDisabled,
+                $includeInline: $includeInline,
+                $includePseudoIcons: $includePseudoIcons,
+                $includePseudoIcons_disabled: false,
+                $multipleContentBlocks: true,
+                $mixin_button_colours: $mixin_button_colours
+            )
+            using ($location) {
+            @if $location == root {
+                @at-root {
+                    @if $includePseudoIcons {
+                        #{config.selector-button-disabled('%button-basic')},
+                        %button-form-reset,
+                        %button-form-submit {
+                            &::before {
+                                @include snippet-icon-pseudo-element(
+                                    null,
+                                    before,
+                                    $includeBasePropsOnly: true
+                                ) {
+                                    align-self: center;
+                                    justify-self: center;
+                                }
+                            }
+                        }
 
-    %button-form-reset {
-        @if $includeColours {
-            @include meta.apply(
-                $mixin_button_colours,
-                $variation: tokens.$button_variation_reset,
-                $includeVisited: false,
-                $mixin_button_colour_single_state:
-                    $mixin_button_colour_single_state
-            );
-        }
+                        #{config.selector-button-disabled('%button-basic')} {
+                            &::before {
+                                @include snippet-icon-pseudo-element(
+                                    disabled,
+                                    before,
+                                    $includeBaseProps: false,
+                                    $spacing: false
+                                );
+                            }
+                        }
 
-        &::before {
-            @if config.$include_button_inlineIcons {
-                @include snippet-icon-pseudo-element(reset, before) {
-                    align-self: center;
-                    justify-self: center;
+                        %button-form-reset {
+                            &::before {
+                                @include snippet-icon-pseudo-element(
+                                    reset,
+                                    before,
+                                    $includeBaseProps: false,
+                                    $spacing: false
+                                );
+                            }
+                        }
+
+                        %button-form-submit {
+                            &::before {
+                                @include snippet-icon-pseudo-element(
+                                    submit,
+                                    before,
+                                    $includeBaseProps: false,
+                                    $spacing: false
+                                );
+                            }
+                        }
+                    }
                 }
-            }
-        }
-    }
-
-    %button-form-submit {
-        &::before {
-            @if config.$include_button_inlineIcons {
-                @include snippet-icon-pseudo-element(submit, before) {
-                    align-self: center;
-                    justify-self: center;
+            } @else if
+                ($location == exceptions-end) and
+                $includeInline and
+                $includeColours and
+                (
+                    tokens.$button_variation_default !=
+                        tokens.$button_inline_variation_default
+                )
+            {
+                @at-root {
+                    // using :where() to reduce specificity so that 'button-[...]' classes can overrule colours
+                    %button-basic:where(.display-inline) {
+                        @include meta.apply(
+                            $mixin_button_colours,
+                            $variation: tokens.$button_inline_variation_default,
+                            $mixin_button_colour_single_state:
+                                $mixin_button_colour_single_state
+                        );
+                    }
                 }
             }
         }
@@ -2365,12 +2544,27 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
         }
     }
 
-    // file-selector-button
-    @include meta.apply(
-        $mixin_addPseudoFileSelectorButton,
-        $includeColours: $includeColours,
-        $mixin_button_colour_single_state: $mixin_button_colour_single_state
-    );
+    @if $includeColours and
+        (tokens.$button_variation_default != tokens.$button_variation_reset)
+    {
+        %button-form-reset {
+            @extend %button-#{tokens.$button_variation_reset};
+        }
+    }
+
+    @if $includeFileSelector {
+        input {
+            // file-selector-button
+            @include meta.apply(
+                $mixin_addPseudoFileSelectorButton,
+                $includeColours: $includeColours,
+                $mixin_button: $mixin_button,
+                $mixin_button_disabled: $mixin_button_disabled,
+                $mixin_button_colour_single_state:
+                    $mixin_button_colour_single_state
+            );
+        }
+    }
 }
 
 $_mixin_input: meta.get-mixin('snippet-input');

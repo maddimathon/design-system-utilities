@@ -63,8 +63,15 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             },
 
             form: {
-                'flow-margin': {
-                    self: 'margins-flow-firm-large',
+                $: {
+                    'flow-margin': {
+                        self: 'margins-flow-firm-large',
+                    },
+                },
+                search: {
+                    'flow-margin': {
+                        self: 'margins-flow-firm',
+                    },
                 },
             },
 
@@ -735,6 +742,10 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                 width: '100',
             },
 
+            'flow-margin': {
+                self: 'margins-flow-firm',
+            },
+
             focus: {
                 offset: '400',
             },
@@ -762,14 +773,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             },
 
             'line-height': '300',
-
-            // margin: {
-            //     block: {
-            //         start: '400',
-            //         end: '400',
-            //         gap: '200',
-            //     },
-            // },
 
             padding: {
                 block: '200',
@@ -1539,6 +1542,13 @@ export namespace Tokens_CSS_Style {
             width: CSS.BorderWidth;
         };
 
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': {
+            self: FlowMargin.SelfFirm;
+        };
+
         focus: {
             offset: AnyTokenLevel;
         };
@@ -1608,7 +1618,7 @@ export namespace Tokens_CSS_Style {
      */
     export type InputStyles_Variation = Omit<
         InputStyles,
-        'border' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
+        'border' | 'flow-margin' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'
     > & {
         border: Omit<InputStyles[ 'border' ], 'width'>;
     };
@@ -1809,8 +1819,15 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         form: {
-            'flow-margin': {
-                self: FlowMargin.SelfFirm,
+            $: {
+                'flow-margin': {
+                    self: FlowMargin.SelfFirm,
+                },
+            },
+            search: {
+                'flow-margin': {
+                    self: FlowMargin.SelfFirm,
+                },
             },
         };
 
@@ -1944,7 +1961,7 @@ export namespace Tokens_CSS_Style {
         /**
          * @since ___PKG_VERSION___
          */
-        form?: RecursivePartial<Data<T_Params>[ 'table' ]>;
+        form?: RecursivePartial<Data<T_Params>[ 'form' ]>;
 
         heading?: {
             unstyled?: RecursivePartial<HeadingStyles_Unstyled>;

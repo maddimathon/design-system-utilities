@@ -13,7 +13,7 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function flow-margin-class-to-token($className, $firmSide: 'start') {
+@function flow-margin-class-to-style-token($className, $firmSide: 'start') {
     // returns
     @if $className == margins-flow {
         @return 'flow-margin';
@@ -57,7 +57,7 @@
 ///
 @function var-flow-margin-from-class($className, $firmSide: 'start', $args...) {
     @return utils.do-var(
-        flow-margin-class-to-token($className, $firmSide: $firmSide),
+        flow-margin-class-to-style-token($className, $firmSide: $firmSide),
         $args...
     );
 }

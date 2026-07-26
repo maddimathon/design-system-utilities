@@ -22,22 +22,20 @@
 /// @since ___PKG_VERSION___
 ///
 @function _get-extend-selectors-all-buttons--additions() {
-    $all: ();
+    $all: list.join(
+        utils.get-extend-selectors-button(selector-buttons-basic()),
+        utils.get-extend-selectors-button(
+            selector-buttons-basic(),
+            tokens.$button_variation_default
+        )
+    );
+
+    $all: list.append($all, (selector-buttons-basic(), button-basic));
 
     $_buttonSelectorsBase: list.join(
         config.$selector_a,
         list.except(selector-buttons-basic(), #{selector.unify(config.$selector_a, '.button')}),
         $separator: comma
-    );
-
-    $all: list.join($all, utils.get-extend-selectors-button(selector-buttons-basic()));
-
-    $all: list.join(
-        $all,
-        utils.get-extend-selectors-button(
-            selector-buttons-basic(),
-            tokens.$button_variation_default
-        )
     );
 
     @each $variant in tokens.$themesMeta_buttonVariations {

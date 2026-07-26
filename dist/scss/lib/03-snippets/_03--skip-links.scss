@@ -26,7 +26,7 @@ $_mixin_buttonColourSingle: meta.get-mixin(
 ///
 @mixin snippet-support-skip-links(
     $mixin_button: null,
-    $mixin_buttonColourSingle: null
+    $mixin_button_colour_single_state: null
 ) {
     $mixin_button: config.config-valid-mixin(
         $mixin_button,
@@ -35,9 +35,9 @@ $_mixin_buttonColourSingle: meta.get-mixin(
         $prefix: '[snippet-support-skip-links] '
     );
 
-    $mixin_buttonColourSingle: config.config-valid-mixin(
-        $mixin_buttonColourSingle,
-        '$mixin_buttonColourSingle',
+    $mixin_button_colour_single_state: config.config-valid-mixin(
+        $mixin_button_colour_single_state,
+        '$mixin_button_colour_single_state',
         $default: $_mixin_buttonColourSingle,
         $prefix: '[snippet-support-skip-links] '
     );
@@ -59,7 +59,7 @@ $_mixin_buttonColourSingle: meta.get-mixin(
             @content ($location);
 
             @include visited($appendToSelector: true) {
-                @include meta.apply($mixin_buttonColourSingle, '') {
+                @include meta.apply($mixin_button_colour_single_state, '') {
                     @content (link-colours);
                 }
             }
@@ -69,7 +69,7 @@ $_mixin_buttonColourSingle: meta.get-mixin(
                 $focusWithin: true,
                 $hover: true
             ) {
-                @include meta.apply($mixin_buttonColourSingle, hover) {
+                @include meta.apply($mixin_button_colour_single_state, hover) {
                     @content (link-focus-colours);
                 }
             }
@@ -78,7 +78,7 @@ $_mixin_buttonColourSingle: meta.get-mixin(
                 $active: true,
                 $activeWithin: true
             ) {
-                @include meta.apply($mixin_buttonColourSingle, active) {
+                @include meta.apply($mixin_button_colour_single_state, active) {
                     @content (link-active-colours);
                 }
             }
