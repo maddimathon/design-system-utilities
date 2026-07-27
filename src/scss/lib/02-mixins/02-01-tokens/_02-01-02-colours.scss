@@ -307,7 +307,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             @if $contrast == forced-colors {
                 
                 @each $value in list.unique($list) {
-                    @include utils.cx-prop(sys-clr-#{$slug}, $value !important, $allPrefixes: false);
+                    @include utils.cx-prop(sys-clr-#{$slug}, $value , $important: true, $allPrefixes: false);
                 }
                 
             } @else if

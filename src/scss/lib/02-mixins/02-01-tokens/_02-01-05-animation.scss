@@ -93,7 +93,12 @@
         }
         @include utils.no-motion($nestParent: false, $unifyParent: true) {
             @if $trTime {
-                @include utils.cx-prop(tr-time-toggle-closing, 0 !important, $allPrefixes: false);
+                @include utils.cx-prop(
+                    tr-time-toggle-closing,
+                    0,
+                    $allPrefixes: false,
+                    $important: true
+                );
             }
         }
 

@@ -459,17 +459,26 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-inline-focus-offset));
 
-    @include cx-prop(icon-inline-buffer, var-style(button-inline-icon-buffer) !important);
+    @include cx-prop(icon-inline-buffer, var-style(button-inline-icon-buffer), $important: true);
     @include cx-prop(
         icon-inline-buffer-start,
-        var-style(button-inline-icon-buffer-start) !important
+        var-style(button-inline-icon-buffer-start),
+        $important: true
     );
-    @include cx-prop(icon-inline-buffer-end, var-style(button-inline-icon-buffer-end) !important);
+    @include cx-prop(
+        icon-inline-buffer-end,
+        var-style(button-inline-icon-buffer-end),
+        $important: true
+    );
 
     @include cx-prop(icon-size-font, var-style(button-inline-icon-size-font));
     @include cx-prop(icon-size-pseudo, var-style(button-inline-icon-size-pseudo));
 
-    @include cx-prop(icon-vertical-align, var-style(button-inline-icon-vertical-align) !important);
+    @include cx-prop(
+        icon-vertical-align,
+        var-style(button-inline-icon-vertical-align),
+        $important: true
+    );
 
     @include prop-display($display);
 
@@ -925,11 +934,11 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             }
         }
 
-        @if $includeColours_inline and
-            (tokens.$button_variation_default != tokens.$button_inline_variation_default)
-        {
+        &:where(.display-inline) {
             // using :where() to reduce specificity so that 'button-[...]' classes can overrule colours
-            &:where(.display-inline) {
+            @if $includeColours_inline and
+                (tokens.$button_variation_default != tokens.$button_inline_variation_default)
+            {
                 @include meta.apply(
                         $mixin_button_colours,
                         tokens.$button_inline_variation_default,
@@ -2285,8 +2294,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
                 (tokens.$button_variation_default != tokens.$button_inline_variation_default)
             {
                 @at-root {
-                    // using :where() to reduce specificity so that 'button-[...]' classes can overrule colours
-                    %button-basic:where(.display-inline) {
+                    %button-basic:is(.display-inline) {
                         @include meta.apply(
                             $mixin_button_colours,
                             $variation: tokens.$button_inline_variation_default,

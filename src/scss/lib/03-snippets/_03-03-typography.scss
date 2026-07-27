@@ -527,7 +527,9 @@
     $marginBlockStart: null,
     $textTransform: null,
     //
-    $includeBase: true
+    $includeBase: true,
+    $includeChildren: true,
+    $includeChildren_strong: $includeChildren
 ) {
     $color: if($color != null, $color, _snippet-subheading--var-style($slug, color));
 
@@ -641,7 +643,7 @@
         }
     }
 
-    @if $fontWeight_strong {
+    @if $includeChildren_strong and $fontWeight_strong {
         %strong {
             font-weight: $fontWeight_strong;
         }
@@ -675,6 +677,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $subheading_fontWeight_strong: null,
     //
     $includeBase: true,
+    $includeBase_children: $includeBase,
+    $includeBase_hgroup: $includeBase,
+    $includeBase_subheading: $includeBase,
     $includeChildren: true,
     $includeChildren_code: $includeChildren,
     $includeChildren_link: $includeChildren,
@@ -685,8 +690,22 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $includeMargin: true,
     $includeMarginSiblings: $includeMargin,
     $includePadding: $includeBase,
-    $mixin_subheading: null,
     $multipleContentBlocks: false,
+    //
+    $subheading_args: (),
+    $selector_hgroup: if($includeHGroup, selector.append(&, '__hgroup'), config.$selector_null),
+    $selector_hgroupHeading: if(
+            $includeHGroup,
+            selector.append(&, '--hgroup'),
+            config.$selector_null
+        ),
+    $selector_subheading: if(
+            $includeHGroup,
+            selector.append(&, '__subheading'),
+            config.$selector_null
+        ),
+    //
+    $mixin_subheading: null,
     $useRelativeFontSize: config.$fn_tokens_fontSize_defaultRelative
 ) {
     @if $slug == title {
@@ -803,24 +822,29 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $slug and $includeColor {
         $_color: if(
-            $color,
+            $color or $color == false,
             $color,
             if($slug == unstyled, var-style(heading-unstyled-color), var-theme(heading-#{$slug}))
         );
 
-        @include cx-prop(
-            icon-color,
-            if(
-                $iconColor,
-                $iconColor,
-                var-style(
-                    heading-#{$slug}-icon-color,
-                    $value_failureReturn: $_color,
-                    $value_warnOnFail: false
+        @if $iconColor != false and ($iconColor or $_color) {
+            @include cx-prop(
+                icon-color,
+                if(
+                    $iconColor,
+                    $iconColor,
+                    var-style(
+                        heading-#{$slug}-icon-color,
+                        $value_failureReturn: $_color,
+                        $value_warnOnFail: false
+                    )
                 )
-            )
-        );
-        color: $_color;
+            );
+        }
+
+        @if $_color != false {
+            color: $_color;
+        }
     }
 
     @if $slug and $fontStyle == italic {
@@ -838,7 +862,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeHGroup {
-        &--hgroup {
+        @at-root #{$selector_hgroupHeading} {
             // /* this heading in an hgroup */
 
             @if $includeBase {
@@ -846,10 +870,10 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             }
         }
 
-        &__hgroup {
+        @at-root #{$selector_hgroup} {
             // /* hgroup wrapper */
 
-            @if $includeBase {
+            @if $includeBase_hgroup {
                 @include prop-display(flex);
                 @include utils.snippet-body-grid--flex-container;
             }
@@ -862,7 +886,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 @content (hgroup);
             }
 
-            @if $includeBase {
+            @if $includeBase_hgroup {
                 > :first-child {
                     @include snippet-first-child-no-top-margin(
                         $includeChildren: false,
@@ -878,7 +902,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             }
         }
 
-        &__subheading {
+        @at-root #{$selector_subheading} {
             $mixin_subheading: config.config-valid-mixin(
                 $mixin_subheading,
                 '$mixin_subheading',
@@ -891,7 +915,10 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $slug: $slug,
                 $fontWeight: $subheading_fontWeight,
                 $fontWeight_strong: $subheading_fontWeight_strong,
-                $includeBase: $includeBase
+                $includeBase: $includeBase_subheading,
+                $includeChildren: $includeChildren,
+                $includeChildren_strong: $includeChildren_strong,
+                $subheading_args...
             ) {
                 @if $multipleContentBlocks {
                     @content (subheading);
@@ -918,7 +945,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                     %margins-flow-firm-large
                 )
             ) {
-                @if $includeBase {
+                @if $includeBase_children {
                     margin-block-end: 0;
                 }
 
@@ -943,7 +970,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $includeChildren_link {
         %a {
-            @if $includeBase {
+            @if $includeBase_children {
                 @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
             }
 
@@ -955,7 +982,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 text-underline-offset: $link_underlineOffset;
             }
 
-            @if $includeBase {
+            @if $includeBase_children {
                 font-weight: inherit;
             }
 
@@ -969,7 +996,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         %code,
         %kbd,
         %samp {
-            @if $includeBase {
+            @if $includeBase_children {
                 font-weight: inherit;
                 font-style: inherit;
                 color: inherit;
@@ -985,14 +1012,29 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link-colour-single(
-    $suffix: '',
-    //
-    $color: var-theme(link#{$suffix}),
-    $focusRingOutlineColor: var-theme(link-outline#{if($suffix == '', '-hover', $suffix)}),
-    $iconColor: var-theme(link-icon#{$suffix}),
-    $textDecorationColor: var-theme(link-decoration#{$suffix})
+@mixin _snippet-link-colour-single(
+    $suffix,
+    $color,
+    $focusRingOutlineColor,
+    $iconColor,
+    $textDecorationColor
 ) {
+    @if $color == null {
+        $color: var-theme(link#{$suffix});
+    }
+
+    @if $focusRingOutlineColor == null {
+        $focusRingOutlineColor: var-theme(link-outline#{if($suffix == '', '-hover', $suffix)});
+    }
+
+    @if $iconColor == null {
+        $iconColor: var-theme(link-icon#{$suffix});
+    }
+
+    @if $textDecorationColor == null {
+        $textDecorationColor: var-theme(link-decoration#{$suffix});
+    }
+
     @include cx-prop(focus-ring-outline-color, $focusRingOutlineColor);
     @include cx-prop(icon-color, $iconColor);
     text-decoration-color: $textDecorationColor;
@@ -1002,7 +1044,69 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link-colours($includeDisabled: true, $args...) {
+@mixin snippet-link-colour-single(
+    $suffix: '',
+    //
+    $color: null,
+    $focusRingOutlineColor: null,
+    $iconColor: null,
+    $textDecorationColor: null,
+    //
+    $selector_except: (),
+    $selector_where: (),
+    $selector_only: ()
+) {
+    @if meta.is-truthy($selector_where) {
+        @include selector.has($selector_where, $unifyParent: true) {
+            @include _snippet-link-colour-single(
+                $suffix: $suffix,
+                $color: $color,
+                $focusRingOutlineColor: $focusRingOutlineColor,
+                $iconColor: $iconColor,
+                $textDecorationColor: $textDecorationColor
+            );
+        }
+    } @else if meta.is-truthy($selector_except) {
+        @include selector.except-superselector($selector_except) {
+            @include _snippet-link-colour-single(
+                $suffix: $suffix,
+                $color: $color,
+                $focusRingOutlineColor: $focusRingOutlineColor,
+                $iconColor: $iconColor,
+                $textDecorationColor: $textDecorationColor
+            );
+        }
+    } @else if meta.is-truthy($selector_only) {
+        @include selector.only-superselector($selector_only) {
+            @include _snippet-link-colour-single(
+                $suffix: $suffix,
+                $color: $color,
+                $focusRingOutlineColor: $focusRingOutlineColor,
+                $iconColor: $iconColor,
+                $textDecorationColor: $textDecorationColor
+            );
+        }
+    } @else {
+        @include _snippet-link-colour-single(
+            $suffix: $suffix,
+            $color: $color,
+            $focusRingOutlineColor: $focusRingOutlineColor,
+            $iconColor: $iconColor,
+            $textDecorationColor: $textDecorationColor
+        );
+    }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin snippet-link-colours(
+    $includeDisabled: true,
+    $interactive_selector_except: (),
+    $interactive_selector_where: (),
+    $interactive_selector_only: (),
+    $args...
+) {
     @include snippet-link-colour-single;
 
     @content (root);
@@ -1010,19 +1114,34 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     /// STATES ///
 
     @include visited($appendToSelector: false) {
-        @include snippet-link-colour-single(-visited);
+        @include snippet-link-colour-single(
+            -visited,
+            $selector_except: $interactive_selector_except,
+            $selector_where: $interactive_selector_where,
+            $selector_only: $interactive_selector_only
+        );
 
         @content (visited);
     }
 
     @include hover-focus-visible-or-within($args...) {
-        @include snippet-link-colour-single(-hover);
+        @include snippet-link-colour-single(
+            -hover,
+            $selector_except: $interactive_selector_except,
+            $selector_where: $interactive_selector_where,
+            $selector_only: $interactive_selector_only
+        );
 
         @content (hover-focus);
     }
 
     @include active {
-        @include snippet-link-colour-single(-active);
+        @include snippet-link-colour-single(
+            -active,
+            $selector_except: $interactive_selector_except,
+            $selector_where: $interactive_selector_where,
+            $selector_only: $interactive_selector_only
+        );
 
         @content (active);
     }
@@ -1043,7 +1162,12 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $args...
             ) {
                 // /* interactive disabled */
-                @include snippet-link-colour-single(-disabled);
+                @include snippet-link-colour-single(
+                    -disabled,
+                    $selector_except: $interactive_selector_except,
+                    $selector_where: $interactive_selector_where,
+                    $selector_only: $interactive_selector_only
+                );
 
                 @content (disabled);
             }
@@ -1406,11 +1530,11 @@ $_mixin_heading: meta.get-mixin('snippet-heading');
 /// @since ___PKG_VERSION___
 ///
 @mixin snippet-unstyled-heading(
-    $resetChildFontStyle: true,
     $fontFamily: var-style(heading-unstyled-font-family),
     $fontStyle: var-style(heading-unstyled-font-style),
     $mixin_heading: null,
     $multipleContentBlocks: false,
+    $resetChildFontStyle: true,
     $args...
 ) {
     $mixin_heading: config.config-valid-mixin(
@@ -1504,23 +1628,23 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
         $prefix: '[snippet-support-all-headings] '
     );
 
-    #{selector-all-headings()} {
+    #{selector-all-headings($withUnstyled: false)} {
         @include meta.apply($mixin_heading, $slug: null, $multipleContentBlocks: true, $args...)
             using ($location) {
             @content (all-#{$location});
-        }
-
-        &--where {
-            @include meta.apply($mixin_heading, $slug: null, $multipleContentBlocks: true, $args...)
-                using ($location) {
-                @content (all-where-#{$location});
-            }
         }
 
         &--is {
             @include meta.apply($mixin_heading, $slug: null, $multipleContentBlocks: true, $args...)
                 using ($location) {
                 @content (all-is-#{$location});
+            }
+        }
+
+        &--where {
+            @include meta.apply($mixin_heading, $slug: null, $multipleContentBlocks: true, $args...)
+                using ($location) {
+                @content (all-where-#{$location});
             }
         }
     }
@@ -1536,6 +1660,19 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
                 )
                 using ($location) {
                 @content (h#{$num}-#{$location});
+            }
+
+            &--is {
+                @include meta.apply(
+                        $mixin_heading,
+                        $slug: #{$num},
+                        $includeBase: false,
+                        $multipleContentBlocks: true,
+                        $args...
+                    )
+                    using ($location) {
+                    @content (h#{$num}-#{$location});
+                }
             }
 
             &--where {
@@ -1554,31 +1691,19 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
     }
 
     %unstyled-heading {
-        @include meta.apply(
-            $mixin_unstyled_heading,
-            $mixin_heading: $mixin_heading,
-            $includeBase: false
-        ) {
+        @include meta.apply($mixin_unstyled_heading, $mixin_heading: $mixin_heading) {
             @content (unstyled);
         }
     }
 
     %unstyled-heading--is {
-        @include meta.apply(
-            $mixin_unstyled_heading,
-            $mixin_heading: $mixin_heading,
-            $includeBase: false
-        ) {
+        @include meta.apply($mixin_unstyled_heading, $mixin_heading: $mixin_heading) {
             @content (unstyled);
         }
     }
 
     %unstyled-heading--where {
-        @include meta.apply(
-            $mixin_unstyled_heading,
-            $mixin_heading: $mixin_heading,
-            $includeBase: false
-        ) {
+        @include meta.apply($mixin_unstyled_heading, $mixin_heading: $mixin_heading) {
             @content (unstyled);
         }
     }

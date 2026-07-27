@@ -137,15 +137,16 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         :global(.shade-swatch__contrast__result-group__single-min-max--maximum) {
             @include lib.cx-prop(
                 shade-swatch-contrast-result-group-single-min-max-column-count,
-                1 !important
+                1,
+                $important: true
             );
             grid-column: 5;
         }
     }
 
     > :global(table[data-shade-swatch-table-no-text='true']) {
-        @include lib.cx-prop(shade-swatch-color-override, transparent !important);
-        @include lib.cx-prop(shade-swatch-display-override, none !important);
+        @include lib.cx-prop(shade-swatch-color-override, transparent, $important: true);
+        @include lib.cx-prop(shade-swatch-display-override, none, $important: true);
 
         :global(li),
         :global(td) {
