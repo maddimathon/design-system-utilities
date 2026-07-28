@@ -99,6 +99,16 @@
                 }
             }
         }
+
+        @if not map.get(tokens.$breakpoints, nav) {
+            %if-viewport-min-width-nav {
+                @extend %if-viewport-min-width-tablet;
+            }
+
+            %if-viewport-max-width-nav {
+                @extend %if-viewport-max-width-tablet;
+            }
+        }
     }
     @content (breakpoints);
 }

@@ -411,6 +411,7 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
     $includeChildren: true,
     $includeColours: $variation != null,
     $includeDisabled: $includeColours,
+    $multipleContentBlocks: false,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
     $borderRadius: null,
@@ -421,6 +422,7 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
     $fontStyle: null,
     $fontWeight: null,
     $letterSpacing: null,
+    $lineHeight: null,
     $marginBlockEnd: null,
     $marginBlockStart: null,
     $paddingBlock: null,
@@ -498,7 +500,12 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
 
     width: if($width, $width, var-style(button-inline-width));
 
-    margin-block-start: 0;
+    @if $marginBlockStart != false {
+        margin-block-start: $marginBlockStart;
+    }
+    @if $marginBlockEnd != false {
+        margin-block-end: $marginBlockEnd;
+    }
 
     padding-block: $paddingBlock;
     padding-inline: $paddingInline;
@@ -514,7 +521,9 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
         font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
     }
 
-    line-height: var-style(button-inline-line-height);
+    @if $lineHeight != false {
+        line-height: if($lineHeight, $lineHeight, var-style(button-inline-line-height));
+    }
 
     @if $letterSpacing != false {
         letter-spacing: if($letterSpacing, $letterSpacing, var-style(button-inline-letter-spacing));
@@ -526,7 +535,11 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
 
     vertical-align: var-style(button-inline-vertical-align);
 
-    @content (root);
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
 
     @if $includeColours and $variation != null {
         @include meta.apply(
@@ -539,7 +552,9 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
                 $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
             )
             using ($location) {
-            @content ($location);
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
         }
 
         @if $includeDisabled {
@@ -554,7 +569,9 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
                         $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
                     )
                     using ($location) {
-                    @content ($location);
+                    @if $multipleContentBlocks {
+                        @content ($location);
+                    }
                 }
             }
         }
@@ -568,11 +585,15 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
             $includeFallbacks: $focus_includeFallbacks,
             $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
         ) {
-            @content (hover-focus);
+            @if $multipleContentBlocks {
+                @content (hover-focus);
+            }
         }
 
         @include active {
-            @content (active);
+            @if $multipleContentBlocks {
+                @content (active);
+            }
         }
     }
 
@@ -923,6 +944,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     $includeBaseProps: false,
                     $includeColours: false,
                     $includeDisabled: $includeDisabled,
+                    $multipleContentBlocks: true,
 
                     $mixin_button_colours: $mixin_button_colours,
                     $useIconFont: $useIconFont

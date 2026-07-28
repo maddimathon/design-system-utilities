@@ -32,6 +32,13 @@
 
     $all: list.append($all, (selector-buttons-basic(), button-basic));
 
+    $all: list.join(
+        $all,
+        utils.get-extend-selectors-button(
+            selector.unify(config.$selector_a, selector-button-variations())
+        )
+    );
+
     $_buttonSelectorsBase: list.join(
         config.$selector_a,
         list.except(selector-buttons-basic(), #{selector.unify(config.$selector_a, '.button')}),
@@ -41,14 +48,9 @@
     @each $variant in tokens.$themesMeta_buttonVariations {
         $all: list.join(
             $all,
-            list.join(
-                utils.get-extend-selectors-button(
-                    selector.unify(config.$selector_a, '.button-#{$variant}')
-                ),
-                utils.get-extend-selectors-button(
-                    selector.unify($_buttonSelectorsBase, '.button-#{$variant}'),
-                    $variant: $variant
-                )
+            utils.get-extend-selectors-button(
+                selector.unify($_buttonSelectorsBase, '.button-#{$variant}'),
+                $variant: $variant
             )
         );
     }

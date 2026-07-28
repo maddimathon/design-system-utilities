@@ -751,6 +751,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
 @mixin snippet-support-astro-toggle-nav-menu(
     $title_borderWidth: var-style(toggle-nav-content-border-width),
     //
+    $includeBaseStyles: true,
+    //
     $args...
 ) {
     $title_borderWidth_half: calc($title_borderWidth / 2);
@@ -769,7 +771,9 @@ $_defaultHeadingSelectors_greaterThan6: ();
             border-block-end-style: var-style(toggle-content-border-style-top);
             border-block-end-color: do-var(toggle-border-color, var-theme(link-ui));
             
-            background: var-style(toggle-nav-title-background);
+            @if $includeBaseStyles {
+                background: var-style(toggle-nav-title-background);
+            }
             
             @content ($location);
         }
@@ -789,7 +793,9 @@ $_defaultHeadingSelectors_greaterThan6: ();
         }
 
         @else if $location == js--nav-toggle-content--container {
-            background: var-style(toggle-nav-content-background);
+            @if $includeBaseStyles {
+                background: var-style(toggle-nav-content-background);
+            }
             max-height: 80svh;
             max-height: calc(90svh - do-var(height-nav-primary));
 
@@ -814,7 +820,9 @@ $_defaultHeadingSelectors_greaterThan6: ();
             }
 
             %li {
-                margin-block: do-var(flow-margin--small) 0;
+                @if $includeBaseStyles {
+                    margin-block: do-var(flow-margin--small) 0;
+                }
                 
                 @content (#{$location}--li);
             }

@@ -213,6 +213,17 @@
         );
     }
 
+    @if not map.get(tokens.$breakpoints, nav) {
+        $sels: list.append(
+            $sels,
+            ('.if-viewport-max-width-nav', if-viewport-max-width-nav)
+        );
+        $sels: list.append(
+            $sels,
+            ('.if-viewport-min-width-nav', if-viewport-min-width-nav)
+        );
+    }
+
     @each $slug in list.join(map.keys(tokens.$width), (auto, fit-content, none))
     {
         $sels: list.append($sels, ('.max-width-#{$slug}', max-width-#{$slug}));
@@ -220,4 +231,47 @@
     }
 
     @return $sels;
+}
+
+$_allButtonVariantClasses: ();
+$_allButtonVariantPseudoClasses: ();
+
+@each $variant in tokens.$themesMeta_buttonVariations {
+    $_allButtonVariantClasses: list.append(
+        $_allButtonVariantClasses,
+        '.button-#{$variant}',
+        $separator: comma
+    );
+    $_allButtonVariantPseudoClasses: list.append(
+        $_allButtonVariantPseudoClasses,
+        '%button-#{$variant}',
+        $separator: comma
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function selector-button-variations($asPseudo: false, $withDefault: false) {
+    $all: ();
+
+    @if $withDefault {
+        $all: list.append(
+            $all,
+            if($asPseudo, '%button', '.button'),
+            $separator: comma
+        );
+    }
+
+    $all: list.join(
+        $all,
+        if(
+            $asPseudo,
+            $_allButtonVariantPseudoClasses,
+            $_allButtonVariantClasses
+        ),
+        $separator: comma
+    );
+
+    @return $all;
 }
