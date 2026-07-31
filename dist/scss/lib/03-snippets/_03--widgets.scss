@@ -6,6 +6,7 @@
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
@@ -23,15 +24,20 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-widget-block(
-    $background: var-style(widget-background),
+    $background: null,
     $borderColor: var-style(widget-border-color),
     $lineHeight: var-style(widget-line-height),
+    $gap: false,
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
     $width: fit-content,
     //
     $includeBlocks: true,
+    $includeBorder: true,
+    $includeColours: true,
     $includeFlowMargins: true,
-    $includeExceptions: true,
+    $includeSidebar: true,
+    $includePadding: true,
+    $multipleContentBlocks: true,
     //
     $selector_content: '%widget-block-content',
     $selector_header: '%widget-block-header',
@@ -40,6 +46,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $selector_subtitle: '%widget-block-subtitle',
     $selector_title: '%widget-block-title'
 ) {
+    @if $background == null {
+        $background: var-style(widget-background);
+    }
+
     @include prop-display(flex);
     @include utils.snippet-body-grid--flex-container;
 
@@ -47,8 +57,14 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         margin-block: $marginBlock;
     }
 
-    padding-block: var-style(widget-padding-block);
-    padding-inline: var-style(widget-padding-inline);
+    @if $includePadding {
+        padding-block: var-style(widget-padding-block);
+        padding-inline: var-style(widget-padding-inline);
+    }
+
+    @if $gap != false {
+        gap: $gap;
+    }
 
     @if $width != false {
         width: $width;
@@ -56,36 +72,51 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
     line-height: $lineHeight;
 
-    border: var-style(widget-border-width) var-style(widget-border-style)
-        $borderColor;
-    border-radius: var-style(widget-border-radius);
+    @if $includeBorder {
+        border: var-style(widget-border-width)
+            var-style(widget-border-style)
+            $borderColor;
+        border-radius: var-style(widget-border-radius);
+    }
 
-    background: $background;
+    @if $background != false {
+        background: $background;
+    }
 
     transition:
         background var-tr-time(fast) tokens.$transition_function,
         border-color var-tr-time(fast) tokens.$transition_function,
         color var-tr-time(fast) tokens.$transition_function;
 
-    @content (root);
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
 
-    @if $includeExceptions {
-        #{$selector_sidebar} & {
+    @if $includeSidebar {
+        @at-root #{selector.nest($selector_sidebar, &)} {
             width: auto;
 
-            @content (in-sidebar);
+            @if $multipleContentBlocks {
+                @content (in-sidebar);
+            }
         }
+    }
 
+    @if $includeColours {
         @each $variationKey in $_textAndBackgroundKeys {
             @if $variationKey != '$' {
                 &.background-#{$variationKey} {
                     @if theme-token-exists(background-#{$variationKey}) {
                         background: var-theme(background-#{$variationKey});
                     }
+
+                    @if $multipleContentBlocks {
+                        @content (background-#{$variationKey});
+                    }
                 }
             }
-
-            @content (background-#{$variationKey});
         }
     }
 
@@ -97,10 +128,13 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             margin-block-start: 0;
         }
 
-        #{$selector_content} {
-            > %ul,
-            > %ol {
-                margin-inline-start: 0;
+        #{$selector_header},
+        #{$selector_hgroup},
+        #{$selector_title} {
+            &.screen-reader-text {
+                #{selector.nest('+', $selector_content)} {
+                    @include first-child-no-top-margin($asImportant: false);
+                }
             }
         }
     }
@@ -114,25 +148,32 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 /// @since 0.1.0-beta.0.draft
 ///
 @mixin snippet-support-sidebar-widgets(
+    $flex_alignment: (),
     $gap: do-var(flow-margin--large) do-var(flow-margin-firm-start--large),
     //
     $includeSidebar: true,
     $includeWidget: true,
     //
     $widget_marginBlockStart: do-var(flow-margin-firm-start--large),
-    $widget_marginBlockEnd: do-var(flow-margin-firm-end--large)
+    $widget_marginBlockEnd: do-var(flow-margin-firm-end--large),
+    //
+    $selector_sidebar: '%main-sidebar',
+    $selector_widget: '%widget-block'
 ) {
     @if $includeSidebar {
-        %main-sidebar {
+        #{$selector_sidebar} {
             @include prop-display(flex);
-            @include utils.snippet-body-grid--flex-container($gap: $gap);
+            @include utils.snippet-body-grid--flex-container(
+                $alignment: $flex_alignment,
+                $gap: $gap
+            );
 
             @content (sidebar);
         }
     }
 
     @if $includeWidget {
-        %widget-block {
+        #{$selector_widget} {
             @include snippet-widget-block(
                     $marginBlock: $widget_marginBlockStart
                         $widget_marginBlockEnd
@@ -140,12 +181,12 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 using ($location) {
                 @content (widget--#{$location});
             }
+        }
 
-            %main-sidebar > & {
-                margin-block: $widget_marginBlockEnd 0;
+        #{selector.nest($selector_sidebar, '>', $selector_widget)} {
+            margin-block: $widget_marginBlockEnd 0;
 
-                @content (widget--in-sidebar);
-            }
+            @content (widget--in-sidebar);
         }
     }
 }

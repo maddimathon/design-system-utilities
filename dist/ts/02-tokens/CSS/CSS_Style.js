@@ -45,7 +45,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             form: {
                 $: {
                     'flow-margin': {
-                        self: 'margins-flow-firm-large',
+                        self: 'margins-flow-large',
                     },
                 },
                 search: {
@@ -61,6 +61,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 color: 'ui-primary',
                 'flow-margin': {
                     self: 'margins-flow-firm',
+                },
+            },
+            label: {
+                'flow-margin': {
+                    self: 'margins-flow',
                 },
             },
             logo: {
@@ -125,6 +130,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 hr: mergeArgs(defaults.hr, partial.hr, true),
                 icon,
                 input,
+                label: mergeArgs(defaults.label, partial.label, true),
                 logo: mergeArgs(defaults.logo, partial.logo, true),
                 selection: mergeArgs(defaults.selection, partial.selection, true),
                 subheading,

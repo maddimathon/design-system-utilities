@@ -529,7 +529,8 @@
     //
     $includeBase: true,
     $includeChildren: true,
-    $includeChildren_strong: $includeChildren
+    $includeChildren_strong: $includeChildren,
+    $useRelativeFontSize: config.$subheading_fontSize_useRelative
 ) {
     $color: if($color != null, $color, _snippet-subheading--var-style($slug, color));
 
@@ -706,7 +707,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         ),
     //
     $mixin_subheading: null,
-    $useRelativeFontSize: config.$fn_tokens_fontSize_defaultRelative
+    $useRelativeFontSize: config.$heading_fontSize_useRelative
 ) {
     @if $slug == title {
         $slug: '1';
@@ -888,16 +889,10 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
             @if $includeBase_hgroup {
                 > :first-child {
-                    @include snippet-first-child-no-top-margin(
-                        $includeChildren: false,
-                        $includeRoot: true
-                    );
+                    @include first-child-no-top-margin($includeChildren: false, $includeRoot: true);
                 }
                 :is(&) > :first-child {
-                    @include snippet-first-child-no-top-margin(
-                        $includeChildren: true,
-                        $includeRoot: false
-                    );
+                    @include first-child-no-top-margin($includeChildren: true, $includeRoot: false);
                 }
             }
         }

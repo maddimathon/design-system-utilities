@@ -223,11 +223,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ) {
     //
     @if $relative == null {
-        $relative: if(
-            string.index($slug, heading-) == 1,
-            config.$fn_tokens_fontSize_defaultRelative,
-            $relative
-        );
+        $relative: config.$fn_tokens_fontSize_defaultRelative;
     }
 
     // TODO - test if this is necessary

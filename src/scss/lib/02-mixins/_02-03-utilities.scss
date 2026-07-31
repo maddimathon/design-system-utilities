@@ -28,7 +28,7 @@ $_firmFlowMarginChildren: list.join(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin set-flow-margin-conditional-override(
+@mixin flow-margin-conditional-override(
     $marginSide,
     $firm: do-var(flow-margin-firm-end),
     $soft: 0,
@@ -70,13 +70,92 @@ $_firmFlowMarginChildren: list.join(
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@mixin _child-no-margin-template(
+    $marginSide,
+    $includeChildren: true,
+    $includeRoot: true,
+    $includeListsFirstItem: false,
+    $setFirstChildSelector: null,
+    $args...
+) {
+    $_childSelector: if(
+        $marginSide == start,
+        ':first-child',
+        if($marginSide == end, ':last-child', ':first-child, :last-child')
+    );
+
+    @if $setFirstChildSelector == null {
+        $setFirstChildSelector: if(
+            selector.parent-exists(),
+            not selector.is-superselector($_childSelector, #{&}),
+            false
+        );
+    } @else if $setFirstChildSelector {
+        @if not selector.parent-exists() {
+            $setFirstChildSelector: false;
+        }
+    }
+
+    @if $setFirstChildSelector {
+        > #{$_childSelector} {
+            @if $includeRoot {
+                $sels: &;
+
+                @if $includeListsFirstItem {
+                    $sels: list.join(
+                        $sels,
+                        selector.nest(
+                            selector.unify($sels, 'ol, ul'),
+                            '>',
+                            selector.unify('li', $_childSelector)
+                        ),
+                        $separator: comma
+                    );
+                }
+
+                @at-root #{$sels} {
+                    @include flow-margin-conditional-override(
+                        $marginSide,
+                        $includeChildren: false,
+                        $includeRoot: true,
+                        $args...
+                    );
+                }
+            }
+
+            @if $includeChildren {
+                @include flow-margin-conditional-override(
+                    $marginSide,
+                    $includeChildren: true,
+                    $includeRoot: false,
+                    $args...
+                );
+            }
+        }
+    } @else {
+        @include flow-margin-conditional-override(
+            $marginSide,
+            $includeChildren: $includeChildren,
+            $includeRoot: $includeRoot,
+            $args...
+        );
+    }
+}
+
+///
 /// Adds rules (and child exceptions) to a child element that should have no top
 /// margin.
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-first-child-no-top-margin($args...) {
-    @include set-flow-margin-conditional-override(start, $args...);
+@mixin first-child-no-top-margin($includeListsFirstItem: true, $args...) {
+    @include _child-no-margin-template(
+        start,
+        $includeListsFirstItem: $includeListsFirstItem,
+        $args...
+    );
 }
 
 ///
@@ -85,6 +164,6 @@ $_firmFlowMarginChildren: list.join(
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-last-child-no-bottom-margin($args...) {
-    @include set-flow-margin-conditional-override(end, $args...);
+@mixin last-child-no-bottom-margin($args...) {
+    @include _child-no-margin-template(end, $args...);
 }

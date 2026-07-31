@@ -65,7 +65,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             form: {
                 $: {
                     'flow-margin': {
-                        self: 'margins-flow-firm-large',
+                        self: 'margins-flow-large',
                     },
                 },
                 search: {
@@ -84,6 +84,12 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
                 'flow-margin': {
                     self: 'margins-flow-firm',
+                },
+            },
+
+            label: {
+                'flow-margin': {
+                    self: 'margins-flow',
                 },
             },
 
@@ -110,7 +116,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     self: 'margins-flow-firm-large',
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'form' | 'hr' | 'logo' | 'selection' | 'table'>;
+        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'form' | 'hr' | 'label' | 'logo' | 'selection' | 'table'>;
 
 
         return Promise.all( [
@@ -180,6 +186,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     hr: mergeArgs( defaults.hr, partial.hr, true ),
                     icon,
                     input,
+                    label: mergeArgs( defaults.label, partial.label, true ),
                     logo: mergeArgs( defaults.logo, partial.logo, true ),
                     selection: mergeArgs( defaults.selection, partial.selection, true ),
                     subheading,
@@ -1821,7 +1828,7 @@ export namespace Tokens_CSS_Style {
         form: {
             $: {
                 'flow-margin': {
-                    self: FlowMargin.SelfFirm,
+                    self: FlowMargin.Self,
                 },
             },
             search: {
@@ -1870,6 +1877,15 @@ export namespace Tokens_CSS_Style {
             file: Pick<InputStyles, 'padding'>;
             disabled: InputStyles_Variation;
             readonly: InputStyles_Variation;
+        };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        label: {
+            'flow-margin': {
+                self: FlowMargin.Self,
+            },
         };
 
         /**
@@ -1991,6 +2007,11 @@ export namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<InputStyles_Variation>;
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        label?: RecursivePartial<Data<T_Params>[ 'label' ]>;
 
         /**
          * @since ___PKG_VERSION___

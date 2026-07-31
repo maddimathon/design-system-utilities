@@ -650,7 +650,7 @@ export declare namespace Tokens_CSS_Style {
         form: {
             $: {
                 'flow-margin': {
-                    self: FlowMargin.SelfFirm;
+                    self: FlowMargin.Self;
                 };
             };
             search: {
@@ -693,6 +693,14 @@ export declare namespace Tokens_CSS_Style {
             file: Pick<InputStyles, 'padding'>;
             disabled: InputStyles_Variation;
             readonly: InputStyles_Variation;
+        };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        label: {
+            'flow-margin': {
+                self: FlowMargin.Self;
+            };
         };
         /**
          * @since 0.1.0-beta.0.draft
@@ -795,6 +803,10 @@ export declare namespace Tokens_CSS_Style {
             disabled?: RecursivePartial<InputStyles_Variation>;
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        label?: RecursivePartial<Data<T_Params>['label']>;
         /**
          * @since 0.1.0-beta.0.draft
          */

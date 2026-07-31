@@ -121,12 +121,12 @@
     $isAlertHeadingStyle: string.index($slug, alert-heading-) == 1;
     $isAlertHeadlineStyle: string.index($slug, alert-headline-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
-    $isHeadingStyle: string.index($slug, heading-) == 1 or string.index($slug, subheading-) == 1;
+    $isHeadingStyle: string.index($slug, heading-) == 1;
     $isHr: string.index($slug, hr-) == 1;
     $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
     $isLogoStyle: string.index($slug, logo-) == 1;
-    $isSubtitleStyle: string.index($slug, subtitle-) == 1;
+    $isSubheadingStyle: string.index($slug, subheading-) == 1;
     $isToggleStyle: string.index($slug, toggle-) == 1;
     $isToggleContentStyle: string.index($slug, toggle-content-) == 1;
     $isToggleControlStyle: string.index($slug, toggle-control-) == 1;
@@ -152,7 +152,7 @@
         $isHeadingStyle or
         $isHr or
         $isLogoStyle or
-        $isSubtitleStyle or
+        $isSubheadingStyle or
         $isToggleStyle or
         $isWidgetStyle
     {
@@ -244,11 +244,6 @@
         @if $isHeadingStyle {
             // returns
             @if string.index($slug, -margin-block-start) == ($_slugLength - 18) {
-                // // returns
-                // @if string.index($slug, heading-unstyled-) == 1 {
-                //     @return spacing.tokens-var-mrg-soft($value);
-                // }
-
                 @return spacing.tokens-var-mrg-soft($value, $args...);
             }
 
@@ -378,7 +373,10 @@
     // returns
     @if $isFontSize {
         // returns
-        @if $isButtonStyle {
+        @if $isButtonStyle or
+            ($isHeadingStyle and config.$heading_fontSize_useRelative) or
+            ($isSubheadingStyle and config.$subheading_fontSize_useRelative)
+        {
             @return typography.tokens-var-fs($value, $relative: true, $args...);
         }
 

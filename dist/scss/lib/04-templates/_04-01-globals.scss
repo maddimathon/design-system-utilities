@@ -3,6 +3,7 @@
 /// @since 0.1.0-beta.0.draft
 ///
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
@@ -88,6 +89,7 @@
 @mixin template-content-globals-forms(
     $print_buttons: map.get(config.$template_styles, buttons),
     $print_fieldset: map.get(config.$template_styles, fieldset),
+    $print_form: map.get(config.$template_styles, form),
     $print_inputs: map.get(config.$template_styles, inputs),
     //
     $css_headings: null,
@@ -134,6 +136,20 @@
             @content ($location);
         }
     }
+
+    @if $print_form {
+        @include template-design-system {
+            %form {
+                @include prop-display(flex);
+                @include snippet-body-grid--flex-container;
+
+                @include feature-check.supports(displayContents) {
+                    @include prop-display(contents);
+                }
+            }
+        }
+    }
+    @content (form);
 
     @if $print_fieldset {
         @include template-design-system {

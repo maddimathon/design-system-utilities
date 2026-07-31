@@ -92,11 +92,21 @@ $fn_focusRingOffset_min: '100' !default;
 /// @since 0.1.0-beta.0.draft
 ///
 $fn_pseudoIconsUseFont: true !default;
+$fn_pseudoIconsUseFont: config-valid-bool(
+    $fn_pseudoIconsUseFont,
+    'fn_pseudoIconsUseFont',
+    $default: true
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$fn_tokens_fontSize_defaultRelative: false !default;
+$fn_tokens_fontSize_defaultRelative: null !default;
+$fn_tokens_fontSize_defaultRelative: config-valid-bool(
+    $fn_tokens_fontSize_defaultRelative,
+    'fn_tokens_fontSize_defaultRelative',
+    $default: false
+);
 
 ///
 /// @since 0.1.0-alpha
@@ -176,6 +186,26 @@ $fn_var_replaceWithValue_zIndex: config-valid-bool(
     $fn_var_replaceWithValue_zIndex,
     'fn_var_replaceWithValue_zIndex',
     $default: true and not utils.$fn_var_replaceWithValue_resist
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$heading_fontSize_useRelative: null !default;
+$heading_fontSize_useRelative: config-valid-bool(
+    $heading_fontSize_useRelative,
+    'heading_fontSize_useRelative',
+    $default: $fn_tokens_fontSize_defaultRelative
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$subheading_fontSize_useRelative: null !default;
+$subheading_fontSize_useRelative: config-valid-bool(
+    $subheading_fontSize_useRelative,
+    'subheading_fontSize_useRelative',
+    $default: $heading_fontSize_useRelative
 );
 
 ///

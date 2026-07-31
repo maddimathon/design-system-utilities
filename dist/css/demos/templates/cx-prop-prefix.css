@@ -8057,6 +8057,7 @@ a.skip-link[href]:has(
 }
 
 .margins-flow,
+label,
 cite,
 p {
     margin-block: var(
@@ -8076,6 +8077,7 @@ li {
 }
 
 .margins-flow-large,
+form,
 dt {
     margin-block: var(
             --prefix-flow-margin--large,
@@ -8084,14 +8086,22 @@ dt {
         0;
 }
 .margins-flow-large + .margins-flow,
+.margins-flow-large + label,
+form + .margins-flow,
+form + label,
 dt + .margins-flow,
+dt + label,
 .margins-flow-large + cite,
+form + cite,
 dt + cite,
 .margins-flow-large + p,
+form + p,
 dt + p,
 .margins-flow-large + .margins-flow-small,
+form + .margins-flow-small,
 dt + .margins-flow-small,
 .margins-flow-large + li,
+form + li,
 dt + li {
     margin-block-start: var(
         --prefix-flow-margin--large,
@@ -8099,6 +8109,7 @@ dt + li {
     );
 }
 .margins-flow-large + .button-span,
+form + .button-span,
 dt + .button-span,
 .margins-flow-large + a[href].button-grey,
 .margins-flow-large + a[href].button-secondary,
@@ -8115,10 +8126,31 @@ dt + .button-span,
 .margins-flow-large + .table-wrapper,
 .margins-flow-large + img,
 .margins-flow-large + figure,
-.margins-flow-large + label,
 .margins-flow-large + input,
+.margins-flow-large + select,
+.margins-flow-large + textarea,
 .margins-flow-large + hr,
 .margins-flow-large + form.search-form,
+form + a[href].button-grey,
+form + a[href].button-secondary,
+form + a[href].button-primary,
+form + a[href].button,
+form + .brand-logo,
+form + .alert-block,
+form + .margins-flow-firm,
+form + [data-toggle-container],
+form + button,
+form + [role="button"],
+form + details,
+form + pre,
+form + .table-wrapper,
+form + img,
+form + figure,
+form + input,
+form + select,
+form + textarea,
+form + hr,
+form + form.search-form,
 dt + a[href].button-grey,
 dt + a[href].button-secondary,
 dt + a[href].button-primary,
@@ -8134,11 +8166,13 @@ dt + pre,
 dt + .table-wrapper,
 dt + img,
 dt + figure,
-dt + label,
 dt + input,
+dt + select,
+dt + textarea,
 dt + hr,
 dt + form.search-form,
 .margins-flow-large + .margins-flow-firm-small,
+form + .margins-flow-firm-small,
 dt + .margins-flow-firm-small {
     margin-block-start: var(
         --prefix-flow-margin-firm-start--large,
@@ -8162,8 +8196,9 @@ pre,
 .table-wrapper,
 img,
 figure,
-label,
 input,
+select,
+textarea,
 hr,
 form.search-form {
     margin-block: var(
@@ -8269,8 +8304,7 @@ form.search-form {
 
 .margins-flow-firm-large,
 blockquote,
-table,
-form {
+table {
     margin-block: var(
             --prefix-flow-margin-firm-start--large,
             var(--prefix-mrg-firm-600, 2.25rem)
@@ -8283,23 +8317,21 @@ form {
 .margins-flow-firm-large + .margins-flow,
 blockquote + .margins-flow,
 table + .margins-flow,
-form + .margins-flow,
+.margins-flow-firm-large + label,
+blockquote + label,
+table + label,
 .margins-flow-firm-large + cite,
 blockquote + cite,
 table + cite,
-form + cite,
 .margins-flow-firm-large + p,
 blockquote + p,
 table + p,
-form + p,
 .margins-flow-firm-large + .margins-flow-small,
 blockquote + .margins-flow-small,
 table + .margins-flow-small,
-form + .margins-flow-small,
 .margins-flow-firm-large + li,
 blockquote + li,
-table + li,
-form + li {
+table + li {
     margin-block-start: var(
         --prefix-flow-margin--large,
         var(--prefix-mrg-soft-600, 1.84375rem)
@@ -8308,7 +8340,6 @@ form + li {
 .margins-flow-firm-large + .button-span,
 blockquote + .button-span,
 table + .button-span,
-form + .button-span,
 .margins-flow-firm-large + a[href].button-grey,
 .margins-flow-firm-large + a[href].button-secondary,
 .margins-flow-firm-large + a[href].button-primary,
@@ -8354,41 +8385,24 @@ table + pre,
 table + .table-wrapper,
 table + img,
 table + figure,
-.margins-flow-firm-large + label,
-blockquote + label,
-table + label,
 .margins-flow-firm-large + input,
 blockquote + input,
 table + input,
+.margins-flow-firm-large + select,
+blockquote + select,
+table + select,
+.margins-flow-firm-large + textarea,
+blockquote + textarea,
+table + textarea,
 .margins-flow-firm-large + hr,
 blockquote + hr,
 table + hr,
 .margins-flow-firm-large + form.search-form,
 blockquote + form.search-form,
 table + form.search-form,
-form + a[href].button-grey,
-form + a[href].button-secondary,
-form + a[href].button-primary,
-form + a[href].button,
-form + .brand-logo,
-form + .alert-block,
-form + .margins-flow-firm,
-form + [data-toggle-container],
-form + button,
-form + [role="button"],
-form + details,
-form + pre,
-form + .table-wrapper,
-form + img,
-form + figure,
-form + label,
-form + input,
-form + hr,
-form + form.search-form,
 .margins-flow-firm-large + .margins-flow-firm-small,
 blockquote + .margins-flow-firm-small,
-table + .margins-flow-firm-small,
-form + .margins-flow-firm-small {
+table + .margins-flow-firm-small {
     margin-block-start: var(
         --prefix-flow-margin-firm-start--large,
         var(--prefix-mrg-firm-600, 2.25rem)
@@ -9350,15 +9364,15 @@ hgroup .h10 {
         .table-wrapper,
         img,
         figure,
-        label,
         input,
+        select,
+        textarea,
         hr,
         form.search-form,
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table,
-        form
+        table
     ) {
     margin-block-start: var(
         --prefix-flow-margin-firm-end,
@@ -9425,15 +9439,15 @@ hgroup .h10 {
         .table-wrapper,
         img,
         figure,
-        label,
         input,
+        select,
+        textarea,
         hr,
         form.search-form,
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table,
-        form
+        table
     )
 ) {
     margin-block-end: 0;
@@ -10174,15 +10188,15 @@ hgroup .unstyled-heading {
         .table-wrapper,
         img,
         figure,
-        label,
         input,
+        select,
+        textarea,
         hr,
         form.search-form,
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table,
-        form
+        table
     )
 ) {
     margin-block-end: 0;
@@ -10346,15 +10360,15 @@ hgroup
             .table-wrapper,
             img,
             figure,
-            label,
             input,
+            select,
+            textarea,
             hr,
             form.search-form,
             .margins-flow-firm-small,
             .margins-flow-firm-large,
             blockquote,
-            table,
-            form
+            table
         )
     ):is(
         h1,
@@ -10593,15 +10607,15 @@ hgroup
         .table-wrapper,
         img,
         figure,
-        label,
         input,
+        select,
+        textarea,
         hr,
         form.search-form,
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table,
-        form
+        table
     ) {
     margin-block-start: var(
         --prefix-flow-margin-firm-end,
@@ -10640,15 +10654,15 @@ hgroup
             .table-wrapper,
             img,
             figure,
-            label,
             input,
+            select,
+            textarea,
             hr,
             form.search-form,
             .margins-flow-firm-small,
             .margins-flow-firm-large,
             blockquote,
-            table,
-            form
+            table
         )
     ):where(
         [role="heading"][aria-level="1"],
@@ -10853,6 +10867,26 @@ dd {
 
 /* # GLOBALS - FORMS
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/demo - custom property prefixes */
+form {
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+@supports (display: contents) {
+    form {
+        --prefix-display: contents;
+        display: var(--prefix-display, contents);
+    }
+}
+
+/*! END of @maddimathon/design-system-utilities/template/demo - custom property prefixes */
 /*! START of @maddimathon/design-system-utilities/template/demo - custom property prefixes */
 fieldset {
     --prefix-display: flex;

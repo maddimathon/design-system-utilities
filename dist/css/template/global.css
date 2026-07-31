@@ -3587,6 +3587,7 @@
 /* # GLOBALS - FLOW MARGINS
  * ======================================================================== */
 /*! START of @maddimathon/design-system-utilities/template/global */
+label,
 cite,
 p {
     margin-top: 0.78125rem;
@@ -3600,25 +3601,42 @@ li {
     margin-bottom: 0;
 }
 
+form,
 dt {
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
     margin-bottom: 0;
 }
+form + label,
+dt + label,
+form + cite,
 dt + cite,
+form + p,
 dt + p,
+form + li,
 dt + li {
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
 }
+form + button,
+form + [role="button"],
+form + details,
+form + pre,
+form + img,
+form + figure,
+form + input,
+form + select,
+form + textarea,
+form + hr,
 dt + button,
 dt + [role="button"],
 dt + details,
 dt + pre,
 dt + img,
 dt + figure,
-dt + label,
 dt + input,
+dt + select,
+dt + textarea,
 dt + hr {
     margin-top: 2.25rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
@@ -3630,8 +3648,9 @@ details,
 pre,
 img,
 figure,
-label,
 input,
+select,
+textarea,
 hr {
     margin-top: 1.25rem;
     margin-bottom: 0.46875rem;
@@ -3716,22 +3735,20 @@ hr {
 }
 
 blockquote,
-table,
-form {
+table {
     margin-top: 2.25rem;
     margin-bottom: 0.40625rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
     margin-bottom: var(--flow-margin-firm-end--large, 0.40625rem);
 }
+blockquote + label,
+table + label,
 blockquote + cite,
 table + cite,
-form + cite,
 blockquote + p,
 table + p,
-form + p,
 blockquote + li,
-table + li,
-form + li {
+table + li {
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
 }
@@ -3747,21 +3764,14 @@ table + details,
 table + pre,
 table + img,
 table + figure,
-blockquote + label,
-table + label,
 blockquote + input,
 table + input,
+blockquote + select,
+table + select,
+blockquote + textarea,
+table + textarea,
 blockquote + hr,
-table + hr,
-form + button,
-form + [role="button"],
-form + details,
-form + pre,
-form + img,
-form + figure,
-form + label,
-form + input,
-form + hr {
+table + hr {
     margin-top: 2.25rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
 }
@@ -4379,12 +4389,12 @@ hgroup h6 {
         pre,
         img,
         figure,
-        label,
         input,
+        select,
+        textarea,
         hr,
         blockquote,
-        table,
-        form
+        table
     )
 ) {
     margin-bottom: 0;
@@ -4857,6 +4867,24 @@ dd {
 
 /* # GLOBALS - FORMS
  * ======================================================================== */
+/*! START of @maddimathon/design-system-utilities/template/global */
+form {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+@supports (display: contents) {
+    form {
+        display: contents;
+    }
+}
+
+/*! END of @maddimathon/design-system-utilities/template/global */
 /*! START of @maddimathon/design-system-utilities/template/global */
 fieldset {
     display: flex;
