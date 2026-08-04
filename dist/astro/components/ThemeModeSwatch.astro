@@ -166,33 +166,25 @@ export function getCssColourForThemePreview<
     return getColourCSS( tokens, brightness, clrSlug, convertToVarFn );
 }
 
-function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>( 
+function themeTokenFlatten<T_Val extends string | number | undefined | null | any[]>( 
     prefix: null|string,
     obj:  RecursiveRecord<string, T_Val>,
 ): { key: string; value: T_Val; }[] {
     const pre = prefix == '$' ? '' : prefix ?? '';
 
-    const mapper = ( [ key, value ]: [
-        string,
-        T_Val|RecursiveRecord<string, T_Val>
-    ] ): {
-        key: string;
-        value: T_Val;
-    }[] => {
-        key = pre + ( key == '$' ? '' : `-${key}` );
-
-        // returns 
-        if ( value && typeof value === 'object' && !Array.isArray(value) ) {
-            return themeTokenFlatten( key, value );
-        }
-        
-        return [{key: 'theme-' + key, value}];
-    };
-
     return Object.values(
         objectMap(
             obj,
-            mapper
+            ( [ key, value ] ) => {
+                key = pre + ( key == '$' ? '' : `-${key}` );
+
+                // returns 
+                if ( value && typeof value === 'object' && !Array.isArray(value) ) {
+                    return themeTokenFlatten( key, value );
+                }
+                
+                return [{key: 'theme-' + key, value}];
+            }
         )
     ).flat();
 }
@@ -202,15 +194,13 @@ function themeTokenFlatten<T_Val extends string | number |undefined |null|any[]>
 const customDisplayKeys = [ 'background', 'button', 'input', 'selection', 'system' ];
 
 const autoTokens = Object.values(
-    objectMap(theme.data, ([key, value ]) =>
-        customDisplayKeys.includes(key)
+    objectMap(
+        theme.data,
+        ([ key, value ]) => customDisplayKeys.includes(key)
             ? false
             : (typeof value !== 'object' || Array.isArray( value ) )
               ? { key, value }
-              : { key, variations: themeTokenFlatten( 
-                    key, 
-                    value as RecursiveRecord<string, string>
-                ) }
+              : { key, variations: themeTokenFlatten<string|string[]>( key, value ) }
     )
 ).filter((v) => v !== false);
 

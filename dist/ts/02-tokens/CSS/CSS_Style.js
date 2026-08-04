@@ -101,7 +101,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 Tokens_CSS_Style.alertStyle(icon, partial.alert),
                 Tokens_CSS_Style.buttonStyle(icon, partial.button),
                 Tokens_CSS_Style.inputStyle(partial.input),
-                objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
+                objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
                 Tokens_CSS_Style.toggleStyle(icon, widget, partial.toggle),
             ]);
             const flowMargin_button_default = partial?.['flow-margin']?.small ?? '200';
@@ -403,6 +403,9 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     ...style.font,
                     family: 'body',
                     size: 'normal',
+                },
+                'flow-margin': {
+                    self: 'margins-flow-large',
                 },
                 'letter-spacing': style['letter-spacing'],
                 'line-height': style['line-height'],

@@ -85,9 +85,9 @@ export class Tokens_Colour extends AbstractTokens {
         await Promise.all(promises);
     }
     toJSON() {
-        return objectMap(this.data, ([key, value]) => key === '$'
-            ? objectMap(value, ([_key, _val]) => _val.toJSON())
-            : value.toJSON());
+        return objectMap(this.data, (entry) => entry[0] === '$'
+            ? objectMap(entry[1], ([_key, _val]) => _val.toJSON())
+            : entry[1].toJSON());
     }
     toScssVars() {
         return objectKeySort_Tokens(objectMap(this.data, ([key, value]) => key === '$'

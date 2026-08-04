@@ -166,13 +166,13 @@ export class Tokens_Colour<T_Types extends TokenTypes.Colour.TypeParams> extends
 
         return objectMap(
             this.data,
-            ( [ key, value ] ) =>
-                key === '$'
+            ( entry ) =>
+                entry[ 0 ] === '$'
                     ? objectMap(
-                        value as typeof this.data[ '$' ],
-                        ( [ _key, _val ] ) => ( _val as Tokens_Colour_ShadeMap.Shade<T_Types> ).toJSON()
+                        entry[ 1 ] as typeof this.data[ '$' ],
+                        ( [ _key, _val ] ) => ( _val as Tokens_Colour_ShadeMap.Shade<T_Types> ).toJSON(),
                     )
-                    : ( value as typeof this.data[ 'base' ] ).toJSON(),
+                    : ( entry[ 1 ] as typeof this.data[ 'base' ] ).toJSON(),
         ) as Tokens_Colour.JsonReturn<T_Types>;
     }
 

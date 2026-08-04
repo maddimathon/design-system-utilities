@@ -146,7 +146,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     Tokens_CSS_Style.inputStyle<T_Params>( partial.input ),
 
                     objectGeneratorAsync(
-                        [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
+                        [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled' ] as const,
                         async ( hdg ) => Tokens_CSS_Style.subheadingStyle<T_Params, typeof hdg>( hdg, heading, partial.subheading?.[ hdg ] )
                     ),
 
@@ -575,6 +575,10 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                         ...style.font,
                         family: 'body',
                         size: 'normal',
+                    },
+
+                    'flow-margin': {
+                        self: 'margins-flow-large',
                     },
 
                     'letter-spacing': style[ 'letter-spacing' ],
@@ -1474,6 +1478,10 @@ export namespace Tokens_CSS_Style {
              * This should be a font size slug.
              */
             size: string;
+        };
+
+        'flow-margin': {
+            self: FlowMargin.Self;
         };
     };
 

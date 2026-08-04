@@ -57,10 +57,10 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         return Promise.all(promises);
     }
     toJSON() {
-        return objectMap(this.data, ([key, value]) => value.toJSON());
+        return objectMap(this.data, entry => entry[1].toJSON());
     }
     toScssVars() {
-        return objectMap(this.data, ([key, value]) => value.toScssVars());
+        return objectMap(this.data, entry => entry[1].toScssVars());
     }
 }
 /**

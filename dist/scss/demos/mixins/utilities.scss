@@ -20,7 +20,7 @@
     $module: null,
     $args...
 ) {
-    @include meta.mixin-demo(
+    @include meta.demo-mixin(
         "#{if($module == null, '', '#{$module}.')}#{$mixin}",
         meta.get-mixin($mixin, $module),
         $args...
@@ -71,7 +71,7 @@ $_paramPermutations: (
         @each $slug, $map in $_paramPermutations {
             @media #{$mixin} {
                 > #{$selector} {
-                    @include meta.mixin-demo(
+                    @include meta.demo-mixin(
                         $mixin,
                         meta.get-mixin($mixin),
                         $map...

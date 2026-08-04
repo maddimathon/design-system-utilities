@@ -373,6 +373,9 @@ export declare namespace Tokens_CSS_Style {
              */
             size: string;
         };
+        'flow-margin': {
+            self: FlowMargin.Self;
+        };
     };
     /**
      * @since 0.1.0-beta.0.draft

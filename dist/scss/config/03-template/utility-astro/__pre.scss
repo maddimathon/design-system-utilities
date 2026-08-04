@@ -162,6 +162,43 @@ $template_slug: string.to-lower-case($template_name) !default;
 $template_isDefault: $template_slug == default !default;
 
 ///
+/// @since 0.1.0-beta.0.draft
+///
+$template_title_base: null !default;
+$template_title_base: config-valid-string(
+    $template_title_base,
+    'template_title_base',
+    $default: 'Template'
+) !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$template_title: null !default;
+$template_title: config-valid-string(
+    $template_title,
+    'template_title',
+    $default: if(
+            $template_isDefault,
+            $template_title_base,
+            '#{$template_title_base} - #{$template_name}'
+        )
+) !default;
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$internal_designSystem_stylesheetPath: null !default;
+
+@if $internal_designSystem_stylesheetPath != false {
+    $internal_designSystem_stylesheetPath: config-valid-string(
+        $internal_designSystem_stylesheetPath,
+        'internal_designSystem_stylesheetPath',
+        $default: if($template_isDefault, '', $template_slug)
+    ) !default;
+}
+
+///
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0.draft — Renamed from $print_docs to $template_docs and moved to template config.
 ///

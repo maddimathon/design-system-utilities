@@ -5,62 +5,73 @@
 
 @use '../../config';
 
-@use 'pkg:@maddimathon/utility-sass/string';
+@use 'pkg:@maddimathon/utility-sass/meta';
 
 @use 'pkg:@maddimathon/utility-astro/lib/mixins' as utils;
 
-$_stylesheet_name: if(
-    config.$template_isDefault,
-    'Template',
-    'Template - #{config.$template_name}'
+$_pkgBase_template: '@maddimathon/design-system-utilities/template';
+
+$_pkgBase: if(config.$isTemplate, $_pkgBase_template, '@maddimathon/design-system-utilities');
+
+$_path_template: if(
+    (config.$internal_designSystem_stylesheetPath == false) or
+        (not meta.is-truthy(config.$internal_designSystem_stylesheetPath)),
+    $_pkgBase_template,
+    '#{$_pkgBase_template}/#{config.$internal_designSystem_stylesheetPath}'
 );
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-docblock-design-system($stylesheet_name: $_stylesheet_name) {
-    @if string.length(#{config.$template_description}) > 0 {
-        /**
-         * Design System Utilities - #{$stylesheet_name}
-         * #{config.$template_packagePath}@___CURRENT_VERSION___
-         * 
-         * #{config.$template_description}
-         * 
-         * ___CURRENT_URL___
-         */
-    } @else {
-        /**
-         * Design System Utilities - #{$stylesheet_name}
-         * #{config.$template_packagePath}@___CURRENT_VERSION___
-         * 
-         * ___CURRENT_URL___
-         */
-    }
+@mixin template-docblock-design-system(
+    $title: config.$template_title,
+    $author: true,
+    $license: true,
+    $path: true,
+    $url: true,
+    $version: true,
+    $args...
+) {
+    @include utils.template-docblock(
+        'Design System Utilities',
+        $author: if($author, 'Maddi Mathon (https://www.maddimathon.com/web)', false),
+        $license: if($license, 'MIT', false),
+        $path: if(
+                $path,
+                if(
+                    (config.$internal_designSystem_stylesheetPath == false) or
+                        (not meta.is-truthy(config.$internal_designSystem_stylesheetPath)),
+                    $_pkgBase,
+                    '#{$_pkgBase}/#{config.$internal_designSystem_stylesheetPath}'
+                ),
+                false
+            ),
+        $title: $title,
+        $url: if($url, '___CURRENT_URL___', false),
+        $version: if($version, '___CURRENT_VERSION___', false),
+        $args...
+    );
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-start-design-system {
-    @at-root {
-        /*! START of #{config.$template_packagePath} */
-    }
+@mixin template-start-design-system($args...) {
+    @include utils.template-start($path: $_path_template, $args...);
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-end-design-system {
-    @at-root {
-        /*! END of #{config.$template_packagePath} */
-    }
+@mixin template-end-design-system($args...) {
+    @include utils.template-end($path: $_path_template, $args...);
 }
 
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-design-system {
-    @include template-start-design-system;
+@mixin template-design-system($region_at_root: true, $args...) {
+    @include template-start-design-system($at_root: $region_at_root, $args...);
     @content;
-    @include template-end-design-system;
+    @include template-end-design-system($at_root: $region_at_root, $args...);
 }

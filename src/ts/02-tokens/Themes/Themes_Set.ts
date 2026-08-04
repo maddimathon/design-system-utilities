@@ -150,10 +150,10 @@ export class Tokens_Themes_Set<
                 ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
                     ( [ __key, value ] ) => value.data
-                ) as TokenTypes.Theme.Mode.ContrastRecord<
+                ) satisfies TokenTypes.Theme.Mode.ContrastRecord<
                     T_ThemeTypes,
                     Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>
-                >
+                >,
             ),
 
             forcedColours: this.forcedColours.data,
@@ -196,10 +196,10 @@ export class Tokens_Themes_Set<
 
         type ExcludeKeys = '$' | 'active' | 'disabled';
 
+        type MetadataKeysObj = Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ];
+
         const allThemeKeys: {
-            [ K in keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ] ]: Set<
-                ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
-            >[];
+            [ K in keyof MetadataKeysObj ]: Set<ArrayItem<MetadataKeysObj[ K ]>>[];
         } = {
             background: [],
             button: [],
@@ -238,29 +238,23 @@ export class Tokens_Themes_Set<
 
         const keySets = objectMap(
             allThemeKeys,
-            <K extends keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ]>(
+            <K extends keyof MetadataKeysObj>(
                 [ key, sets ]: [ K, Set<
-                    ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
+                    ArrayItem<MetadataKeysObj[ K ]>
                 >[] ]
             ) => sets?.length
                     ? sets.reduce(
                         ( previous, current ) => previous.intersection( current ),
                     )
-                    : new Set<
-                        ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
-                    >()
+                    : new Set<ArrayItem<MetadataKeysObj[ K ]>>(),
         );
 
         keySets.textAndBackground = keySets.text.intersection( keySets.background );
 
         const keys = objectMap(
             keySets,
-            <K extends keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ]>(
-                [ key, set ]: [ K, Set<
-                    ArrayItem<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ][ K ]>
-                > ]
-            ) => Array.from( set ).sort( objectKeySort_Tokens.sorter )
-        ) as Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ];
+            ( [ key, set ] ) => Array.from( set ).sort( objectKeySort_Tokens.sorter ),
+        ) as MetadataKeysObj;
 
         this.meta = {
             keys,
@@ -294,10 +288,10 @@ export class Tokens_Themes_Set<
                 ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
                     ( [ __key, value ] ) => value.toJSON()
-                ) as TokenTypes.Theme.Mode.ContrastRecord<
+                ) satisfies TokenTypes.Theme.Mode.ContrastRecord<
                     T_ThemeTypes,
                     Tokens_Themes_Set.SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes>
-                >
+                >,
             ),
         };
     }
@@ -311,10 +305,10 @@ export class Tokens_Themes_Set<
                 ( [ brightnessMode ] ) => objectMap(
                     this.modes[ brightnessMode ],
                     ( [ __key, value ] ) => value.toScssVars()
-                ) as TokenTypes.Theme.Mode.ContrastRecord<
+                ) satisfies TokenTypes.Theme.Mode.ContrastRecord<
                     T_ThemeTypes,
                     Tokens_Themes_Set.SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes>
-                >
+                >,
             ),
         };
     }

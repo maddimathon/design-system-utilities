@@ -50,7 +50,7 @@ export class Test extends TestStage {
             'dist/css',
             {
                 clearOutputDir: false,
-                maxConcurrent: 15,
+                maxConcurrent: 30,
                 postCSS: false,
                 srcDir: 'src/scss',
             },

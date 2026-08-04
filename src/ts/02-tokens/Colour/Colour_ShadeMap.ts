@@ -108,18 +108,16 @@ export class Tokens_Colour_ShadeMap<T_Types extends TokenTypes.Colour.TypeParams
     }
 
     public toJSON(): Tokens_Colour_ShadeMap.JsonReturn<T_Types> {
-
         return objectMap(
             this.data,
-            ( [ key, value ] ) => value.toJSON(),
+            entry => entry[ 1 ].toJSON(),
         );
     }
 
     public toScssVars(): Tokens_Colour_ShadeMap.ScssVars<T_Types> {
-
         return objectMap(
             this.data,
-            ( [ key, value ] ) => value.toScssVars(),
+            entry => entry[ 1 ].toScssVars(),
         );
     }
 }

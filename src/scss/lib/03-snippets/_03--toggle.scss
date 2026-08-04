@@ -22,27 +22,6 @@
 
 $_closing_time: var-tr-time(toggle-closing);
 
-$_defaultHeadingSelectors: list.join(selector-all-headings(), ('%title'));
-
-$_defaultHeadingSelectors_bigOnly: ('%title');
-
-$_defaultHeadingSelectors_greaterThan6: ();
-
-@each $slug in token-all-heading-levels() {
-    @if $slug < 7 {
-        $_defaultHeadingSelectors_bigOnly: list.append(
-            $_defaultHeadingSelectors_bigOnly,
-            ('%h#{$slug}')
-        );
-    }
-    @if $slug > 6 {
-        $_defaultHeadingSelectors_greaterThan6: list.append(
-            $_defaultHeadingSelectors_greaterThan6,
-            ('%h#{$slug}')
-        );
-    }
-}
-
 @mixin _motion-props($bool, $svg_sel_static, $svg_sel_moving) {
     [data-toggle-content] {
         $_transitionList: (
@@ -163,55 +142,38 @@ $_defaultHeadingSelectors_greaterThan6: ();
     $includeBaseStyles: true,
     $args...
 ) {
-    $headingSelectors: $_defaultHeadingSelectors;
-    $headingSelectors_bigOnly: $_defaultHeadingSelectors_bigOnly;
-
     $control_marginBlockEnd: var-style(toggle-control-margin-block-end);
     $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
-    $headingSelectors_unstyled: ();
-
-    @each $sel in list.except($headingSelectors, '%unstyled-heading') {
-        $headingSelectors_unstyled: list.append(
-            $headingSelectors_unstyled,
-            (selector.unify($sel, ':is( %unstyled-heading )')),
-            $separator: comma
-        );
-    }
-
-    // prettier-ignore
     @include utils.snippet-support-toggle-block(
-        $headingSelectors: $headingSelectors,
-        $headingSelectors_bigOnly: $headingSelectors_bigOnly,
-        // 
-        $content_container_paddingBlock: $content_container_paddingBlock,
-        $content_container_paddingInline: $content_container_paddingInline,
-        $control_heading_paddingBlockEnd: $control_paddingBlockEnd,
-        $control_heading_unstyled_paddingBlockEnd: $control_paddingBlockEnd,
-        $control_paddingBlockEnd: 0,
-        // 
-        $svg_sel_static: $svg_sel_static,
-        $svg_sel_moving: $svg_sel_moving,
-        // 
-        $includeBackdropControlStyles: false,
-        $includeBaseStyles: false,
-        $includeMarginBlock: false,
-        $args...
-    ) using ($location) {
-        
-        /// 
+            $content_container_paddingBlock: $content_container_paddingBlock,
+            $content_container_paddingInline: $content_container_paddingInline,
+            $control_heading_paddingBlockEnd: $control_paddingBlockEnd,
+            $control_heading_unstyled_paddingBlockEnd: $control_paddingBlockEnd,
+            $control_paddingBlockEnd: 0,
+            //
+            $svg_sel_static: $svg_sel_static,
+            $svg_sel_moving: $svg_sel_moving,
+            //
+            $includeBackdropControlStyles: false,
+            $includeBaseStyles: false,
+            $includeMarginBlock: false,
+            $args...
+        )
+        using ($location) {
+        ///
         /// CONTAINER
-        /// 
+        ///
 
         @if $location == flex-contents-container {
-            @content($location);
+            @content ($location);
         }
-
+        //
         @else if $location == toggle-container {
             @include cx-prop(toggle-closing-time, $_closing_time);
             @include cx-prop(toggle-border-color, var-theme(link-ui));
 
-            @content($location);
+            @content ($location);
 
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
@@ -223,21 +185,19 @@ $_defaultHeadingSelectors_greaterThan6: ();
                         var-style(heading-#{$slug}-margin-block-start)
                     );
 
-                    @content(#{$location}--has-h#{$slug});
+                    @content (#{$location}--has-h#{$slug});
                 }
             }
-            
+
             // UNSTYLED HEADINGS
-            &:has(> %unstyled-heading),
-            #{selector.has-list($headingSelectors_unstyled, $direct: true, $unifyParent: true)} {
-            // &:has(#{selector.nest( '>', #{$headingSelectors_unstyled} )}) {
-                @content(#{$location}--has-unstyled-heading);
+            &:has(> %unstyled-heading, > %unstyled-heading--where) {
+                @content (#{$location}--has-unstyled-heading);
             }
 
             // HAS BUTTON HOVER OR FOCUS
             $_selector_control_focus_config: selector.unify(
                 '.toggle-title [data-toggle-control]',
-                config.$selector_interactiveState_focus,
+                config.$selector_interactiveState_focus
             );
 
             $_selector_control_hover: '.toggle-title [data-toggle-control]:hover';
@@ -246,8 +206,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 @if config.$mx_interactive_isolateSelector_focus {
                     &:has(> #{$_selector_control_hover}) {
                         @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
-                        
-                        @content(#{$location}--has-control-focus-or-hover);
+
+                        @content (#{$location}--has-control-focus-or-hover);
                     }
                 } @else {
                     $_selector_control_focus_config: list.join(
@@ -257,19 +217,22 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     );
                 }
 
-                @include selector.has($_selector_control_focus_config, $direct: true, $unifyParent: true) {
+                @include selector.has(
+                    $_selector_control_focus_config,
+                    $direct: true,
+                    $unifyParent: true
+                ) {
                     @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
-                    
-                    @content(#{$location}--has-control-focus-or-hover);
+
+                    @content (#{$location}--has-control-focus-or-hover);
                 }
             }
 
-            &:has( > .toggle-title [data-toggle-control]:focus-visible ) {
+            &:has(> .toggle-title [data-toggle-control]:focus-visible) {
                 @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
-                
-                @content(#{$location}--has-control-focus-or-hover);
+
+                @content (#{$location}--has-control-focus-or-hover);
             }
-            
 
             // HAS BUTTON ACTIVE
             $_selector_control_active_config: selector.nest(
@@ -282,8 +245,8 @@ $_defaultHeadingSelectors_greaterThan6: ();
             @if config.$mx_interactive_isolateSelector_active {
                 &:has(> #{$_selector_control_active}) {
                     @include cx-prop(toggle-border-color, var-theme(link-ui-active));
-                
-                    @content(#{$location}--has-control-active);
+
+                    @content (#{$location}--has-control-active);
                 }
             } @else {
                 $_selector_control_active_config: list.join(
@@ -292,59 +255,61 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     $separator: comma
                 );
             }
-        
-            @include selector.has($_selector_control_active_config, $direct: true, $unifyParent: true) {
+
+            @include selector.has(
+                $_selector_control_active_config,
+                $direct: true,
+                $unifyParent: true
+            ) {
                 @include cx-prop(toggle-border-color, var-theme(link-ui-active));
-            
-                @content(#{$location}--has-control-active);
+
+                @content (#{$location}--has-control-active);
             }
         }
-
+        //
         @else if $location == js--toggle-container {
             margin-block-end: do-var(flow-margin-firm-end--large);
 
-            @content($location);
+            @content ($location);
         }
-
+        //
         @else if $location == js--container-grid {
             gap: 0;
 
-            @content($location);
+            @content ($location);
         }
-        
-        /// 
+
+        ///
         /// CONTROL
-        /// 
+        ///
 
         @else if $location == toggle-control or $location == toggle-control--disabled {
             @include cx-prop(icon-color, style-value(icon-color));
-    
+
             border: none;
             background: none;
             color: inherit;
 
             @if $location == toggle-control {
                 width: 100%;
-        
+
                 font: inherit;
                 text-align: inherit;
-    
+
                 appearance: none;
                 cursor: text;
 
-                @content($location);
+                @content ($location);
 
                 &::before,
                 &::after {
                     content: none;
                 }
-            }
-            
-            @else if $location == toggle-control--disabled {
+            } @else if $location == toggle-control--disabled {
                 font: inherit;
                 cursor: text;
 
-                @content($location);
+                @content ($location);
 
                 &::before,
                 &::after {
@@ -353,33 +318,33 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
                 @include active-hover-focus-visible-or-within {
                     @include cx-prop(icon-color, style-value(icon-color));
-    
+
                     border: none;
                     background: none;
                     color: inherit;
-                    
+
                     outline: none;
-                    
+
                     @content (#{$location}--hover-focus);
                 }
             }
         }
-        
+        //
         @else if $location == toggle-control--hover-focus {
             background: transparent;
             box-shadow: none;
 
-            @content($location);
+            @content ($location);
         }
-        
+        //
         @else if $location == toggle-control--active {
             background: transparent;
-            
-            @content($location);
-        }
 
+            @content ($location);
+        }
+        //
         @else if $location == toggle-control-backdrop {
-            @content($location);
+            @content ($location);
 
             @if $includeBackdropControlStyles {
                 &::before,
@@ -388,29 +353,29 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     content: '' / '';
                     @include prop-display(block);
                     position: absolute;
-    
+
                     top: 0;
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    
-                    @content(#{$location}--before-or-after);
+
+                    @content (#{$location}--before-or-after);
                 }
 
                 &::before {
                     background: $backdrop_backgroundClr_before;
                     opacity: $backdrop_opacity_before;
-                    
-                    @content(#{$location}--before);
+
+                    @content (#{$location}--before);
                 }
-    
+
                 &::after {
                     background: $backdrop_backgroundClr_after;
                     opacity: $backdrop_opacity_after;
-                    
-                    @content(#{$location}--after);
+
+                    @content (#{$location}--after);
                 }
-    
+
                 @include active-hover-focus-visible-or-within {
                     border: none;
                     background: none;
@@ -418,14 +383,14 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     outline: none;
                     opacity: 1;
 
-                    @content(#{$location}--hover-focus-active);
+                    @content (#{$location}--hover-focus-active);
                 }
             }
         }
-        
+        //
         @else if $location == js--toggle-control or $location == js--toggle-control-backdrop {
             padding: 0;
-            
+
             appearance: button;
             cursor: pointer;
 
@@ -433,195 +398,185 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 margin-block-end: $control_marginBlockEnd;
                 padding-block-end: $control_paddingBlockEnd;
 
-                @include cx-prop(
-                    focus-ring-outline-color,
-                    var-theme(link-outline-hover)
-                );
+                @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
                 color: var-theme(link);
 
-                @content($location);
-            }
-
-            @else if $location == js--toggle-control-backdrop {
+                @content ($location);
+            } @else if $location == js--toggle-control-backdrop {
                 @if $includeBackdropControlStyles {
                     backdrop-filter: blur(1rem);
                     background: none;
                     border: none;
                 }
 
-                @content($location);
+                @content ($location);
             }
         }
-
+        //
         @else if $location == js--toggle-control--hover-focus-or-within {
-            @include cx-prop(
-                focus-ring-outline-color,
-                var-theme(link-outline-hover)
-            );
+            @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
             color: var-theme(link-hover);
 
-            @content($location);
+            @content ($location);
         }
-
+        //
         @else if $location == js--toggle-control--active {
-            @include cx-prop(
-                focus-ring-outline-color,
-                var-theme(link-outline-active)
-            );
+            @include cx-prop(focus-ring-outline-color, var-theme(link-outline-active));
             color: var-theme(link-active);
 
-            @content($location);
+            @content ($location);
         }
-        
-        /// 
+
+        ///
         /// TITLE
-        /// 
-        
+        ///
+
         @else if $location == toggle-title {
-            @content($location);
+            @content ($location);
 
             // ALL HEADINGS
-            & > %unstyled-heading,
-            & #{selector.nest( '>', $headingSelectors )} {
-                @content(#{$location}--all-headings);
-                
+            @include selector-all-headings($direct: true) {
+                @content (#{$location}--all-headings);
+
                 [data-toggle-control] {
                     @include snippet-heading(
                         $slug: null,
                         $includeBase: true,
                         $includeChildren_link: false,
-                        $includeHGroup: false,
                         $includeMargin: false,
-                        $useRelativeFontSize: false,
+                        $useRelativeFontSize: false
                     );
-                    
-                    @content(#{$location}--all-headings--control);
+
+                    @content (#{$location}--all-headings--control);
                 }
             }
 
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
-                > %h#{$slug}  {
-                    @content(#{$location}--h#{$slug});
+                > %h#{$slug} {
+                    @content (#{$location}--h#{$slug});
 
                     [data-toggle-control] {
                         @include snippet-heading(
                             $slug: $slug,
                             $includeBase: false,
                             $includeChildren_link: false,
-                            $includeHGroup: false,
                             $includeMargin: false,
-                            $useRelativeFontSize: false,
+                            $useRelativeFontSize: false
                         );
 
-                        @content(#{$location}--h#{$slug}--control);
+                        @content (#{$location}--h#{$slug}--control);
                     }
                 }
             }
-            
+
             // UNSTYLED HEADINGS
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors_unstyled} )} {
-                @content(#{$location}--unstyled-heading);
-                
+            & > %unstyled-heading--where {
+                @content (#{$location}--unstyled-heading);
+
                 [data-toggle-control] {
                     @include snippet-heading(
                         $includeChildren_link: false,
                         $includeBase: false,
                         $includeColor: false,
-                        $includeHGroup: false,
                         $includeMargin: false,
-                        $useRelativeFontSize: false,
+                        $useRelativeFontSize: false
                     );
 
-                    @content(#{$location}--unstyled-heading--control);
+                    @content (#{$location}--unstyled-heading--control);
                 }
             }
         }
-        
+        //
         @else if $location == js--toggle-title {
             transition: transition-properties-value(false);
 
-            @content($location);
+            @content ($location);
 
             // ALL HEADINGS
-            @include selector.is($headingSelectors, $direct: true) {
-                @content(#{$location}--all-headings);
-                
+            @include selector.is(
+                selector-all-headings($where: config.$selector_headingsByRole),
+                $direct: true
+            ) {
+                @content (#{$location}--all-headings);
+
                 [data-toggle-control] {
-                    @content(#{$location}--all-headings--control);
+                    @content (#{$location}--all-headings--control);
 
                     @include hover-focus-visible($includeNoWhereSelectorFallback: false) {
-                        @include cx-prop(
-                            focus-ring-outline-color,
-                            var-theme(link-outline-hover)
-                        );
+                        @include cx-prop(focus-ring-outline-color, var-theme(link-outline-hover));
                         color: var-theme(link-hover);
-                        
-                        @content(#{$location}--all-headings--control--hover-focus);
+
+                        @content (#{$location}--all-headings--control--hover-focus);
                     }
 
                     @include active {
-                        @include cx-prop(
-                            focus-ring-outline-color,
-                            var-theme(link-outline-active)
-                        );
+                        @include cx-prop(focus-ring-outline-color, var-theme(link-outline-active));
                         color: var-theme(link-active);
-                        
-                        @content(#{$location}--all-headings--control--active);
+
+                        @content (#{$location}--all-headings--control--active);
                     }
                 }
             }
-            
+
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
-                > %h#{$slug}  {
-                    @content(#{$location}--h#{$slug});
+                > %h#{$slug} {
+                    @content (#{$location}--h#{$slug});
 
                     [data-toggle-control] {
-                        margin-block-end: var-style(toggle-control-heading-#{$slug}-margin-block-end);
-                        padding-block-end: var-style(toggle-control-heading-#{$slug}-padding-block-end);
+                        margin-block-end: var-style(
+                            toggle-control-heading-#{$slug}-margin-block-end
+                        );
+                        padding-block-end: var-style(
+                            toggle-control-heading-#{$slug}-padding-block-end
+                        );
                         color: var-theme(heading-#{$slug});
-                        
-                        @content(#{$location}--h#{$slug}--control);
+
+                        @content (#{$location}--h#{$slug}--control);
                     }
                 }
             }
- 
+
             // UNSTYLED HEADINGS
             & > %unstyled-heading,
-            & #{selector.nest( '>', #{$headingSelectors_unstyled} )} {
-                @content(#{$location}--unstyled-heading);
-                
+            & > %unstyled-heading--where {
+                @content (#{$location}--unstyled-heading);
+
                 [data-toggle-control] {
                     margin-block-end: $control_marginBlockEnd;
                     padding-block-end: $control_paddingBlockEnd;
 
-                    @content(#{$location}--unstyled-heading--control);
+                    @content (#{$location}--unstyled-heading--control);
                 }
             }
         }
-        
-        /// 
+
+        ///
         /// ICON
-        /// 
-        
+        ///
+
         @else if $location == toggle-icon {
-            @include cx-prop(icon-inline-buffer-start, 0 , $important: true);
-            @include cx-prop(icon-inline-buffer-end, 0 , $important: true);
+            @include cx-prop(icon-inline-buffer-start, 0, $important: true);
+            @include cx-prop(icon-inline-buffer-end, 0, $important: true);
             @include cx-prop(icon-size, var-style(toggle-icon-size));
-            @include cx-prop(icon-vertical-align, var-style(toggle-icon-vertical-align) , $important: true);
+            @include cx-prop(
+                icon-vertical-align,
+                var-style(toggle-icon-vertical-align),
+                $important: true
+            );
 
             margin-inline-start: var-style(toggle-icon-buffer-start);
             margin-inline-end: var-style(toggle-icon-buffer-end);
-            
-            @content($location);
+
+            @content ($location);
         }
-        
-        /// 
+
+        ///
         /// CONTENT
-        /// 
-        
+        ///
+
         @else if $location == js--toggle-content {
             line-height: var-style(toggle-content-line-height);
 
@@ -629,20 +584,20 @@ $_defaultHeadingSelectors_greaterThan6: ();
 
             border-width: $content_borderWidth;
             border-block-end-width: 0;
-            
+
             border-radius: 0;
-            
+
             border-end-end-radius: var-style(toggle-content-border-radius);
             border-end-start-radius: var-style(toggle-content-border-radius);
-            
+
             border-style: var-style(toggle-content-border-style);
             border-block-start-style: var-style(toggle-content-border-style-top);
-            
+
             border-color: do-var(toggle-border-color, var-theme(link-ui));
-            
+
             transition: transition-properties-value(false);
-            
-            @content($location);
+
+            @content ($location);
 
             @at-root #{selector.replace(&, '[data-toggle-content]', ':where( [data-toggle-content] )')} {
                 @include set-flow-margins(
@@ -650,18 +605,23 @@ $_defaultHeadingSelectors_greaterThan6: ();
                     $large: $flowMargin_large,
                     $small: $flowMargin_small,
                     $buttonGapBlock: $flowMargin_buttonGapBlock,
-                    // 
+                    //
                     $defineChildProps: false,
-                    $defineCustomProps: true,
+                    $defineCustomProps: true
                 );
             }
         }
-        
+        //
         @else if $location == js--toggle-content--container {
-            @content($location);
+            @content ($location);
 
             > :first-child {
-                &:not(%margins-flow-firm, %margins-flow-firm-small, %margins-flow-firm-large, %button-span) {
+                &:not(
+                    %margins-flow-firm,
+                    %margins-flow-firm-small,
+                    %margins-flow-firm-large,
+                    %button-span
+                ) {
                     margin-block-start: 0;
                 }
 
@@ -692,28 +652,34 @@ $_defaultHeadingSelectors_greaterThan6: ();
                 }
             }
         }
-        
+        //
         @else if $location == js--toggle-container--open--content {
             border-block-end-width: $content_borderWidth;
 
-            @content($location);
+            @content ($location);
         }
-        
+        //
         @else if $location == js--toggle-container--open-or-closing--content {
             border-inline-width: $content_borderWidth;
-            
+
             border-start-end-radius: var-style(toggle-content-border-radius-top);
             border-start-start-radius: var-style(toggle-content-border-radius-top);
 
-            @content($location);
+            @content ($location);
         }
-        
+
         // @else if $location == LOCATION {
         // @content($location);
         // }
 
-        @else if string.match($location, '^js--toggle-title--(has-heading|heading(--(toggle-control|unstyled))?)$') == null {
-            @content($location);
+        @else if
+            string.match(
+                $location,
+                '^js--toggle-title--(has-heading|heading(--(toggle-control|unstyled))?)$'
+            ) ==
+            null
+        {
+            @content ($location);
         }
     }
 
