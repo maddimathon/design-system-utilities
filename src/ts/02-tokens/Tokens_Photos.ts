@@ -111,8 +111,8 @@ export namespace Tokens_Photos {
      * @since ___PKG_VERSION___
      */
     export type Data<T_Params extends TokenTypes.Photos.TypeParams> = {
-        // TODO - add favicon property that intakes an SVG and outputs the various sizes/formats desired
-        // TODO - add site icon property that intakes an SVG and outputs the various sizes/formats desired
+        // UPGRADE - add favicon property that intakes an SVG and outputs the various sizes/formats desired
+        // UPGRADE - add site icon property that intakes an SVG and outputs the various sizes/formats desired
 
         photos: {
             [ S in T_Params[ 'photoSlugs' ] ]: Photo<S>;

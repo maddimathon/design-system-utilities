@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
 @use '../../config';
@@ -112,8 +113,17 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function get-extend-selectors-layout-globals() {
+@function get-extend-selectors-layout-globals(
+    $fullWidthExtender: config.$selector_bodyGrid_fullWidthExtender
+) {
     $sels: ();
+
+    @if meta.is-truthy($fullWidthExtender) {
+        $sels: list.append(
+            $sels,
+            ($fullWidthExtender, full-width-subgrid-block)
+        );
+    }
 
     $sels: list.join(
         $sels,

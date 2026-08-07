@@ -1025,6 +1025,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                     @include first-child-no-top-margin(
                         $includeChildren: false,
                         $includeRoot: true,
+                        $includeListsFirstItem: false,
                         $setFirstChildSelector: true
                     );
 
@@ -1032,11 +1033,13 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                         @include first-child-no-top-margin(
                             $includeChildren: true,
                             $includeRoot: false,
+                            $includeListsFirstItem: false,
                             $setFirstChildSelector: true
                         );
                     }
                 } @else {
                     @include first-child-no-top-margin(
+                        $includeListsFirstItem: false,
                         $setFirstChildSelector: true
                     );
                 }

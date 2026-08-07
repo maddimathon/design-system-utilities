@@ -7,8 +7,10 @@
 
 @forward 'pkg:@maddimathon/utility-astro/config/template/functions' hide config-get-template-styles;
 
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
 @use 'pkg:@maddimathon/utility-astro/config/template/functions' as utils;
-@use 'sass:map';
 
 @function config-get-template-styles(
     $inputs,
@@ -20,26 +22,22 @@
     $template_astro,
     $template_docs
 ) {
+    $_bodyGrid: meta.defined-else(map.get($inputs, astro, bodyGrid), $template_astro);
+
+    $_toggleBlock: meta.defined-else(map.get($inputs, toggleBlock), $template_astro);
+
+    $_astro_toggleNav: meta.defined-else(map.get($inputs, astro, toggleNav), $_toggleBlock);
+
     $merged: utils.config-get-template-styles(
-        $inputs: map.deep-merge(
+        $inputs: map.merge(
                 (
                     alerts: $template_astro or $template_utils or map.get($inputs, icons),
                     aside: $template_utils,
                     //
                     astro: (
-                            bodyGrid: $template_astro,
-                            toggleNav: $template_astro and
-                                if(
-                                    map.has-key($inputs, toggleBlock),
-                                    map.get($inputs, toggleBlock),
-                                    true
-                                ),
-                            stickyToggleNav: $template_astro and
-                                if(
-                                    map.has-key($inputs, astro, toggleNav),
-                                    map.get($inputs, astro, toggleNav),
-                                    true
-                                ),
+                            bodyGrid: $_bodyGrid,
+                            toggleNav: $_astro_toggleNav,
+                            stickyToggleNav: $_astro_toggleNav,
                         ),
                     //
                     blockquote: $template_globals,
@@ -48,6 +46,7 @@
                     flowMargins: $template_globals,
                     focusRing: $template_globals or $template_utils or $include_html,
                     form: $template_globals,
+                    fullWidthBodySubgrid: $_bodyGrid,
                     headings: $template_globals,
                     icons: $template_astro or $template_utils or map.get($inputs, alerts),
                     images: $template_globals,
@@ -68,9 +67,10 @@
                     //
                     sidebarWidgets: $template_astro or $template_docs,
                     siteSettingsMenu: $template_astro,
-                    toggle: $template_astro,
+                    toggle: $_toggleBlock,
                 ),
-                $inputs
+                $inputs,
+                $recursive: true
             ),
         $include_html: $include_html,
         $isTemplate: $isTemplate,

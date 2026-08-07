@@ -4,8 +4,10 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../config';
 // @use '../../tokens';
@@ -57,14 +59,22 @@ $_firmFlowMarginChildren: list.join(
     @if $includeChildren and $useNotInsteadOfChildren {
         &:not(#{$firmFlowMarginChildren}) {
             margin-block-#{$marginSide}: $soft #{$importantSuffix};
+
+            @content;
         }
     } @else if $includeRoot {
         margin-block-#{$marginSide}: $soft #{$importantSuffix};
+
+        @content;
     }
 
     @if $includeChildren and not $useNotInsteadOfChildren {
         @at-root #{selector.unify(&, $firmFlowMarginChildren)} {
             margin-block-#{$marginSide}: $firm #{$importantSuffix};
+
+            @if not $includeRoot {
+                @content;
+            }
         }
     }
 }
@@ -74,12 +84,21 @@ $_firmFlowMarginChildren: list.join(
 ///
 @mixin _child-no-margin-template(
     $marginSide,
+    $asImportant: true,
+    $childrenInIs: true,
     $includeChildren: true,
     $includeRoot: true,
     $includeListsFirstItem: false,
+    $includeSrTextFirstItem: false,
     $setFirstChildSelector: null,
+    $useNotInsteadOfChildren: config.$fn_firstLastChildMargin_useNotInsteadOfChildren,
     $args...
 ) {
+    $args: meta.keywords($args);
+
+    $useIs_root: map.get($args, useIs_root);
+    $args: map.remove($args, useIs_root);
+
     $_childSelector: if(
         $marginSide == start,
         ':first-child',
@@ -99,39 +118,100 @@ $_firmFlowMarginChildren: list.join(
     }
 
     @if $setFirstChildSelector {
-        > #{$_childSelector} {
-            @if $includeRoot {
-                $sels: &;
+        @if $includeRoot {
+            $_to_nest: if($useNotInsteadOfChildren, (), $_childSelector);
 
-                @if $includeListsFirstItem {
-                    $sels: list.join(
-                        $sels,
-                        selector.nest(
-                            selector.unify($sels, 'ol, ul'),
-                            '>',
-                            selector.unify('li', $_childSelector)
-                        ),
+            @if $useIs_root == null {
+                $useIs_root: string.match(#{&}, ':(has|is|where)\\(') != null;
+            }
+
+            $_universal_selector: '*';
+
+            @if $includeListsFirstItem {
+                $__lists: if($useIs_root, ':is( ol, ul )', 'ol, ul');
+
+                @if $marginSide == start {
+                    $_universal_selector: list.join(
+                        $_universal_selector,
+                        selector.nest($__lists, '>', selector.unify('li', $_childSelector)),
                         $separator: comma
                     );
+                    // } @else {
+                    //     $_universal_selector: list.join(
+                    //         $_universal_selector,
+                    //         $__lists,
+                    //         $separator: comma
+                    //     );
                 }
 
-                @at-root #{$sels} {
+                $_to_nest: list.join(
+                    $_to_nest,
+                    selector.nest(
+                        selector.unify($_childSelector, $__lists),
+                        '>',
+                        selector.unify('li', $_childSelector)
+                    ),
+                    $separator: comma
+                );
+            }
+
+            @if $includeSrTextFirstItem {
+                $_to_nest: list.join(
+                    $_to_nest,
+                    if(
+                        $marginSide == start,
+                        selector.nest(
+                            selector.unify($_childSelector, '.screen-reader-text'),
+                            '+',
+                            $_universal_selector
+                        ),
+                        if(
+                            $useIs_root,
+                            selector.unify(
+                                $_universal_selector,
+                                ':has( #{selector.nest('+', selector.unify($_childSelector, ".screen-reader-text"))} )'
+                            ),
+                            ()
+                        )
+                    ),
+                    $separator: comma
+                );
+            }
+
+            @if list.length($_to_nest) > 0 {
+                $_to_nest: list.unique($_to_nest);
+
+                #{selector.nest('>', if($useIs_root and list.length($_to_nest) > 1, ':is( #{$_to_nest} )', $_to_nest))} {
                     @include flow-margin-conditional-override(
                         $marginSide,
                         $includeChildren: false,
                         $includeRoot: true,
+                        $asImportant: $asImportant,
+                        $childrenInIs: $childrenInIs,
+                        $useNotInsteadOfChildren: $useNotInsteadOfChildren,
                         $args...
-                    );
+                    ) {
+                        @content;
+                    }
                 }
             }
+        }
 
-            @if $includeChildren {
+        @if $includeChildren {
+            > #{$_childSelector} {
                 @include flow-margin-conditional-override(
                     $marginSide,
                     $includeChildren: true,
                     $includeRoot: false,
+                    $asImportant: $asImportant,
+                    $childrenInIs: $childrenInIs,
+                    $useNotInsteadOfChildren: $useNotInsteadOfChildren,
                     $args...
-                );
+                ) {
+                    @if not $includeRoot or $useNotInsteadOfChildren {
+                        @content;
+                    }
+                }
             }
         }
     } @else {
@@ -139,8 +219,13 @@ $_firmFlowMarginChildren: list.join(
             $marginSide,
             $includeChildren: $includeChildren,
             $includeRoot: $includeRoot,
+            $asImportant: $asImportant,
+            $childrenInIs: $childrenInIs,
+            $useNotInsteadOfChildren: $useNotInsteadOfChildren,
             $args...
-        );
+        ) {
+            @content;
+        }
     }
 }
 
@@ -155,7 +240,9 @@ $_firmFlowMarginChildren: list.join(
         start,
         $includeListsFirstItem: $includeListsFirstItem,
         $args...
-    );
+    ) {
+        @content;
+    }
 }
 
 ///
@@ -165,5 +252,7 @@ $_firmFlowMarginChildren: list.join(
 /// @since ___PKG_VERSION___
 ///
 @mixin last-child-no-bottom-margin($args...) {
-    @include _child-no-margin-template(end, $args...);
+    @include _child-no-margin-template(end, $args...) {
+        @content;
+    }
 }

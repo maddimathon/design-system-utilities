@@ -149,7 +149,7 @@ export class Document extends DocumentStage {
         }
     }
 
-    protected async scss( args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts> ): Promise<void> {
+    protected async scss( args: Partial<AbstractStage.runCustomScssDirSubStage.Opts> = {} ): Promise<void> {
         // returns - we don't need to compile this
         if (
             this.isWatchedUpdate
@@ -171,10 +171,20 @@ export class Document extends DocumentStage {
             outDir,
             {
                 clearOutputDir: this.isWatchedUpdate ? false : this.params.building ? "complete" : "targeted",
-                postCSS: true,
                 ...args,
+
+                postCSS: {
+                    presetEnv: {
+                        features: {
+                            'custom-properties': true,
+                        },
+                    },
+
+                    ...typeof args.postCSS === 'object' ? args.postCSS : {},
+                },
                 srcDir: 'src/docs/scss',
             },
+            2,
         );
 
         this.console.verbose( 'prettifying...', 2 );

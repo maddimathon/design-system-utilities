@@ -18,9 +18,15 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin template-content-layouts-body-grid($css_headings: null) {
+@mixin template-content-layouts-body-grid(
+    $print_bodyGrid: map.get(config.$template_styles, astro, bodyGrid),
+    $print_fullWidthSubgridBlocks: map.get(config.$template_styles, fullWidthBodySubgrid),
+    //
+    $css_headings: null
+) {
     @if $css_headings == null {
-        $css_headings: config.$template_cssHeadings;
+        $css_headings: config.$template_cssHeadings and
+            ($print_bodyGrid or $print_fullWidthSubgridBlocks);
     }
 
     @if $css_headings {
@@ -30,8 +36,40 @@
 
     @content (start);
 
-    @include template-design-system {
-        @include snippet-support-body-grid($includeGlobals: false);
+    @if $print_bodyGrid {
+        @include template-design-system {
+            @include snippet-support-body-grid($includeGlobals: false);
+        }
+    }
+    @content (body-grid);
+
+    @if $print_fullWidthSubgridBlocks {
+        @include template-design-system {
+            %body {
+                @include snippet-body-grid--selectors--body-and-subgrid {
+                    &:is(%full-width-subgrid-block) {
+                        margin-block: var-gap-block(layout) do-var(flow-margin-firm-end--large);
+                        margin-block-end: calc(
+                            var-gap-block(layout) - do-var(flow-margin--large) +
+                                do-var(flow-margin-firm-end--large)
+                        );
+
+                        padding-block: var-gap-block(layout);
+                        padding-inline: var-gap-inline(layout);
+
+                        @include first-child-no-top-margin($includeSrTextFirstItem: true);
+
+                        &:has(+ %full-width-subgrid-block) {
+                            margin-block-end: 0;
+                        }
+
+                        + :is(%full-width-subgrid-block) {
+                            margin-block-start: 0;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @include snippet-body-grid--extend-selectors($localOnly: true);
@@ -69,9 +107,7 @@
                 %content-header {
                     &,
                     > hgroup {
-                        > :first-child {
-                            @include first-child-no-top-margin;
-                        }
+                        @include first-child-no-top-margin($includeListsFirstItem: false);
                     }
 
                     + * {
@@ -96,7 +132,7 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin template-content-layouts(
-    $print_bodyGrid: map.get(config.$template_styles, astro, bodyGrid),
+    $print_bodyGrid: true,
     $print_contentHeader: true,
     //
     $content_exists: null,

@@ -30,6 +30,15 @@ export function defineConfig(config, _classes = {}) {
         compiler: {
             ...config.compiler ?? {},
             sass: (stage) => defineSassCompilerOpts(stage, config.compiler?.sass),
+            // postCSS: {
+            //     ...config.compiler?.postCSS ?? {},
+            //     presetEnv: {
+            //         features: {
+            //             'custom-properties': false,
+            //         },
+            //         ...config.compiler?.postCSS?.presetEnv ?? {},
+            //     },
+            // },
         },
         stages: {
             ...config.stages,

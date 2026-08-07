@@ -8,6 +8,7 @@
 
 @forward '../header';
 
+@use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
 @use '../../lib' as *;
@@ -52,22 +53,199 @@ $_paramPermutations: (
         childrenInIs: false,
         useNotInsteadOfChildren: false,
     ),
+
+    default--no-list: (
+        includeListsFirstItem: false,
+    ),
+    not-important--no-list: (
+        includeListsFirstItem: false,
+        asImportant: false,
+    ),
+    children-as-blocks--no-list: (
+        includeListsFirstItem: false,
+        useNotInsteadOfChildren: false,
+    ),
+    children-as-not--no-list: (
+        includeListsFirstItem: false,
+        useNotInsteadOfChildren: true,
+    ),
+    no-children--no-list: (
+        includeListsFirstItem: false,
+        includeChildren: false,
+    ),
+    not-important-children-as-blocks--no-list: (
+        includeListsFirstItem: false,
+        asImportant: false,
+        useNotInsteadOfChildren: false,
+    ),
+    children-not-is--no-list: (
+        includeListsFirstItem: false,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+    not-important-children-not-is-as-blocks--no-list: (
+        includeListsFirstItem: false,
+        asImportant: false,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+
+    default--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+    ),
+    not-important--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        asImportant: false,
+    ),
+    children-as-blocks--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        useNotInsteadOfChildren: false,
+    ),
+    children-as-not--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        useNotInsteadOfChildren: true,
+    ),
+    no-children--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        includeChildren: false,
+    ),
+    not-important-children-as-blocks--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        asImportant: false,
+        useNotInsteadOfChildren: false,
+    ),
+    children-not-is--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+    not-important-children-not-is-as-blocks--sr-text: (
+        includeListsFirstItem: true,
+        includeSrTextFirstItem: true,
+        asImportant: false,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+
+    default--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+    ),
+    not-important--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        asImportant: false,
+    ),
+    children-as-blocks--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        useNotInsteadOfChildren: false,
+    ),
+    children-as-not--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        useNotInsteadOfChildren: true,
+    ),
+    no-children--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        includeChildren: false,
+    ),
+    not-important-children-as-blocks--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        asImportant: false,
+        useNotInsteadOfChildren: false,
+    ),
+    children-not-is--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+    not-important-children-not-is-as-blocks--no-list-with-is: (
+        includeListsFirstItem: false,
+        useIs_root: true,
+        asImportant: false,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+
+    default--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+    ),
+    not-important--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        asImportant: false,
+    ),
+    children-as-blocks--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        useNotInsteadOfChildren: false,
+    ),
+    children-as-not--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        useNotInsteadOfChildren: true,
+    ),
+    no-children--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        includeChildren: false,
+    ),
+    not-important-children-as-blocks--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        asImportant: false,
+        useNotInsteadOfChildren: false,
+    ),
+    children-not-is--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
+    not-important-children-not-is-as-blocks--sr-text-with-is: (
+        includeListsFirstItem: true,
+        useIs_root: true,
+        includeSrTextFirstItem: true,
+        asImportant: false,
+        childrenInIs: false,
+        useNotInsteadOfChildren: false,
+    ),
 );
 
-@each $mixin,
-    $selector
-        in (
-            'first-child-no-top-margin': ':first-child',
-            'last-child-no-bottom-margin': ':last-child'
-        )
-{
-    /* ## #{$mixin} ==================================== */
+@each $mixin in ('first-child-no-top-margin', 'last-child-no-bottom-margin') {
+    /* ## mixin: #{$mixin} ==================================== */
 
     parent {
         @each $slug, $map in $_paramPermutations {
             @media #{$mixin} {
-                > #{$selector} {
-                    @include meta.demo-mixin($mixin, meta.get-mixin($mixin), $map...);
+                $useIs_root: map.get($map, useIs_root);
+
+                @at-root #{if($useIs_root, ':is(&)', &)} {
+                    @include meta.demo-mixin(
+                        $mixin,
+                        meta.get-mixin($mixin),
+                        $demo_signatureAtRoot: false,
+                        $map...
+                    );
                 }
             }
         }

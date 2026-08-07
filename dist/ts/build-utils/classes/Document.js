@@ -91,7 +91,7 @@ export class Document extends DocumentStage {
             this.try(this.console.nc.cmd, this.params.verbose ? 3 : 2, ['astro build']);
         }
     }
-    async scss(args) {
+    async scss(args = {}) {
         // returns - we don't need to compile this
         if (this.isWatchedUpdate
             && this.params.building
@@ -103,10 +103,17 @@ export class Document extends DocumentStage {
         const outDir = this.getSrcDir(undefined, this.astroPublicDir.replace(/\/$/g, '') + '/assets/css');
         const paths = await this.runCustomScssDirSubStage('', outDir, {
             clearOutputDir: this.isWatchedUpdate ? false : this.params.building ? "complete" : "targeted",
-            postCSS: true,
             ...args,
+            postCSS: {
+                presetEnv: {
+                    features: {
+                        'custom-properties': true,
+                    },
+                },
+                ...typeof args.postCSS === 'object' ? args.postCSS : {},
+            },
             srcDir: 'src/docs/scss',
-        });
+        }, 2);
         this.console.verbose('prettifying...', 2);
         await this.atry(this.fs.prettier, this.params.verbose ? 3 : 2, [
             paths,
