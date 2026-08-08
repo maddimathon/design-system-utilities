@@ -405,8 +405,9 @@ $_mixin_button_colours: meta.get-mixin('snippet-button-colours');
     @if $includePseudoIcons {
         &::before {
             @include snippet-icon-pseudo-element(
-                forbidden,
+                disabled,
                 before,
+                $important: true,
                 $useIconFont: $useIconFont
             ) {
                 align-self: center;
@@ -2490,17 +2491,6 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                             }
                         }
 
-                        #{config.selector-button-disabled('%button-basic')} {
-                            &::before {
-                                @include snippet-icon-pseudo-element(
-                                    disabled,
-                                    before,
-                                    $includeBaseProps: false,
-                                    $spacing: false
-                                );
-                            }
-                        }
-
                         %button-form-reset {
                             &::before {
                                 @include snippet-icon-pseudo-element(
@@ -2522,25 +2512,18 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                                 );
                             }
                         }
-                    }
-                }
-            } @else if
-                ($location == exceptions-end) and
-                $includeInline and
-                $includeColours and
-                (
-                    tokens.$button_variation_default !=
-                        tokens.$button_inline_variation_default
-                )
-            {
-                @at-root {
-                    %button-basic:is(.display-inline) {
-                        @include meta.apply(
-                            $mixin_button_colours,
-                            $variation: tokens.$button_inline_variation_default,
-                            $mixin_button_colour_single_state:
-                                $mixin_button_colour_single_state
-                        );
+
+                        #{config.selector-button-disabled('%button-basic')} {
+                            &::before {
+                                @include snippet-icon-pseudo-element(
+                                    disabled,
+                                    before,
+                                    $important: true,
+                                    $includeBaseProps: false,
+                                    $spacing: false
+                                );
+                            }
+                        }
                     }
                 }
             }
@@ -2548,6 +2531,19 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     }
 
     @if $includeColours {
+        @if tokens.$button_variation_default !=
+            tokens.$button_inline_variation_default
+        {
+            %button-basic:is(.display-inline) {
+                @include meta.apply(
+                    $mixin_button_colours,
+                    $variation: tokens.$button_inline_variation_default,
+                    $mixin_button_colour_single_state:
+                        $mixin_button_colour_single_state
+                );
+            }
+        }
+
         @each $variation in tokens.$themesMeta_buttonVariations {
             %button-#{$variation} {
                 @include meta.apply(
@@ -2556,6 +2552,12 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                     $mixin_button_colour_single_state:
                         $mixin_button_colour_single_state
                 );
+            }
+        }
+
+        @if tokens.$button_variation_default != tokens.$button_variation_reset {
+            %button-form-reset {
+                @extend %button-#{tokens.$button_variation_reset};
             }
         }
 
@@ -2570,14 +2572,6 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                     );
                 }
             }
-        }
-    }
-
-    @if $includeColours and
-        (tokens.$button_variation_default != tokens.$button_variation_reset)
-    {
-        %button-form-reset {
-            @extend %button-#{tokens.$button_variation_reset};
         }
     }
 

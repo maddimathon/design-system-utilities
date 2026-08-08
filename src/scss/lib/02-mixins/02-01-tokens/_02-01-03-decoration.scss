@@ -188,9 +188,12 @@
 
         #{$_sel} {
             @each $slug, $_value in tokens.$stroke_relative {
+                $_value: stroke-relative-value($slug, $multiplier: $multiplier);
+
+                @include utils.cx-prop(stroke-relative-#{$slug}, $_value, $allPrefixes: false);
                 @include utils.cx-prop(
                     stroke-relative-#{$slug},
-                    stroke-relative-value($slug, $multiplier: $multiplier),
+                    max(1px, $_value),
                     $allPrefixes: false
                 );
             }

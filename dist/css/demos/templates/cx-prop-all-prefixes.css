@@ -694,23 +694,29 @@
 /* #region Tokens - Stroke Relative */
 :root {
     --fallback-stroke-relative-100: 0.0625em;
+    --fallback-stroke-relative-100: max(1px, 0.0625em);
     --fallback-stroke-relative-200: 0.125em;
+    --fallback-stroke-relative-200: max(1px, 0.125em);
     --fallback-stroke-relative-400: 0.1875em;
+    --fallback-stroke-relative-400: max(1px, 0.1875em);
     --fallback-stroke-relative-600: 0.25em;
+    --fallback-stroke-relative-600: max(1px, 0.25em);
     --fallback-stroke-relative-700: 0.3125em;
+    --fallback-stroke-relative-700: max(1px, 0.3125em);
     --fallback-stroke-relative-800: 0.375em;
+    --fallback-stroke-relative-800: max(1px, 0.375em);
 }
 
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
     :root {
-        --fallback-stroke-relative-100: clamp(0.125em, 0.0625em, 4px);
-        --fallback-stroke-relative-200: clamp(0.125em, 0.125em, 5px);
-        --fallback-stroke-relative-400: clamp(0.1875em, 0.1875em, 7px);
-        --fallback-stroke-relative-600: clamp(0.25em, 0.25em, 8px);
-        --fallback-stroke-relative-700: clamp(0.25em, 0.3125em, 8px);
-        --fallback-stroke-relative-800: clamp(0.25em, 0.375em, 8px);
+        --fallback-stroke-relative-100: clamp(0.125rem, 0.0625em, 4px);
+        --fallback-stroke-relative-200: clamp(0.125rem, 0.125em, 5px);
+        --fallback-stroke-relative-400: clamp(0.1875rem, 0.1875em, 7px);
+        --fallback-stroke-relative-600: clamp(0.25rem, 0.25em, 8px);
+        --fallback-stroke-relative-700: clamp(0.25rem, 0.3125em, 8px);
+        --fallback-stroke-relative-800: clamp(0.25rem, 0.375em, 8px);
     }
 }
 /* #endregion Tokens - Stroke Relative */
@@ -13633,6 +13639,18 @@ input[type="submit"]::before {
     );
 }
 
+button[type="reset"]::before,
+input[type="reset"]::before {
+    content: "\f15e";
+    content: "\f15e"/"";
+}
+
+button[type="submit"]::before,
+input[type="submit"]::before {
+    content: "\f15f";
+    content: "\f15f"/"";
+}
+
 button[aria-disabled="true"]::before,
 [aria-disabled="true"][role="button"]::before,
 input[aria-disabled="true"][type="button"]::before,
@@ -13645,20 +13663,8 @@ input[disabled][type="button"]::before,
 input[disabled][type="reset"]::before,
 input[disabled][type="submit"]::before,
 a[disabled][href].button::before {
-    content: "\f15d";
-    content: "\f15d"/"";
-}
-
-button[type="reset"]::before,
-input[type="reset"]::before {
-    content: "\f15e";
-    content: "\f15e"/"";
-}
-
-button[type="submit"]::before,
-input[type="submit"]::before {
-    content: "\f15f";
-    content: "\f15f"/"";
+    content: "\f15d" !important;
+    content: "\f15d"/"" !important;
 }
 
 a[href].button-primary:empty:not(input),
@@ -14056,6 +14062,289 @@ a[href].button:is(.display-inline)
     margin-inline: 0;
     letter-spacing: normal !important;
 }
+a[href].button-primary::after,
+a[href].button-secondary::after,
+a[href].button-grey::after,
+button::after,
+[role="button"]::after,
+input[type="button"]::after,
+input[type="reset"]::after,
+input[type="submit"]::after,
+a[href].button::after {
+    padding-inline-end: 0 !important;
+}
+a[href].button-primary::before,
+a[href].button-secondary::before,
+a[href].button-grey::before,
+button::before,
+[role="button"]::before,
+input[type="button"]::before,
+input[type="reset"]::before,
+input[type="submit"]::before,
+a[href].button::before {
+    padding-inline-start: 0 !important;
+}
+a.button--no-pseudo[href].button-primary::after,
+a.button--no-pseudo[href].button-secondary::after,
+a.button--no-pseudo[href].button-grey::after,
+button.button--no-pseudo::after,
+.button--no-pseudo[role="button"]::after,
+input.button--no-pseudo[type="button"]::after,
+input.button--no-pseudo[type="reset"]::after,
+input.button--no-pseudo[type="submit"]::after,
+a.button--no-pseudo[href].button::after,
+a.button--no-pseudo[href].button-primary::before,
+a.button--no-pseudo[href].button-secondary::before,
+a.button--no-pseudo[href].button-grey::before,
+button.button--no-pseudo::before,
+.button--no-pseudo[role="button"]::before,
+input.button--no-pseudo[type="button"]::before,
+input.button--no-pseudo[type="reset"]::before,
+input.button--no-pseudo[type="submit"]::before,
+a.button--no-pseudo[href].button::before {
+    content: none !important;
+}
+a[href].button-primary code,
+a[href].button-secondary code,
+a[href].button-grey code,
+button code,
+[role="button"] code,
+input[type="button"] code,
+input[type="reset"] code,
+input[type="submit"] code,
+a[href].button code,
+a[href].button-primary kbd,
+a[href].button-secondary kbd,
+a[href].button-grey kbd,
+button kbd,
+[role="button"] kbd,
+input[type="button"] kbd,
+input[type="reset"] kbd,
+input[type="submit"] kbd,
+a[href].button kbd,
+a[href].button-primary samp,
+a[href].button-secondary samp,
+a[href].button-grey samp,
+button samp,
+[role="button"] samp,
+input[type="button"] samp,
+input[type="reset"] samp,
+input[type="submit"] samp,
+a[href].button samp {
+    padding: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    line-height: 1;
+    background: transparent;
+    border: none;
+}
+a[href].button-primary .icon,
+a[href].button-secondary .icon,
+a[href].button-grey .icon,
+button .icon,
+[role="button"] .icon,
+input[type="button"] .icon,
+input[type="reset"] .icon,
+input[type="submit"] .icon,
+a[href].button .icon {
+    --fallback-display: inline-block;
+    --display: inline-block;
+    display: var(--fallback-display, inline-block);
+    align-self: center;
+    justify-self: center;
+    vertical-align: var(
+        --icon-vertical-align,
+        var(
+            --fallback-icon-vertical-align,
+            var(--button-icon-vertical-align, middle)
+        )
+    );
+}
+a[href].button-primary .icon:not(.settings-menu-icon):not(.toggle-icon),
+a[href].button-secondary .icon:not(.settings-menu-icon):not(.toggle-icon),
+a[href].button-grey .icon:not(.settings-menu-icon):not(.toggle-icon),
+button .icon:not(.settings-menu-icon):not(.toggle-icon),
+[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
+input[type="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
+input[type="reset"] .icon:not(.settings-menu-icon):not(.toggle-icon),
+input[type="submit"] .icon:not(.settings-menu-icon):not(.toggle-icon),
+a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon) {
+    margin-inline: calc(
+        var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
+            var(
+                --icon-inline-buffer-start,
+                var(--fallback-icon-inline-buffer-start, 1)
+            ) *
+            var(
+                --icon-inline-buffer-start--font-multiplier,
+                var(--fallback-icon-inline-buffer-start--font-multiplier, 1)
+            )
+    );
+}
+a[href].button-primary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+a[href].button-secondary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+a[href].button-grey
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+button .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+[role="button"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+input[type="button"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+input[type="reset"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+input[type="submit"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
+a[href].button
+    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child) {
+    --fallback-icon-size: var(--button-icon-size-pseudo, 1em);
+    --icon-size: var(--button-icon-size-pseudo, 1em);
+    --fallback-icon-size: calc(
+        var(--button-icon-size-pseudo, 1em) *
+            var(
+                --icon-size-inline--multiplier,
+                var(--fallback-icon-size-inline--multiplier, 1)
+            ) *
+            var(
+                --icon-size-inline--font-multiplier,
+                var(--fallback-icon-size-inline--font-multiplier, 1)
+            )
+    );
+    --icon-size: calc(
+        var(--button-icon-size-pseudo, 1em) *
+            var(
+                --icon-size-inline--multiplier,
+                var(--fallback-icon-size-inline--multiplier, 1)
+            ) *
+            var(
+                --icon-size-inline--font-multiplier,
+                var(--fallback-icon-size-inline--font-multiplier, 1)
+            )
+    );
+    --fallback-icon-inline-margin-block-start: 0;
+    --fallback-display: inline-block;
+    --display: inline-block;
+    display: var(--fallback-display, inline-block);
+    position: relative;
+    height: var(
+        --icon-size-pseudo,
+        var(--fallback-icon-size-pseudo, 1em)
+    ) !important;
+    height: calc(
+        var(--icon-size-pseudo, var(--fallback-icon-size-pseudo, 1em)) *
+            var(
+                --icon-size-inline--multiplier,
+                var(--fallback-icon-size-inline--multiplier, 1)
+            ) *
+            var(
+                --icon-size-inline--font-multiplier,
+                var(--fallback-icon-size-inline--font-multiplier, 1)
+            )
+    ) !important;
+    font-size: var(
+        --icon-size-font,
+        var(--fallback-icon-size-font, 1em)
+    ) !important;
+    font-size: calc(
+        var(--icon-size-font, var(--fallback-icon-size-font, 1em)) *
+            var(
+                --icon-size-inline--multiplier,
+                var(--fallback-icon-size-inline--multiplier, 1)
+            ) *
+            var(
+                --icon-size-inline--font-multiplier,
+                var(--fallback-icon-size-inline--font-multiplier, 1)
+            )
+    ) !important;
+    align-self: center;
+    justify-self: center;
+    vertical-align: var(
+        --icon-vertical-align,
+        var(--fallback-icon-vertical-align, middle)
+    );
+    color: var(
+        --fallback-icon-color,
+        var(--theme-ui, var(--fallback-theme-ui, CanvasText))
+    );
+    margin: 0;
+    bottom: var(--button-icon-embedded-bottom, 0.0625em);
+}
+a[href].button-primary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+a[href].button-secondary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+a[href].button-grey
+    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+button .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+input[type="button"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+input[type="reset"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+input[type="submit"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
+a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon):first-child {
+    margin-inline-start: 0;
+    margin-inline-end: calc(
+        var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
+            var(
+                --icon-inline-buffer-start,
+                var(--fallback-icon-inline-buffer-start, 1)
+            ) *
+            var(
+                --icon-inline-buffer-start--font-multiplier,
+                var(--fallback-icon-inline-buffer-start--font-multiplier, 1)
+            )
+    );
+}
+a[href].button-primary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+a[href].button-secondary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+a[href].button-grey .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+button .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+input[type="button"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+input[type="reset"] .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+input[type="submit"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
+a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon):last-child {
+    margin-inline-start: calc(
+        var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
+            var(
+                --icon-inline-buffer-start,
+                var(--fallback-icon-inline-buffer-start, 1)
+            ) *
+            var(
+                --icon-inline-buffer-start--font-multiplier,
+                var(--fallback-icon-inline-buffer-start--font-multiplier, 1)
+            )
+    );
+    margin-inline-end: 0;
+}
+a[href].button-primary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+a[href].button-secondary
+    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+a[href].button-grey .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+button .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+input[type="button"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+input[type="reset"] .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+input[type="submit"]
+    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
+a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
+    --fallback-icon-inline-margin-block-start: 0;
+    --fallback-icon-inline-buffer-start: 0;
+    --fallback-icon-inline-buffer-end: 0;
+    margin-block-start: 0;
+    margin-inline: 0;
+    letter-spacing: normal !important;
+}
+
 button:is(.display-inline),
 [role="button"]:is(.display-inline),
 input[type="button"]:is(.display-inline),
@@ -14398,289 +14687,6 @@ a[data-state-active="true"][href].button:is(.display-inline) * {
         --theme-button-grey-ui-active,
         var(--fallback-theme-button-grey-ui-active, ButtonText)
     );
-}
-
-a[href].button-primary::after,
-a[href].button-secondary::after,
-a[href].button-grey::after,
-button::after,
-[role="button"]::after,
-input[type="button"]::after,
-input[type="reset"]::after,
-input[type="submit"]::after,
-a[href].button::after {
-    padding-inline-end: 0 !important;
-}
-a[href].button-primary::before,
-a[href].button-secondary::before,
-a[href].button-grey::before,
-button::before,
-[role="button"]::before,
-input[type="button"]::before,
-input[type="reset"]::before,
-input[type="submit"]::before,
-a[href].button::before {
-    padding-inline-start: 0 !important;
-}
-a.button--no-pseudo[href].button-primary::after,
-a.button--no-pseudo[href].button-secondary::after,
-a.button--no-pseudo[href].button-grey::after,
-button.button--no-pseudo::after,
-.button--no-pseudo[role="button"]::after,
-input.button--no-pseudo[type="button"]::after,
-input.button--no-pseudo[type="reset"]::after,
-input.button--no-pseudo[type="submit"]::after,
-a.button--no-pseudo[href].button::after,
-a.button--no-pseudo[href].button-primary::before,
-a.button--no-pseudo[href].button-secondary::before,
-a.button--no-pseudo[href].button-grey::before,
-button.button--no-pseudo::before,
-.button--no-pseudo[role="button"]::before,
-input.button--no-pseudo[type="button"]::before,
-input.button--no-pseudo[type="reset"]::before,
-input.button--no-pseudo[type="submit"]::before,
-a.button--no-pseudo[href].button::before {
-    content: none !important;
-}
-a[href].button-primary code,
-a[href].button-secondary code,
-a[href].button-grey code,
-button code,
-[role="button"] code,
-input[type="button"] code,
-input[type="reset"] code,
-input[type="submit"] code,
-a[href].button code,
-a[href].button-primary kbd,
-a[href].button-secondary kbd,
-a[href].button-grey kbd,
-button kbd,
-[role="button"] kbd,
-input[type="button"] kbd,
-input[type="reset"] kbd,
-input[type="submit"] kbd,
-a[href].button kbd,
-a[href].button-primary samp,
-a[href].button-secondary samp,
-a[href].button-grey samp,
-button samp,
-[role="button"] samp,
-input[type="button"] samp,
-input[type="reset"] samp,
-input[type="submit"] samp,
-a[href].button samp {
-    padding: 0;
-    font-weight: inherit;
-    font-style: inherit;
-    line-height: 1;
-    background: transparent;
-    border: none;
-}
-a[href].button-primary .icon,
-a[href].button-secondary .icon,
-a[href].button-grey .icon,
-button .icon,
-[role="button"] .icon,
-input[type="button"] .icon,
-input[type="reset"] .icon,
-input[type="submit"] .icon,
-a[href].button .icon {
-    --fallback-display: inline-block;
-    --display: inline-block;
-    display: var(--fallback-display, inline-block);
-    align-self: center;
-    justify-self: center;
-    vertical-align: var(
-        --icon-vertical-align,
-        var(
-            --fallback-icon-vertical-align,
-            var(--button-icon-vertical-align, middle)
-        )
-    );
-}
-a[href].button-primary .icon:not(.settings-menu-icon):not(.toggle-icon),
-a[href].button-secondary .icon:not(.settings-menu-icon):not(.toggle-icon),
-a[href].button-grey .icon:not(.settings-menu-icon):not(.toggle-icon),
-button .icon:not(.settings-menu-icon):not(.toggle-icon),
-[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
-input[type="button"] .icon:not(.settings-menu-icon):not(.toggle-icon),
-input[type="reset"] .icon:not(.settings-menu-icon):not(.toggle-icon),
-input[type="submit"] .icon:not(.settings-menu-icon):not(.toggle-icon),
-a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon) {
-    margin-inline: calc(
-        var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
-            var(
-                --icon-inline-buffer-start,
-                var(--fallback-icon-inline-buffer-start, 1)
-            ) *
-            var(
-                --icon-inline-buffer-start--font-multiplier,
-                var(--fallback-icon-inline-buffer-start--font-multiplier, 1)
-            )
-    );
-}
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-a[href].button-grey
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-button .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-[role="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-input[type="reset"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child),
-a[href].button
-    .icon:not(.settings-menu-icon):not(.toggle-icon):not(:only-child) {
-    --fallback-icon-size: var(--button-icon-size-pseudo, 1em);
-    --icon-size: var(--button-icon-size-pseudo, 1em);
-    --fallback-icon-size: calc(
-        var(--button-icon-size-pseudo, 1em) *
-            var(
-                --icon-size-inline--multiplier,
-                var(--fallback-icon-size-inline--multiplier, 1)
-            ) *
-            var(
-                --icon-size-inline--font-multiplier,
-                var(--fallback-icon-size-inline--font-multiplier, 1)
-            )
-    );
-    --icon-size: calc(
-        var(--button-icon-size-pseudo, 1em) *
-            var(
-                --icon-size-inline--multiplier,
-                var(--fallback-icon-size-inline--multiplier, 1)
-            ) *
-            var(
-                --icon-size-inline--font-multiplier,
-                var(--fallback-icon-size-inline--font-multiplier, 1)
-            )
-    );
-    --fallback-icon-inline-margin-block-start: 0;
-    --fallback-display: inline-block;
-    --display: inline-block;
-    display: var(--fallback-display, inline-block);
-    position: relative;
-    height: var(
-        --icon-size-pseudo,
-        var(--fallback-icon-size-pseudo, 1em)
-    ) !important;
-    height: calc(
-        var(--icon-size-pseudo, var(--fallback-icon-size-pseudo, 1em)) *
-            var(
-                --icon-size-inline--multiplier,
-                var(--fallback-icon-size-inline--multiplier, 1)
-            ) *
-            var(
-                --icon-size-inline--font-multiplier,
-                var(--fallback-icon-size-inline--font-multiplier, 1)
-            )
-    ) !important;
-    font-size: var(
-        --icon-size-font,
-        var(--fallback-icon-size-font, 1em)
-    ) !important;
-    font-size: calc(
-        var(--icon-size-font, var(--fallback-icon-size-font, 1em)) *
-            var(
-                --icon-size-inline--multiplier,
-                var(--fallback-icon-size-inline--multiplier, 1)
-            ) *
-            var(
-                --icon-size-inline--font-multiplier,
-                var(--fallback-icon-size-inline--font-multiplier, 1)
-            )
-    ) !important;
-    align-self: center;
-    justify-self: center;
-    vertical-align: var(
-        --icon-vertical-align,
-        var(--fallback-icon-vertical-align, middle)
-    );
-    color: var(
-        --fallback-icon-color,
-        var(--theme-ui, var(--fallback-theme-ui, CanvasText))
-    );
-    margin: 0;
-    bottom: var(--button-icon-embedded-bottom, 0.0625em);
-}
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-a[href].button-grey
-    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-button .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-input[type="reset"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):first-child,
-a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon):first-child {
-    margin-inline-start: 0;
-    margin-inline-end: calc(
-        var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
-            var(
-                --icon-inline-buffer-start,
-                var(--fallback-icon-inline-buffer-start, 1)
-            ) *
-            var(
-                --icon-inline-buffer-start--font-multiplier,
-                var(--fallback-icon-inline-buffer-start--font-multiplier, 1)
-            )
-    );
-}
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-a[href].button-grey .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-button .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-input[type="reset"] .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):last-child,
-a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon):last-child {
-    margin-inline-start: calc(
-        var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
-            var(
-                --icon-inline-buffer-start,
-                var(--fallback-icon-inline-buffer-start, 1)
-            ) *
-            var(
-                --icon-inline-buffer-start--font-multiplier,
-                var(--fallback-icon-inline-buffer-start--font-multiplier, 1)
-            )
-    );
-    margin-inline-end: 0;
-}
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-a[href].button-grey .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-button .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-[role="button"] .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-input[type="reset"] .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(.toggle-icon):only-child,
-a[href].button .icon:not(.settings-menu-icon):not(.toggle-icon):only-child {
-    --fallback-icon-inline-margin-block-start: 0;
-    --fallback-icon-inline-buffer-start: 0;
-    --fallback-icon-inline-buffer-end: 0;
-    margin-block-start: 0;
-    margin-inline: 0;
-    letter-spacing: normal !important;
 }
 
 a[href].button-primary,
@@ -20025,7 +20031,7 @@ body {
         )
     );
 }
-.alert-block > .alert-block__headline:where(header:not([aria-level])) {
+.alert-block > .alert-block__headline:where(header) {
     line-height: var(
         --alert-headline-line-height,
         var(--line-height-200, var(--fallback-line-height-200, 1.375))

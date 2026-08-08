@@ -177,6 +177,7 @@ $_allUniqueIconAspectRatios: ();
     $slug,
     $pseudo: after,
     $glyph: null,
+    $important: false,
     $includeAltText: false,
     $includeAspectRatio: true,
     $includeBaseProps: true,
@@ -200,8 +201,12 @@ $_allUniqueIconAspectRatios: ();
             $glyph: if($glyph == null, if($slug == null, null, icon-glyph-value($slug)), $glyph);
 
             @if $glyph {
-                content: $glyph;
-                content: $glyph / '#{if($includeAltText, icon-label-value($slug), '')}';
+                $_importantSuffix: if($important, '!important', '');
+
+                content: $glyph #{$_importantSuffix};
+                content: $glyph /
+                    '#{if($includeAltText, icon-label-value($slug), '')}'
+                    #{$_importantSuffix};
             }
 
             @content;

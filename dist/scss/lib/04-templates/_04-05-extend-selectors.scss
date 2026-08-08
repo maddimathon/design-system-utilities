@@ -22,13 +22,17 @@
 /// @since 0.1.0-beta.0.draft
 ///
 @function _get-extend-selectors-all-buttons--additions() {
-    $all: list.join(
-        utils.get-extend-selectors-button(selector-buttons-basic()),
-        utils.get-extend-selectors-button(
-            selector-buttons-basic(),
-            tokens.$button_variation_default
-        )
-    );
+    $all: utils.get-extend-selectors-button(selector-buttons-basic());
+
+    @if config.$mx_extendSelectors_extendDefaultButtonVariation {
+        $all: list.join(
+            $all,
+            utils.get-extend-selectors-button(
+                selector-buttons-basic(),
+                tokens.$button_variation_default
+            )
+        );
+    }
 
     $all: list.append($all, (selector-buttons-basic(), button-basic));
 

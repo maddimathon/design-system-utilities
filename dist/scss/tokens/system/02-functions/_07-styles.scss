@@ -5,6 +5,7 @@
 
 @use '../../../config';
 
+@use 'pkg:@maddimathon/utility-sass/colour';
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
@@ -428,7 +429,7 @@
     // returns
     @if $isThemeToken {
         @return if(
-            meta.type-of($value) == color or $value == white or $value == black,
+            colour.is-colour-like($value),
             $value,
             theme.tokens-var-theme($value, $args...)
         );
@@ -449,6 +450,7 @@
     $slug,
     $fallback: null,
     $fallbackOnly: false,
+    $neverReplaceWithValue: false,
     $raw: false,
     $rawUnit: 1,
     $value_failureReturn: $slug,
@@ -493,8 +495,6 @@
             $warnOnFail: $value_warnOnFail
         );
     }
-
-    $neverReplaceWithValue: false;
 
     @if string.index($slug, focus-ring-) == 1 {
         $neverReplaceWithValue: true;

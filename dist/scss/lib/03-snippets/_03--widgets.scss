@@ -18,7 +18,7 @@
 
 @use '03-03-typography' as *;
 
-$_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
+$_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -105,12 +105,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     }
 
     @if $includeColours {
-        @each $variationKey in $_textAndBackgroundKeys {
+        @each $variationKey in $_backgroundKeys {
             @if $variationKey != '$' {
                 &.background-#{$variationKey} {
-                    @if theme-token-exists(background-#{$variationKey}) {
-                        background: var-theme(background-#{$variationKey});
-                    }
+                    background: var-theme(background-#{$variationKey});
 
                     @if $multipleContentBlocks {
                         @content (background-#{$variationKey});

@@ -46,26 +46,24 @@
     @if $print_fullWidthSubgridBlocks {
         @include template-design-system {
             %body {
-                @include snippet-body-grid--selectors--body-and-subgrid {
-                    &:is(%full-width-subgrid-block) {
-                        margin-block: var-gap-block(layout) do-var(flow-margin-firm-end--large);
-                        margin-block-end: calc(
-                            var-gap-block(layout) - do-var(flow-margin--large) +
-                                do-var(flow-margin-firm-end--large)
-                        );
+                @include snippet-body-grid--selectors--main-subgrid($includeSubgridOnly: true) {
+                    margin-block: var-gap-block(layout) do-var(flow-margin-firm-end--large);
+                    margin-block-end: calc(
+                        var-gap-block(layout) - do-var(flow-margin--large) +
+                            do-var(flow-margin-firm-end--large)
+                    );
 
-                        padding-block: var-gap-block(layout);
-                        padding-inline: var-gap-inline(layout);
+                    padding-block: var-gap-block(layout);
+                    padding-inline: var-gap-inline(layout);
 
-                        @include first-child-no-top-margin($includeSrTextFirstItem: true);
+                    @include first-child-no-top-margin($includeSrTextFirstItem: true);
 
-                        &:has(+ %full-width-subgrid-block) {
-                            margin-block-end: 0;
-                        }
+                    &:has(+ %full-width-subgrid-block) {
+                        margin-block-end: 0;
+                    }
 
-                        + :is(%full-width-subgrid-block) {
-                            margin-block-start: 0;
-                        }
+                    + :is(%full-width-subgrid-block) {
+                        margin-block-start: 0;
                     }
                 }
             }

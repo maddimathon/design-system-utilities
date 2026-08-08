@@ -118,13 +118,6 @@
 ) {
     $sels: ();
 
-    @if meta.is-truthy($fullWidthExtender) {
-        $sels: list.append(
-            $sels,
-            ($fullWidthExtender, full-width-subgrid-block)
-        );
-    }
-
     $sels: list.join(
         $sels,
         (
@@ -158,6 +151,13 @@
             ((blockquote), margins-flow-firm-large)
         )
     );
+
+    @if meta.is-truthy($fullWidthExtender) {
+        $sels: list.append(
+            $sels,
+            ($fullWidthExtender, full-width-subgrid-block)
+        );
+    }
 
     @return $sels;
 }
