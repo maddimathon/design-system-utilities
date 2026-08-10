@@ -9535,9 +9535,9 @@ svg {
 a[href] figure,
 a[href] img,
 a[href] svg {
-    --fallback-display: inline-block;
-    --display: inline-block;
-    display: var(--fallback-display, inline-block);
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
 }
 
 img {
@@ -10261,7 +10261,7 @@ blockquote {
         solid
         var(--theme-ui-primary, var(--fallback-theme-ui-primary, CanvasText));
 }
-blockquote * {
+blockquote > * {
     --fallback-flow-margin: var(
         --mrg-soft-300,
         var(--fallback-mrg-soft-300, 0.5rem)
@@ -10298,6 +10298,30 @@ blockquote * {
         --mrg-half-500,
         var(--fallback-mrg-half-500, 0.34375rem)
     );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(
+            --fallback-flow-margin-button-span-block--touch,
+            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+        )
+    );
+}
+:where(.js__no-touch) blockquote > * {
     --fallback-flow-margin-button-span-block: var(
         --mrg-firm-200,
         var(--fallback-mrg-firm-200, 0.5rem)
@@ -10307,14 +10331,21 @@ blockquote * {
         var(--fallback-mrg-firm-200, 0.5rem)
     );
     --fallback-flow-margin-button-span-block--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem))
+        )
     );
     --fallback-flow-margin-button-span-inline--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem))
+        )
     );
 }
+
 blockquote > :first-child {
     margin-block-start: 0;
 }
@@ -10853,6 +10884,7 @@ hgroup .h10 {
 .h10__hgroup > :first-child {
     margin-block-start: 0 !important;
 }
+
 :is(
         .unstyled-heading__hgroup,
         .h1__hgroup,
@@ -13432,15 +13464,18 @@ label:has(> input:where([type="checkbox"], [type="radio"])) {
     color: var(--theme-text, var(--fallback-theme-text, CanvasText));
     cursor: pointer;
 }
+
 label:has(> input[readonly]:where([type="checkbox"], [type="radio"])) {
     cursor: auto;
 }
+
 label:has(
     > input[aria-disabled="true"]:where([type="checkbox"], [type="radio"]),
     > input[disabled]:where([type="checkbox"], [type="radio"])
 ) {
     cursor: not-allowed;
 }
+
 label:has(> input:where([type="checkbox"], [type="radio"]))
     + label:has(> input:where([type="checkbox"], [type="radio"])) {
     margin-block-start: var(
@@ -13462,6 +13497,7 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
         var(--fallback-flow-margin-firm-start, 1.25rem)
     );
 }
+
 label > input[type="checkbox"],
 label > input[type="radio"] {
     margin: 0;
@@ -20418,7 +20454,7 @@ body {
         var(--fallback-theme-ui-grey, CanvasText)
     );
 }
-.alert-block * {
+.alert-block > * {
     --fallback-flow-margin: var(
         --mrg-soft-300,
         var(--fallback-mrg-soft-300, 0.5rem)
@@ -20455,6 +20491,30 @@ body {
         --mrg-half-400,
         var(--fallback-mrg-half-400, 0.46875rem)
     );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(
+            --fallback-flow-margin-button-span-block--touch,
+            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+        )
+    );
+}
+:where(.js__no-touch) .alert-block > * {
     --fallback-flow-margin-button-span-block: var(
         --pad-firm-200,
         var(--fallback-pad-firm-200, 0.5em)
@@ -20464,12 +20524,18 @@ body {
         var(--fallback-pad-firm-200, 0.5em)
     );
     --fallback-flow-margin-button-span-block--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
     );
     --fallback-flow-margin-button-span-inline--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
     );
 }
 

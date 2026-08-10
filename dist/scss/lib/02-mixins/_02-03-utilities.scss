@@ -85,6 +85,7 @@ $_firmFlowMarginChildren: list.join(
 ///
 @mixin _child-no-margin-template(
     $marginSide,
+    $additionalSelectors: (),
     $asImportant: true,
     $childrenInIs: true,
     $includeChildren: true,
@@ -142,12 +143,6 @@ $_firmFlowMarginChildren: list.join(
                         ),
                         $separator: comma
                     );
-                    // } @else {
-                    //     $_universal_selector: list.join(
-                    //         $_universal_selector,
-                    //         $__lists,
-                    //         $separator: comma
-                    //     );
                 }
 
                 $_to_nest: list.join(
@@ -187,10 +182,28 @@ $_firmFlowMarginChildren: list.join(
                 );
             }
 
-            @if list.length($_to_nest) > 0 {
-                $_to_nest: list.unique($_to_nest);
+            $_to_nest: list.unique($_to_nest);
 
-                #{selector.nest('>', if($useIs_root and list.length($_to_nest) > 1, ':is( #{$_to_nest} )', $_to_nest))} {
+            $_sels: list.join(
+                $additionalSelectors,
+                if(
+                    list.length($_to_nest) > 0,
+                    selector.nest(
+                        &,
+                        '>',
+                        if(
+                            $useIs_root and list.length($_to_nest) > 1,
+                            ':is( #{$_to_nest} )',
+                            $_to_nest
+                        )
+                    ),
+                    ()
+                ),
+                $separator: comma
+            );
+
+            @if list.length($_sels) > 0 {
+                @at-root #{$_sels} {
                     @include flow-margin-conditional-override(
                         $marginSide,
                         $includeChildren: false,
@@ -207,7 +220,13 @@ $_firmFlowMarginChildren: list.join(
         }
 
         @if $includeChildren {
-            > #{$_childSelector} {
+            $_sels: list.join(
+                $additionalSelectors,
+                selector.nest(&, '>', $_childSelector),
+                $separator: comma
+            );
+
+            @at-root #{$_sels} {
                 @include flow-margin-conditional-override(
                     $marginSide,
                     $includeChildren: true,
@@ -224,16 +243,33 @@ $_firmFlowMarginChildren: list.join(
             }
         }
     } @else {
-        @include flow-margin-conditional-override(
-            $marginSide,
-            $includeChildren: $includeChildren,
-            $includeRoot: $includeRoot,
-            $asImportant: $asImportant,
-            $childrenInIs: $childrenInIs,
-            $useNotInsteadOfChildren: $useNotInsteadOfChildren,
-            $args...
-        ) {
-            @content;
+        @if meta.is-truthy($additionalSelectors) {
+            @at-root &,
+                #{$additionalSelectors} {
+                @include flow-margin-conditional-override(
+                    $marginSide,
+                    $includeChildren: $includeChildren,
+                    $includeRoot: $includeRoot,
+                    $asImportant: $asImportant,
+                    $childrenInIs: $childrenInIs,
+                    $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+                    $args...
+                ) {
+                    @content;
+                }
+            }
+        } @else {
+            @include flow-margin-conditional-override(
+                $marginSide,
+                $includeChildren: $includeChildren,
+                $includeRoot: $includeRoot,
+                $asImportant: $asImportant,
+                $childrenInIs: $childrenInIs,
+                $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+                $args...
+            ) {
+                @content;
+            }
         }
     }
 }

@@ -8424,8 +8424,8 @@ svg {
 a[href] figure,
 a[href] img,
 a[href] svg {
-    --prefix-display: inline-block;
-    display: var(--prefix-display, inline-block);
+    --prefix-display: block;
+    display: var(--prefix-display, block);
 }
 
 img {
@@ -8866,7 +8866,7 @@ blockquote {
     border-inline-start: var(--prefix-border-width-200, 0.125rem) solid
         var(--prefix-theme-ui-primary, CanvasText);
 }
-blockquote * {
+blockquote > * {
     --prefix-flow-margin: var(--prefix-mrg-soft-300, 0.5rem);
     --prefix-flow-margin--small: var(--prefix-mrg-soft-200, 0.3125rem);
     --prefix-flow-margin--large: var(--prefix-mrg-soft-500, 1.34375rem);
@@ -8882,8 +8882,6 @@ blockquote * {
         --prefix-mrg-half-500,
         0.34375rem
     );
-    --prefix-flow-margin-button-span-block: var(--prefix-mrg-firm-200, 0.5rem);
-    --prefix-flow-margin-button-span-inline: var(--prefix-mrg-firm-200, 0.5rem);
     --prefix-flow-margin-button-span-block--touch: var(
         --prefix-mrg-firm-300,
         0.8125rem
@@ -8892,7 +8890,28 @@ blockquote * {
         --prefix-mrg-firm-300,
         0.8125rem
     );
+    --prefix-flow-margin-button-span-block: var(
+        --prefix-flow-margin-button-span-block--touch,
+        var(--prefix-mrg-firm-300, 0.8125rem)
+    );
+    --prefix-flow-margin-button-span-inline: var(
+        --prefix-flow-margin-button-span-inline--touch,
+        var(--prefix-mrg-firm-300, 0.8125rem)
+    );
 }
+:where(.js__no-touch) blockquote > * {
+    --prefix-flow-margin-button-span-block: var(--prefix-mrg-firm-200, 0.5rem);
+    --prefix-flow-margin-button-span-inline: var(--prefix-mrg-firm-200, 0.5rem);
+    --prefix-flow-margin-button-span-block--touch: var(
+        --prefix-flow-margin-button-span-block,
+        var(--prefix-mrg-firm-200, 0.5rem)
+    );
+    --prefix-flow-margin-button-span-inline--touch: var(
+        --prefix-flow-margin-button-span-inline,
+        var(--prefix-mrg-firm-200, 0.5rem)
+    );
+}
+
 blockquote > :first-child {
     margin-block-start: 0;
 }
@@ -9290,6 +9309,7 @@ hgroup .h10 {
 .h10__hgroup > :first-child {
     margin-block-start: 0 !important;
 }
+
 :is(
         .unstyled-heading__hgroup,
         .h1__hgroup,
@@ -10976,15 +10996,18 @@ label:has(> input:where([type="checkbox"], [type="radio"])) {
     color: var(--prefix-theme-text, CanvasText);
     cursor: pointer;
 }
+
 label:has(> input[readonly]:where([type="checkbox"], [type="radio"])) {
     cursor: auto;
 }
+
 label:has(
     > input[aria-disabled="true"]:where([type="checkbox"], [type="radio"]),
     > input[disabled]:where([type="checkbox"], [type="radio"])
 ) {
     cursor: not-allowed;
 }
+
 label:has(> input:where([type="checkbox"], [type="radio"]))
     + label:has(> input:where([type="checkbox"], [type="radio"])) {
     margin-block-start: var(--prefix-flow-margin-firm-end, 0.46875rem);
@@ -10997,6 +11020,7 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
     + input:not([type="checkbox"], [type="radio"]) {
     margin-block-start: var(--prefix-flow-margin-firm-start, 1.25rem);
 }
+
 label > input[type="checkbox"],
 label > input[type="radio"] {
     margin: 0;
@@ -16041,7 +16065,7 @@ body {
 .background-grey.alert-block > .alert-block__headline > .alert-block__icon {
     --prefix-icon-color: var(--prefix-theme-ui-grey, CanvasText);
 }
-.alert-block * {
+.alert-block > * {
     --prefix-flow-margin: var(--prefix-mrg-soft-300, 0.5rem);
     --prefix-flow-margin--small: var(--prefix-mrg-soft-200, 0.3125rem);
     --prefix-flow-margin--large: var(--prefix-mrg-soft-400, 0.78125rem);
@@ -16054,8 +16078,6 @@ body {
         --prefix-mrg-half-400,
         0.46875rem
     );
-    --prefix-flow-margin-button-span-block: var(--prefix-pad-firm-200, 0.5em);
-    --prefix-flow-margin-button-span-inline: var(--prefix-pad-firm-200, 0.5em);
     --prefix-flow-margin-button-span-block--touch: var(
         --prefix-mrg-firm-300,
         0.8125rem
@@ -16063,6 +16085,26 @@ body {
     --prefix-flow-margin-button-span-inline--touch: var(
         --prefix-mrg-firm-300,
         0.8125rem
+    );
+    --prefix-flow-margin-button-span-block: var(
+        --prefix-flow-margin-button-span-block--touch,
+        var(--prefix-mrg-firm-300, 0.8125rem)
+    );
+    --prefix-flow-margin-button-span-inline: var(
+        --prefix-flow-margin-button-span-inline--touch,
+        var(--prefix-mrg-firm-300, 0.8125rem)
+    );
+}
+:where(.js__no-touch) .alert-block > * {
+    --prefix-flow-margin-button-span-block: var(--prefix-pad-firm-200, 0.5em);
+    --prefix-flow-margin-button-span-inline: var(--prefix-pad-firm-200, 0.5em);
+    --prefix-flow-margin-button-span-block--touch: var(
+        --prefix-flow-margin-button-span-block,
+        var(--prefix-pad-firm-200, 0.5em)
+    );
+    --prefix-flow-margin-button-span-inline--touch: var(
+        --prefix-flow-margin-button-span-inline,
+        var(--prefix-pad-firm-200, 0.5em)
     );
 }
 

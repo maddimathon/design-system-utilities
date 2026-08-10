@@ -1954,11 +1954,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $includeColours: true,
     $includeMarginBlock: not map.get(config.$template_styles, flowMargins),
     $multipleContentBlocks: false,
-    $selector_boxes: (
-        'input[type=checkbox]',
-        'input[type=radio]',
-    ),
-    $selector_boxes_has: 'input:where( [type=checkbox], [type=radio] )',
     $args...
 ) {
     @include utils.snippet-label(
@@ -1976,8 +1971,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $includeColours: $includeColours,
             $includeMarginBlock: $includeMarginBlock,
             $multipleContentBlocks: true,
-            $selector_boxes: $selector_boxes,
-            $selector_boxes_has: $selector_boxes_has,
             $args...
         )
         using ($location) {

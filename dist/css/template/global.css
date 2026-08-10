@@ -3818,7 +3818,7 @@ svg {
 a[href] figure,
 a[href] img,
 a[href] svg {
-    display: inline-block;
+    display: block;
 }
 
 img {
@@ -4108,7 +4108,7 @@ blockquote {
     border-left: 0.125rem solid hsl(162, 100%, 15%);
     border-left: 0.125rem solid var(--theme-ui-primary, CanvasText);
 }
-blockquote * {
+blockquote > * {
     --flow-margin: 0.5rem;
     --flow-margin--small: 0.3125rem;
     --flow-margin--large: 1.34375rem;
@@ -4118,11 +4118,30 @@ blockquote * {
     --flow-margin-firm-end--small: 0.1875rem;
     --flow-margin-firm-start--large: 1.6875rem;
     --flow-margin-firm-end--large: 0.34375rem;
-    --flow-margin-button-span-block: 0.5rem;
-    --flow-margin-button-span-inline: 0.5rem;
     --flow-margin-button-span-block--touch: 0.8125rem;
     --flow-margin-button-span-inline--touch: 0.8125rem;
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        0.8125rem
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        0.8125rem
+    );
 }
+:where(.js__no-touch) blockquote > * {
+    --flow-margin-button-span-block: 0.5rem;
+    --flow-margin-button-span-inline: 0.5rem;
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        0.5rem
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        0.5rem
+    );
+}
+
 blockquote > :first-child {
     margin-top: 0;
 }
@@ -5564,15 +5583,18 @@ label:has(> input:where([type="checkbox"], [type="radio"])) {
     color: var(--theme-text, CanvasText);
     cursor: pointer;
 }
+
 label:has(> input[readonly]:where([type="checkbox"], [type="radio"])) {
     cursor: auto;
 }
+
 label:has(
     > input[aria-disabled="true"]:where([type="checkbox"], [type="radio"]),
     > input[disabled]:where([type="checkbox"], [type="radio"])
 ) {
     cursor: not-allowed;
 }
+
 label:has(> input:where([type="checkbox"], [type="radio"]))
     + label:has(> input:where([type="checkbox"], [type="radio"])) {
     margin-top: 0.46875rem;
@@ -5588,6 +5610,7 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
     margin-top: 1.25rem;
     margin-top: var(--flow-margin-firm-start, 1.25rem);
 }
+
 label > input[type="checkbox"],
 label > input[type="radio"] {
     margin: 0;

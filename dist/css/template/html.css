@@ -6547,9 +6547,9 @@ svg {
 a[href] figure,
 a[href] img,
 a[href] svg {
-    --display: inline-block;
-    display: inline-block;
-    display: var(--display, inline-block);
+    --display: block;
+    display: block;
+    display: var(--display, block);
 }
 
 figcaption {
@@ -6992,7 +6992,7 @@ blockquote {
     border-left: var(--border-width-200, 0.125rem) solid
         var(--theme-ui-primary, CanvasText);
 }
-blockquote * {
+blockquote > * {
     --flow-margin: var(--mrg-soft-300, 0.5rem);
     --flow-margin--small: var(--mrg-soft-200, 0.3125rem);
     --flow-margin--large: var(--mrg-soft-500, 1.34375rem);
@@ -7002,11 +7002,30 @@ blockquote * {
     --flow-margin-firm-end--small: var(--mrg-half-200, 0.1875rem);
     --flow-margin-firm-start--large: var(--mrg-firm-500, 1.6875rem);
     --flow-margin-firm-end--large: var(--mrg-half-500, 0.34375rem);
-    --flow-margin-button-span-block: var(--mrg-firm-200, 0.5rem);
-    --flow-margin-button-span-inline: var(--mrg-firm-200, 0.5rem);
     --flow-margin-button-span-block--touch: var(--mrg-firm-300, 0.8125rem);
     --flow-margin-button-span-inline--touch: var(--mrg-firm-300, 0.8125rem);
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(--mrg-firm-300, 0.8125rem)
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(--mrg-firm-300, 0.8125rem)
+    );
 }
+:where(.js__no-touch) blockquote > * {
+    --flow-margin-button-span-block: var(--mrg-firm-200, 0.5rem);
+    --flow-margin-button-span-inline: var(--mrg-firm-200, 0.5rem);
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(--mrg-firm-200, 0.5rem)
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(--mrg-firm-200, 0.5rem)
+    );
+}
+
 blockquote > :first-child {
     margin-top: 0;
 }
@@ -7418,6 +7437,7 @@ hgroup .h10 {
 .h10__hgroup > :first-child {
     margin-top: 0 !important;
 }
+
 :is(
         .unstyled-heading__hgroup,
         .h1__hgroup,
@@ -9359,15 +9379,18 @@ label:has(> input:where([type="checkbox"], [type="radio"])) {
     color: var(--theme-text, CanvasText);
     cursor: pointer;
 }
+
 label:has(> input[readonly]:where([type="checkbox"], [type="radio"])) {
     cursor: auto;
 }
+
 label:has(
     > input[aria-disabled="true"]:where([type="checkbox"], [type="radio"]),
     > input[disabled]:where([type="checkbox"], [type="radio"])
 ) {
     cursor: not-allowed;
 }
+
 label:has(> input:where([type="checkbox"], [type="radio"]))
     + label:has(> input:where([type="checkbox"], [type="radio"])) {
     margin-top: 0.46875rem;
@@ -9383,6 +9406,7 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
     margin-top: 1.25rem;
     margin-top: var(--flow-margin-firm-start, 1.25rem);
 }
+
 label > input[type="checkbox"],
 label > input[type="radio"] {
     margin: 0;
@@ -14677,7 +14701,7 @@ body {
 .background-grey.alert-block > .alert-block__headline > .alert-block__icon {
     --icon-color: var(--theme-ui-grey, CanvasText);
 }
-.alert-block * {
+.alert-block > * {
     --flow-margin: var(--mrg-soft-300, 0.5rem);
     --flow-margin--small: var(--mrg-soft-200, 0.3125rem);
     --flow-margin--large: var(--mrg-soft-400, 0.78125rem);
@@ -14687,10 +14711,28 @@ body {
     --flow-margin-firm-end--small: var(--mrg-half-200, 0.1875rem);
     --flow-margin-firm-start--large: var(--mrg-firm-400, 1.25rem);
     --flow-margin-firm-end--large: var(--mrg-half-400, 0.46875rem);
-    --flow-margin-button-span-block: var(--pad-firm-200, 0.5em);
-    --flow-margin-button-span-inline: var(--pad-firm-200, 0.5em);
     --flow-margin-button-span-block--touch: var(--mrg-firm-300, 0.8125rem);
     --flow-margin-button-span-inline--touch: var(--mrg-firm-300, 0.8125rem);
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(--mrg-firm-300, 0.8125rem)
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(--mrg-firm-300, 0.8125rem)
+    );
+}
+:where(.js__no-touch) .alert-block > * {
+    --flow-margin-button-span-block: var(--pad-firm-200, 0.5em);
+    --flow-margin-button-span-inline: var(--pad-firm-200, 0.5em);
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(--pad-firm-200, 0.5em)
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(--pad-firm-200, 0.5em)
+    );
 }
 
 /* # BLOCKS - SEARCH FORM

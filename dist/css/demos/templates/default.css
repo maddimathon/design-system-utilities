@@ -3882,7 +3882,7 @@ svg {
 a[href] figure,
 a[href] img,
 a[href] svg {
-    display: inline-block;
+    display: block;
 }
 
 img {
@@ -4131,7 +4131,7 @@ blockquote {
     justify-self: center;
     border-inline-start: 0.125rem solid var(--theme-ui-primary, CanvasText);
 }
-blockquote * {
+blockquote > * {
     --flow-margin: 0.5rem;
     --flow-margin--small: 0.3125rem;
     --flow-margin--large: 1.34375rem;
@@ -4141,11 +4141,30 @@ blockquote * {
     --flow-margin-firm-end--small: 0.1875rem;
     --flow-margin-firm-start--large: 1.6875rem;
     --flow-margin-firm-end--large: 0.34375rem;
-    --flow-margin-button-span-block: 0.5rem;
-    --flow-margin-button-span-inline: 0.5rem;
     --flow-margin-button-span-block--touch: 0.8125rem;
     --flow-margin-button-span-inline--touch: 0.8125rem;
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        0.8125rem
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        0.8125rem
+    );
 }
+:where(.js__no-touch) blockquote > * {
+    --flow-margin-button-span-block: 0.5rem;
+    --flow-margin-button-span-inline: 0.5rem;
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        0.5rem
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        0.5rem
+    );
+}
+
 blockquote > :first-child {
     margin-block-start: 0;
 }
@@ -4502,6 +4521,7 @@ hgroup .h10 {
 .h10__hgroup > :first-child {
     margin-block-start: 0 !important;
 }
+
 :is(
         .unstyled-heading__hgroup,
         .h1__hgroup,
@@ -5786,15 +5806,18 @@ label:has(> input:where([type="checkbox"], [type="radio"])) {
     color: var(--theme-text, CanvasText);
     cursor: pointer;
 }
+
 label:has(> input[readonly]:where([type="checkbox"], [type="radio"])) {
     cursor: auto;
 }
+
 label:has(
     > input[aria-disabled="true"]:where([type="checkbox"], [type="radio"]),
     > input[disabled]:where([type="checkbox"], [type="radio"])
 ) {
     cursor: not-allowed;
 }
+
 label:has(> input:where([type="checkbox"], [type="radio"]))
     + label:has(> input:where([type="checkbox"], [type="radio"])) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem);
@@ -5807,6 +5830,7 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
     + input:not([type="checkbox"], [type="radio"]) {
     margin-block-start: var(--flow-margin-firm-start, 1.25rem);
 }
+
 label > input[type="checkbox"],
 label > input[type="radio"] {
     margin: 0;
@@ -8236,6 +8260,7 @@ body
     ) {
     margin-block-start: 0 !important;
 }
+
 body
     > :is(.main-subgrid--full-width)
     > :first-child:is(
@@ -8335,6 +8360,14 @@ body
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
 
+body > :is(.main-subgrid--full-width):last-child,
+body > :where(main) > :is(.main-subgrid--full-width):last-child,
+body
+    > :where(main)
+    > :where(.main-subgrid, .main-content__article)
+    > :is(.main-subgrid--full-width):last-child {
+    margin-block-end: 0;
+}
 body > :is(.main-subgrid--full-width):has(+ .main-subgrid--full-width),
 body
     > :where(main)
@@ -8366,6 +8399,7 @@ body
 .main-content__header > hgroup > :first-child {
     margin-block-start: 0 !important;
 }
+
 .main-content__header
     > :first-child:is(
         .icon,
@@ -10031,7 +10065,7 @@ body
 .background-grey.alert-block > .alert-block__headline > .alert-block__icon {
     --icon-color: var(--theme-ui-grey, CanvasText);
 }
-.alert-block * {
+.alert-block > * {
     --flow-margin: 0.5rem;
     --flow-margin--small: 0.3125rem;
     --flow-margin--large: 0.78125rem;
@@ -10041,10 +10075,28 @@ body
     --flow-margin-firm-end--small: 0.1875rem;
     --flow-margin-firm-start--large: 1.25rem;
     --flow-margin-firm-end--large: 0.46875rem;
-    --flow-margin-button-span-block: 0.5em;
-    --flow-margin-button-span-inline: 0.5em;
     --flow-margin-button-span-block--touch: 0.8125rem;
     --flow-margin-button-span-inline--touch: 0.8125rem;
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        0.8125rem
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        0.8125rem
+    );
+}
+:where(.js__no-touch) .alert-block > * {
+    --flow-margin-button-span-block: 0.5em;
+    --flow-margin-button-span-inline: 0.5em;
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        0.5em
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        0.5em
+    );
 }
 
 /* # BLOCKS - SEARCH FORM
@@ -10157,123 +10209,89 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .background-grey.widget-block {
     background: var(--theme-background-grey, Canvas);
 }
-.widget-block .widget-block__content,
-.widget-block .widget-block__header,
-.widget-block .widget-block__hgroup,
-.widget-block .widget-block__title {
+.widget-block > .widget-block__content,
+.widget-block > .widget-block__header,
+.widget-block > .widget-block__hgroup,
+.widget-block > .widget-block__title {
     margin-block-start: 0;
 }
+.widget-block > :first-child,
 .widget-block
-    .screen-reader-text.widget-block__header
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content,
+.widget-block > .widget-block__content:first-child > :first-child,
+.widget-block
+    > .widget-block__content:first-child
+    > ol:first-child
+    > li:first-child,
+.widget-block
+    > .widget-block__content:first-child
+    > ul:first-child
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content
     > :first-child,
 .widget-block
-    .screen-reader-text.widget-block__header
+    > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content
     > ol:first-child
     > li:first-child,
 .widget-block
-    .screen-reader-text.widget-block__header
+    > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content
     > ul:first-child
     > li:first-child,
 .widget-block
-    .screen-reader-text.widget-block__hgroup
+    > .screen-reader-text.widget-block__hgroup:first-child
     + .widget-block__content
     > :first-child,
 .widget-block
-    .screen-reader-text.widget-block__hgroup
+    > .screen-reader-text.widget-block__hgroup:first-child
     + .widget-block__content
     > ol:first-child
     > li:first-child,
 .widget-block
-    .screen-reader-text.widget-block__hgroup
+    > .screen-reader-text.widget-block__hgroup:first-child
     + .widget-block__content
     > ul:first-child
     > li:first-child,
 .widget-block
-    .screen-reader-text.widget-block__title
+    > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
     > :first-child,
 .widget-block
-    .screen-reader-text.widget-block__title
+    > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
     > ol:first-child
     > li:first-child,
 .widget-block
-    .screen-reader-text.widget-block__title
+    > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
     > ul:first-child
     > li:first-child {
     margin-block-start: 0;
 }
-.widget-block
-    .screen-reader-text.widget-block__header
-    + .widget-block__content
-    > :first-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-.widget-block
-    .screen-reader-text.widget-block__hgroup
-    + .widget-block__content
-    > :first-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-.widget-block
-    .screen-reader-text.widget-block__title
-    + .widget-block__content
+
+:is(
+        .widget-block,
+        .widget-block > .widget-block__content:first-child,
+        .widget-block
+            > .screen-reader-text.widget-block__header:first-child
+            + .widget-block__content,
+        .widget-block
+            > .screen-reader-text.widget-block__hgroup:first-child
+            + .widget-block__content,
+        .widget-block
+            > .screen-reader-text.widget-block__title:first-child
+            + .widget-block__content
+    )
     > :first-child:is(
         .icon,
         svg,
@@ -10306,7 +10324,18 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem);
 }
 
-.widget-block * {
+.widget-block > .widget-block__content,
+.widget-block > .widget-block__header {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+.widget-block > * {
     --flow-margin: 0.5rem;
     --flow-margin--small: 0.3125rem;
     --flow-margin--large: 1.34375rem;
@@ -10316,10 +10345,28 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     --flow-margin-firm-end--small: 0.1875rem;
     --flow-margin-firm-start--large: 1.6875rem;
     --flow-margin-firm-end--large: 0.34375rem;
-    --flow-margin-button-span-block: 0.5em;
-    --flow-margin-button-span-inline: 0.5em;
     --flow-margin-button-span-block--touch: 0.8125rem;
     --flow-margin-button-span-inline--touch: 0.8125rem;
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        0.8125rem
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        0.8125rem
+    );
+}
+:where(.js__no-touch) .widget-block > * {
+    --flow-margin-button-span-block: 0.5em;
+    --flow-margin-button-span-inline: 0.5em;
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        0.5em
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        0.5em
+    );
 }
 
 .main-sidebar > .widget-block {
@@ -11356,7 +11403,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
 }
-:where(.js) :where([data-toggle-content]) * {
+:where(.js) :where([data-toggle-content]) > * {
     --flow-margin: 0.5rem;
     --flow-margin--small: 0.3125rem;
     --flow-margin--large: 1.34375rem;
@@ -11366,10 +11413,28 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     --flow-margin-firm-end--small: 0.1875rem;
     --flow-margin-firm-start--large: 1.6875rem;
     --flow-margin-firm-end--large: 0.34375rem;
-    --flow-margin-button-span-block: 0.5em;
-    --flow-margin-button-span-inline: 0.5em;
     --flow-margin-button-span-block--touch: 0.8125rem;
     --flow-margin-button-span-inline--touch: 0.8125rem;
+    --flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        0.8125rem
+    );
+    --flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        0.8125rem
+    );
+}
+:where(.js):where(.js__no-touch) :where([data-toggle-content]) > * {
+    --flow-margin-button-span-block: 0.5em;
+    --flow-margin-button-span-inline: 0.5em;
+    --flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        0.5em
+    );
+    --flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        0.5em
+    );
 }
 
 :where(.js) [data-toggle-content] > .container {

@@ -54,6 +54,7 @@ const config = {
             tidyGlobs: [
                 '**/tsconfig.tsbuildinfo',
                 'types/**/*.js',
+                'dist/scss/demos',
                 'dist/ts/02-tokens/_Tokens_TEMPLATE.d.ts',
                 'dist/ts/02-tokens/_Tokens_TEMPLATE.js',
             ],

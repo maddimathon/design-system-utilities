@@ -20,6 +20,53 @@
 
 $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 
+@mixin snippet-widget-block--no-content-top-margin(
+    $selector_content: '%widget-block-content',
+    $selector_header: '%widget-block-header',
+    $selector_hgroup: '%widget-block-hgroup',
+    $selector_title: '%widget-block-title'
+) {
+    $_title_sels: ('#{$selector_header}', '#{$selector_hgroup}', '#{$selector_title}');
+
+    $_root_sels: list.join(
+        selector.nest(&, '>', selector.unify(':first-child', $selector_content)),
+        selector.nest(
+            &,
+            '>',
+            selector.unify('.screen-reader-text:first-child', $_title_sels),
+            '+',
+            $selector_content
+        ),
+        $separator: comma
+    );
+
+    $_root_additional: (#{selector.nest(&, '>', ':first-child')}, #{$_root_sels});
+
+    $_child_sels: (&, $_root_sels);
+
+    @at-root {
+        #{$_root_sels} {
+            @include first-child-no-top-margin(
+                $additionalSelectors: $_root_additional,
+                $asImportant: false,
+                $includeChildren: false,
+                $includeRoot: true,
+                $setFirstChildSelector: true
+            ) {
+                @content;
+            }
+        }
+        :is(#{$_child_sels}) {
+            @include first-child-no-top-margin(
+                $asImportant: false,
+                $includeChildren: true,
+                $includeRoot: false,
+                $setFirstChildSelector: true
+            );
+        }
+    }
+}
+
 ///
 /// @since ___PKG_VERSION___
 ///
@@ -31,12 +78,13 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
     $width: fit-content,
     //
+    $includePadding: true,
     $includeBlocks: true,
     $includeBorder: true,
     $includeColours: true,
+    $includeFirstChildNoTopMargin: $includePadding,
     $includeFlowMargins: true,
     $includeSidebar: true,
-    $includePadding: true,
     $multipleContentBlocks: true,
     //
     $selector_content: '%widget-block-content',
@@ -117,20 +165,29 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     }
 
     @if $includeBlocks {
-        #{$selector_content},
-        #{$selector_header},
-        #{$selector_hgroup},
-        #{$selector_title} {
+        #{selector.nest('>', ('#{$selector_content}', '#{$selector_header}', '#{$selector_hgroup}', '#{$selector_title}'))} {
             margin-block-start: 0;
         }
 
-        #{$selector_header},
-        #{$selector_hgroup},
-        #{$selector_title} {
-            &.screen-reader-text {
-                #{selector.nest('+', $selector_content)} {
-                    @include first-child-no-top-margin($asImportant: false);
+        @if $includeFirstChildNoTopMargin {
+            @include snippet-widget-block--no-content-top-margin(
+                $selector_content: $selector_content,
+                $selector_header: $selector_header,
+                $selector_hgroup: $selector_hgroup,
+                $selector_title: $selector_title
+            ) {
+                @if $multipleContentBlocks {
+                    @content (first-child-no-margin);
                 }
+            }
+        }
+
+        #{selector.nest('>', ('#{$selector_content}', '#{$selector_header}'))} {
+            @include prop-display(flex);
+            @include utils.snippet-body-grid--flex-container;
+
+            @if $multipleContentBlocks {
+                @content (blocks--content-or-header);
             }
         }
     }

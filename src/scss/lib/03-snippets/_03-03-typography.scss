@@ -197,7 +197,7 @@
     @if $defineCustomProps {
         $_sel: if(selector.parent-exists(), '*', config.$selector_root);
 
-        #{if($childrenWhere, ':where(#{$_sel})', $_sel)} {
+        #{selector.nest('>', if($childrenWhere, ':where(#{$_sel})', $_sel))} {
             @include cx-prop(flow-margin, $val_default);
             @include cx-prop(flow-margin--small, $val_small);
             @include cx-prop(flow-margin--large, $val_large);
@@ -211,11 +211,31 @@
             @include cx-prop(flow-margin-firm-start--large, $val_firm_start_large);
             @include cx-prop(flow-margin-firm-end--large, $val_firm_end_large);
 
-            @include cx-prop(flow-margin-button-span-block, $val_buttonSpan_block);
-            @include cx-prop(flow-margin-button-span-inline, $val_buttonSpan_inline);
-
             @include cx-prop(flow-margin-button-span-block--touch, $val_buttonSpan_block_touch);
             @include cx-prop(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch);
+
+            @include cx-prop(
+                flow-margin-button-span-block,
+                do-var(flow-margin-button-span-block--touch, $val_buttonSpan_block_touch)
+            );
+            @include cx-prop(
+                flow-margin-button-span-inline,
+                do-var(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch)
+            );
+
+            @include feature-check.supports-not(touch) {
+                @include cx-prop(flow-margin-button-span-block, $val_buttonSpan_block);
+                @include cx-prop(flow-margin-button-span-inline, $val_buttonSpan_inline);
+
+                @include cx-prop(
+                    flow-margin-button-span-block--touch,
+                    do-var(flow-margin-button-span-block, $val_buttonSpan_block)
+                );
+                @include cx-prop(
+                    flow-margin-button-span-inline--touch,
+                    do-var(flow-margin-button-span-inline, $val_buttonSpan_inline)
+                );
+            }
         }
     }
 

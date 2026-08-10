@@ -24,7 +24,7 @@
     @include meta.demo-mixin(
         "#{if($module == null, '', '#{$module}.')}#{$mixin}",
         meta.get-mixin($mixin, $module),
-        $args...
+        $args
     ) {
         @content;
     }
@@ -247,8 +247,8 @@ $_paramPermutations: (
                     @include meta.demo-mixin(
                         $mixin,
                         meta.get-mixin($mixin),
-                        $demo_signatureAtRoot: false,
-                        $map...
+                        meta.arglist($map...),
+                        $signatureAtRoot: false
                     );
                 }
             }

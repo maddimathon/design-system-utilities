@@ -211,11 +211,6 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
         $relative: config.$fn_tokens_fontSize_defaultRelative;
     }
 
-    // TODO - test if this is necessary
-    @if $fallback == null and config.$fn_var_replaceWithValue_fontSize {
-        $fallback: list.nth(tokens-fs-value($slug, $relative: $relative), 1);
-    }
-
     $var_slug: if($relative, fs-rel-#{$slug}, fs-#{$slug});
 
     // if theres's no fallback set, then we use the fs-value function to find one
