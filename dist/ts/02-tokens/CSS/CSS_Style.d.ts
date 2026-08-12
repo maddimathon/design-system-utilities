@@ -347,7 +347,12 @@ export declare namespace Tokens_CSS_Style {
         margin: {
             block: {
                 start: 0 | AnyTokenLevel;
-                end: 0 | AnyTokenLevel;
+            };
+        };
+        padding: {
+            block: {
+                start: 0 | CSS.Number.Em | AnyTokenLevel;
+                end: 0 | CSS.Number.Em | AnyTokenLevel;
             };
         };
     };

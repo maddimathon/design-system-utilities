@@ -59,17 +59,23 @@ $_sel_img: (
                 margin-block-start: lib.var-style(
                     heading-#{$slug}-margin-block-start
                 );
-                margin-block-end: lib.var-style(
-                    heading-#{$slug}-margin-block-end
+                padding-block-start: lib.var-style(
+                    heading-#{$slug}-padding-block-start
+                );
+                padding-block-end: lib.var-style(
+                    heading-#{$slug}-padding-block-end
                 );
             }
 
-            @at-root #{selector.unify(&, #{$_sel}--where)} {
+            @at-root #{selector.unify(&, selector.append($_sel, '--where'))} {
                 margin-block-start: lib.var-style(
                     heading-#{$slug}-margin-block-start
                 );
-                margin-block-end: lib.var-style(
-                    heading-#{$slug}-margin-block-end
+                padding-block-start: lib.var-style(
+                    heading-#{$slug}-padding-block-start
+                );
+                padding-block-end: lib.var-style(
+                    heading-#{$slug}-padding-block-end
                 );
             }
         }

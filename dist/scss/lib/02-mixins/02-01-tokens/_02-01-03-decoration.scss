@@ -5,6 +5,7 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
@@ -41,14 +42,20 @@
         (icon-vertical-align, icon-vertical-align, true)
     );
 
-    @each $prop, $style, $includeFallbackWithBase in $allProperties {
+    $_prefixExists: meta.is-truthy($propPrefix);
+
+    @each $prop, $styleSlug, $includeFallbackWithBase in $allProperties {
+        $_styleKey: if($_prefixExists, #{$propPrefix}-#{$styleSlug}, $prop);
+
+        $_hasOverride: map.has-key($overrides, $prop);
+
         $_fallback: if(
-            map.has-key($overrides, $prop),
+            $_hasOverride,
             map.get($overrides, $prop),
             if(
-                $propPrefix,
+                $_prefixExists,
                 style-value(
-                    #{$propPrefix}-#{$style},
+                    $_styleKey,
                     $failureReturn: null,
                     $warnOnFail: false
                 ),
@@ -56,30 +63,36 @@
             )
         );
 
-        @if $_fallback != null or ($includeBase and $includeFallbackWithBase) {
-            @include utils.cx-prop(
-                $prop,
-                string.concat(
-                    if(
-                        $_fallback != null,
-                        var-style(
-                            #{$propPrefix}-#{$style},
-                            $fallback: $_fallback
-                        ),
+        @if $_fallback != false {
+            @if $_fallback !=
+                null or
+                ($includeBase and $includeFallbackWithBase)
+            {
+                @if not $_hasOverride and $_fallback == null {
+                    $_fallback: style-value($prop);
+                }
+
+                @if $_fallback != null {
+                    @include utils.cx-prop(
+                        $prop,
                         if(
-                            $propPrefix,
-                            var-style(
-                                #{$propPrefix}-#{$style},
-                                $fallback: style-value($prop),
-                                $fallbackOnly: true
-                            ),
-                            style-value($prop)
-                        )
-                    ),
-                    $importantSuffix
-                ),
-                $allPrefixes: true
-            );
+                            $_hasOverride,
+                            $_fallback,
+                            #{var-style(
+                                    $_styleKey,
+                                    $fallback: $_fallback,
+                                    $fallbackOnly: if(
+                                            not $_prefixExists,
+                                            true,
+                                            null
+                                        ),
+                                    $neverReplaceWithValue: false
+                                )}#{$importantSuffix}
+                        ),
+                        $allPrefixes: true
+                    );
+                }
+            }
         }
     }
 }

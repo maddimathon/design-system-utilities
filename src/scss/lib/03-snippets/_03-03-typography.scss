@@ -482,16 +482,16 @@
 @function _snippet-subheading--var-style($slug, $styleProp, $args...) {
     // returns
     @if not $slug {
-        @return false;
+        @return null;
     }
 
     $propSlug: subheading-#{$slug}-#{$styleProp};
 
-    $fallback: style-value($propSlug, $failureReturn: false, $warnOnFail: false, $args...);
+    $fallback: style-value($propSlug, $failureReturn: null, $warnOnFail: false, $args...);
 
     // returns
-    @if $fallback == false {
-        @return false;
+    @if $fallback == null {
+        @return null;
     }
 
     @return do-var(
@@ -514,8 +514,9 @@
     $iconColor: null,
     $letterSpacing: null,
     $lineHeight: null,
-    $marginBlockEnd: null,
     $marginBlockStart: null,
+    $paddingBlockEnd: null,
+    $paddingBlockStart: null,
     $textTransform: null,
     //
     $includeBase: true,
@@ -557,16 +558,22 @@
         _snippet-subheading--var-style($slug, line-height)
     );
 
-    $marginBlockEnd: if(
-        $marginBlockEnd != null,
-        $marginBlockEnd,
-        _snippet-subheading--var-style($slug, margin-block-end)
-    );
-
     $marginBlockStart: if(
         $marginBlockStart != null,
         $marginBlockStart,
         _snippet-subheading--var-style($slug, margin-block-start)
+    );
+
+    $paddingBlockEnd: if(
+        $paddingBlockEnd != null,
+        $paddingBlockEnd,
+        _snippet-subheading--var-style($slug, padding-block-end)
+    );
+
+    $paddingBlockStart: if(
+        $paddingBlockStart != null,
+        $paddingBlockStart,
+        _snippet-subheading--var-style($slug, padding-block-start)
     );
 
     $textTransform: if(
@@ -577,18 +584,32 @@
 
     @include props-icon-spacing(if($slug, subheading-#{$slug}, null), $includeBase: $includeBase);
 
-    @if $iconColor != false {
+    @if $iconColor {
         @include cx-prop(icon-color, $iconColor);
     }
 
     @if $marginBlockStart != false {
-        margin-block-start: $marginBlockStart;
-    } @else if $includeBase {
-        margin-block-start: 0;
+        @if $marginBlockStart != null {
+            margin-block-start: $marginBlockStart;
+        } @else if $includeBase {
+            margin-block-start: 0;
+        }
     }
 
-    @if $marginBlockEnd != false {
-        margin-block-end: $marginBlockEnd;
+    @if $paddingBlockStart != false {
+        @if $paddingBlockStart != null {
+            padding-block-start: $paddingBlockStart;
+        } @else if $includeBase {
+            padding-block-start: 0;
+        }
+    }
+
+    @if $paddingBlockEnd != false {
+        @if $paddingBlockEnd != null {
+            padding-block-end: $paddingBlockEnd;
+        } @else if $includeBase {
+            padding-block-end: 0;
+        }
     }
 
     @if $fontWeight != false {
@@ -663,8 +684,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $link_decorationThickness: null,
     $link_focusOutlineOffset: 0,
     $link_underlineOffset: null,
-    $marginBlockEnd: null,
     $marginBlockStart: null,
+    $paddingBlockEnd: null,
+    $paddingBlockStart: null,
     $subheading_fontWeight: null,
     $subheading_fontWeight_strong: null,
     //
@@ -683,7 +705,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $includeMargin: true,
     $includeMarginSiblings: $includeMargin,
     $includeMarginSiblings_inIs: null,
-    $includePadding: $includeBase,
+    $includePadding: true,
     $includeSubheading: $includeHGroup,
     $multipleContentBlocks: false,
     //
@@ -723,57 +745,66 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     $_marginBlock_unstyled: null;
-    $_marginBlockStart_fallback: null;
+    $_marginBlockStart_withMax: null;
 
-    @if $includeMargin {
+    @if $includeMargin or $includePadding {
         $_marginBlock_unstyled: var-flow-margin-from-token(heading-unstyled-flow-margin-self);
 
         $marginBlockStart: if(
-            $marginBlockStart != null,
-            $marginBlockStart,
+            $includeMargin,
             if(
-                not $slug_is_number,
-                if($slug == unstyled, $_marginBlock_unstyled, false),
-                var-style(heading-#{$slug}-margin-block-start)
-            )
-        );
-
-        $marginBlockEnd: if(
-            $marginBlockEnd != null,
-            $marginBlockEnd,
-            if(
-                not $slug_is_number,
-                if($slug == unstyled, 0, false),
-                var-style(heading-#{$slug}-margin-block-end)
-            )
+                $marginBlockStart != null,
+                $marginBlockStart,
+                if(
+                    not $slug_is_number,
+                    if($slug == unstyled, $_marginBlock_unstyled, false),
+                    var-style(heading-#{$slug}-margin-block-start)
+                )
+            ),
+            false
         );
 
         @if $marginBlockStart != false {
             @if $_marginBlock_unstyled and $_marginBlock_unstyled != $marginBlockStart {
-                $_marginBlockStart_fallback: max($_marginBlock_unstyled, $marginBlockStart);
+                $_marginBlockStart_withMax: max($_marginBlock_unstyled, $marginBlockStart);
             }
 
             @if not $includeHGroup {
                 margin-block-start: $marginBlockStart;
 
                 @if $_marginBlock_unstyled and $_marginBlock_unstyled != $marginBlockStart {
-                    margin-block-start: $_marginBlockStart_fallback;
+                    margin-block-start: $_marginBlockStart_withMax;
                 }
             }
         }
 
-        @if $marginBlockEnd != false {
-            margin-block-end: $marginBlockEnd;
-
-            @if $includePadding {
-                padding-block-start: $marginBlockEnd;
-            }
-        } @else if $includePadding {
-            padding-block-start: 0;
-        }
-
         @if $includePadding {
-            padding-block-end: 0;
+            $paddingBlockStart: if(
+                $paddingBlockStart != null,
+                $paddingBlockStart,
+                if(
+                    not $slug_is_number,
+                    if($includeBase, 0, false),
+                    var-style(heading-#{$slug}-padding-block-start)
+                )
+            );
+
+            $paddingBlockEnd: if(
+                $paddingBlockEnd != null,
+                $paddingBlockEnd,
+                if(
+                    not $slug_is_number,
+                    if($includeBase, 0, false),
+                    var-style(heading-#{$slug}-padding-block-end)
+                )
+            );
+
+            @if $paddingBlockStart != false {
+                padding-block-start: $paddingBlockStart;
+            }
+            @if $paddingBlockEnd != false {
+                padding-block-end: $paddingBlockEnd;
+            }
         }
     }
 
@@ -899,11 +930,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     @if $includeHGroup {
         @at-root &,
             #{$selector_hgroup} {
-            @if $includeMargin and $marginBlockStart != false {
+            @if $marginBlockStart != false {
                 margin-block-start: $marginBlockStart;
 
-                @if $_marginBlock_unstyled and $_marginBlock_unstyled != $marginBlockStart {
-                    margin-block-start: $_marginBlockStart_fallback;
+                @if $_marginBlockStart_withMax != null {
+                    margin-block-start: $_marginBlockStart_withMax;
                 }
             }
 

@@ -10817,14 +10817,14 @@ h6,
 .h9,
 .h10 {
     --fallback-focus-ring-outline-offset: 0;
-    --fallback-icon-inline-buffer: 0.25em;
-    --fallback-icon-inline-buffer-start: 1;
-    --fallback-icon-inline-buffer-end: 0.125;
-    --fallback-icon-font-top: 0.1875em;
-    --fallback-icon-pseudo-top: -0.0625em;
-    --fallback-icon-size-font: 1em;
-    --fallback-icon-size-pseudo: 1em;
-    --fallback-icon-vertical-align: middle;
+    --fallback-icon-inline-buffer: var(--icon-inline-buffer, 0.25em);
+    --fallback-icon-inline-buffer-start: var(--icon-inline-buffer-start, 1);
+    --fallback-icon-inline-buffer-end: var(--icon-inline-buffer-end, 0.125);
+    --fallback-icon-font-top: var(--icon-font-top, 0.1875em);
+    --fallback-icon-pseudo-top: var(--icon-pseudo-top, -0.0625em);
+    --fallback-icon-size-font: var(--icon-size-font, 1em);
+    --fallback-icon-size-pseudo: var(--icon-size-pseudo, 1em);
+    --fallback-icon-vertical-align: var(--icon-vertical-align, middle);
     padding-block-start: 0;
     padding-block-end: 0;
     text-wrap: balance;
@@ -10944,15 +10944,17 @@ hgroup .h10 {
 .h8__subheading,
 .h9__subheading,
 .h10__subheading {
-    --fallback-icon-inline-buffer: 0.25em;
-    --fallback-icon-inline-buffer-start: 1;
-    --fallback-icon-inline-buffer-end: 0.125;
-    --fallback-icon-font-top: 0.1875em;
-    --fallback-icon-pseudo-top: -0.0625em;
-    --fallback-icon-size-font: 1em;
-    --fallback-icon-size-pseudo: 1em;
-    --fallback-icon-vertical-align: middle;
+    --fallback-icon-inline-buffer: var(--icon-inline-buffer, 0.25em);
+    --fallback-icon-inline-buffer-start: var(--icon-inline-buffer-start, 1);
+    --fallback-icon-inline-buffer-end: var(--icon-inline-buffer-end, 0.125);
+    --fallback-icon-font-top: var(--icon-font-top, 0.1875em);
+    --fallback-icon-pseudo-top: var(--icon-pseudo-top, -0.0625em);
+    --fallback-icon-size-font: var(--icon-size-font, 1em);
+    --fallback-icon-size-pseudo: var(--icon-size-pseudo, 1em);
+    --fallback-icon-vertical-align: var(--icon-vertical-align, middle);
     margin-block-start: 0;
+    padding-block-start: 0;
+    padding-block-end: 0;
     text-wrap: balance;
 }
 
@@ -11098,14 +11100,14 @@ h6 samp,
 :where([role="heading"][aria-level="9"]),
 :where([role="heading"][aria-level="10"]) {
     --fallback-focus-ring-outline-offset: 0;
-    --fallback-icon-inline-buffer: 0.25em;
-    --fallback-icon-inline-buffer-start: 1;
-    --fallback-icon-inline-buffer-end: 0.125;
-    --fallback-icon-font-top: 0.1875em;
-    --fallback-icon-pseudo-top: -0.0625em;
-    --fallback-icon-size-font: 1em;
-    --fallback-icon-size-pseudo: 1em;
-    --fallback-icon-vertical-align: middle;
+    --fallback-icon-inline-buffer: var(--icon-inline-buffer, 0.25em);
+    --fallback-icon-inline-buffer-start: var(--icon-inline-buffer-start, 1);
+    --fallback-icon-inline-buffer-end: var(--icon-inline-buffer-end, 0.125);
+    --fallback-icon-font-top: var(--icon-font-top, 0.1875em);
+    --fallback-icon-pseudo-top: var(--icon-pseudo-top, -0.0625em);
+    --fallback-icon-size-font: var(--icon-size-font, 1em);
+    --fallback-icon-size-pseudo: var(--icon-size-pseudo, 1em);
+    --fallback-icon-vertical-align: var(--icon-vertical-align, middle);
     padding-block-start: 0;
     padding-block-end: 0;
     text-wrap: balance;
@@ -11174,10 +11176,8 @@ hgroup :where([role="heading"][aria-level="10"]) {
 .h1,
 h1,
 .page-title {
-    margin-block-end: var(
-        --heading-1-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-1-padding-block-start, 0);
+    padding-block-end: var(--heading-1-padding-block-end, 0);
     font-weight: var(--heading-1-font-weight, 900);
     font-size: var(--fs-heading-1, var(--fallback-fs-heading-1, 2.9375rem));
     line-height: var(
@@ -11231,10 +11231,8 @@ h1,
         --subheading-1-margin-block-start,
         var(--mrg-soft-200, var(--fallback-mrg-soft-200, 0.3125rem))
     );
-    margin-block-end: var(
-        --subheading-1-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--subheading-1-padding-block-start, 0);
+    padding-block-end: var(--subheading-1-padding-block-end, 0);
     font-weight: var(--subheading-1-font-weight, 600);
     font-size: var(
         --subheading-1-font-size,
@@ -11268,10 +11266,8 @@ h1,
             var(--mrg-soft-800, var(--fallback-mrg-soft-800, 3.34375rem))
         )
     );
-    margin-block-end: var(
-        --heading-1-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-1-padding-block-start, 0);
+    padding-block-end: var(--heading-1-padding-block-end, 0);
     font-weight: var(--heading-1-font-weight, 900);
     font-size: var(--fs-heading-1, var(--fallback-fs-heading-1, 2.9375rem));
     line-height: var(
@@ -11293,10 +11289,8 @@ h1,
 }
 .h2,
 h2 {
-    margin-block-end: var(
-        --heading-2-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-2-padding-block-start, 0);
+    padding-block-end: var(--heading-2-padding-block-end, 0);
     font-weight: var(--heading-2-font-weight, 800);
     font-size: var(--fs-heading-2, var(--fallback-fs-heading-2, 2.1875rem));
     line-height: var(
@@ -11372,10 +11366,8 @@ h2,
             var(--mrg-soft-800, var(--fallback-mrg-soft-800, 3.34375rem))
         )
     );
-    margin-block-end: var(
-        --heading-2-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-2-padding-block-start, 0);
+    padding-block-end: var(--heading-2-padding-block-end, 0);
     font-weight: var(--heading-2-font-weight, 800);
     font-size: var(--fs-heading-2, var(--fallback-fs-heading-2, 2.1875rem));
     line-height: var(
@@ -11397,10 +11389,8 @@ h2,
 }
 .h3,
 h3 {
-    margin-block-end: var(
-        --heading-3-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-3-padding-block-start, 0);
+    padding-block-end: var(--heading-3-padding-block-end, 0);
     font-weight: var(--heading-3-font-weight, 700);
     font-size: var(--fs-heading-3, var(--fallback-fs-heading-3, 1.9375rem));
     line-height: var(
@@ -11476,10 +11466,8 @@ h3,
             var(--mrg-soft-800, var(--fallback-mrg-soft-800, 3.34375rem))
         )
     );
-    margin-block-end: var(
-        --heading-3-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-3-padding-block-start, 0);
+    padding-block-end: var(--heading-3-padding-block-end, 0);
     font-weight: var(--heading-3-font-weight, 700);
     font-size: var(--fs-heading-3, var(--fallback-fs-heading-3, 1.9375rem));
     line-height: var(
@@ -11501,10 +11489,8 @@ h3,
 }
 .h4,
 h4 {
-    margin-block-end: var(
-        --heading-4-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-4-padding-block-start, 0);
+    padding-block-end: var(--heading-4-padding-block-end, 0);
     font-weight: var(--heading-4-font-weight, 700);
     font-size: var(--fs-heading-4, var(--fallback-fs-heading-4, 1.6875rem));
     line-height: var(
@@ -11580,10 +11566,8 @@ h4,
             var(--mrg-soft-600, var(--fallback-mrg-soft-600, 1.84375rem))
         )
     );
-    margin-block-end: var(
-        --heading-4-margin-block-end,
-        var(--mrg-half-200, var(--fallback-mrg-half-200, 0.1875rem))
-    );
+    padding-block-start: var(--heading-4-padding-block-start, 0);
+    padding-block-end: var(--heading-4-padding-block-end, 0);
     font-weight: var(--heading-4-font-weight, 700);
     font-size: var(--fs-heading-4, var(--fallback-fs-heading-4, 1.6875rem));
     line-height: var(
@@ -11605,10 +11589,8 @@ h4,
 }
 .h5,
 h5 {
-    margin-block-end: var(
-        --heading-5-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-5-padding-block-start, 0);
+    padding-block-end: var(--heading-5-padding-block-end, 0);
     font-weight: var(--heading-5-font-weight, 600);
     font-size: var(--fs-heading-5, var(--fallback-fs-heading-5, 1.375rem));
     line-height: var(
@@ -11684,10 +11666,8 @@ h5,
             var(--mrg-soft-600, var(--fallback-mrg-soft-600, 1.84375rem))
         )
     );
-    margin-block-end: var(
-        --heading-5-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-5-padding-block-start, 0);
+    padding-block-end: var(--heading-5-padding-block-end, 0);
     font-weight: var(--heading-5-font-weight, 600);
     font-size: var(--fs-heading-5, var(--fallback-fs-heading-5, 1.375rem));
     line-height: var(
@@ -11709,10 +11689,8 @@ h5,
 }
 .h6,
 h6 {
-    margin-block-end: var(
-        --heading-6-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-6-padding-block-start, 0);
+    padding-block-end: var(--heading-6-padding-block-end, 0);
     font-weight: var(--heading-6-font-weight, 500);
     font-size: var(--fs-heading-6, var(--fallback-fs-heading-6, 1.25rem));
     line-height: var(
@@ -11788,10 +11766,8 @@ h6,
             var(--mrg-soft-600, var(--fallback-mrg-soft-600, 1.84375rem))
         )
     );
-    margin-block-end: var(
-        --heading-6-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-6-padding-block-start, 0);
+    padding-block-end: var(--heading-6-padding-block-end, 0);
     font-weight: var(--heading-6-font-weight, 500);
     font-size: var(--fs-heading-6, var(--fallback-fs-heading-6, 1.25rem));
     line-height: var(
@@ -11812,10 +11788,8 @@ h6,
     color: var(--theme-heading-6, var(--fallback-theme-heading-6, CanvasText));
 }
 .h7 {
-    margin-block-end: var(
-        --heading-7-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-7-padding-block-start, 0);
+    padding-block-end: var(--heading-7-padding-block-end, 0);
     font-weight: var(--heading-7-font-weight, 500);
     font-size: var(--fs-heading-7, var(--fallback-fs-heading-7, 1rem));
     line-height: var(
@@ -11890,10 +11864,8 @@ h6,
             var(--mrg-soft-600, var(--fallback-mrg-soft-600, 1.84375rem))
         )
     );
-    margin-block-end: var(
-        --heading-7-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-7-padding-block-start, 0);
+    padding-block-end: var(--heading-7-padding-block-end, 0);
     font-weight: var(--heading-7-font-weight, 500);
     font-size: var(--fs-heading-7, var(--fallback-fs-heading-7, 1rem));
     line-height: var(
@@ -11914,10 +11886,8 @@ h6,
     color: var(--theme-heading-7, var(--fallback-theme-heading-7, CanvasText));
 }
 .h8 {
-    margin-block-end: var(
-        --heading-8-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-8-padding-block-start, 0);
+    padding-block-end: var(--heading-8-padding-block-end, 0);
     font-weight: var(--heading-8-font-weight, 500);
     font-size: var(--fs-heading-8, var(--fallback-fs-heading-8, 0.9375rem));
     line-height: var(
@@ -11992,10 +11962,8 @@ h6,
             var(--mrg-soft-600, var(--fallback-mrg-soft-600, 1.84375rem))
         )
     );
-    margin-block-end: var(
-        --heading-8-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-8-padding-block-start, 0);
+    padding-block-end: var(--heading-8-padding-block-end, 0);
     font-weight: var(--heading-8-font-weight, 500);
     font-size: var(--fs-heading-8, var(--fallback-fs-heading-8, 0.9375rem));
     line-height: var(
@@ -12016,10 +11984,8 @@ h6,
     color: var(--theme-heading-8, var(--fallback-theme-heading-8, CanvasText));
 }
 .h9 {
-    margin-block-end: var(
-        --heading-9-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-9-padding-block-start, 0);
+    padding-block-end: var(--heading-9-padding-block-end, 0);
     font-weight: var(--heading-9-font-weight, 500);
     font-size: var(--fs-heading-9, var(--fallback-fs-heading-9, 0.875rem));
     line-height: var(
@@ -12094,10 +12060,8 @@ h6,
             var(--mrg-soft-500, var(--fallback-mrg-soft-500, 1.34375rem))
         )
     );
-    margin-block-end: var(
-        --heading-9-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-9-padding-block-start, 0);
+    padding-block-end: var(--heading-9-padding-block-end, 0);
     font-weight: var(--heading-9-font-weight, 500);
     font-size: var(--fs-heading-9, var(--fallback-fs-heading-9, 0.875rem));
     line-height: var(
@@ -12118,10 +12082,8 @@ h6,
     color: var(--theme-heading-9, var(--fallback-theme-heading-9, CanvasText));
 }
 .h10 {
-    margin-block-end: var(
-        --heading-10-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-10-padding-block-start, 0);
+    padding-block-end: var(--heading-10-padding-block-end, 0);
     font-weight: var(--heading-10-font-weight, 500);
     font-size: var(--fs-heading-10, var(--fallback-fs-heading-10, 0.8125rem));
     line-height: var(
@@ -12199,10 +12161,8 @@ h6,
             var(--mrg-soft-500, var(--fallback-mrg-soft-500, 1.34375rem))
         )
     );
-    margin-block-end: var(
-        --heading-10-margin-block-end,
-        var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
-    );
+    padding-block-start: var(--heading-10-padding-block-start, 0);
+    padding-block-end: var(--heading-10-padding-block-end, 0);
     font-weight: var(--heading-10-font-weight, 500);
     font-size: var(--fs-heading-10, var(--fallback-fs-heading-10, 0.8125rem));
     line-height: var(
@@ -12232,7 +12192,6 @@ h4.unstyled-heading,
 h5.unstyled-heading,
 h6.unstyled-heading,
 .unstyled-heading {
-    margin-block-end: 0;
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-normal, var(--fallback-fs-normal, 1.0625rem));
@@ -12321,7 +12280,6 @@ h6.unstyled-heading,
         --flow-margin--large,
         var(--fallback-flow-margin--large, 1.84375rem)
     );
-    margin-block-end: 0;
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-normal, var(--fallback-fs-normal, 1.0625rem));
@@ -17095,7 +17053,6 @@ th {
         --flow-margin--large,
         var(--fallback-flow-margin--large, 1.84375rem)
     );
-    margin-block-end: 0;
     font-family: inherit;
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-rel-normal, 1em);

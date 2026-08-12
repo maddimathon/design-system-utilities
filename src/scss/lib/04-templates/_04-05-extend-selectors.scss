@@ -43,6 +43,36 @@
         )
     );
 
+    // $_demo: utils.get-extend-selectors-button(
+    //     selector.unify(
+    //         config.$selector_a,
+    //         selector-button-variations(
+    //             $withDefault: true,
+    //         )
+    //     ),
+    //     $pseudo_base: 'button-link',
+    //     $pseudo_disabled: 'button-link-disabled',
+    //     $pseudo_disabled_visited: 'button-link-disabled-visited',
+    //     $pseudo_visited: 'button-link-visited'
+    // );
+    // $_js: meta.js-var-dump($_demo, 'button-link selectors');
+
+    $all: list.join(
+        $all,
+        utils.get-extend-selectors-button(
+            selector.unify(
+                config.$selector_a,
+                selector-button-variations(
+                    $withDefault: true,
+                )
+            ),
+            $pseudo_base: 'button-link',
+            $pseudo_disabled: 'button-link-disabled',
+            $pseudo_disabled_visited: 'button-link-disabled-visited',
+            $pseudo_visited: 'button-link-visited'
+        )
+    );
+
     $_buttonSelectorsBase: list.join(
         config.$selector_a,
         list.except(selector-buttons-basic(), #{selector.unify(config.$selector_a, '.button')}),
@@ -55,6 +85,17 @@
             utils.get-extend-selectors-button(
                 selector.unify($_buttonSelectorsBase, '.button-#{$variant}'),
                 $variant: $variant
+            )
+        );
+
+        $all: list.join(
+            $all,
+            utils.get-extend-selectors-button(
+                selector.unify(config.$selector_a, '.button-#{$variant}'),
+                $pseudo_base: 'button-link-#{$variant}',
+                $pseudo_disabled: 'button-link-disabled',
+                $pseudo_disabled_visited: 'button-link-disabled-visited',
+                $pseudo_visited: 'button-link-visited'
             )
         );
     }

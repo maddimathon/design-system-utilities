@@ -391,7 +391,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
             margin: {
                 block: {
                     start: '600',
-                    end: '200',
+                },
+            },
+            padding: {
+                block: {
+                    start: 0,
+                    end: 0,
                 },
             },
         };
@@ -410,6 +415,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 'letter-spacing': style['letter-spacing'],
                 'line-height': style['line-height'],
                 'text-transform': style['text-transform'],
+                padding: style.padding,
             }, partial, true);
         }
         if (headingAsNum >= 1) {
@@ -431,7 +437,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
         if (headingAsNum >= 5) {
             style.font.weight = '600';
             style.font.style = 'italic';
-            style.margin.block.end = '400';
         }
         if (headingAsNum >= 6) {
             style.font.weight = '500';
@@ -480,7 +485,12 @@ export class Tokens_CSS_Style extends AbstractTokens {
             style.margin = {
                 block: {
                     start: '200',
-                    end: headingStyles[6].margin.block.end,
+                },
+            };
+            style.padding = {
+                block: {
+                    start: 0,
+                    end: headingStyles[6].padding.block.end,
                 },
             };
         }

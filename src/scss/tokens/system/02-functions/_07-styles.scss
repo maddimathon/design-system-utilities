@@ -215,9 +215,11 @@
 
         // PADDING
         // prettier-ignore
-        @else if string.index($slug, -padding-) or string.index($slug, -padding) == ($_slugLength - 7) {
+        @else if string.index($slug, -padding-) or string.index($slug, -padding) == ($_slugLength - 7) {            
             @if $isAlertStyle or $isWidgetStyle {
                 $isMargin: true;
+            } @else if $isHeadingStyle or $isSubheadingStyle {
+                $isStrokeRelative: true;
             } @else {
                 $isPadding: true;
             }
@@ -242,7 +244,7 @@
         }
 
         // returns if a block margin
-        @if $isHeadingStyle {
+        @if $isHeadingStyle or $isSubheadingStyle {
             // returns
             @if string.index($slug, -margin-block-start) == ($_slugLength - 18) {
                 @return spacing.tokens-var-mrg-soft($value, $args...);
@@ -293,6 +295,19 @@
         // returns
         @if meta.type-of($value) == number {
             @return $value;
+        }
+
+        // returns if a block margin
+        @if $isHeadingStyle or $isSubheadingStyle {
+            // returns
+            @if string.index($slug, -padding-block-start) == ($_slugLength - 18) {
+                @return spacing.tokens-var-pad-soft($value, $args...);
+            }
+
+            // returns
+            @if string.index($slug, -padding-block-end) == ($_slugLength - 16) {
+                @return spacing.tokens-var-pad-half($value, $args...);
+            }
         }
 
         // returns
@@ -403,6 +418,11 @@
 
     // returns
     @if $isStrokeRelative {
+        // returns
+        @if meta.type-of($value) == number {
+            @return $value;
+        }
+
         @return borders.tokens-var-stroke-relative($value, $args...);
     }
 
@@ -426,7 +446,7 @@
     $slug,
     $fallback: null,
     $fallbackOnly: false,
-    $neverReplaceWithValue: false,
+    $neverReplaceWithValue: null,
     $raw: false,
     $rawUnit: 1,
     $value_failureReturn: $slug,
@@ -469,19 +489,21 @@
         );
     }
 
-    @if string.index($slug, focus-ring-) == 1 {
-        $neverReplaceWithValue: true;
-    } @else if string.index($slug, icon-) == 1 {
-        $neverReplaceWithValue: true;
-    } @else if
-        config.$fn_var_neverReplaceWithValue_style_regex and
-        string.match(
-            $slug,
-            config.$fn_var_neverReplaceWithValue_style_regex,
-            $flags: config.$fn_var_neverReplaceWithValue_style_regex_flags
-        )
-    {
-        $neverReplaceWithValue: true;
+    @if $neverReplaceWithValue == null {
+        @if string.index($slug, focus-ring-) == 1 {
+            $neverReplaceWithValue: true;
+        } @else if string.index($slug, icon-) == 1 {
+            $neverReplaceWithValue: true;
+        } @else if
+            config.$fn_var_neverReplaceWithValue_style_regex and
+            string.match(
+                $slug,
+                config.$fn_var_neverReplaceWithValue_style_regex,
+                $flags: config.$fn_var_neverReplaceWithValue_style_regex_flags
+            )
+        {
+            $neverReplaceWithValue: true;
+        }
     }
 
     @return config.config-do-var(

@@ -560,7 +560,13 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             margin: {
                 block: {
                     start: '600',
-                    end: '200',
+                },
+            },
+
+            padding: {
+                block: {
+                    start: 0,
+                    end: 0,
                 },
             },
         };
@@ -585,6 +591,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     'line-height': style[ 'line-height' ],
                     'text-transform': style[ 'text-transform' ],
 
+                    padding: style.padding,
                 } satisfies Tokens_CSS_Style.HeadingStyles_Unstyled,
                 partial,
                 true,
@@ -614,7 +621,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         if ( headingAsNum >= 5 ) {
             style.font.weight = '600';
             style.font.style = 'italic';
-            style.margin.block.end = '400';
         }
 
         if ( headingAsNum >= 6 ) {
@@ -687,7 +693,13 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             style.margin = {
                 block: {
                     start: '200',
-                    end: headingStyles[ 6 ].margin.block.end,
+                },
+            };
+
+            style.padding = {
+                block: {
+                    start: 0,
+                    end: headingStyles[ 6 ].padding.block.end,
                 },
             };
         }
@@ -1446,7 +1458,13 @@ export namespace Tokens_CSS_Style {
         margin: {
             block: {
                 start: 0 | AnyTokenLevel;
-                end: 0 | AnyTokenLevel;
+            };
+        };
+
+        padding: {
+            block: {
+                start: 0 | CSS.Number.Em | AnyTokenLevel;
+                end: 0 | CSS.Number.Em | AnyTokenLevel;
             };
         };
     };
