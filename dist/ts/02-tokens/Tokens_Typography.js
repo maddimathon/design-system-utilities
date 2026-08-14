@@ -55,7 +55,7 @@ export class Tokens_Typography extends AbstractTokens {
                 },
                 bigger: {},
             },
-            baseSize: 1.0625,
+            sizeBase: 1.0625,
         };
     }
     data;
@@ -63,7 +63,10 @@ export class Tokens_Typography extends AbstractTokens {
     constructor(spacing, input) {
         super();
         this.spacing = spacing;
-        this.data = mergeArgs(Tokens_Typography.default, {
+        this.data = mergeArgs({
+            ...Tokens_Typography.default,
+            sizeMultiplier: spacing.data.multiplier,
+        }, {
             ...input,
             fonts: {
                 ...input.fonts,
@@ -103,7 +106,7 @@ export class Tokens_Typography extends AbstractTokens {
     }
     toJSON() {
         const sizeConverter = (num) => {
-            const rem = roundToPixel(Math.pow(this.spacing.data.multiplier, num) * this.data.baseSize, 32);
+            const rem = roundToPixel(Math.pow(this.data.sizeMultiplier, num) * this.data.sizeBase, 32);
             return {
                 px: roundToPixel(rem * 16, 2),
                 pt: roundToPixel(rem * 11, 2),
@@ -200,7 +203,8 @@ export class Tokens_Typography extends AbstractTokens {
             font: {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
-                baseSize: this.data.baseSize,
+                size_base: this.data.sizeBase,
+                size_multiplier: this.data.sizeMultiplier,
                 family: this.data.fonts && objectMap(this.data.fonts, ([__key, family]) => family && {
                     contentWidthScale: family.contentWidthScale,
                     css: family.css,

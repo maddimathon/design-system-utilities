@@ -84,6 +84,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 @mixin snippet-widget-block(
     $background: null,
     $borderColor: var-style(widget-border-color),
+    $display: flex,
     $lineHeight: var-style(widget-line-height),
     $gap: false,
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
@@ -109,8 +110,12 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
         $background: var-style(widget-background);
     }
 
-    @include prop-display(flex);
-    @include utils.snippet-body-grid--flex-container;
+    @if $display != false {
+        @include prop-display($display);
+        @if $display == flex {
+            @include utils.snippet-body-grid--flex-container;
+        }
+    }
 
     @if $marginBlock != false {
         margin-block: $marginBlock;
@@ -206,7 +211,11 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     }
 
     @if $includeFlowMargins {
-        @include set-flow-margins-by-token(widget);
+        @include set-flow-margins-by-token(widget) {
+            @if $multipleContentBlocks {
+                @content (set-flow-margins);
+            }
+        }
     }
 }
 

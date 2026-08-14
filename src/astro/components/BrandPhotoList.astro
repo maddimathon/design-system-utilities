@@ -35,7 +35,7 @@ export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = Tok
     copyCredit?:undefined | boolean;
 
     defineSize?: boolean;
-    displayHeading?: false | number;
+    displayHeading?: undefined | number;
 
     heading: number;
     includeCaption?: undefined | boolean;
@@ -59,7 +59,7 @@ const {
     class: classList = [],
     copyCredit,
     defineSize,
-    displayHeading = false,
+    displayHeading = -1,
     heading,
     includeCaption,
     includeCaptionMeta,
@@ -128,7 +128,7 @@ const photosOnly = photosData
                 <div class='brand-photo-list__sample-container'>
                     <Heading
                         class:list={{
-                            'screen-reader-text': displayHeading === false,
+                            'screen-reader-text': displayHeading < 0,
                         }}
                         displayHeading={displayHeading}
                         fallbackTag='span'

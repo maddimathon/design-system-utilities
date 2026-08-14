@@ -43,7 +43,7 @@ export class Tokens_Typography<
     scss: Tokens_Typography.ScssVars<T_FontFamilySlug>;
 }> {
 
-    public static get default(): Tokens_Typography.Data<never> {
+    public static get default(): Omit<Tokens_Typography.Data<never>, 'sizeMultiplier'> {
         return {
 
             lineHeight: {
@@ -88,7 +88,7 @@ export class Tokens_Typography<
                 },
             },
 
-            baseSize: 1.0625,
+            sizeBase: 1.0625,
         };
     }
 
@@ -107,7 +107,10 @@ export class Tokens_Typography<
         super();
 
         this.data = mergeArgs(
-            Tokens_Typography.default as Tokens_Typography.Data<T_FontFamilySlug>,
+            {
+                ...Tokens_Typography.default,
+                sizeMultiplier: spacing.data.multiplier,
+            } as Tokens_Typography.Data<T_FontFamilySlug>,
             {
                 ...input,
                 fonts: {
@@ -172,7 +175,7 @@ export class Tokens_Typography<
         type SizeJson = Tokens_Typography.JsonReturn<T_FontFamilySlug>[ 'size' ][ 'title' ];
 
         const sizeConverter = ( num: number ) => {
-            const rem = roundToPixel( Math.pow( this.spacing.data.multiplier, num ) * this.data.baseSize, 32 );
+            const rem = roundToPixel( Math.pow( this.data.sizeMultiplier, num ) * this.data.sizeBase, 32 );
 
             return {
                 px: roundToPixel( rem * 16, 2 ),
@@ -326,8 +329,8 @@ export class Tokens_Typography<
             font: {
                 // UPGRADE - make empty size objects equal to null
                 size: this.data.size,
-
-                baseSize: this.data.baseSize,
+                size_base: this.data.sizeBase,
+                size_multiplier: this.data.sizeMultiplier,
 
                 family: this.data.fonts && objectMap(
                     this.data.fonts,
@@ -425,9 +428,16 @@ export namespace Tokens_Typography {
         };
 
         /**
-         * @since ___PKG_VERSION___ — Renamed from sizeScale to baseSize.
+         * @since ___PKG_VERSION___ — Renamed from sizeScale to sizeBase.
          */
-        baseSize: number;
+        sizeBase: number;
+
+        /**
+         * To overrule the value in spacing tokens, optionally.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        sizeMultiplier: number;
     };
 
     /**
@@ -482,7 +492,8 @@ export namespace Tokens_Typography {
             };
 
             size: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'size' ];
-            baseSize: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'baseSize' ];
+            size_base: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'sizeBase' ];
+            size_multiplier: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'sizeMultiplier' ];
         };
 
         line_height: Tokens_Typography.Data<T_FontFamilySlug, number>[ 'lineHeight' ];

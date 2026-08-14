@@ -64,34 +64,36 @@
         );
 
         @if $_fallback != false {
-            @if $_fallback !=
-                null or
-                ($includeBase and $includeFallbackWithBase)
+            @if ($_fallback != null) or
+                (
+                    not
+                        $_hasOverride and
+                        $includeBase and
+                        $includeFallbackWithBase
+                )
             {
-                @if not $_hasOverride and $_fallback == null {
+                @if $_fallback == null {
                     $_fallback: style-value($prop);
                 }
 
-                @if $_fallback != null {
-                    @include utils.cx-prop(
-                        $prop,
-                        if(
-                            $_hasOverride,
-                            $_fallback,
-                            #{var-style(
-                                    $_styleKey,
-                                    $fallback: $_fallback,
-                                    $fallbackOnly: if(
-                                            not $_prefixExists,
-                                            true,
-                                            null
-                                        ),
-                                    $neverReplaceWithValue: false
-                                )}#{$importantSuffix}
-                        ),
-                        $allPrefixes: true
-                    );
-                }
+                @include utils.cx-prop(
+                    $prop,
+                    if(
+                        $_hasOverride,
+                        $_fallback,
+                        #{var-style(
+                                $_styleKey,
+                                $fallback: $_fallback,
+                                $fallbackOnly: if(
+                                        not $_prefixExists,
+                                        true,
+                                        null
+                                    ),
+                                $neverReplaceWithValue: false
+                            )}#{$importantSuffix}
+                    ),
+                    $allPrefixes: true
+                );
             }
         }
     }

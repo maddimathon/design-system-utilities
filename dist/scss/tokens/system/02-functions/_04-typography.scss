@@ -245,10 +245,9 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
         config.$fn_var_replaceWithValue_fontSize;
 
     @if $relative {
-        // prettier-ignore
-        $returnFallbackOnly: $returnFallbackOnly 
-            or not config.$mx_tokens_fontSize_printRelative 
-            or $slug == normal;
+        $returnFallbackOnly: $returnFallbackOnly or
+            (not config.$mx_tokens_fontSize_printRelative) or
+            ($slug == normal);
     }
 
     @return config.config-do-var(

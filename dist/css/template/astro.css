@@ -1146,30 +1146,38 @@ html {
     --toggle-content-padding-block: var(--mrg-soft-400, 0.78125rem);
     --toggle-content-padding-inline: var(--mrg-firm-400, 1.25rem);
     --toggle-control-margin-block-end: 0;
-    --toggle-control-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-padding-block-end: 0;
+    --toggle-control-padding-block-start: 0;
     --toggle-control-heading-1-margin-block-end: 0;
-    --toggle-control-heading-1-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-1-padding-block-end: 0;
+    --toggle-control-heading-1-padding-block-start: 0;
     --toggle-control-heading-10-margin-block-end: 0;
-    --toggle-control-heading-10-padding-block-end: var(
-        --pad-soft-200,
-        0.3125em
-    );
+    --toggle-control-heading-10-padding-block-end: 0;
+    --toggle-control-heading-10-padding-block-start: 0;
     --toggle-control-heading-2-margin-block-end: 0;
-    --toggle-control-heading-2-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-2-padding-block-end: 0;
+    --toggle-control-heading-2-padding-block-start: 0;
     --toggle-control-heading-3-margin-block-end: 0;
-    --toggle-control-heading-3-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-3-padding-block-end: 0;
+    --toggle-control-heading-3-padding-block-start: 0;
     --toggle-control-heading-4-margin-block-end: 0;
-    --toggle-control-heading-4-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-4-padding-block-end: 0;
+    --toggle-control-heading-4-padding-block-start: 0;
     --toggle-control-heading-5-margin-block-end: 0;
-    --toggle-control-heading-5-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-5-padding-block-end: 0;
+    --toggle-control-heading-5-padding-block-start: 0;
     --toggle-control-heading-6-margin-block-end: 0;
-    --toggle-control-heading-6-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-6-padding-block-end: 0;
+    --toggle-control-heading-6-padding-block-start: 0;
     --toggle-control-heading-7-margin-block-end: 0;
-    --toggle-control-heading-7-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-7-padding-block-end: 0;
+    --toggle-control-heading-7-padding-block-start: 0;
     --toggle-control-heading-8-margin-block-end: 0;
-    --toggle-control-heading-8-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-8-padding-block-end: 0;
+    --toggle-control-heading-8-padding-block-start: 0;
     --toggle-control-heading-9-margin-block-end: 0;
-    --toggle-control-heading-9-padding-block-end: var(--pad-soft-200, 0.3125em);
+    --toggle-control-heading-9-padding-block-end: 0;
+    --toggle-control-heading-9-padding-block-start: 0;
     --toggle-icon-buffer-end: 0.25em;
     --toggle-icon-buffer-start: 0;
     --toggle-icon-size: 1em;
@@ -11347,7 +11355,7 @@ body
     font-size: var(--fs-smaller-1, 0.9375rem);
 }
 
-.font-size-heading-unstyled {
+.font-size-unstyled-heading {
     font-size: 1.0625rem;
     font-size: var(--fs-normal, 1.0625rem);
 }
@@ -14207,6 +14215,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle;
     padding-top: 0;
+    padding-bottom: 0;
     text-wrap: balance;
 }
 .toggle-title > .unstyled-heading [data-toggle-control] code,
@@ -14270,6 +14279,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h1 [data-toggle-control],
 .toggle-title > h1 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 900;
     font-size: clamp(2.25rem, 1.59375svw + 1.875rem, 3.875rem);
     font-size: var(--fs-heading-1, 2.9375rem);
@@ -14285,6 +14295,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h2 [data-toggle-control],
 .toggle-title > h2 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 800;
     font-size: clamp(1.75rem, 1.125svw + 1.4375rem, 2.875rem);
     font-size: var(--fs-heading-2, 2.1875rem);
@@ -14300,6 +14311,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h3 [data-toggle-control],
 .toggle-title > h3 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 700;
     font-size: clamp(1.5rem, 0.84375svw + 1.3125rem, 2.375rem);
     font-size: var(--fs-heading-3, 1.9375rem);
@@ -14315,6 +14327,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h4 [data-toggle-control],
 .toggle-title > h4 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 700;
     font-size: clamp(1.3125rem, 0.71875svw + 1.125rem, 2.0625rem);
     font-size: var(--fs-heading-4, 1.6875rem);
@@ -14338,6 +14351,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h5 [data-toggle-control],
 .toggle-title > h5 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 600;
     font-size: clamp(1.1875rem, 0.59375svw + 1.0625rem, 1.8125rem);
     font-size: var(--fs-heading-5, 1.375rem);
@@ -14361,6 +14375,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h6 [data-toggle-control],
 .toggle-title > h6 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 500;
     font-size: clamp(1rem, 0.53125svw + 0.875rem, 1.5rem);
     font-size: var(--fs-heading-6, 1.25rem);
@@ -14383,6 +14398,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 .toggle-title > .h7 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 500;
     font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
     font-size: var(--fs-heading-7, 1rem);
@@ -14397,6 +14413,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 .toggle-title > .h8 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 500;
     font-size: clamp(0.875rem, 0.25svw + 0.8125rem, 1.125rem);
     font-size: var(--fs-heading-8, 0.9375rem);
@@ -14417,6 +14434,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 .toggle-title > .h9 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 500;
     font-size: clamp(0.8125rem, 0.1875svw + 0.75rem, 1rem);
     font-size: var(--fs-heading-9, 0.875rem);
@@ -14437,6 +14455,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 .toggle-title > .h10 [data-toggle-control] {
     padding-top: 0;
+    padding-bottom: 0;
     font-weight: 500;
     font-size: clamp(0.75rem, 0.1875svw + 0.6875rem, 0.9375rem);
     font-size: var(--fs-heading-10, 0.8125rem);
@@ -14456,6 +14475,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-style: italic;
 }
 .toggle-title > .unstyled-heading [data-toggle-control] {
+    padding-bottom: 0;
     font-family: inherit;
     font-weight: 600;
     font-size: 1.0625rem;
@@ -14577,9 +14597,10 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     -moz-appearance: button;
     appearance: button;
     cursor: pointer;
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-link, LinkText);
@@ -14902,86 +14923,147 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     color: var(--theme-link-active, ActiveText);
 }
 
+:where(.js) .toggle-title > .h1,
+:where(.js) .toggle-title > h1 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h1 [data-toggle-control],
 :where(.js) .toggle-title > h1 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-1, CanvasText);
 }
+:where(.js) .toggle-title > .h2,
+:where(.js) .toggle-title > h2 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h2 [data-toggle-control],
 :where(.js) .toggle-title > h2 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-2, CanvasText);
 }
+:where(.js) .toggle-title > .h3,
+:where(.js) .toggle-title > h3 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h3 [data-toggle-control],
 :where(.js) .toggle-title > h3 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-3, CanvasText);
 }
+:where(.js) .toggle-title > .h4,
+:where(.js) .toggle-title > h4 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h4 [data-toggle-control],
 :where(.js) .toggle-title > h4 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-4, CanvasText);
 }
+:where(.js) .toggle-title > .h5,
+:where(.js) .toggle-title > h5 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h5 [data-toggle-control],
 :where(.js) .toggle-title > h5 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-5, CanvasText);
 }
+:where(.js) .toggle-title > .h6,
+:where(.js) .toggle-title > h6 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h6 [data-toggle-control],
 :where(.js) .toggle-title > h6 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-6, CanvasText);
 }
+:where(.js) .toggle-title > .h7 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h7 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-7, CanvasText);
 }
+:where(.js) .toggle-title > .h8 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h8 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-8, CanvasText);
 }
+:where(.js) .toggle-title > .h9 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h9 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-9, CanvasText);
 }
+:where(.js) .toggle-title > .h10 {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .h10 [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-10, CanvasText);
 }
+:where(.js) .toggle-title > .unstyled-heading {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 :where(.js) .toggle-title > .unstyled-heading [data-toggle-control] {
+    margin-top: 0;
     margin-bottom: 0;
-    padding-bottom: 0.3125em;
-    padding-bottom: var(--pad-soft-200, 0.3125em);
+    padding-top: 0;
+    padding-bottom: 0;
 }
 :where(.js) .toggle-title > .unstyled-heading,
 :where(.js) .toggle-title > .page-title,

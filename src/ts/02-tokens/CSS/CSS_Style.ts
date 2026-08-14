@@ -150,7 +150,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                         async ( hdg ) => Tokens_CSS_Style.subheadingStyle<T_Params, typeof hdg>( hdg, heading, partial.subheading?.[ hdg ] )
                     ),
 
-                    Tokens_CSS_Style.toggleStyle<T_Params>( icon, widget, partial.toggle ),
+                    Tokens_CSS_Style.toggleStyle<T_Params>( heading, icon, widget, partial.toggle ),
                 ] );
 
                 const flowMargin_button_default = partial?.[ 'flow-margin' ]?.small ?? '200' satisfies AnyTokenLevel;
@@ -852,6 +852,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
      * @since ___PKG_VERSION___
      */
     public static async toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        headingStyles: Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
         iconStyles: Tokens_CSS_Style.IconStyles<never>,
         widgetStyles: Tokens_CSS_Style.WidgetStyles,
         partial: Tokens_CSS_Style.InputParam<T_Params>[ 'toggle' ] = {},
@@ -886,86 +887,43 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             self: 'margins-flow-firm',
         } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'flow-margin' ];
 
-        const headingMaker = ( num: number | 'unstyled' ): Tokens_CSS_Style.ToggleStyles_ControlHeading => {
-
-            const style = {
-                margin: {
-                    block: {
-                        end: 0,
-                    },
-                },
-
-                padding: {
-                    block: {
-                        end: '200',
-                    },
-                },
-            } satisfies Tokens_CSS_Style.ToggleStyles_ControlHeading;
+        const headingMaker = (
+            num: 'unstyled' | keyof Tokens_CSS_Style.ToggleStyles[ 'control' ][ 'heading' ]
+        ): Tokens_CSS_Style.ToggleStyles_ControlHeading => {
 
             // returns
             if ( num === 'unstyled' ) {
                 return {
                     margin: {
                         block: {
-                            end: partial.control?.$?.margin?.block?.end ?? style.margin.block.end,
+                            end: partial.control?.$?.margin?.block?.end ?? 0,
                         },
                     },
 
                     padding: {
                         block: {
-                            end: partial.control?.$?.padding?.block?.end ?? style.padding.block.end,
+                            start: partial.control?.$?.padding?.block?.start ?? headingStyles[ num ].padding.block.end,
+                            end: partial.control?.$?.padding?.block?.end ?? headingStyles[ num ].padding.block.end,
                         },
                     },
                 } satisfies Tokens_CSS_Style.ToggleStyles_ControlHeading;
             }
 
-            // if ( num >= 1 ) {
-            // style.padding.block.end = 0;
-            // }
-
-            // if ( num >= 2 ) {
-            // }
-
-            // if ( num >= 3 ) {
-            // }
-
-            // if ( num >= 4 ) {
-            // }
-
-            // if ( num >= 5 ) {
-            // }
-
-            // if ( num >= 6 ) {
-            // }
-
-            // if ( num >= 7 ) {
-            // }
-
-            // if ( num >= 8 ) {
-            // }
-
-            // if ( num >= 9 ) {
-            // }
-
-            // if ( num >= 10 ) {
-            // }
-
             return {
                 margin: {
                     block: {
-                        end: partial.control?.heading?.[ num ]?.margin?.block?.end ?? style.margin.block.end,
+                        end: partial.control?.$?.margin?.block?.end ?? 0,
                     },
                 },
 
                 padding: {
                     block: {
-                        end: partial.control?.heading?.[ num ]?.padding?.block?.end ?? style.padding.block.end,
+                        start: partial.control?.$?.padding?.block?.start ?? headingStyles[ num ]?.padding.block.start ?? 0,
+                        end: partial.control?.$?.padding?.block?.end ?? headingStyles[ num ]?.padding.block.end ?? 0,
                     },
                 },
             } satisfies Tokens_CSS_Style.ToggleStyles_ControlHeading;
         };
-
-        const defaultControl = headingMaker( 'unstyled' );
 
         const content = {
 
@@ -997,19 +955,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
         const control = {
 
-            $: {
-                margin: {
-                    block: {
-                        end: partial.control?.$?.margin?.block?.end ?? defaultControl.margin.block.end,
-                    },
-                },
-
-                padding: {
-                    block: {
-                        end: partial.control?.$?.padding?.block?.end ?? defaultControl.padding.block.end,
-                    },
-                },
-            },
+            $: headingMaker( 'unstyled' ),
 
             heading: mergeArgs(
                 objectGenerator(
@@ -1711,19 +1657,7 @@ export namespace Tokens_CSS_Style {
          * For the toggle control.
          */
         control: {
-            $: {
-                margin: {
-                    block: {
-                        end: 0 | AnyTokenLevel;
-                    };
-                };
-
-                padding: {
-                    block: {
-                        end: 0 | CSS.Number.Em | AnyTokenLevel;
-                    };
-                };
-            };
+            $: ToggleStyles_ControlHeading;
 
             heading: {
                 [ H in RequiredHeadingLevels ]: ToggleStyles_ControlHeading;
@@ -1781,14 +1715,12 @@ export namespace Tokens_CSS_Style {
     export type ToggleStyles_ControlHeading = {
         margin: {
             block: {
-                end: 0 | AnyTokenLevel;
+                end: HeadingStyles[ 'padding' ][ 'block' ][ 'end' ];
             };
         };
 
         padding: {
-            block: {
-                end: 0 | CSS.Number.Em | AnyTokenLevel;
-            };
+            block: HeadingStyles[ 'padding' ][ 'block' ];
         };
     };
 

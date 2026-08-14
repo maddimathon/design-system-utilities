@@ -151,6 +151,7 @@ $_closing_time: var-tr-time(toggle-closing);
     $args...
 ) {
     $control_marginBlockEnd: var-style(toggle-control-margin-block-end);
+    $control_paddingBlockStart: var-style(toggle-control-padding-block-start);
     $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
     @include utils.snippet-support-toggle-block(
@@ -431,8 +432,9 @@ $_closing_time: var-tr-time(toggle-closing);
             cursor: pointer;
 
             @if $location == js--toggle-control {
-                margin-block-end: $control_marginBlockEnd;
-                padding-block-end: $control_paddingBlockEnd;
+                margin-block: 0 $control_marginBlockEnd;
+                padding-block: $control_paddingBlockStart
+                    $control_paddingBlockEnd;
 
                 @include cx-prop(
                     focus-ring-outline-color,
@@ -489,7 +491,7 @@ $_closing_time: var-tr-time(toggle-closing);
                         $includeBase: true,
                         $includeChildren_link: false,
                         $includeMargin: false,
-                        $paddingBlockEnd: false,
+                        $paddingBlockEnd: 0,
                         $useRelativeFontSize: false
                     );
 
@@ -508,7 +510,7 @@ $_closing_time: var-tr-time(toggle-closing);
                             $includeBase: false,
                             $includeChildren_link: false,
                             $includeMargin: false,
-                            $paddingBlockEnd: false,
+                            $paddingBlockEnd: 0,
                             $useRelativeFontSize: false
                         );
 
@@ -528,7 +530,7 @@ $_closing_time: var-tr-time(toggle-closing);
                         $includeBase: false,
                         $includeColor: false,
                         $includeMargin: false,
-                        $paddingBlockEnd: false,
+                        $paddingBlockEnd: 0,
                         $useRelativeFontSize: false
                     );
 
@@ -579,15 +581,23 @@ $_closing_time: var-tr-time(toggle-closing);
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
                 > %h#{$slug} {
+                    padding-block: 0;
+
                     @content (#{$location}--h#{$slug});
 
                     [data-toggle-control] {
-                        margin-block-end: var-style(
-                            toggle-control-heading-#{$slug}-margin-block-end
-                        );
-                        padding-block-end: var-style(
-                            toggle-control-heading-#{$slug}-padding-block-end
-                        );
+                        margin-block: 0
+                            var-style(
+                                toggle-control-heading-#{$slug}-margin-block-end
+                            );
+
+                        padding-block: var-style(
+                                toggle-control-heading-#{$slug}-padding-block-start
+                            )
+                            var-style(
+                                toggle-control-heading-#{$slug}-padding-block-end
+                            );
+
                         color: var-theme(heading-#{$slug});
 
                         @content (#{$location}--h#{$slug}--control);
@@ -598,11 +608,14 @@ $_closing_time: var-tr-time(toggle-closing);
             // UNSTYLED HEADINGS
             & > %unstyled-heading,
             & > %unstyled-heading--where {
+                padding-block: 0;
+
                 @content (#{$location}--unstyled-heading);
 
                 [data-toggle-control] {
-                    margin-block-end: $control_marginBlockEnd;
-                    padding-block-end: $control_paddingBlockEnd;
+                    margin-block: 0 $control_marginBlockEnd;
+                    padding-block: $control_paddingBlockStart
+                        $control_paddingBlockEnd;
 
                     @content (#{$location}--unstyled-heading--control);
                 }

@@ -66,7 +66,7 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam<T_Params>['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
+    static toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(headingStyles: Tokens_CSS_Style.Data<T_Params>['heading'], iconStyles: Tokens_CSS_Style.IconStyles<never>, widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam<T_Params>['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -537,18 +537,7 @@ export declare namespace Tokens_CSS_Style {
          * For the toggle control.
          */
         control: {
-            $: {
-                margin: {
-                    block: {
-                        end: 0 | AnyTokenLevel;
-                    };
-                };
-                padding: {
-                    block: {
-                        end: 0 | CSS.Number.Em | AnyTokenLevel;
-                    };
-                };
-            };
+            $: ToggleStyles_ControlHeading;
             heading: {
                 [H in RequiredHeadingLevels]: ToggleStyles_ControlHeading;
             } & {
@@ -597,13 +586,11 @@ export declare namespace Tokens_CSS_Style {
     type ToggleStyles_ControlHeading = {
         margin: {
             block: {
-                end: 0 | AnyTokenLevel;
+                end: HeadingStyles['padding']['block']['end'];
             };
         };
         padding: {
-            block: {
-                end: 0 | CSS.Number.Em | AnyTokenLevel;
-            };
+            block: HeadingStyles['padding']['block'];
         };
     };
     /**

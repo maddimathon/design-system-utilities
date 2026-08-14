@@ -50,7 +50,9 @@ $colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
 // #region - FONTS
 $font: map.get(default.$designSystem, font);
 
-$fontSize_base: map.get($font, baseSize);
+$fontSize_base: map.get($font, size_base);
+
+$fontSize_multiplier: map.get($font, size_multiplier);
 
 $font_size: map.get($font, size);
 
@@ -103,7 +105,7 @@ $font_size: map.flatten($font_size);
             $font_size,
             $key,
             math.round-to-pixel(
-                math.pow($spacing_multiplier, $value),
+                math.pow($fontSize_multiplier, $value),
                 $factor: config.$math_fontSize_roundingFactor
             )
         );

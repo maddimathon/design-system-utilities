@@ -194,10 +194,9 @@
     );
 
     // CUSTOM PROPS
-    @if $defineCustomProps {
-        $_sel: if(selector.parent-exists(), '*', config.$selector_root);
-
-        #{selector.nest('>', if($childrenWhere, ':where(#{$_sel})', $_sel))} {
+    $_sel: if(selector.parent-exists(), '*', config.$selector_root);
+    #{selector.nest('>', if($childrenWhere, ':where(#{$_sel})', $_sel))} {
+        @if $defineCustomProps {
             @include cx-prop(flow-margin, $val_default);
             @include cx-prop(flow-margin--small, $val_small);
             @include cx-prop(flow-margin--large, $val_large);
@@ -223,6 +222,8 @@
                 do-var(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch)
             );
 
+            @content;
+
             @include feature-check.supports-not(touch) {
                 @include cx-prop(flow-margin-button-span-block, $val_buttonSpan_block);
                 @include cx-prop(flow-margin-button-span-inline, $val_buttonSpan_inline);
@@ -236,6 +237,8 @@
                     do-var(flow-margin-button-span-inline, $val_buttonSpan_inline)
                 );
             }
+        } @else {
+            @content;
         }
     }
 
@@ -433,7 +436,9 @@
             ),
         //
         $args...
-    );
+    ) {
+        @content;
+    }
 }
 
 ///
@@ -680,13 +685,17 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $fontWeight_strong: null,
     $fontSize: null,
     $fontStyle: null,
+    $letterSpacing: null,
     $lineHeight: null,
-    $link_decorationThickness: null,
-    $link_focusOutlineOffset: 0,
-    $link_underlineOffset: null,
     $marginBlockStart: null,
     $paddingBlockEnd: null,
     $paddingBlockStart: null,
+    $textTransform: null,
+    //
+    $link_decorationThickness: null,
+    $link_focusOutlineOffset: 0,
+    $link_underlineOffset: null,
+    //
     $subheading_fontWeight: null,
     $subheading_fontWeight_strong: null,
     //
@@ -835,8 +844,17 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         );
 
         $fontWeight: if($fontWeight != null, $fontWeight, var-style(heading-#{$slug}-font-weight));
-
+        $letterSpacing: if(
+            $letterSpacing != null,
+            $letterSpacing,
+            var-style(heading-#{$slug}-letter-spacing)
+        );
         $lineHeight: if($lineHeight != null, $lineHeight, var-style(heading-#{$slug}-line-height));
+        $textTransform: if(
+            $textTransform != null,
+            $textTransform,
+            var-style(heading-#{$slug}-text-transform)
+        );
 
         @if $fontWeight != false {
             font-weight: $fontWeight;
@@ -850,8 +868,13 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             line-height: $lineHeight;
         }
 
-        letter-spacing: var-style(heading-#{$slug}-letter-spacing);
-        text-transform: var-style(heading-#{$slug}-text-transform);
+        @if $letterSpacing != false {
+            letter-spacing: $letterSpacing;
+        }
+
+        @if $textTransform != false {
+            text-transform: $textTransform;
+        }
     }
 
     @if $includeBase {

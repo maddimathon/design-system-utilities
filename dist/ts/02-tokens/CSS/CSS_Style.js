@@ -102,7 +102,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 Tokens_CSS_Style.buttonStyle(icon, partial.button),
                 Tokens_CSS_Style.inputStyle(partial.input),
                 objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
-                Tokens_CSS_Style.toggleStyle(icon, widget, partial.toggle),
+                Tokens_CSS_Style.toggleStyle(heading, icon, widget, partial.toggle),
             ]);
             const flowMargin_button_default = partial?.['flow-margin']?.small ?? '200';
             const flowMargin_button_touch = partial?.['flow-margin']?.$ ?? '300';
@@ -603,7 +603,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    static async toggleStyle(iconStyles, widgetStyles, partial = {}) {
+    static async toggleStyle(headingStyles, iconStyles, widgetStyles, partial = {}) {
         const flowMargins_widget_button = typeof widgetStyles['flow-margin'].button === 'object'
             ? widgetStyles['flow-margin'].button
             : {
@@ -626,68 +626,36 @@ export class Tokens_CSS_Style extends AbstractTokens {
             self: 'margins-flow-firm',
         };
         const headingMaker = (num) => {
-            const style = {
-                margin: {
-                    block: {
-                        end: 0,
-                    },
-                },
-                padding: {
-                    block: {
-                        end: '200',
-                    },
-                },
-            };
             // returns
             if (num === 'unstyled') {
                 return {
                     margin: {
                         block: {
-                            end: partial.control?.$?.margin?.block?.end ?? style.margin.block.end,
+                            end: partial.control?.$?.margin?.block?.end ?? 0,
                         },
                     },
                     padding: {
                         block: {
-                            end: partial.control?.$?.padding?.block?.end ?? style.padding.block.end,
+                            start: partial.control?.$?.padding?.block?.start ?? headingStyles[num].padding.block.end,
+                            end: partial.control?.$?.padding?.block?.end ?? headingStyles[num].padding.block.end,
                         },
                     },
                 };
             }
-            // if ( num >= 1 ) {
-            // style.padding.block.end = 0;
-            // }
-            // if ( num >= 2 ) {
-            // }
-            // if ( num >= 3 ) {
-            // }
-            // if ( num >= 4 ) {
-            // }
-            // if ( num >= 5 ) {
-            // }
-            // if ( num >= 6 ) {
-            // }
-            // if ( num >= 7 ) {
-            // }
-            // if ( num >= 8 ) {
-            // }
-            // if ( num >= 9 ) {
-            // }
-            // if ( num >= 10 ) {
-            // }
             return {
                 margin: {
                     block: {
-                        end: partial.control?.heading?.[num]?.margin?.block?.end ?? style.margin.block.end,
+                        end: partial.control?.$?.margin?.block?.end ?? 0,
                     },
                 },
                 padding: {
                     block: {
-                        end: partial.control?.heading?.[num]?.padding?.block?.end ?? style.padding.block.end,
+                        start: partial.control?.$?.padding?.block?.start ?? headingStyles[num]?.padding.block.start ?? 0,
+                        end: partial.control?.$?.padding?.block?.end ?? headingStyles[num]?.padding.block.end ?? 0,
                     },
                 },
             };
         };
-        const defaultControl = headingMaker('unstyled');
         const content = {
             background: partial.content?.background ?? widgetStyles.background,
             border: {
@@ -708,18 +676,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
         };
         const control = {
-            $: {
-                margin: {
-                    block: {
-                        end: partial.control?.$?.margin?.block?.end ?? defaultControl.margin.block.end,
-                    },
-                },
-                padding: {
-                    block: {
-                        end: partial.control?.$?.padding?.block?.end ?? defaultControl.padding.block.end,
-                    },
-                },
-            },
+            $: headingMaker('unstyled'),
             heading: mergeArgs(objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], headingMaker), deleteUndefinedProps(partial.control?.heading ?? {}), true),
         };
         return {

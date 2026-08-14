@@ -23,7 +23,7 @@ export declare class Tokens_Typography<T_FontFamilySlug extends string> extends 
     scss: Tokens_Typography.ScssVars<T_FontFamilySlug>;
 }> {
     protected readonly spacing: Tokens_Spacing;
-    static get default(): Tokens_Typography.Data<never>;
+    static get default(): Omit<Tokens_Typography.Data<never>, 'sizeMultiplier'>;
     readonly data: Tokens_Typography.Data<T_FontFamilySlug>;
     readonly familyOverrides: undefined | {
         [F in Tokens_Typography.DefaultFontFamilies]?: undefined | Tokens_Typography.Font.FamilyOverride;
@@ -78,9 +78,15 @@ export declare namespace Tokens_Typography {
             [key: string]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
         /**
-         * @since 0.1.0-beta.0.draft — Renamed from sizeScale to baseSize.
+         * @since 0.1.0-beta.0.draft — Renamed from sizeScale to sizeBase.
          */
-        baseSize: number;
+        sizeBase: number;
+        /**
+         * To overrule the value in spacing tokens, optionally.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        sizeMultiplier: number;
     };
     /**
      * @since 0.1.0-alpha
@@ -118,7 +124,8 @@ export declare namespace Tokens_Typography {
                 [K in T_FontFamilySlug]?: undefined | Tokens_Typography.Font.FamilyOverride;
             };
             size: Tokens_Typography.Data<T_FontFamilySlug, number>['size'];
-            baseSize: Tokens_Typography.Data<T_FontFamilySlug, number>['baseSize'];
+            size_base: Tokens_Typography.Data<T_FontFamilySlug, number>['sizeBase'];
+            size_multiplier: Tokens_Typography.Data<T_FontFamilySlug, number>['sizeMultiplier'];
         };
         line_height: Tokens_Typography.Data<T_FontFamilySlug, number>['lineHeight'];
     };

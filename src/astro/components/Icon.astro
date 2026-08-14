@@ -38,5 +38,7 @@ const {
     {...attributes}
     aria-hidden={ariaHidden ? true : undefined}
     class:list={['icon', `icon--${icon.slug}`, { '||': classList }, classList]}
-    set:html={icon.svgInlineLabelled.trim()}
+    set:html={ariaHidden
+        ? icon.svgInlineHidden.trim()
+        : icon.svgInlineLabelled.trim()}
 />
