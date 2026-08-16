@@ -168,7 +168,7 @@ export declare namespace getBrandConstants {
                  *
                  * @since 0.1.0-beta.0.draft
                  */
-                type Value = string[] | Record<number | string, string>;
+                type Value = string | string[] | Record<number | string, string>;
                 /**
                  * @template T_ConstName Constant name.
                  * @template T_Value Constant value in JS.
@@ -250,7 +250,7 @@ export declare namespace getBrandConstants {
                  *
                  * @since 0.1.0-beta.0.draft
                  */
-                type Value = string[] | Record<number | string, string>;
+                type Value = string | string[] | Record<number | string, string>;
                 /**
                  * @template T_ConstName Constant name.
                  * @template T_Value Constant value in JS.

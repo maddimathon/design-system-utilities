@@ -45,42 +45,42 @@ $_closing_time: var-tr-time(toggle-closing);
     $includeAside: true,
     $args...
 ) {
-    // prettier-ignore
+    $_paddingBlock_hasIconOnlyChild: var-mrg-firm(
+        style-value(button-padding-block, $raw: true)
+    );
+
     @include utils.snippet-support-site-settings-menu(
-        $includeBaseStyles: false,
-        $fieldset_flexContainer_alignment: $fieldset_flexContainer_alignment,
-        $fieldset_flexContainer_direction: $fieldset_flexContainer_direction,
-        $fieldset_flexContainer_gap: $fieldset_flexContainer_gap,
-        $args...
-    ) using ($location) {
-        
+            $includeBaseStyles: false,
+            $fieldset_flexContainer_alignment: $fieldset_flexContainer_alignment,
+            $fieldset_flexContainer_direction: $fieldset_flexContainer_direction,
+            $fieldset_flexContainer_gap: $fieldset_flexContainer_gap,
+            $args...
+        )
+        using ($location) {
+        //
         @if $location == settings-menu {
-            @content($location);
+            @content ($location);
         }
-        
+        //
         @else if $location == settings-menu--container {
             justify-content: start;
             align-content: end;
             align-items: end;
-            
-            @content($location);
+
+            @content ($location);
         }
-        
+        //
         @else if $location == content {
             background: var-theme(background);
             width: 100%;
             max-width: min(var-width(content), 90vw);
 
-            @content($location);
+            @content ($location);
 
-            > :first-child {
-                margin-block-start: 0 !important;
-            }
-            > :last-child {
-                margin-block-end: 0 !important;
-            }
+            @include first-child-no-top-margin;
+            @include last-child-no-bottom-margin;
         }
-        
+        //
         @else if $location == content--fieldset {
             margin-block: $fieldset_marginBlock;
             margin-inline: $fieldset_marginInline;
@@ -88,30 +88,34 @@ $_closing_time: var-tr-time(toggle-closing);
             padding-block: $fieldset_paddingBlock;
             padding-inline: $fieldset_paddingInline;
 
-            @content($location);
+            @content ($location);
         }
-        
+        //
         @else if $location == disclaimer {
             font-style: $disclaimer_fontStyle;
             font-size: $disclaimer_fontSize;
 
-            @content($location);
+            @content ($location);
         }
-        
+        //
         @else if $location == js--settings-menu--control {
             @include snippet-button(
-                $variation: tokens.$button_variation_siteSettings,
-                $focus_includeFallbacks: false,
+                    $variation: tokens.$button_variation_siteSettings,
+                    $focus_includeFallbacks: false,
 
-                $includeDisabled: false,
-                $includeHeight: false,
-                $includeInline: false,
-                $includeMarginBlock: false,
-                $includePosition: false,
-                $includeTextBasics: false,
-                $includeVisited: false,
-                $multipleContentBlocks: true,
-            ) using ($_button_location) {
+                    $paddingBlock_hasIconOnlyChild:
+                        $_paddingBlock_hasIconOnlyChild,
+
+                    $includeDisabled: false,
+                    $includeHeight: false,
+                    $includeInline: false,
+                    $includeMarginBlock: false,
+                    $includePosition: false,
+                    $includeTextBasics: false,
+                    $includeVisited: false,
+                    $multipleContentBlocks: true
+                )
+                using ($_button_location) {
                 @if $_button_location == root {
                     @include cx-prop(icon-size, do-var(icon-size-large));
                     margin-block: 0;
@@ -119,12 +123,12 @@ $_closing_time: var-tr-time(toggle-closing);
                     justify-self: end;
                 }
 
-                @content(#{$location}--#{$_button_location});
+                @content (#{$location}--#{$_button_location});
             }
 
-            @content($location);
+            @content ($location);
         }
-
+        //
         @else if $location == js--settings-menu--control--backdrop {
             margin: 0;
             padding: 0;
@@ -136,44 +140,54 @@ $_closing_time: var-tr-time(toggle-closing);
             border-radius: 0;
 
             opacity: 1;
-            
-            @content($location);
+
+            @content ($location);
         }
-        
+        //
         @else if $location == js--settings-menu--content {
             /* border: none; */
             border-block-width: 0;
-            
-            @content($location);
-        }
-        
-        @else if $location == js--settings-menu--open--content {
-            max-height: 80svh;
-            max-height: calc(
-                95svh - do-var(
-                        scroll-padding-top,
-                        calc(2.75rem + (var-gap-block(layout-half) * 2))
-                    )
-            );
 
+            @content ($location);
+        }
+        //
+        @else if $location == js--settings-menu--open--content {
             border-block-width: $content_borderWidth;
 
-            @content($location);
+            @content ($location);
         }
-        
+        //
         @else if $location == js--settings-menu--open--content--container {
             margin-block: do-var(flow-margin-firm-end);
             padding-block: var-style(widget-padding-block);
 
-            @content($location);
+            max-height: math.add-unit(
+                100 -
+                    (
+                        meta.defined-else(
+                                map.get(tokens.$gap, block, layout),
+                                5
+                            ) *
+                            3.5
+                    ),
+                1vh
+            );
+            max-height: calc(
+                100svh - do-var(scroll-padding-top) - var-gap-block(
+                        layout
+                    ) - do-var(icon-size) -
+                    ($_paddingBlock_hasIconOnlyChild * 2)
+            );
+
+            @content ($location);
         }
-        
+        //
         // @else if $location == LOCATION {
         //     @content($location);
         // }
-
-        @else  {
-            @content($location);
+        //
+        @else {
+            @content ($location);
         }
     }
 
@@ -213,8 +227,6 @@ $_closing_time: var-tr-time(toggle-closing);
 ///
 @mixin snippet-support-site-settings-menu-font-overrides($args...) {
     @each $slug, $map in map.get(tokens.$font, familyOverrides) {
-        //
-
         $attrSelector: '[data-font-family-override=#{$slug}]';
 
         $selectors: $attrSelector;

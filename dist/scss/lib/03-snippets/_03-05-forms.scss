@@ -222,6 +222,8 @@ $_mixin_button_colour_single_state: meta.get-mixin(
                     @include font-family-icons-base-properties(
                         $spacing: false,
                         $top: false,
+                        $addOverrideSels: false,
+                        $includeChildren: false,
                         $useIconFont: false
                     );
 
@@ -286,6 +288,7 @@ $_mixin_button_colour_single_state: meta.get-mixin(
     @if $includeTextBasics {
         text-decoration: none;
         text-wrap: balance;
+        text-wrap: pretty;
     }
 
     transition: do-var(transition);

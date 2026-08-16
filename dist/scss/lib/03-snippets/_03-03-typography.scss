@@ -726,6 +726,7 @@
 
     @if $includeBase {
         text-wrap: balance;
+        text-wrap: pretty;
     }
 
     @if $fontStyle != false {
@@ -993,6 +994,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $includeBase {
         text-wrap: balance;
+        text-wrap: pretty;
     }
 
     @if $slug and $fontStyle != false {
@@ -1685,6 +1687,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     align-self: center;
     justify-self: center;
 
+    @if $includeWidth {
+        width: $width;
+        max-width: $maxWidth;
+    }
+
     @if $includeMarginBlock {
         margin-block: $marginBlock;
     }
@@ -1701,14 +1708,10 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     color: $color;
 
-    @if $includeWidth {
-        width: $width;
-        max-width: $maxWidth;
-    }
-
     font-size: $fontSize;
 
-    overflow: auto;
+    overflow-block: visible;
+    overflow-inline: auto;
 
     @content (root);
 

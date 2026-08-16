@@ -248,10 +248,75 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     );
 }
 
-@mixin _font-family-icons-base-properties--selector($includeChildren) {
+$_fontOverrideSels: ('.website-settings-menu .font-family-override-default');
+$_fontOverrideSels_body: ();
+
+@each $slug, $map in map.get(tokens.$font, familyOverrides) {
+    @if map.has-key($map, labelClass) {
+        $_fontOverrideSels: list.append(
+            $_fontOverrideSels,
+            '.website-settings-menu .#{map.get($map, labelClass)}',
+            $separator: comma
+        );
+    }
+
+    $_fontOverrideSels_body: list.append(
+        $_fontOverrideSels_body,
+        '[data-font-family-override=#{$slug}]',
+        $separator: comma
+    );
+}
+
+@mixin _font-family-icons-base-properties--selector(
+    $addOverrideSels,
+    $includeChildren
+) {
+    @if $addOverrideSels == null {
+        $addOverrideSels: (
+                $includeChildren or
+                    config.$template_print_siteSettingsMenu_fontOverrides
+            ) and
+            tokens-has-font-family-overrides();
+    }
+
     @if $includeChildren {
+        @if $addOverrideSels {
+            $_pop: selector.pop(&);
+            $_popped: selector.popped(&, $fallback_selector: null);
+
+            $_popped_fontOverrideSels: if(
+                $_popped,
+                selector.nest($_popped, $_fontOverrideSels),
+                $_fontOverrideSels
+            );
+
+            @at-root &,
+                #{selector.nest(&, '*')},
+                #{selector.nest($_popped_fontOverrideSels, $_pop)},
+                #{selector.nest($_popped_fontOverrideSels, $_pop, '*')},
+                #{selector.add-body-selector($_fontOverrideSels_body)},
+                #{selector.nest(#{selector.add-body-selector($_fontOverrideSels_body)}, '*')} {
+                @content;
+            }
+        } @else {
+            @at-root &,
+                #{selector.nest(&, '*')} {
+                @content;
+            }
+        }
+    } @else if $addOverrideSels {
+        $_pop: selector.pop(&);
+        $_popped: selector.popped(&, $fallback_selector: null);
+
+        $_popped_fontOverrideSels: if(
+            $_popped,
+            selector.nest($_popped, $_fontOverrideSels),
+            $_fontOverrideSels
+        );
+
         @at-root &,
-            #{selector.nest(&, '*')} {
+            #{selector.nest($_popped_fontOverrideSels, $_pop)},
+            #{selector.add-body-selector($_fontOverrideSels_body)} {
             @content;
         }
     } @else {
@@ -277,6 +342,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     $top: true,
     $verticalAlign: true,
     //
+    $addOverrideSels: null,
     $includeBaseProps: true,
     $includeBasePropsOnly: false,
     $includeChildren: false,
@@ -348,7 +414,8 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
         }
 
         @include _font-family-icons-base-properties--selector(
-            $includeChildren
+            $addOverrideSels: $addOverrideSels,
+            $includeChildren: $includeChildren
         ) {
             @if $verticalAlign {
                 vertical-align: var-style(icon-vertical-align);

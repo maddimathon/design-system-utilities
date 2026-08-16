@@ -5,6 +5,8 @@
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
@@ -68,6 +70,12 @@ $_closing_time: var-tr-time(toggle-closing);
             }
 
             transition: #{$_transitionList};
+        }
+    }
+
+    [data-toggle-container] {
+        @if $bool {
+            transition: margin $_closing_time tokens.$transition_function 0ms;
         }
     }
 
@@ -670,6 +678,10 @@ $_closing_time: var-tr-time(toggle-closing);
 
             @content ($location);
 
+            > * {
+                flex-shrink: 0;
+            }
+
             @at-root #{selector.replace(&, '[data-toggle-content]', ':where( [data-toggle-content] )')} {
                 @include set-flow-margins(
                     $default: $flowMargin_default,
@@ -686,42 +698,12 @@ $_closing_time: var-tr-time(toggle-closing);
         @else if $location == js--toggle-content--container {
             @content ($location);
 
-            > :first-child {
-                &:not(
-                    %margins-flow-firm,
-                    %margins-flow-firm-small,
-                    %margins-flow-firm-large,
-                    %button-span
-                ) {
-                    margin-block-start: 0;
-                }
-
-                &:where(%margins-flow-firm),
-                &:where(%button-span) {
-                    margin-block-start: do-var(flow-margin-firm-end);
-                }
-
-                &:where(%margins-flow-firm-small) {
-                    margin-block-start: do-var(flow-margin-firm-end--small);
-                }
-
-                &:where(%margins-flow-firm-large) {
-                    margin-block-start: do-var(flow-margin-firm-end--large);
-                }
+            > * {
+                flex-shrink: 0;
             }
 
-            > %ol,
-            > %ul {
-                &:first-child {
-                    > li:first-of-type {
-                        margin-block-start: 0;
-                    }
-                }
-
-                &:only-child {
-                    margin-inline: 0;
-                }
-            }
+            @include first-child-no-top-margin;
+            @include last-child-no-bottom-margin;
         }
         //
         @else if $location == js--toggle-container--open--content {
@@ -822,7 +804,7 @@ $_closing_time: var-tr-time(toggle-closing);
 
         @else if $location == js--nav-toggle-content {
             justify-content: stretch;
-            border-block-start: none;
+            border-block-start: none;            
             width: 100%;
             
             @content ($location);
@@ -832,8 +814,14 @@ $_closing_time: var-tr-time(toggle-closing);
             @if $includeBaseStyles {
                 background: var-style(toggle-nav-content-background);
             }
-            max-height: 80svh;
-            max-height: calc(90svh - do-var(height-nav-primary));
+
+            max-height: math.add-unit(
+                100 - (meta.defined-else(map.get(tokens.$gap, block, layout), 5) * 3),
+                1vh
+            );
+            max-height: calc(
+                100svh - do-var(height-nav-primary) - var-gap-block(layout)
+            );
 
             %ol,
             %ul {

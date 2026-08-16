@@ -14,13 +14,14 @@
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
-// @use '../03-snippets' as *;
+@use '../03-snippets' as *;
 
 ///
 /// @since ___PKG_VERSION___
 ///
 @mixin template-content-utilities-layout(
     $print_breakpoints: true,
+    $print_forcedColorsModeOnly: true,
     $print_overflow: true,
     $print_width: true,
     //
@@ -46,6 +47,13 @@
         /* # UTILITIES - LAYOUT
          * ======================================================================== */
     }
+
+    @if $print_forcedColorsModeOnly {
+        %forced-colors-mode-only {
+            @include snippet-forced-colors-mode-only;
+        }
+    }
+    @content (forced-colors-mode-only);
 
     @if $print_overflow {
         %overflow-inline-auto {
@@ -192,8 +200,8 @@
 
     @if $print_fontFamily {
         @if font-family-exists(icons) {
-            %font-family-icons {
-                @include font-family-icons;
+            #{if( config.$template_extendSelectors, '.font-family-icons', '%font-family-icons' )} {
+                @include font-family-icons($addOverrideSels: true, $includeChildren: true);
             }
         }
     }

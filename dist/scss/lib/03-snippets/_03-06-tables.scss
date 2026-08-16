@@ -144,10 +144,12 @@
 
         /// BLOCK ///
 
-        > :first-child {
-            margin-top: 0;
-
+        @include first-child-no-top-margin {
             @content (th-or-td--first-child-direct);
+        }
+
+        @include last-child-no-bottom-margin {
+            @content (th-or-td--last-child-direct);
         }
     }
 

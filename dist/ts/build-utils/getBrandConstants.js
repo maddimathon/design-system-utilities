@@ -428,15 +428,20 @@ export var getBrandConstants;
                     // 
                     insideDefine = !objectAsObject, } = args;
                     let content;
-                    const entries = Object.entries(value);
-                    if (Array.isArray(value)) {
-                        content = entriesToArray(entries, false);
-                    }
-                    else if (objectAsObject) {
-                        content = entriesToObject(entries);
+                    if (typeof value === 'string') {
+                        content = value;
                     }
                     else {
-                        content = entriesToArray(entries, objectAsAssociativeArray);
+                        const entries = Object.entries(value);
+                        if (Array.isArray(value)) {
+                            content = entriesToArray(entries, false);
+                        }
+                        else if (objectAsObject) {
+                            content = entriesToObject(entries);
+                        }
+                        else {
+                            content = entriesToArray(entries, objectAsAssociativeArray);
+                        }
                     }
                     // continues
                     if (!content?.length) {
@@ -683,12 +688,17 @@ export var getBrandConstants;
                 for (const [constName, value, args] of constants) {
                     const { comment = `Values for ${constName}.`, type, } = args ?? {};
                     let content;
-                    const entries = Object.entries(value);
-                    if (Array.isArray(value)) {
-                        content = entriesToArray(entries);
+                    if (typeof value === 'string') {
+                        content = value;
                     }
                     else {
-                        content = entriesToObject(entries);
+                        const entries = Object.entries(value);
+                        if (Array.isArray(value)) {
+                            content = entriesToArray(entries);
+                        }
+                        else {
+                            content = entriesToObject(entries);
+                        }
                     }
                     // continues
                     if (!content?.length) {

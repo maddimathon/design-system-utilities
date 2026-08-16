@@ -732,15 +732,20 @@ export namespace getBrandConstants {
 
                     let content: string;
 
-                    const entries = Object.entries( value );
-
-                    if ( Array.isArray( value ) ) {
-                        content = entriesToArray( entries, false );
-                    } else if ( objectAsObject ) {
-                        content = entriesToObject( entries );
+                    if ( typeof value === 'string' ) {
+                        content = value;
                     } else {
-                        content = entriesToArray( entries, objectAsAssociativeArray );
+                        const entries = Object.entries( value );
+
+                        if ( Array.isArray( value ) ) {
+                            content = entriesToArray( entries, false );
+                        } else if ( objectAsObject ) {
+                            content = entriesToObject( entries );
+                        } else {
+                            content = entriesToArray( entries, objectAsAssociativeArray );
+                        }
                     }
+
 
                     // continues
                     if ( !content?.length ) {
@@ -776,7 +781,7 @@ export namespace getBrandConstants {
                  * 
                  * @since ___PKG_VERSION___
                  */
-                export type Value = string[] | Record<number | string, string>;
+                export type Value = string | string[] | Record<number | string, string>;
 
                 /**
                  * @template T_ConstName Constant name.
@@ -1180,12 +1185,16 @@ export namespace getBrandConstants {
 
                     let content: string;
 
-                    const entries = Object.entries( value );
-
-                    if ( Array.isArray( value ) ) {
-                        content = entriesToArray( entries );
+                    if ( typeof value === 'string' ) {
+                        content = value;
                     } else {
-                        content = entriesToObject( entries );
+                        const entries = Object.entries( value );
+
+                        if ( Array.isArray( value ) ) {
+                            content = entriesToArray( entries );
+                        } else {
+                            content = entriesToObject( entries );
+                        }
                     }
 
                     // continues
@@ -1219,7 +1228,7 @@ export namespace getBrandConstants {
                  * 
                  * @since ___PKG_VERSION___
                  */
-                export type Value = string[] | Record<number | string, string>;
+                export type Value = string | string[] | Record<number | string, string>;
 
                 /**
                  * @template T_ConstName Constant name.

@@ -100,12 +100,7 @@ $_sel_img: (
         margin-inline: 0;
         padding: 0;
 
-        // width: 100%;
-        // height: auto;
         max-height: 24rem;
-
-        .brand-photo-list__sample-container--flex & {
-        }
     }
 }
 
@@ -136,20 +131,7 @@ $_sel_img: (
         @include lib.prop-display(flex);
         @include lib.snippet-body-grid--flex-container;
 
-        // margin-block: lib.do-var(flow-margin--small) 0;
-        // margin-inline: 0;
-
-        // list-style: disc;
-
-        li {
-            // margin: 0;
-        }
-
-        > :first-child,
-        > ol > :first-child,
-        > ul > :first-child {
-            // margin-block-start: 0;
-        }
+        @include lib.first-child-no-top-margin;
     }
 }
 
