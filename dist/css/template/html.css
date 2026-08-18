@@ -14129,53 +14129,39 @@ body {
     justify-items: stretch;
     width: auto;
 }
-.alert-block--has-heading.alert-block:has(.h1, h1, .page-title) {
-    margin-top: 4rem;
-    margin-top: var(--mrg-firm-800, 4rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-1, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h1, h1, .page-title)
-    > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h1, h1, .page-title)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-1, CanvasText);
-}
-
-.alert-block--has-heading.alert-block:has(.h1, h1) {
-    margin-top: 4rem;
-    margin-top: var(--mrg-firm-800, 4rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-1, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h1, h1) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h1, h1)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-1, CanvasText);
-}
-
-.alert-block--has-heading.alert-block:has(.h2, h2) {
-    margin-top: 4rem;
-    margin-top: var(--mrg-firm-800, 4rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-2, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h2, h2) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h2, h2)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-2, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h1,
+        h1,
+        .page-title,
+        :where([role="heading"][aria-level="1"])
+    ) {
+    margin-top: 4rem;
+    margin-top: var(--mrg-firm-800, 4rem);
+    border-color: hsl(162, 100%, 15%);
+    border-color: var(--theme-heading-1, CanvasText);
+    background: hsl(158.13, 44.92%, 78.23%);
+    background: var(--theme-background-primary, Canvas);
+}
+.alert-block--has-heading.alert-block:has(
+        .h1,
+        h1,
+        .page-title,
+        :where([role="heading"][aria-level="1"])
+    )
+    > .alert-block__icon,
+.alert-block--has-heading.alert-block:has(
+        .h1,
+        h1,
+        .page-title,
+        :where([role="heading"][aria-level="1"])
+    )
+    > .alert-block__headline
+    > .alert-block__icon {
+    --icon-color: var(--theme-heading-1, CanvasText);
+}
+.alert-block--has-heading.alert-block:has(
+        .h2,
+        h2,
         :where([role="heading"][aria-level="2"])
     ) {
     margin-top: 4rem;
@@ -14186,33 +14172,23 @@ body {
     background: var(--theme-background-primary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h2,
+        h2,
         :where([role="heading"][aria-level="2"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h2,
+        h2,
         :where([role="heading"][aria-level="2"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-2, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h3, h3) {
-    margin-top: 4rem;
-    margin-top: var(--mrg-firm-800, 4rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-3, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h3, h3) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h3, h3)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-3, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h3,
+        h3,
         :where([role="heading"][aria-level="3"])
     ) {
     margin-top: 4rem;
@@ -14223,33 +14199,23 @@ body {
     background: var(--theme-background-primary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h3,
+        h3,
         :where([role="heading"][aria-level="3"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h3,
+        h3,
         :where([role="heading"][aria-level="3"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-3, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h4, h4) {
-    margin-top: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-4, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h4, h4) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h4, h4)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-4, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h4,
+        h4,
         :where([role="heading"][aria-level="4"])
     ) {
     margin-top: 2.25rem;
@@ -14260,33 +14226,23 @@ body {
     background: var(--theme-background-primary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h4,
+        h4,
         :where([role="heading"][aria-level="4"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h4,
+        h4,
         :where([role="heading"][aria-level="4"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-4, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h5, h5) {
-    margin-top: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-5, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h5, h5) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h5, h5)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-5, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h5,
+        h5,
         :where([role="heading"][aria-level="5"])
     ) {
     margin-top: 2.25rem;
@@ -14297,33 +14253,23 @@ body {
     background: var(--theme-background-primary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h5,
+        h5,
         :where([role="heading"][aria-level="5"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h5,
+        h5,
         :where([role="heading"][aria-level="5"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-5, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h6, h6) {
-    margin-top: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--theme-heading-6, CanvasText);
-    background: hsl(158.13, 44.92%, 78.23%);
-    background: var(--theme-background-primary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h6, h6) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h6, h6)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-6, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h6,
+        h6,
         :where([role="heading"][aria-level="6"])
     ) {
     margin-top: 2.25rem;
@@ -14334,33 +14280,22 @@ body {
     background: var(--theme-background-primary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h6,
+        h6,
         :where([role="heading"][aria-level="6"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h6,
+        h6,
         :where([role="heading"][aria-level="6"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-6, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h7) {
-    margin-top: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    border-color: hsl(321, 68%, 26%);
-    border-color: var(--theme-heading-7, CanvasText);
-    background: hsl(324.37, 75.86%, 87.25%);
-    background: var(--theme-background-secondary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h7) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h7)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-7, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h7,
         :where([role="heading"][aria-level="7"])
     ) {
     margin-top: 2.25rem;
@@ -14371,33 +14306,20 @@ body {
     background: var(--theme-background-secondary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h7,
         :where([role="heading"][aria-level="7"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h7,
         :where([role="heading"][aria-level="7"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-7, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h8) {
-    margin-top: 2.25rem;
-    margin-top: var(--mrg-firm-600, 2.25rem);
-    border-color: hsl(321, 68%, 26%);
-    border-color: var(--theme-heading-8, CanvasText);
-    background: hsl(324.37, 75.86%, 87.25%);
-    background: var(--theme-background-secondary, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h8) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h8)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-8, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h8,
         :where([role="heading"][aria-level="8"])
     ) {
     margin-top: 2.25rem;
@@ -14408,33 +14330,20 @@ body {
     background: var(--theme-background-secondary, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h8,
         :where([role="heading"][aria-level="8"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h8,
         :where([role="heading"][aria-level="8"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-8, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h9) {
-    margin-top: 1.6875rem;
-    margin-top: var(--mrg-firm-500, 1.6875rem);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-heading-9, CanvasText);
-    background: hsl(339.45, 0%, 85.99%);
-    background: var(--theme-background-grey, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h9) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h9)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-9, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h9,
         :where([role="heading"][aria-level="9"])
     ) {
     margin-top: 1.6875rem;
@@ -14445,33 +14354,20 @@ body {
     background: var(--theme-background-grey, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h9,
         :where([role="heading"][aria-level="9"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h9,
         :where([role="heading"][aria-level="9"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-9, CanvasText);
 }
-
-.alert-block--has-heading.alert-block:has(.h10) {
-    margin-top: 1.6875rem;
-    margin-top: var(--mrg-firm-500, 1.6875rem);
-    border-color: hsl(339.45, 0%, 22.38%);
-    border-color: var(--theme-heading-10, CanvasText);
-    background: hsl(339.45, 0%, 85.99%);
-    background: var(--theme-background-grey, Canvas);
-}
-.alert-block--has-heading.alert-block:has(.h10) > .alert-block__icon,
-.alert-block--has-heading.alert-block:has(.h10)
-    > .alert-block__headline
-    > .alert-block__icon {
-    --icon-color: var(--theme-heading-10, CanvasText);
-}
-
 .alert-block--has-heading.alert-block:has(
+        .h10,
         :where([role="heading"][aria-level="10"])
     ) {
     margin-top: 1.6875rem;
@@ -14482,20 +14378,19 @@ body {
     background: var(--theme-background-grey, Canvas);
 }
 .alert-block--has-heading.alert-block:has(
+        .h10,
         :where([role="heading"][aria-level="10"])
     )
     > .alert-block__icon,
 .alert-block--has-heading.alert-block:has(
+        .h10,
         :where([role="heading"][aria-level="10"])
     )
     > .alert-block__headline
     > .alert-block__icon {
     --icon-color: var(--theme-heading-10, CanvasText);
 }
-
 .alert-block > .alert-block__headline {
-    grid-template-columns: subgrid;
-    grid-column: 1/-1;
     margin: 0;
     padding: 0;
     align-items: start;
@@ -14798,6 +14693,10 @@ body {
     margin-bottom: 0em;
 }
 
+.alert-block > .alert-block__headline {
+    grid-template-columns: subgrid;
+    grid-column: 1/-1;
+}
 .content-width.alert-block,
 .page-width.alert-block,
 .sidebar-width.alert-block,

@@ -74,6 +74,8 @@ $_closing_time: var-tr-time(toggle-closing);
     [data-toggle-container] {
         @if $bool {
             transition: margin $_closing_time tokens.$transition_function 0ms;
+        } @else if $bool {
+            transition: none;
         }
     }
 

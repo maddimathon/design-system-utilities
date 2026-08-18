@@ -102,17 +102,282 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $background: var-style(alert-background),
     $icon: var-style(alert-icon-color),
     $border: var-style(alert-border-color),
-    $color: var-style(alert-color)
+    $color: var-style(alert-color),
+    //
+    $includeIcon: true,
+    $includeIconInRoot: false,
+    $includeHeadline: true
 ) {
+    @if $includeIconInRoot {
+        @include cx-prop(icon-color, $icon);
+    }
     border-color: if($border == null, $icon, $border);
     background: $background;
 
-    > .alert-block__headline {
-        color: $color;
+    @if $includeHeadline {
+        > .alert-block__headline {
+            color: $color;
+        }
     }
 
-    @include _snippet-alert-block-icon {
-        @include cx-prop(icon-color, $icon);
+    @if $includeIcon {
+        @include _snippet-alert-block-icon {
+            @include cx-prop(icon-color, $icon);
+        }
+    }
+}
+
+@mixin snippet-alert-block-colours-by-slug($variation, $args...) {
+    $isGreyTypeVariation: theme-token-is-grey-variation($variation);
+
+    @include snippet-alert-block-colours(
+        $background: if(
+                theme-token-exists(background-#{$variation}),
+                var-theme(background-#{$variation}),
+                if(
+                    $isGreyTypeVariation,
+                    var-style(alert-background),
+                    var-theme(background-grey)
+                )
+            ),
+        $border: null,
+        $color: if(
+                theme-token-exists(text-#{$variation}),
+                var-theme(text-#{$variation}),
+                if(
+                    $isGreyTypeVariation,
+                    var-style(alert-color),
+                    var-theme(text)
+                )
+            ),
+        $icon: if(
+                theme-token-exists(ui-#{$variation}),
+                var-theme(ui-#{$variation}),
+                if(
+                    $isGreyTypeVariation,
+                    var-style(alert-icon-color),
+                    var-theme(ui)
+                )
+            ),
+        $args...
+    );
+}
+
+///
+/// Just the styles for the block itself.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-alert-block(
+    $display: false,
+    $includeIcon: true,
+    $includeHeadline: true,
+    $multipleContentBlocks: false
+) {
+    @if $display != false {
+        @if $display == grid {
+            @include snippet-body-grid--base;
+        } @else {
+            @include prop-display($display);
+
+            @if $display == flex {
+                @include snippet-body-grid--flex-container;
+            }
+        }
+    }
+
+    $_alert_paddingLevel: style-value(alert-padding-block, $raw: true);
+
+    justify-self: center;
+
+    margin-inline: 0;
+
+    padding-block: var-style(alert-padding-block);
+    padding-inline: var-style(alert-padding-inline);
+
+    width: fit-content;
+
+    line-height: var-style(alert-line-height);
+
+    border-color: var-style(alert-border-color);
+    border-width: var-style(alert-border-width);
+    border-style: var-style(button-border-style);
+    border-radius: var-style(alert-border-radius);
+
+    background: var-style(alert-background);
+
+    transition:
+        background var-tr-time(fast) tokens.$transition_function,
+        border-color var-tr-time(fast) tokens.$transition_function,
+        color var-tr-time(fast) tokens.$transition_function;
+
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
+
+    @if $includeIcon {
+        @include _snippet-alert-block-icon {
+            @include cx-prop(icon-color, var-style(alert-icon-color));
+            @include cx-prop(icon-size, var-style(alert-icon-size));
+            @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
+
+            @include prop-grid-column(icon);
+
+            margin-block: var-mrg-half($_alert_paddingLevel);
+            margin-inline: 0;
+
+            @if $multipleContentBlocks {
+                @content (icon);
+            }
+
+            &:first-child {
+                margin-block: var-mrg-half($_alert_paddingLevel);
+
+                @if $multipleContentBlocks {
+                    @content (icon--is-first-child);
+                }
+            }
+
+            @at-root &,
+                #{selector.unify(&, '%icon')},
+                & > %icon {
+                @include prop-display(block);
+            }
+
+            @at-root #{selector.unify(&, '%icon')},
+                & > %icon {
+                margin: 0;
+            }
+
+            + * {
+                margin-block: var-style(
+                        alert-headline-margin-block-start,
+                        $raw: true,
+                        $rawUnit: 1em
+                    )
+                    var-style(
+                        alert-headline-margin-block-end,
+                        $raw: true,
+                        $rawUnit: 1em
+                    );
+            }
+        }
+    }
+
+    @if $includeHeadline {
+        &.alert-block--has-heading {
+            justify-content: stretch;
+            justify-items: stretch;
+
+            width: auto;
+
+            @if $multipleContentBlocks {
+                @content (has-heading);
+            }
+
+            @each $num in token-all-heading-levels() {
+                //
+                $_headingSelector: if(
+                    $num == 1,
+                    ('%h#{$num}', '%title'),
+                    '%h#{$num}'
+                );
+
+                &:has(
+                    #{$_headingSelector},
+                    #{selector.append($_headingSelector, '--where')}
+                ) {
+                    margin-block-start: var-mrg-firm(
+                        style-value(
+                            heading-#{$num}-margin-block-start,
+                            $raw: true
+                        )
+                    );
+
+                    border-color: var-theme(heading-#{$num});
+                    background: var-style(
+                        alert-heading-#{$num}-background-color
+                    );
+
+                    @if $multipleContentBlocks {
+                        @content (has-heading--#{$num});
+                    }
+
+                    @include _snippet-alert-block-icon {
+                        @include cx-prop(
+                            icon-color,
+                            var-theme(heading-#{$num})
+                        );
+
+                        @if $multipleContentBlocks {
+                            @content (has-heading--#{$num}--icon);
+                        }
+                    }
+                }
+            }
+        }
+
+        > .alert-block__headline {
+            margin: 0;
+            padding: 0;
+            align-items: start;
+
+            color: var-style(alert-color);
+
+            @if $multipleContentBlocks {
+                @content (headline);
+            }
+
+            &:where(header) {
+                line-height: var-style(alert-headline-line-height);
+                font-weight: var-style(alert-headline-font-weight);
+                font-style: var-style(alert-headline-font-style);
+                font-size: var-style(alert-headline-font-size);
+
+                @if $multipleContentBlocks {
+                    @content (headline--is-header);
+                }
+            }
+
+            @each $num in token-all-heading-levels() {
+                //
+                $_headingSelector: if(
+                    $num == 1,
+                    ('%h#{$num}', '%title'),
+                    ('%h#{$num}')
+                );
+
+                $_headingSelector_where: if(
+                    $num == 1,
+                    ('%h#{$num}--where', '%title--where'),
+                    ('%h#{$num}--where')
+                );
+
+                @each $_sel
+                    in (#{$_headingSelector}, #{$_headingSelector_where})
+                {
+                    @at-root #{selector.unify(&, $_sel)} {
+                        @include _snippet-alert-headline-heading($num);
+
+                        @if $multipleContentBlocks {
+                            @content (headline--h#{$num});
+                        }
+                    }
+                }
+            }
+
+            @each $_sel in ('%unstyled-heading', '%unstyled-heading--where') {
+                @at-root #{selector.unify(&, $_sel)} {
+                    @include _snippet-alert-headline-heading;
+
+                    @if $multipleContentBlocks {
+                        @content (headline--unstyled);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -150,175 +415,15 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
     %alert {
         @extend %_alert-grid;
-
-        $_alertBlockLevel: style-value(alert-padding-block, $raw: true);
-
-        justify-self: center;
-
-        margin-inline: 0;
-
-        padding-block: var-style(alert-padding-block);
-        padding-inline: var-style(alert-padding-inline);
-
-        width: fit-content;
-
-        line-height: var-style(alert-line-height);
-
-        border-color: var-style(alert-border-color);
-        border-width: var-style(alert-border-width);
-        border-style: var-style(button-border-style);
-        border-radius: var-style(alert-border-radius);
-
-        background: var-style(alert-background);
-
-        transition:
-            background var-tr-time(fast) tokens.$transition_function,
-            border-color var-tr-time(fast) tokens.$transition_function,
-            color var-tr-time(fast) tokens.$transition_function;
-
-        @content (alert-block);
-
-        @include _snippet-alert-block-icon {
-            @include cx-prop(icon-color, var-style(alert-icon-color));
-            @include cx-prop(icon-size, var-style(alert-icon-size));
-            @include cx-prop(icon-size-large, var-style(alert-icon-size-large));
-
-            @include prop-grid-column(icon);
-
-            margin-block: var-mrg-half($_alertBlockLevel);
-            margin-inline: 0;
-
-            &:first-child {
-                margin-block: var-mrg-half($_alertBlockLevel);
-            }
-
-            @at-root &,
-                #{selector.unify(&, '%icon')},
-                & > %icon {
-                @include prop-display(block);
-            }
-
-            @at-root #{selector.unify(&, '%icon')},
-                & > %icon {
-                margin: 0;
-            }
-
-            + * {
-                margin-block: var-style(
-                        alert-headline-margin-block-start,
-                        $raw: true,
-                        $rawUnit: 1em
-                    )
-                    var-style(
-                        alert-headline-margin-block-end,
-                        $raw: true,
-                        $rawUnit: 1em
-                    );
-            }
-        }
-
-        &.alert-block--has-heading {
-            justify-content: stretch;
-            justify-items: stretch;
-
-            width: auto;
-
-            @content (alert-block--has-heading);
-
-            @each $num in token-all-heading-levels() {
-                //
-                $_headingSelector: if(
-                    $num == 1,
-                    ('%h#{$num}', '%title'),
-                    '%h#{$num}'
-                );
-
-                @each $_sel
-                    in (
-                        ':has( #{$_headingSelector} )',
-                        ':has( #{$_headingSelector}--where )'
-                    )
-                {
-                    @at-root #{selector.unify(&, $_sel)} {
-                        margin-block-start: var-mrg-firm(
-                            style-value(
-                                heading-#{$num}-margin-block-start,
-                                $raw: true
-                            )
-                        );
-
-                        border-color: var-theme(heading-#{$num});
-                        background: var-style(
-                            alert-heading-#{$num}-background-color
-                        );
-
-                        @include _snippet-alert-block-icon {
-                            @include cx-prop(
-                                icon-color,
-                                var-theme(heading-#{$num})
-                            );
-                        }
-
-                        @content (alert-block--has-heading--#{$num});
-                    }
-                }
-            }
+        @include snippet-alert-block($multipleContentBlocks: true) using
+            ($location) {
+            @content (if($location == root, 'alert-block', 'alert-block--#{$location}'));
         }
 
         > .alert-block__headline {
             @extend %_alert-grid;
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
-
-            margin: 0;
-            padding: 0;
-            align-items: start;
-
-            color: var-style(alert-color);
-
-            @content (alert-block__headline);
-
-            &:where(header) {
-                line-height: var-style(alert-headline-line-height);
-                font-weight: var-style(alert-headline-font-weight);
-                font-style: var-style(alert-headline-font-style);
-                font-size: var-style(alert-headline-font-size);
-            }
-
-            @each $num in token-all-heading-levels() {
-                //
-                $_headingSelector: if(
-                    $num == 1,
-                    ('%h#{$num}', '%title'),
-                    ('%h#{$num}')
-                );
-
-                $_headingSelector_where: if(
-                    $num == 1,
-                    ('%h#{$num}--where', '%title--where'),
-                    ('%h#{$num}--where')
-                );
-
-                @at-root #{selector.unify(&, $_headingSelector)} {
-                    @include _snippet-alert-headline-heading($num);
-
-                    @content (alert-block__headline--h#{$num});
-                }
-
-                @at-root #{selector.unify(&, $_headingSelector_where)} {
-                    @include _snippet-alert-headline-heading($num);
-
-                    @content (alert-block__headline--h#{$num}-where);
-                }
-            }
-
-            @at-root #{selector.unify(&, '%unstyled-heading')} {
-                @include _snippet-alert-headline-heading;
-            }
-
-            @at-root #{selector.unify(&, '%unstyled-heading--where')} {
-                @include _snippet-alert-headline-heading;
-            }
         }
 
         &.content-width,
@@ -330,38 +435,17 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         }
 
         @each $variationKey in $_textAndBackgroundKeys {
-            // prettier-ignore
             @if $variationKey != active and $variationKey != disabled {
-
                 $_classSlug: if($variationKey == '$', default, $variationKey);
-                
+
                 &--icon-#{$_classSlug},
                 &--background-#{$_classSlug},
                 &.background-#{$_classSlug} {
-                    
                     @if $_classSlug == default {
                         @include snippet-alert-block-colours;
                     } @else {
-
-                        $isGreyTypeVariation: theme-token-is-grey-variation( $variationKey );
-
-                        @include snippet-alert-block-colours(
-                            $background: if(
-                                    theme-token-exists(background-#{$variationKey}),
-                                    var-theme(background-#{$variationKey}),
-                                    if($isGreyTypeVariation, var-style(alert-background), var-theme(background-grey))
-                                ),
-                            $border: null,
-                            $color: if(
-                                    theme-token-exists(text-#{$variationKey}),
-                                    var-theme(text-#{$variationKey}),
-                                    if($isGreyTypeVariation, var-style(alert-color), var-theme(text))
-                                ),
-                            $icon: if(
-                                    theme-token-exists(ui-#{$variationKey}),
-                                    var-theme(ui-#{$variationKey}),
-                                    if($isGreyTypeVariation, var-style(alert-icon-color), var-theme(ui))
-                                )
+                        @include snippet-alert-block-colours-by-slug(
+                            $variationKey
                         );
                     }
                 }
