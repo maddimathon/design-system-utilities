@@ -51,6 +51,9 @@ export type * from './components/PageContent_Icons.astro';
 import PageContent_Theme from './components/PageContent_Theme.astro';
 export type * from './components/PageContent_Theme.astro';
 
+import PageContent_ThemeDynamic from './components/PageContent_ThemeDynamic.astro';
+export type * from './components/PageContent_ThemeDynamic.astro';
+
 import PageContent_Toggles from './components/PageContent_Toggles.astro';
 export type * from './components/PageContent_Toggles.astro';
 
@@ -109,6 +112,7 @@ export {
     PageContent_FontFamilies,
     PageContent_Icons,
     PageContent_Theme,
+    PageContent_ThemeDynamic,
     PageContent_Toggles,
     PageContent_TypeStyles,
     SearchForm,

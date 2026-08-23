@@ -19,7 +19,7 @@ import { Heading } from '@maddimathon/utility-astro/components';
 
 /* PROPS ===================================== */
 
-interface Props extends ElementProps<{}, 'section'> {
+export interface WidgetProps {
     children: any[];
 
     /**
@@ -37,6 +37,8 @@ interface Props extends ElementProps<{}, 'section'> {
 
     style?: string;
 }
+
+type Props = ElementProps<WidgetProps, 'section'>;
 
 const {
     class: classList,

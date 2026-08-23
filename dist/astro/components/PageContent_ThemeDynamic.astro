@@ -1,0 +1,623 @@
+---
+/**
+ * @since 0.1.0-beta.0.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type {} from 'astro/types';
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+import type { ToggleProps } from '@maddimathon/utility-astro/components';
+
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type { LoremIpsumProps } from './LoremIpsum.astro';
+import type { WidgetProps } from './Widget.astro';
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript';
+
+import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
+import { parseThemeSets } from './PageContent_Theme.astro';
+
+/* import - values */
+
+/* import - components */
+import Alert from './Alert.astro';
+import LoremIpsum from './LoremIpsum.astro';
+import ThemeModeSwatch from './ThemeModeSwatch.astro';
+import Toggle from './Toggle.astro';
+import Widget from './Widget.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    tokens: Tokens.JsonReturn<T_Types>;
+
+    defaultPreviewToOpen?: boolean;
+    defaultTokensToOpen?: boolean;
+
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    LoremIpsumComponent?: (props: Partial<LoremIpsumProps>) => any;
+
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    ToggleComponent?: (
+        props: PartialExcept<ToggleProps, 'children' | 'id'>,
+    ) => any;
+
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    WidgetComponent?: (
+        props: PartialExcept<WidgetProps, 'children' | 'heading'>,
+    ) => any;
+}
+
+const {
+    defaultPreviewToOpen = true,
+    defaultTokensToOpen = false,
+    tokens,
+
+    LoremIpsumComponent = LoremIpsum,
+    ToggleComponent = Toggle,
+    WidgetComponent = Widget,
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const themeNames = Object.keys(tokens.themes).filter(
+    (key) => key !== '_meta',
+) as (keyof Omit<typeof tokens.themes, '_meta'>)[];
+
+const hasMultipleThemes = themeNames.length > 1;
+
+const levelsInUse = getLevelsInUse(tokens.themes);
+
+const light_parsed = parseThemeSets(tokens, ['light']);
+
+const brightnessOptions = [
+    {
+        label: 'Light',
+        value: 'light',
+        parsed: light_parsed,
+    },
+    {
+        label: 'Dark',
+        value: 'dark',
+        parsed: parseThemeSets(tokens, ['dark']),
+    },
+] as const satisfies {
+    label: string;
+    value: string;
+    parsed: undefined | ReturnType<typeof parseThemeSets>;
+}[];
+
+const themeOptions = themeNames.map(
+    (themeKey) =>
+        ({
+            label: toTitleCase(themeKey),
+            value: themeKey,
+        }) as const satisfies {
+            label: string;
+            value: string;
+        },
+);
+
+const default_brightnessSet = {
+    ...light_parsed[0]?.parsed[0],
+    value_default: light_parsed[0]?.parsed[0]?.values.filter(
+        ({ contrast }) => contrast === 'average',
+    )[0],
+};
+---
+
+<p>
+    The following colour shade levels are in use in at least one of the themes
+    below: {
+        Array.from(levelsInUse).map((level, i) =>
+            i < levelsInUse.size - 1 ? (
+                <Fragment set:html={`<code>${level}</code>, `} />
+            ) : (
+                <Fragment set:html={`and <code>${level}</code>.`} />
+            ),
+        )
+    }
+</p>
+
+<section>
+    <h2 class='screen-reader-text'>Display Options</h2>
+
+    <fieldset
+        data-tokens-theme-dynamic-preview-brightness-options={brightnessOptions
+            .map(({ value }) => value)
+            .join(',')}
+    >
+        <legend>Brightness Mode</legend>
+        <div class='container'>
+            {
+                brightnessOptions.map(({ label, value }) => (
+                    <label class='theme-dynamic-preview__display-options__label'>
+                        <input
+                            type='radio'
+                            class='theme-dynamic-preview__display-options__label'
+                            name='theme-dynamic-preview__display-options__brightness-control'
+                            value={value}
+                        />{' '}
+                        {label}
+                    </label>
+                ))
+            }
+        </div>
+    </fieldset>
+
+    <fieldset
+        data-tokens-theme-dynamic-preview-theme-options={themeNames.join(',')}
+    >
+        <legend>Theme Set</legend>
+        <div class='container'>
+            {
+                themeOptions.map(({ label, value }) => (
+                    <label class='theme-dynamic-preview__display-options__label'>
+                        <input
+                            type='radio'
+                            class='theme-dynamic-preview__display-options__label'
+                            name='theme-dynamic-preview__display-options__theme-control'
+                            value={value}
+                        />{' '}
+                        {label}
+                    </label>
+                ))
+            }
+        </div>
+    </fieldset>
+</section>
+
+<ToggleComponent
+    class='theme-mode-toggle'
+    defaultOpen={defaultPreviewToOpen}
+    heading={2}
+    id={'theme-preview'}
+>
+    <Fragment slot='button'
+        ><span
+            aria-ignore='true'
+            set:text='Preview'
+        /><span
+            class='screen-reader-text'
+            set:text={` Styles preview (for theme and brightness mode selected above)`}
+        /></Fragment
+    >
+    <div
+        class:list={['theme-mode-toggle__list']}
+        style={`--theme-mode-swatch-list-column-count: ${default_brightnessSet.values?.length ?? 4};`}
+    >
+        {
+            default_brightnessSet.values?.map((set) => (
+                <ThemeModeSwatch
+                    {...{
+                        ...set,
+                        displayHeading: 3,
+                        displayMode: 'preview',
+                        heading: 3,
+                        id: `${set.id}-swatch`,
+                        LoremIpsumComponent,
+                        ToggleComponent,
+                        tokens,
+                    }}
+                    data-active-theme={light_parsed[0]?.key}
+                    data-contrast-mode={set.contrast}
+                    data-tokens-theme-dynamic-preview-preview-container
+                >
+                    <Fragment
+                        slot='heading'
+                        set:text={`${toTitleCase(set.contrast)} Contrast`}
+                    />
+                    {Object.keys(set.theme.data.background).length > 1 && (
+                        <div
+                            class='theme-mode-swatch__alt-widgets'
+                            slot='preview'
+                        >
+                            {Object.entries(set.theme.data.background).map(
+                                ([backgroundSlug, backgroundClrName]) =>
+                                    backgroundSlug !== '$' && (
+                                        <Alert
+                                            class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
+                                            icon={
+                                                tokens.icons[backgroundSlug] ??
+                                                tokens.icons.star
+                                            }
+                                            style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
+                                        >
+                                            <Fragment slot='headline'>
+                                                Alert Block:{' '}
+                                                <samp
+                                                    set:text={`background-${backgroundSlug}`}
+                                                />
+                                            </Fragment>
+                                            <LoremIpsumComponent
+                                                displayHeading={7}
+                                                displaySettings={{
+                                                    // @ts-expect-error
+                                                    photos: false,
+                                                    toc: false,
+                                                }}
+                                                heading={5}
+                                                mode={
+                                                    import.meta.env.DEV
+                                                        ? 'library'
+                                                        : 'minimum'
+                                                }
+                                                superAbbreviated={true}
+                                                tokens={tokens}
+                                                ToggleComponent={
+                                                    ToggleComponent
+                                                }
+                                            />
+                                        </Alert>
+                                    ),
+                            )}
+                        </div>
+                    )}
+                    {hasMultipleThemes && (
+                        <div
+                            class='main-sidebar theme-mode-swatch__alt-widgets'
+                            slot='preview'
+                        >
+                            {[null, ...themeNames].map((themeName) => (
+                                <WidgetComponent
+                                    displayHeading={3}
+                                    heading={5}
+                                    class:list={'widget-block--alt-theme'}
+                                    data-active-theme={themeName ?? ''}
+                                >
+                                    <Fragment
+                                        slot='heading'
+                                        set:text='Theme Demo Widget'
+                                    />
+                                    {themeName ? (
+                                        <Fragment slot='subheading'>
+                                            This is the{' '}
+                                            <samp
+                                                set:text={toTitleCase(
+                                                    themeName,
+                                                )}
+                                            />{' '}
+                                            theme
+                                        </Fragment>
+                                    ) : (
+                                        <Fragment slot='subheading'>
+                                            This inherits the parent’s theme
+                                        </Fragment>
+                                    )}
+                                    <LoremIpsumComponent
+                                        displayHeading={4}
+                                        displaySettings={{
+                                            buttons: false,
+                                            buttonTypes: false,
+                                            buttonVariationsAll: false,
+                                            disabledButton: false,
+                                            // @ts-expect-error
+                                            photos: false,
+                                            toc: false,
+                                        }}
+                                        heading={6}
+                                        mode={
+                                            import.meta.env.DEV
+                                                ? 'fancy'
+                                                : 'library'
+                                        }
+                                        superAbbreviated={true}
+                                        tokens={tokens}
+                                        ToggleComponent={ToggleComponent}
+                                    />
+                                </WidgetComponent>
+                            ))}
+                        </div>
+                    )}
+                </ThemeModeSwatch>
+            ))
+        }
+    </div>
+</ToggleComponent>
+
+<ToggleComponent
+    class='theme-mode-toggle'
+    defaultOpen={defaultTokensToOpen}
+    heading={2}
+    id={'theme-tokens'}
+>
+    <Fragment
+        set:text={'Token Values'}
+        slot='button'
+    />
+    {
+        brightnessOptions.map(
+            ({ label: brightnessLabel, value: brightness, parsed }) => (
+                <div
+                    data-tokens-theme-dynamic-preview-brightness-content={
+                        brightness
+                    }
+                >
+                    <h3
+                        class='screen-reader-text'
+                        set:text={`${brightnessLabel} Mode`}
+                    />
+                    {parsed.map((parsedTheme) =>
+                        parsedTheme.parsed.map((brightnessSet) => (
+                            <div
+                                class:list={['theme-mode-toggle__list']}
+                                data-tokens-theme-dynamic-preview-theme-content={
+                                    parsedTheme.key
+                                }
+                                style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
+                            >
+                                {brightnessSet.values.map((set) => (
+                                    <ThemeModeSwatch
+                                        {...{
+                                            ...set,
+                                            displayHeading: 3,
+                                            displayMode: 'tokens',
+                                            heading: 4,
+                                            id: `${set.id}-token-values`,
+                                            LoremIpsumComponent,
+                                            ToggleComponent,
+                                            tokens,
+                                        }}
+                                        data-active-theme={set.theme.name}
+                                        data-brightness-mode={set.brightness}
+                                        data-contrast-mode={set.contrast}
+                                    >
+                                        <Fragment
+                                            slot='heading'
+                                            set:text={`${toTitleCase(set.contrast)} Contrast`}
+                                        />
+                                    </ThemeModeSwatch>
+                                ))}
+                            </div>
+                        )),
+                    )}
+                </div>
+            ),
+        )
+    }
+</ToggleComponent>
+
+<style lang='scss'>
+    @forward '../scss/page-content-theme-dynamic';
+</style>
+
+<script>
+    /**
+     * Listens to options inputs and updates attribute values accordingly.
+     */
+    class ThemeDynamicManager {
+        /**
+         * These are the attribute names applied to the root element whose values
+         * represent the brightness mode and active theme to display.
+         */
+        public static readonly attrNames = {
+            brightness: 'data-tokens-theme-dynamic-preview-brightness',
+            theme: 'data-tokens-theme-dynamic-preview-theme',
+        } as const;
+
+        /**
+         * These containers get their data attributes set whenever a new value is set.
+         */
+        public readonly dynamicPreviewContainers: HTMLElement[];
+
+        /**
+         * These inputs let users select the brightness mode and active theme values.
+         */
+        public readonly inputs: {
+            brightness: HTMLInputElement[];
+            theme: HTMLInputElement[];
+        };
+
+        /**
+         * All allowed options.
+         */
+        public readonly brightnessOptions: string[];
+
+        /**
+         * All allowed options.
+         */
+        public readonly themeOptions: null | string[];
+
+        public constructor() {
+            this.brightnessOptions = document
+                .querySelector<HTMLFieldSetElement>(
+                    'fieldset[data-tokens-theme-dynamic-preview-brightness-options]',
+                )
+                ?.getAttribute(
+                    'data-tokens-theme-dynamic-preview-brightness-options',
+                )
+                ?.split(',') ?? ['light', 'dark'];
+
+            this.themeOptions =
+                document
+                    .querySelector<HTMLFieldSetElement>(
+                        'fieldset[data-tokens-theme-dynamic-preview-theme-options]',
+                    )
+                    ?.getAttribute(
+                        'data-tokens-theme-dynamic-preview-theme-options',
+                    )
+                    ?.split(',') ?? null;
+
+            this.inputs = {
+                brightness: Array.from(
+                    document.querySelectorAll<HTMLInputElement>(
+                        'input[name=theme-dynamic-preview__display-options__brightness-control]',
+                    ),
+                ),
+
+                theme: Array.from(
+                    document.querySelectorAll<HTMLInputElement>(
+                        'input[name=theme-dynamic-preview__display-options__theme-control]',
+                    ),
+                ),
+            };
+
+            this.dynamicPreviewContainers = Array.from(
+                document.querySelectorAll<HTMLElement>(
+                    '[data-tokens-theme-dynamic-preview-preview-container]',
+                ),
+            );
+
+            for (const _key in ThemeDynamicManager.attrNames) {
+                const _local = localStorage.getItem(
+                    ThemeDynamicManager.attrNames[
+                        _key as keyof typeof ThemeDynamicManager.attrNames
+                    ],
+                );
+
+                switch (_key) {
+                    case 'brightness':
+                        this.setBrightnessValue(_local ?? 'light', true);
+                        break;
+
+                    case 'theme':
+                        this.setThemeValue(_local ?? 'default', true);
+                        break;
+                }
+            }
+
+            this.inputs.brightness.forEach((input) =>
+                input.addEventListener('change', (event) => {
+                    // returns - this is not an input we take action on
+                    if (!input.checked) {
+                        return;
+                    }
+
+                    this.setBrightnessValue(input.value, false);
+                }),
+            );
+
+            this.inputs.theme.forEach((input) =>
+                input.addEventListener('change', (event) => {
+                    // returns - this is not an input we take action on
+                    if (!input.checked) {
+                        return;
+                    }
+
+                    this.setThemeValue(input.value, false);
+                }),
+            );
+        }
+
+        protected static async _setValue_dynamicPreviewContainers(
+            container: HTMLElement,
+            dynamicPeviewAttrKey: string,
+            newValue: string,
+        ) {
+            container.setAttribute(dynamicPeviewAttrKey, newValue);
+        }
+
+        protected async _setValue(
+            key: keyof typeof ThemeDynamicManager.attrNames,
+            dynamicPeviewAttrKey: string,
+            newValue: string,
+            controllerSignal: AbortSignal,
+            setInputValues: boolean = false,
+        ) {
+            return new Promise<void>((resolve) => {
+                if (controllerSignal.aborted) {
+                    resolve();
+                    return;
+                }
+
+                controllerSignal.addEventListener('abort', () => resolve(), {
+                    once: true,
+                });
+
+                document.documentElement.setAttribute(
+                    ThemeDynamicManager.attrNames[key],
+                    newValue,
+                );
+
+                const promises: Promise<any>[] =
+                    this.dynamicPreviewContainers.map((container) =>
+                        ThemeDynamicManager._setValue_dynamicPreviewContainers(
+                            container,
+                            dynamicPeviewAttrKey,
+                            newValue,
+                        ),
+                    );
+
+                if (setInputValues) {
+                    for (const input of this.inputs[key]) {
+                        input.checked = input.value === newValue;
+                    }
+                }
+
+                localStorage.setItem(
+                    ThemeDynamicManager.attrNames[key],
+                    newValue,
+                );
+
+                setTimeout(
+                    () => Promise.all(promises).then(() => resolve()),
+                    3000,
+                );
+            });
+        }
+
+        private abortController_setBrightnessValue: undefined | AbortController;
+
+        protected async setBrightnessValue(
+            newValue: string,
+            setInputValues?: boolean,
+        ) {
+            this.abortController_setBrightnessValue?.abort();
+            this.abortController_setBrightnessValue = new AbortController();
+
+            if (!this.brightnessOptions.includes(newValue)) {
+                newValue = 'light';
+            }
+
+            return this._setValue(
+                'brightness',
+                'data-brightness-mode',
+                newValue,
+                this.abortController_setBrightnessValue.signal,
+                setInputValues,
+            ).then(() => (this.abortController_setBrightnessValue = undefined));
+        }
+
+        private abortController_setThemeValue: undefined | AbortController;
+
+        protected async setThemeValue(
+            newValue: string,
+            setInputValues?: boolean,
+        ) {
+            this.abortController_setThemeValue?.abort();
+            this.abortController_setThemeValue = new AbortController();
+
+            if (
+                this.themeOptions?.length &&
+                !this.themeOptions.includes(newValue)
+            ) {
+                newValue = 'default';
+            }
+
+            return this._setValue(
+                'theme',
+                'data-active-theme',
+                newValue,
+                this.abortController_setThemeValue.signal,
+                setInputValues,
+            ).then(() => (this.abortController_setThemeValue = undefined));
+        }
+    }
+
+    new ThemeDynamicManager();
+</script>

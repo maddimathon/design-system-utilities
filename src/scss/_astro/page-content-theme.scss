@@ -3,14 +3,16 @@
 /// @since 0.1.0-alpha
 ///
 
-@use 'lib';
+@use 'lib' as *;
 @use 'lib/config';
 
 /* # PAGE CONTENT - THEME ==================================== */
 
+@include snippet-docs-page-content-theme-shared($useGlobalPseudo: true);
+
 .theme-mode-preview-page__display-mode__wrapper {
     display: none;
-    margin-block-start: lib.do-var(flow-margin);
+    margin-block-start: do-var(flow-margin);
 
     input,
     label {
@@ -18,85 +20,32 @@
     }
 }
 
-[data-theme-mode-preview-page-display-mode-content] {
+[data-tokens-theme-preview-display-mode-content] {
     display: none;
 }
 
-[data-theme-mode-preview-page-display-mode-content='preview'] {
-    display: lib.do-var(display, grid);
-}
-
-.theme-mode-swatch__alt-widgets {
-    @include lib.prop-display(flex);
-    flex-direction: column;
-    gap: 0;
-
-    .widget-block {
-        margin-block: lib.do-var(flow-margin-firm-start--large)
-            lib.do-var(flow-margin-firm-end--large);
-    }
+[data-tokens-theme-preview-display-mode-content='preview'] {
+    display: do-var(display, grid);
 }
 
 :global(.js) {
     .theme-mode-preview-page__display-mode__wrapper {
-        @include lib.prop-display(flex);
+        @include prop-display(flex);
         justify-content: end;
-        gap: lib.var-mrg-soft('200') lib.var-gap-inline(tab);
+        gap: var-mrg-soft('200') var-gap-inline(tab);
     }
 
     @each $_opt in (preview, tokens) {
-        &:global([data-theme-mode-preview-page-display-mode='#{$_opt}']) {
-            :global([data-theme-mode-preview-page-display-mode-content]) {
+        &:global([data-tokens-theme-preview-display-mode='#{$_opt}']) {
+            :global([data-tokens-theme-preview-display-mode-content]) {
                 display: none !important;
             }
 
-            :global([data-theme-mode-preview-page-display-mode-content='#{$_opt}']) {
-                display: lib.do-var(display, grid) !important;
-            }
-        }
-    }
-
-    .theme-mode-toggle {
-        &[data-toggle-container],
-        &[data-toggle-container='open'] {
-            > :global([data-toggle-content]) {
-                > :global(.container) {
-                    justify-content: start;
-                    align-content: stretch;
-                    align-items: stretch;
-
-                    padding: 0;
-
-                    .theme-mode-toggle__list {
-                        @include lib.prop-display(grid);
-                        grid-template-columns: repeat(
-                            lib.do-var(theme-mode-swatch-list-column-count),
-                            minmax(16rem, 1fr)
-                        );
-                        grid-template-rows: auto;
-                        grid-auto-flow: column;
-
-                        justify-content: stretch;
-                        justify-items: stretch;
-                        align-content: start;
-                        align-items: stretch;
-
-                        padding: 0;
-
-                        overflow-inline: auto;
-
-                        :global(.theme-mode-swatch) {
-                            padding-block: lib.do-var(flow-margin);
-                            padding-inline: lib.do-var(flow-margin-firm-start);
-
-                            min-width: 0;
-                            max-width: none;
-                        }
-                    }
-                }
+            :global([data-tokens-theme-preview-display-mode-content='#{$_opt}']) {
+                display: do-var(display, grid) !important;
             }
         }
     }
 }
 
-@include lib.extend-selectors;
+@include extend-selectors;

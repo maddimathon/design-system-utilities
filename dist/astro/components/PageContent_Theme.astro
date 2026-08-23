@@ -8,7 +8,7 @@
 /* import - types */
 import type { ComponentProps } from 'astro/types';
 import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type {ToggleProps} from '@maddimathon/utility-astro/components';
+import type { ToggleProps } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -17,10 +17,13 @@ import type  { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import {
+    objectEntries,
     objectMap,
+    objectOmit,
     toTitleCase,
 } from '@maddimathon/utility-typescript';
 
+import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 
 /* import - values */
@@ -66,10 +69,62 @@ const {
 
 /* FUNCTIONS ===================================== */
 
-function getButtonVariations(themeKey: keyof typeof tokens.themes) {
-    return tokens.themes[themeKey]
-        ? Object.keys(tokens.themes[themeKey].light['average'].data.button)
+export function getButtonVariations<T_Types extends TokenTypes.TypeParams>(
+    tokensJson: Tokens.JsonReturn<T_Types>,
+    themeKey: Exclude<keyof Tokens.JsonReturn<T_Types>['themes'], '_meta'>,
+) {
+    return tokensJson.themes[themeKey]
+        ? Object.keys(tokensJson.themes[themeKey].light['average'].data.button)
         : [];
+}
+
+/**
+ * Parses them for easier iteration in previews.
+ * 
+ * @since 0.1.0-beta.0.draft
+ */
+export function parseThemeSets<T_Types extends TokenTypes.TypeParams>(
+    tokensJson: Tokens.JsonReturn<T_Types>,
+    brightnessesToInclude?: T_Types['theme']['brightness'],
+) {
+    const themesNoMeta = objectOmit(tokensJson.themes, ['_meta']);
+    
+    return objectEntries(themesNoMeta).map(
+        ([ key, theme ]) => ({
+            key,
+            parsed: Object.values(
+                objectMap(
+                    objectGenerator(
+                        brightnessesToInclude ?? ['light', 'dark'] as const,
+                        (brightness) => theme[brightness],
+                    ),
+                    ([brightness]) => theme[brightness]
+                        ? {
+                            name: brightness,
+                            label: toTitleCase(`${key} — ${brightness} Mode`),
+                            href: `${key}-${brightness}-mode`,
+                            values: Object.values(
+                                objectMap(
+                                    theme[brightness],
+                                    ([ contrast,  theme ]): {
+                                        id: string,
+                                        brightness: "light"|"dark",
+                                        contrast: "low"|"average"|"high"|"max",
+                                        theme: typeof theme,
+                                    } => ({
+                                        id: `theme-${key}-${contrast}`,
+                                        brightness,
+                                        contrast,
+                                        theme,
+                                    })
+                                )
+                            ),
+                        }
+                        : false
+                )
+            ).filter((v) => v !== false),
+        })
+    );
 }
 
 /* CONSTANTS ===================================== */
@@ -84,51 +139,7 @@ const defaultToggleToOpen = Array.isArray(_defaultToggleToOpen) ? _defaultToggle
 
 const levelsInUse = getLevelsInUse(tokens.themes);
 
-const parsedSets = (
-    Object.entries(tokens.themes) as [ keyof typeof tokens.themes, typeof tokens.themes[keyof typeof tokens.themes] ][]
-).map(
-    ([key,  theme]) => 
-    key === '_meta'
-    ? false
-    : ({
-        key,
-        parsed: Object.values(
-            objectMap(
-                theme,
-                ([brightness]) =>
-                    brightness === '_name'
-                        ? false
-                        : brightness === '_meta'
-                            ? false
-                            :  brightness === 'forcedColours' 
-                                ? false
-                                : theme[brightness]
-                                    ? {
-                                        name: brightness,
-                                        label: toTitleCase(`${key} — ${brightness} Mode`),
-                                        href: `${key}-${brightness}-mode`,
-                                        values: Object.values(
-                                            objectMap(
-                                                theme[brightness],
-                                                ([ contrast,  theme ]): {
-                                                    id: string,
-                                                    brightness: "light"|"dark",
-                                                    contrast: "low"|"average"|"high"|"max",
-                                                    theme: typeof theme,
-                                                } => ({
-                                                    id: `theme-${key}-${contrast}`,
-                                                    brightness,
-                                                    contrast,
-                                                    theme,
-                                                })
-                                            )
-                                        ),
-                                    }
-                                    : false
-            )
-        ).filter((v) => v !== false),
-    })
-).filter((v) => v !== false);
+const parsedSets = parseThemeSets(tokens);
 
 const displayOptions = [
     {
@@ -210,7 +221,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                             class:list={ [
                                 'theme-mode-toggle__list', 
                             ] }
-                            data-theme-mode-preview-page-display-mode-content={opt.value}
+                            data-tokens-theme-preview-display-mode-content={opt.value}
                             style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
                         >
                             { brightnessSet.values.map((set) => (
@@ -221,8 +232,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                         ToggleComponent,
                                         tokens,
                                     }}
-                                    brightness={brightnessSet.name}
-                                    data-active-theme={key == 'default' ? undefined : key}
+                                    data-active-theme={key}
                                     displayHeading={3}
                                     displayMode={opt.value}
                                     heading={4}
@@ -286,7 +296,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                             tokens={tokens}
                                                             ToggleComponent={ToggleComponent}
                                                         />
-                                                        <Fragment slot="cta-buttons">{ getButtonVariations( themeName ).map(
+                                                        <Fragment slot="cta-buttons">{ getButtonVariations( tokens, themeName ).map(
                                                             variant => ( variant === 'primary' || variant === 'secondary' || variant === 'tertiary' ) && <button
                                                                 class={`button-${variant}`}
                                                                 set:text={`This is a ${variant} CTA button`}

@@ -1,0 +1,139 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0.draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+// @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
+
+// @use '../../config';
+@use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+@mixin _maybe-globalized($bool, $sel, $direct: false) {
+    $sel: if($bool, ':global( #{$sel} )', $sel);
+
+    #{if( $direct, selector.nest( '>', $sel ), $sel )} {
+        @content;
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-docs-page-content-theme-shared($useGlobalPseudo: false) {
+    .theme-mode-swatch__alt-widgets {
+        @include prop-display(flex);
+        flex-direction: column;
+        gap: 0;
+
+        .widget-block {
+            margin-block: do-var(flow-margin-firm-start--large)
+                do-var(flow-margin-firm-end--large);
+        }
+    }
+
+    .theme-mode-toggle__list {
+        @include prop-display(grid);
+        grid-template-columns: repeat(
+            do-var(theme-mode-swatch-list-column-count),
+            minmax(16rem, 1fr)
+        );
+        grid-template-rows: auto;
+        grid-auto-flow: column;
+
+        justify-content: stretch;
+        justify-items: stretch;
+        align-content: start;
+        align-items: stretch;
+
+        padding: 0;
+
+        overflow-inline: auto;
+
+        @include _maybe-globalized($useGlobalPseudo, '.theme-mode-swatch') {
+            padding-block: do-var(flow-margin);
+            padding-inline: do-var(flow-margin-firm-start);
+
+            min-width: 0;
+            max-width: none;
+        }
+    }
+
+    @include _maybe-globalized($useGlobalPseudo, '.js') {
+        .theme-mode-toggle {
+            &[data-toggle-container],
+            &[data-toggle-container='open'] {
+                @include _maybe-globalized(
+                    $useGlobalPseudo,
+                    '[data-toggle-content]',
+                    $direct: true
+                ) {
+                    @include _maybe-globalized(
+                        $useGlobalPseudo,
+                        '.container',
+                        $direct: true
+                    ) {
+                        justify-content: start;
+                        align-content: stretch;
+                        align-items: stretch;
+
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-docs-page-content-theme-dynamic(
+    $baseOnly: false,
+    $includeBase: true,
+    $useGlobalPseudo: false
+) {
+    @if $includeBase {
+        @include snippet-docs-page-content-theme-shared(
+            $useGlobalPseudo: $useGlobalPseudo
+        );
+    }
+
+    @if not $baseOnly {
+        @each $_brightness in tokens.$brightnessMode_options {
+            @include _maybe-globalized(
+                $useGlobalPseudo,
+                '[data-tokens-theme-dynamic-preview-brightness=#{$_brightness}]'
+            ) {
+                [data-tokens-theme-dynamic-preview-brightness-content] {
+                    display: none !important;
+                }
+
+                [data-tokens-theme-dynamic-preview-brightness-content='#{$_brightness}'] {
+                    display: do-var(display, grid) !important;
+                }
+            }
+        }
+
+        @each $_theme in map.keys(tokens.$themes) {
+            @include _maybe-globalized(
+                $useGlobalPseudo,
+                '[data-tokens-theme-dynamic-preview-theme=#{$_theme}]'
+            ) {
+                [data-tokens-theme-dynamic-preview-theme-content],
+                .widget-block[data-active-theme='#{$_theme}'] {
+                    display: none !important;
+                }
+
+                [data-tokens-theme-dynamic-preview-theme-content='#{$_theme}'] {
+                    display: do-var(display, grid) !important;
+                }
+            }
+        }
+    }
+}

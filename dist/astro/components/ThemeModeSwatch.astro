@@ -20,6 +20,7 @@ import type { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import { 
+    objectEntries,
     objectMap,
     toTitleCase,
 } from '@maddimathon/utility-typescript';
@@ -272,27 +273,27 @@ const buttons: {
                     background: {
                         state,
                         key: `button-${variation}-background${keySuffix}`,
-                        value: value.background[key],
+                        value: typeof value.background === 'object' ? value.background[key] : value.background,
                     },
                     border: {
                         state,
                         key: `button-${variation}-border${keySuffix}`,
-                        value: value.border[key],
+                        value: typeof value.border === 'object' ? value.border[key] : value.border,
                     },
                     outline: state && value.outline[key] ? {
                         state,
                         key: `button-${variation}-outline${keySuffix}`,
-                        value: value.outline[key],
+                        value: typeof value.outline === 'object' ? value.outline[key] : value.outline,
                     } : undefined,
                     text: {
                         state,
                         key: `button-${variation}-text${keySuffix}`,
-                        value: value.text[key],
+                        value: typeof value.text === 'object' ? value.text[key] : value.text,
                     },
                     ui: {
                         state,
                         key: `button-${variation}-ui${keySuffix}`,
-                        value: value.text[key],
+                        value: typeof value.text === 'object' ? value.text[key] : value.text,
                     },
                 };
             }
@@ -384,9 +385,6 @@ const inputField = {
 <article
     class:list={['container', 'theme-mode-swatch']}
     {...attributes}
-    data-brightness-mode={brightness}
-    data-contrast-mode={contrast}
-    data-active-theme={theme.name}
 >
     {
         headingHTML && (
@@ -456,19 +454,22 @@ const inputField = {
                     class:list='screen-reader-text'
                     set:text='Button Previews'
                 />
-                { Object.values( buttons ).map( ( variation ) => (
-                    <Heading
-                        heading={heading + 3}
-                        class:list='screen-reader-text'
-                        set:text={variation.name}
-                    />
-                    <div class:list={['button-span | theme-mode-swatch__button-span']}>{ Object.values( variation.states ).map( ( state ) => (
+                { [
+                    ...Object.values( buttons ).filter( variation => variation.name !== 'disabled' ),
+                    buttons.disabled,
+                ].map( ( variation ) => (
+                    <section
+                        aria-label={variation.name + ' button previews'}
+                        class:list={['button-span | theme-mode-swatch__button-span']}
+                    >{ Object.values( variation.states ).map( ( state ) => (
                         <button
                             set:text={`${toTitleCase(variation.name)} Button${state.background?.state ? ` (${state.background.state})` : ''}`}
                             aria-disabled={ variation.name === 'disabled' ? true : undefined }
                             class:list={ [
-                                `button-${variation.name}`,
-                                '|',
+                                {
+                                    [`button-${variation.name}`]: variation.name !== 'disabled',
+                                    '|': variation.name !== 'disabled',
+                                },
                                 'theme-mode-swatch__sample',
                                 'theme-mode-swatch__sample--button',
                             ] }
@@ -478,16 +479,17 @@ const inputField = {
                                 state.text?.value && `color: ${getCssColourForThemePreview(tokens, brightness, state.text.value)}`,
                             ].filter( v => v ).join(';') }
                         />
-                    ) ) }</div>
+                    ) ) }</section>
                 ) ) }
             </Fragment>
          ) }
+
         <Heading
             heading={heading + 2}
             class:list='screen-reader-text'
             set:text='Button Token Values'
         />
-        { Object.values( buttons ).map( ( variation ) => (
+        { Object.values( buttons ).map( ( variation ) => variation.name !== 'disabled' && (
             <Heading
                 heading={heading + 3}
                 displayHeading={displayHeading + 2}
@@ -509,8 +511,33 @@ const inputField = {
                         ><code set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
                     )
                 )
-             ) }</Fragment>
+            ) }</Fragment>
         ) ) }
+        <Heading
+            heading={heading + 3}
+            displayHeading={displayHeading + 2}
+            set:text={`${toTitleCase(buttons.disabled.name)} Button`}
+        />
+        { Object.values( buttons.disabled.states ).map(
+            ( state ) => objectEntries(state).map(
+                ([key]) => state[key] && ( 
+                    key != 'border' || state.border?.value != state.background?.value 
+                ) && (
+                    <p
+                        class="theme-mode-swatch__sample"
+                        style={ [
+                            key === 'background' && state.text
+                                ? `background: ${getCssColourForThemePreview(tokens, brightness, state.text.value)}`
+                                : (key == 'text' || key == 'ui') && state.background
+                                    ? `background: ${getCssColourForThemePreview(tokens, brightness, state.background.value)}`
+                                    : '',
+                            `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)}`,
+                        ].filter( v => v ).join(';') }
+                    ><code set:text={`theme-button-${buttons.disabled.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
+                )
+            )
+        ) }
+
         <Heading
             heading={heading + 1}
             displayHeading={displayHeading + 1}

@@ -10,7 +10,7 @@
  * 
  * https://maddimathon.github.io/design-system-utilities
  */
-/* # PAGE CONTENT - THEME ==================================== */
+/* # PAGE CONTENT - THEME DYNAMIC ==================================== */
 .theme-mode-swatch__alt-widgets {
     --display: flex;
     display: flex;
@@ -67,50 +67,4 @@
     align-content: stretch;
     align-items: stretch;
     padding: 0;
-}
-
-.theme-mode-preview-page__display-mode__wrapper {
-    display: none;
-    margin-top: 0.78125rem;
-    margin-top: var(--flow-margin, 0.78125rem);
-}
-.theme-mode-preview-page__display-mode__wrapper input,
-.theme-mode-preview-page__display-mode__wrapper label {
-    margin: 0;
-}
-
-[data-tokens-theme-preview-display-mode-content] {
-    display: none;
-}
-
-[data-tokens-theme-preview-display-mode-content="preview"] {
-    display: grid;
-    display: var(--display, grid);
-}
-
-:global(.js) .theme-mode-preview-page__display-mode__wrapper {
-    --display: flex;
-    display: flex;
-    display: var(--display, flex);
-    justify-content: end;
-    gap: 0.3125rem 5%;
-    gap: var(--mrg-soft-200, 0.3125rem) var(--gap-inline-tab, 5%);
-}
-:global(.js):global([data-tokens-theme-preview-display-mode="preview"])
-    :global([data-tokens-theme-preview-display-mode-content]) {
-    display: none !important;
-}
-:global(.js):global([data-tokens-theme-preview-display-mode="preview"])
-    :global([data-tokens-theme-preview-display-mode-content="preview"]) {
-    display: grid !important;
-    display: var(--display, grid) !important;
-}
-:global(.js):global([data-tokens-theme-preview-display-mode="tokens"])
-    :global([data-tokens-theme-preview-display-mode-content]) {
-    display: none !important;
-}
-:global(.js):global([data-tokens-theme-preview-display-mode="tokens"])
-    :global([data-tokens-theme-preview-display-mode-content="tokens"]) {
-    display: grid !important;
-    display: var(--display, grid) !important;
 }
