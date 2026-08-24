@@ -76,22 +76,20 @@
                     $_fallback: style-value($prop);
                 }
 
+                $_fallback: if(
+                    $_hasOverride,
+                    $_fallback,
+                    var-style(
+                        $_styleKey,
+                        $fallback: $_fallback,
+                        $fallbackOnly: if(not $_prefixExists, true, null),
+                        $neverReplaceWithValue: false
+                    )
+                );
+
                 @include utils.cx-prop(
                     $prop,
-                    if(
-                        $_hasOverride,
-                        $_fallback,
-                        #{var-style(
-                                $_styleKey,
-                                $fallback: $_fallback,
-                                $fallbackOnly: if(
-                                        not $_prefixExists,
-                                        true,
-                                        null
-                                    ),
-                                $neverReplaceWithValue: false
-                            )}#{$importantSuffix}
-                    ),
+                    #{$_fallback}#{$importantSuffix},
                     $allPrefixes: true
                 );
             }

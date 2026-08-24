@@ -879,9 +879,9 @@ pre > code {
 /* #endregion Tokens - Stroke Relative */
 /* #region Tokens - Z Index */
 :root {
-    --z-index-nav: 1000;
+    --z-index-nav: 9999;
     --z-index-popup: 999999;
-    --z-index-settings: 9999;
+    --z-index-settings: 1000;
     --z-index-skipLink: 99999;
 }
 
@@ -23230,7 +23230,7 @@ body > nav[data-toggle-container] {
     margin: 0;
     padding: 0;
     gap: 0;
-    z-index: var(--z-index-nav, 1000);
+    z-index: var(--z-index-nav, 9999);
 }
 :where(.js) .nav-primary[data-toggle-container] > .toggle-title {
     min-height: var(--height-nav-primary, 3.125rem);
@@ -23268,7 +23268,7 @@ body > nav[data-toggle-container] {
 }
 .website-settings-menu[data-toggle-container] {
     overscroll-behavior: none;
-    z-index: 1;
+    z-index: var(--z-index-settings, 1000);
     justify-content: start;
     align-content: end;
     align-items: end;
@@ -23667,7 +23667,7 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     display: var(--display, block);
 }
 :where(.js) .website-settings-menu[data-toggle-container="open"] {
-    z-index: 999999;
+    z-index: var(--z-index-popup, 999999);
 }
 :where(.js)
     .website-settings-menu[data-toggle-container="open"]

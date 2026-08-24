@@ -52,6 +52,7 @@
     $asFallbackValue: false,
     $asInitialValue: false,
     $failureReturn: $slug,
+    $opacity: null,
     $warnOnFail: true,
     $args...
 ) {
@@ -428,7 +429,11 @@
 
     // returns
     @if $isThemeToken {
-        @return if(colour.is-colour-like($value), $value, theme.tokens-var-theme($value, $args...));
+        @return if(
+            colour.is-colour-like($value),
+            $value,
+            theme.tokens-var-theme($value, $opacity: $opacity, $args...)
+        );
     }
 
     // returns
@@ -447,6 +452,7 @@
     $fallback: null,
     $fallbackOnly: false,
     $neverReplaceWithValue: null,
+    $opacity: null,
     $raw: false,
     $rawUnit: 1,
     $value_failureReturn: $slug,
@@ -485,7 +491,8 @@
             $rawUnit: $rawUnit,
             $asFallbackValue: true,
             $failureReturn: $value_failureReturn,
-            $warnOnFail: $value_warnOnFail
+            $warnOnFail: $value_warnOnFail,
+            $opacity: $opacity
         );
     }
 
