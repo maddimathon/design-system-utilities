@@ -56,6 +56,31 @@
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@mixin _set-flow-margins--selector-custom-props($selector_customProps) {
+    @if $selector_customProps == false {
+        // false means no added selector
+
+        @if selector.parent-exists() {
+            @content;
+        } @else {
+            %root {
+                @content;
+            }
+        }
+    } @else if selector.parent-exists($selector_customProps) {
+        #{$selector_customProps} {
+            @content;
+        }
+    } @else {
+        #{if(selector.parent-exists(), '> *', config.$selector_root)} {
+            @content;
+        }
+    }
+}
+
+///
 /// Sets the paragraph margins using style tokens.
 ///
 /// You should usually set param values with style-value( $raw: true ), not
@@ -84,7 +109,9 @@
     //
     $childrenWhere: false,
     $defineChildProps: false,
-    $defineCustomProps: true
+    $defineCustomProps: true,
+    $usePadding: false,
+    $selector_customProps: ()
 ) {
     $default: if(
         $default == null,
@@ -140,24 +167,40 @@
 
     // SET VARS
 
-    $val_default: var-mrg-soft($default);
-    $val_small: var-mrg-soft($small);
-    $val_large: var-mrg-soft($large);
+    $val_default: if($usePadding, var-pad-soft($default), var-mrg-soft($default));
+    $val_small: if($usePadding, var-pad-soft($small), var-mrg-soft($small));
+    $val_large: if($usePadding, var-pad-soft($large), var-mrg-soft($large));
 
     $var_small: do-var(flow-margin--small, $val_small);
     $var_large: do-var(flow-margin--large, $val_large);
 
-    $val_firm_start: var-mrg-firm($firmStart);
-    $val_firm_end: var-mrg-half($firmEnd);
+    $val_firm_start: if($usePadding, var-pad-firm($firmStart), var-mrg-firm($firmStart));
+    $val_firm_end: if($usePadding, var-pad-half($firmEnd), var-mrg-half($firmEnd));
 
-    $val_firm_start_small: var-mrg-firm($firmStart_small);
-    $val_firm_end_small: var-mrg-half($firmEnd_small);
+    $val_firm_start_small: if(
+        $usePadding,
+        var-pad-firm($firmStart_small),
+        var-mrg-firm($firmStart_small)
+    );
+    $val_firm_end_small: if(
+        $usePadding,
+        var-pad-half($firmEnd_small),
+        var-mrg-half($firmEnd_small)
+    );
 
     $var_firm_start_small: do-var(flow-margin-firm-start--small, $val_firm_start_small);
     $var_firm_end_small: do-var(flow-margin-firm-end--small, $val_firm_end_small);
 
-    $val_firm_start_large: var-mrg-firm($firmStart_large);
-    $val_firm_end_large: var-mrg-half($firmEnd_large);
+    $val_firm_start_large: if(
+        $usePadding,
+        var-pad-firm($firmStart_large),
+        var-mrg-firm($firmStart_large)
+    );
+    $val_firm_end_large: if(
+        $usePadding,
+        var-pad-half($firmEnd_large),
+        var-mrg-half($firmEnd_large)
+    );
 
     $var_firm_start_large: do-var(flow-margin-firm-start--large, $val_firm_start_large);
 
@@ -194,8 +237,7 @@
     );
 
     // CUSTOM PROPS
-    $_sel: if(selector.parent-exists(), '*', config.$selector_root);
-    #{selector.nest('>', if($childrenWhere, ':where(#{$_sel})', $_sel))} {
+    @include _set-flow-margins--selector-custom-props($selector_customProps) {
         @if $defineCustomProps {
             @include cx-prop(flow-margin, $val_default);
             @include cx-prop(flow-margin--small, $val_small);

@@ -87,6 +87,8 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     $display: flex,
     $lineHeight: var-style(widget-line-height),
     $gap: false,
+    $paddingBlock: var-style(widget-padding-block),
+    $paddingInline: var-style(widget-padding-inline),
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
     $width: fit-content,
     //
@@ -122,8 +124,8 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     }
 
     @if $includePadding {
-        padding-block: var-style(widget-padding-block);
-        padding-inline: var-style(widget-padding-inline);
+        padding-block: $paddingBlock;
+        padding-inline: $paddingInline;
     }
 
     @if $gap != false {

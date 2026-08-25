@@ -2394,6 +2394,86 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 }
 
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-button-span(
+    $alignment: (),
+    $flexDirection: row,
+    $flexWrap: wrap,
+    $gap: null,
+    $gap_touch: null,
+    $selector_button: '%button',
+    $selector_li: '%li',
+    $multipleContentBlocks: false
+) {
+    @if $gap_touch == null {
+        $gap_touch: if($gap == null, null, false);
+    }
+
+    $gap: meta.defined-else(
+        $gap,
+        do-var(flow-margin-button-span-block--touch)
+            do-var(flow-margin-button-span-inline--touch)
+    );
+
+    @include prop-display(flex);
+    flex-direction: $flexDirection;
+    flex-wrap: $flexWrap;
+
+    justify-content: meta.defined-else(
+        map.get($alignment, justify-content),
+        start
+    );
+    align-content: meta.defined-else(map.get($alignment, align-content), start);
+    align-items: meta.defined-else(map.get($alignment, align-items), start);
+
+    margin-inline: 0;
+    padding-inline: 0;
+
+    list-style: none;
+
+    @if $gap_touch != false {
+        gap: meta.defined-else(
+            $gap_touch,
+            do-var(flow-margin-button-span-block)
+                do-var(flow-margin-button-span-inline)
+        );
+    } @else if $gap != false {
+        gap: $gap;
+    }
+
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
+
+    @if $gap_touch != false and $gap != false {
+        @include feature-check.supports-not(touch) {
+            gap: $gap;
+        }
+    }
+
+    #{$selector_button},
+    #{$selector_li} {
+        margin-block: 0 !important;
+        margin-inline: 0 !important;
+
+        @if $multipleContentBlocks {
+            @content (button);
+        }
+    }
+
+    #{$selector_li} {
+        padding-inline: 0 !important;
+
+        @if $multipleContentBlocks {
+            @content (li);
+        }
+    }
+}
+
 $_mixin_button: meta.get-mixin('snippet-button');
 $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     'snippet-add-pseudo-file-selector-button'
@@ -2444,17 +2524,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     );
 
     %button-span {
-        @include prop-display(flex);
-        flex-direction: row;
-        flex-wrap: wrap;
-
-        justify-content: start;
-        align-content: start;
-        align-items: start;
-
-        %button {
-            margin: 0 !important;
-        }
+        @include snippet-button-span($gap: false);
     }
 
     %button {
