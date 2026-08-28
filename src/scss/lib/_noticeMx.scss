@@ -10,7 +10,7 @@
 @mixin notice($incl_astro: false, $incl_sass: true) {
     @include lib.notice($incl_astro: $incl_astro, $incl_sass: $incl_sass);
 
-    @if not config.$internal_supressCredit {
+    @if not config.$isTemplate or not config.$template_docBlock {
         /*!
          * This stylesheet includes css generated using 
          * @maddimathon/design-system-utilities@___CURRENT_VERSION___

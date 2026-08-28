@@ -549,6 +549,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         const style: Tokens_CSS_Style.HeadingStyles = {
 
             font: {
+                family: 'heading',
                 style: 'normal',
                 weight: '600',
             },
@@ -1101,9 +1102,9 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: CSS.BorderRadius;
+            radius: TokenTypes.Css.BorderRadius;
             style: string;
-            width: CSS.BorderWidth;
+            width: TokenTypes.Css.BorderWidth;
         };
 
         /**
@@ -1132,7 +1133,7 @@ export namespace Tokens_CSS_Style {
                 weight: WholeTokenLevel;
             };
 
-            'line-height': CSS.LineHeight;
+            'line-height': TokenTypes.Css.LineHeight;
 
             /**
              * Value for the first item after an icon (to be in em). Gets
@@ -1155,7 +1156,7 @@ export namespace Tokens_CSS_Style {
             size: Omit<IconStyles<never>[ 'size' ], 'font' | 'pseudo'>;
         };
 
-        'line-height': CSS.LineHeight;
+        'line-height': TokenTypes.Css.LineHeight;
 
         /**
          * Values for the set-flow-margins mixin.
@@ -1194,9 +1195,9 @@ export namespace Tokens_CSS_Style {
     export type ButtonStyles = {
 
         border: {
-            radius: CSS.BorderRadius;
+            radius: TokenTypes.Css.BorderRadius;
             style: string;
-            width: CSS.BorderWidth;
+            width: TokenTypes.Css.BorderWidth;
         };
 
         display: "block" | "flex";
@@ -1226,15 +1227,15 @@ export namespace Tokens_CSS_Style {
             size: Omit<IconStyles_Spacing[ 'size' ], '$' | 'large'>;
         };
 
-        'letter-spacing': CSS.LetterSpacing;
-        'line-height': CSS.LineHeight;
+        'letter-spacing': TokenTypes.Css.LetterSpacing;
+        'line-height': TokenTypes.Css.LineHeight;
 
         padding: {
             block: 0 | AnyTokenLevel;
             inline: 0 | AnyTokenLevel;
         };
 
-        'text-transform': CSS.TextTransform;
+        'text-transform': TokenTypes.Css.TextTransform;
 
         width: string;
     };
@@ -1260,66 +1261,6 @@ export namespace Tokens_CSS_Style {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
         'vertical-align': string;
     };
-
-    /**
-     * CSS allowed value types.
-     * 
-     * @since 0.1.0-alpha
-     */
-    export namespace CSS {
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export type BorderRadius = 0 | AnyTokenLevel;
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export type BorderWidth = 0 | AnyTokenLevel;
-
-        /**
-         * Global keywords available for most properties.
-         * 
-         * @since ___PKG_VERSION___
-         */
-        export type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
-
-        /**
-         * @since ___PKG_VERSION___
-         */
-        export namespace Number {
-
-            /**
-             * A number with em units.
-             * 
-             * @since ___PKG_VERSION___
-             */
-            export type Em = 0 | `${ number }em` | `-${ number }em`;
-
-            /**
-             * A number with % units.
-             * 
-             * @since ___PKG_VERSION___
-             */
-            export type Percent = 0 | `${ number }%` | `-${ number }%`;
-        }
-
-        /**
-         * @since 0.1.0-alpha
-         */
-        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
-    }
 
     /**
      * The flow margins to be included in various other styles for the
@@ -1385,6 +1326,10 @@ export namespace Tokens_CSS_Style {
     export type HeadingStyles = {
 
         font: {
+            /**
+             * This should be a font family slug.
+             */
+            family: string;
             style: "normal" | "italic";
             weight: WholeTokenLevel;
         };
@@ -1398,8 +1343,8 @@ export namespace Tokens_CSS_Style {
         };
 
         'letter-spacing': string;
-        'line-height': CSS.LineHeight;
-        'text-transform': CSS.TextTransform;
+        'line-height': TokenTypes.Css.LineHeight;
+        'text-transform': TokenTypes.Css.TextTransform;
 
         margin: {
             block: {
@@ -1409,8 +1354,8 @@ export namespace Tokens_CSS_Style {
 
         padding: {
             block: {
-                start: 0 | CSS.Number.Em | AnyTokenLevel;
-                end: 0 | CSS.Number.Em | AnyTokenLevel;
+                start: 0 | TokenTypes.Css.Number.Em | AnyTokenLevel;
+                end: 0 | TokenTypes.Css.Number.Em | AnyTokenLevel;
             };
         };
     };
@@ -1434,11 +1379,6 @@ export namespace Tokens_CSS_Style {
 
         font: HeadingStyles[ 'font' ] & {
             /**
-             * This should be a font family slug.
-             */
-            family: string;
-
-            /**
              * This should be a font size slug.
              */
             size: string;
@@ -1454,17 +1394,17 @@ export namespace Tokens_CSS_Style {
      */
     export type IconStyles_Spacing = {
         buffer: {
-            $: CSS.Number.Em;
+            $: TokenTypes.Css.Number.Em;
             start: number;
             end: number;
         };
 
         embedded: {
-            bottom: CSS.Number.Em;
+            bottom: TokenTypes.Css.Number.Em;
         };
 
-        font: { top: CSS.Number.Em; };
-        pseudo: { top: CSS.Number.Em; };
+        font: { top: TokenTypes.Css.Number.Em; };
+        pseudo: { top: TokenTypes.Css.Number.Em; };
 
         size: IconStyles<never>[ 'size' ];
 
@@ -1485,26 +1425,26 @@ export namespace Tokens_CSS_Style {
         inline: {
             buffer: IconStyles_Spacing[ 'buffer' ],
 
-            'line-height': 'normal' | Exclude<CSS.LineHeight, AnyTokenLevel>;
+            'line-height': 'normal' | Exclude<TokenTypes.Css.LineHeight, AnyTokenLevel>;
         };
 
         pseudo: IconStyles_Spacing[ 'pseudo' ];
 
         size: {
-            $: CSS.Number.Em;
-            large: CSS.Number.Em;
+            $: TokenTypes.Css.Number.Em;
+            large: TokenTypes.Css.Number.Em;
 
             /**
              * For inline icons using the icon font.
              */
-            font: CSS.Number.Em;
+            font: TokenTypes.Css.Number.Em;
 
             /**
              * For inline icons in before/after pseudo classes.
              */
-            pseudo: CSS.Number.Em;
+            pseudo: TokenTypes.Css.Number.Em;
         } & {
-            [ K in T_Params[ 'iconSizes' ] ]: CSS.Number.Em;
+            [ K in T_Params[ 'iconSizes' ] ]: TokenTypes.Css.Number.Em;
         };
 
         'vertical-align': string;
@@ -1516,9 +1456,9 @@ export namespace Tokens_CSS_Style {
     export type InputStyles = {
 
         border: {
-            radius: CSS.BorderRadius;
+            radius: TokenTypes.Css.BorderRadius;
             style: string;
-            width: CSS.BorderWidth;
+            width: TokenTypes.Css.BorderWidth;
         };
 
         /**
@@ -1540,8 +1480,8 @@ export namespace Tokens_CSS_Style {
 
             offset: {
                 block: {
-                    start: CSS.Number.Em;
-                    end: CSS.Number.Em;
+                    start: TokenTypes.Css.Number.Em;
+                    end: TokenTypes.Css.Number.Em;
                 };
             };
         };
@@ -1552,10 +1492,10 @@ export namespace Tokens_CSS_Style {
                 weight: WholeTokenLevel;
             };
 
-            'line-height': CSS.LineHeight;
+            'line-height': TokenTypes.Css.LineHeight;
         };
 
-        'line-height': CSS.LineHeight;
+        'line-height': TokenTypes.Css.LineHeight;
 
         // margin: {
         //     block: {
@@ -1633,8 +1573,8 @@ export namespace Tokens_CSS_Style {
             border: {
 
                 radius: {
-                    $: CSS.BorderRadius;
-                    top: CSS.BorderRadius;
+                    $: TokenTypes.Css.BorderRadius;
+                    top: TokenTypes.Css.BorderRadius;
                 };
 
                 style: {
@@ -1642,10 +1582,10 @@ export namespace Tokens_CSS_Style {
                     top: "dotted" | "solid";
                 };
 
-                width: CSS.BorderWidth;
+                width: TokenTypes.Css.BorderWidth;
             };
 
-            'line-height': CSS.LineHeight;
+            'line-height': TokenTypes.Css.LineHeight;
 
             padding: {
                 block: AnyTokenLevel;
@@ -1673,8 +1613,8 @@ export namespace Tokens_CSS_Style {
 
         icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
-                start: CSS.Number.Em;
-                end: CSS.Number.Em;
+                start: TokenTypes.Css.Number.Em;
+                end: TokenTypes.Css.Number.Em;
             };
 
             size: IconStyles<never>[ 'size' ][ '$' ];
@@ -1696,7 +1636,7 @@ export namespace Tokens_CSS_Style {
                 background: string;
 
                 border: {
-                    width: CSS.BorderWidth;
+                    width: TokenTypes.Css.BorderWidth;
                 };
             };
 
@@ -1739,12 +1679,12 @@ export namespace Tokens_CSS_Style {
              */
             color: string;
 
-            radius: CSS.BorderRadius;
+            radius: TokenTypes.Css.BorderRadius;
             style: string;
-            width: CSS.BorderWidth;
+            width: TokenTypes.Css.BorderWidth;
         };
 
-        'line-height': CSS.LineHeight;
+        'line-height': TokenTypes.Css.LineHeight;
 
         /**
          * Values for the set-flow-margins mixin.
@@ -1809,7 +1749,7 @@ export namespace Tokens_CSS_Style {
          */
         hr: {
             border: {
-                width: CSS.BorderWidth;
+                width: TokenTypes.Css.BorderWidth;
             },
 
             /**
@@ -1869,7 +1809,7 @@ export namespace Tokens_CSS_Style {
                     /**
                      * Contrast modes.
                      */
-                    [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'> ]: CSS.Number.Percent;
+                    [ C in Exclude<TokenTypes.Theme.Mode.ContrastOption, 'max'> ]: TokenTypes.Css.Number.Percent;
                 };
             };
         };
@@ -1955,7 +1895,7 @@ export namespace Tokens_CSS_Style {
          */
         icon?: RecursivePartial<Omit<IconStyles<T_Params>, 'size'>> & {
             size: Partial<IconStyles<T_Params>[ 'size' ]> & {
-                [ K in T_Params[ 'iconSizes' ] ]: CSS.Number.Em;
+                [ K in T_Params[ 'iconSizes' ] ]: TokenTypes.Css.Number.Em;
             };
         };
 
@@ -2027,6 +1967,6 @@ export namespace Tokens_CSS_Style {
         /**
          * Opacity levels to print as colour tokens.
          */
-        presetOpacities: CSS.Number.Percent[];
+        presetOpacities: TokenTypes.Css.Number.Percent[];
     };
 }

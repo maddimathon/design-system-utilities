@@ -111,10 +111,53 @@ export declare namespace TokenTypes {
          */
         type AnyCssColour = CssColours.Keyword | CssColours.Slug | SystemColor;
         /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type BorderRadius = 0 | AnyTokenLevel;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type BorderWidth = 0 | AnyTokenLevel;
+        /**
+         * Global keywords available for most properties.
+         *
+         * @since 0.1.0-beta.0.draft
+         */
+        type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        namespace Number {
+            /**
+             * A number with em units.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            type Em = 0 | `${number}em` | `-${number}em`;
+            /**
+             * A number with % units.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            type Percent = 0 | `${number}%` | `-${number}%`;
+        }
+        /**
          * @since 0.1.0-alpha
          * @since 0.1.0-beta.0.draft — Moved to {@link Css} namespace.
          */
         type SystemColor = CssColours.SystemColor | CssColours.SystemColor[];
+        /**
+         * @since 0.1.0-alpha
+         */
+        type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
     /**
      * @since 0.1.0-beta.0.draft

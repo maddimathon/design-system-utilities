@@ -149,13 +149,19 @@
                 }
 
                 li {
-                    font-style: italic;
+                    @include set-letter-spacing(inherit, $fontStyle: italic) {
+                        font-style: italic;
+                    }
 
                     em {
-                        font-style: normal;
+                        @include set-letter-spacing(inherit, $fontStyle: normal) {
+                            font-style: normal;
+                        }
 
                         em {
-                            font-style: italic;
+                            @include set-letter-spacing(inherit, $fontStyle: italic) {
+                                font-style: italic;
+                            }
                         }
                     }
                 }

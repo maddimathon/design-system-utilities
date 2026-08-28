@@ -770,10 +770,6 @@
         line-height: $lineHeight;
     }
 
-    @if $letterSpacing != false {
-        letter-spacing: $letterSpacing;
-    }
-
     @if $textTransform != false {
         text-transform: $textTransform;
     }
@@ -783,24 +779,17 @@
         text-wrap: pretty;
     }
 
-    @if $fontStyle != false {
-        font-style: $fontStyle;
-    }
-
-    @if $color != false {
-        color: $color;
-    }
-
-    @content;
-
-    @if $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
-            }
+    @include set-font-style(
+        $fontStyle,
+        $letterSpacing: $letterSpacing,
+        $letterSpacing_includeCalc: true,
+        $setChildren: $fontStyle == italic
+    ) {
+        @if $color != false {
+            color: $color;
         }
+
+        @content;
     }
 
     @if $includeChildren_strong and $fontWeight_strong {
@@ -978,16 +967,8 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         }
     }
 
-    @if $fontFamily != false {
-        @if $fontFamily {
-            font-family: $fontFamily;
-        } @else if $slug == unstyled {
-            font-family: var-style(heading-unstyled-font-family);
-        } @else if $includeBase {
-            @if font-family-exists(heading) {
-                font-family: var-font-family(heading);
-            }
-        }
+    @if $fontFamily {
+        font-family: $fontFamily;
     }
 
     @if $slug {
@@ -1037,10 +1018,6 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             line-height: $lineHeight;
         }
 
-        @if $letterSpacing != false {
-            letter-spacing: $letterSpacing;
-        }
-
         @if $textTransform != false {
             text-transform: $textTransform;
         }
@@ -1051,62 +1028,73 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         text-wrap: pretty;
     }
 
-    @if $slug and $fontStyle != false {
-        $fontStyle: if(
+    @if $fontFamily == null {
+        $_fontSlug: if(
+            $slug,
+            style-value(heading-#{$slug}-font-family, $raw: true),
+            if($includeBase, heading, null)
+        );
+
+        @if $_fontSlug {
+            @if font-family-exists($_fontSlug) {
+                @include set-font-family($_fontSlug, $setLineHeight: false);
+            } @else if $slug {
+                font-family: var-style(heading-#{$slug}-font-family);
+            }
+        }
+    }
+
+    $fontStyle: if(
+        $slug,
+        if(
             $fontStyle != null,
             $fontStyle,
             var-style(heading-#{$slug}-font-style)
-        );
+        ),
+        false
+    );
 
-        font-style: $fontStyle;
+    @include set-font-style(
+        $fontStyle,
+        $letterSpacing: $letterSpacing,
+        $letterSpacing_includeCalc: true,
+        $setChildren: $fontStyle == italic
+    ) {
+        @if $slug and $includeColor {
+            $_color: if(
+                $color or $color == false,
+                $color,
+                if(
+                    $slug == unstyled,
+                    var-style(heading-unstyled-color),
+                    var-theme(heading-#{$slug})
+                )
+            );
+
+            @if $iconColor != false and ($iconColor or $_color) {
+                @include cx-prop(
+                    icon-color,
+                    if(
+                        $iconColor,
+                        $iconColor,
+                        var-style(
+                            heading-#{$slug}-icon-color,
+                            $value_failureReturn: $_color,
+                            $value_warnOnFail: false
+                        )
+                    )
+                );
+            }
+
+            @if $_color != false {
+                color: $_color;
+            }
+        }
 
         @if $multipleContentBlocks {
             @content (root);
         } @else {
             @content;
-        }
-    } @else if $multipleContentBlocks {
-        @content (root);
-    }
-
-    @if $slug and $includeColor {
-        $_color: if(
-            $color or $color == false,
-            $color,
-            if(
-                $slug == unstyled,
-                var-style(heading-unstyled-color),
-                var-theme(heading-#{$slug})
-            )
-        );
-
-        @if $iconColor != false and ($iconColor or $_color) {
-            @include cx-prop(
-                icon-color,
-                if(
-                    $iconColor,
-                    $iconColor,
-                    var-style(
-                        heading-#{$slug}-icon-color,
-                        $value_failureReturn: $_color,
-                        $value_warnOnFail: false
-                    )
-                )
-            );
-        }
-
-        @if $_color != false {
-            color: $_color;
-        }
-    }
-
-    @if $slug and $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
-            }
         }
     }
 
@@ -1284,12 +1272,15 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         %kbd,
         %samp {
             @if $includeBase_children {
-                font-weight: inherit;
-                font-style: inherit;
-                color: inherit;
-            }
+                @include set-font-style(inherit, $fontFamilyIsMonospace: true) {
+                    font-weight: inherit;
+                    color: inherit;
 
-            @if $multipleContentBlocks {
+                    @if $multipleContentBlocks {
+                        @content (children--code);
+                    }
+                }
+            } @else if $multipleContentBlocks {
                 @content (children--code);
             }
         }
@@ -1731,6 +1722,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $paddingInline: var-style(alert-padding-inline),
     $width: auto,
     //
+    $setBaseFontProps: true,
     $includeBorder: true,
     $includeMarginBlock: false,
     $includeWidth: true
@@ -1768,6 +1760,13 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     overflow-inline: auto;
 
     @content (root);
+
+    @include font-family-size-tokens(
+        monospace,
+        $asImportant: false,
+        $setBaseProps: $setBaseFontProps,
+        $setChildProps: false
+    );
 
     > code,
     > kbd,
@@ -1864,13 +1863,25 @@ $_mixin_heading: meta.get-mixin('snippet-heading');
                 $resetChildFontStyle
             {
                 em {
-                    font-style: italic;
+                    @include set-letter-spacing(inherit, $fontStyle: italic) {
+                        font-style: italic;
+                    }
 
                     em {
-                        font-style: normal;
+                        @include set-letter-spacing(
+                            inherit,
+                            $fontStyle: normal
+                        ) {
+                            font-style: normal;
+                        }
 
                         em {
-                            font-style: italic;
+                            @include set-letter-spacing(
+                                inherit,
+                                $fontStyle: italic
+                            ) {
+                                font-style: italic;
+                            }
                         }
                     }
                 }
@@ -2056,11 +2067,11 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
         #{$selector_kbd},
         #{$selector_pre},
         #{$selector_samp} {
+            $_font_monospace_exists: font-family-exists(monospace);
+
             position: relative;
 
-            @if font-family-exists(monospace) {
-                font-family: var-font-family(monospace);
-            } @else {
+            @if not $_font_monospace_exists {
                 font-family: font-family-system-monospace();
             }
 
@@ -2070,6 +2081,15 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
 
             @include theme-set-color($color) {
                 @content (all);
+            }
+
+            @if $_font_monospace_exists {
+                @include set-font-family(
+                    monospace,
+                    $setBaseProps: false,
+                    $setLetterSpacing: false,
+                    $setLineHeight: false
+                );
             }
         }
     }
@@ -2093,8 +2113,6 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
             font-weight: $fontWeight;
 
             @content (inlines);
-
-            @include font-family-size-tokens(monospace);
 
             /// EXCEPTIONS ///
 
@@ -2134,8 +2152,12 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
         );
 
         #{$selector_pre} {
-            @include meta.apply($mixin_pre, $mixin_pre_args...) using
-                ($location) {
+            @include meta.apply(
+                    $mixin_pre,
+                    $setBaseFontProps: false,
+                    $mixin_pre_args...
+                )
+                using ($location) {
                 @content (pre-#{$location});
             }
         }

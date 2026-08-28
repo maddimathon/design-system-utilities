@@ -4,10 +4,12 @@
 ///
 
 @use 'pkg:@maddimathon/utility-sass/feature-check';
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 @use 'pkg:@maddimathon/utility-sass/selector';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 @use '../../config';
 @use '../../tokens';
@@ -93,10 +95,11 @@ $_closing_time: var-tr-time(toggle-closing);
         }
         //
         @else if $location == disclaimer {
-            font-style: $disclaimer_fontStyle;
-            font-size: $disclaimer_fontSize;
+            @include set-font-style($disclaimer_fontStyle) {
+                font-size: $disclaimer_fontSize;
 
-            @content ($location);
+                @content ($location);
+            }
         }
         //
         @else if $location == js--settings-menu--control {
@@ -209,37 +212,165 @@ $_closing_time: var-tr-time(toggle-closing);
     }
 }
 
+$_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
+
 ///
 /// Supports font override settings (according to the tokens).
 ///
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-support-site-settings-menu-font-overrides($args...) {
-    @each $slug, $map in map.get(tokens.$font, familyOverrides) {
-        $attrSelector: '[data-font-family-override=#{$slug}]';
+    @each $override_slug, $family_map in map.get(tokens.$font, family) {
+        $override_map: map.get($_overrides, $override_slug);
 
-        $selectors: $attrSelector;
+        $selectors: '[data-font-family-override=#{$override_slug}]';
 
-        @if map.has-key($map, labelClass) {
-            $_classSel: '.website-settings-menu .#{map.get($map, labelClass)}';
+        $override_css: map.flatten(map.get($family_map, css));
 
-            $selectors: ($selectors, selector.nest($attrSelector, '*'), $_classSel);
+        $fontFamilyIsMonospace: ($override_slug == monospace) or
+            string.match($override_slug, '-monospace$', $flags: 'gi');
 
-            $attrSelector: ($attrSelector, $_classSel);
+        $class_selectors: ();
+
+        @if $override_map {
+            $_classSel: map.get($override_map, labelClass);
+            @if $_classSel {
+                $class_selectors: list.append(
+                    $class_selectors,
+                    '.website-settings-menu .#{$_classSel}',
+                    $separator: comma
+                );
+            }
         }
 
-        @at-root #{$selectors} {
-            font-family: var-font-family($slug) !important;
+        @if $override_slug == body {
+            $class_selectors: list.append(
+                $class_selectors,
+                '.website-settings-menu .font-family-override-default',
+                $separator: comma
+            );
         }
 
-        @at-root #{$attrSelector} {
-            @include font-family-size-tokens($slug, $args...);
+        @if list.length($class_selectors) > 0 {
+            $selectors: list.join($selectors, $class_selectors, $separator: comma);
+        } @else {
+            $class_selectors: null;
         }
-    }
 
-    @if font-family-exists(body) {
-        @at-root .website-settings-menu .font-family-override-default {
-            font-family: var-font-family(body) !important;
+        @at-root {
+            #{$selectors} {
+                $_override_ff_list: var-font-family($override_slug);
+
+                $_override_ff_list_monospace: if(
+                    font-family-exists(#{$override_slug}-monospace),
+                    var-font-family(#{$override_slug}-monospace),
+                    $_override_ff_list
+                );
+                $_override_ff_list_body: if(
+                    font-family-exists(#{$override_slug}-body),
+                    var-font-family(#{$override_slug}-body),
+                    $_override_ff_list
+                );
+                $_override_ff_list_heading: if(
+                    font-family-exists(#{$override_slug}-heading),
+                    var-font-family(#{$override_slug}-heading),
+                    $_override_ff_list
+                );
+
+                @each $ff_prop_slug
+                    in list.sort(
+                        list.except-any(
+                            map.keys(map.get(tokens.$font, family)),
+                            (icons, $override_slug)
+                        )
+                    )
+                {
+                    $__this_override_list: $_override_ff_list;
+                    // $__this_is_monospace: string.match($ff_prop_slug, '(^|-)monospace$', $flags: 'gi');
+
+                    @if ($ff_prop_slug == #{$override_slug}-body) or
+                        ($ff_prop_slug == #{$override_slug}-heading) or
+                        ($ff_prop_slug == #{$override_slug}-monospace)
+                    {
+                        $__this_override_list: null;
+                    } @else if
+                        ($ff_prop_slug == body) or
+                        string.match($ff_prop_slug, '-body$', $flags: 'gi')
+                    {
+                        $__this_override_list: $_override_ff_list_body;
+                    } @else if
+                        ($ff_prop_slug == heading) or
+                        string.match($ff_prop_slug, '-heading$', $flags: 'gi')
+                    {
+                        $__this_override_list: $_override_ff_list_heading;
+                    } @else if
+                        ($ff_prop_slug == monospace) or
+                        string.match($ff_prop_slug, '-monospace$', $flags: 'gi')
+                    {
+                        $__this_override_list: $_override_ff_list_monospace;
+                    }
+
+                    @if $__this_override_list {
+                        @include cx-prop(
+                            font-family-#{$ff_prop_slug},
+                            $__this_override_list,
+                            $allPrefixes: true,
+                            $important: true
+                        );
+                    }
+                }
+
+                font-family: $_override_ff_list !important;
+
+                @include font-family-size-tokens($override_slug, $args...);
+            }
+
+            @if $class_selectors {
+                #{$class_selectors} {
+                    $_default_spacing: meta.defined-else(
+                        map.get($override_css, letter-spacing),
+                        normal
+                    );
+                    $_default_monospace_spacing: meta.defined-else(
+                        map.get($override_css, letter-spacing-monospace),
+                        $_default_spacing
+                    );
+
+                    @include cx-prop(
+                        font-override-letter-spacing,
+                        $_default_spacing,
+                        $important: true
+                    );
+                    @include cx-prop(
+                        font-override-letter-spacing-italic,
+                        meta.defined-else(
+                            map.get($override_css, letter-spacing-italic),
+                            $_default_spacing
+                        ),
+                        $important: true
+                    );
+
+                    @include cx-prop(
+                        font-override-letter-spacing-monospace,
+                        $_default_monospace_spacing,
+                        $important: true
+                    );
+                    @include cx-prop(
+                        font-override-letter-spacing-monospace-italic,
+                        meta.defined-else(
+                            map.get($override_css, letter-spacing-monospace-italic),
+                            $_default_monospace_spacing
+                        ),
+                        $important: true
+                    );
+
+                    font-family: var-font-family($override_slug) !important;
+                    letter-spacing: do-var(
+                        set-letter-spacing--get-var-slug($fontFamilyIsMonospace),
+                        $_default_spacing
+                    ) !important;
+                }
+            }
         }
     }
 }

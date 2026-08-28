@@ -147,12 +147,64 @@ export namespace TokenTypes {
             | SystemColor;
 
         /**
+         * @since ___PKG_VERSION___
+         */
+        export type BorderRadius = 0 | AnyTokenLevel;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type BorderWidth = 0 | AnyTokenLevel;
+
+        /**
+         * Global keywords available for most properties.
+         * 
+         * @since ___PKG_VERSION___
+         */
+        export type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export namespace Number {
+
+            /**
+             * A number with em units.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export type Em = 0 | `${ number }em` | `-${ number }em`;
+
+            /**
+             * A number with % units.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export type Percent = 0 | `${ number }%` | `-${ number }%`;
+        }
+
+        /**
          * @since 0.1.0-alpha
          * @since ___PKG_VERSION___ — Moved to {@link Css} namespace.
          */
         export type SystemColor =
             | CssColours.SystemColor
             | CssColours.SystemColor[];
+
+        /**
+         * @since 0.1.0-alpha
+         */
+        export type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
 
     /**

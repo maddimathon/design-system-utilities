@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import { arrayUnique, mergeArgs, slugify } from '@maddimathon/utility-typescript';
+import { arrayUnique, mergeArgs, objectMap, slugify } from '@maddimathon/utility-typescript';
 import { JsonToScss } from '@maddimathon/utility-sass';
 import { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../01-utilities/objectGenerator.js';
@@ -138,7 +138,7 @@ export class Tokens extends AbstractTokens {
                 name: this.icons.fontName,
                 appendSystemFontsToFallbacks: false,
                 css: {
-                    letterSpacing: 0.1,
+                    'letter-spacing': '0.1em',
                 },
                 unicodeRange: unicodeRange ? unicodeRange : undefined,
             };
@@ -258,7 +258,9 @@ export class Tokens extends AbstractTokens {
             typography: {
                 fonts: {
                     dyslexic: Typography.Font.Family.dyslexic,
+                    'dyslexic-monospace': Typography.Font.Family.dyslexicMonospace,
                     hyperlegible: Typography.Font.Family.hyperlegible,
+                    'hyperlegible-monospace': Typography.Font.Family.hyperlegibleMonospace,
                     monospace: Typography.Font.Family.monospace,
                 },
             },
@@ -484,16 +486,39 @@ export class Tokens extends AbstractTokens {
                 familyGenerator.fileGenerator = fileGenerator;
             })(familyGenerator = Font.familyGenerator || (Font.familyGenerator = {}));
             /**
+             * Helps to generate all the weights for a font family.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            function familyRenamer(slug, name, font) {
+                return {
+                    ...font,
+                    slug,
+                    name,
+                    weights: objectMap(font.weights, ([weightSlug, weigthObj]) => weigthObj && objectMap(weigthObj, ([fontStyle, fileObj]) => fileObj)),
+                    variable: font.variable && objectMap(font.variable, ([fontStyle, fileObj]) => fileObj),
+                };
+            }
+            Font.familyRenamer = familyRenamer;
+            /**
              * @since 0.1.0-alpha
              */
             let Family;
             (function (Family) {
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 Family.dyslexic = {
                     slug: 'dyslexic',
                     name: 'Open Dyslexic',
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.2,
                     css: {
+                        'letter-spacing': {
+                            $: '-0.0875em',
+                            italic: '0.0375em',
+                            monospace: '-0.05em',
+                        },
                         icon: {
                             inline: {
                                 buffer: {
@@ -509,37 +534,153 @@ export class Tokens extends AbstractTokens {
                     fallbacks: [
                         'Verdana',
                     ],
+                    fontOverrideOption: true,
                     lineHeightScale: 1.15,
-                    sizeAdjust: '95%',
+                    sizeAdjust: '93%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight == '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
                     }))),
                 };
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
+                Family.dyslexicMonospace = {
+                    slug: 'dyslexic-monospace',
+                    name: 'Open Dyslexic Mono',
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1,
+                    css: {
+                        ...Family.dyslexic.css,
+                        "letter-spacing": Family.dyslexic.css['letter-spacing'].monospace,
+                    },
+                    fallbacks: [
+                        'Courier New',
+                        'Courier',
+                    ],
+                    fontOverrideOption: false,
+                    sizeAdjust: '100%',
+                    weights: {
+                        '400': objectGenerator(['normal', 'italic'], (style) => familyGenerator.fileGenerator('dyslexic-monospace', 'Open Dyslexic Mono', '100 900', style, {
+                            pathStyle: 'normal',
+                            pathWeight: '400',
+                        })),
+                    },
+                };
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 Family.hyperlegible = {
                     slug: 'hyperlegible',
-                    name: 'Atkinson Hyperlegible',
+                    name: 'Atkinson Hyperlegible Next',
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.035,
                     fallbacks: [
                         'Verdana',
                     ],
+                    fontOverrideOption: 'Atkinson Hyperlegible',
                     lineHeightScale: 1,
-                    sizeAdjust: '106.5%',
-                    weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible', weight === '400' ? '100 400' : '500 900', style, {
-                        pathWeight: weight,
-                    }))),
+                    sizeAdjust: '105%',
+                    weights: objectGenerator([
+                        '400',
+                        '600',
+                        '700',
+                        '800',
+                    ], (weight) => objectGenerator(["normal", "italic"], (style) => {
+                        let displayWeight;
+                        switch (weight) {
+                            case '400':
+                                displayWeight = '100 400';
+                                break;
+                            case '600':
+                                displayWeight = '500 600';
+                                break;
+                            case '800':
+                                displayWeight = '800 900';
+                                break;
+                            default:
+                                displayWeight = weight;
+                                break;
+                        }
+                        return familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible Next', displayWeight, style, {
+                            pathWeight: weight,
+                        });
+                    })),
+                    variable: objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible', 'Atkinson Hyperlegible Next', '100 900', style, {
+                        formats: {
+                            ttf: true,
+                            woff: false,
+                            woff2: false,
+                        },
+                        includeLocalSrc: false,
+                        pathWeight: 'variable',
+                    })),
                 };
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
+                Family.hyperlegibleMonospace = {
+                    slug: 'hyperlegible-monospace',
+                    name: 'Atkinson Hyperlegible Mono',
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1.035,
+                    fallbacks: [
+                        'Courier New',
+                        'Courier',
+                    ],
+                    fontOverrideOption: 'Monospace',
+                    lineHeightScale: 1.05,
+                    sizeAdjust: '96%',
+                    weights: objectGenerator([
+                        '400',
+                        '600',
+                        '700',
+                        '800',
+                    ], (weight) => objectGenerator(["normal", "italic"], (style) => {
+                        let displayWeight;
+                        switch (weight) {
+                            case '400':
+                                displayWeight = '100 400';
+                                break;
+                            case '600':
+                                displayWeight = '500 600';
+                                break;
+                            case '800':
+                                displayWeight = '800 900';
+                                break;
+                            default:
+                                displayWeight = weight;
+                                break;
+                        }
+                        return familyGenerator.fileGenerator('hyperlegible-monospace', 'Atkinson Hyperlegible Mono', displayWeight, style, {
+                            pathWeight: weight,
+                        });
+                    })),
+                    variable: objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('hyperlegible-monospace', 'Atkinson Hyperlegible Mono', '100 900', style, {
+                        formats: {
+                            ttf: true,
+                            woff: false,
+                            woff2: false,
+                        },
+                        includeLocalSrc: false,
+                        pathWeight: 'variable',
+                    })),
+                };
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 Family.monospace = {
                     slug: 'monospace',
                     name: 'IBM Plex Mono',
                     appendSystemFontsToFallbacks: 'monospace',
                     contentWidthScale: 1.125,
                     css: {
-                        letterSpacing: -0.015,
+                        'letter-spacing': '-0.015em',
                     },
                     fallbacks: [
                         'Courier New',
+                        'Courier',
                     ],
+                    fontOverrideOption: false,
                     sizeAdjust: '96.5%',
                     weights: objectGenerator(Font.allWeights.filter(w => w !== '800' && w !== '900'), (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('monospace', 'IBM Plex Mono', weight === '700' ? '700 900' : weight, style, {
                         pathWeight: weight,

@@ -382,7 +382,10 @@
     @if $isFontFamily {
         @return if(
             typography.tokens-font-family-exists($value),
-            typography.tokens-var-font-family($value, $args...),
+            config.config-do-var(
+                font-family-#{$value},
+                typography.tokens-var-font-family($value, $args...)
+            ),
             inherit
         );
     }

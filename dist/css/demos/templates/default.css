@@ -9,7 +9,9 @@
  * Design System Utilities - Template Demo - Default Template
  * @maddimathon/design-system-utilities/template@0.1.0-beta.0.draft
  * 
- * This is a sample stylesheet using the template with no changes to the default configuration (except $template_globals: true, $template_tokens: true, and $template_utils: true, $template_astro: true).
+ * This is a sample stylesheet using the template with no changes to the default
+ * configuration (except $template_globals: true, $template_tokens: true, and
+ * $template_utils: true, $template_astro: true).
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -3943,21 +3945,34 @@ b strong strong {
     font-weight: 900;
 }
 
+/*! END of @maddimathon/utility-sass/template */
+/*! START of @maddimathon/design-system-utilities/template */
 em,
 i {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 em em,
 i em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 em em em,
 i em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
+    font-style: italic;
+}
+em em em em,
+i em em em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: normal;
+}
+em em em em em,
+i em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 
-/*! END of @maddimathon/utility-sass/template */
-/*! START of @maddimathon/design-system-utilities/template */
 a[href] {
     --focus-ring-outline-offset: 0.125em;
     --icon-inline-buffer: 0.25em !important;
@@ -4186,14 +4201,25 @@ kbd,
 pre,
 samp {
     position: relative;
-    font-family:
-        "IBM Plex Mono", "Courier New", Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol";
     border-radius: 0;
     background: var(--theme-background-grey, Canvas);
     --icon-color: var(--theme-ui-primary, CanvasText);
     color: var(--theme-text-primary, CanvasText);
+    font-family: var(
+        --font-family-monospace,
+        "IBM Plex Mono",
+        "Courier New",
+        Courier,
+        Menlo,
+        Consolas,
+        Monaco,
+        "Liberation Mono",
+        "Lucida Console",
+        monospace,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol"
+    );
 }
 
 code,
@@ -4208,44 +4234,6 @@ samp {
     align-self: baseline;
     justify-self: baseline;
     font-weight: 500;
-}
-code,
-code :where(*),
-kbd,
-kbd :where(*),
-samp,
-samp :where(*) {
-    letter-spacing: -0.015em !important;
-}
-code,
-kbd,
-samp {
-    --width-content: 40.5rem;
-    --width-sidebar: 20.25rem;
-    --width-callout: 29.5625rem;
-    --width-page: 66rem;
-}
-
-code,
-kbd,
-samp {
-    --border-width-100: 0.0625rem;
-    --border-width-200: 0.125rem;
-    --border-width-300: 0.1875rem;
-    --border-width-400: 0.3125rem;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    code,
-    kbd,
-    samp {
-        --border-width-100: clamp(0.125rem, 0.0625rem, 4px);
-        --border-width-200: clamp(0.25rem, 0.125rem, 7px);
-        --border-width-300: clamp(0.25rem, 0.1875rem, 8px);
-        --border-width-400: clamp(0.25rem, 0.3125rem, 8px);
-    }
 }
 a[href] code,
 a[href] kbd,
@@ -4274,6 +4262,30 @@ pre {
     font-size: 0.9375rem;
     overflow-block: visible;
     overflow-inline: auto;
+}
+pre {
+    --width-content: 40.5rem;
+    --width-sidebar: 20.25rem;
+    --width-callout: 29.5625rem;
+    --width-page: 66rem;
+}
+
+pre {
+    --border-width-100: 0.0625rem;
+    --border-width-200: 0.125rem;
+    --border-width-300: 0.1875rem;
+    --border-width-400: 0.3125rem;
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    pre {
+        --border-width-100: clamp(0.125rem, 0.0625rem, 4px);
+        --border-width-200: clamp(0.25rem, 0.125rem, 7px);
+        --border-width-300: clamp(0.25rem, 0.1875rem, 8px);
+        --border-width-400: clamp(0.25rem, 0.3125rem, 8px);
+    }
 }
 pre > code,
 pre > kbd,
@@ -4380,6 +4392,7 @@ pre.language-plaintext:has(> samp) > code {
 }
 
 p.aside {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
     --icon-color: var(--theme-ui-primary, CanvasText);
     color: var(--theme-text-primary, CanvasText);
@@ -4430,9 +4443,19 @@ p.aside a[data-state-active="true"][href] {
 }
 
 p.aside em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 p.aside em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
+    font-style: italic;
+}
+p.aside em em em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: normal;
+}
+p.aside em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 
@@ -4469,6 +4492,7 @@ h6,
     padding-block-end: 0;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
 }
 hgroup .unstyled-heading,
 hgroup .h1,
@@ -4594,6 +4618,8 @@ hgroup .h10 {
     padding-block-end: 0;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: normal;
 }
 
 :is(
@@ -4722,8 +4748,9 @@ h6 samp,
 .h10 code,
 .h10 kbd,
 .h10 samp {
-    font-weight: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 
@@ -4735,8 +4762,9 @@ h1,
     font-weight: 900;
     font-size: 2.9375rem;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-1, CanvasText);
     color: var(--theme-heading-1, CanvasText);
@@ -4758,17 +4786,29 @@ h1,
     font-weight: 600;
     font-size: 1.25rem;
     line-height: 1.5;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h1__subheading em,
 .page-title__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h1__subheading em em,
 .page-title__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h1__subheading em em em,
+.page-title__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h1__subheading em em em em,
+.page-title__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -4779,8 +4819,9 @@ h2 {
     font-weight: 800;
     font-size: 2.1875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-2, CanvasText);
     color: var(--theme-heading-2, CanvasText);
@@ -4795,15 +4836,25 @@ h2,
 .h2__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 1.0625rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h2__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h2__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h2__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h2__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -4814,8 +4865,9 @@ h3 {
     font-weight: 700;
     font-size: 1.9375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-3, CanvasText);
     color: var(--theme-heading-3, CanvasText);
@@ -4830,15 +4882,25 @@ h3,
 .h3__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 1.0625rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h3__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h3__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h3__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h3__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -4849,18 +4911,31 @@ h4 {
     font-weight: 700;
     font-size: 1.6875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-4, CanvasText);
     color: var(--theme-heading-4, CanvasText);
 }
 .h4 em,
 h4 em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h4 em em,
 h4 em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h4 em em em,
+h4 em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h4 em em em em,
+h4 em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 .h4,
@@ -4873,15 +4948,25 @@ h4,
 .h4__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 1.0625rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h4__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h4__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h4__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h4__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -4892,18 +4977,31 @@ h5 {
     font-weight: 600;
     font-size: 1.375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-5, CanvasText);
     color: var(--theme-heading-5, CanvasText);
 }
 .h5 em,
 h5 em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h5 em em,
 h5 em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h5 em em em,
+h5 em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h5 em em em em,
+h5 em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 .h5,
@@ -4916,15 +5014,25 @@ h5,
 .h5__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 1.0625rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h5__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h5__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h5__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h5__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -4935,18 +5043,31 @@ h6 {
     font-weight: 500;
     font-size: 1.25rem;
     line-height: 1.5;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-6, CanvasText);
     color: var(--theme-heading-6, CanvasText);
 }
 .h6 em,
 h6 em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h6 em em,
 h6 em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h6 em em em,
+h6 em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h6 em em em em,
+h6 em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 .h6,
@@ -4959,15 +5080,25 @@ h6,
 .h6__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 1.0625rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h6__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h6__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h6__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h6__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -4977,11 +5108,17 @@ h6,
     font-weight: 500;
     font-size: 1rem;
     line-height: 1.6875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
     --icon-color: var(--theme-heading-7, CanvasText);
     color: var(--theme-heading-7, CanvasText);
+}
+@container style(--font-override-letter-spacing) {
+    .h7 {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
 }
 .h7,
 .h7__hgroup {
@@ -4992,35 +5129,81 @@ h6,
 .h7__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 0.9375rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h7__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h7__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h7__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h7__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
+@container style(--font-override-letter-spacing) {
+}
 .h8 {
     padding-block-start: 0;
     padding-block-end: 0;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-8, CanvasText);
     color: var(--theme-heading-8, CanvasText);
 }
 .h8 em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 .h8 em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+.h8 em em em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+.h8 em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    .h8 {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .h8 em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .h8 em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .h8 em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .h8 em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 .h8,
 .h8__hgroup {
@@ -5031,35 +5214,81 @@ h6,
 .h8__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 0.9375rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h8__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h8__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h8__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h8__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+}
 .h9 {
     padding-block-start: 0;
     padding-block-end: 0;
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-9, CanvasText);
     color: var(--theme-heading-9, CanvasText);
 }
 .h9 em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 .h9 em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+.h9 em em em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+.h9 em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    .h9 {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .h9 em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .h9 em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .h9 em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .h9 em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 .h9,
 .h9__hgroup {
@@ -5070,35 +5299,81 @@ h6,
 .h9__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 0.9375rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h9__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h9__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h9__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h9__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+}
 .h10 {
     padding-block-start: 0;
     padding-block-end: 0;
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-10, CanvasText);
     color: var(--theme-heading-10, CanvasText);
 }
 .h10 em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 .h10 em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+.h10 em em em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+.h10 em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    .h10 {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .h10 em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .h10 em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .h10 em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .h10 em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 .h10,
 .h10__hgroup {
@@ -5109,18 +5384,30 @@ h6,
 .h10__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 0.9375rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .h10__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .h10__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.h10__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.h10__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+}
 h1.unstyled-heading,
 h2.unstyled-heading,
 h3.unstyled-heading,
@@ -5132,19 +5419,22 @@ h6.unstyled-heading,
     font-weight: 600;
     font-size: 1.0625rem;
     line-height: 1.6875;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-text-primary, CanvasText);
     color: var(--theme-text-primary, CanvasText);
 }
 .unstyled-heading em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 .unstyled-heading em em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 .unstyled-heading em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 h1.unstyled-heading,
@@ -5161,15 +5451,25 @@ h6.unstyled-heading,
 .unstyled-heading__subheading {
     --icon-color: var(--theme-ui-grey, CanvasText);
     font-size: 0.9375rem;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     color: var(--theme-text-grey, CanvasText);
 }
 .unstyled-heading__subheading em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .unstyled-heading__subheading em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.unstyled-heading__subheading em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.unstyled-heading__subheading em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 
@@ -5271,12 +5571,15 @@ li li li::marker {
     font-size: 0.875rem;
 }
 li li li li {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 li li li li em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 li li li li em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 
@@ -5382,21 +5685,24 @@ fieldset legend {
     font-weight: 600;
     font-size: 1em;
     line-height: 1.6875;
-    letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-text-primary, CanvasText);
     color: var(--theme-text-primary, CanvasText);
 }
 fieldset legend em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 fieldset legend em em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 fieldset legend em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 fieldset legend a[href] {
@@ -5406,8 +5712,9 @@ fieldset legend a[href] {
 fieldset legend code,
 fieldset legend kbd,
 fieldset legend samp {
-    font-weight: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 fieldset legend:first-child {
@@ -5443,6 +5750,7 @@ textarea::placeholder,
 select::placeholder,
 input::placeholder {
     color: var(--theme-input-placeholder, FieldText);
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
     opacity: var(--input-placeholder-opacity, 1);
 }
@@ -5483,7 +5791,7 @@ input.font-family-icons {
     --icon-vertical-align: text-bottom;
     padding-block-start: 0.8125em;
     padding-block-end: 0.3125em;
-    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
 }
 label + textarea,
 label + select,
@@ -5918,10 +6226,10 @@ a[href].button {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     font-size: 1em;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
     user-select: text;
 }
@@ -6018,8 +6326,8 @@ a[disabled][href].button {
     border-radius: 0;
     border-style: dashed;
     font-weight: 500;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
-    letter-spacing: normal;
     text-transform: none;
     cursor: not-allowed;
 }
@@ -6047,10 +6355,10 @@ a[href].button:is(.display-inline) {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
     font-size: 0.875em;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
     vertical-align: baseline;
 }
@@ -6233,9 +6541,10 @@ input[type="button"] samp,
 input[type="reset"] samp,
 input[type="submit"] samp,
 a[href].button samp {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: inherit;
     padding: 0;
     font-weight: inherit;
-    font-style: inherit;
     line-height: 1;
     background: transparent;
     border: none;
@@ -7598,10 +7907,10 @@ input::file-selector-button {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     font-size: 1em;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
     user-select: text;
     margin-inline: 0 var(--flow-margin-firm-start--small, 0.8125rem);
@@ -7708,8 +8017,8 @@ input[disabled]::file-selector-button {
     border-radius: 0;
     border-style: dashed;
     font-weight: 500;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
-    letter-spacing: normal;
     text-transform: none;
     cursor: not-allowed;
     --focus-ring-outline-color: var(
@@ -8018,10 +8327,10 @@ th {
     font-weight: 600;
     font-size: 1em;
     line-height: 1.6875;
-    letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 th a[href] {
@@ -8031,8 +8340,9 @@ th a[href] {
 th code,
 th kbd,
 th samp {
-    font-weight: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 th {
@@ -8921,6 +9231,7 @@ body
 .uppercase-emphasis {
     text-transform: uppercase;
     font-weight: inherit !important;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: inherit !important;
 }
 
@@ -8952,23 +9263,28 @@ body
 .website-settings-menu .font-family-override-default .font-family-icons,
 .website-settings-menu .font-family-override-dyslexic .font-family-icons,
 .website-settings-menu .font-family-override-hyperlegible .font-family-icons,
-.website-settings-menu .font-family-override-monospace .font-family-icons,
+.website-settings-menu
+    .font-family-override-hyperlegible-monospace
+    .font-family-icons,
 .website-settings-menu .font-family-override-default .font-family-icons *,
 .website-settings-menu .font-family-override-dyslexic .font-family-icons *,
 .website-settings-menu .font-family-override-hyperlegible .font-family-icons *,
-.website-settings-menu .font-family-override-monospace .font-family-icons *,
+.website-settings-menu
+    .font-family-override-hyperlegible-monospace
+    .font-family-icons
+    *,
 [data-font-family-override="dyslexic"] .font-family-icons,
 [data-font-family-override="hyperlegible"] .font-family-icons,
-[data-font-family-override="monospace"] .font-family-icons,
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons,
 [data-font-family-override="dyslexic"] .font-family-icons *,
 [data-font-family-override="hyperlegible"] .font-family-icons *,
-[data-font-family-override="monospace"] .font-family-icons * {
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons * {
     vertical-align: var(--icon-vertical-align, middle);
     font-family: "Design System Utilities Icons" !important;
     font-size: 1em !important;
     font-weight: 400 !important;
     line-height: var(--icon-inline-line-height, 1) !important;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.1em !important;
     color: var(--icon-color, var(--theme-ui, CanvasText));
 }
 
@@ -9126,149 +9442,77 @@ body
     aspect-ratio: 1/1;
 }
 
-.add-warning-icon::after,
 .add-warning-icon-after::after,
-.add-up-icon::after,
 .add-up-icon-after::after,
-.add-unlock-icon::after,
 .add-unlock-icon-after::after,
-.add-ui-minimum-icon::after,
 .add-ui-minimum-icon-after::after,
-.add-ui-check-icon::after,
 .add-ui-check-icon-after::after,
-.add-ui-icon::after,
 .add-ui-icon-after::after,
-.add-twocolumns-icon::after,
 .add-twocolumns-icon-after::after,
-.add-toggle-icon::after,
 .add-toggle-icon-after::after,
-.add-timer-icon::after,
 .add-timer-icon-after::after,
-.add-success-icon::after,
 .add-success-icon-after::after,
-.add-submit-icon::after,
 .add-submit-icon-after::after,
-.add-stopwatch-icon::after,
 .add-stopwatch-icon-after::after,
-.add-star-icon::after,
 .add-star-icon-after::after,
-.add-singlecolumn-icon::after,
 .add-singlecolumn-icon-after::after,
-.add-settings-icon::after,
 .add-settings-icon-after::after,
-.add-search-icon::after,
 .add-search-icon-after::after,
-.add-right-icon::after,
 .add-right-icon-after::after,
-.add-reset-icon::after,
 .add-reset-icon-after::after,
-.add-refresh-icon::after,
 .add-refresh-icon-after::after,
-.add-reading-icon::after,
 .add-reading-icon-after::after,
-.add-quote-icon::after,
 .add-quote-icon-after::after,
-.add-question-icon::after,
 .add-question-icon-after::after,
-.add-private-icon::after,
 .add-private-icon-after::after,
-.add-plus-icon::after,
 .add-plus-icon-after::after,
-.add-pinned-icon::after,
 .add-pinned-icon-after::after,
-.add-person-icon::after,
 .add-person-icon-after::after,
-.add-paperclip-icon::after,
 .add-paperclip-icon-after::after,
-.add-note-icon::after,
 .add-note-icon-after::after,
-.add-no-icon::after,
 .add-no-icon-after::after,
-.add-minus-icon::after,
 .add-minus-icon-after::after,
-.add-minimum-icon::after,
 .add-minimum-icon-after::after,
-.add-maximum-icon::after,
 .add-maximum-icon-after::after,
-.add-logo-linkedin-icon::after,
 .add-logo-linkedin-icon-after::after,
-.add-logo-instagram-icon::after,
 .add-logo-instagram-icon-after::after,
-.add-logo-facebook-icon::after,
 .add-logo-facebook-icon-after::after,
-.add-logo-circle-linkedin-icon::after,
 .add-logo-circle-linkedin-icon-after::after,
-.add-logo-circle-instagram-icon::after,
 .add-logo-circle-instagram-icon-after::after,
-.add-logo-circle-facebook-icon::after,
 .add-logo-circle-facebook-icon-after::after,
-.add-lock-icon::after,
 .add-lock-icon-after::after,
-.add-location-icon::after,
 .add-location-icon-after::after,
-.add-link-icon::after,
 .add-link-icon-after::after,
-.add-lightning-icon::after,
 .add-lightning-icon-after::after,
-.add-lightbulb-icon::after,
 .add-lightbulb-icon-after::after,
-.add-left-icon::after,
 .add-left-icon-after::after,
-.add-info-icon::after,
 .add-info-icon-after::after,
-.add-hidden-icon::after,
 .add-hidden-icon-after::after,
-.add-group-icon::after,
 .add-group-icon-after::after,
-.add-forbidden-icon::after,
 .add-forbidden-icon-after::after,
-.add-fail-icon::after,
 .add-fail-icon-after::after,
-.add-external-icon::after,
 .add-external-icon-after::after,
-.add-error-icon::after,
 .add-error-icon-after::after,
-.add-draft-icon::after,
 .add-draft-icon-after::after,
-.add-download-icon::after,
 .add-download-icon-after::after,
-.add-down-icon::after,
 .add-down-icon-after::after,
-.add-double-check-icon::after,
 .add-double-check-icon-after::after,
-.add-discussion-icon::after,
 .add-discussion-icon-after::after,
-.add-disabled-icon::after,
 .add-disabled-icon-after::after,
-.add-dash-icon::after,
 .add-dash-icon-after::after,
-.add-continue-icon::after,
 .add-continue-icon-after::after,
-.add-contact-icon::after,
 .add-contact-icon-after::after,
-.add-computer-icon::after,
 .add-computer-icon-after::after,
-.add-compass-icon::after,
 .add-compass-icon-after::after,
-.add-code-icon::after,
 .add-code-icon-after::after,
-.add-close-icon::after,
 .add-close-icon-after::after,
-.add-clock-icon::after,
 .add-clock-icon-after::after,
-.add-check-icon::after,
 .add-check-icon-after::after,
-.add-caution-icon::after,
 .add-caution-icon-after::after,
-.add-book-icon::after,
 .add-book-icon-after::after,
-.add-biography-icon::after,
 .add-biography-icon-after::after,
-.add-attachment-icon::after,
 .add-attachment-icon-after::after,
-.add-alert-icon::after,
 .add-alert-icon-after::after,
-.add-alarm-icon::after,
 .add-alarm-icon-after::after {
     display: inline-block;
     position: relative;
@@ -9398,433 +9642,361 @@ body
     color: var(--icon-color, var(--theme-ui, CanvasText));
 }
 
-.add-alarm-icon::after,
 .add-alarm-icon-after::after,
 .add-alarm-icon-before::before {
     content: "\f148";
     content: "\f148"/"Alarm icon";
 }
-.add-alert-icon::after,
 .add-alert-icon-after::after,
 .add-alert-icon-before::before {
     content: "\f154";
     content: "\f154"/"Alert icon";
 }
-.add-attachment-icon::after,
 .add-attachment-icon-after::after,
 .add-attachment-icon-before::before {
     content: "\f101";
     content: "\f101"/"Attachment icon";
 }
-.add-biography-icon::after,
 .add-biography-icon-after::after,
 .add-biography-icon-before::before {
     content: "\f149";
     content: "\f149"/"Biography icon";
 }
-.add-book-icon::after,
 .add-book-icon-after::after,
 .add-book-icon-before::before {
     content: "\f14a";
     content: "\f14a"/"Book icon";
 }
-.add-caution-icon::after,
 .add-caution-icon-after::after,
 .add-caution-icon-before::before {
     content: "\f102";
     content: "\f102"/"Caution icon";
 }
-.add-check-icon::after,
 .add-check-icon-after::after,
 .add-check-icon-before::before {
     content: "\f103";
     content: "\f103"/"Checkmark icon";
 }
-.add-clock-icon::after,
 .add-clock-icon-after::after,
 .add-clock-icon-before::before {
     content: "\f104";
     content: "\f104"/"Clock icon";
 }
-.add-close-icon::after,
 .add-close-icon-after::after,
 .add-close-icon-before::before {
     content: "\f105";
     content: "\f105"/"Close icon";
 }
-.add-code-icon::after,
 .add-code-icon-after::after,
 .add-code-icon-before::before {
     content: "\f106";
     content: "\f106"/"Code icon";
 }
-.add-compass-icon::after,
 .add-compass-icon-after::after,
 .add-compass-icon-before::before {
     content: "\f107";
     content: "\f107"/"Compass icon";
 }
-.add-computer-icon::after,
 .add-computer-icon-after::after,
 .add-computer-icon-before::before {
     content: "\f147";
     content: "\f147"/"Computer icon";
 }
-.add-contact-icon::after,
 .add-contact-icon-after::after,
 .add-contact-icon-before::before {
     content: "\f14b";
     content: "\f14b"/"Contact icon";
 }
-.add-continue-icon::after,
 .add-continue-icon-after::after,
 .add-continue-icon-before::before {
     content: "\f160";
     content: "\f160"/"Continue icon";
 }
-.add-dash-icon::after,
 .add-dash-icon-after::after,
 .add-dash-icon-before::before {
     content: "\f108";
     content: "\f108"/"Dash icon";
 }
-.add-disabled-icon::after,
 .add-disabled-icon-after::after,
 .add-disabled-icon-before::before {
     content: "\f15d";
     content: "\f15d"/"Disabled icon";
 }
-.add-discussion-icon::after,
 .add-discussion-icon-after::after,
 .add-discussion-icon-before::before {
     content: "\f14c";
     content: "\f14c"/"Discussion icon";
 }
-.add-double-check-icon::after,
 .add-double-check-icon-after::after,
 .add-double-check-icon-before::before {
     content: "\f109";
     content: "\f109"/"Checkmark (Double) icon";
 }
-.add-down-icon::after,
 .add-down-icon-after::after,
 .add-down-icon-before::before {
     content: "\f110";
     content: "\f110"/"Arrow (Down) icon";
 }
-.add-download-icon::after,
 .add-download-icon-after::after,
 .add-download-icon-before::before {
     content: "\f111";
     content: "\f111"/"Download icon";
 }
-.add-draft-icon::after,
 .add-draft-icon-after::after,
 .add-draft-icon-before::before {
     content: "\f112";
     content: "\f112"/"Draft icon";
 }
-.add-error-icon::after,
 .add-error-icon-after::after,
 .add-error-icon-before::before {
     content: "\f113";
     content: "\f113"/"Error icon";
 }
-.add-external-icon::after,
 .add-external-icon-after::after,
 .add-external-icon-before::before {
     content: "\f114";
     content: "\f114"/"External Link icon";
 }
-.add-fail-icon::after,
 .add-fail-icon-after::after,
 .add-fail-icon-before::before {
     content: "\f115";
     content: "\f115"/"Fail icon";
 }
-.add-forbidden-icon::after,
 .add-forbidden-icon-after::after,
 .add-forbidden-icon-before::before {
     content: "\f116";
     content: "\f116"/"Forbidden icon";
 }
-.add-group-icon::after,
 .add-group-icon-after::after,
 .add-group-icon-before::before {
     content: "\f14d";
     content: "\f14d"/"Group icon";
 }
-.add-hidden-icon::after,
 .add-hidden-icon-after::after,
 .add-hidden-icon-before::before {
     content: "\f117";
     content: "\f117"/"Hidden icon";
 }
-.add-info-icon::after,
 .add-info-icon-after::after,
 .add-info-icon-before::before {
     content: "\f118";
     content: "\f118"/"Info icon";
 }
-.add-left-icon::after,
 .add-left-icon-after::after,
 .add-left-icon-before::before {
     content: "\f119";
     content: "\f119"/"Arrow (Left) icon";
 }
-.add-lightbulb-icon::after,
 .add-lightbulb-icon-after::after,
 .add-lightbulb-icon-before::before {
     content: "\f120";
     content: "\f120"/"Lightbulb icon";
 }
-.add-lightning-icon::after,
 .add-lightning-icon-after::after,
 .add-lightning-icon-before::before {
     content: "\f121";
     content: "\f121"/"Lightning icon";
 }
-.add-link-icon::after,
 .add-link-icon-after::after,
 .add-link-icon-before::before {
     content: "\f14e";
     content: "\f14e"/"Link icon";
 }
-.add-location-icon::after,
 .add-location-icon-after::after,
 .add-location-icon-before::before {
     content: "\f14f";
     content: "\f14f"/"Location icon";
 }
-.add-lock-icon::after,
 .add-lock-icon-after::after,
 .add-lock-icon-before::before {
     content: "\f122";
     content: "\f122"/"Lock icon";
 }
-.add-logo-circle-facebook-icon::after,
 .add-logo-circle-facebook-icon-after::after,
 .add-logo-circle-facebook-icon-before::before {
     content: "\f155";
     content: "\f155"/"Logo - Facebook (Circle) icon";
 }
-.add-logo-circle-instagram-icon::after,
 .add-logo-circle-instagram-icon-after::after,
 .add-logo-circle-instagram-icon-before::before {
     content: "\f156";
     content: "\f156"/"Logo - Instagram (Circle) icon";
 }
-.add-logo-circle-linkedin-icon::after,
 .add-logo-circle-linkedin-icon-after::after,
 .add-logo-circle-linkedin-icon-before::before {
     content: "\f157";
     content: "\f157"/"Logo - LinkedIn (Circle) icon";
 }
-.add-logo-facebook-icon::after,
 .add-logo-facebook-icon-after::after,
 .add-logo-facebook-icon-before::before {
     content: "\f123";
     content: "\f123"/"Logo - Facebook icon";
 }
-.add-logo-instagram-icon::after,
 .add-logo-instagram-icon-after::after,
 .add-logo-instagram-icon-before::before {
     content: "\f124";
     content: "\f124"/"Logo - Instagram icon";
 }
-.add-logo-linkedin-icon::after,
 .add-logo-linkedin-icon-after::after,
 .add-logo-linkedin-icon-before::before {
     content: "\f125";
     content: "\f125"/"Logo - LinkedIn icon";
 }
-.add-maximum-icon::after,
 .add-maximum-icon-after::after,
 .add-maximum-icon-before::before {
     content: "\f126";
     content: "\f126"/"Maximum icon";
 }
-.add-minimum-icon::after,
 .add-minimum-icon-after::after,
 .add-minimum-icon-before::before {
     content: "\f127";
     content: "\f127"/"Minimum icon";
 }
-.add-minus-icon::after,
 .add-minus-icon-after::after,
 .add-minus-icon-before::before {
     content: "\f128";
     content: "\f128"/"Minus icon";
 }
-.add-no-icon::after,
 .add-no-icon-after::after,
 .add-no-icon-before::before {
     content: "\f129";
     content: "\f129"/"No icon";
 }
-.add-note-icon::after,
 .add-note-icon-after::after,
 .add-note-icon-before::before {
     content: "\f130";
     content: "\f130"/"Note icon";
 }
-.add-paperclip-icon::after,
 .add-paperclip-icon-after::after,
 .add-paperclip-icon-before::before {
     content: "\f131";
     content: "\f131"/"Paperclip icon";
 }
-.add-person-icon::after,
 .add-person-icon-after::after,
 .add-person-icon-before::before {
     content: "\f150";
     content: "\f150"/"Person icon";
 }
-.add-pinned-icon::after,
 .add-pinned-icon-after::after,
 .add-pinned-icon-before::before {
     content: "\f151";
     content: "\f151"/"Pinned icon";
 }
-.add-plus-icon::after,
 .add-plus-icon-after::after,
 .add-plus-icon-before::before {
     content: "\f132";
     content: "\f132"/"Plus icon";
 }
-.add-private-icon::after,
 .add-private-icon-after::after,
 .add-private-icon-before::before {
     content: "\f133";
     content: "\f133"/"Private icon";
 }
-.add-question-icon::after,
 .add-question-icon-after::after,
 .add-question-icon-before::before {
     content: "\f134";
     content: "\f134"/"Question icon";
 }
-.add-quote-icon::after,
 .add-quote-icon-after::after,
 .add-quote-icon-before::before {
     content: "\f152";
     content: "\f152"/"Quote icon";
 }
-.add-reading-icon::after,
 .add-reading-icon-after::after,
 .add-reading-icon-before::before {
     content: "\f153";
     content: "\f153"/"Reading icon";
 }
-.add-refresh-icon::after,
 .add-refresh-icon-after::after,
 .add-refresh-icon-before::before {
     content: "\f135";
     content: "\f135"/"Refresh icon";
 }
-.add-reset-icon::after,
 .add-reset-icon-after::after,
 .add-reset-icon-before::before {
     content: "\f15e";
     content: "\f15e"/"Reset icon";
 }
-.add-right-icon::after,
 .add-right-icon-after::after,
 .add-right-icon-before::before {
     content: "\f136";
     content: "\f136"/"Arrow (Right) icon";
 }
-.add-search-icon::after,
 .add-search-icon-after::after,
 .add-search-icon-before::before {
     content: "\f137";
     content: "\f137"/"Search icon";
 }
-.add-settings-icon::after,
 .add-settings-icon-after::after,
 .add-settings-icon-before::before {
     content: "\f138";
     content: "\f138"/"Settings icon";
 }
-.add-singlecolumn-icon::after,
 .add-singlecolumn-icon-after::after,
 .add-singlecolumn-icon-before::before {
     content: "\f15b";
     content: "\f15b"/"Single Column icon";
 }
-.add-star-icon::after,
 .add-star-icon-after::after,
 .add-star-icon-before::before {
     content: "\f139";
     content: "\f139"/"Star icon";
 }
-.add-stopwatch-icon::after,
 .add-stopwatch-icon-after::after,
 .add-stopwatch-icon-before::before {
     content: "\f159";
     content: "\f159"/"Stopwatch icon";
 }
-.add-submit-icon::after,
 .add-submit-icon-after::after,
 .add-submit-icon-before::before {
     content: "\f15f";
     content: "\f15f"/"Submit icon";
 }
-.add-success-icon::after,
 .add-success-icon-after::after,
 .add-success-icon-before::before {
     content: "\f140";
     content: "\f140"/"Success icon";
 }
-.add-timer-icon::after,
 .add-timer-icon-after::after,
 .add-timer-icon-before::before {
     content: "\f15a";
     content: "\f15a"/"Timer icon";
 }
-.add-toggle-icon::after,
 .add-toggle-icon-after::after,
 .add-toggle-icon-before::before {
     content: "\f158";
     content: "\f158"/"Toggle icon";
 }
-.add-twocolumns-icon::after,
 .add-twocolumns-icon-after::after,
 .add-twocolumns-icon-before::before {
     content: "\f15c";
     content: "\f15c"/"Two Columns icon";
 }
-.add-ui-icon::after,
 .add-ui-icon-after::after,
 .add-ui-icon-before::before {
     content: "\f141";
     content: "\f141"/"User Interface icon";
 }
-.add-ui-check-icon::after,
 .add-ui-check-icon-after::after,
 .add-ui-check-icon-before::before {
     content: "\f142";
     content: "\f142"/"User Interface with Checkmark icon";
 }
-.add-ui-minimum-icon::after,
 .add-ui-minimum-icon-after::after,
 .add-ui-minimum-icon-before::before {
     content: "\f143";
     content: "\f143"/"User Interface with Minimum icon";
 }
-.add-unlock-icon::after,
 .add-unlock-icon-after::after,
 .add-unlock-icon-before::before {
     content: "\f144";
     content: "\f144"/"Unlock icon";
 }
-.add-up-icon::after,
 .add-up-icon-after::after,
 .add-up-icon-before::before {
     content: "\f145";
     content: "\f145"/"Arrow (Up) icon";
 }
-.add-warning-icon::after,
 .add-warning-icon-after::after,
 .add-warning-icon-before::before {
     content: "\f146";
@@ -10048,8 +10220,9 @@ body
 .alert-block > .alert-block__headline:where(header) {
     line-height: 1.375;
     font-weight: 600;
-    font-style: normal;
     font-size: 1rem;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: normal;
 }
 .alert-block > .alert-block__headline.h1,
 .alert-block > h1.alert-block__headline,
@@ -10841,6 +11014,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     padding-block-end: 0;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
 }
 .toggle-title > .unstyled-heading [data-toggle-control] code,
 .toggle-title > .unstyled-heading [data-toggle-control] kbd,
@@ -10896,8 +11070,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .toggle-title > .h10 [data-toggle-control] code,
 .toggle-title > .h10 [data-toggle-control] kbd,
 .toggle-title > .h10 [data-toggle-control] samp {
-    font-weight: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 .toggle-title > .h1 [data-toggle-control],
@@ -10907,8 +11082,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 900;
     font-size: 2.9375rem;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-1, CanvasText);
     color: var(--theme-heading-1, CanvasText);
@@ -10920,8 +11096,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 800;
     font-size: 2.1875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-2, CanvasText);
     color: var(--theme-heading-2, CanvasText);
@@ -10933,8 +11110,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 700;
     font-size: 1.9375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-3, CanvasText);
     color: var(--theme-heading-3, CanvasText);
@@ -10946,18 +11124,31 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 700;
     font-size: 1.6875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-4, CanvasText);
     color: var(--theme-heading-4, CanvasText);
 }
 .toggle-title > .h4 [data-toggle-control] em,
 .toggle-title > h4 [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .toggle-title > .h4 [data-toggle-control] em em,
 .toggle-title > h4 [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.toggle-title > .h4 [data-toggle-control] em em em,
+.toggle-title > h4 [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.toggle-title > .h4 [data-toggle-control] em em em em,
+.toggle-title > h4 [data-toggle-control] em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 .toggle-title > .h5 [data-toggle-control],
@@ -10967,18 +11158,31 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 600;
     font-size: 1.375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-5, CanvasText);
     color: var(--theme-heading-5, CanvasText);
 }
 .toggle-title > .h5 [data-toggle-control] em,
 .toggle-title > h5 [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .toggle-title > .h5 [data-toggle-control] em em,
 .toggle-title > h5 [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.toggle-title > .h5 [data-toggle-control] em em em,
+.toggle-title > h5 [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.toggle-title > .h5 [data-toggle-control] em em em em,
+.toggle-title > h5 [data-toggle-control] em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 .toggle-title > .h6 [data-toggle-control],
@@ -10988,18 +11192,31 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 500;
     font-size: 1.25rem;
     line-height: 1.5;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-6, CanvasText);
     color: var(--theme-heading-6, CanvasText);
 }
 .toggle-title > .h6 [data-toggle-control] em,
 .toggle-title > h6 [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .toggle-title > .h6 [data-toggle-control] em em,
 .toggle-title > h6 [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+.toggle-title > .h6 [data-toggle-control] em em em,
+.toggle-title > h6 [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+.toggle-title > .h6 [data-toggle-control] em em em em,
+.toggle-title > h6 [data-toggle-control] em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 .toggle-title > .h7 [data-toggle-control] {
@@ -11008,11 +11225,17 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 500;
     font-size: 1rem;
     line-height: 1.6875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
     --icon-color: var(--theme-heading-7, CanvasText);
     color: var(--theme-heading-7, CanvasText);
+}
+@container style(--font-override-letter-spacing) {
+    .toggle-title > .h7 [data-toggle-control] {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
 }
 .toggle-title > .h8 [data-toggle-control] {
     padding-block-start: 0;
@@ -11020,17 +11243,51 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-8, CanvasText);
     color: var(--theme-heading-8, CanvasText);
 }
 .toggle-title > .h8 [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 .toggle-title > .h8 [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+.toggle-title > .h8 [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+.toggle-title > .h8 [data-toggle-control] em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    .toggle-title > .h8 [data-toggle-control] {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .toggle-title > .h8 [data-toggle-control] em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .toggle-title > .h8 [data-toggle-control] em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .toggle-title > .h8 [data-toggle-control] em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .toggle-title > .h8 [data-toggle-control] em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 .toggle-title > .h9 [data-toggle-control] {
     padding-block-start: 0;
@@ -11038,17 +11295,51 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-9, CanvasText);
     color: var(--theme-heading-9, CanvasText);
 }
 .toggle-title > .h9 [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 .toggle-title > .h9 [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+.toggle-title > .h9 [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+.toggle-title > .h9 [data-toggle-control] em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    .toggle-title > .h9 [data-toggle-control] {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .toggle-title > .h9 [data-toggle-control] em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .toggle-title > .h9 [data-toggle-control] em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .toggle-title > .h9 [data-toggle-control] em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .toggle-title > .h9 [data-toggle-control] em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 .toggle-title > .h10 [data-toggle-control] {
     padding-block-start: 0;
@@ -11056,17 +11347,51 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-10, CanvasText);
     color: var(--theme-heading-10, CanvasText);
 }
 .toggle-title > .h10 [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 .toggle-title > .h10 [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+.toggle-title > .h10 [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+.toggle-title > .h10 [data-toggle-control] em em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    .toggle-title > .h10 [data-toggle-control] {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .toggle-title > .h10 [data-toggle-control] em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .toggle-title > .h10 [data-toggle-control] em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    .toggle-title > .h10 [data-toggle-control] em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    .toggle-title > .h10 [data-toggle-control] em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 .toggle-title > .unstyled-heading [data-toggle-control] {
     padding-block-end: 0;
@@ -11074,17 +11399,20 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     font-weight: 600;
     font-size: 1.0625rem;
     line-height: 1.6875;
-    letter-spacing: normal;
     text-transform: none;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 .toggle-title > .unstyled-heading [data-toggle-control] em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 .toggle-title > .unstyled-heading [data-toggle-control] em em {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 .toggle-title > .unstyled-heading [data-toggle-control] em em em {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 .toggle-icon {
@@ -12223,6 +12551,7 @@ body > nav[data-toggle-container] {
 }
 
 .website-settings__disclaimer {
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
     font-size: 0.9375rem;
 }
@@ -12258,6 +12587,7 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     border-width: 0.0625rem;
     border-radius: 0;
     border-style: solid;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     user-select: text;
     --icon-size: var(--icon-size-large, 2em);
     margin-block: 0;
@@ -12368,9 +12698,10 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where(.js) .website-settings-menu [data-toggle-control] code,
 :where(.js) .website-settings-menu [data-toggle-control] kbd,
 :where(.js) .website-settings-menu [data-toggle-control] samp {
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: inherit;
     padding: 0;
     font-weight: inherit;
-    font-style: inherit;
     line-height: 1;
     background: transparent;
     border: none;
@@ -12526,8 +12857,20 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 
 /* ## Blocks - Settings Menu - Font Overrides ==================================== */
 [data-font-family-override="dyslexic"],
-[data-font-family-override="dyslexic"] *,
 .website-settings-menu .font-family-override-dyslexic {
+    --font-family-hyperlegible:
+        "Open Dyslexic", Verdana, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue",
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol" !important;
+    --font-family-hyperlegible-monospace:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-monospace:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
     font-family:
         "Open Dyslexic",
         Verdana,
@@ -12546,13 +12889,16 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Apple Color Emoji",
         "Segoe UI Emoji",
         "Segoe UI Symbol" !important;
-}
-
-[data-font-family-override="dyslexic"],
-.website-settings-menu .font-family-override-dyslexic {
-    --icon-size--font-multiplier: 1.0625;
-    --icon-size-inline--font-multiplier: 1.25;
-    --icon-inline-buffer-start--font-multiplier: 1.5;
+    --icon-size--font-multiplier: 1.0625 !important;
+    --icon-size-inline--font-multiplier: 1.25 !important;
+    --icon-inline-buffer-start--font-multiplier: 1.5 !important;
+    --font-override-letter-spacing: -0.0875em !important;
+    --font-override-letter-spacing-italic: 0.0375em !important;
+    --font-override-letter-spacing-monospace: -0.05em !important;
+    --font-override-letter-spacing-monospace-italic: -0.05em !important;
+    letter-spacing: var(--font-override-letter-spacing, -0.0875em);
+    font-optical-sizing: auto !important;
+    font-variation-settings: normal !important;
 }
 [data-font-family-override="dyslexic"],
 .website-settings-menu .font-family-override-dyslexic {
@@ -12667,11 +13013,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --line-height-600: 2.4375;
 }
 
-:where([data-font-family-override="dyslexic"]),
-:where(.website-settings-menu .font-family-override-dyslexic) {
-    line-height: 1.6875;
-}
-
 [data-font-family-override="dyslexic"],
 .website-settings-menu .font-family-override-dyslexic {
     --stroke-relative-100: 0.0625em;
@@ -12701,11 +13042,18 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --stroke-relative-800: clamp(0.25rem, 0.4375em, 8px);
     }
 }
-[data-font-family-override="hyperlegible"],
-[data-font-family-override="hyperlegible"] *,
-.website-settings-menu .font-family-override-hyperlegible {
+:where([data-font-family-override="dyslexic"]),
+:where(.website-settings-menu .font-family-override-dyslexic) {
+    line-height: 1.6875 !important;
+}
+
+.website-settings-menu .font-family-override-dyslexic {
+    --font-override-letter-spacing: -0.0875em !important;
+    --font-override-letter-spacing-italic: 0.0375em !important;
+    --font-override-letter-spacing-monospace: -0.05em !important;
+    --font-override-letter-spacing-monospace-italic: -0.05em !important;
     font-family:
-        "Atkinson Hyperlegible",
+        "Open Dyslexic",
         Verdana,
         system-ui,
         -apple-system,
@@ -12722,8 +13070,82 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Apple Color Emoji",
         "Segoe UI Emoji",
         "Segoe UI Symbol" !important;
+    letter-spacing: var(--font-override-letter-spacing, -0.0875em) !important;
 }
 
+[data-font-family-override="dyslexic-monospace"] {
+    --font-family-dyslexic:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-hyperlegible:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-hyperlegible-monospace:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-monospace:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    font-family:
+        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --icon-size--font-multiplier: 1.0625 !important;
+    --icon-size-inline--font-multiplier: 1.25 !important;
+    --icon-inline-buffer-start--font-multiplier: 1.5 !important;
+    --font-override-letter-spacing: -0.05em !important;
+    --font-override-letter-spacing-italic: -0.05em !important;
+    --font-override-letter-spacing-monospace: -0.05em !important;
+    --font-override-letter-spacing-monospace-italic: -0.05em !important;
+    letter-spacing: var(--font-override-letter-spacing, -0.05em);
+    font-optical-sizing: auto !important;
+    font-variation-settings: normal !important;
+}
+:where([data-font-family-override="dyslexic-monospace"]) {
+    line-height: 1.6875 !important;
+}
+
+[data-font-family-override="hyperlegible"],
+.website-settings-menu .font-family-override-hyperlegible {
+    --font-family-dyslexic:
+        "Atkinson Hyperlegible Next", Verdana, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+        "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-dyslexic-monospace:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-monospace:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    font-family:
+        "Atkinson Hyperlegible Next",
+        Verdana,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol" !important;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-optical-sizing: auto !important;
+    font-variation-settings: normal !important;
+}
 [data-font-family-override="hyperlegible"],
 .website-settings-menu .font-family-override-hyperlegible {
     --width-content: 37.25rem;
@@ -12751,31 +13173,262 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         --border-width-400: clamp(0.25rem, 0.25rem, 8px);
     }
 }
-[data-font-family-override="monospace"],
-[data-font-family-override="monospace"] *,
-.website-settings-menu .font-family-override-monospace {
-    font-family:
-        "IBM Plex Mono", "Courier New", Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+:where([data-font-family-override="hyperlegible"]),
+:where(.website-settings-menu .font-family-override-hyperlegible) {
+    line-height: 1.6875 !important;
 }
 
-[data-font-family-override="monospace"],
-[data-font-family-override="monospace"] :where(*),
-.website-settings-menu .font-family-override-monospace,
-.website-settings-menu .font-family-override-monospace :where(*) {
-    letter-spacing: -0.015em !important;
+.website-settings-menu .font-family-override-hyperlegible {
+    --font-override-letter-spacing: normal !important;
+    --font-override-letter-spacing-italic: normal !important;
+    --font-override-letter-spacing-monospace: normal !important;
+    --font-override-letter-spacing-monospace-italic: normal !important;
+    font-family:
+        "Atkinson Hyperlegible Next",
+        Verdana,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol" !important;
+    letter-spacing: var(--font-override-letter-spacing, normal) !important;
 }
-[data-font-family-override="monospace"],
-.website-settings-menu .font-family-override-monospace {
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --font-family-dyslexic:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-dyslexic-monospace:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-hyperlegible:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-monospace:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    font-family:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-optical-sizing: auto !important;
+    font-variation-settings: normal !important;
+}
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --width-content: 37.25rem;
+    --width-sidebar: 18.625rem;
+    --width-callout: 27.1875rem;
+    --width-page: 60.75rem;
+}
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --border-width-100: 0.0625rem;
+    --border-width-200: 0.125rem;
+    --border-width-300: 0.1875rem;
+    --border-width-400: 0.25rem;
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    [data-font-family-override="hyperlegible-monospace"],
+    .website-settings-menu .font-family-override-hyperlegible-monospace {
+        --border-width-100: clamp(0.125rem, 0.0625rem, 4px);
+        --border-width-200: clamp(0.25rem, 0.125rem, 7px);
+        --border-width-300: clamp(0.25rem, 0.1875rem, 8px);
+        --border-width-400: clamp(0.25rem, 0.25rem, 8px);
+    }
+}
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --mrg-firm-100: 0.3125rem;
+    --mrg-firm-200: 0.5625rem;
+    --mrg-firm-300: 0.875rem;
+    --mrg-firm-400: 1.3125rem;
+    --mrg-firm-500: 1.8125rem;
+    --mrg-firm-600: 2.375rem;
+    --mrg-firm-800: 4.25rem;
+    --mrg-firm-900: 7.5625rem;
+    --pad-firm-100: 0.3125em;
+    --pad-firm-200: 0.5em;
+    --pad-firm-300: 0.8125em;
+    --pad-firm-400: 1.25em;
+    --pad-firm-500: 1.6875em;
+    --pad-firm-600: 2.25em;
+    --pad-firm-800: 4em;
+    --pad-firm-900: 7.125em;
+}
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --mrg-soft-100: 0.1875rem;
+    --mrg-soft-200: 0.34375rem;
+    --mrg-soft-300: 0.5625rem;
+    --mrg-soft-400: 0.8125rem;
+    --mrg-soft-500: 1.46875rem;
+    --mrg-soft-600: 1.9375rem;
+    --mrg-soft-800: 3.5625rem;
+    --mrg-soft-900: 6.40625rem;
+    --pad-soft-100: 0.1875em;
+    --pad-soft-200: 0.3125em;
+    --pad-soft-300: 0.5em;
+    --pad-soft-400: 0.78125em;
+    --pad-soft-500: 1.34375em;
+    --pad-soft-600: 1.84375em;
+    --pad-soft-800: 3.34375em;
+    --pad-soft-900: 6.03125em;
+}
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --mrg-half-100: 0.125rem;
+    --mrg-half-200: 0.21875rem;
+    --mrg-half-300: 0.3125rem;
+    --mrg-half-400: 0.5rem;
+    --mrg-half-500: 0.34375rem;
+    --mrg-half-600: 0.4375rem;
+    --mrg-half-800: 0.6875rem;
+    --mrg-half-900: 1.15625rem;
+    --pad-half-100: 0.125em;
+    --pad-half-200: 0.1875em;
+    --pad-half-300: 0.3125em;
+    --pad-half-400: 0.46875em;
+    --pad-half-500: 0.34375em;
+    --pad-half-600: 0.40625em;
+    --pad-half-800: 0.65625em;
+    --pad-half-900: 1.09375em;
+}
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --gap-block-layout: 5.3125vw;
+    --gap-block-layout: clamp(1.75rem, 5.3125svw, 3.375rem);
+    --gap-block-layout-half: 2.65625vw;
+    --gap-block-layout-half: clamp(0.875rem, 2.65625svw, 1.6875rem);
+    --gap-inline-indent: 9.5625%;
+    --gap-inline-indent: clamp(0.53125rem, 9.5625%, 4.25rem);
+    --gap-inline-layout: 8.5vw;
+    --gap-inline-layout: clamp(1.328125rem, 8.5svw, 7.5703125rem);
+    --gap-inline-layout-half: 4.25vw;
+    --gap-inline-layout-half: clamp(0.6640625rem, 4.25svw, 3.78515625rem);
+    --gap-inline-tab: 5.3125%;
+    --gap-inline-tab: clamp(0.33203125rem, 5.3125%, 2.390625rem);
+}
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --line-height-100: 1.25;
+    --line-height-200: 1.4375;
+    --line-height-300: 1.5625;
+    --line-height-400: 1.75;
+    --line-height-500: 2;
+    --line-height-600: 2.25;
+}
+
+[data-font-family-override="hyperlegible-monospace"],
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --stroke-relative-100: 0.0625em;
+    --stroke-relative-100: max(1px, 0.0625em);
+    --stroke-relative-200: 0.125em;
+    --stroke-relative-200: max(1px, 0.125em);
+    --stroke-relative-400: 0.1875em;
+    --stroke-relative-400: max(1px, 0.1875em);
+    --stroke-relative-600: 0.25em;
+    --stroke-relative-600: max(1px, 0.25em);
+    --stroke-relative-700: 0.3125em;
+    --stroke-relative-700: max(1px, 0.3125em);
+    --stroke-relative-800: 0.375em;
+    --stroke-relative-800: max(1px, 0.375em);
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    [data-font-family-override="hyperlegible-monospace"],
+    .website-settings-menu .font-family-override-hyperlegible-monospace {
+        --stroke-relative-100: clamp(0.125rem, 0.0625em, 4px);
+        --stroke-relative-200: clamp(0.125rem, 0.125em, 5px);
+        --stroke-relative-400: clamp(0.1875rem, 0.1875em, 8px);
+        --stroke-relative-600: clamp(0.25rem, 0.25em, 8px);
+        --stroke-relative-700: clamp(0.25rem, 0.3125em, 8px);
+        --stroke-relative-800: clamp(0.25rem, 0.375em, 8px);
+    }
+}
+:where([data-font-family-override="hyperlegible-monospace"]),
+:where(.website-settings-menu .font-family-override-hyperlegible-monospace) {
+    line-height: 1.6875 !important;
+}
+
+.website-settings-menu .font-family-override-hyperlegible-monospace {
+    --font-override-letter-spacing: normal !important;
+    --font-override-letter-spacing-italic: normal !important;
+    --font-override-letter-spacing-monospace: normal !important;
+    --font-override-letter-spacing-monospace-italic: normal !important;
+    font-family:
+        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
+        Monaco, "Liberation Mono", "Lucida Console", monospace,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    letter-spacing: var(
+        --font-override-letter-spacing-monospace,
+        normal
+    ) !important;
+}
+
+[data-font-family-override="monospace"] {
+    --font-family-dyslexic:
+        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-dyslexic-monospace:
+        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-hyperlegible:
+        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-family-hyperlegible-monospace:
+        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    font-family:
+        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    --font-override-letter-spacing: -0.015em !important;
+    --font-override-letter-spacing-italic: -0.015em !important;
+    --font-override-letter-spacing-monospace: -0.015em !important;
+    --font-override-letter-spacing-monospace-italic: -0.015em !important;
+    letter-spacing: var(--font-override-letter-spacing, -0.015em);
+    font-optical-sizing: auto !important;
+    font-variation-settings: normal !important;
+}
+[data-font-family-override="monospace"] {
     --width-content: 40.5rem;
     --width-sidebar: 20.25rem;
     --width-callout: 29.5625rem;
     --width-page: 66rem;
 }
 
-[data-font-family-override="monospace"],
-.website-settings-menu .font-family-override-monospace {
+[data-font-family-override="monospace"] {
     --border-width-100: 0.0625rem;
     --border-width-200: 0.125rem;
     --border-width-300: 0.1875rem;
@@ -12785,11 +13438,32 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 @media (prefers-contrast: more),
     (forced-colors: active),
     (prefers-contrast: custom) {
-    [data-font-family-override="monospace"],
-    .website-settings-menu .font-family-override-monospace {
+    [data-font-family-override="monospace"] {
         --border-width-100: clamp(0.125rem, 0.0625rem, 4px);
         --border-width-200: clamp(0.25rem, 0.125rem, 7px);
         --border-width-300: clamp(0.25rem, 0.1875rem, 8px);
         --border-width-400: clamp(0.25rem, 0.3125rem, 8px);
     }
+}
+:where([data-font-family-override="monospace"]) {
+    line-height: 1.6875 !important;
+}
+
+[data-font-family-override="icons"] {
+    --font-family-dyslexic: "Design System Utilities Icons" !important;
+    --font-family-dyslexic-monospace: "Design System Utilities Icons" !important;
+    --font-family-hyperlegible: "Design System Utilities Icons" !important;
+    --font-family-hyperlegible-monospace: "Design System Utilities Icons" !important;
+    --font-family-monospace: "Design System Utilities Icons" !important;
+    font-family: "Design System Utilities Icons" !important;
+    --font-override-letter-spacing: 0.1em !important;
+    --font-override-letter-spacing-italic: 0.1em !important;
+    --font-override-letter-spacing-monospace: 0.1em !important;
+    --font-override-letter-spacing-monospace-italic: 0.1em !important;
+    letter-spacing: var(--font-override-letter-spacing, 0.1em);
+    font-optical-sizing: auto !important;
+    font-variation-settings: normal !important;
+}
+:where([data-font-family-override="icons"]) {
+    line-height: 1.6875 !important;
 }

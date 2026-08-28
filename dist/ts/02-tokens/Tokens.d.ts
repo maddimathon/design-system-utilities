@@ -304,11 +304,64 @@ export declare namespace Tokens {
                 function fileGenerator<T_Slug extends string>(subpath: T_Slug, name: string, weight: WholeTokenLevel | `${'000' | WholeTokenLevel} ${WholeTokenLevel | '1000'}`, style: "normal" | "italic", opts?: familyGenerator.FileOptions): Tokens_Typography.Font.File;
             }
             /**
+             * Helps to generate all the weights for a font family.
+             *
+             * @since 0.1.0-beta.0.draft
+             */
+            function familyRenamer<T_Slug extends string>(slug: T_Slug, name: string, font: Tokens_Typography.Font.Family<string>): Tokens_Typography.Font.Family<T_Slug>;
+            /**
              * @since 0.1.0-alpha
              */
             namespace Family {
-                const dyslexic: Readonly<Tokens_Typography.Font.Family<'dyslexic'>>;
+                /**
+                 * @since 0.1.0-alpha
+                 */
+                const dyslexic: Readonly<{
+                    slug: 'dyslexic';
+                    name: 'Open Dyslexic';
+                    appendSystemFontsToFallbacks: true;
+                    contentWidthScale: 1.2;
+                    css: {
+                        'letter-spacing': {
+                            $: '-0.0875em';
+                            italic: '0.0375em';
+                            monospace: '-0.05em';
+                        };
+                        icon: {
+                            inline: {
+                                buffer: {
+                                    start: 1.5;
+                                };
+                            };
+                            size: {
+                                $: 1.0625;
+                                inline: 1.25;
+                            };
+                        };
+                    };
+                    fallbacks: [
+                        'Verdana'
+                    ];
+                    fontOverrideOption: true;
+                    lineHeightScale: 1.15;
+                    sizeAdjust: '93%';
+                    weights: Tokens_Typography.Font.Family<'dyslexic'>['weights'];
+                }>;
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
+                const dyslexicMonospace: Readonly<Tokens_Typography.Font.Family<'dyslexic-monospace'>>;
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 const hyperlegible: Readonly<Tokens_Typography.Font.Family<'hyperlegible'>>;
+                /**
+                 * @since 0.1.0-beta.0.draft
+                 */
+                const hyperlegibleMonospace: Readonly<Tokens_Typography.Font.Family<'hyperlegible-monospace'>>;
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 const monospace: Readonly<Tokens_Typography.Font.Family<'monospace'>>;
             }
         }

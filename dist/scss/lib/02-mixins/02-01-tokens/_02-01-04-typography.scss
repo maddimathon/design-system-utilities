@@ -61,7 +61,6 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     @each $style, $fileMap in $styleMap {
         @if map.get($fileMap, printFontFace) {
             @font-face {
-                //
                 @each $prop, $value in $fileMap {
                     //
                     @if $prop == fallbacks or $prop == printFontFace {
@@ -100,6 +99,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     @if $_designSystemHasFontFamilies {
         @at-root {
             /* #region Tokens - Font Face */
+            // @include meta.var-dump('map.get(tokens.$font, family)', map.get(tokens.$font, family));
             @each $slug, $familyMap in map.get(tokens.$font, family) {
                 //
                 $weightMap: map.get($familyMap, weights);
@@ -122,6 +122,10 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
     }
 }
 
+$_familiesList: list.sort(
+    list.except(map.keys(map.get(tokens.$font, family)), icons)
+);
+
 ///
 /// Prints out the font face declarations based on tokens.
 ///
@@ -129,8 +133,6 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 /// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
 @mixin tokens-font-family($includeRegion: true) {
-    $_familiesList: list.except(map.keys(map.get(tokens.$font, family)), icons);
-
     @if $_designSystemHasFontFamilies and list.length($_familiesList) > 0 {
         $_sel: selector.parent-or-root();
 
@@ -251,7 +253,7 @@ $_designSystemHasFontFamilies: tokens-has-font-families();
 $_fontOverrideSels: ('.website-settings-menu .font-family-override-default');
 $_fontOverrideSels_body: ();
 
-@each $slug, $map in map.get(tokens.$font, familyOverrides) {
+@each $slug, $map in map.ksort(map.get(tokens.$font, familyOverrides)) {
     @if map.has-key($map, labelClass) {
         $_fontOverrideSels: list.append(
             $_fontOverrideSels,
@@ -353,7 +355,7 @@ $_fontOverrideSels_body: ();
 
         $letterSpacing: if(
             $letterSpacing == null,
-            map.get(tokens.$font, family, icons, css, letterSpacing),
+            map.get(tokens.$font, family, icons, css, letter-spacing),
             $letterSpacing
         );
 
@@ -435,7 +437,7 @@ $_fontOverrideSels_body: ();
                 }
 
                 @if $letterSpacing {
-                    letter-spacing: math.add-unit($letterSpacing, 1em);
+                    letter-spacing: $letterSpacing !important;
                 }
             }
 
@@ -488,22 +490,36 @@ $_fontOverrideSels_body: ();
 }
 
 ///
-/// Changes varies size-related tokens to the values for the given family.
-///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin font-family-size-tokens(
+@mixin _set-font-family-shared-props(
     $slug,
-    $setProps: true,
+    $asOverride: false,
+    //
+    $asImportant: $asOverride,
     $icon_display: inline-block,
     $icon_spacingProp: null,
-    $setLetterSpacing: true
+    $setBaseProps: true,
+    $setBorders: $asOverride,
+    $setChildProps: $asOverride,
+    $setLetterSpacing: $setBaseProps,
+    $setLineHeight: $setBaseProps,
+    $setMargins: $asOverride,
+    $setProps: $setBaseProps,
+    $setWhereProps: $setChildProps,
+    $setWidths: $asOverride
 ) {
-    //
     $map: map.get(tokens.$font, family, $slug);
 
-    @if $map {
+    @if not $map {
+        @content;
+    } @else {
         $css: map.flatten(map.get($map, css));
+
+        $importantSuffix: if($asImportant, ' !important', '');
+
+        $childProps: ();
+        $whereParentProps: ();
 
         @each $_propSlug
             in (
@@ -518,86 +534,493 @@ $_fontOverrideSels_body: ();
             @if $_propValue != null {
                 @include utils.cx-prop(
                     #{$_propSlug}--font-multiplier,
-                    $_propValue
+                    $_propValue,
+                    $important: $asImportant
                 );
             }
         }
 
-        @if $setLetterSpacing {
-            $letterSpacing: map.get($css, letterSpacing);
+        @if $setLineHeight {
+            $whereParentProps: map.set(
+                $whereParentProps,
+                line-height,
+                var-line-height('400')
+            );
+        }
 
-            @if $letterSpacing != null {
-                &,
-                & :where(*) {
-                    letter-spacing: math.add-unit(
-                        $letterSpacing,
-                        1em
-                    ) !important;
+        @if $setLetterSpacing {
+            $childProps: list.append(
+                $childProps,
+                (
+                    letter-spacing,
+                    do-var(
+                        font-override-letter-spacing,
+                        meta.defined-else(map.get($css, letter-spacing), normal)
+                    )
+                ),
+                $separator: comma
+            );
+
+            @if $asOverride {
+                $_default_spacing: map.get($css, letter-spacing);
+                $_default_monospace_spacing: meta.defined-else(
+                    map.get($css, letter-spacing-monospace),
+                    $_default_spacing
+                );
+                $_italic_spacing: meta.defined-else(
+                    map.get($css, letter-spacing-italic),
+                    $_default_spacing
+                );
+                $_italic_monospace_spacing: meta.defined-else(
+                    map.get($css, letter-spacing-monospace-italic),
+                    $_default_monospace_spacing
+                );
+
+                @if $_default_spacing {
+                    @include utils.cx-prop(
+                        font-override-letter-spacing,
+                        $_default_spacing,
+                        $important: $asImportant
+                    );
+                }
+                @if $_italic_spacing {
+                    @include utils.cx-prop(
+                        font-override-letter-spacing-italic,
+                        $_italic_spacing,
+                        $important: $asImportant
+                    );
+                }
+
+                @if $_default_monospace_spacing {
+                    @include utils.cx-prop(
+                        font-override-letter-spacing-monospace,
+                        $_default_monospace_spacing,
+                        $important: $asImportant
+                    );
+                }
+                @if $_italic_monospace_spacing {
+                    @include utils.cx-prop(
+                        font-override-letter-spacing-monospace-italic,
+                        $_italic_monospace_spacing,
+                        $important: $asImportant
+                    );
                 }
             }
         }
 
-        $width_multiplier: map.get($map, contentWidthScale);
+        @if $setProps {
+            $childProps: list.join(
+                $childProps,
+                (
+                    (
+                        font-optical-sizing,
+                        meta.defined-else(
+                            map.get($css, font-optical-sizing),
+                            auto
+                        )
+                    ),
+                    (
+                        font-variation-settings,
+                        meta.defined-else(
+                            map.get($css, font-variation-settings),
+                            normal
+                        )
+                    )
+                )
+            );
 
-        // prettier-ignore
-        @if $width_multiplier != null and meta.type-of($width_multiplier) == number and $width_multiplier != 1 {
+            @if list.length($childProps) > 0 {
+                @each $prop, $value in $childProps {
+                    @if $prop == letter-spacing {
+                        #{$prop}: $value;
+                    } @else {
+                        #{$prop}: $value#{$importantSuffix};
+                    }
+                }
+            }
+        }
+
+        @if not $setWhereProps and list.length($whereParentProps) > 0 {
+            @each $prop, $value in $whereParentProps {
+                #{$prop}: $value#{$importantSuffix};
+            }
+        }
+
+        @content;
+
+        $width_multiplier: if(
+            $setBorders or $setBorders,
+            map.get($map, contentWidthScale),
+            null
+        );
+
+        @if ($width_multiplier != null) and
+            (meta.type-of($width_multiplier) == number) and
+            ($width_multiplier != 1)
+        {
             $border_multiplier: -1;
 
             @if $width_multiplier > 1 {
                 $border_multiplier: $width_multiplier;
             }
 
-            // WIDTHS
-            @if $width_multiplier > 0 and $width_multiplier != 1 {
-                @include utils.tokens-width($multiplier: $width_multiplier, $includeRegion: false);
+            @if $setWidths {
+                // WIDTHS
+                @if $width_multiplier > 0 and $width_multiplier != 1 {
+                    @include utils.tokens-width(
+                        $multiplier: $width_multiplier,
+                        $includeRegion: false
+                    );
+                }
             }
 
-            // BORDER WIDTHS
-            @if $border_multiplier > 0 and $border_multiplier != 1 {
-                @include tokens-border-width($multiplier: $border_multiplier, $includeRegion: false);
+            @if $setBorders {
+                // BORDER WIDTHS
+                @if $border_multiplier > 0 and $border_multiplier != 1 {
+                    @include tokens-border-width(
+                        $multiplier: $border_multiplier,
+                        $includeRegion: false
+                    );
+                }
             }
         }
 
         $lh_multiplier: map.get($map, lineHeightScale);
 
-        // prettier-ignore
-        @if $lh_multiplier != null and meta.type-of($lh_multiplier) == number and $lh_multiplier != 1 {
+        @if ($lh_multiplier != null) and
+            (meta.type-of($lh_multiplier) == number) and
+            ($lh_multiplier != 1)
+        {
             $margin_multiplier: -1;
             $stroke_multiplier: -1;
 
             @if $lh_multiplier > 1 {
                 $margin_multiplier: if(
                     $lh_multiplier < 2,
-                    calc((($lh_multiplier - 1) * mrg-value-firm('400', $unit: 1)) + 1),
+                    calc(
+                        (
+                                ($lh_multiplier - 1) *
+                                    mrg-value-firm('400', $unit: 1)
+                            ) +
+                            1
+                    ),
                     $lh_multiplier
                 );
 
                 $stroke_multiplier: $lh_multiplier;
             }
 
-            // MARGINS
-            // prettier-ignore
-            @if $margin_multiplier > 0 and ($margin_multiplier < 1 or $margin_multiplier >= 1.0625) {
-                @include tokens-margin($multiplier: $margin_multiplier, $includeRegion: false);
-                @include utils.tokens-gap($multiplier: $margin_multiplier, $includeRegion: false);
-            }
-
-            // LINE HEIGHTS
-            @include tokens-line-height($multiplier: $lh_multiplier, $includeRegion: false);
-
-            @if $setProps {
-                @at-root #{selector.where-list(&)} {
-                    line-height: var-line-height('400');
+            @if $setMargins {
+                // MARGINS
+                // prettier-ignore
+                @if $margin_multiplier > 0 and ($margin_multiplier < 1 or $margin_multiplier >= 1.0625) {
+                    @include tokens-margin($multiplier: $margin_multiplier, $includeRegion: false);
+                    @include utils.tokens-gap($multiplier: $margin_multiplier, $includeRegion: false);
                 }
             }
 
-            // STROKE RELATIVE
-            @if $stroke_multiplier > 0 and $stroke_multiplier != 1 {
-                @include tokens-stroke-relative(
-                    $multiplier: $stroke_multiplier,
-                    $includeRegion: false
+            // LINE HEIGHTS
+            @include tokens-line-height(
+                $multiplier: $lh_multiplier,
+                $includeRegion: false
+            );
+
+            @if $setBorders {
+                // STROKE RELATIVE
+                @if $stroke_multiplier > 0 and $stroke_multiplier != 1 {
+                    @include tokens-stroke-relative(
+                        $multiplier: $stroke_multiplier,
+                        $includeRegion: false
+                    );
+                }
+            }
+        }
+
+        @if $setWhereProps and list.length($whereParentProps) > 0 {
+            @at-root #{selector.where-list(&)} {
+                @each $prop, $value in $whereParentProps {
+                    #{$prop}: $value#{$importantSuffix};
+                }
+            }
+        }
+    }
+}
+
+///
+/// Changes varies size-related tokens to the values for the given family.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin font-family-size-tokens($slug, $asOverride: true, $args...) {
+    @include _set-font-family-shared-props(
+        $slug: $slug,
+        $asOverride: true,
+        $args...
+    );
+}
+
+///
+/// Sets the font family via token variable, along with related props as applicable.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin set-font-family($slug, $args...) {
+    @include _set-font-family-shared-props($slug: $slug, $args...) {
+        font-family: do-var(font-family-#{$slug}, var-font-family($slug));
+    }
+}
+
+@function set-letter-spacing--get-var-slug(
+    $fontFamilyIsMonospace: false,
+    $fontStyle: null
+) {
+    @return if(
+        $fontStyle == italic,
+        if(
+            $fontFamilyIsMonospace,
+            font-override-letter-spacing-monospace-italic,
+            font-override-letter-spacing-italic
+        ),
+        if(
+            $fontFamilyIsMonospace,
+            font-override-letter-spacing-monospace,
+            font-override-letter-spacing
+        )
+    );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin set-letter-spacing(
+    $spacing,
+    $fontFamilyIsMonospace: false,
+    $fontStyle: null,
+    $includeCalc: null,
+    $important: false
+) {
+    @if $spacing != false {
+        $spacing_var_slug: set-letter-spacing--get-var-slug(
+            $fontFamilyIsMonospace: $fontFamilyIsMonospace,
+            $fontStyle: $fontStyle,
+        );
+
+        letter-spacing: do-var($spacing_var_slug, $spacing);
+
+        @content;
+
+        @if ($spacing == normal) or ($spacing == inherit) {
+            $includeCalc: false;
+        } @else if $includeCalc == null {
+            @if meta.type-of($spacing) == number {
+                $includeCalc: $spacing > 0;
+            }
+        }
+
+        @if $includeCalc {
+            @include utils.container-query-cx-prop($spacing_var_slug) {
+                letter-spacing: calc(
+                    max(0, $spacing) + do-var($spacing_var_slug)
                 );
             }
+        }
+    }
+}
+
+///
+/// Sets the font style via token variable, along with related props as applicable.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin set-font-style(
+    $style,
+    $fontFamilyIsMonospace: false,
+    $letterSpacing: null,
+    $letterSpacing_includeCalc: null,
+    $important: false,
+    $setChildren: false,
+    $args...
+) {
+    $letterSpacing_includeCalc: meta.defined-else(
+        $letterSpacing_includeCalc,
+        true
+    );
+    $setChildren: $setChildren and $style != false;
+
+    @if $style == null {
+        $style: normal;
+    }
+
+    @if $letterSpacing == null {
+        $letterSpacing: inherit;
+    }
+
+    $importantSuffix: if($important, ' !important', '');
+
+    @include set-letter-spacing(
+        $letterSpacing,
+        $fontFamilyIsMonospace: $fontFamilyIsMonospace,
+        $fontStyle: $style,
+        $important: $important,
+        $includeCalc: $letterSpacing_includeCalc and not $setChildren
+    ) {
+        @if $style != false {
+            font-style: $style#{$importantSuffix};
+        }
+
+        @content;
+    }
+
+    @if $setChildren {
+        $inverse_style: if(
+            $style == normal,
+            italic,
+            if($style == italic, normal, null)
+        );
+
+        @if $inverse_style {
+            $_letterSpacing_var: if(
+                $letterSpacing == false,
+                null,
+                do-var(
+                    set-letter-spacing--get-var-slug(
+                        $fontFamilyIsMonospace: $fontFamilyIsMonospace,
+                        $fontStyle: $style,
+                    ),
+                    $letterSpacing
+                )
+            );
+
+            $_letterSpacing_var_inverse: if(
+                $letterSpacing == false,
+                null,
+                do-var(
+                    set-letter-spacing--get-var-slug(
+                        $fontFamilyIsMonospace: $fontFamilyIsMonospace,
+                        $fontStyle: $inverse_style,
+                    ),
+                    $letterSpacing
+                )
+            );
+
+            em {
+                @if $_letterSpacing_var_inverse {
+                    letter-spacing: $_letterSpacing_var_inverse#{$importantSuffix};
+                    font-style: $inverse_style#{$importantSuffix};
+                }
+
+                em {
+                    @if $_letterSpacing_var {
+                        letter-spacing: $_letterSpacing_var#{$importantSuffix};
+                        font-style: $style#{$importantSuffix};
+                    }
+
+                    em {
+                        @if $_letterSpacing_var_inverse {
+                            letter-spacing: $_letterSpacing_var_inverse#{$importantSuffix};
+                            font-style: $inverse_style#{$importantSuffix};
+                        }
+
+                        @if $inverse_style != italic {
+                            em {
+                                @if $_letterSpacing_var {
+                                    letter-spacing: $_letterSpacing_var#{$importantSuffix};
+                                    font-style: $style#{$importantSuffix};
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @if ($letterSpacing != false) and
+            ($letterSpacing != normal) and
+            ($letterSpacing != inherit) and
+            $letterSpacing_includeCalc
+        {
+            $letterSpacing: meta.defined-else($letterSpacing, inherit);
+
+            $_letterSpacing_calc: calc(
+                max(0, $letterSpacing) +
+                    do-var(
+                        set-letter-spacing--get-var-slug(
+                            $fontFamilyIsMonospace: $fontFamilyIsMonospace,
+                            $fontStyle: $style,
+                        )
+                    )
+            );
+
+            $_letterSpacing_calc_inverse: calc(
+                max(0, $letterSpacing) +
+                    do-var(
+                        set-letter-spacing--get-var-slug(
+                            $fontFamilyIsMonospace: $fontFamilyIsMonospace,
+                            $fontStyle: $inverse_style,
+                        )
+                    )
+            );
+
+            @include utils.container-query-cx-prop-map(
+                (
+                    font-override-letter-spacing: null,
+                    font-override-letter-spacing-italic: null,
+                    font-override-letter-spacing-monospace: null,
+                    font-override-letter-spacing-monospace-italic: null,
+                )
+            ) {
+                letter-spacing: $_letterSpacing_calc#{$importantSuffix};
+
+                em {
+                    letter-spacing: $_letterSpacing_calc_inverse#{$importantSuffix};
+
+                    em {
+                        letter-spacing: $_letterSpacing_calc#{$importantSuffix};
+
+                        em {
+                            letter-spacing: $_letterSpacing_calc_inverse#{$importantSuffix};
+
+                            @if $inverse_style != italic {
+                                em {
+                                    letter-spacing: $_letterSpacing_calc#{$importantSuffix};
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+///
+/// Sets various font properties (mostly via token) convieniently together.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin set-font(
+    $family: null,
+    $size: null,
+    $style: null,
+    $letterSpacing: null,
+    $letterSpacing_includeCalc: null
+) {
+    @if $size {
+        font-size: $size;
+    }
+
+    @include set-font-style(
+        $style,
+        $fontFamilyIsMonospace: if(
+                $family,
+                string.match($family, '(^|-)monospace$', $flags: 'gi'),
+                false
+            ),
+        $letterSpacing: $letterSpacing,
+        $letterSpacing_includeCalc: $letterSpacing_includeCalc
+    ) {
+        @if $family {
+            @include set-font-family($family);
         }
     }
 }

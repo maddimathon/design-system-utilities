@@ -11,7 +11,6 @@ import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 import type { GenericProps } from '@maddimathon/utility-astro';
 
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
-import type { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
 
 /* import - functions */
 import { absoluteInternalURL } from '@maddimathon/utility-astro/functions';
@@ -238,9 +237,7 @@ if (Array.isArray(props.secondaryMenu)) {
 /* Settings ------------------ */
 
 const familyOverrideValues = inputs.tokens.typography.familyOverrides
-    ? (Object.values(inputs.tokens.typography.familyOverrides).filter(
-          (v) => v,
-      ) as Tokens_Typography.Font.FamilyOverride[])
+    ? Object.values(inputs.tokens.typography.familyOverrides).filter((v) => !!v)
     : [];
 
 if (familyOverrideValues.length) {

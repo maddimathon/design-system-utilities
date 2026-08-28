@@ -252,9 +252,9 @@ $_mixin_button_colour_single_state: meta.get-mixin('snippet-button-colour-single
                     margin-block-start: 0;
                     margin-inline: 0;
                     letter-spacing: normal !important;
+                } @else {
+                    @content (icon--is-only-child);
                 }
-
-                @content (icon--is-only-child);
             }
         }
     }
@@ -295,14 +295,15 @@ $_mixin_button_colour_single_state: meta.get-mixin('snippet-button-colour-single
     %code,
     %kbd,
     %samp {
-        padding: 0;
-        font-weight: inherit;
-        font-style: inherit;
-        line-height: 1;
-        background: transparent;
-        border: none;
+        @include set-font-style(inherit, $letterSpacing: inherit) {
+            padding: 0;
+            font-weight: inherit;
+            line-height: 1;
+            background: transparent;
+            border: none;
 
-        @content (code-kbd-samp);
+            @content (code-kbd-samp);
+        }
     }
 }
 
@@ -348,44 +349,47 @@ $_mixin_button_colours: meta.get-mixin('snippet-button-colours');
     border-style: $borderStyle;
 
     font-weight: $fontWeight;
-    font-style: $fontStyle;
 
-    letter-spacing: var-style(button-disabled-letter-spacing);
-    text-transform: var-style(button-disabled-text-transform);
+    @include set-font-style(
+        $fontStyle,
+        $letterSpacing: var-style(button-disabled-letter-spacing),
+        $letterSpacing_includeCalc: true
+    ) {
+        text-transform: var-style(button-disabled-text-transform);
+        cursor: not-allowed;
 
-    cursor: not-allowed;
+        @content (root);
 
-    @content (root);
-
-    @if $includeColours {
-        @include meta.apply(
-                $mixin_button_colours,
-                $variation: disabled,
-                $buttonType: $buttonType,
+        @if $includeColours {
+            @include meta.apply(
+                    $mixin_button_colours,
+                    $variation: disabled,
+                    $buttonType: $buttonType,
+                    $focusWithin: $focusWithin,
+                    $focus_fallbacksOnly: $focus_fallbacksOnly,
+                    $focus_includeFallbacks: $focus_includeFallbacks,
+                    $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
+                    $includeVisited: $includeVisited
+                )
+                using ($location) {
+                @content ($location);
+            }
+        } @else {
+            @include apply-interactive-mixin(
+                $focus: true,
                 $focusWithin: $focusWithin,
-                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks,
-                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
-                $includeVisited: $includeVisited
-            )
-            using ($location) {
-            @content ($location);
-        }
-    } @else {
-        @include apply-interactive-mixin(
-            $focus: true,
-            $focusWithin: $focusWithin,
-            $hover: true,
-            //
-            $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks,
-            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
-        ) {
-            @content (hover-focus);
-        }
+                $hover: true,
+                //
+                $fallbacksOnly: $focus_fallbacksOnly,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+            ) {
+                @content (hover-focus);
+            }
 
-        @include active {
-            @content (active);
+            @include active {
+                @content (active);
+            }
         }
     }
 
@@ -523,99 +527,95 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
     border-style: $borderStyle;
 
     font-weight: if($fontWeight, $fontWeight, var-style(button-inline-font-weight));
-    font-style: $fontStyle;
 
-    @if $fontSize != false {
-        font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
-    }
-
-    @if $lineHeight != false {
-        line-height: if($lineHeight, $lineHeight, var-style(button-inline-line-height));
-    }
-
-    @if $letterSpacing != false {
-        letter-spacing: if($letterSpacing, $letterSpacing, var-style(button-inline-letter-spacing));
-    }
-
-    @if $textTransform != false {
-        text-transform: if($textTransform, $textTransform, var-style(button-inline-text-transform));
-    }
-
-    vertical-align: var-style(button-inline-vertical-align);
-
-    @if $multipleContentBlocks {
-        @content (root);
-    } @else {
-        @content;
-    }
-
-    @if $includeColours and $variation != null {
-        @include meta.apply(
-                $mixin_button_colours,
-                $variation,
-                $buttonType: $buttonType,
-                $focusWithin: $focusWithin,
-                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks,
-                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
-            )
-            using ($location) {
-            @if $multipleContentBlocks {
-                @content ($location);
-            }
+    @include set-font-style(
+        $fontStyle,
+        $letterSpacing: $letterSpacing,
+        $letterSpacing_includeCalc: true
+    ) {
+        @if $fontSize != false {
+            font-size: if($fontSize, $fontSize, var-style(button-inline-font-size));
         }
 
-        @if $includeDisabled {
-            @include config.selector-button-disabled {
-                @include meta.apply(
-                        $mixin_button_colours,
-                        disabled,
-                        $buttonType: $buttonType,
-                        $focusWithin: $focusWithin,
-                        $focus_fallbacksOnly: $focus_fallbacksOnly,
-                        $focus_includeFallbacks: $focus_includeFallbacks,
-                        $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
-                    )
-                    using ($location) {
-                    @if $multipleContentBlocks {
-                        @content ($location);
+        @if $lineHeight != false {
+            line-height: if($lineHeight, $lineHeight, var-style(button-inline-line-height));
+        }
+
+        @if $textTransform != false {
+            text-transform: if(
+                $textTransform,
+                $textTransform,
+                var-style(button-inline-text-transform)
+            );
+        }
+
+        vertical-align: var-style(button-inline-vertical-align);
+
+        @if $multipleContentBlocks {
+            @content (root);
+        } @else {
+            @content;
+        }
+
+        @if $includeColours and $variation != null {
+            @include meta.apply(
+                    $mixin_button_colours,
+                    $variation,
+                    $buttonType: $buttonType,
+                    $focusWithin: $focusWithin,
+                    $focus_fallbacksOnly: $focus_fallbacksOnly,
+                    $focus_includeFallbacks: $focus_includeFallbacks,
+                    $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+                )
+                using ($location) {
+                @if $multipleContentBlocks {
+                    @content ($location);
+                }
+            }
+
+            @if $includeDisabled {
+                @include config.selector-button-disabled {
+                    @include meta.apply(
+                            $mixin_button_colours,
+                            disabled,
+                            $buttonType: $buttonType,
+                            $focusWithin: $focusWithin,
+                            $focus_fallbacksOnly: $focus_fallbacksOnly,
+                            $focus_includeFallbacks: $focus_includeFallbacks,
+                            $focus_includeNoWhereSelectorFallback:
+                                $focus_includeNoWhereSelectorFallback
+                        )
+                        using ($location) {
+                        @if $multipleContentBlocks {
+                            @content ($location);
+                        }
                     }
                 }
             }
-        }
-    } @else {
-        @include apply-interactive-mixin(
-            $focus: true,
-            $focusWithin: $focusWithin,
-            $hover: true,
-            //
-            $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks,
-            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
-        ) {
-            @if $multipleContentBlocks {
-                @content (hover-focus);
+        } @else {
+            @include apply-interactive-mixin(
+                $focus: true,
+                $focusWithin: $focusWithin,
+                $hover: true,
+                //
+                $fallbacksOnly: $focus_fallbacksOnly,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+            ) {
+                @if $multipleContentBlocks {
+                    @content (hover-focus);
+                }
             }
-        }
 
-        @include active {
-            @if $multipleContentBlocks {
-                @content (active);
+            @include active {
+                @if $multipleContentBlocks {
+                    @content (active);
+                }
             }
         }
     }
 
     /// BLOCK ///
-
-    @if $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
-            }
-        }
-    }
 
     @if $includeChildren {
         @if $includeBaseProps {
@@ -788,68 +788,67 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         font-weight: if($fontWeight != null, $fontWeight, var-style(button-font-weight));
     }
 
-    @if $fontStyle != false {
-        font-style: $fontStyle;
-    }
+    @include set-font-style(
+        $fontStyle,
+        $letterSpacing: if($letterSpacing, $letterSpacing, var-style(button-letter-spacing)),
+        $letterSpacing_includeCalc: true,
+        $setChildren: $includeChildren and $fontStyle == italic
+    ) {
+        @if $fontSize != false {
+            font-size: if($fontSize != null, $fontSize, var-style(button-font-size));
+        }
 
-    @if $fontSize != false {
-        font-size: if($fontSize != null, $fontSize, var-style(button-font-size));
-    }
+        @if $includeTextBasics != false {
+            line-height: var-style(button-line-height);
+        }
 
-    @if $includeTextBasics != false {
-        line-height: var-style(button-line-height);
-    }
+        @if $textTransform != false {
+            text-transform: if($textTransform, $textTransform, var-style(button-text-transform));
+        }
 
-    @if $letterSpacing != false {
-        letter-spacing: if($letterSpacing, $letterSpacing, var-style(button-letter-spacing));
-    }
+        user-select: text;
 
-    @if $textTransform != false {
-        text-transform: if($textTransform, $textTransform, var-style(button-text-transform));
-    }
+        @if $multipleContentBlocks {
+            @content (root);
+        } @else {
+            @content;
+        }
 
-    user-select: text;
+        @if $includeColours {
+            @include meta.apply(
+                    $mixin_button_colours,
+                    $variation,
+                    $focusWithin: $focusWithin,
+                    $focus_fallbacksOnly: $focus_fallbacksOnly,
+                    $focus_includeFallbacks: $focus_includeFallbacks,
+                    $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
 
-    @if $multipleContentBlocks {
-        @content (root);
-    } @else {
-        @content;
-    }
-
-    @if $includeColours {
-        @include meta.apply(
-                $mixin_button_colours,
-                $variation,
+                    $includeVisited: $includeVisited
+                )
+                using ($location) {
+                @if $multipleContentBlocks {
+                    @content ($location);
+                }
+            }
+        } @else {
+            @include apply-interactive-mixin(
+                $focus: true,
                 $focusWithin: $focusWithin,
-                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                $focus_includeFallbacks: $focus_includeFallbacks,
-                $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
-
-                $includeVisited: $includeVisited
-            )
-            using ($location) {
-            @if $multipleContentBlocks {
-                @content ($location);
+                $hover: true,
+                //
+                $fallbacksOnly: $focus_fallbacksOnly,
+                $includeFallbacks: $focus_includeFallbacks,
+                $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+            ) {
+                @if $multipleContentBlocks {
+                    @content (hover-focus);
+                }
             }
-        }
-    } @else {
-        @include apply-interactive-mixin(
-            $focus: true,
-            $focusWithin: $focusWithin,
-            $hover: true,
-            //
-            $fallbacksOnly: $focus_fallbacksOnly,
-            $includeFallbacks: $focus_includeFallbacks,
-            $includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
-        ) {
-            @if $multipleContentBlocks {
-                @content (hover-focus);
-            }
-        }
 
-        @include active {
-            @if $multipleContentBlocks {
-                @content (active);
+            @include active {
+                @if $multipleContentBlocks {
+                    @content (active);
+                }
             }
         }
     }
@@ -907,16 +906,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     /// EXCEPTIONS ///
-
-    @if $fontStyle != false and $fontStyle == italic {
-        em {
-            font-style: normal;
-
-            em {
-                font-style: italic;
-            }
-        }
-    }
 
     @if $includeDisabled {
         @include config.selector-button-disabled {
@@ -1694,10 +1683,11 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     }
                     //
                     @else if $clr_location == placeholder {
-                        font-style: $placeholder_fontStyle;
-                        opacity: $placeholder_opacity;
+                        @include set-font-style($placeholder_fontStyle) {
+                            opacity: $placeholder_opacity;
 
-                        @content (placeholder);
+                            @content (placeholder);
+                        }
                     }
                     //
                     @else if
@@ -1723,10 +1713,11 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 @content ($location);
 
                 &::placeholder {
-                    font-style: $placeholder_fontStyle;
-                    opacity: $placeholder_opacity;
+                    @include set-font-style($placeholder_fontStyle) {
+                        opacity: $placeholder_opacity;
 
-                    @content (placeholder);
+                        @content (placeholder);
+                    }
                 }
 
                 $args: meta.keywords($args);
@@ -1742,9 +1733,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 );
                 padding-block-end: calc($paddingBlock + var-style(input-icons-offset-block-end));
 
-                letter-spacing: var-style(input-icons-letter-spacing);
-
-                @content (is-icon-font);
+                @include set-letter-spacing(var-style(input-icons-letter-spacing)) {
+                    @content (is-icon-font);
+                }
             }
         }
         //

@@ -76,21 +76,12 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
         }
 
         @at-root #{$_allHeadingSels} {
-            font-style: normal;
-            letter-spacing: normal;
             text-transform: none;
-
-            em {
-                font-style: italic;
-
-                em {
-                    font-style: normal;
-
-                    em {
-                        font-style: italic;
-                    }
-                }
-            }
+            @include lib.set-font-style(
+                normal,
+                $letterSpacing: normal,
+                $setChildren: true
+            );
 
             :global(.shade-swatch-table__wrapper) & {
                 font-weight: 700;

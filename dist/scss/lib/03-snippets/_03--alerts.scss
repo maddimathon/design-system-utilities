@@ -333,11 +333,12 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             &:where(header) {
                 line-height: var-style(alert-headline-line-height);
                 font-weight: var-style(alert-headline-font-weight);
-                font-style: var-style(alert-headline-font-style);
                 font-size: var-style(alert-headline-font-size);
 
-                @if $multipleContentBlocks {
-                    @content (headline--is-header);
+                @include set-font-style(var-style(alert-headline-font-style)) {
+                    @if $multipleContentBlocks {
+                        @content (headline--is-header);
+                    }
                 }
             }
 

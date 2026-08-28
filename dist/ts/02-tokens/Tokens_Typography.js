@@ -9,7 +9,7 @@
  */
 import NodeFS from 'node:fs';
 import NodePath from 'node:path';
-import { arrayUnique, deleteUndefinedProps, mergeArgs, objectMap, } from '@maddimathon/utility-typescript';
+import { arrayUnique, deleteUndefinedProps, mergeArgs, objectEntries, objectMap, objectOmit, toTitleCase, } from '@maddimathon/utility-typescript';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -63,18 +63,18 @@ export class Tokens_Typography extends AbstractTokens {
     constructor(spacing, input) {
         super();
         this.spacing = spacing;
-        this.data = mergeArgs({
-            ...Tokens_Typography.default,
-            sizeMultiplier: spacing.data.multiplier,
-        }, {
-            ...input,
+        this.data = {
+            ...mergeArgs(objectOmit({
+                ...Tokens_Typography.default,
+                sizeMultiplier: spacing.data.multiplier,
+            }, ['fonts']), objectOmit(input, ['fonts']), true),
             fonts: {
                 ...input.fonts,
                 icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
             },
-        }, true);
+        };
         this.familyOverrides = this.data.fonts
-            ? Object.fromEntries(Object.values(this.data.fonts).map((font) => {
+            ? Object.fromEntries(objectEntries(this.data.fonts).map(([fontSlug, font]) => {
                 // returns
                 if (typeof font === 'undefined') {
                     return [];
@@ -84,15 +84,17 @@ export class Tokens_Typography extends AbstractTokens {
                     switch (font.slug) {
                         case 'dyslexic':
                         case 'hyperlegible':
-                        case 'monospace':
                             isOverride = true;
+                            break;
+                        case 'monospace':
+                            isOverride = toTitleCase(font.slug);
                             break;
                     }
                 }
                 return isOverride ? [
-                    font.slug,
+                    fontSlug,
                     {
-                        label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                        label: typeof isOverride === 'string' ? isOverride : font.name,
                         value: font.slug,
                         labelClass: `font-family-override-${font.slug}`,
                         ...deleteUndefinedProps({

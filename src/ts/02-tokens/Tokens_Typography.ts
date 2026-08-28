@@ -16,13 +16,17 @@ import {
     arrayUnique,
     deleteUndefinedProps,
     mergeArgs,
+    objectEntries,
     objectMap,
+    objectOmit,
+    toTitleCase,
 } from '@maddimathon/utility-typescript';
 
 import type { RecursiveRecord } from '../01-utilities/@types.js';
 import type {
     AnyTokenLevel,
     RequiredHeadingLevels,
+    TokenTypes,
     WholeTokenLevel,
 } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
@@ -106,30 +110,32 @@ export class Tokens_Typography<
     ) {
         super();
 
-        this.data = mergeArgs(
-            {
-                ...Tokens_Typography.default,
-                sizeMultiplier: spacing.data.multiplier,
-            } as Tokens_Typography.Data<T_FontFamilySlug>,
-            {
-                ...input,
-                fonts: {
-                    ...input.fonts,
-                    icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
-                },
+        this.data = {
+            ...mergeArgs(
+                objectOmit(
+                    {
+                        ...Tokens_Typography.default,
+                        sizeMultiplier: spacing.data.multiplier,
+                    },
+                    [ 'fonts' ],
+                ),
+                objectOmit(
+                    input,
+                    [ 'fonts' ],
+                ),
+                true,
+            ),
+
+            fonts: {
+                ...input.fonts as { [ F in T_FontFamilySlug ]: Tokens_Typography.Font.Family<F>; },
+                icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
             },
-            true,
-        );
+        };
 
         this.familyOverrides = this.data.fonts
             ? Object.fromEntries(
-                (
-                    Object.values( this.data.fonts ) as (
-                        undefined
-                        | Tokens_Typography.Font.Family<Tokens_Typography.DefaultFontFamilies | T_FontFamilySlug>
-                    )[]
-                ).map(
-                    ( font ): [
+                objectEntries( this.data.fonts ).map(
+                    ( [ fontSlug, font ] ): [
                         Tokens_Typography.DefaultFontFamilies | T_FontFamilySlug,
                         Tokens_Typography.Font.FamilyOverride,
                     ] | [] => {
@@ -145,16 +151,20 @@ export class Tokens_Typography<
                             switch ( font.slug ) {
                                 case 'dyslexic':
                                 case 'hyperlegible':
-                                case 'monospace':
                                     isOverride = true;
+                                    break;
+
+                                case 'monospace':
+                                    isOverride = toTitleCase( font.slug );
                                     break;
                             }
                         }
 
                         return isOverride ? [
-                            font.slug,
+                            fontSlug,
                             {
-                                label: font.slug === 'monospace' ? 'Monospace' : font.name,
+                                label: typeof isOverride === 'string' ? isOverride : font.name,
+
                                 value: font.slug,
                                 labelClass: `font-family-override-${ font.slug }`,
 
@@ -246,7 +256,6 @@ export class Tokens_Typography<
                 value: Tokens_Typography.Font.File;
             },
         ): NonNullable<Tokens_Typography.Font.FamilyScss[ WholeTokenLevel ]> => {
-
             let fallbacks = family.fallbacks ?? [];
 
             if ( family.appendSystemFontsToFallbacks ) {
@@ -301,7 +310,6 @@ export class Tokens_Typography<
             }
 
             return {
-
                 family: family.name,
                 fallbacks,
 
@@ -335,7 +343,6 @@ export class Tokens_Typography<
                 family: this.data.fonts && objectMap(
                     this.data.fonts,
                     ( [ __key, family ] ) => family && ( {
-
                         contentWidthScale: family.contentWidthScale,
                         css: family.css,
                         lineHeightScale: family.lineHeightScale,
@@ -726,10 +733,20 @@ export namespace Tokens_Typography {
                     };
                 };
 
+                'font-optical-sizing': "auto" | "none";
+                'font-variation-settings': string;
+
                 /**
                  * Will be used as a multiplier.
                  */
-                letterSpacing: number;
+                'letter-spacing': TokenTypes.Css.LineHeight | {
+                    $: TokenTypes.Css.LineHeight;
+                    italic?: TokenTypes.Css.LineHeight;
+                    monospace?: TokenTypes.Css.LineHeight | {
+                        $?: TokenTypes.Css.LineHeight;
+                        italic?: TokenTypes.Css.LineHeight;
+                    };
+                };
             }>;
 
             /**
@@ -740,8 +757,10 @@ export namespace Tokens_Typography {
 
             /**
              * Whether this should be an override option in website settings.
+             * 
+             * If this is a string, that is its label in the menu.
              */
-            fontOverrideOption?: boolean;
+            fontOverrideOption?: boolean | string;
 
             /**
              * A multiplier for the line height when this font is applied as an
@@ -757,13 +776,13 @@ export namespace Tokens_Typography {
             printFontFace?: boolean;
 
             weights: {
-                [ K in WholeTokenLevel ]?: {
+                [ K in WholeTokenLevel ]?: undefined | {
                     normal: File;
                     italic: File;
                 };
             };
 
-            variable?: {
+            variable?: undefined | {
                 normal: File;
                 italic: File;
             },

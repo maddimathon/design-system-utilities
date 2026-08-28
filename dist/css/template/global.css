@@ -3895,21 +3895,39 @@ b strong strong {
     font-weight: 900;
 }
 
+/*! END of @maddimathon/utility-sass/template */
+/*! START of @maddimathon/design-system-utilities/template/global */
 em,
 i {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 em em,
 i em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 em em em,
 i em em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
+    font-style: italic;
+}
+em em em em,
+i em em em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: normal;
+}
+em em em em em,
+i em em em em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 
-/*! END of @maddimathon/utility-sass/template */
-/*! START of @maddimathon/design-system-utilities/template/global */
 a[href] {
     --focus-ring-outline-offset: 0.125em;
     --icon-inline-buffer: 0.25em !important;
@@ -4164,16 +4182,31 @@ kbd,
 pre,
 samp {
     position: relative;
-    font-family:
-        "IBM Plex Mono", "Courier New", Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol";
     border-radius: 0;
     background: hsl(339.45, 0%, 85.99%);
     background: var(--theme-background-grey, Canvas);
     --icon-color: var(--theme-ui-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
+    font-family:
+        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: var(
+        --font-family-monospace,
+        "IBM Plex Mono",
+        "Courier New",
+        Courier,
+        Menlo,
+        Consolas,
+        Monaco,
+        "Liberation Mono",
+        "Lucida Console",
+        monospace,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol"
+    );
 }
 
 code,
@@ -4192,44 +4225,6 @@ samp {
     align-self: baseline;
     justify-self: baseline;
     font-weight: 500;
-}
-code,
-code :where(*),
-kbd,
-kbd :where(*),
-samp,
-samp :where(*) {
-    letter-spacing: -0.015em !important;
-}
-code,
-kbd,
-samp {
-    --width-content: 40.5rem;
-    --width-sidebar: 20.25rem;
-    --width-callout: 29.5625rem;
-    --width-page: 66rem;
-}
-
-code,
-kbd,
-samp {
-    --border-width-100: 0.0625rem;
-    --border-width-200: 0.125rem;
-    --border-width-300: 0.1875rem;
-    --border-width-400: 0.3125rem;
-}
-
-@media (prefers-contrast: more),
-    (forced-colors: active),
-    (prefers-contrast: custom) {
-    code,
-    kbd,
-    samp {
-        --border-width-100: max(0.125rem, min(0.0625rem, 4px));
-        --border-width-200: max(0.25rem, min(0.125rem, 7px));
-        --border-width-300: max(0.25rem, min(0.1875rem, 8px));
-        --border-width-400: max(0.25rem, min(0.3125rem, 8px));
-    }
 }
 a[href] code,
 a[href] kbd,
@@ -4265,6 +4260,30 @@ pre {
     font-size: 0.9375rem;
     overflow-y: visible;
     overflow-x: auto;
+}
+pre {
+    --width-content: 40.5rem;
+    --width-sidebar: 20.25rem;
+    --width-callout: 29.5625rem;
+    --width-page: 66rem;
+}
+
+pre {
+    --border-width-100: 0.0625rem;
+    --border-width-200: 0.125rem;
+    --border-width-300: 0.1875rem;
+    --border-width-400: 0.3125rem;
+}
+
+@media (prefers-contrast: more),
+    (forced-colors: active),
+    (prefers-contrast: custom) {
+    pre {
+        --border-width-100: max(0.125rem, min(0.0625rem, 4px));
+        --border-width-200: max(0.25rem, min(0.125rem, 7px));
+        --border-width-300: max(0.25rem, min(0.1875rem, 8px));
+        --border-width-400: max(0.25rem, min(0.3125rem, 8px));
+    }
 }
 pre > code,
 pre > kbd,
@@ -4394,6 +4413,8 @@ h6 {
     padding-bottom: 0;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
 }
 hgroup h1,
 hgroup h2,
@@ -4450,8 +4471,10 @@ h5 samp,
 h6 code,
 h6 kbd,
 h6 samp {
-    font-weight: inherit;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 
@@ -4478,6 +4501,8 @@ h6 samp {
     padding-bottom: 0;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
 }
 hgroup :where([role="heading"][aria-level="1"]),
 hgroup :where([role="heading"][aria-level="2"]),
@@ -4535,8 +4560,10 @@ hgroup :where([role="heading"][aria-level="10"]) {
 :where([role="heading"][aria-level="10"]) code,
 :where([role="heading"][aria-level="10"]) kbd,
 :where([role="heading"][aria-level="10"]) samp {
-    font-weight: inherit;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 
@@ -4546,8 +4573,10 @@ h1 {
     font-weight: 900;
     font-size: 2.9375rem;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-1, CanvasText);
     color: hsl(162, 100%, 15%);
@@ -4568,8 +4597,10 @@ h1 {
     font-weight: 900;
     font-size: 2.9375rem;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-1, CanvasText);
     color: hsl(162, 100%, 15%);
@@ -4581,8 +4612,10 @@ h2 {
     font-weight: 800;
     font-size: 2.1875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-2, CanvasText);
     color: hsl(162, 100%, 15%);
@@ -4603,8 +4636,10 @@ h2 {
     font-weight: 800;
     font-size: 2.1875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-2, CanvasText);
     color: hsl(162, 100%, 15%);
@@ -4616,8 +4651,10 @@ h3 {
     font-weight: 700;
     font-size: 1.9375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-3, CanvasText);
     color: hsl(162, 100%, 15%);
@@ -4638,8 +4675,10 @@ h3 {
     font-weight: 700;
     font-size: 1.9375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-heading-3, CanvasText);
     color: hsl(162, 100%, 15%);
@@ -4651,17 +4690,33 @@ h4 {
     font-weight: 700;
     font-size: 1.6875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-4, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-4, CanvasText);
 }
 h4 em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 h4 em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+h4 em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+h4 em em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 h4 {
@@ -4679,17 +4734,33 @@ h4 {
     font-weight: 700;
     font-size: 1.6875rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-4, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-4, CanvasText);
 }
 :where([role="heading"][aria-level="4"]) em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 :where([role="heading"][aria-level="4"]) em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+:where([role="heading"][aria-level="4"]) em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+:where([role="heading"][aria-level="4"]) em em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 h5 {
@@ -4698,17 +4769,33 @@ h5 {
     font-weight: 600;
     font-size: 1.375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-5, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-5, CanvasText);
 }
 h5 em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 h5 em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+h5 em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+h5 em em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 h5 {
@@ -4726,17 +4813,33 @@ h5 {
     font-weight: 600;
     font-size: 1.375rem;
     line-height: 1.375;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-5, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-5, CanvasText);
 }
 :where([role="heading"][aria-level="5"]) em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 :where([role="heading"][aria-level="5"]) em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+:where([role="heading"][aria-level="5"]) em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+:where([role="heading"][aria-level="5"]) em em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 h6 {
@@ -4745,17 +4848,33 @@ h6 {
     font-weight: 500;
     font-size: 1.25rem;
     line-height: 1.5;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-6, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-6, CanvasText);
 }
 h6 em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 h6 em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+h6 em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+h6 em em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
 }
 h6 {
@@ -4773,18 +4892,36 @@ h6 {
     font-weight: 500;
     font-size: 1.25rem;
     line-height: 1.5;
-    letter-spacing: normal;
     text-transform: none;
+    font-family: inherit;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
     --icon-color: var(--theme-heading-6, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-heading-6, CanvasText);
 }
 :where([role="heading"][aria-level="6"]) em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 :where([role="heading"][aria-level="6"]) em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
     font-style: italic;
+}
+:where([role="heading"][aria-level="6"]) em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
+    font-style: normal;
+}
+:where([role="heading"][aria-level="6"]) em em em em {
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) {
 }
 :where([role="heading"][aria-level="7"]) {
     margin-top: 1.84375rem;
@@ -4795,12 +4932,21 @@ h6 {
     font-weight: 500;
     font-size: 1rem;
     line-height: 1.6875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
     --icon-color: var(--theme-heading-7, CanvasText);
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-7, CanvasText);
+}
+@container style(--font-override-letter-spacing) {
+    :where([role="heading"][aria-level="7"]) {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
 }
 :where([role="heading"][aria-level="8"]) {
     margin-top: 1.84375rem;
@@ -4811,18 +4957,59 @@ h6 {
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-8, CanvasText);
     color: hsl(321, 68%, 26%);
     color: var(--theme-heading-8, CanvasText);
 }
 :where([role="heading"][aria-level="8"]) em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 :where([role="heading"][aria-level="8"]) em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+:where([role="heading"][aria-level="8"]) em em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+:where([role="heading"][aria-level="8"]) em em em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    :where([role="heading"][aria-level="8"]) {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    :where([role="heading"][aria-level="8"]) em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    :where([role="heading"][aria-level="8"]) em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    :where([role="heading"][aria-level="8"]) em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    :where([role="heading"][aria-level="8"]) em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
 }
 :where([role="heading"][aria-level="9"]) {
     margin-top: 1.34375rem;
@@ -4833,18 +5020,59 @@ h6 {
     font-weight: 500;
     font-size: 0.875rem;
     line-height: 1.875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-9, CanvasText);
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-9, CanvasText);
 }
 :where([role="heading"][aria-level="9"]) em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 :where([role="heading"][aria-level="9"]) em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+:where([role="heading"][aria-level="9"]) em em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+:where([role="heading"][aria-level="9"]) em em em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    :where([role="heading"][aria-level="9"]) {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    :where([role="heading"][aria-level="9"]) em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    :where([role="heading"][aria-level="9"]) em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    :where([role="heading"][aria-level="9"]) em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    :where([role="heading"][aria-level="9"]) em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
 }
 :where([role="heading"][aria-level="10"]) {
     margin-top: 1.34375rem;
@@ -4855,18 +5083,57 @@ h6 {
     font-weight: 500;
     font-size: 0.8125rem;
     line-height: 1.875;
-    letter-spacing: 0.0625em;
     text-transform: uppercase;
+    font-family: inherit;
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
     --icon-color: var(--theme-heading-10, CanvasText);
     color: hsl(339.45, 0%, 22.38%);
     color: var(--theme-heading-10, CanvasText);
 }
 :where([role="heading"][aria-level="10"]) em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
     font-style: normal;
 }
 :where([role="heading"][aria-level="10"]) em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
     font-style: italic;
+}
+:where([role="heading"][aria-level="10"]) em em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing, 0.0625em);
+    font-style: normal;
+}
+:where([role="heading"][aria-level="10"]) em em em em {
+    letter-spacing: 0.0625em;
+    letter-spacing: var(--font-override-letter-spacing-italic, 0.0625em);
+    font-style: italic;
+}
+@container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
+    :where([role="heading"][aria-level="10"]) {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    :where([role="heading"][aria-level="10"]) em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    :where([role="heading"][aria-level="10"]) em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
+    :where([role="heading"][aria-level="10"]) em em em {
+        letter-spacing: calc(0.0625em + var(--font-override-letter-spacing));
+    }
+    :where([role="heading"][aria-level="10"]) em em em em {
+        letter-spacing: calc(
+            0.0625em + var(--font-override-letter-spacing-italic)
+        );
+    }
 }
 /* # GLOBALS - LISTS
  * ======================================================================== */
@@ -4929,12 +5196,18 @@ li li li::marker {
     font-size: 0.875rem;
 }
 li li li li {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 li li li li em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 li li li li em em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 
@@ -5055,22 +5328,29 @@ fieldset legend {
     font-weight: 600;
     font-size: 1em;
     line-height: 1.6875;
-    letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     --icon-color: var(--theme-text-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
 }
 fieldset legend em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 fieldset legend em em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
 }
 fieldset legend em em em {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
 }
 fieldset legend a[href] {
@@ -5080,8 +5360,10 @@ fieldset legend a[href] {
 fieldset legend code,
 fieldset legend kbd,
 fieldset legend samp {
-    font-weight: inherit;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 fieldset legend:first-child {
@@ -5143,6 +5425,8 @@ select::-moz-placeholder,
 input::-moz-placeholder {
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-input-placeholder, FieldText);
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
     opacity: 75%;
     opacity: var(--input-placeholder-opacity, 1);
@@ -5152,6 +5436,8 @@ select::placeholder,
 input::placeholder {
     color: hsl(339.45, 0%, 34.6%);
     color: var(--theme-input-placeholder, FieldText);
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
     opacity: 75%;
     opacity: var(--input-placeholder-opacity, 1);
@@ -5200,6 +5486,7 @@ input.font-family-icons {
     padding-top: 0.8125em;
     padding-bottom: 0.3125em;
     letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
 }
 label + textarea,
 label + select,
@@ -5688,10 +5975,11 @@ a[href].button {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     font-size: 1em;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -5730,8 +6018,9 @@ a[disabled][href].button {
     border-radius: 0;
     border-style: dashed;
     font-weight: 500;
-    font-style: italic;
     letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
     text-transform: none;
     cursor: not-allowed;
 }
@@ -5762,10 +6051,11 @@ a[href].button:is(.display-inline) {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
     font-style: normal;
     font-size: 0.875em;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
     vertical-align: baseline;
 }
@@ -5796,9 +6086,11 @@ input[type="button"] samp,
 input[type="reset"] samp,
 input[type="submit"] samp,
 a[href].button samp {
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing, inherit);
+    font-style: inherit;
     padding: 0;
     font-weight: inherit;
-    font-style: inherit;
     line-height: 1;
     background: transparent;
     border: none;
@@ -7140,10 +7432,11 @@ input::file-selector-button {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     font-size: 1em;
     line-height: 1.1875;
-    letter-spacing: normal;
     text-transform: none;
     -webkit-user-select: text;
     -moz-user-select: text;
@@ -7278,8 +7571,9 @@ input[disabled]::file-selector-button {
     border-radius: 0;
     border-style: dashed;
     font-weight: 500;
-    font-style: italic;
     letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing-italic, normal);
+    font-style: italic;
     text-transform: none;
     cursor: not-allowed;
     --focus-ring-outline-color: var(
@@ -7548,10 +7842,11 @@ th {
     font-weight: 600;
     font-size: 1em;
     line-height: 1.6875;
-    letter-spacing: normal;
     text-transform: none;
     text-wrap: balance;
     text-wrap: pretty;
+    letter-spacing: normal;
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
 }
 th a[href] {
@@ -7561,8 +7856,10 @@ th a[href] {
 th code,
 th kbd,
 th samp {
-    font-weight: inherit;
+    letter-spacing: inherit;
+    letter-spacing: var(--font-override-letter-spacing-monospace, inherit);
     font-style: inherit;
+    font-weight: inherit;
     color: inherit;
 }
 th {
@@ -7627,17 +7924,22 @@ td.min-width-none {
 .website-settings-menu .font-family-override-default .font-family-icons,
 .website-settings-menu .font-family-override-dyslexic .font-family-icons,
 .website-settings-menu .font-family-override-hyperlegible .font-family-icons,
-.website-settings-menu .font-family-override-monospace .font-family-icons,
+.website-settings-menu
+    .font-family-override-hyperlegible-monospace
+    .font-family-icons,
 .website-settings-menu .font-family-override-default .font-family-icons *,
 .website-settings-menu .font-family-override-dyslexic .font-family-icons *,
 .website-settings-menu .font-family-override-hyperlegible .font-family-icons *,
-.website-settings-menu .font-family-override-monospace .font-family-icons *,
+.website-settings-menu
+    .font-family-override-hyperlegible-monospace
+    .font-family-icons
+    *,
 [data-font-family-override="dyslexic"] .font-family-icons,
 [data-font-family-override="hyperlegible"] .font-family-icons,
-[data-font-family-override="monospace"] .font-family-icons,
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons,
 [data-font-family-override="dyslexic"] .font-family-icons *,
 [data-font-family-override="hyperlegible"] .font-family-icons *,
-[data-font-family-override="monospace"] .font-family-icons * {
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons * {
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     font-family: "Design System Utilities Icons" !important;
@@ -7645,7 +7947,7 @@ td.min-width-none {
     font-weight: 400 !important;
     line-height: 1 !important;
     line-height: var(--icon-inline-line-height, 1) !important;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.1em !important;
     color: hsl(339.45, 0%, 17.88%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
 }

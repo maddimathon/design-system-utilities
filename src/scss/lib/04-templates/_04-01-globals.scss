@@ -363,6 +363,7 @@
     $print_abbr: map.get(config.$template_styles, abbr),
     $print_aside: map.get(config.$template_styles, aside),
     $print_code: map.get(config.$template_styles, code),
+    $print_em: map.get(config.$template_styles, em),
     $print_headings: map.get(config.$template_styles, headings),
     $print_blockquote: map.get(config.$template_styles, blockquote),
     $print_p: map.get(config.$template_styles, p),
@@ -421,6 +422,7 @@
             $print_a: false,
             $print_abbr: false,
             $print_code: false,
+            $print_em: false,
             $print_headings: false,
             $print_blockquote: false,
             $print_p: false,
@@ -455,14 +457,17 @@
                     @if $print_typeDefaults {
                         @if config.$include_html {
                             %root {
-                                @if font-family-exists(body) {
-                                    font-family: var-font-family(body);
-                                } @else {
+                                $_body_exists: font-family-exists(body);
+                                @if not $_body_exists {
                                     font-family: font-family-system-ui();
                                 }
                                 font-weight: 400;
                                 line-height: var-line-height('400');
                                 font-size: 110%;
+
+                                @if $_body_exists {
+                                    @include set-font-family(body);
+                                }
 
                                 @include min-width(mobile) {
                                     font-size: 105%;
@@ -489,8 +494,15 @@
         }
         //
         @else if $location == end-inlines {
-            @if $print_a or $print_abbr {
+            @if $print_a or $print_abbr or $print_em {
                 @include template-design-system {
+                    @if $print_em {
+                        %em {
+                            @include set-font-style(italic, $setChildren: true);
+                        }
+                    }
+                    @content (em);
+
                     @if $print_a {
                         %a {
                             @include snippet-link;
@@ -510,6 +522,7 @@
                     @content (abbr);
                 }
             } @else {
+                @content (em);
                 @content (a);
                 @content (abbr);
             }
@@ -553,20 +566,13 @@
                     @if $print_aside {
                         %aside {
                             // UPGRADE - convert to style tokens
-                            font-style: italic;
-                            @include theme-set-color(primary);
+                            @include set-font-style(italic, $setChildren: true) {
+                                @include theme-set-color(primary);
 
-                            %a {
-                                @include snippet-link-colours-inherit(
-                                    $textDecorationColor: var-theme(ui-primary)
-                                );
-                            }
-
-                            em {
-                                font-style: normal;
-
-                                em {
-                                    font-style: italic;
+                                %a {
+                                    @include snippet-link-colours-inherit(
+                                        $textDecorationColor: var-theme(ui-primary)
+                                    );
                                 }
                             }
                         }
@@ -589,6 +595,7 @@
             (not $location == aside) and
             (not $location == blockquote) and
             (not $location == code) and
+            (not $location == em) and
             (not $location == headings) and
             (not $location == p) and
             (not $location == pre) and

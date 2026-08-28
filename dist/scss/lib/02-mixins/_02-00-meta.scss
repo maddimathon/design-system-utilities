@@ -18,8 +18,7 @@ $_pkgBase: if(
 );
 
 $_path_template: if(
-    (config.$internal_designSystem_stylesheetPath == false) or
-        (not meta.is-truthy(config.$internal_designSystem_stylesheetPath)),
+    not meta.is-truthy(config.$internal_designSystem_stylesheetPath),
     $_pkgBase_template,
     '#{$_pkgBase_template}/#{config.$internal_designSystem_stylesheetPath}'
 );
@@ -47,12 +46,9 @@ $_path_template: if(
         $path: if(
                 $path,
                 if(
-                    (config.$internal_designSystem_stylesheetPath == false) or
-                        (
-                            not
-                                meta.is-truthy(
-                                    config.$internal_designSystem_stylesheetPath
-                                )
+                    not
+                        meta.is-truthy(
+                            config.$internal_designSystem_stylesheetPath
                         ),
                     $_pkgBase,
                     '#{$_pkgBase}/#{config.$internal_designSystem_stylesheetPath}'

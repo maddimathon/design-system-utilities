@@ -135,14 +135,12 @@ $_allUniqueIconAspectRatios: ();
                     $slug: null;
                 }
             } @else {
-                &::after,
                 &-after::after,
                 &-before::before {
                     @extend %_icon-aspect-ratio--#{string.slugify( #{$aspectRatio} )};
                 }
             }
 
-            &,
             &-after {
                 @extend %_add-icon-after;
             }
@@ -151,7 +149,6 @@ $_allUniqueIconAspectRatios: ();
                 @extend %_add-icon-before;
             }
 
-            &::after,
             &-after::after,
             &-before::before {
                 @include snippet-icon-pseudo-element(

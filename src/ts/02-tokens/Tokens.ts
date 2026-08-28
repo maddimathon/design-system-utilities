@@ -12,7 +12,7 @@ import type { RunnerOptions } from 'fantasticon';
 
 import type { Classify } from '@maddimathon/utility-typescript/types';
 
-import { arrayUnique, mergeArgs, slugify } from '@maddimathon/utility-typescript';
+import { arrayUnique, mergeArgs, objectMap, slugify } from '@maddimathon/utility-typescript';
 
 import { JsonToScss } from '@maddimathon/utility-sass';
 
@@ -60,7 +60,6 @@ export class Tokens<
     json: Tokens_Internal.JsonReturn<T_Params>;
     scss: Tokens_Internal.ScssVars<T_Params>;
 }> {
-
     public get data(): Tokens_Internal.Data<T_Params> {
         return {
             name: this.name,
@@ -221,7 +220,6 @@ export class Tokens<
         if ( typeInput.fonts.icons === false ) {
             typeInput.fonts.icons = undefined;
         } else {
-
             const unicodeRange = Object.values( this.icons.getCodepoints() ).map(
                 num => `U+${ num.toString( 16 ).toUpperCase() }`
             ).join( ', ' );
@@ -237,7 +235,7 @@ export class Tokens<
                 appendSystemFontsToFallbacks: false,
 
                 css: {
-                    letterSpacing: 0.1,
+                    'letter-spacing': '0.1em',
                 },
 
                 unicodeRange: unicodeRange ? unicodeRange : undefined,
@@ -282,14 +280,10 @@ export class Tokens<
             };
         }
 
-        this.typography = new Tokens_Typography(
-            this.spacing,
-            typeInput,
-        );
+        this.typography = new Tokens_Typography( this.spacing, typeInput );
     }
 
     public toJSON(): Tokens_Internal.JsonReturn<T_Params> {
-
         return {
             name: this.name,
 
@@ -308,7 +302,6 @@ export class Tokens<
     }
 
     public toScssVars(): Tokens_Internal.ScssVars<T_Params> {
-
         return {
             name: this.name,
 
@@ -490,7 +483,9 @@ export namespace Tokens {
                     typography: {
                         fonts: {
                             dyslexic: Typography.Font.Family.dyslexic,
+                            'dyslexic-monospace': Typography.Font.Family.dyslexicMonospace,
                             hyperlegible: Typography.Font.Family.hyperlegible,
+                            'hyperlegible-monospace': Typography.Font.Family.hyperlegibleMonospace,
                             monospace: Typography.Font.Family.monospace,
                         },
                     },
@@ -974,11 +969,44 @@ export namespace Tokens {
             }
 
             /**
+             * Helps to generate all the weights for a font family.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export function familyRenamer<T_Slug extends string>(
+                slug: T_Slug,
+                name: string,
+                font: Tokens_Typography.Font.Family<string>,
+            ): Tokens_Typography.Font.Family<T_Slug> {
+
+                return {
+                    ...font,
+                    slug,
+                    name,
+
+                    weights: objectMap(
+                        font.weights,
+                        ( [ weightSlug, weigthObj ] ) => weigthObj && objectMap(
+                            weigthObj,
+                            ( [ fontStyle, fileObj ] ) => fileObj
+                        )
+                    ),
+
+                    variable: font.variable && objectMap(
+                        font.variable,
+                        ( [ fontStyle, fileObj ] ) => fileObj
+                    ),
+                } satisfies Tokens_Typography.Font.Family<T_Slug>;
+            }
+
+            /**
              * @since 0.1.0-alpha
              */
             export namespace Family {
-
-                export const dyslexic: Readonly<Tokens_Typography.Font.Family<'dyslexic'>> = {
+                /**
+                 * @since 0.1.0-alpha
+                 */
+                export const dyslexic: Readonly<{
                     slug: 'dyslexic',
                     name: 'Open Dyslexic',
 
@@ -986,6 +1014,11 @@ export namespace Tokens {
                     contentWidthScale: 1.2,
 
                     css: {
+                        'letter-spacing': {
+                            $: '-0.0875em',
+                            italic: '0.0375em',
+                            monospace: '-0.05em',
+                        },
 
                         icon: {
 
@@ -1005,9 +1038,48 @@ export namespace Tokens {
                     fallbacks: [
                         'Verdana',
                     ],
+                    fontOverrideOption: true,
 
                     lineHeightScale: 1.15,
-                    sizeAdjust: '95%',
+                    sizeAdjust: '93%',
+
+                    weights: Tokens_Typography.Font.Family<'dyslexic'>[ 'weights' ],
+                }> = {
+                    slug: 'dyslexic',
+                    name: 'Open Dyslexic',
+
+                    appendSystemFontsToFallbacks: true,
+                    contentWidthScale: 1.2,
+
+                    css: {
+                        'letter-spacing': {
+                            $: '-0.0875em',
+                            italic: '0.0375em',
+                            monospace: '-0.05em',
+                        },
+
+                        icon: {
+
+                            inline: {
+                                buffer: {
+                                    start: 1.5,
+                                },
+                            },
+
+                            size: {
+                                $: 1.0625,
+                                inline: 1.25,
+                            },
+                        },
+                    },
+
+                    fallbacks: [
+                        'Verdana',
+                    ],
+                    fontOverrideOption: true,
+
+                    lineHeightScale: 1.15,
+                    sizeAdjust: '93%',
 
                     weights: objectGenerator(
                         [ '400', '700' ] as const,
@@ -1024,38 +1096,214 @@ export namespace Tokens {
                             ),
                         )
                     ),
+                } as const satisfies Tokens_Typography.Font.Family<'dyslexic'>;
+
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export const dyslexicMonospace: Readonly<Tokens_Typography.Font.Family<'dyslexic-monospace'>> = {
+                    slug: 'dyslexic-monospace',
+                    name: 'Open Dyslexic Mono',
+
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1,
+
+                    css: {
+                        ...dyslexic.css,
+                        "letter-spacing": dyslexic.css[ 'letter-spacing' ].monospace,
+                    },
+
+                    fallbacks: [
+                        'Courier New',
+                        'Courier',
+                    ],
+                    fontOverrideOption: false,
+
+                    sizeAdjust: '100%',
+
+                    weights: {
+                        '400': objectGenerator(
+                            [ 'normal', 'italic' ] as const,
+                            ( style ) => familyGenerator.fileGenerator(
+                                'dyslexic-monospace',
+                                'Open Dyslexic Mono',
+                                '100 900',
+                                style,
+                                {
+                                    pathStyle: 'normal',
+                                    pathWeight: '400',
+                                },
+                            ),
+                        ),
+                    },
                 };
 
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 export const hyperlegible: Readonly<Tokens_Typography.Font.Family<'hyperlegible'>> = {
                     slug: 'hyperlegible',
-                    name: 'Atkinson Hyperlegible',
+                    name: 'Atkinson Hyperlegible Next',
 
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.035,
                     fallbacks: [
                         'Verdana',
                     ],
+                    fontOverrideOption: 'Atkinson Hyperlegible',
 
                     lineHeightScale: 1,
-                    sizeAdjust: '106.5%',
+                    sizeAdjust: '105%',
 
                     weights: objectGenerator(
-                        [ '400', '700' ] as const,
+                        [
+                            '400',
+                            '600',
+                            '700',
+                            '800',
+                        ] as const,
                         ( weight ) => objectGenerator(
                             [ "normal", "italic" ] as const,
-                            ( style ) => familyGenerator.fileGenerator(
-                                'hyperlegible',
-                                'Atkinson Hyperlegible',
-                                weight === '400' ? '100 400' : '500 900',
-                                style,
-                                {
-                                    pathWeight: weight,
+                            ( style ) => {
+                                let displayWeight: WholeTokenLevel | `${ WholeTokenLevel } ${ WholeTokenLevel }`;
+
+                                switch ( weight ) {
+
+                                    case '400':
+                                        displayWeight = '100 400';
+                                        break;
+
+                                    case '600':
+                                        displayWeight = '500 600';
+                                        break;
+
+                                    case '800':
+                                        displayWeight = '800 900';
+                                        break;
+
+                                    default:
+                                        displayWeight = weight;
+                                        break;
+                                }
+
+                                return familyGenerator.fileGenerator(
+                                    'hyperlegible',
+                                    'Atkinson Hyperlegible Next',
+                                    displayWeight,
+                                    style,
+                                    {
+                                        pathWeight: weight,
+                                    },
+                                );
+                            },
+                        )
+                    ),
+
+                    variable: objectGenerator(
+                        [ "normal", "italic" ] as const,
+                        ( style ) => familyGenerator.fileGenerator(
+                            'hyperlegible',
+                            'Atkinson Hyperlegible Next',
+                            '100 900',
+                            style,
+                            {
+                                formats: {
+                                    ttf: true,
+                                    woff: false,
+                                    woff2: false,
                                 },
-                            ),
+                                includeLocalSrc: false,
+                                pathWeight: 'variable',
+                            },
                         )
                     ),
                 };
 
+                /**
+                 * @since ___PKG_VERSION___
+                 */
+                export const hyperlegibleMonospace: Readonly<Tokens_Typography.Font.Family<'hyperlegible-monospace'>> = {
+                    slug: 'hyperlegible-monospace',
+                    name: 'Atkinson Hyperlegible Mono',
+
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1.035,
+
+                    fallbacks: [
+                        'Courier New',
+                        'Courier',
+                    ],
+                    fontOverrideOption: 'Monospace',
+                    lineHeightScale: 1.05,
+                    sizeAdjust: '96%',
+
+                    weights: objectGenerator(
+                        [
+                            '400',
+                            '600',
+                            '700',
+                            '800',
+                        ] as const,
+                        ( weight ) => objectGenerator(
+                            [ "normal", "italic" ] as const,
+                            ( style ) => {
+                                let displayWeight: WholeTokenLevel | `${ WholeTokenLevel } ${ WholeTokenLevel }`;
+
+                                switch ( weight ) {
+
+                                    case '400':
+                                        displayWeight = '100 400';
+                                        break;
+
+                                    case '600':
+                                        displayWeight = '500 600';
+                                        break;
+
+                                    case '800':
+                                        displayWeight = '800 900';
+                                        break;
+
+                                    default:
+                                        displayWeight = weight;
+                                        break;
+                                }
+
+                                return familyGenerator.fileGenerator(
+                                    'hyperlegible-monospace',
+                                    'Atkinson Hyperlegible Mono',
+                                    displayWeight,
+                                    style,
+                                    {
+                                        pathWeight: weight,
+                                    },
+                                );
+                            },
+                        )
+                    ),
+
+                    variable: objectGenerator(
+                        [ "normal", "italic" ] as const,
+                        ( style ) => familyGenerator.fileGenerator(
+                            'hyperlegible-monospace',
+                            'Atkinson Hyperlegible Mono',
+                            '100 900',
+                            style,
+                            {
+                                formats: {
+                                    ttf: true,
+                                    woff: false,
+                                    woff2: false,
+                                },
+                                includeLocalSrc: false,
+                                pathWeight: 'variable',
+                            },
+                        )
+                    ),
+                };
+
+                /**
+                 * @since 0.1.0-alpha
+                 */
                 export const monospace: Readonly<Tokens_Typography.Font.Family<'monospace'>> = {
                     slug: 'monospace',
                     name: 'IBM Plex Mono',
@@ -1064,12 +1312,14 @@ export namespace Tokens {
                     contentWidthScale: 1.125,
 
                     css: {
-                        letterSpacing: -0.015,
+                        'letter-spacing': '-0.015em',
                     },
 
                     fallbacks: [
                         'Courier New',
+                        'Courier',
                     ],
+                    fontOverrideOption: false,
 
                     sizeAdjust: '96.5%',
 

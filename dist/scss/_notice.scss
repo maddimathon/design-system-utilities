@@ -3,8 +3,9 @@
 /// @since 0.1.0-alpha
 ///
 
-@forward 'pkg:@maddimathon/utility-sass/notice' hide $internal_supressCredit;
+@use 'config/02-lib' as config;
+@use 'lib/noticeMx' as *;
 
-@use 'lib/noticeMx';
-
-@include noticeMx.notice;
+@if not config.$internal_supressCredit {
+    @include notice;
+}

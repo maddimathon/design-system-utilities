@@ -49,6 +49,11 @@ $colour: map.ksort(map.get(default.$designSystem, colour), $recursive: true);
 
 // #region - FONTS
 $font: map.get(default.$designSystem, font);
+$font: map.set(
+    $font,
+    familyOverrides,
+    map.ksort(meta.defined-else(map.get($font, familyOverrides), ()))
+);
 
 $fontSize_base: map.get($font, size_base);
 

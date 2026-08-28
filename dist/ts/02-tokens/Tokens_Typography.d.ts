@@ -9,7 +9,7 @@
  */
 import type { Classify, RecursivePartial } from '@maddimathon/utility-typescript/types';
 import type { RecursiveRecord } from '../01-utilities/@types.js';
-import type { AnyTokenLevel, RequiredHeadingLevels, WholeTokenLevel } from './@types.js';
+import type { AnyTokenLevel, RequiredHeadingLevels, TokenTypes, WholeTokenLevel } from './@types.js';
 import type { Tokens_Spacing } from './Tokens_Spacing.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -296,10 +296,19 @@ export declare namespace Tokens_Typography {
                         inline: number;
                     };
                 };
+                'font-optical-sizing': "auto" | "none";
+                'font-variation-settings': string;
                 /**
                  * Will be used as a multiplier.
                  */
-                letterSpacing: number;
+                'letter-spacing': TokenTypes.Css.LineHeight | {
+                    $: TokenTypes.Css.LineHeight;
+                    italic?: TokenTypes.Css.LineHeight;
+                    monospace?: TokenTypes.Css.LineHeight | {
+                        $?: TokenTypes.Css.LineHeight;
+                        italic?: TokenTypes.Css.LineHeight;
+                    };
+                };
             }>;
             /**
              * A multiplier for the content/page widths when this font is
@@ -308,8 +317,10 @@ export declare namespace Tokens_Typography {
             contentWidthScale?: undefined | number;
             /**
              * Whether this should be an override option in website settings.
+             *
+             * If this is a string, that is its label in the menu.
              */
-            fontOverrideOption?: boolean;
+            fontOverrideOption?: boolean | string;
             /**
              * A multiplier for the line height when this font is applied as an
              * override.
@@ -322,12 +333,12 @@ export declare namespace Tokens_Typography {
              */
             printFontFace?: boolean;
             weights: {
-                [K in WholeTokenLevel]?: {
+                [K in WholeTokenLevel]?: undefined | {
                     normal: File;
                     italic: File;
                 };
             };
-            variable?: {
+            variable?: undefined | {
                 normal: File;
                 italic: File;
             };

@@ -382,6 +382,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         const headingAsNum = (typeof heading === 'number' && heading >= 1) ? heading : 11;
         const style = {
             font: {
+                family: 'heading',
                 style: 'normal',
                 weight: '600',
             },
