@@ -30,7 +30,7 @@ export declare class Tokens_Typography<T_FontFamilySlug extends string> extends 
     } & {
         [F in T_FontFamilySlug]?: Tokens_Typography.Font.FamilyOverride;
     };
-    constructor(spacing: Tokens_Spacing, input: Tokens_Typography.InputParam<T_FontFamilySlug>);
+    constructor(spacing: Tokens_Spacing, { fonts: inputFonts, ...input }: Tokens_Typography.InputParam<T_FontFamilySlug>);
     toJSON(): Tokens_Typography.JsonReturn<T_FontFamilySlug>;
     toScssVars(): Tokens_Typography.ScssVars<T_FontFamilySlug>;
 }

@@ -4092,6 +4092,12 @@ a[aria-disabled="true"][href] {
     cursor: not-allowed;
 }
 
+a[href]:has(> figure:only-child),
+a[href]:has(> img:only-child),
+a[href]:has(> svg:only-child) {
+    display: block;
+    position: relative;
+}
 a[href]:has(> figure:only-child)::before,
 a[href]:has(> figure:only-child)::after,
 a[href]:has(> img:only-child)::before,
@@ -4189,14 +4195,12 @@ samp {
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
     font-family:
-        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol";
+        "IBM Plex Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+        "Lucida Console", monospace, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
     font-family: var(
         --font-family-monospace,
         "IBM Plex Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -7935,11 +7939,17 @@ td.min-width-none {
     .font-family-icons
     *,
 [data-font-family-override="dyslexic"] .font-family-icons,
+[data-font-family-override="dyslexic-monospace"] .font-family-icons,
 [data-font-family-override="hyperlegible"] .font-family-icons,
 [data-font-family-override="hyperlegible-monospace"] .font-family-icons,
+[data-font-family-override="icons"] .font-family-icons,
+[data-font-family-override="monospace"] .font-family-icons,
 [data-font-family-override="dyslexic"] .font-family-icons *,
+[data-font-family-override="dyslexic-monospace"] .font-family-icons *,
 [data-font-family-override="hyperlegible"] .font-family-icons *,
-[data-font-family-override="hyperlegible-monospace"] .font-family-icons * {
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons *,
+[data-font-family-override="icons"] .font-family-icons *,
+[data-font-family-override="monospace"] .font-family-icons * {
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     font-family: "Design System Utilities Icons" !important;

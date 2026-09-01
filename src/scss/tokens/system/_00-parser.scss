@@ -1,0 +1,80 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use '../../config';
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+///
+/// @since ___PKG_VERSION___
+///
+@function _tokens-parse-design-system--font($font_defaults, $font_inputs) {
+    // iterating through properties to find other maps to merge
+    @each $key, $value in $font_inputs {
+        @if meta.type-of($value) == map {
+            $font_inputs: map.set(
+                $font_inputs,
+                $key,
+                map.merge(map.get($font_defaults, $key), $value)
+            );
+        }
+    }
+
+    @return map.merge($font_defaults, $font_inputs);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-parse-design-system($defaults, $inputs) {
+    // returns - invalid input
+    @if (
+        not
+            config.config-enforce-type-or-warn(
+                $value: $inputs,
+                $type: 'map',
+                $varName: 'inputs',
+                $fallback: false,
+                $prefix: '[tokens] '
+            )
+    ) {
+        @return $defaults;
+    }
+
+    // returns - no parsing needed
+    @if map.get($inputs, completeSystem) == true {
+        @return $inputs;
+    }
+
+    // returns - empty input
+    @if list.length($inputs) < 1 {
+        @return $defaults;
+    }
+
+    // iterating through properties to find other maps to merge
+    @each $key, $value in $inputs {
+        @if meta.type-of($value) == map {
+            @if ($key == font) {
+                $inputs: map.set(
+                    $inputs,
+                    $key,
+                    _tokens-parse-design-system--font(map.get($defaults, $key), $value)
+                );
+            } @else if ($key == border) or ($key == style) or ($key == transition) {
+                $inputs: map.set(
+                    $inputs,
+                    $key,
+                    map.merge(map.get($defaults, $key), $value, $recursive: true)
+                );
+            } @else {
+                $inputs: map.set($inputs, $key, map.merge(map.get($defaults, $key), $value));
+            }
+        }
+    }
+
+    @return map.merge($defaults, $inputs);
+}

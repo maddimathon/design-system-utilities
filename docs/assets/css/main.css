@@ -985,22 +985,22 @@ html {
         Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol";
     --ff-dyslexic-monospace:
-        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol";
+        "Open Dyslexic Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+        "Lucida Console", monospace, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
     --ff-hyperlegible:
         "Atkinson Hyperlegible Next", Verdana, system-ui, -apple-system,
         BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
         "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
     --ff-hyperlegible-monospace:
-        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
-        Monaco, "Liberation Mono", "Lucida Console", monospace,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    --ff-monospace:
-        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
+        "Atkinson Hyperlegible Mono", Menlo, Consolas, Monaco,
         "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
         "Segoe UI Emoji", "Segoe UI Symbol";
+    --ff-monospace:
+        "IBM Plex Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+        "Lucida Console", monospace, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
 }
 
 /* #endregion Tokens - Font Families */
@@ -8823,6 +8823,16 @@ a.no-pseudo[href]::before,
 a.no-pseudo[href]::after {
     content: none !important;
 }
+a[href]:has(> .brand-logo:only-child),
+a[href]:has(> .icon:only-child),
+a[href]:has(> figure:only-child),
+a[href]:has(> img:only-child),
+a[href]:has(> svg:only-child) {
+    --display: block;
+    display: block;
+    display: var(--display, block);
+    position: relative;
+}
 a[href]:has(> .brand-logo:only-child)::before,
 a[href]:has(> .brand-logo:only-child)::after,
 a[href]:has(> .icon:only-child)::before,
@@ -8945,16 +8955,14 @@ samp {
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
     font-family:
-        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol";
+        "IBM Plex Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+        "Lucida Console", monospace, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
     font-family: var(
         --font-family-monospace,
         var(
             --ff-monospace,
             "IBM Plex Mono",
-            "Courier New",
-            Courier,
             Menlo,
             Consolas,
             Monaco,
@@ -15137,11 +15145,17 @@ body
     .font-family-icons
     *,
 [data-font-family-override="dyslexic"] .font-family-icons,
+[data-font-family-override="dyslexic-monospace"] .font-family-icons,
 [data-font-family-override="hyperlegible"] .font-family-icons,
 [data-font-family-override="hyperlegible-monospace"] .font-family-icons,
+[data-font-family-override="icons"] .font-family-icons,
+[data-font-family-override="monospace"] .font-family-icons,
 [data-font-family-override="dyslexic"] .font-family-icons *,
+[data-font-family-override="dyslexic-monospace"] .font-family-icons *,
 [data-font-family-override="hyperlegible"] .font-family-icons *,
-[data-font-family-override="hyperlegible-monospace"] .font-family-icons * {
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons *,
+[data-font-family-override="icons"] .font-family-icons *,
+[data-font-family-override="monospace"] .font-family-icons * {
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
     font-family: "Design System Utilities Icons" !important;
@@ -16865,16 +16879,6 @@ body
     align-items: start;
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
-}
-.alert-block > .alert-block__headline:where(header) {
-    line-height: 1.375;
-    line-height: var(--line-height-200, 1.375);
-    font-weight: 600;
-    font-size: clamp(0.9375rem, 0.25svw + 0.875rem, 1.1875rem);
-    font-size: var(--fs-heading-7, 1rem);
-    letter-spacing: inherit;
-    letter-spacing: var(--font-override-letter-spacing, inherit);
-    font-style: normal;
 }
 .alert-block > .alert-block__headline.h1,
 .alert-block > h1.alert-block__headline,
@@ -20084,6 +20088,10 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 }
 
 /* ## Blocks - Settings Menu - Font Overrides ==================================== */
+.if-font-family-override-is-dyslexic {
+    display: none !important;
+}
+
 [data-font-family-override="dyslexic"],
 .website-settings-menu .font-family-override-dyslexic {
     --font-family-hyperlegible: var(
@@ -20109,8 +20117,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-hyperlegible-monospace: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20124,8 +20130,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-monospace: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20352,6 +20356,20 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     line-height: var(--line-height-400, 1.6875) !important;
 }
 
+[data-font-family-override="dyslexic"] .if-font-family-override-is-dyslexic,
+.website-settings-menu
+    .font-family-override-dyslexic
+    .if-font-family-override-is-dyslexic {
+    display: block !important;
+    display: var(--display, block) !important;
+}
+[data-font-family-override="dyslexic"] .if-font-family-override-is-not-dyslexic,
+.website-settings-menu
+    .font-family-override-dyslexic
+    .if-font-family-override-is-not-dyslexic {
+    display: none !important;
+}
+
 .website-settings-menu .font-family-override-dyslexic {
     --font-override-letter-spacing: -0.0875em !important;
     --font-override-letter-spacing-italic: 0.0375em !important;
@@ -20399,12 +20417,14 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     letter-spacing: var(--font-override-letter-spacing, -0.0875em) !important;
 }
 
+.if-font-family-override-is-dyslexic-monospace {
+    display: none !important;
+}
+
 [data-font-family-override="dyslexic-monospace"] {
     --font-family-dyslexic: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20418,8 +20438,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-hyperlegible: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20433,8 +20451,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-hyperlegible-monospace: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20448,8 +20464,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-monospace: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20461,14 +20475,12 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Segoe UI Symbol"
     ) !important;
     font-family:
-        "Open Dyslexic Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        "Open Dyslexic Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+        "Lucida Console", monospace, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol" !important;
     font-family: var(
         --ff-dyslexic-monospace,
         "Open Dyslexic Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20496,6 +20508,20 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     line-height: var(--line-height-400, 1.6875) !important;
 }
 
+[data-font-family-override="dyslexic-monospace"]
+    .if-font-family-override-is-dyslexic-monospace {
+    display: block !important;
+    display: var(--display, block) !important;
+}
+[data-font-family-override="dyslexic-monospace"]
+    .if-font-family-override-is-not-dyslexic-monospace {
+    display: none !important;
+}
+
+.if-font-family-override-is-hyperlegible {
+    display: none !important;
+}
+
 [data-font-family-override="hyperlegible"],
 .website-settings-menu .font-family-override-hyperlegible {
     --font-family-dyslexic: var(
@@ -20521,8 +20547,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-dyslexic-monospace: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20536,8 +20560,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-monospace: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20586,6 +20608,10 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Segoe UI Emoji",
         "Segoe UI Symbol"
     ) !important;
+    --font-override-letter-spacing: normal !important;
+    --font-override-letter-spacing-italic: normal !important;
+    --font-override-letter-spacing-monospace: normal !important;
+    --font-override-letter-spacing-monospace-italic: normal !important;
     letter-spacing: normal;
     letter-spacing: var(--font-override-letter-spacing, normal);
     font-optical-sizing: auto !important;
@@ -20635,6 +20661,22 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     line-height: var(--line-height-400, 1.6875) !important;
 }
 
+[data-font-family-override="hyperlegible"]
+    .if-font-family-override-is-hyperlegible,
+.website-settings-menu
+    .font-family-override-hyperlegible
+    .if-font-family-override-is-hyperlegible {
+    display: block !important;
+    display: var(--display, block) !important;
+}
+[data-font-family-override="hyperlegible"]
+    .if-font-family-override-is-not-hyperlegible,
+.website-settings-menu
+    .font-family-override-hyperlegible
+    .if-font-family-override-is-not-hyperlegible {
+    display: none !important;
+}
+
 .website-settings-menu .font-family-override-hyperlegible {
     --font-override-letter-spacing: normal !important;
     --font-override-letter-spacing-italic: normal !important;
@@ -20682,13 +20724,15 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     letter-spacing: var(--font-override-letter-spacing, normal) !important;
 }
 
+.if-font-family-override-is-hyperlegible-monospace {
+    display: none !important;
+}
+
 [data-font-family-override="hyperlegible-monospace"],
 .website-settings-menu .font-family-override-hyperlegible-monospace {
     --font-family-dyslexic: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20702,8 +20746,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-dyslexic-monospace: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20717,8 +20759,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-hyperlegible: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20732,8 +20772,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-monospace: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20745,14 +20783,12 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Segoe UI Symbol"
     ) !important;
     font-family:
-        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
-        Monaco, "Liberation Mono", "Lucida Console", monospace,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        "Atkinson Hyperlegible Mono", Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
     font-family: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20763,6 +20799,10 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Segoe UI Emoji",
         "Segoe UI Symbol"
     ) !important;
+    --font-override-letter-spacing: normal !important;
+    --font-override-letter-spacing-italic: normal !important;
+    --font-override-letter-spacing-monospace: normal !important;
+    --font-override-letter-spacing-monospace-italic: normal !important;
     letter-spacing: normal;
     letter-spacing: var(--font-override-letter-spacing, normal);
     font-optical-sizing: auto !important;
@@ -20938,20 +20978,34 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     line-height: var(--line-height-400, 1.6875) !important;
 }
 
+[data-font-family-override="hyperlegible-monospace"]
+    .if-font-family-override-is-hyperlegible-monospace,
+.website-settings-menu
+    .font-family-override-hyperlegible-monospace
+    .if-font-family-override-is-hyperlegible-monospace {
+    display: block !important;
+    display: var(--display, block) !important;
+}
+[data-font-family-override="hyperlegible-monospace"]
+    .if-font-family-override-is-not-hyperlegible-monospace,
+.website-settings-menu
+    .font-family-override-hyperlegible-monospace
+    .if-font-family-override-is-not-hyperlegible-monospace {
+    display: none !important;
+}
+
 .website-settings-menu .font-family-override-hyperlegible-monospace {
     --font-override-letter-spacing: normal !important;
     --font-override-letter-spacing-italic: normal !important;
     --font-override-letter-spacing-monospace: normal !important;
     --font-override-letter-spacing-monospace-italic: normal !important;
     font-family:
-        "Atkinson Hyperlegible Mono", "Courier New", Courier, Menlo, Consolas,
-        Monaco, "Liberation Mono", "Lucida Console", monospace,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        "Atkinson Hyperlegible Mono", Menlo, Consolas, Monaco,
+        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol" !important;
     font-family: var(
         --ff-hyperlegible-monospace,
         "Atkinson Hyperlegible Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20969,12 +21023,14 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     ) !important;
 }
 
+.if-font-family-override-is-monospace {
+    display: none !important;
+}
+
 [data-font-family-override="monospace"] {
     --font-family-dyslexic: var(
         --ff-monospace,
         "IBM Plex Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -20988,8 +21044,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-dyslexic-monospace: var(
         --ff-monospace,
         "IBM Plex Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -21003,8 +21057,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-hyperlegible: var(
         --ff-monospace,
         "IBM Plex Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -21018,8 +21070,6 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     --font-family-hyperlegible-monospace: var(
         --ff-monospace,
         "IBM Plex Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -21031,14 +21081,12 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
         "Segoe UI Symbol"
     ) !important;
     font-family:
-        "IBM Plex Mono", "Courier New", Courier, Menlo, Consolas, Monaco,
-        "Liberation Mono", "Lucida Console", monospace, "Apple Color Emoji",
-        "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        "IBM Plex Mono", Menlo, Consolas, Monaco, "Liberation Mono",
+        "Lucida Console", monospace, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol" !important;
     font-family: var(
         --ff-monospace,
         "IBM Plex Mono",
-        "Courier New",
-        Courier,
         Menlo,
         Consolas,
         Monaco,
@@ -21090,6 +21138,19 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
     line-height: var(--line-height-400, 1.6875) !important;
 }
 
+[data-font-family-override="monospace"] .if-font-family-override-is-monospace {
+    display: block !important;
+    display: var(--display, block) !important;
+}
+[data-font-family-override="monospace"]
+    .if-font-family-override-is-not-monospace {
+    display: none !important;
+}
+
+.if-font-family-override-is-icons {
+    display: none !important;
+}
+
 [data-font-family-override="icons"] {
     --font-family-dyslexic: "Design System Utilities Icons" !important;
     --font-family-dyslexic-monospace: "Design System Utilities Icons" !important;
@@ -21109,4 +21170,12 @@ body:has(.website-settings-menu[data-toggle-container="open"]) {
 :where([data-font-family-override="icons"]) {
     line-height: 1.6875 !important;
     line-height: var(--line-height-400, 1.6875) !important;
+}
+
+[data-font-family-override="icons"] .if-font-family-override-is-icons {
+    display: block !important;
+    display: var(--display, block) !important;
+}
+[data-font-family-override="icons"] .if-font-family-override-is-not-icons {
+    display: none !important;
 }

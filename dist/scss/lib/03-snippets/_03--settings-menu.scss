@@ -238,7 +238,7 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
     @each $override_slug, $family_map in map.get(tokens.$font, family) {
         $override_map: map.get($_overrides, $override_slug);
 
-        $selectors: '[data-font-family-override=#{$override_slug}]';
+        $selectors: ('[data-font-family-override=#{$override_slug}]');
 
         $override_css: map.flatten(map.get($family_map, css));
 
@@ -252,16 +252,16 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
             @if $_classSel {
                 $class_selectors: list.append(
                     $class_selectors,
-                    '.website-settings-menu .#{$_classSel}',
+                    ('.website-settings-menu .#{$_classSel}', '%#{$_classSel}'),
                     $separator: comma
                 );
             }
         }
 
         @if $override_slug == body {
-            $class_selectors: list.append(
+            $class_selectors: list.join(
                 $class_selectors,
-                '.website-settings-menu .font-family-override-default',
+                ('.website-settings-menu .font-family-override-default'),
                 $separator: comma
             );
         }
@@ -277,6 +277,12 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
         }
 
         @at-root {
+            .if-font-family-override-is-#{$override_slug} {
+                display: none !important;
+
+                @content (if-font-family-override-is--root);
+            }
+
             #{$selectors} {
                 $_override_ff_list: var-font-family($override_slug);
 
@@ -341,7 +347,21 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
 
                 font-family: $_override_ff_list !important;
 
-                @include font-family-size-tokens($override_slug, $args...);
+                @include font-family-size-tokens($override_slug, $args...) {
+                    @content (root);
+                }
+
+                .if-font-family-override-is-#{$override_slug} {
+                    display: do-var(display, block) !important;
+
+                    @content (if-font-family-override-is--display);
+                }
+
+                .if-font-family-override-is-not-#{$override_slug} {
+                    display: none !important;
+
+                    @content (if-font-family-override-is-not);
+                }
             }
 
             @if $class_selectors {
@@ -393,6 +413,8 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
                         ),
                         $_default_spacing
                     ) !important;
+
+                    @content (class);
                 }
             }
         }

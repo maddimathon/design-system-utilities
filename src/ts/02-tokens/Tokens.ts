@@ -316,6 +316,8 @@ export class Tokens<
 
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),
+
+            completeSystem: true,
         };
     }
 
@@ -341,16 +343,21 @@ export class Tokens<
             },
         ) || '()';
 
+        const openLines = [
+            `@use "${ this.config.scssUtilitySassImportPath ?? 'pkg:@maddimathon/utility-sass' }/string";`,
+        ];
+
         const varContent: string[] = this.config.tokensAsDefault
             ? [
-                '@use "sass:map";',
-                '@use "sass:string";',
+                ...openLines,
+                `@use "${ this.config.scssTokenParserImportPath ?? 'pkg:@maddimathon/design-system-utilities/tokens/parser' }" as parser;`,
                 '',
                 '$designSystem: () !default;',
-                `$designSystem: map.deep-merge( ${ tokensString }, $designSystem );`,
+                `$designSystem: parser.tokens-parse-design-system( ${ tokensString }, $designSystem );`,
+                '',
             ]
             : [
-                '@use "sass:string";',
+                ...openLines,
                 '',
                 `$designSystem: ${ tokensString };`
             ];
@@ -428,6 +435,8 @@ export namespace Tokens_Internal {
             icons: Tokens_Icons.ScssVars<T_Params[ 'iconNames' ]>;
             logos: Tokens_Logos.ScssVars<T_Params[ 'logoNames' ]>;
             themes: Tokens_Themes.ScssVars<T_Params[ 'colour' ], T_Params[ 'theme' ]>;
+
+            completeSystem: boolean;
         };
 }
 
@@ -517,6 +526,17 @@ export namespace Tokens {
 
         extraColourLevels: readonly T_ExtraColourLevels[];
         iconFontName: string;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        scssTokenParserImportPath?: string;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        scssUtilitySassImportPath?: string;
+
         tokensAsDefault: boolean;
     };
 
@@ -1113,10 +1133,7 @@ export namespace Tokens {
                         "letter-spacing": dyslexic.css[ 'letter-spacing' ].monospace,
                     },
 
-                    fallbacks: [
-                        'Courier New',
-                        'Courier',
-                    ],
+                    fallbacks: [],
                     fontOverrideOption: false,
 
                     sizeAdjust: '100%',
@@ -1147,6 +1164,11 @@ export namespace Tokens {
 
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.035,
+
+                    css: {
+                        'letter-spacing': 'normal',
+                    },
+
                     fallbacks: [
                         'Verdana',
                     ],
@@ -1229,10 +1251,11 @@ export namespace Tokens {
                     appendSystemFontsToFallbacks: 'monospace',
                     contentWidthScale: 1.035,
 
-                    fallbacks: [
-                        'Courier New',
-                        'Courier',
-                    ],
+                    css: {
+                        'letter-spacing': 'normal',
+                    },
+
+                    fallbacks: [],
                     fontOverrideOption: 'Monospace',
                     lineHeightScale: 1.05,
                     sizeAdjust: '96%',
@@ -1315,10 +1338,7 @@ export namespace Tokens {
                         'letter-spacing': '-0.015em',
                     },
 
-                    fallbacks: [
-                        'Courier New',
-                        'Courier',
-                    ],
+                    fallbacks: [],
                     fontOverrideOption: false,
 
                     sizeAdjust: '96.5%',

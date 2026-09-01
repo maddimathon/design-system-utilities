@@ -18,7 +18,6 @@ import {
     mergeArgs,
     objectEntries,
     objectMap,
-    objectOmit,
     toTitleCase,
 } from '@maddimathon/utility-typescript';
 
@@ -106,30 +105,31 @@ export class Tokens_Typography<
 
     public constructor (
         protected readonly spacing: Tokens_Spacing,
-        input: Tokens_Typography.InputParam<T_FontFamilySlug>,
+        { fonts: inputFonts, ...input }: Tokens_Typography.InputParam<T_FontFamilySlug>,
     ) {
         super();
 
+        const { fonts, ..._defaultData } = Tokens_Typography.default;
+
         this.data = {
             ...mergeArgs(
-                objectOmit(
-                    {
-                        ...Tokens_Typography.default,
-                        sizeMultiplier: spacing.data.multiplier,
-                    },
-                    [ 'fonts' ],
-                ),
-                objectOmit(
-                    input,
-                    [ 'fonts' ],
-                ),
+                {
+                    ..._defaultData,
+                    sizeMultiplier: spacing.data.multiplier,
+                },
+                input,
                 true,
             ),
-
-            fonts: {
-                ...input.fonts as { [ F in T_FontFamilySlug ]: Tokens_Typography.Font.Family<F>; },
-                icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
-            },
+            ...mergeArgs(
+                { fonts },
+                {
+                    fonts: {
+                        ...inputFonts as { [ F in T_FontFamilySlug ]: Tokens_Typography.Font.Family<F>; },
+                        icons: inputFonts?.icons === false ? undefined : inputFonts?.icons,
+                    },
+                },
+                false,
+            ),
         };
 
         this.familyOverrides = this.data.fonts

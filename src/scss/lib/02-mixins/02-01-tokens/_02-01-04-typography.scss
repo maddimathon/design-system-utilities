@@ -226,21 +226,28 @@ $_familiesList: list.sort(list.except(map.keys(map.get(tokens.$font, family)), i
     );
 }
 
-$_fontOverrideSels: ('.website-settings-menu .font-family-override-default');
+$_fontOverrideSels_classes: (
+    // UPGRADE - find a way to extend this reliably
+    '.website-settings-menu .font-family-override-default'
+);
 $_fontOverrideSels_body: ();
 
-@each $slug, $map in map.ksort(map.get(tokens.$font, familyOverrides)) {
-    @if map.has-key($map, labelClass) {
-        $_fontOverrideSels: list.append(
-            $_fontOverrideSels,
-            '.website-settings-menu .#{map.get($map, labelClass)}',
+@each $slug, $map in map.ksort(map.get(tokens.$font, family)) {
+    $_labelClass: map.get(tokens.$font, familyOverrides, $slug, labelClass);
+
+    @if $_labelClass {
+        $_fontOverrideSels_classes: list.append(
+            $_fontOverrideSels_classes,
+            // UPGRADE - find a way to extend this reliably
+            ('.website-settings-menu .#{$_labelClass}'),
             $separator: comma
         );
     }
 
-    $_fontOverrideSels_body: list.append(
+    $_fontOverrideSels_body: list.join(
         $_fontOverrideSels_body,
-        '[data-font-family-override=#{$slug}]',
+        // UPGRADE - find a way to extend this reliably
+        ('[data-font-family-override=#{$slug}]'),
         $separator: comma
     );
 }
@@ -260,8 +267,8 @@ $_fontOverrideSels_body: ();
 
             $_popped_fontOverrideSels: if(
                 $_popped,
-                selector.nest($_popped, $_fontOverrideSels),
-                $_fontOverrideSels
+                selector.nest($_popped, $_fontOverrideSels_classes),
+                $_fontOverrideSels_classes
             );
 
             @at-root &,
@@ -284,8 +291,8 @@ $_fontOverrideSels_body: ();
 
         $_popped_fontOverrideSels: if(
             $_popped,
-            selector.nest($_popped, $_fontOverrideSels),
-            $_fontOverrideSels
+            selector.nest($_popped, $_fontOverrideSels_classes),
+            $_fontOverrideSels_classes
         );
 
         @at-root &,
@@ -686,7 +693,9 @@ $_fontOverrideSels_body: ();
 /// @since ___PKG_VERSION___
 ///
 @mixin font-family-size-tokens($slug, $asOverride: true, $args...) {
-    @include _set-font-family-shared-props($slug: $slug, $asOverride: true, $args...);
+    @include _set-font-family-shared-props($slug: $slug, $asOverride: true, $args...) {
+        @content;
+    }
 }
 
 ///

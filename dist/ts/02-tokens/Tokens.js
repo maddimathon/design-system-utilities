@@ -184,6 +184,7 @@ export class Tokens extends AbstractTokens {
             ...this.photos.toScssVars(),
             colour: this.colour.toScssVars(),
             themes: this.themes.toScssVars(),
+            completeSystem: true,
         };
     }
     toScss() {
@@ -198,16 +199,20 @@ export class Tokens extends AbstractTokens {
             useStringModule: true,
             unquoteNumberString: true,
         }) || '()';
+        const openLines = [
+            `@use "${this.config.scssUtilitySassImportPath ?? 'pkg:@maddimathon/utility-sass'}/string";`,
+        ];
         const varContent = this.config.tokensAsDefault
             ? [
-                '@use "sass:map";',
-                '@use "sass:string";',
+                ...openLines,
+                `@use "${this.config.scssTokenParserImportPath ?? 'pkg:@maddimathon/design-system-utilities/tokens/parser'}" as parser;`,
                 '',
                 '$designSystem: () !default;',
-                `$designSystem: map.deep-merge( ${tokensString}, $designSystem );`,
+                `$designSystem: parser.tokens-parse-design-system( ${tokensString}, $designSystem );`,
+                '',
             ]
             : [
-                '@use "sass:string";',
+                ...openLines,
                 '',
                 `$designSystem: ${tokensString};`
             ];
@@ -553,10 +558,7 @@ export class Tokens extends AbstractTokens {
                         ...Family.dyslexic.css,
                         "letter-spacing": Family.dyslexic.css['letter-spacing'].monospace,
                     },
-                    fallbacks: [
-                        'Courier New',
-                        'Courier',
-                    ],
+                    fallbacks: [],
                     fontOverrideOption: false,
                     sizeAdjust: '100%',
                     weights: {
@@ -574,6 +576,9 @@ export class Tokens extends AbstractTokens {
                     name: 'Atkinson Hyperlegible Next',
                     appendSystemFontsToFallbacks: true,
                     contentWidthScale: 1.035,
+                    css: {
+                        'letter-spacing': 'normal',
+                    },
                     fallbacks: [
                         'Verdana',
                     ],
@@ -623,10 +628,10 @@ export class Tokens extends AbstractTokens {
                     name: 'Atkinson Hyperlegible Mono',
                     appendSystemFontsToFallbacks: 'monospace',
                     contentWidthScale: 1.035,
-                    fallbacks: [
-                        'Courier New',
-                        'Courier',
-                    ],
+                    css: {
+                        'letter-spacing': 'normal',
+                    },
+                    fallbacks: [],
                     fontOverrideOption: 'Monospace',
                     lineHeightScale: 1.05,
                     sizeAdjust: '96%',
@@ -676,10 +681,7 @@ export class Tokens extends AbstractTokens {
                     css: {
                         'letter-spacing': '-0.015em',
                     },
-                    fallbacks: [
-                        'Courier New',
-                        'Courier',
-                    ],
+                    fallbacks: [],
                     fontOverrideOption: false,
                     sizeAdjust: '96.5%',
                     weights: objectGenerator(Font.allWeights.filter(w => w !== '800' && w !== '900'), (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('monospace', 'IBM Plex Mono', weight === '700' ? '700 900' : weight, style, {

@@ -291,18 +291,6 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                 @content (headline);
             }
 
-            &:where(header) {
-                line-height: var-style(alert-headline-line-height);
-                font-weight: var-style(alert-headline-font-weight);
-                font-size: var-style(alert-headline-font-size);
-
-                @include set-font-style(var-style(alert-headline-font-style)) {
-                    @if $multipleContentBlocks {
-                        @content (headline--is-header);
-                    }
-                }
-            }
-
             @each $num in token-all-heading-levels() {
                 //
                 $_headingSelector: if($num == 1, ('%h#{$num}', '%title'), ('%h#{$num}'));

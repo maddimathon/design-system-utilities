@@ -10460,6 +10460,16 @@ a.no-pseudo[href]::before,
 a.no-pseudo[href]::after {
     content: none !important;
 }
+a[href]:has(> .brand-logo:only-child),
+a[href]:has(> .icon:only-child),
+a[href]:has(> figure:only-child),
+a[href]:has(> img:only-child),
+a[href]:has(> svg:only-child) {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    position: relative;
+}
 a[href]:has(> .brand-logo:only-child)::before,
 a[href]:has(> .brand-logo:only-child)::after,
 a[href]:has(> .icon:only-child)::before,
@@ -10665,8 +10675,6 @@ samp {
             var(
                 --ff-monospace,
                 "IBM Plex Mono",
-                "Courier New",
-                Courier,
                 Menlo,
                 Consolas,
                 Monaco,
@@ -18780,11 +18788,17 @@ body {
     .font-family-icons
     *,
 [data-font-family-override="dyslexic"] .font-family-icons,
+[data-font-family-override="dyslexic-monospace"] .font-family-icons,
 [data-font-family-override="hyperlegible"] .font-family-icons,
 [data-font-family-override="hyperlegible-monospace"] .font-family-icons,
+[data-font-family-override="icons"] .font-family-icons,
+[data-font-family-override="monospace"] .font-family-icons,
 [data-font-family-override="dyslexic"] .font-family-icons *,
+[data-font-family-override="dyslexic-monospace"] .font-family-icons *,
 [data-font-family-override="hyperlegible"] .font-family-icons *,
-[data-font-family-override="hyperlegible-monospace"] .font-family-icons * {
+[data-font-family-override="hyperlegible-monospace"] .font-family-icons *,
+[data-font-family-override="icons"] .font-family-icons *,
+[data-font-family-override="monospace"] .font-family-icons * {
     vertical-align: var(
         --icon-vertical-align,
         var(--fallback-icon-vertical-align, middle)
@@ -20907,22 +20921,6 @@ body {
             var(--fallback-theme-text-primary, CanvasText)
         )
     );
-}
-.alert-block > .alert-block__headline:where(header) {
-    line-height: var(
-        --alert-headline-line-height,
-        var(--line-height-200, var(--fallback-line-height-200, 1.375))
-    );
-    font-weight: var(--alert-headline-font-weight, 600);
-    font-size: var(
-        --alert-headline-font-size,
-        var(--fs-heading-7, var(--fallback-fs-heading-7, 1rem))
-    );
-    letter-spacing: var(
-        --font-override-letter-spacing,
-        var(--fallback-font-override-letter-spacing, inherit)
-    );
-    font-style: var(--alert-headline-font-style, normal);
 }
 .alert-block > .alert-block__headline.h1,
 .alert-block > h1.alert-block__headline,

@@ -171,6 +171,7 @@ export class Compile extends CompileStage {
                 {},
                 {
                     buildIconFont: iconFontArgs,
+                    scssTokenParserImportPath: '00-parser',
                 },
             ],
         );

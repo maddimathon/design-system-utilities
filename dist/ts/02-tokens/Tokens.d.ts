@@ -128,6 +128,7 @@ export declare namespace Tokens_Internal {
         icons: Tokens_Icons.ScssVars<T_Params['iconNames']>;
         logos: Tokens_Logos.ScssVars<T_Params['logoNames']>;
         themes: Tokens_Themes.ScssVars<T_Params['colour'], T_Params['theme']>;
+        completeSystem: boolean;
     };
 }
 /**
@@ -152,6 +153,14 @@ export declare namespace Tokens {
         buildIconFont: false | RunnerOptions;
         extraColourLevels: readonly T_ExtraColourLevels[];
         iconFontName: string;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        scssTokenParserImportPath?: string;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        scssUtilitySassImportPath?: string;
         tokensAsDefault: boolean;
     }
     /**

@@ -9,7 +9,7 @@
  */
 import NodeFS from 'node:fs';
 import NodePath from 'node:path';
-import { arrayUnique, deleteUndefinedProps, mergeArgs, objectEntries, objectMap, objectOmit, toTitleCase, } from '@maddimathon/utility-typescript';
+import { arrayUnique, deleteUndefinedProps, mergeArgs, objectEntries, objectMap, toTitleCase, } from '@maddimathon/utility-typescript';
 import { roundToPixel } from '../01-utilities/roundToPixel.js';
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
@@ -60,18 +60,21 @@ export class Tokens_Typography extends AbstractTokens {
     }
     data;
     familyOverrides;
-    constructor(spacing, input) {
+    constructor(spacing, { fonts: inputFonts, ...input }) {
         super();
         this.spacing = spacing;
+        const { fonts, ..._defaultData } = Tokens_Typography.default;
         this.data = {
-            ...mergeArgs(objectOmit({
-                ...Tokens_Typography.default,
+            ...mergeArgs({
+                ..._defaultData,
                 sizeMultiplier: spacing.data.multiplier,
-            }, ['fonts']), objectOmit(input, ['fonts']), true),
-            fonts: {
-                ...input.fonts,
-                icons: input.fonts?.icons === false ? undefined : input.fonts?.icons,
-            },
+            }, input, true),
+            ...mergeArgs({ fonts }, {
+                fonts: {
+                    ...inputFonts,
+                    icons: inputFonts?.icons === false ? undefined : inputFonts?.icons,
+                },
+            }, false),
         };
         this.familyOverrides = this.data.fonts
             ? Object.fromEntries(objectEntries(this.data.fonts).map(([fontSlug, font]) => {
