@@ -214,13 +214,7 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
         /*
          * Making sure the minimum required levels are present.
          */
-        if (!inputKeys.length) {
-            // we should set the default basics and generate a grey map, then
-            _l_100 = shadeMaker('100', bases['100']);
-            _l_500 = shadeMaker('500', bases['500']);
-            _l_900 = shadeMaker('900', bases['900']);
-        }
-        else if (!('100' in part) && !('900' in part) || !(part['100'] && part['900'])) {
+        if (!('100' in part) && !('900' in part) || !(part['100'] && part['900'])) {
             // if these core colours aren't set, we have to generate them or the
             // reset of the system will break
             if (inputKeys.length > 0) {

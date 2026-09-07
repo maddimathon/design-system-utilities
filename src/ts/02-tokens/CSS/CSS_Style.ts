@@ -9,7 +9,10 @@
  */
 
 import type { PartialExcept, RecursivePartial } from '@maddimathon/utility-typescript/types';
-import { deleteUndefinedProps, mergeArgs } from '@maddimathon/utility-typescript';
+
+import {
+    deleteUndefinedProps, mergeArgs, mergeArgsAsync,
+} from '@maddimathon/utility-typescript';
 
 import type {
     AnyTokenLevel,
@@ -51,7 +54,9 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
      * @since ___PKG_VERSION___
      */
     public static async buildData<T_Params extends TokenTypes.Style.TypeParams>( partial: Tokens_CSS_Style.InputParam<T_Params> = {} ): Promise<Tokens_CSS_Style.Data<T_Params>> {
+
         const defaults = {
+
             'flow-margin': {
                 $: '400',
                 large: '600',
@@ -118,7 +123,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             },
         } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'form' | 'hr' | 'label' | 'logo' | 'selection' | 'table'>;
 
-
         return Promise.all( [
             Tokens_CSS_Style.iconStyle<T_Params>( partial.icon ),
 
@@ -140,6 +144,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     input,
                     subheading,
                     toggle,
+                    backdrop,
                 ] = await Promise.all( [
                     Tokens_CSS_Style.alertStyle<T_Params>( icon, partial.alert ),
                     Tokens_CSS_Style.buttonStyle<T_Params>( icon, partial.button ),
@@ -151,6 +156,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     ),
 
                     Tokens_CSS_Style.toggleStyle<T_Params>( heading, icon, widget, partial.toggle ),
+                    Tokens_CSS_Style.backdropStyle<T_Params>( partial.backdrop ),
                 ] );
 
                 const flowMargin_button_default = partial?.[ 'flow-margin' ]?.small ?? '200' satisfies AnyTokenLevel;
@@ -172,6 +178,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
                 return {
                     alert,
+                    backdrop,
                     button,
                     'flow-margin': mergeArgs(
                         defaults[ 'flow-margin' ],
@@ -359,6 +366,89 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                 heading,
             },
             true,
+        );
+    }
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    public static async backdropStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'backdrop' ],
+    ): Promise<Tokens_CSS_Style.BackdropStyles.Parsed> {
+        const defaults = {
+            background: {
+                before: {
+                    $: 'background',
+                },
+                after: {
+                    $: 'link',
+                    hover: 'link-hover',
+                },
+            },
+
+            filter: 'blur(1rem)',
+
+            opacity: {
+                before: '62.5%' as TokenTypes.Css.Number.Percent,
+                after: '18.75%' as TokenTypes.Css.Number.Percent,
+            },
+        } satisfies Tokens_CSS_Style.BackdropStyles.Parsed;
+
+        const background = typeof partial?.background === 'string'
+            ? {
+                before: {
+                    $: partial?.background,
+                },
+            }
+            : partial?.background
+                ? {
+                    before: partial?.background?.before ?? defaults.background.before,
+                    ...partial?.background,
+                }
+                : defaults.background;
+
+        const background_before = typeof background.before === 'string'
+            ? {
+                $: background.before
+            }
+            : {
+                $: background.before?.$ ?? defaults.background.before.$,
+                ...background.before
+            };
+
+        const background_after = typeof background.after === 'string'
+            ? {
+                $: background.after
+            }
+            : background.after?.$
+                ? {
+                    $: background.after?.$,
+                    ...background.after
+                }
+                : undefined;
+
+        return mergeArgsAsync(
+            defaults,
+            {
+                ...partial,
+
+                background: deleteUndefinedProps( {
+                    before: background_before,
+                    after: background_after,
+                } ),
+
+                opacity: typeof partial?.opacity === 'string'
+                    ? {
+                        before: partial?.opacity,
+                    }
+                    : partial?.opacity
+                        ? {
+                            before: partial?.opacity?.before ?? defaults.opacity.before,
+                            ...partial?.opacity,
+                        }
+                        : defaults.opacity,
+            } satisfies Partial<Tokens_CSS_Style.BackdropStyles.Parsed>,
+            false,
         );
     }
 
@@ -888,44 +978,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             self: 'margins-flow-firm',
         } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'flow-margin' ];
 
-        const headingMaker = (
-            num: 'unstyled' | keyof Tokens_CSS_Style.ToggleStyles[ 'control' ][ 'heading' ]
-        ): Tokens_CSS_Style.ToggleStyles_ControlHeading => {
-
-            // returns
-            if ( num === 'unstyled' ) {
-                return {
-                    margin: {
-                        block: {
-                            end: partial.control?.$?.margin?.block?.end ?? 0,
-                        },
-                    },
-
-                    padding: {
-                        block: {
-                            start: partial.control?.$?.padding?.block?.start ?? headingStyles[ num ].padding.block.end,
-                            end: partial.control?.$?.padding?.block?.end ?? headingStyles[ num ].padding.block.end,
-                        },
-                    },
-                } satisfies Tokens_CSS_Style.ToggleStyles_ControlHeading;
-            }
-
-            return {
-                margin: {
-                    block: {
-                        end: partial.control?.$?.margin?.block?.end ?? 0,
-                    },
-                },
-
-                padding: {
-                    block: {
-                        start: partial.control?.$?.padding?.block?.start ?? headingStyles[ num ]?.padding.block.start ?? 0,
-                        end: partial.control?.$?.padding?.block?.end ?? headingStyles[ num ]?.padding.block.end ?? 0,
-                    },
-                },
-            } satisfies Tokens_CSS_Style.ToggleStyles_ControlHeading;
-        };
-
         const content = {
 
             background: partial.content?.background ?? widgetStyles.background,
@@ -939,7 +991,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
                 style: {
                     $: partial.content?.border?.style?.$ ?? 'dotted',
-                    top: partial.content?.border?.style?.top ?? 'solid',
+                    ...partial.content?.border?.style,
                 },
 
                 width: partial.content?.border?.width ?? widgetStyles.border.width,
@@ -954,14 +1006,39 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
         } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'content' ];
 
-        const control = {
+        const _control_marginBlockEnd = partial.control?.$?.margin?.block?.end ?? '100' as const;
 
-            $: headingMaker( 'unstyled' ),
+        const control = {
+            $: {
+                margin: {
+                    block: {
+                        start: partial.control?.$?.margin?.block?.start ?? 0,
+                        end: _control_marginBlockEnd,
+                    },
+                },
+
+                padding: {
+                    block: {
+                        start: partial.control?.$?.padding?.block?.start ?? 0,
+                        end: partial.control?.$?.padding?.block?.end ?? 0,
+                    },
+                },
+            } satisfies Tokens_CSS_Style.ToggleStyles_ControlHeading,
 
             heading: mergeArgs(
                 objectGenerator(
                     [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
-                    headingMaker,
+                    ( num ) => ( {
+                        ...partial.control?.heading?.[ num ],
+
+                        margin: {
+                            block: {
+                                end: partial.control?.$?.margin?.block?.end ?? _control_marginBlockEnd,
+                            },
+
+                            ...partial.control?.heading?.[ num ]?.margin,
+                        },
+                    } satisfies RecursivePartial<Tokens_CSS_Style.ToggleStyles_ControlHeading> ),
                 ) satisfies Tokens_CSS_Style.ToggleStyles[ 'control' ][ 'heading' ],
                 deleteUndefinedProps( partial.control?.heading ?? {} ),
                 true,
@@ -1188,6 +1265,70 @@ export namespace Tokens_CSS_Style {
             };
         };
     };
+
+    /**
+     * Styles for modal-type backdrops (that block the screen and can be clicked to exit the modal).
+     * 
+     * @since ___PKG_VERSION___
+     */
+    export type BackdropStyles = {
+        /**
+         * These should be keywords or theme slugs.
+         */
+        background: string | {
+            before: string | {
+                $: string;
+                hover?: string;
+                active?: string;
+            };
+            after?: string | {
+                $: string;
+                hover?: string;
+                active?: string;
+            };
+        };
+
+        /**
+         * This should be a valid CSS backdrop-filter value
+         */
+        filter: string;
+
+        opacity: TokenTypes.Css.Number.Percent | {
+            before: TokenTypes.Css.Number.Percent;
+            after?: TokenTypes.Css.Number.Percent;
+        };
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    export namespace BackdropStyles {
+        /**
+         * @since ___PKG_VERSION___
+         */
+        export type Parsed = Omit<BackdropStyles, 'background' | 'opacity'> & {
+            /**
+             * These should be keywords or theme slugs.
+             */
+            background: {
+                before: {
+                    $: string;
+                    hover?: string;
+                    active?: string;
+                };
+                after?: {
+                    $: string;
+                    hover?: string;
+                    active?: string;
+                };
+            };
+
+            opacity: {
+                before: TokenTypes.Css.Number.Percent;
+                after?: TokenTypes.Css.Number.Percent;
+            };
+        };
+    }
 
     /**
      * @since ___PKG_VERSION___
@@ -1571,15 +1712,17 @@ export namespace Tokens_CSS_Style {
             background: string;
 
             border: {
-
                 radius: {
                     $: TokenTypes.Css.BorderRadius;
-                    top: TokenTypes.Css.BorderRadius;
+                    top?: TokenTypes.Css.BorderRadius;
                 };
 
                 style: {
-                    $: "dotted" | "solid";
-                    top: "dotted" | "solid";
+                    $: TokenTypes.Css.BorderStyle;
+                    top?: TokenTypes.Css.BorderStyle;
+                    bottom?: TokenTypes.Css.BorderStyle;
+                    left?: TokenTypes.Css.BorderStyle;
+                    right?: TokenTypes.Css.BorderStyle;
                 };
 
                 width: TokenTypes.Css.BorderWidth;
@@ -1600,9 +1743,9 @@ export namespace Tokens_CSS_Style {
             $: ToggleStyles_ControlHeading;
 
             heading: {
-                [ H in RequiredHeadingLevels ]: ToggleStyles_ControlHeading;
+                [ H in RequiredHeadingLevels ]?: RecursivePartial<ToggleStyles_ControlHeading>;
             } & {
-                [ key: number ]: ToggleStyles_ControlHeading;
+                [ key: number ]: RecursivePartial<ToggleStyles_ControlHeading>;
             };
         };
 
@@ -1654,9 +1797,7 @@ export namespace Tokens_CSS_Style {
      */
     export type ToggleStyles_ControlHeading = {
         margin: {
-            block: {
-                end: HeadingStyles[ 'padding' ][ 'block' ][ 'end' ];
-            };
+            block: HeadingStyles[ 'padding' ][ 'block' ];
         };
 
         padding: {
@@ -1706,6 +1847,11 @@ export namespace Tokens_CSS_Style {
          * @since ___PKG_VERSION___
          */
         alert: AlertStyles;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        backdrop: BackdropStyles.Parsed;
 
         button: {
             $: ButtonStyles;
@@ -1860,6 +2006,11 @@ export namespace Tokens_CSS_Style {
                 [ key: number ]: undefined | Partial<AlertStyles_Heading>;
             };
         };
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        backdrop?: RecursivePartial<BackdropStyles>;
 
         button?: {
             $?: RecursivePartial<ButtonStyles>;

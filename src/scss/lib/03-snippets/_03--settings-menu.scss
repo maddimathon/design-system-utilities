@@ -18,16 +18,18 @@
 @use '../02-mixins' as *;
 
 @use '03-05-forms' as *;
+@use '03--toggle' as *;
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 $_closing_time: var-tr-time(toggle-closing);
 
+$_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
+
 ///
 /// Supports the SettingsMenu astro component.
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Added optional $includeAside params.
 ///
 @mixin snippet-support-site-settings-menu(
     $content_borderWidth: var-style(toggle-content-border-width),
@@ -45,32 +47,38 @@ $_closing_time: var-tr-time(toggle-closing);
     $zIndex: var-z-index(settings),
     $zIndex_open: var-z-index(popup),
     //
-    $includeAside: true,
+    $includeStyles: true,
+    //
+    $mixin_support_base: $_mixin_support_base,
     $args...
 ) {
     $_paddingBlock_hasIconOnlyChild: var-mrg-firm(style-value(button-padding-block, $raw: true));
 
     @include utils.snippet-support-site-settings-menu(
-            $includeBaseStyles: false,
+            $includeStyles: false,
             $fieldset_flexContainer_alignment: $fieldset_flexContainer_alignment,
             $fieldset_flexContainer_direction: $fieldset_flexContainer_direction,
             $fieldset_flexContainer_gap: $fieldset_flexContainer_gap,
             $zIndex: $zIndex,
             $zIndex_open: $zIndex_open,
+            //
+            $mixin_support_base: $mixin_support_base,
             $args...
         )
         using ($location) {
         //
         @if $location == settings-menu {
-            @content ($location);
-        }
-        //
-        @else if $location == settings-menu--container {
-            justify-content: start;
-            align-content: end;
-            align-items: end;
+            @include no-motion {
+                @include cx-prop(toggle-closing-time, var-tr-time(normal));
+            }
 
             @content ($location);
+
+            [data-toggle-control] {
+                margin-block: 0 !important;
+
+                @content (#{$location}--control);
+            }
         }
         //
         @else if $location == content {
@@ -79,9 +87,21 @@ $_closing_time: var-tr-time(toggle-closing);
             max-width: min(var-width(content), 90vw);
 
             @content ($location);
+        }
+        //
+        @else if $location == content--container {
+            @content ($location);
 
-            @include first-child-no-top-margin;
-            @include last-child-no-bottom-margin;
+            @include first-child-no-top-margin(
+                $includeListsFirstItem: true,
+                $includeSrTextFirstItem: true,
+                $setFirstChildSelector: true
+            );
+            @include last-child-no-bottom-margin(
+                $includeListsFirstItem: true,
+                $includeSrTextFirstItem: true,
+                $setFirstChildSelector: true
+            );
         }
         //
         @else if $location == content--fieldset {
@@ -94,74 +114,60 @@ $_closing_time: var-tr-time(toggle-closing);
             @content ($location);
         }
         //
+        @else if $location == content--fieldset--container {
+            @if $includeStyles {
+                @include prop-display(flex);
+                @include utils.snippet-body-grid--flex-container(
+                    $alignment: $fieldset_flexContainer_alignment,
+                    $gap: $fieldset_flexContainer_gap,
+                    $direction: $fieldset_flexContainer_direction,
+                    $wrap: wrap
+                );
+
+                margin: 0;
+                padding: 0;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == content--fieldset--container--label-or-input {
+            @if $includeStyles {
+                margin: 0;
+            }
+
+            @content ($location);
+        }
+        //
         @else if $location == disclaimer {
             @include set-font-style($disclaimer_fontStyle) {
-                font-size: $disclaimer_fontSize;
+                @if $disclaimer_fontSize {
+                    font-size: $disclaimer_fontSize;
+                }
 
                 @content ($location);
             }
         }
         //
         @else if $location == js--settings-menu--control {
-            @include snippet-button(
-                    $variation: tokens.$button_variation_siteSettings,
-                    $focus_includeFallbacks: false,
-
-                    $paddingBlock_hasIconOnlyChild: $_paddingBlock_hasIconOnlyChild,
-
-                    $includeDisabled: false,
-                    $includeHeight: false,
-                    $includeInline: false,
-                    $includeMarginBlock: false,
-                    $includePosition: false,
-                    $includeTextBasics: false,
-                    $includeVisited: false,
-                    $multipleContentBlocks: true
-                )
-                using ($_button_location) {
-                @if $_button_location == root {
-                    @include cx-prop(icon-size, do-var(icon-size-large));
-                    margin-block: 0;
-                    align-self: end;
-                    justify-self: end;
-                }
-
-                @content (#{$location}--#{$_button_location});
-            }
-
-            @content ($location);
-        }
-        //
-        @else if $location == js--settings-menu--control--backdrop {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-
-            background: none;
-            border: none;
-            border-radius: 0;
-
-            opacity: 1;
+            @include cx-prop(icon-size, do-var(icon-size-large));
 
             @content ($location);
         }
         //
         @else if $location == js--settings-menu--content {
-            /* border: none; */
-            border-block-width: 0;
+            margin-block: 0;
 
             @content ($location);
         }
         //
-        @else if $location == js--settings-menu--open--content {
-            border-block-width: $content_borderWidth;
+        @else if $location == js--settings-menu--content--container {
+            padding-inline: var-style(widget-padding-inline);
 
             @content ($location);
         }
         //
         @else if $location == js--settings-menu--open--content--container {
-            margin-block: do-var(flow-margin-firm-end);
             padding-block: var-style(widget-padding-block);
 
             max-height: math.add-unit(
@@ -182,32 +188,6 @@ $_closing_time: var-tr-time(toggle-closing);
         //
         @else {
             @content ($location);
-        }
-    }
-
-    .website-settings-menu {
-        @include no-motion {
-            @include cx-prop(toggle-closing-time, var-tr-time(normal));
-        }
-    }
-
-    /* With Javascript ==================================== */
-
-    @include feature-check.js {
-        .website-settings-menu {
-            &[data-toggle-container='open'] {
-                [data-toggle-control-backdrop] {
-                    opacity: 0;
-                    animation: fade-in var-tr-time(normal) tokens.$transition_function 10ms forwards;
-                }
-            }
-
-            &[data-toggle-container='closing'] {
-                [data-toggle-control-backdrop] {
-                    opacity: 0;
-                    animation: fade-out var-tr-time(normal) tokens.$transition_function 0ms forwards;
-                }
-            }
         }
     }
 }
@@ -292,7 +272,6 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
                     )
                 {
                     $__this_override_list: $_override_ff_list;
-                    // $__this_is_monospace: string.match($ff_prop_slug, '(^|-)monospace$', $flags: 'gi');
 
                     @if ($ff_prop_slug == #{$override_slug}-body) or
                         ($ff_prop_slug == #{$override_slug}-heading) or

@@ -7,7 +7,7 @@
  * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
  * @license MIT
  */
-import { deleteUndefinedProps, mergeArgs } from '@maddimathon/utility-typescript';
+import { deleteUndefinedProps, mergeArgs, mergeArgsAsync, } from '@maddimathon/utility-typescript';
 import { objectGenerator, objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
 import { objectKeySort_Tokens } from '../../01-utilities/objectKeySort_Tokens.js';
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -97,12 +97,13 @@ export class Tokens_CSS_Style extends AbstractTokens {
             })),
             Tokens_CSS_Style.widgetStyle(partial.widget),
         ]).then(async ([icon, heading, widget]) => {
-            const [alert, button, input, subheading, toggle,] = await Promise.all([
+            const [alert, button, input, subheading, toggle, backdrop,] = await Promise.all([
                 Tokens_CSS_Style.alertStyle(icon, partial.alert),
                 Tokens_CSS_Style.buttonStyle(icon, partial.button),
                 Tokens_CSS_Style.inputStyle(partial.input),
                 objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
                 Tokens_CSS_Style.toggleStyle(heading, icon, widget, partial.toggle),
+                Tokens_CSS_Style.backdropStyle(partial.backdrop),
             ]);
             const flowMargin_button_default = partial?.['flow-margin']?.small ?? '200';
             const flowMargin_button_touch = partial?.['flow-margin']?.$ ?? '300';
@@ -120,6 +121,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 };
             return {
                 alert,
+                backdrop,
                 button,
                 'flow-margin': mergeArgs(defaults['flow-margin'], {
                     ...partial?.['flow-margin'],
@@ -258,6 +260,74 @@ export class Tokens_CSS_Style extends AbstractTokens {
             ...partial,
             heading,
         }, true);
+    }
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    static async backdropStyle(partial) {
+        const defaults = {
+            background: {
+                before: {
+                    $: 'background',
+                },
+                after: {
+                    $: 'link',
+                    hover: 'link-hover',
+                },
+            },
+            filter: 'blur(1rem)',
+            opacity: {
+                before: '62.5%',
+                after: '18.75%',
+            },
+        };
+        const background = typeof partial?.background === 'string'
+            ? {
+                before: {
+                    $: partial?.background,
+                },
+            }
+            : partial?.background
+                ? {
+                    before: partial?.background?.before ?? defaults.background.before,
+                    ...partial?.background,
+                }
+                : defaults.background;
+        const background_before = typeof background.before === 'string'
+            ? {
+                $: background.before
+            }
+            : {
+                $: background.before?.$ ?? defaults.background.before.$,
+                ...background.before
+            };
+        const background_after = typeof background.after === 'string'
+            ? {
+                $: background.after
+            }
+            : background.after?.$
+                ? {
+                    $: background.after?.$,
+                    ...background.after
+                }
+                : undefined;
+        return mergeArgsAsync(defaults, {
+            ...partial,
+            background: deleteUndefinedProps({
+                before: background_before,
+                after: background_after,
+            }),
+            opacity: typeof partial?.opacity === 'string'
+                ? {
+                    before: partial?.opacity,
+                }
+                : partial?.opacity
+                    ? {
+                        before: partial?.opacity?.before ?? defaults.opacity.before,
+                        ...partial?.opacity,
+                    }
+                    : defaults.opacity,
+        }, false);
     }
     /**
      * @since 0.1.0-alpha
@@ -626,37 +696,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
             button,
             self: 'margins-flow-firm',
         };
-        const headingMaker = (num) => {
-            // returns
-            if (num === 'unstyled') {
-                return {
-                    margin: {
-                        block: {
-                            end: partial.control?.$?.margin?.block?.end ?? 0,
-                        },
-                    },
-                    padding: {
-                        block: {
-                            start: partial.control?.$?.padding?.block?.start ?? headingStyles[num].padding.block.end,
-                            end: partial.control?.$?.padding?.block?.end ?? headingStyles[num].padding.block.end,
-                        },
-                    },
-                };
-            }
-            return {
-                margin: {
-                    block: {
-                        end: partial.control?.$?.margin?.block?.end ?? 0,
-                    },
-                },
-                padding: {
-                    block: {
-                        start: partial.control?.$?.padding?.block?.start ?? headingStyles[num]?.padding.block.start ?? 0,
-                        end: partial.control?.$?.padding?.block?.end ?? headingStyles[num]?.padding.block.end ?? 0,
-                    },
-                },
-            };
-        };
         const content = {
             background: partial.content?.background ?? widgetStyles.background,
             border: {
@@ -666,7 +705,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 },
                 style: {
                     $: partial.content?.border?.style?.$ ?? 'dotted',
-                    top: partial.content?.border?.style?.top ?? 'solid',
+                    ...partial.content?.border?.style,
                 },
                 width: partial.content?.border?.width ?? widgetStyles.border.width,
             },
@@ -676,9 +715,31 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 inline: partial.content?.padding?.inline ?? widgetStyles.padding.inline,
             },
         };
+        const _control_marginBlockEnd = partial.control?.$?.margin?.block?.end ?? '100';
         const control = {
-            $: headingMaker('unstyled'),
-            heading: mergeArgs(objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], headingMaker), deleteUndefinedProps(partial.control?.heading ?? {}), true),
+            $: {
+                margin: {
+                    block: {
+                        start: partial.control?.$?.margin?.block?.start ?? 0,
+                        end: _control_marginBlockEnd,
+                    },
+                },
+                padding: {
+                    block: {
+                        start: partial.control?.$?.padding?.block?.start ?? 0,
+                        end: partial.control?.$?.padding?.block?.end ?? 0,
+                    },
+                },
+            },
+            heading: mergeArgs(objectGenerator([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (num) => ({
+                ...partial.control?.heading?.[num],
+                margin: {
+                    block: {
+                        end: partial.control?.$?.margin?.block?.end ?? _control_marginBlockEnd,
+                    },
+                    ...partial.control?.heading?.[num]?.margin,
+                },
+            })), deleteUndefinedProps(partial.control?.heading ?? {}), true),
         };
         return {
             content,

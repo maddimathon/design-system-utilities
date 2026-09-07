@@ -154,6 +154,11 @@ export namespace TokenTypes {
         /**
          * @since ___PKG_VERSION___
          */
+        export type BorderStyle = 'none' | 'hidden' | 'dashed' | 'dotted' | 'double' | 'groove' | 'inset' | 'outset' | 'ridge' | 'solid' | GlobalKeywords;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
         export type BorderWidth = 0 | AnyTokenLevel;
 
         /**

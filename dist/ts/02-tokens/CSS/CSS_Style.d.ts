@@ -38,6 +38,10 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
      */
     static alertStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, partial?: Tokens_CSS_Style.InputParam<T_Params>['alert']): Promise<Tokens_CSS_Style.AlertStyles>;
     /**
+     * @since 0.1.0-beta.0.draft
+     */
+    static backdropStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['backdrop']): Promise<Tokens_CSS_Style.BackdropStyles.Parsed>;
+    /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0.draft — Added partial param.
      */
@@ -170,6 +174,65 @@ export declare namespace Tokens_CSS_Style {
             };
         };
     };
+    /**
+     * Styles for modal-type backdrops (that block the screen and can be clicked to exit the modal).
+     *
+     * @since 0.1.0-beta.0.draft
+     */
+    type BackdropStyles = {
+        /**
+         * These should be keywords or theme slugs.
+         */
+        background: string | {
+            before: string | {
+                $: string;
+                hover?: string;
+                active?: string;
+            };
+            after?: string | {
+                $: string;
+                hover?: string;
+                active?: string;
+            };
+        };
+        /**
+         * This should be a valid CSS backdrop-filter value
+         */
+        filter: string;
+        opacity: TokenTypes.Css.Number.Percent | {
+            before: TokenTypes.Css.Number.Percent;
+            after?: TokenTypes.Css.Number.Percent;
+        };
+    };
+    /**
+     * @since 0.1.0-beta.0.draft
+     */
+    namespace BackdropStyles {
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        type Parsed = Omit<BackdropStyles, 'background' | 'opacity'> & {
+            /**
+             * These should be keywords or theme slugs.
+             */
+            background: {
+                before: {
+                    $: string;
+                    hover?: string;
+                    active?: string;
+                };
+                after?: {
+                    $: string;
+                    hover?: string;
+                    active?: string;
+                };
+            };
+            opacity: {
+                before: TokenTypes.Css.Number.Percent;
+                after?: TokenTypes.Css.Number.Percent;
+            };
+        };
+    }
     /**
      * @since 0.1.0-beta.0.draft
      */
@@ -469,11 +532,14 @@ export declare namespace Tokens_CSS_Style {
             border: {
                 radius: {
                     $: TokenTypes.Css.BorderRadius;
-                    top: TokenTypes.Css.BorderRadius;
+                    top?: TokenTypes.Css.BorderRadius;
                 };
                 style: {
-                    $: "dotted" | "solid";
-                    top: "dotted" | "solid";
+                    $: TokenTypes.Css.BorderStyle;
+                    top?: TokenTypes.Css.BorderStyle;
+                    bottom?: TokenTypes.Css.BorderStyle;
+                    left?: TokenTypes.Css.BorderStyle;
+                    right?: TokenTypes.Css.BorderStyle;
                 };
                 width: TokenTypes.Css.BorderWidth;
             };
@@ -489,9 +555,9 @@ export declare namespace Tokens_CSS_Style {
         control: {
             $: ToggleStyles_ControlHeading;
             heading: {
-                [H in RequiredHeadingLevels]: ToggleStyles_ControlHeading;
+                [H in RequiredHeadingLevels]?: RecursivePartial<ToggleStyles_ControlHeading>;
             } & {
-                [key: number]: ToggleStyles_ControlHeading;
+                [key: number]: RecursivePartial<ToggleStyles_ControlHeading>;
             };
         };
         /**
@@ -535,9 +601,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type ToggleStyles_ControlHeading = {
         margin: {
-            block: {
-                end: HeadingStyles['padding']['block']['end'];
-            };
+            block: HeadingStyles['padding']['block'];
         };
         padding: {
             block: HeadingStyles['padding']['block'];
@@ -578,6 +642,10 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0.draft
          */
         alert: AlertStyles;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        backdrop: BackdropStyles.Parsed;
         button: {
             $: ButtonStyles;
             disabled: ButtonStyles_Disabled;
@@ -710,6 +778,10 @@ export declare namespace Tokens_CSS_Style {
                 [key: number]: undefined | Partial<AlertStyles_Heading>;
             });
         };
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
+        backdrop?: RecursivePartial<BackdropStyles>;
         button?: {
             $?: RecursivePartial<ButtonStyles>;
             disabled?: RecursivePartial<ButtonStyles_Disabled>;

@@ -535,14 +535,26 @@ const default_brightnessSet = {
                     return;
                 }
 
-                controllerSignal.addEventListener('abort', () => resolve(), {
-                    once: true,
-                });
+                let unresolved = true;
+                const doubleResolve = () => {
+                    resolve();
+                    unresolved = false;
+                };
+
+                controllerSignal.addEventListener('abort', doubleResolve);
+
+                if (!unresolved) {
+                    return;
+                }
 
                 document.documentElement.setAttribute(
                     ThemeDynamicManager.attrNames[key],
                     newValue,
                 );
+
+                if (!unresolved) {
+                    return;
+                }
 
                 const promises: Promise<any>[] =
                     this.dynamicPreviewContainers.map((container) =>
@@ -555,8 +567,15 @@ const default_brightnessSet = {
 
                 if (setInputValues) {
                     for (const input of this.inputs[key]) {
+                        if (!unresolved) {
+                            return;
+                        }
                         input.checked = input.value === newValue;
                     }
+                }
+
+                if (!unresolved) {
+                    return;
                 }
 
                 localStorage.setItem(
@@ -565,8 +584,8 @@ const default_brightnessSet = {
                 );
 
                 setTimeout(
-                    () => Promise.all(promises).then(() => resolve()),
-                    3000,
+                    () => Promise.all(promises).then(doubleResolve),
+                    300,
                 );
             });
         }

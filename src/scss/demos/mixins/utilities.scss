@@ -8,6 +8,7 @@
 
 @forward '../header';
 
+@use 'pkg:@maddimathon/utility-sass/demo';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
@@ -17,7 +18,7 @@
  * ======================================================================== */
 
 @mixin _snippet-no-top-or-bottom-margin--tester($mixin, $module: null, $args...) {
-    @include meta.demo-mixin(
+    @include demo.mixin(
         "#{if($module == null, '', '#{$module}.')}#{$mixin}",
         meta.get-mixin($mixin, $module),
         $args
@@ -240,7 +241,7 @@ $_paramPermutations: (
                 $useIs_root: map.get($map, useIs_root);
 
                 @at-root #{if($useIs_root, ':is(&)', &)} {
-                    @include meta.demo-mixin(
+                    @include demo.mixin(
                         $mixin,
                         meta.get-mixin($mixin),
                         meta.arglist($map...),

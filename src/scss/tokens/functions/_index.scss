@@ -20,6 +20,34 @@
 @function tokens-get-at-properties($inputs) {
     // #region - $defaults
     $defaults: (
+        backdrop-background-before: (
+            syntax: '*',
+            inherits: true,
+            initial-value: system.tokens-style-value(
+                    backdrop-background-before,
+                    $asInitialValue: true
+                ),
+        ),
+        backdrop-background-after: (
+            syntax: '*',
+            inherits: true,
+            initial-value: system.tokens-style-value(
+                    backdrop-background-after,
+                    $asInitialValue: true
+                ),
+        ),
+
+        backdrop-opacity-before: (
+            syntax: '<length-percentage> | <number>',
+            inherits: true,
+            initial-value: system.tokens-style-value(backdrop-opacity-before, $asInitialValue: true),
+        ),
+        backdrop-opacity-after: (
+            syntax: '<length-percentage> | <number>',
+            inherits: true,
+            initial-value: system.tokens-style-value(backdrop-opacity-after, $asInitialValue: true),
+        ),
+
         focus-ring-outline-color: (
             syntax: '*',
             initial-value: system.tokens-style-value(

@@ -51,7 +51,7 @@
     //
     $asFallbackValue: false,
     $asInitialValue: false,
-    $failureReturn: $slug,
+    $failureReturn: if($asInitialValue, null, $slug),
     $opacity: null,
     $warnOnFail: true,
     $args...
@@ -122,6 +122,7 @@
     $isAlertStyle: string.index($slug, alert-) == 1;
     $isAlertHeadingStyle: string.index($slug, alert-heading-) == 1;
     $isAlertHeadlineStyle: string.index($slug, alert-headline-) == 1;
+    $isBackdropStyle: string.index($slug, backdrop-) == 1;
     $isButtonStyle: string.index($slug, button-) == 1;
     $isHeadingStyle: string.index($slug, heading-) == 1;
     $isHr: string.index($slug, hr-) == 1;
@@ -148,6 +149,7 @@
     $isSimpleEm: false;
 
     @if $isAlertStyle or
+        $isBackdropStyle or
         $isButtonStyle or
         $isIconStyle or
         $isInputStyle or
@@ -462,9 +464,9 @@
     $value_warnOnFail: true,
     $args...
 ) {
-    // returns - flow margins are always dealt with the same way
     $_default_flow_tokens_match: string.match($slug, '^flow-margin(-(large|small)|$)');
 
+    // returns - flow margins are always dealt with the same way
     @if $_default_flow_tokens_match != null {
         @if $fallback == null {
             $fallback: tokens-style-value(

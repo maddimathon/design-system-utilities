@@ -117,6 +117,10 @@ export declare namespace TokenTypes {
         /**
          * @since 0.1.0-beta.0.draft
          */
+        type BorderStyle = 'none' | 'hidden' | 'dashed' | 'dotted' | 'double' | 'groove' | 'inset' | 'outset' | 'ridge' | 'solid' | GlobalKeywords;
+        /**
+         * @since 0.1.0-beta.0.draft
+         */
         type BorderWidth = 0 | AnyTokenLevel;
         /**
          * Global keywords available for most properties.

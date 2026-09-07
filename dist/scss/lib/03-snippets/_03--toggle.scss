@@ -24,111 +24,426 @@
 
 $_closing_time: var-tr-time(toggle-closing);
 
-@mixin _motion-props($bool, $svg_sel_static, $svg_sel_moving) {
-    [data-toggle-content] {
-        $_transitionList: (
-            'border-color #{var-tr-time(normal)} #{tokens.$transition_function} 0ms'
-        );
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _transition-value-list($bool) {
+    $_transitionList: ();
 
-        @if $bool {
-            $_transitionList: list.join(
-                $_transitionList,
-                (
-                    'border-radius #{$_closing_time} #{tokens.$transition_function} 0ms',
-                    'border-width #{$_closing_time} #{tokens.$transition_function} 0ms',
-                    'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms',
+    @if $bool {
+        $_transitionList: list.append(
+            $_transitionList,
+            string.unquote(
+                'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
+            ),
+            $separator: comma
+        );
+    } @else if $bool {
+        $_transitionList: ();
+    }
+
+    @return if(list.length($_transitionList) > 0, $_transitionList, none);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _transition-value-list--content($bool) {
+    $_transitionList: (
+        string.unquote(
+            'border-color #{var-tr-time(normal)} #{tokens.$transition_function} 0ms'
+        )
+    );
+
+    @if $bool {
+        $_transitionList: list.join(
+            $_transitionList,
+            (
+                string.unquote(
+                    'border-radius #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'border-width #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
+                )
+            ),
+            $separator: comma
+        );
+    } @else {
+        $_transitionList: list.append(
+            $_transitionList,
+            string.unquote(
+                'grid-template-rows 0ms #{tokens.$transition_function} #{$_closing_time}'
+            ),
+            $separator: comma
+        );
+    }
+
+    @return if(list.length($_transitionList) > 0, $_transitionList, none);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _transition-value-list--content--container($bool) {
+    $_transitionList: (
+        string.unquote(
+            'opacity #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
+        ),
+        string.unquote(
+            'visibility #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
+        )
+    );
+
+    @if $bool {
+        $_transitionList: list.join(
+            $_transitionList,
+            (
+                string.unquote(
                     'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
                 ),
-                $separator: comma
-            );
-        } @else {
-            $_transitionList: list.join(
-                $_transitionList,
-                (
-                    'grid-template-rows 0ms #{tokens.$transition_function} #{$_closing_time}'
-                ),
-                $separator: comma
-            );
-        }
+                string.unquote(
+                    'padding #{$_closing_time} #{tokens.$transition_function} 0ms'
+                )
+            ),
+            $separator: comma
+        );
+    }
 
-        transition: #{$_transitionList};
+    @return if(list.length($_transitionList) > 0, $_transitionList, none);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _transition-value-list--open-or-closing--icon($bool) {
+    $_transitionList: ();
+
+    @if $bool {
+        $_transitionList: list.append(
+            $_transitionList,
+            string.unquote(
+                'transform #{$_closing_time} #{tokens.$transition_function} 0ms'
+            ),
+            $separator: comma
+        );
+    } @else {
+        $_transitionList: ();
+    }
+
+    @return if(list.length($_transitionList) > 0, $_transitionList, none);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _transition-value-list--open-or-closing--content($bool) {
+    $_transitionList: (
+        string.unquote(
+            'border-color #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 0ms'
+        )
+    );
+
+    @if $bool {
+        $_transitionList: list.join(
+            $_transitionList,
+            (
+                string.unquote(
+                    'border-radius #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'border-width #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
+                )
+            ),
+            $separator: comma
+        );
+    }
+
+    @return if(list.length($_transitionList) > 0, $_transitionList, none);
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function _transition-delay--open-or-closing--content--container($bool) {
+    // returns
+    @if $bool {
+        @return 0ms;
+    }
+
+    @return 0ms, 0ms;
+}
+
+@mixin _toggle-block--base--motion-props(
+    $bool,
+    $svg_sel_static,
+    $svg_sel_moving
+) {
+    [data-toggle-content] {
+        transition: _transition-value-list--content($bool);
 
         > .container {
-            $_transitionList: (
-                'opacity #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
-            );
-
-            @if $bool {
-                $_transitionList: list.join(
-                    $_transitionList,
-                    (
-                        'margin #{$_closing_time} #{tokens.$transition_function} 0ms',
-                        'padding #{$_closing_time} #{tokens.$transition_function} 0ms'
-                    ),
-                    $separator: comma
-                );
-            }
-
-            transition: #{$_transitionList};
+            transition: _transition-value-list--content--container($bool);
         }
     }
 
     [data-toggle-container] {
-        @if $bool {
-            transition: margin $_closing_time tokens.$transition_function 0ms;
-        } @else if $bool {
-            transition: none;
-        }
+        transition: _transition-value-list($bool);
     }
 
     [data-toggle-container='open'],
     [data-toggle-container='closing'] {
         [data-toggle-control] {
-            .toggle-icon {
+            %icon,
+            .toggle-block__control__icon {
                 > svg #{$svg_sel_static},
                 > svg #{$svg_sel_moving} {
-                    @if $bool {
-                        transition: transform
-                            $_closing_time
-                            tokens.$transition_function
-                            0ms;
-                    } @else {
-                        transition: none;
-                    }
+                    transition: _transition-value-list--open-or-closing--icon(
+                        $bool
+                    );
                 }
             }
         }
 
         > [data-toggle-content] {
-            $_transitionList: (
-                'border-color #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 0ms'
-            );
-
-            @if $bool {
-                $_transitionList: list.join(
-                    $_transitionList,
-                    (
-                        'border-radius #{$_closing_time} #{tokens.$transition_function} 0ms',
-                        'border-width #{$_closing_time} #{tokens.$transition_function} 0ms',
-                        'grid-template-rows #{$_closing_time} #{tokens.$transition_function} 0ms',
-                        'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
-                    ),
-                    $separator: comma
-                );
-            }
-
-            transition: #{$_transitionList};
+            transition: _transition-value-list--open-or-closing--content($bool);
 
             > .container {
-                @if $bool {
-                    transition-delay: 0ms;
-                } @else {
-                    transition-delay: 0ms, 0ms;
-                }
+                transition-delay: _transition-delay--open-or-closing--content--container(
+                    $bool
+                );
             }
         }
     }
 }
+
+$_toggle_gridGap: 0 var-pad-firm('200');
+
+$_toggle_svg_sel_static: '#a';
+$_toggle_svg_sel_moving: '#b';
+
+$_backdrop_background_after: style-value(
+    backdrop-background-after,
+    $failureReturn: null,
+    $warnOnFail: false
+);
+$_backdrop_background_after: if(
+    $_backdrop_background_after,
+    var-style(backdrop-background-after, $_backdrop_background_after),
+    false
+);
+
+$_backdrop_opacity_after: style-value(
+    backdrop-opacity-after,
+    $failureReturn: null,
+    $warnOnFail: false
+);
+$_backdrop_opacity_after: if(
+    $_backdrop_opacity_after,
+    var-style(backdrop-opacity-after, $_backdrop_opacity_after),
+    false
+);
+
+$_content_border_style_fallback: var-style(toggle-content-border-style);
+
+///
+/// Adds only the most basic toggle block functionality using attribute
+/// selectors.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@mixin snippet-support-toggle-block-base(
+    $includeBackdropStyles: true,
+    $gridGap: $_toggle_gridGap,
+    //
+    $backdrop_background_before: var-style(backdrop-background-before),
+    $backdrop_background_before_hover: if(
+            $backdrop_background_before,
+            var-style(
+                backdrop-background-before-hover,
+                $value_failureReturn: $backdrop_background_before,
+                $value_warnOnFail: false
+            ),
+            $backdrop_background_before
+        ),
+    $backdrop_background_before_active: if(
+            $backdrop_background_before,
+            var-style(
+                backdrop-background-before-active,
+                $value_failureReturn: $backdrop_background_before_hover,
+                $value_warnOnFail: false
+            ),
+            $backdrop_background_before
+        ),
+    //
+    $backdrop_background_after: $_backdrop_background_after,
+    $backdrop_background_after_hover: if(
+            $backdrop_background_after,
+            var-style(
+                backdrop-background-after-hover,
+                $value_failureReturn: $backdrop_background_after,
+                $value_warnOnFail: false
+            ),
+            $backdrop_background_after
+        ),
+    $backdrop_background_after_active: if(
+            $backdrop_background_after,
+            var-style(
+                backdrop-background-after-active,
+                $value_failureReturn: $backdrop_background_after_hover,
+                $value_warnOnFail: false
+            ),
+            $backdrop_background_after
+        ),
+    //
+    $backdrop_opacity_before: var-style(backdrop-opacity-before),
+    $backdrop_opacity_after: $_backdrop_opacity_after,
+    //
+    $svg_sel_moving: $_toggle_svg_sel_moving,
+    $svg_sel_static: $_toggle_svg_sel_static,
+    //
+    $args...
+) {
+    @include utils.snippet-support-toggle-block-base(
+            $gridGap: $gridGap,
+            //
+            $svg_sel_static: $svg_sel_static,
+            $svg_sel_moving: $svg_sel_moving,
+            //
+            $includeBackdropStyles: false,
+            //
+            $args...
+        )
+        using ($location) {
+        @if $location == js--toggle-base--container {
+            @include cx-prop(toggle-closing-time, $_closing_time);
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--toggle-base--control-backdrop {
+            transition: transition-properties-value(false);
+
+            @content ($location);
+
+            &,
+            &::before,
+            &::after {
+                transition: transition-properties-value(false);
+
+                @content (#{$location}--self-before-after);
+            }
+        }
+        //
+        @else if $location == js--toggle-base--control-backdrop--before {
+            @if $backdrop_background_before {
+                background: $backdrop_background_before;
+            }
+            @if $backdrop_opacity_before != null {
+                opacity: $backdrop_opacity_before;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if
+            $location ==
+            js--toggle-base--control-backdrop--before--hover-focus-or-within
+        {
+            @if $backdrop_background_before_hover {
+                background: $backdrop_background_before_hover;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--toggle-base--control-backdrop--before--active
+        {
+            @if $backdrop_background_before_active {
+                background: $backdrop_background_before_active;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--toggle-base--control-backdrop--after {
+            @if $backdrop_background_after {
+                background: $backdrop_background_after;
+            }
+            @if $backdrop_opacity_after != null {
+                opacity: $backdrop_opacity_after;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if
+            $location ==
+            js--toggle-base--control-backdrop--after--hover-focus-or-within
+        {
+            @if $backdrop_background_after_hover {
+                background: $backdrop_background_after_hover;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--toggle-base--control-backdrop--after--active {
+            @if $backdrop_background_after_active {
+                background: $backdrop_background_after_active;
+            }
+
+            @content ($location);
+        }
+        //
+        @else if $location == toggle-base--title-and-headings {
+            transition: transition-properties-value(false);
+
+            @content ($location);
+        }
+        //
+        // @else if $location == LOCATION {
+        //     @content ($location);
+        // }
+        //
+        @else {
+            @content ($location);
+        }
+    }
+
+    /* Transition Overrides ==================================== */
+
+    @include feature-check.js {
+        @include motion($nestParent: false, $unifyParent: true) {
+            @include _toggle-block--base--motion-props(
+                true,
+                $svg_sel_static: $svg_sel_static,
+                $svg_sel_moving: $svg_sel_moving
+            );
+        }
+
+        @include no-motion($nestParent: false, $unifyParent: true) {
+            @include _toggle-block--base--motion-props(
+                false,
+                $svg_sel_static: $svg_sel_static,
+                $svg_sel_moving: $svg_sel_moving
+            );
+        }
+    }
+}
+
+$_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 
 ///
 /// Supports the Toggle astro component.
@@ -144,39 +459,65 @@ $_closing_time: var-tr-time(toggle-closing);
             $raw: true
         ),
     //
-    $backdrop_backgroundClr_before: var-theme(background),
-    $backdrop_backgroundClr_after: var-theme(link),
-    $backdrop_opacity_before: 0.625,
-    $backdrop_opacity_after: 0.1875,
-    //
     $content_borderWidth: var-style(toggle-content-border-width),
     $content_container_paddingBlock: var-style(toggle-content-padding-block),
     $content_container_paddingInline: var-style(toggle-content-padding-inline),
     //
-    $svg_sel_static: '#a',
-    $svg_sel_moving: '#b',
+    $gridGap: $_toggle_gridGap,
     //
-    $includeBackdropControlStyles: true,
-    $includeBaseStyles: true,
+    $svg_sel_moving: $_toggle_svg_sel_moving,
+    $svg_sel_static: $_toggle_svg_sel_static,
+    //
+    $includeBackdropStyles: true,
+    $includeStyles: true,
+    $mixin_support_base: $_mixin_support_base,
     $args...
 ) {
+    $control_marginBlockStart: var-style(toggle-control-margin-block-start);
     $control_marginBlockEnd: var-style(toggle-control-margin-block-end);
     $control_paddingBlockStart: var-style(toggle-control-padding-block-start);
     $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
+    $selector_toggleControl__isHover: selector.is-list(
+        list.join(
+            (
+                '[data-toggle-control]:hover',
+                '[data-toggle-control]:focus-visible'
+            ),
+            selector.unify(
+                '[data-toggle-control]',
+                config.$selector_interactiveState_focus
+            ),
+            $separator: comma
+        )
+    );
+
+    $selector_toggleControl__isActive: selector.is-list(
+        list.join(
+            ('[data-toggle-control]:active'),
+            selector.unify(
+                '[data-toggle-control]',
+                config.$selector_interactiveState_active
+            ),
+            $separator: comma
+        )
+    );
+
     @include utils.snippet-support-toggle-block(
             $content_container_paddingBlock: $content_container_paddingBlock,
             $content_container_paddingInline: $content_container_paddingInline,
-            $control_heading_paddingBlockEnd: $control_paddingBlockEnd,
-            $control_heading_unstyled_paddingBlockEnd: $control_paddingBlockEnd,
             $control_paddingBlockEnd: 0,
+            //
+            $gridGap: $gridGap,
             //
             $svg_sel_static: $svg_sel_static,
             $svg_sel_moving: $svg_sel_moving,
             //
-            $includeBackdropControlStyles: false,
-            $includeBaseStyles: false,
+            $includeBackdropStyles: false,
+            $includeStyles: false,
             $includeMarginBlock: false,
+            //
+            $mixin_support_base: $mixin_support_base,
             $args...
         )
         using ($location) {
@@ -189,16 +530,27 @@ $_closing_time: var-tr-time(toggle-closing);
         }
         //
         @else if $location == toggle-container {
-            @include cx-prop(toggle-closing-time, $_closing_time);
             @include cx-prop(toggle-border-color, var-theme(link-ui));
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--toggle-container {
+            margin-block-end: do-var(flow-margin-firm-end--large);
 
             @content ($location);
 
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
-                &:has(.toggle-title > %h#{$slug}) {
+                &:has(
+                    #{selector.unify('.toggle-block__title__heading', '%h#{$slug}')}
+                ) {
                     @include cx-prop(
                         toggle-border-color,
+                        var-theme(heading-#{$slug})
+                    );
+                    @include cx-prop(
+                        toggle-title-color,
                         var-theme(heading-#{$slug})
                     );
 
@@ -217,102 +569,29 @@ $_closing_time: var-tr-time(toggle-closing);
             }
 
             // HAS BUTTON HOVER OR FOCUS
-            $_selector_control_focus_config: selector.unify(
-                '.toggle-title [data-toggle-control]',
-                config.$selector_interactiveState_focus
-            );
-
-            $_selector_control_hover: '.toggle-title [data-toggle-control]:hover';
-
-            @at-root {
-                @if config.$mx_interactive_isolateSelector_focus {
-                    &:has(> #{$_selector_control_hover}) {
-                        @include cx-prop(
-                            toggle-border-color,
-                            var-theme(link-ui-hover)
-                        );
-
-                        @content (#{$location}--has-control-focus-or-hover);
-                    }
-                } @else {
-                    $_selector_control_focus_config: list.join(
-                        ($_selector_control_hover),
-                        $_selector_control_focus_config,
-                        $separator: comma
-                    );
-                }
-
-                @include selector.has(
-                    $_selector_control_focus_config,
-                    $direct: true,
-                    $unifyParent: true
-                ) {
-                    @include cx-prop(
-                        toggle-border-color,
-                        var-theme(link-ui-hover)
-                    );
-
-                    @content (#{$location}--has-control-focus-or-hover);
-                }
-            }
-
-            &:has(> .toggle-title [data-toggle-control]:focus-visible) {
+            &:has(
+                #{$selector_toggleControl__isHover},
+                #{selector.nest('.toggle-block__title__heading', $selector_toggleControl__isHover)}
+            ) {
                 @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
+                @include cx-prop(toggle-title-color, var-theme(link-hover));
 
                 @content (#{$location}--has-control-focus-or-hover);
             }
 
             // HAS BUTTON ACTIVE
-            $_selector_control_active_config: selector.nest(
-                '.toggle-title',
-                selector.unify(
-                    '[data-toggle-control]',
-                    config.$selector_interactiveState_active
-                )
-            );
-
-            $_selector_control_active: '.toggle-title [data-toggle-control]:active';
-
-            @if config.$mx_interactive_isolateSelector_active {
-                &:has(> #{$_selector_control_active}) {
-                    @include cx-prop(
-                        toggle-border-color,
-                        var-theme(link-ui-active)
-                    );
-
-                    @content (#{$location}--has-control-active);
-                }
-            } @else {
-                $_selector_control_active_config: list.join(
-                    ($_selector_control_active),
-                    $_selector_control_active_config,
-                    $separator: comma
-                );
-            }
-
-            @include selector.has(
-                $_selector_control_active_config,
-                $direct: true,
-                $unifyParent: true
-            ) {
+            &:has(#{$selector_toggleControl__isActive}) {
                 @include cx-prop(
                     toggle-border-color,
                     var-theme(link-ui-active)
                 );
+                @include cx-prop(toggle-title-color, var-theme(link-active));
 
                 @content (#{$location}--has-control-active);
             }
         }
         //
-        @else if $location == js--toggle-container {
-            margin-block-end: do-var(flow-margin-firm-end--large);
-
-            @content ($location);
-        }
-        //
         @else if $location == js--container-grid {
-            gap: 0;
-
             @content ($location);
         }
 
@@ -320,166 +599,62 @@ $_closing_time: var-tr-time(toggle-closing);
         /// CONTROL
         ///
 
-        @else if
-            $location ==
-            toggle-control or
-            $location ==
-            toggle-control--disabled
-        {
-            @include cx-prop(icon-color, style-value(icon-color));
+        @else if $location == toggle-control {
+            @include cx-prop(
+                icon-color,
+                do-var(
+                    toggle-block__control__icon-color,
+                    style-value(icon-color)
+                )
+            );
 
+            margin: 0;
+            padding: 0;
+
+            width: auto;
+
+            font: inherit;
+            font-size: 1em;
+
+            letter-spacing: inherit;
+            line-height: inherit;
+            text-transform: inherit;
+
+            text-align: inherit;
+            text-wrap: inherit;
+
+            @content ($location);
+
+            &::before,
+            &::after {
+                content: none;
+            }
+        }
+        //
+        @else if $location == toggle-control--self-active-hover-focus {
+            box-shadow: none;
             border: none;
             background: none;
+            opacity: 1;
             color: inherit;
 
-            @if $location == toggle-control {
-                width: 100%;
-
-                font: inherit;
-                text-align: inherit;
-
-                appearance: none;
-                cursor: text;
-
-                @content ($location);
-
-                &::before,
-                &::after {
-                    content: none;
-                }
-            } @else if $location == toggle-control--disabled {
-                font: inherit;
-                cursor: text;
-
-                @content ($location);
-
-                &::before,
-                &::after {
-                    content: none;
-                }
-
-                @include active-hover-focus-visible-or-within {
-                    @include cx-prop(icon-color, style-value(icon-color));
-
-                    border: none;
-                    background: none;
-                    color: inherit;
-
-                    outline: none;
-
-                    @content (#{$location}--hover-focus);
-                }
-            }
+            @content ($location);
         }
         //
-        @else if $location == toggle-control--hover-focus {
-            background: transparent;
-            box-shadow: none;
+        @else if $location == toggle-control--disabled {
+            @include cx-prop(icon-color, style-value(icon-color));
 
             @content ($location);
         }
         //
-        @else if $location == toggle-control--active {
-            background: transparent;
+        @else if $location == js--toggle-control {
+            align-items: center;
 
-            @content ($location);
-        }
-        //
-        @else if $location == toggle-control-backdrop {
-            @content ($location);
-
-            @if $includeBackdropControlStyles {
-                &::before,
-                &::after {
-                    content: '';
-                    content: '' / '';
-                    @include prop-display(block);
-                    position: absolute;
-
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-
-                    @content (#{$location}--before-or-after);
-                }
-
-                &::before {
-                    background: $backdrop_backgroundClr_before;
-                    opacity: $backdrop_opacity_before;
-
-                    @content (#{$location}--before);
-                }
-
-                &::after {
-                    background: $backdrop_backgroundClr_after;
-                    opacity: $backdrop_opacity_after;
-
-                    @content (#{$location}--after);
-                }
-
-                @include active-hover-focus-visible-or-within {
-                    border: none;
-                    background: none;
-                    color: inherit;
-                    outline: none;
-                    opacity: 1;
-
-                    @content (#{$location}--hover-focus-active);
-                }
-            }
-        }
-        //
-        @else if
-            $location ==
-            js--toggle-control or
-            $location ==
-            js--toggle-control-backdrop
-        {
-            padding: 0;
+            margin-block: $control_marginBlockStart $control_marginBlockEnd;
+            padding-block: $control_paddingBlockStart $control_paddingBlockEnd;
 
             appearance: button;
             cursor: pointer;
-
-            @if $location == js--toggle-control {
-                margin-block: 0 $control_marginBlockEnd;
-                padding-block: $control_paddingBlockStart
-                    $control_paddingBlockEnd;
-
-                @include cx-prop(
-                    focus-ring-outline-color,
-                    var-theme(link-outline-hover)
-                );
-                color: var-theme(link);
-
-                @content ($location);
-            } @else if $location == js--toggle-control-backdrop {
-                @if $includeBackdropControlStyles {
-                    backdrop-filter: blur(1rem);
-                    background: none;
-                    border: none;
-                }
-
-                @content ($location);
-            }
-        }
-        //
-        @else if $location == js--toggle-control--hover-focus-or-within {
-            @include cx-prop(
-                focus-ring-outline-color,
-                var-theme(link-outline-hover)
-            );
-            color: var-theme(link-hover);
-
-            @content ($location);
-        }
-        //
-        @else if $location == js--toggle-control--active {
-            @include cx-prop(
-                focus-ring-outline-color,
-                var-theme(link-outline-active)
-            );
-            color: var-theme(link-active);
 
             @content ($location);
         }
@@ -488,127 +663,45 @@ $_closing_time: var-tr-time(toggle-closing);
         /// TITLE
         ///
 
-        @else if $location == toggle-title {
+        @else if $location == js--toggle-title-and-headings {
+            color: do-var(
+                toggle-title-color,
+                var-style(heading-unstyled-color)
+            );
+
             @content ($location);
-
-            // ALL HEADINGS
-            @include selector-all-headings($direct: true) {
-                @content (#{$location}--all-headings);
-
-                [data-toggle-control] {
-                    @include snippet-heading(
-                        $slug: null,
-                        $includeBase: true,
-                        $includeChildren_link: false,
-                        $includeMargin: false,
-                        $paddingBlockEnd: 0,
-                        $useRelativeFontSize: false
-                    );
-
-                    @content (#{$location}--all-headings--control);
-                }
-            }
-
-            // INDIVIDUAL HEADINGS
-            @each $slug in token-all-heading-levels() {
-                > %h#{$slug} {
-                    @content (#{$location}--h#{$slug});
-
-                    [data-toggle-control] {
-                        @include snippet-heading(
-                            $slug: $slug,
-                            $includeBase: false,
-                            $includeChildren_link: false,
-                            $includeMargin: false,
-                            $paddingBlockEnd: 0,
-                            $useRelativeFontSize: false
-                        );
-
-                        @content (#{$location}--h#{$slug}--control);
-                    }
-                }
-            }
-
-            // UNSTYLED HEADINGS
-            & > %unstyled-heading,
-            & > %unstyled-heading--where {
-                @content (#{$location}--unstyled-heading);
-
-                [data-toggle-control] {
-                    @include snippet-unstyled-heading(
-                        $includeChildren_link: false,
-                        $includeBase: false,
-                        $includeColor: false,
-                        $includeMargin: false,
-                        $paddingBlockEnd: 0,
-                        $useRelativeFontSize: false
-                    );
-
-                    @content (#{$location}--unstyled-heading--control);
-                }
-            }
         }
         //
-        @else if $location == js--toggle-title {
-            transition: transition-properties-value(false);
-
+        @else if $location == js--toggle-title--heading {
             @content ($location);
-
-            // ALL HEADINGS
-            @include selector.is(
-                selector-all-headings($where: config.$selector_headingsByRole),
-                $direct: true
-            ) {
-                @content (#{$location}--all-headings);
-
-                [data-toggle-control] {
-                    @content (#{$location}--all-headings--control);
-
-                    @include hover-focus-visible(
-                        $includeNoWhereSelectorFallback: false
-                    ) {
-                        @include cx-prop(
-                            focus-ring-outline-color,
-                            var-theme(link-outline-hover)
-                        );
-                        color: var-theme(link-hover);
-
-                        @content (#{$location}--all-headings--control--hover-focus);
-                    }
-
-                    @include active {
-                        @include cx-prop(
-                            focus-ring-outline-color,
-                            var-theme(link-outline-active)
-                        );
-                        color: var-theme(link-active);
-
-                        @content (#{$location}--all-headings--control--active);
-                    }
-                }
-            }
 
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
-                > %h#{$slug} {
-                    padding-block: 0;
-
+                @at-root #{selector.unify(&, '%h#{$slug}')} {
                     @content (#{$location}--h#{$slug});
 
                     [data-toggle-control] {
-                        margin-block: 0
+                        margin-block: var-style(
+                                toggle-control-heading-#{$slug}-margin-block-start,
+                                $value_failureReturn: $control_marginBlockStart,
+                                $value_warnOnFail: false
+                            )
                             var-style(
-                                toggle-control-heading-#{$slug}-margin-block-end
+                                toggle-control-heading-#{$slug}-margin-block-end,
+                                $value_failureReturn: $control_marginBlockEnd,
+                                $value_warnOnFail: false
                             );
 
                         padding-block: var-style(
-                                toggle-control-heading-#{$slug}-padding-block-start
+                                toggle-control-heading-#{$slug}-padding-block-start,
+                                $value_failureReturn: $control_paddingBlockStart,
+                                $value_warnOnFail: false
                             )
                             var-style(
-                                toggle-control-heading-#{$slug}-padding-block-end
+                                toggle-control-heading-#{$slug}-padding-block-end,
+                                $value_failureReturn: $control_paddingBlockEnd,
+                                $value_warnOnFail: false
                             );
-
-                        color: var-theme(heading-#{$slug});
 
                         @content (#{$location}--h#{$slug}--control);
                     }
@@ -616,10 +709,7 @@ $_closing_time: var-tr-time(toggle-closing);
             }
 
             // UNSTYLED HEADINGS
-            & > %unstyled-heading,
-            & > %unstyled-heading--where {
-                padding-block: 0;
-
+            @at-root #{selector.unify(&, ('%unstyled-heading', '%unstyled-heading--where'))} {
                 @content (#{$location}--unstyled-heading);
 
                 [data-toggle-control] {
@@ -636,18 +726,25 @@ $_closing_time: var-tr-time(toggle-closing);
         /// ICON
         ///
 
-        @else if $location == toggle-icon {
+        @else if $location == toggle-block__control__icon {
             @include cx-prop(icon-inline-buffer-start, 0, $important: true);
             @include cx-prop(icon-inline-buffer-end, 0, $important: true);
-            @include cx-prop(icon-size, var-style(toggle-icon-size));
+            @include cx-prop(
+                icon-size,
+                var-style(toggle-block__control__icon-size)
+            );
             @include cx-prop(
                 icon-vertical-align,
-                var-style(toggle-icon-vertical-align),
+                var-style(toggle-block__control__icon-vertical-align),
                 $important: true
             );
 
-            margin-inline-start: var-style(toggle-icon-buffer-start);
-            margin-inline-end: var-style(toggle-icon-buffer-end);
+            margin-inline-start: var-style(
+                toggle-block__control__icon-buffer-start
+            );
+            margin-inline-end: var-style(
+                toggle-block__control__icon-buffer-end
+            );
 
             @content ($location);
         }
@@ -669,20 +766,30 @@ $_closing_time: var-tr-time(toggle-closing);
             border-end-end-radius: var-style(toggle-content-border-radius);
             border-end-start-radius: var-style(toggle-content-border-radius);
 
-            border-style: var-style(toggle-content-border-style);
             border-block-start-style: var-style(
-                toggle-content-border-style-top
+                toggle-content-border-style-top,
+                $value_failureReturn: $_content_border_style_fallback,
+                $value_warnOnFail: false
+            );
+            border-block-end-style: var-style(
+                toggle-content-border-style-bottom,
+                $value_failureReturn: $_content_border_style_fallback,
+                $value_warnOnFail: false
+            );
+            border-inline-start-style: var-style(
+                toggle-content-border-style-left,
+                $value_failureReturn: $_content_border_style_fallback,
+                $value_warnOnFail: false
+            );
+            border-inline-end-style: var-style(
+                toggle-content-border-style-right,
+                $value_failureReturn: $_content_border_style_fallback,
+                $value_warnOnFail: false
             );
 
             border-color: do-var(toggle-border-color, var-theme(link-ui));
 
-            transition: transition-properties-value(false);
-
             @content ($location);
-
-            > * {
-                flex-shrink: 0;
-            }
 
             @at-root #{selector.replace(&, '[data-toggle-content]', ':where( [data-toggle-content] )')} {
                 @include set-flow-margins(
@@ -700,12 +807,75 @@ $_closing_time: var-tr-time(toggle-closing);
         @else if $location == js--toggle-content--container {
             @content ($location);
 
-            > * {
-                flex-shrink: 0;
+            @include first-child-no-top-margin(
+                $includeListsFirstItem: true,
+                $includeSrTextFirstItem: true,
+                $setFirstChildSelector: true
+            );
+            @include last-child-no-bottom-margin(
+                $includeListsFirstItem: true,
+                $includeSrTextFirstItem: true,
+                $setFirstChildSelector: true
+            );
+
+            > %ol,
+            > %ul {
+                width: 100%;
+
+                &:only-child {
+                    margin-inline: 0;
+                }
+            }
+        }
+        //
+        @else if $location == js--toggle-container--open {
+            @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
+            @include cx-prop(toggle-title-color, var-theme(link-hover));
+
+            @content ($location);
+
+            // HAS BUTTON HOVER OR FOCUS
+            &:has(#{$selector_toggleControl__isHover}) {
+                @include cx-prop(
+                    toggle-border-color,
+                    var-theme(link-ui-active)
+                );
+                @include cx-prop(toggle-title-color, var-theme(link-active));
+
+                @content (#{$location}--has-control-focus-or-hover);
             }
 
-            @include first-child-no-top-margin;
-            @include last-child-no-bottom-margin;
+            // HAS BUTTON ACTIVE
+            &:has(#{$selector_toggleControl__isActive}) {
+                @include cx-prop(toggle-border-color, var-theme(link-ui));
+                @include cx-prop(toggle-title-color, var-theme(link));
+
+                @content (#{$location}--has-control-active);
+            }
+
+            // HAS BUTTON ACTIVE - INDIVIDUAL HEADINGS
+            @each $slug in token-all-heading-levels() {
+                $_sel_heading_has_buttonHover: selector.has-list(
+                    $selector_toggleControl__isActive,
+                    $parentSelector: selector.unify(
+                            '.toggle-block__title__heading',
+                            '%h#{$slug}'
+                        ),
+                    $unify: true
+                );
+                &:has(#{$_sel_heading_has_buttonHover}) {
+                    @include cx-prop(
+                        toggle-border-color,
+                        var-theme(heading-#{$slug})
+                    );
+                    @include cx-prop(
+                        toggle-title-color,
+                        var-theme(heading-#{$slug})
+                    );
+
+                    @content (#{$location}--has-h#{$slug}--has-control-focus-or-hover);
+                }
+            }
         }
         //
         @else if $location == js--toggle-container--open--content {
@@ -715,13 +885,15 @@ $_closing_time: var-tr-time(toggle-closing);
         }
         //
         @else if $location == js--toggle-container--open-or-closing--content {
-            border-inline-width: $content_borderWidth;
-
             border-start-end-radius: var-style(
-                toggle-content-border-radius-top
+                toggle-content-border-radius-top,
+                $value_failureReturn: var-style(toggle-content-border-radius),
+                $value_warnOnFail: false
             );
             border-start-start-radius: var-style(
-                toggle-content-border-radius-top
+                toggle-content-border-radius-top,
+                $value_failureReturn: var-style(toggle-content-border-radius),
+                $value_warnOnFail: false
             );
 
             @content ($location);
@@ -731,34 +903,8 @@ $_closing_time: var-tr-time(toggle-closing);
         // @content($location);
         // }
 
-        @else if
-            string.match(
-                $location,
-                '^js--toggle-title--(has-heading|heading(--(toggle-control|unstyled))?)$'
-            ) ==
-            null
-        {
+        @else {
             @content ($location);
-        }
-    }
-
-    /* Transition Overrides ==================================== */
-
-    @include feature-check.js {
-        @include motion($nestParent: false, $unifyParent: true) {
-            @include _motion-props(
-                true,
-                $svg_sel_static: $svg_sel_static,
-                $svg_sel_moving: $svg_sel_moving
-            );
-        }
-
-        @include no-motion($nestParent: false, $unifyParent: true) {
-            @include _motion-props(
-                false,
-                $svg_sel_static: $svg_sel_static,
-                $svg_sel_moving: $svg_sel_moving
-            );
         }
     }
 }
@@ -771,113 +917,87 @@ $_closing_time: var-tr-time(toggle-closing);
 @mixin snippet-support-astro-toggle-nav-menu(
     $title_borderWidth: var-style(toggle-nav-content-border-width),
     //
-    $includeBaseStyles: true,
+    $includeStyles: true,
     //
+    $mixin_support_base: $_mixin_support_base,
     $args...
 ) {
     $title_borderWidth_half: calc($title_borderWidth / 2);
 
-    // prettier-ignore
     @include utils.snippet-support-astro-toggle-nav-menu(
-        $title_borderWidth: $title_borderWidth,
-        $title_borderWidth_half: $title_borderWidth_half,
-        //
-        $includeBaseStyles: false,
-        $args...
-    ) using ($location) {
-
+            $title_borderWidth: $title_borderWidth,
+            $title_borderWidth_half: $title_borderWidth_half,
+            //
+            $includeStyles: false,
+            //
+            $mixin_support_base: $mixin_support_base,
+            $args...
+        )
+        using ($location) {
         @if $location == js--body-nav-toggle-title {
             border-block-end-width: $title_borderWidth;
-            border-block-end-style: var-style(toggle-content-border-style-top);
-            border-block-end-color: do-var(toggle-border-color, var-theme(link-ui));
-            
-            @if $includeBaseStyles {
-                background: var-style(toggle-nav-title-background);
-            }
-            
-            @content ($location);
-        }
+            border-block-end-style: var-style(
+                toggle-content-border-style-top,
+                $value_failureReturn: $_content_border_style_fallback,
+                $value_warnOnFail: false
+            );
+            border-block-end-color: do-var(
+                toggle-border-color,
+                var-theme(link-ui)
+            );
 
+            background: var-style(toggle-nav-title-background);
+
+            @content ($location);
+
+            &,
+            &
+                > .toggle-nav-menu__title__heading.toggle-nav-menu__title__heading {
+                [data-toggle-control] {
+                    margin-block: 0 calc($title_borderWidth * -1);
+                }
+            }
+        }
+        //
         @else if $location == js--body-nav-toggle-title--control {
-            margin-block: 0;
-            
             @content ($location);
         }
-
+        //
         @else if $location == js--nav-toggle-content {
-            justify-content: stretch;
-            border-block-start: none;            
-            width: 100%;
-            
+            border-block-start: none;
+            border-inline-width: $title_borderWidth;
+
+            background: var-style(toggle-nav-content-background);
+
             @content ($location);
         }
-
+        //
         @else if $location == js--nav-toggle-content--container {
-            @if $includeBaseStyles {
-                background: var-style(toggle-nav-content-background);
-            }
-
             max-height: math.add-unit(
-                100 - (meta.defined-else(map.get(tokens.$gap, block, layout), 5) * 3),
+                100 -
+                    (
+                        meta.defined-else(
+                                map.get(tokens.$gap, block, layout),
+                                5
+                            ) *
+                            3
+                    ),
                 1vh
             );
             max-height: calc(
                 100svh - do-var(height-nav-primary) - var-gap-block(layout)
             );
 
-            %ol,
-            %ul {
-                @content (#{$location}--ol-ul-1);
-
-                ol,
-                ul {
-                    @content (#{$location}--ol-ul-2);
-
-                    ol,
-                    ul {
-                        @content (#{$location}--ol-ul-3);
-                    }
-                }
-            }
-            
-            > %ol,
-            > %ul {
-                @content (#{$location}--ol-ul-direct);
-            }
-
-            %li {
-                @if $includeBaseStyles {
-                    margin-block: do-var(flow-margin--small) 0;
-                }
-                
-                @content (#{$location}--li);
-            }
-            
-            > %ol,
-            > %ul {
-                @content (#{$location}--ol-ul-direct);
-
-                &:first-child {
-                    @content (#{$location}--ol-ul-direct--first-child);
-
-                    > li {
-                        @content (#{$location}--ol-ul-direct--first-child--li);
-
-                        &:first-child {
-                            margin-block-start: 0;
-
-                            @content (#{$location}--ol-ul-direct--first-child--li--first-child);
-                        }
-                    }
-                }
-            }
-            
             @content ($location);
         }
-
+        //
+        @else if $location == js--nav-toggle-container--open--content {
+            border-block-end-width: $title_borderWidth;
+        }
+        //
         // @else if $location == LOCATION {
         // }
-
+        //
         @else {
             @content ($location);
         }

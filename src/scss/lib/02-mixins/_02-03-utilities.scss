@@ -122,10 +122,6 @@ $_firmFlowMarginChildren: list.join(
         @if $includeRoot {
             $_to_nest: if($useNotInsteadOfChildren, (), $_childSelector);
 
-            @if $useIs_root == null {
-                $useIs_root: string.match(#{&}, ':(has|is|where)\\(') != null;
-            }
-
             $_universal_selector: '*';
 
             @if $includeListsFirstItem {
