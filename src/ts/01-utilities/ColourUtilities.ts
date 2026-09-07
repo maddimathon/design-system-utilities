@@ -1778,10 +1778,12 @@ export namespace ColourUtilities {
          * @since ___PKG_VERSION___
          */
         export const optional = [
+            '250',
             '350',
             '450',
             '550',
             '650',
+            '750',
         ] as const;
 
         /**
@@ -1793,13 +1795,11 @@ export namespace ColourUtilities {
             '100',
             '150',
             '200',
-            '250',
             '300',
             '400',
             '500',
             '600',
             '700',
-            '750',
             '800',
             '850',
             '900',

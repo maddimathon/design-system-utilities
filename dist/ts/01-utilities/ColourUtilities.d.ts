@@ -297,13 +297,13 @@ export declare namespace ColourUtilities {
          *
          * @since 0.1.0-beta.0.draft
          */
-        const optional: readonly ["350", "450", "550", "650"];
+        const optional: readonly ["250", "350", "450", "550", "650", "750"];
         /**
          * The shade level keys always included in maps for this system.
          *
          * @since 0.1.0-beta.0.draft
          */
-        const required: readonly ["100", "150", "200", "250", "300", "400", "500", "600", "700", "750", "800", "850", "900"];
+        const required: readonly ["100", "150", "200", "300", "400", "500", "600", "700", "800", "850", "900"];
         /**
          * All possible shade levels possibly in shade maps for this system.
          *

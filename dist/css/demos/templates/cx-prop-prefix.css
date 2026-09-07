@@ -723,6 +723,11 @@
     inherits: true;
     initial-value: 0px;
 }
+@property --prefix-toggle-title-color {
+    syntax: "*";
+    inherits: true;
+    initial-value: currentColor;
+}
 /* #endregion Tokens - @property */
 /* #region Tokens - Width */
 :root {
@@ -1267,8 +1272,8 @@
         --prefix-theme-input-border-hover-hsl: 321 68% 26%;
         --prefix-theme-input-placeholder: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-input-placeholder-hsl: 339.45 0% 34.6%;
-        --prefix-theme-input-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-input-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-input-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-input-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-disabled-accent: hsl(
             339.45,
             0%,
@@ -1326,9 +1331,9 @@
         --prefix-theme-input-readonly-text: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-text-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-link: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-link-hsl: 162 100% 15%;
         --prefix-theme-link-active: hsl(29, 100%, 21%); /* yellow-700 */
@@ -1395,10 +1400,10 @@
             64.6%
         ); /* pink-400 */
         --prefix-theme-selection-background-hsl: 322.17 58.42% 64.6%;
-        --prefix-theme-selection-text: hsl(339.45, 0%, 4.28%); /* base-900 */
-        --prefix-theme-selection-text-hsl: 339.45 0% 4.28%;
-        --prefix-theme-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-selection-text: hsl(0, 0%, 0%); /* black */
+        --prefix-theme-selection-text-hsl: 0 0% 0%;
+        --prefix-theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-text-primary: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-text-primary-hsl: 162 100% 15%;
         --prefix-theme-text-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -1409,8 +1414,8 @@
         --prefix-theme-text-active-hsl: 29 100% 21%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 34.6%;
-        --prefix-theme-ui: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-ui-hsl: 339.45 0% 17.88%;
+        --prefix-theme-ui: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-ui-primary: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-ui-primary-hsl: 162 100% 15%;
         --prefix-theme-ui-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -1494,8 +1499,8 @@
             34.6%
         ); /* base-600 */
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 34.6%;
-        --prefix-icon-color: hsl(339.45, 0%, 17.88%);
-        color: var(--prefix-theme-text, hsl(339.45, 0%, 17.88%));
+        --prefix-icon-color: hsl(339.45, 0%, 13.55%);
+        color: var(--prefix-theme-text, hsl(339.45, 0%, 13.55%));
         background: var(--prefix-theme-background, hsl(339.45, 0%, 91.26%));
     }
 }
@@ -1791,8 +1796,8 @@
         --prefix-theme-input-border-hover-hsl: 321 68% 26%;
         --prefix-theme-input-placeholder: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-input-placeholder-hsl: 339.45 0% 34.6%;
-        --prefix-theme-input-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-input-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-input-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-input-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-disabled-accent: hsl(
             339.45,
             0%,
@@ -1850,9 +1855,9 @@
         --prefix-theme-input-readonly-text: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-text-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-link: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-link-hsl: 162 100% 15%;
         --prefix-theme-link-active: hsl(29, 100%, 21%); /* yellow-700 */
@@ -1919,10 +1924,10 @@
             64.6%
         ); /* pink-400 */
         --prefix-theme-selection-background-hsl: 322.17 58.42% 64.6%;
-        --prefix-theme-selection-text: hsl(339.45, 0%, 4.28%); /* base-900 */
-        --prefix-theme-selection-text-hsl: 339.45 0% 4.28%;
-        --prefix-theme-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-selection-text: hsl(0, 0%, 0%); /* black */
+        --prefix-theme-selection-text-hsl: 0 0% 0%;
+        --prefix-theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-text-primary: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-text-primary-hsl: 162 100% 15%;
         --prefix-theme-text-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -1933,8 +1938,8 @@
         --prefix-theme-text-active-hsl: 29 100% 21%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 34.6%;
-        --prefix-theme-ui: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-ui-hsl: 339.45 0% 17.88%;
+        --prefix-theme-ui: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-ui-primary: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-ui-primary-hsl: 162 100% 15%;
         --prefix-theme-ui-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -2018,8 +2023,8 @@
             34.6%
         ); /* base-600 */
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 34.6%;
-        --prefix-icon-color: hsl(339.45, 0%, 17.88%);
-        color: var(--prefix-theme-text, hsl(339.45, 0%, 17.88%));
+        --prefix-icon-color: hsl(339.45, 0%, 13.55%);
+        color: var(--prefix-theme-text, hsl(339.45, 0%, 13.55%));
         background: var(--prefix-theme-background, hsl(339.45, 0%, 91.26%));
     }
 }
@@ -2315,8 +2320,8 @@
         --prefix-theme-input-border-hover-hsl: 321 68% 26%;
         --prefix-theme-input-placeholder: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-input-placeholder-hsl: 339.45 0% 34.6%;
-        --prefix-theme-input-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-input-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-input-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-input-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-disabled-accent: hsl(
             339.45,
             0%,
@@ -2374,9 +2379,9 @@
         --prefix-theme-input-readonly-text: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-text-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-link: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-link-hsl: 162 100% 15%;
         --prefix-theme-link-active: hsl(29, 100%, 21%); /* yellow-700 */
@@ -2443,10 +2448,10 @@
             64.6%
         ); /* pink-400 */
         --prefix-theme-selection-background-hsl: 322.17 58.42% 64.6%;
-        --prefix-theme-selection-text: hsl(339.45, 0%, 4.28%); /* base-900 */
-        --prefix-theme-selection-text-hsl: 339.45 0% 4.28%;
-        --prefix-theme-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-selection-text: hsl(0, 0%, 0%); /* black */
+        --prefix-theme-selection-text-hsl: 0 0% 0%;
+        --prefix-theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-text-primary: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-text-primary-hsl: 162 100% 15%;
         --prefix-theme-text-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -2457,8 +2462,8 @@
         --prefix-theme-text-active-hsl: 29 100% 21%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 34.6%;
-        --prefix-theme-ui: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-ui-hsl: 339.45 0% 17.88%;
+        --prefix-theme-ui: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-ui-primary: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-ui-primary-hsl: 162 100% 15%;
         --prefix-theme-ui-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -2542,8 +2547,8 @@
             34.6%
         ); /* base-600 */
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 34.6%;
-        --prefix-icon-color: hsl(339.45, 0%, 17.88%);
-        color: var(--prefix-theme-text, hsl(339.45, 0%, 17.88%));
+        --prefix-icon-color: hsl(339.45, 0%, 13.55%);
+        color: var(--prefix-theme-text, hsl(339.45, 0%, 13.55%));
         background: var(--prefix-theme-background, hsl(339.45, 0%, 91.26%));
     }
 }
@@ -2802,8 +2807,8 @@
     --prefix-theme-input-border-hover-hsl: 321 68% 26%;
     --prefix-theme-input-placeholder: hsl(339.45, 0%, 34.6%); /* base-600 */
     --prefix-theme-input-placeholder-hsl: 339.45 0% 34.6%;
-    --prefix-theme-input-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-    --prefix-theme-input-text-hsl: 339.45 0% 17.88%;
+    --prefix-theme-input-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+    --prefix-theme-input-text-hsl: 339.45 0% 13.55%;
     --prefix-theme-input-disabled-accent: hsl(339.45, 0%, 34.6%); /* base-600 */
     --prefix-theme-input-disabled-accent-hsl: 339.45 0% 34.6%;
     --prefix-theme-input-disabled-background: hsl(
@@ -2846,8 +2851,8 @@
         34.6%
     ); /* base-600 */
     --prefix-theme-input-readonly-placeholder-hsl: 339.45 0% 34.6%;
-    --prefix-theme-input-readonly-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-    --prefix-theme-input-readonly-text-hsl: 339.45 0% 17.88%;
+    --prefix-theme-input-readonly-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+    --prefix-theme-input-readonly-text-hsl: 339.45 0% 13.55%;
     --prefix-theme-link: hsl(162, 100%, 15%); /* turquoise-700 */
     --prefix-theme-link-hsl: 162 100% 15%;
     --prefix-theme-link-active: hsl(29, 100%, 21%); /* yellow-700 */
@@ -2902,10 +2907,10 @@
         64.6%
     ); /* pink-400 */
     --prefix-theme-selection-background-hsl: 322.17 58.42% 64.6%;
-    --prefix-theme-selection-text: hsl(339.45, 0%, 4.28%); /* base-900 */
-    --prefix-theme-selection-text-hsl: 339.45 0% 4.28%;
-    --prefix-theme-text: hsl(339.45, 0%, 17.88%); /* base-750 */
-    --prefix-theme-text-hsl: 339.45 0% 17.88%;
+    --prefix-theme-selection-text: hsl(0, 0%, 0%); /* black */
+    --prefix-theme-selection-text-hsl: 0 0% 0%;
+    --prefix-theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
+    --prefix-theme-text-hsl: 339.45 0% 13.55%;
     --prefix-theme-text-primary: hsl(162, 100%, 15%); /* turquoise-700 */
     --prefix-theme-text-primary-hsl: 162 100% 15%;
     --prefix-theme-text-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -2916,8 +2921,8 @@
     --prefix-theme-text-active-hsl: 29 100% 21%;
     --prefix-theme-text-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
     --prefix-theme-text-disabled-hsl: 339.45 0% 34.6%;
-    --prefix-theme-ui: hsl(339.45, 0%, 17.88%); /* base-750 */
-    --prefix-theme-ui-hsl: 339.45 0% 17.88%;
+    --prefix-theme-ui: hsl(339.45, 0%, 13.55%); /* base-800 */
+    --prefix-theme-ui-hsl: 339.45 0% 13.55%;
     --prefix-theme-ui-primary: hsl(162, 100%, 15%); /* turquoise-700 */
     --prefix-theme-ui-primary-hsl: 162 100% 15%;
     --prefix-theme-ui-secondary: hsl(321, 68%, 26%); /* pink-700 */
@@ -2985,8 +2990,8 @@
     --prefix-theme-link-outline-visited-hsl: 321 68% 26%;
     --prefix-theme-link-outline-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
     --prefix-theme-link-outline-disabled-hsl: 339.45 0% 34.6%;
-    --prefix-icon-color: hsl(339.45, 0%, 17.88%);
-    color: var(--prefix-theme-text, hsl(339.45, 0%, 17.88%));
+    --prefix-icon-color: hsl(339.45, 0%, 13.55%);
+    color: var(--prefix-theme-text, hsl(339.45, 0%, 13.55%));
     background: var(--prefix-theme-background, hsl(339.45, 0%, 91.26%));
 }
 
@@ -2994,8 +2999,8 @@
 /* #region Tokens - Theme - light mode + low contrast */
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: less )) {
     :root {
-        --prefix-theme-background: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-background-hsl: 339.45 0% 80.77%;
+        --prefix-theme-background: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-background-bright: hsl(
             339.45,
             0%,
@@ -3003,19 +3008,19 @@
         ); /* base-200 */
         --prefix-theme-background-bright-hsl: 339.45 0% 85.99%;
         --prefix-theme-background-primary: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-250 */
-        --prefix-theme-background-primary-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-200 */
+        --prefix-theme-background-primary-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-background-secondary: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-250 */
-        --prefix-theme-background-secondary-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-background-grey: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-background-grey-hsl: 339.45 0% 80.77%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-200 */
+        --prefix-theme-background-secondary-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-background-grey: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-background-grey-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-background: hsl(
             162,
             100%,
@@ -3055,39 +3060,39 @@
         --prefix-theme-button-primary-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-text-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-text-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-ui: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-ui-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-ui-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-background: hsl(
             321,
             68%,
@@ -3127,39 +3132,39 @@
         --prefix-theme-button-secondary-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-text-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-text-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-ui: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-ui-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-ui-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-background: hsl(
             339.45,
             0%,
@@ -3196,34 +3201,34 @@
             26%
         ); /* pink-700 */
         --prefix-theme-button-grey-border-hover-hsl: 321 68% 26%;
-        --prefix-theme-button-grey-text: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-button-grey-text-hsl: 339.45 0% 80.77%;
+        --prefix-theme-button-grey-text: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-button-grey-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-text-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-text-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-text-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-text-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-text-hover-hsl: 339.45 0% 80.77%;
-        --prefix-theme-button-grey-ui: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-button-grey-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-text-hover-hsl: 339.45 0% 85.99%;
+        --prefix-theme-button-grey-ui: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-button-grey-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-ui-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-ui-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-ui-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-ui-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-ui-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-ui-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-disabled-background: hsl(
             339.45,
             0%,
@@ -3239,15 +3244,15 @@
         --prefix-theme-button-disabled-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-disabled-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-disabled-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-disabled-ui: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-disabled-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-disabled-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-heading-1: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-heading-1-hsl: 162 100% 15%;
         --prefix-theme-heading-2: hsl(162, 100%, 15%); /* turquoise-700 */
@@ -3299,9 +3304,9 @@
         --prefix-theme-input-disabled-background: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-input-disabled-background-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-input-disabled-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-disabled-border: hsl(
             339.45,
             0%,
@@ -3329,9 +3334,9 @@
         --prefix-theme-input-readonly-background: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-input-readonly-background-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-input-readonly-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-readonly-border: hsl(
             339.45,
             0%,
@@ -3411,11 +3416,11 @@
         --prefix-theme-link-ui-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-link-ui-disabled-hsl: 339.45 0% 34.6%;
         --prefix-theme-selection-background: hsl(
-            322.17,
-            58.42%,
-            64.6%
-        ); /* pink-400 */
-        --prefix-theme-selection-background-hsl: 322.17 58.42% 64.6%;
+            323.5,
+            70%,
+            77%
+        ); /* pink-300 */
+        --prefix-theme-selection-background-hsl: 323.5 70% 77%;
         --prefix-theme-selection-text: hsl(339.45, 0%, 13.55%); /* base-800 */
         --prefix-theme-selection-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-text: hsl(339.45, 0%, 22.38%); /* base-700 */
@@ -3443,7 +3448,7 @@
         --prefix-theme-ui-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-ui-disabled-hsl: 339.45 0% 34.6%;
         --prefix-input-placeholder-opacity: 65%;
-        --prefix-selection-background: hsla(322.17, 58.42%, 64.6%, 65%);
+        --prefix-selection-background: hsla(323.5, 70%, 77%, 65%);
         --prefix-focus-ring-outline-color: hsl(321, 68%, 26%);
         --prefix-theme-button-primary-outline: hsl(
             321,
@@ -3517,13 +3522,13 @@
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 34.6%;
         --prefix-icon-color: hsl(339.45, 0%, 22.38%);
         color: var(--prefix-theme-text, hsl(339.45, 0%, 22.38%));
-        background: var(--prefix-theme-background, hsl(339.45, 0%, 80.77%));
+        background: var(--prefix-theme-background, hsl(339.45, 0%, 85.99%));
     }
 }
 @media (prefers-contrast: less) {
     :root {
-        --prefix-theme-background: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-background-hsl: 339.45 0% 80.77%;
+        --prefix-theme-background: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-background-bright: hsl(
             339.45,
             0%,
@@ -3531,19 +3536,19 @@
         ); /* base-200 */
         --prefix-theme-background-bright-hsl: 339.45 0% 85.99%;
         --prefix-theme-background-primary: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-250 */
-        --prefix-theme-background-primary-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-200 */
+        --prefix-theme-background-primary-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-background-secondary: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-250 */
-        --prefix-theme-background-secondary-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-background-grey: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-background-grey-hsl: 339.45 0% 80.77%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-200 */
+        --prefix-theme-background-secondary-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-background-grey: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-background-grey-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-background: hsl(
             162,
             100%,
@@ -3583,39 +3588,39 @@
         --prefix-theme-button-primary-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-text-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-text-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-ui: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-ui-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-primary-ui-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-background: hsl(
             321,
             68%,
@@ -3655,39 +3660,39 @@
         --prefix-theme-button-secondary-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-text-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-text-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-ui: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-ui-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-secondary-ui-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-background: hsl(
             339.45,
             0%,
@@ -3724,34 +3729,34 @@
             26%
         ); /* pink-700 */
         --prefix-theme-button-grey-border-hover-hsl: 321 68% 26%;
-        --prefix-theme-button-grey-text: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-button-grey-text-hsl: 339.45 0% 80.77%;
+        --prefix-theme-button-grey-text: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-button-grey-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-text-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-text-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-text-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-text-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-text-hover-hsl: 339.45 0% 80.77%;
-        --prefix-theme-button-grey-ui: hsl(339.45, 0%, 80.77%); /* base-250 */
-        --prefix-theme-button-grey-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-text-hover-hsl: 339.45 0% 85.99%;
+        --prefix-theme-button-grey-ui: hsl(339.45, 0%, 85.99%); /* base-200 */
+        --prefix-theme-button-grey-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-ui-active: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-ui-active-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-ui-active-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-ui-hover: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-grey-ui-hover-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-grey-ui-hover-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-disabled-background: hsl(
             339.45,
             0%,
@@ -3767,15 +3772,15 @@
         --prefix-theme-button-disabled-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-disabled-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-disabled-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-disabled-ui: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-button-disabled-ui-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-button-disabled-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-heading-1: hsl(162, 100%, 15%); /* turquoise-700 */
         --prefix-theme-heading-1-hsl: 162 100% 15%;
         --prefix-theme-heading-2: hsl(162, 100%, 15%); /* turquoise-700 */
@@ -3827,9 +3832,9 @@
         --prefix-theme-input-disabled-background: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-input-disabled-background-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-input-disabled-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-disabled-border: hsl(
             339.45,
             0%,
@@ -3857,9 +3862,9 @@
         --prefix-theme-input-readonly-background: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-250 */
-        --prefix-theme-input-readonly-background-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-200 */
+        --prefix-theme-input-readonly-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-readonly-border: hsl(
             339.45,
             0%,
@@ -3939,11 +3944,11 @@
         --prefix-theme-link-ui-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-link-ui-disabled-hsl: 339.45 0% 34.6%;
         --prefix-theme-selection-background: hsl(
-            322.17,
-            58.42%,
-            64.6%
-        ); /* pink-400 */
-        --prefix-theme-selection-background-hsl: 322.17 58.42% 64.6%;
+            323.5,
+            70%,
+            77%
+        ); /* pink-300 */
+        --prefix-theme-selection-background-hsl: 323.5 70% 77%;
         --prefix-theme-selection-text: hsl(339.45, 0%, 13.55%); /* base-800 */
         --prefix-theme-selection-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-text: hsl(339.45, 0%, 22.38%); /* base-700 */
@@ -3971,7 +3976,7 @@
         --prefix-theme-ui-disabled: hsl(339.45, 0%, 34.6%); /* base-600 */
         --prefix-theme-ui-disabled-hsl: 339.45 0% 34.6%;
         --prefix-input-placeholder-opacity: 65%;
-        --prefix-selection-background: hsla(322.17, 58.42%, 64.6%, 65%);
+        --prefix-selection-background: hsla(323.5, 70%, 77%, 65%);
         --prefix-focus-ring-outline-color: hsl(321, 68%, 26%);
         --prefix-theme-button-primary-outline: hsl(
             321,
@@ -4045,7 +4050,7 @@
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 34.6%;
         --prefix-icon-color: hsl(339.45, 0%, 22.38%);
         color: var(--prefix-theme-text, hsl(339.45, 0%, 22.38%));
-        background: var(--prefix-theme-background, hsl(339.45, 0%, 80.77%));
+        background: var(--prefix-theme-background, hsl(339.45, 0%, 85.99%));
     }
 }
 /* #endregion Tokens - Theme - light mode + low contrast */
@@ -4071,41 +4076,41 @@
         --prefix-theme-background-grey: hsl(339.45, 0%, 91.26%); /* base-150 */
         --prefix-theme-background-grey-hsl: 339.45 0% 91.26%;
         --prefix-theme-button-primary-background: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-primary-background-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-primary-background-hsl: 159 100% 10.5%;
         --prefix-theme-button-primary-background-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-background-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-background-active-hsl: 25 100% 14%;
         --prefix-theme-button-primary-background-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-background-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-background-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-primary-border: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-primary-border-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-primary-border-hsl: 159 100% 10.5%;
         --prefix-theme-button-primary-border-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-border-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-border-active-hsl: 25 100% 14%;
         --prefix-theme-button-primary-border-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-border-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-border-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-primary-text: hsl(
             339.45,
             0%,
@@ -4139,42 +4144,41 @@
         ); /* base-100 */
         --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 96.6%;
         --prefix-theme-button-secondary-background: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-secondary-background-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-secondary-background-hsl: 322 85% 16.5%;
         --prefix-theme-button-secondary-background-active: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-background-active-hsl: 160.68 93.41%
-            12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-background-active-hsl: 159 100% 10.5%;
         --prefix-theme-button-secondary-background-hover: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-background-hover-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-background-hover-hsl: 25 100% 14%;
         --prefix-theme-button-secondary-border: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-secondary-border-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-secondary-border-hsl: 322 85% 16.5%;
         --prefix-theme-button-secondary-border-active: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-border-active-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-border-active-hsl: 159 100% 10.5%;
         --prefix-theme-button-secondary-border-hover: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-border-hover-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-border-hover-hsl: 25 100% 14%;
         --prefix-theme-button-secondary-text: hsl(
             339.45,
             0%,
@@ -4214,39 +4218,39 @@
         --prefix-theme-button-grey-background: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-grey-background-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-grey-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-background-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-background-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-background-active-hsl: 25 100% 14%;
         --prefix-theme-button-grey-background-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-background-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-background-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-grey-border: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-grey-border-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-grey-border-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-border-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-border-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-border-active-hsl: 25 100% 14%;
         --prefix-theme-button-grey-border-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-border-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-border-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-grey-text: hsl(339.45, 0%, 96.6%); /* base-100 */
         --prefix-theme-button-grey-text-hsl: 339.45 0% 96.6%;
         --prefix-theme-button-grey-text-active: hsl(
@@ -4278,15 +4282,15 @@
         --prefix-theme-button-disabled-background: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-disabled-background-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-disabled-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-disabled-border: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-disabled-border-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-disabled-border-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-disabled-text: hsl(
             339.45,
             0%,
@@ -4299,100 +4303,44 @@
             96.6%
         ); /* base-100 */
         --prefix-theme-button-disabled-ui-hsl: 339.45 0% 96.6%;
-        --prefix-theme-heading-1: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-1-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-2: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-2-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-3: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-3-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-4: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-4-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-5: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-5-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-6: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-6-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-7: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-heading-7-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-heading-8: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-heading-8-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-heading-9: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-heading-9-hsl: 339.45 0% 17.88%;
-        --prefix-theme-heading-10: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-heading-10-hsl: 339.45 0% 17.88%;
-        --prefix-theme-input-accent: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-input-accent-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-input-accent-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-input-accent-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-input-accent-focus: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-accent-focus-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-input-accent-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-accent-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-heading-1: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-1-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-2: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-2-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-3: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-3-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-4: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-4-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-5: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-5-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-6: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-6-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-7: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-heading-7-hsl: 322 85% 16.5%;
+        --prefix-theme-heading-8: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-heading-8-hsl: 322 85% 16.5%;
+        --prefix-theme-heading-9: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-heading-9-hsl: 339.45 0% 13.55%;
+        --prefix-theme-heading-10: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-heading-10-hsl: 339.45 0% 13.55%;
+        --prefix-theme-input-accent: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-input-accent-hsl: 159 100% 10.5%;
+        --prefix-theme-input-accent-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-input-accent-active-hsl: 25 100% 14%;
+        --prefix-theme-input-accent-focus: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-accent-focus-hsl: 322 85% 16.5%;
+        --prefix-theme-input-accent-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-accent-hover-hsl: 322 85% 16.5%;
         --prefix-theme-input-background: hsl(305.21, 100%, 100%); /* white */
         --prefix-theme-input-background-hsl: 305.21 100% 100%;
-        --prefix-theme-input-border: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-input-border-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-input-border-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-input-border-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-input-border-focus: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-border-focus-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-input-border-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-border-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-input-border: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-input-border-hsl: 159 100% 10.5%;
+        --prefix-theme-input-border-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-input-border-active-hsl: 25 100% 14%;
+        --prefix-theme-input-border-focus: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-border-focus-hsl: 322 85% 16.5%;
+        --prefix-theme-input-border-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-border-hover-hsl: 322 85% 16.5%;
         --prefix-theme-input-placeholder: hsl(
             339.45,
             0%,
@@ -4432,11 +4380,11 @@
         ); /* base-700 */
         --prefix-theme-input-disabled-text-hsl: 339.45 0% 22.38%;
         --prefix-theme-input-readonly-accent: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-input-readonly-accent-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-input-readonly-accent-hsl: 159 100% 10.5%;
         --prefix-theme-input-readonly-background: hsl(
             339.45,
             0%,
@@ -4446,9 +4394,9 @@
         --prefix-theme-input-readonly-border: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-border-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-border-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-readonly-placeholder: hsl(
             339.45,
             0%,
@@ -4461,92 +4409,72 @@
             13.55%
         ); /* base-800 */
         --prefix-theme-input-readonly-text-hsl: 339.45 0% 13.55%;
-        --prefix-theme-link: hsl(160.68, 93.41%, 12.68%); /* turquoise-750 */
-        --prefix-theme-link-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-link-active: hsl(26.51, 96.66%, 17.8%); /* yellow-750 */
-        --prefix-theme-link-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-hover: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-link-hover-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-link-visited: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-visited-hsl: 160.68 93.41% 12.68%;
+        --prefix-theme-link: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-link-hsl: 159 100% 10.5%;
+        --prefix-theme-link-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-active-hsl: 25 100% 14%;
+        --prefix-theme-link-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-hover-hsl: 322 85% 16.5%;
+        --prefix-theme-link-visited: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-link-visited-hsl: 159 100% 10.5%;
         --prefix-theme-link-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-link-disabled-hsl: 339.45 0% 22.38%;
         --prefix-theme-link-decoration: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-decoration-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-link-decoration-hsl: 159 100% 10.5%;
         --prefix-theme-link-decoration-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-decoration-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-link-decoration-active-hsl: 25 100% 14%;
         --prefix-theme-link-decoration-hover: transparent; /* transparent */
         --prefix-theme-link-decoration-hover-hsl: transparent;
         --prefix-theme-link-decoration-visited: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-decoration-visited-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-link-decoration-visited-hsl: 159 100% 10.5%;
         --prefix-theme-link-decoration-disabled: hsl(
             339.45,
             0%,
             22.38%
         ); /* base-700 */
         --prefix-theme-link-decoration-disabled-hsl: 339.45 0% 22.38%;
-        --prefix-theme-link-icon: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-link-icon-hsl: 339.45 0% 17.88%;
-        --prefix-theme-link-icon-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-icon-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-icon-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-icon-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-link-icon: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-link-icon-hsl: 339.45 0% 13.55%;
+        --prefix-theme-link-icon-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-icon-active-hsl: 25 100% 14%;
+        --prefix-theme-link-icon-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-icon-hover-hsl: 322 85% 16.5%;
         --prefix-theme-link-icon-visited: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-link-icon-visited-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-link-icon-visited-hsl: 339.45 0% 13.55%;
         --prefix-theme-link-icon-disabled: hsl(
             339.45,
             0%,
             22.38%
         ); /* base-700 */
         --prefix-theme-link-icon-disabled-hsl: 339.45 0% 22.38%;
-        --prefix-theme-link-ui: hsl(160.68, 93.41%, 12.68%); /* turquoise-750 */
-        --prefix-theme-link-ui-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-link-ui-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-ui-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-ui-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-ui-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-link-ui: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-link-ui-hsl: 159 100% 10.5%;
+        --prefix-theme-link-ui-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-ui-active-hsl: 25 100% 14%;
+        --prefix-theme-link-ui-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-ui-hover-hsl: 322 85% 16.5%;
         --prefix-theme-link-ui-visited: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-ui-visited-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-link-ui-visited-hsl: 159 100% 10.5%;
         --prefix-theme-link-ui-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-link-ui-disabled-hsl: 339.45 0% 22.38%;
         --prefix-theme-selection-background: hsl(321, 68%, 26%); /* pink-700 */
@@ -4555,122 +4483,98 @@
         --prefix-theme-selection-text-hsl: 305.21 100% 100%;
         --prefix-theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
         --prefix-theme-text-hsl: 339.45 0% 13.55%;
-        --prefix-theme-text-primary: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-text-primary-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-text-secondary: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-text-secondary-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-text-grey: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-text-grey-hsl: 339.45 0% 17.88%;
-        --prefix-theme-text-active: hsl(26.51, 96.66%, 17.8%); /* yellow-750 */
-        --prefix-theme-text-active-hsl: 26.51 96.66% 17.8%;
+        --prefix-theme-text-primary: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-text-primary-hsl: 159 100% 10.5%;
+        --prefix-theme-text-secondary: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-text-secondary-hsl: 322 85% 16.5%;
+        --prefix-theme-text-grey: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-text-grey-hsl: 339.45 0% 13.55%;
+        --prefix-theme-text-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-text-active-hsl: 25 100% 14%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 22.38%;
         --prefix-theme-ui: hsl(339.45, 0%, 13.55%); /* base-800 */
         --prefix-theme-ui-hsl: 339.45 0% 13.55%;
-        --prefix-theme-ui-primary: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-ui-primary-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-ui-secondary: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-ui-secondary-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-ui-grey: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-ui-grey-hsl: 339.45 0% 17.88%;
-        --prefix-theme-ui-active: hsl(26.51, 96.66%, 17.8%); /* yellow-750 */
-        --prefix-theme-ui-active-hsl: 26.51 96.66% 17.8%;
+        --prefix-theme-ui-primary: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-ui-primary-hsl: 159 100% 10.5%;
+        --prefix-theme-ui-secondary: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-ui-secondary-hsl: 322 85% 16.5%;
+        --prefix-theme-ui-grey: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-ui-grey-hsl: 339.45 0% 13.55%;
+        --prefix-theme-ui-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-ui-active-hsl: 25 100% 14%;
         --prefix-theme-ui-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-ui-disabled-hsl: 339.45 0% 22.38%;
         --prefix-selection-background: hsla(321, 68%, 26%, 95%);
-        --prefix-focus-ring-outline-color: hsl(321.56, 74.98%, 21.16%);
+        --prefix-focus-ring-outline-color: hsl(322, 85%, 16.5%);
         --prefix-theme-button-primary-outline: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-outline-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-outline-hsl: 322 85% 16.5%;
         --prefix-theme-button-primary-outline-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-outline-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-outline-active-hsl: 25 100% 14%;
         --prefix-theme-button-primary-outline-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-outline-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-outline-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-secondary-outline: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-outline-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-outline-hsl: 25 100% 14%;
         --prefix-theme-button-secondary-outline-active: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-outline-active-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-outline-active-hsl: 159 100% 10.5%;
         --prefix-theme-button-secondary-outline-hover: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-outline-hover-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-button-grey-outline: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-outline-hsl: 321.56 74.98% 21.16%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-outline-hover-hsl: 25 100% 14%;
+        --prefix-theme-button-grey-outline: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-button-grey-outline-hsl: 322 85% 16.5%;
         --prefix-theme-button-grey-outline-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-outline-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-outline-active-hsl: 25 100% 14%;
         --prefix-theme-button-grey-outline-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-outline-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-outline-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-disabled-outline: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-disabled-outline-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-link-outline: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-link-outline-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-link-outline-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-outline-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-outline-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-outline-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-disabled-outline-hsl: 322 85% 16.5%;
+        --prefix-theme-link-outline: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-outline-hsl: 322 85% 16.5%;
+        --prefix-theme-link-outline-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-outline-active-hsl: 25 100% 14%;
+        --prefix-theme-link-outline-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-outline-hover-hsl: 322 85% 16.5%;
         --prefix-theme-link-outline-visited: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-outline-visited-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-link-outline-visited-hsl: 322 85% 16.5%;
         --prefix-theme-link-outline-disabled: hsl(
             339.45,
             0%,
@@ -4703,41 +4607,41 @@
         --prefix-theme-background-grey: hsl(339.45, 0%, 91.26%); /* base-150 */
         --prefix-theme-background-grey-hsl: 339.45 0% 91.26%;
         --prefix-theme-button-primary-background: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-primary-background-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-primary-background-hsl: 159 100% 10.5%;
         --prefix-theme-button-primary-background-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-background-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-background-active-hsl: 25 100% 14%;
         --prefix-theme-button-primary-background-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-background-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-background-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-primary-border: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-primary-border-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-primary-border-hsl: 159 100% 10.5%;
         --prefix-theme-button-primary-border-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-border-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-border-active-hsl: 25 100% 14%;
         --prefix-theme-button-primary-border-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-border-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-border-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-primary-text: hsl(
             339.45,
             0%,
@@ -4771,42 +4675,41 @@
         ); /* base-100 */
         --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 96.6%;
         --prefix-theme-button-secondary-background: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-secondary-background-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-secondary-background-hsl: 322 85% 16.5%;
         --prefix-theme-button-secondary-background-active: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-background-active-hsl: 160.68 93.41%
-            12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-background-active-hsl: 159 100% 10.5%;
         --prefix-theme-button-secondary-background-hover: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-background-hover-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-background-hover-hsl: 25 100% 14%;
         --prefix-theme-button-secondary-border: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-secondary-border-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-secondary-border-hsl: 322 85% 16.5%;
         --prefix-theme-button-secondary-border-active: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-border-active-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-border-active-hsl: 159 100% 10.5%;
         --prefix-theme-button-secondary-border-hover: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-border-hover-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-border-hover-hsl: 25 100% 14%;
         --prefix-theme-button-secondary-text: hsl(
             339.45,
             0%,
@@ -4846,39 +4749,39 @@
         --prefix-theme-button-grey-background: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-grey-background-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-grey-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-background-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-background-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-background-active-hsl: 25 100% 14%;
         --prefix-theme-button-grey-background-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-background-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-background-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-grey-border: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-grey-border-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-grey-border-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-border-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-border-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-border-active-hsl: 25 100% 14%;
         --prefix-theme-button-grey-border-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-border-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-border-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-grey-text: hsl(339.45, 0%, 96.6%); /* base-100 */
         --prefix-theme-button-grey-text-hsl: 339.45 0% 96.6%;
         --prefix-theme-button-grey-text-active: hsl(
@@ -4910,15 +4813,15 @@
         --prefix-theme-button-disabled-background: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-disabled-background-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-disabled-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-disabled-border: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-button-disabled-border-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-button-disabled-border-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-disabled-text: hsl(
             339.45,
             0%,
@@ -4931,100 +4834,44 @@
             96.6%
         ); /* base-100 */
         --prefix-theme-button-disabled-ui-hsl: 339.45 0% 96.6%;
-        --prefix-theme-heading-1: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-1-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-2: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-2-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-3: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-3-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-4: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-4-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-5: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-5-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-6: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-6-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-heading-7: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-heading-7-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-heading-8: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-heading-8-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-heading-9: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-heading-9-hsl: 339.45 0% 17.88%;
-        --prefix-theme-heading-10: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-heading-10-hsl: 339.45 0% 17.88%;
-        --prefix-theme-input-accent: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-input-accent-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-input-accent-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-input-accent-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-input-accent-focus: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-accent-focus-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-input-accent-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-accent-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-heading-1: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-1-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-2: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-2-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-3: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-3-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-4: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-4-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-5: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-5-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-6: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-heading-6-hsl: 159 100% 10.5%;
+        --prefix-theme-heading-7: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-heading-7-hsl: 322 85% 16.5%;
+        --prefix-theme-heading-8: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-heading-8-hsl: 322 85% 16.5%;
+        --prefix-theme-heading-9: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-heading-9-hsl: 339.45 0% 13.55%;
+        --prefix-theme-heading-10: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-heading-10-hsl: 339.45 0% 13.55%;
+        --prefix-theme-input-accent: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-input-accent-hsl: 159 100% 10.5%;
+        --prefix-theme-input-accent-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-input-accent-active-hsl: 25 100% 14%;
+        --prefix-theme-input-accent-focus: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-accent-focus-hsl: 322 85% 16.5%;
+        --prefix-theme-input-accent-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-accent-hover-hsl: 322 85% 16.5%;
         --prefix-theme-input-background: hsl(305.21, 100%, 100%); /* white */
         --prefix-theme-input-background-hsl: 305.21 100% 100%;
-        --prefix-theme-input-border: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-input-border-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-input-border-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-input-border-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-input-border-focus: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-border-focus-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-input-border-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-input-border-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-input-border: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-input-border-hsl: 159 100% 10.5%;
+        --prefix-theme-input-border-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-input-border-active-hsl: 25 100% 14%;
+        --prefix-theme-input-border-focus: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-border-focus-hsl: 322 85% 16.5%;
+        --prefix-theme-input-border-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-input-border-hover-hsl: 322 85% 16.5%;
         --prefix-theme-input-placeholder: hsl(
             339.45,
             0%,
@@ -5064,11 +4911,11 @@
         ); /* base-700 */
         --prefix-theme-input-disabled-text-hsl: 339.45 0% 22.38%;
         --prefix-theme-input-readonly-accent: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-input-readonly-accent-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-input-readonly-accent-hsl: 159 100% 10.5%;
         --prefix-theme-input-readonly-background: hsl(
             339.45,
             0%,
@@ -5078,9 +4925,9 @@
         --prefix-theme-input-readonly-border: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-border-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-border-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-readonly-placeholder: hsl(
             339.45,
             0%,
@@ -5093,92 +4940,72 @@
             13.55%
         ); /* base-800 */
         --prefix-theme-input-readonly-text-hsl: 339.45 0% 13.55%;
-        --prefix-theme-link: hsl(160.68, 93.41%, 12.68%); /* turquoise-750 */
-        --prefix-theme-link-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-link-active: hsl(26.51, 96.66%, 17.8%); /* yellow-750 */
-        --prefix-theme-link-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-hover: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-link-hover-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-link-visited: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-visited-hsl: 160.68 93.41% 12.68%;
+        --prefix-theme-link: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-link-hsl: 159 100% 10.5%;
+        --prefix-theme-link-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-active-hsl: 25 100% 14%;
+        --prefix-theme-link-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-hover-hsl: 322 85% 16.5%;
+        --prefix-theme-link-visited: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-link-visited-hsl: 159 100% 10.5%;
         --prefix-theme-link-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-link-disabled-hsl: 339.45 0% 22.38%;
         --prefix-theme-link-decoration: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-decoration-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-link-decoration-hsl: 159 100% 10.5%;
         --prefix-theme-link-decoration-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-decoration-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-link-decoration-active-hsl: 25 100% 14%;
         --prefix-theme-link-decoration-hover: transparent; /* transparent */
         --prefix-theme-link-decoration-hover-hsl: transparent;
         --prefix-theme-link-decoration-visited: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-decoration-visited-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-link-decoration-visited-hsl: 159 100% 10.5%;
         --prefix-theme-link-decoration-disabled: hsl(
             339.45,
             0%,
             22.38%
         ); /* base-700 */
         --prefix-theme-link-decoration-disabled-hsl: 339.45 0% 22.38%;
-        --prefix-theme-link-icon: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-link-icon-hsl: 339.45 0% 17.88%;
-        --prefix-theme-link-icon-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-icon-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-icon-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-icon-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-link-icon: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-link-icon-hsl: 339.45 0% 13.55%;
+        --prefix-theme-link-icon-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-icon-active-hsl: 25 100% 14%;
+        --prefix-theme-link-icon-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-icon-hover-hsl: 322 85% 16.5%;
         --prefix-theme-link-icon-visited: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-750 */
-        --prefix-theme-link-icon-visited-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-800 */
+        --prefix-theme-link-icon-visited-hsl: 339.45 0% 13.55%;
         --prefix-theme-link-icon-disabled: hsl(
             339.45,
             0%,
             22.38%
         ); /* base-700 */
         --prefix-theme-link-icon-disabled-hsl: 339.45 0% 22.38%;
-        --prefix-theme-link-ui: hsl(160.68, 93.41%, 12.68%); /* turquoise-750 */
-        --prefix-theme-link-ui-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-link-ui-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-ui-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-ui-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-ui-hover-hsl: 321.56 74.98% 21.16%;
+        --prefix-theme-link-ui: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-link-ui-hsl: 159 100% 10.5%;
+        --prefix-theme-link-ui-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-ui-active-hsl: 25 100% 14%;
+        --prefix-theme-link-ui-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-ui-hover-hsl: 322 85% 16.5%;
         --prefix-theme-link-ui-visited: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-link-ui-visited-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-link-ui-visited-hsl: 159 100% 10.5%;
         --prefix-theme-link-ui-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-link-ui-disabled-hsl: 339.45 0% 22.38%;
         --prefix-theme-selection-background: hsl(321, 68%, 26%); /* pink-700 */
@@ -5187,122 +5014,98 @@
         --prefix-theme-selection-text-hsl: 305.21 100% 100%;
         --prefix-theme-text: hsl(339.45, 0%, 13.55%); /* base-800 */
         --prefix-theme-text-hsl: 339.45 0% 13.55%;
-        --prefix-theme-text-primary: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-text-primary-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-text-secondary: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-text-secondary-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-text-grey: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-text-grey-hsl: 339.45 0% 17.88%;
-        --prefix-theme-text-active: hsl(26.51, 96.66%, 17.8%); /* yellow-750 */
-        --prefix-theme-text-active-hsl: 26.51 96.66% 17.8%;
+        --prefix-theme-text-primary: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-text-primary-hsl: 159 100% 10.5%;
+        --prefix-theme-text-secondary: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-text-secondary-hsl: 322 85% 16.5%;
+        --prefix-theme-text-grey: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-text-grey-hsl: 339.45 0% 13.55%;
+        --prefix-theme-text-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-text-active-hsl: 25 100% 14%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 22.38%;
         --prefix-theme-ui: hsl(339.45, 0%, 13.55%); /* base-800 */
         --prefix-theme-ui-hsl: 339.45 0% 13.55%;
-        --prefix-theme-ui-primary: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-ui-primary-hsl: 160.68 93.41% 12.68%;
-        --prefix-theme-ui-secondary: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-ui-secondary-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-ui-grey: hsl(339.45, 0%, 17.88%); /* base-750 */
-        --prefix-theme-ui-grey-hsl: 339.45 0% 17.88%;
-        --prefix-theme-ui-active: hsl(26.51, 96.66%, 17.8%); /* yellow-750 */
-        --prefix-theme-ui-active-hsl: 26.51 96.66% 17.8%;
+        --prefix-theme-ui-primary: hsl(159, 100%, 10.5%); /* turquoise-800 */
+        --prefix-theme-ui-primary-hsl: 159 100% 10.5%;
+        --prefix-theme-ui-secondary: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-ui-secondary-hsl: 322 85% 16.5%;
+        --prefix-theme-ui-grey: hsl(339.45, 0%, 13.55%); /* base-800 */
+        --prefix-theme-ui-grey-hsl: 339.45 0% 13.55%;
+        --prefix-theme-ui-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-ui-active-hsl: 25 100% 14%;
         --prefix-theme-ui-disabled: hsl(339.45, 0%, 22.38%); /* base-700 */
         --prefix-theme-ui-disabled-hsl: 339.45 0% 22.38%;
         --prefix-selection-background: hsla(321, 68%, 26%, 95%);
-        --prefix-focus-ring-outline-color: hsl(321.56, 74.98%, 21.16%);
+        --prefix-focus-ring-outline-color: hsl(322, 85%, 16.5%);
         --prefix-theme-button-primary-outline: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-outline-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-outline-hsl: 322 85% 16.5%;
         --prefix-theme-button-primary-outline-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-outline-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-outline-active-hsl: 25 100% 14%;
         --prefix-theme-button-primary-outline-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-outline-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-outline-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-secondary-outline: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-outline-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-outline-hsl: 25 100% 14%;
         --prefix-theme-button-secondary-outline-active: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-outline-active-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-outline-active-hsl: 159 100% 10.5%;
         --prefix-theme-button-secondary-outline-hover: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-outline-hover-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-button-grey-outline: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-outline-hsl: 321.56 74.98% 21.16%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-outline-hover-hsl: 25 100% 14%;
+        --prefix-theme-button-grey-outline: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-button-grey-outline-hsl: 322 85% 16.5%;
         --prefix-theme-button-grey-outline-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-outline-active-hsl: 26.51 96.66% 17.8%;
+            25,
+            100%,
+            14%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-outline-active-hsl: 25 100% 14%;
         --prefix-theme-button-grey-outline-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-outline-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-outline-hover-hsl: 322 85% 16.5%;
         --prefix-theme-button-disabled-outline: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-button-disabled-outline-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-link-outline: hsl(321.56, 74.98%, 21.16%); /* pink-750 */
-        --prefix-theme-link-outline-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-link-outline-active: hsl(
-            26.51,
-            96.66%,
-            17.8%
-        ); /* yellow-750 */
-        --prefix-theme-link-outline-active-hsl: 26.51 96.66% 17.8%;
-        --prefix-theme-link-outline-hover: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-outline-hover-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-button-disabled-outline-hsl: 322 85% 16.5%;
+        --prefix-theme-link-outline: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-outline-hsl: 322 85% 16.5%;
+        --prefix-theme-link-outline-active: hsl(25, 100%, 14%); /* yellow-800 */
+        --prefix-theme-link-outline-active-hsl: 25 100% 14%;
+        --prefix-theme-link-outline-hover: hsl(322, 85%, 16.5%); /* pink-800 */
+        --prefix-theme-link-outline-hover-hsl: 322 85% 16.5%;
         --prefix-theme-link-outline-visited: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-750 */
-        --prefix-theme-link-outline-visited-hsl: 321.56 74.98% 21.16%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-800 */
+        --prefix-theme-link-outline-visited-hsl: 322 85% 16.5%;
         --prefix-theme-link-outline-disabled: hsl(
             339.45,
             0%,
@@ -5616,8 +5419,8 @@
             61.32%
         ); /* base-600 */
         --prefix-theme-input-placeholder-hsl: 339.45 0% 61.32%;
-        --prefix-theme-input-text: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-input-text-hsl: 339.45 0% 80.77%;
+        --prefix-theme-input-text: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-input-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-disabled-accent: hsl(
             339.45,
             0%,
@@ -5675,9 +5478,9 @@
         --prefix-theme-input-readonly-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-link: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-link-hsl: 160 40% 60%;
         --prefix-theme-link-active: hsl(36.5, 85%, 63%); /* yellow-700 */
@@ -5744,10 +5547,10 @@
             38.25%
         ); /* pink-400 */
         --prefix-theme-selection-background-hsl: 320.72 56.83% 38.25%;
-        --prefix-theme-selection-text: hsl(339.45, 0%, 96.6%); /* base-900 */
-        --prefix-theme-selection-text-hsl: 339.45 0% 96.6%;
-        --prefix-theme-text: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-text-hsl: 339.45 0% 80.77%;
+        --prefix-theme-selection-text: hsl(305.21, 100%, 100%); /* black */
+        --prefix-theme-selection-text-hsl: 305.21 100% 100%;
+        --prefix-theme-text: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-text-primary: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-text-primary-hsl: 160 40% 60%;
         --prefix-theme-text-secondary: hsl(323.5, 70%, 77%); /* pink-700 */
@@ -5758,8 +5561,8 @@
         --prefix-theme-text-active-hsl: 36.5 85% 63%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 61.32%); /* base-600 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 61.32%;
-        --prefix-theme-ui: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-ui-hsl: 339.45 0% 80.77%;
+        --prefix-theme-ui: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-ui-primary: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-ui-primary-hsl: 160 40% 60%;
         --prefix-theme-ui-secondary: hsl(323.5, 70%, 77%); /* pink-700 */
@@ -5851,8 +5654,8 @@
             61.32%
         ); /* base-600 */
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 61.32%;
-        --prefix-icon-color: hsl(339.45, 0%, 80.77%);
-        color: var(--prefix-theme-text, hsl(339.45, 0%, 80.77%));
+        --prefix-icon-color: hsl(339.45, 0%, 85.99%);
+        color: var(--prefix-theme-text, hsl(339.45, 0%, 85.99%));
         background: var(--prefix-theme-background, hsl(339.45, 0%, 9.41%));
     }
 }
@@ -6156,8 +5959,8 @@
             61.32%
         ); /* base-600 */
         --prefix-theme-input-placeholder-hsl: 339.45 0% 61.32%;
-        --prefix-theme-input-text: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-input-text-hsl: 339.45 0% 80.77%;
+        --prefix-theme-input-text: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-input-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-disabled-accent: hsl(
             339.45,
             0%,
@@ -6215,9 +6018,9 @@
         --prefix-theme-input-readonly-text: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-text-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-link: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-link-hsl: 160 40% 60%;
         --prefix-theme-link-active: hsl(36.5, 85%, 63%); /* yellow-700 */
@@ -6284,10 +6087,10 @@
             38.25%
         ); /* pink-400 */
         --prefix-theme-selection-background-hsl: 320.72 56.83% 38.25%;
-        --prefix-theme-selection-text: hsl(339.45, 0%, 96.6%); /* base-900 */
-        --prefix-theme-selection-text-hsl: 339.45 0% 96.6%;
-        --prefix-theme-text: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-text-hsl: 339.45 0% 80.77%;
+        --prefix-theme-selection-text: hsl(305.21, 100%, 100%); /* black */
+        --prefix-theme-selection-text-hsl: 305.21 100% 100%;
+        --prefix-theme-text: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-text-primary: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-text-primary-hsl: 160 40% 60%;
         --prefix-theme-text-secondary: hsl(323.5, 70%, 77%); /* pink-700 */
@@ -6298,8 +6101,8 @@
         --prefix-theme-text-active-hsl: 36.5 85% 63%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 61.32%); /* base-600 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 61.32%;
-        --prefix-theme-ui: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-ui-hsl: 339.45 0% 80.77%;
+        --prefix-theme-ui: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-ui-primary: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-ui-primary-hsl: 160 40% 60%;
         --prefix-theme-ui-secondary: hsl(323.5, 70%, 77%); /* pink-700 */
@@ -6391,8 +6194,8 @@
             61.32%
         ); /* base-600 */
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 61.32%;
-        --prefix-icon-color: hsl(339.45, 0%, 80.77%);
-        color: var(--prefix-theme-text, hsl(339.45, 0%, 80.77%));
+        --prefix-icon-color: hsl(339.45, 0%, 85.99%);
+        color: var(--prefix-theme-text, hsl(339.45, 0%, 85.99%));
         background: var(--prefix-theme-background, hsl(339.45, 0%, 9.41%));
     }
 }
@@ -6400,8 +6203,8 @@
 /* #region Tokens - Theme - dark mode + low contrast */
 @media (( prefers-color-scheme: dark ) and ( prefers-contrast: less )) {
     :root {
-        --prefix-theme-background: hsl(339.45, 0%, 17.88%); /* base-250 */
-        --prefix-theme-background-hsl: 339.45 0% 17.88%;
+        --prefix-theme-background: hsl(339.45, 0%, 13.55%); /* base-200 */
+        --prefix-theme-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-background-bright: hsl(
             339.45,
             0%,
@@ -6409,19 +6212,19 @@
         ); /* base-200 */
         --prefix-theme-background-bright-hsl: 339.45 0% 13.55%;
         --prefix-theme-background-primary: hsl(
-            160.68,
-            93.41%,
-            12.68%
-        ); /* turquoise-250 */
-        --prefix-theme-background-primary-hsl: 160.68 93.41% 12.68%;
+            159,
+            100%,
+            10.5%
+        ); /* turquoise-200 */
+        --prefix-theme-background-primary-hsl: 159 100% 10.5%;
         --prefix-theme-background-secondary: hsl(
-            321.56,
-            74.98%,
-            21.16%
-        ); /* pink-250 */
-        --prefix-theme-background-secondary-hsl: 321.56 74.98% 21.16%;
-        --prefix-theme-background-grey: hsl(339.45, 0%, 17.88%); /* base-250 */
-        --prefix-theme-background-grey-hsl: 339.45 0% 17.88%;
+            322,
+            85%,
+            16.5%
+        ); /* pink-200 */
+        --prefix-theme-background-secondary-hsl: 322 85% 16.5%;
+        --prefix-theme-background-grey: hsl(339.45, 0%, 13.55%); /* base-200 */
+        --prefix-theme-background-grey-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-primary-background: hsl(
             160,
             40%,
@@ -6461,39 +6264,39 @@
         --prefix-theme-button-primary-text: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-primary-text-active: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-active-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-active-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-primary-text-hover: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-primary-text-hover-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-primary-text-hover-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-primary-ui: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-primary-ui-active: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-active-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-active-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-primary-ui-hover: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-secondary-background: hsl(
             323.5,
             70%,
@@ -6533,39 +6336,39 @@
         --prefix-theme-button-secondary-text: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-secondary-text-active: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-active-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-active-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-secondary-text-hover: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-text-hover-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-text-hover-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-secondary-ui: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-secondary-ui-active: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-active-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-active-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-secondary-ui-hover: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-secondary-ui-hover-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-secondary-ui-hover-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-background: hsl(
             339.45,
             0%,
@@ -6602,34 +6405,34 @@
             77%
         ); /* pink-700 */
         --prefix-theme-button-grey-border-hover-hsl: 323.5 70% 77%;
-        --prefix-theme-button-grey-text: hsl(339.45, 0%, 17.88%); /* base-250 */
-        --prefix-theme-button-grey-text-hsl: 339.45 0% 17.88%;
+        --prefix-theme-button-grey-text: hsl(339.45, 0%, 13.55%); /* base-200 */
+        --prefix-theme-button-grey-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-text-active: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-grey-text-active-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-grey-text-active-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-text-hover: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-grey-text-hover-hsl: 339.45 0% 17.88%;
-        --prefix-theme-button-grey-ui: hsl(339.45, 0%, 17.88%); /* base-250 */
-        --prefix-theme-button-grey-ui-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-grey-text-hover-hsl: 339.45 0% 13.55%;
+        --prefix-theme-button-grey-ui: hsl(339.45, 0%, 13.55%); /* base-200 */
+        --prefix-theme-button-grey-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-ui-active: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-grey-ui-active-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-grey-ui-active-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-grey-ui-hover: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-grey-ui-hover-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-grey-ui-hover-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-disabled-background: hsl(
             339.45,
             0%,
@@ -6645,15 +6448,15 @@
         --prefix-theme-button-disabled-text: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-disabled-text-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-disabled-text-hsl: 339.45 0% 13.55%;
         --prefix-theme-button-disabled-ui: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-button-disabled-ui-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-button-disabled-ui-hsl: 339.45 0% 13.55%;
         --prefix-theme-heading-1: hsl(160, 40%, 60%); /* turquoise-700 */
         --prefix-theme-heading-1-hsl: 160 40% 60%;
         --prefix-theme-heading-2: hsl(160, 40%, 60%); /* turquoise-700 */
@@ -6717,9 +6520,9 @@
         --prefix-theme-input-disabled-background: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-input-disabled-background-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-input-disabled-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-disabled-border: hsl(
             339.45,
             0%,
@@ -6747,9 +6550,9 @@
         --prefix-theme-input-readonly-background: hsl(
             339.45,
             0%,
-            17.88%
-        ); /* base-250 */
-        --prefix-theme-input-readonly-background-hsl: 339.45 0% 17.88%;
+            13.55%
+        ); /* base-200 */
+        --prefix-theme-input-readonly-background-hsl: 339.45 0% 13.55%;
         --prefix-theme-input-readonly-border: hsl(
             339.45,
             0%,
@@ -6943,7 +6746,7 @@
         --prefix-theme-link-outline-disabled-hsl: 339.45 0% 61.32%;
         --prefix-icon-color: hsl(339.45, 0%, 75.61%);
         color: var(--prefix-theme-text, hsl(339.45, 0%, 75.61%));
-        background: var(--prefix-theme-background, hsl(339.45, 0%, 17.88%));
+        background: var(--prefix-theme-background, hsl(339.45, 0%, 13.55%));
     }
 }
 /* #endregion Tokens - Theme - dark mode + low contrast */
@@ -6969,41 +6772,41 @@
         --prefix-theme-background-grey: hsl(339.45, 0%, 9.41%); /* base-150 */
         --prefix-theme-background-grey-hsl: 339.45 0% 9.41%;
         --prefix-theme-button-primary-background: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-button-primary-background-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-button-primary-background-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-button-primary-background-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-background-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-background-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-primary-background-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-background-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-background-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-primary-border: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-button-primary-border-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-button-primary-border-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-button-primary-border-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-border-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-border-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-primary-border-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-border-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-border-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-primary-text: hsl(
             339.45,
             0%,
@@ -7037,42 +6840,42 @@
         ); /* base-100 */
         --prefix-theme-button-primary-ui-hover-hsl: 339.45 0% 4.28%;
         --prefix-theme-button-secondary-background: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-secondary-background-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-secondary-background-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-secondary-background-active: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-background-active-hsl: 158.92 41.51%
-            69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-background-active-hsl: 158.13 44.92%
+            78.23%;
         --prefix-theme-button-secondary-background-hover: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-background-hover-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-background-hover-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-secondary-border: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-secondary-border-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-secondary-border-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-secondary-border-active: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-border-active-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-border-active-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-button-secondary-border-hover: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-border-hover-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-border-hover-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-secondary-text: hsl(
             339.45,
             0%,
@@ -7112,39 +6915,39 @@
         --prefix-theme-button-grey-background: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-button-grey-background-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-button-grey-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-background-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-background-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-background-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-grey-background-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-background-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-background-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-grey-border: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-button-grey-border-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-button-grey-border-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-grey-border-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-border-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-border-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-grey-border-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-border-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-border-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-grey-text: hsl(339.45, 0%, 4.28%); /* base-100 */
         --prefix-theme-button-grey-text-hsl: 339.45 0% 4.28%;
         --prefix-theme-button-grey-text-active: hsl(
@@ -7176,15 +6979,15 @@
         --prefix-theme-button-disabled-background: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-button-disabled-background-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-button-disabled-background-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-disabled-border: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-button-disabled-border-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-button-disabled-border-hsl: 339.45 0% 85.99%;
         --prefix-theme-button-disabled-text: hsl(
             339.45,
             0%,
@@ -7198,99 +7001,99 @@
         ); /* base-100 */
         --prefix-theme-button-disabled-ui-hsl: 339.45 0% 4.28%;
         --prefix-theme-heading-1: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-1-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-heading-1-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-heading-2: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-2-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-heading-2-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-heading-3: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-3-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-heading-3-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-heading-4: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-4-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-heading-4-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-heading-5: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-5-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-heading-5-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-heading-6: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-heading-6-hsl: 158.92 41.51% 69.24%;
-        --prefix-theme-heading-7: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-heading-7-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-heading-8: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-heading-8-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-heading-9: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-heading-9-hsl: 339.45 0% 80.77%;
-        --prefix-theme-heading-10: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-heading-10-hsl: 339.45 0% 80.77%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-heading-6-hsl: 158.13 44.92% 78.23%;
+        --prefix-theme-heading-7: hsl(324.37, 75.86%, 87.25%); /* pink-800 */
+        --prefix-theme-heading-7-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-heading-8: hsl(324.37, 75.86%, 87.25%); /* pink-800 */
+        --prefix-theme-heading-8-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-heading-9: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-heading-9-hsl: 339.45 0% 85.99%;
+        --prefix-theme-heading-10: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-heading-10-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-accent: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-input-accent-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-input-accent-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-input-accent-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-input-accent-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-input-accent-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-input-accent-focus: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-input-accent-focus-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-input-accent-focus-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-input-accent-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-input-accent-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-input-accent-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-input-background: hsl(0, 0%, 0%); /* white */
         --prefix-theme-input-background-hsl: 0 0% 0%;
         --prefix-theme-input-border: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-input-border-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-input-border-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-input-border-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-input-border-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-input-border-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-input-border-focus: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-input-border-focus-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-input-border-focus-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-input-border-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-input-border-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-input-border-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-input-placeholder: hsl(
             339.45,
             0%,
@@ -7330,11 +7133,11 @@
         ); /* base-700 */
         --prefix-theme-input-disabled-text-hsl: 339.45 0% 75.61%;
         --prefix-theme-input-readonly-accent: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-input-readonly-accent-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-input-readonly-accent-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-input-readonly-background: hsl(
             339.45,
             0%,
@@ -7344,9 +7147,9 @@
         --prefix-theme-input-readonly-border: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-input-readonly-border-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-input-readonly-border-hsl: 339.45 0% 85.99%;
         --prefix-theme-input-readonly-placeholder: hsl(
             339.45,
             0%,
@@ -7359,88 +7162,92 @@
             85.99%
         ); /* base-800 */
         --prefix-theme-input-readonly-text-hsl: 339.45 0% 85.99%;
-        --prefix-theme-link: hsl(158.92, 41.51%, 69.24%); /* turquoise-750 */
-        --prefix-theme-link-hsl: 158.92 41.51% 69.24%;
-        --prefix-theme-link-active: hsl(38.98, 83.1%, 70.06%); /* yellow-750 */
-        --prefix-theme-link-active-hsl: 38.98 83.1% 70.06%;
-        --prefix-theme-link-hover: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-link-hover-hsl: 323.97 72.5% 82.2%;
+        --prefix-theme-link: hsl(158.13, 44.92%, 78.23%); /* turquoise-800 */
+        --prefix-theme-link-hsl: 158.13 44.92% 78.23%;
+        --prefix-theme-link-active: hsl(41.77, 81.71%, 77.5%); /* yellow-800 */
+        --prefix-theme-link-active-hsl: 41.77 81.71% 77.5%;
+        --prefix-theme-link-hover: hsl(324.37, 75.86%, 87.25%); /* pink-800 */
+        --prefix-theme-link-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-link-visited: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-link-visited-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-link-visited-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-link-disabled: hsl(339.45, 0%, 75.61%); /* base-700 */
         --prefix-theme-link-disabled-hsl: 339.45 0% 75.61%;
         --prefix-theme-link-decoration: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-link-decoration-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-link-decoration-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-link-decoration-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-link-decoration-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-link-decoration-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-link-decoration-hover: transparent; /* transparent */
         --prefix-theme-link-decoration-hover-hsl: transparent;
         --prefix-theme-link-decoration-visited: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-link-decoration-visited-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-link-decoration-visited-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-link-decoration-disabled: hsl(
             339.45,
             0%,
             75.61%
         ); /* base-700 */
         --prefix-theme-link-decoration-disabled-hsl: 339.45 0% 75.61%;
-        --prefix-theme-link-icon: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-link-icon-hsl: 339.45 0% 80.77%;
+        --prefix-theme-link-icon: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-link-icon-hsl: 339.45 0% 85.99%;
         --prefix-theme-link-icon-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-link-icon-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-link-icon-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-link-icon-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-link-icon-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-link-icon-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-link-icon-visited: hsl(
             339.45,
             0%,
-            80.77%
-        ); /* base-750 */
-        --prefix-theme-link-icon-visited-hsl: 339.45 0% 80.77%;
+            85.99%
+        ); /* base-800 */
+        --prefix-theme-link-icon-visited-hsl: 339.45 0% 85.99%;
         --prefix-theme-link-icon-disabled: hsl(
             339.45,
             0%,
             75.61%
         ); /* base-700 */
         --prefix-theme-link-icon-disabled-hsl: 339.45 0% 75.61%;
-        --prefix-theme-link-ui: hsl(158.92, 41.51%, 69.24%); /* turquoise-750 */
-        --prefix-theme-link-ui-hsl: 158.92 41.51% 69.24%;
+        --prefix-theme-link-ui: hsl(158.13, 44.92%, 78.23%); /* turquoise-800 */
+        --prefix-theme-link-ui-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-link-ui-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-link-ui-active-hsl: 38.98 83.1% 70.06%;
-        --prefix-theme-link-ui-hover: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-link-ui-hover-hsl: 323.97 72.5% 82.2%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-link-ui-active-hsl: 41.77 81.71% 77.5%;
+        --prefix-theme-link-ui-hover: hsl(
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-link-ui-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-link-ui-visited: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-link-ui-visited-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-link-ui-visited-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-link-ui-disabled: hsl(339.45, 0%, 75.61%); /* base-700 */
         --prefix-theme-link-ui-disabled-hsl: 339.45 0% 75.61%;
         --prefix-theme-selection-background: hsl(
@@ -7454,117 +7261,121 @@
         --prefix-theme-text: hsl(339.45, 0%, 85.99%); /* base-800 */
         --prefix-theme-text-hsl: 339.45 0% 85.99%;
         --prefix-theme-text-primary: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-text-primary-hsl: 158.92 41.51% 69.24%;
-        --prefix-theme-text-secondary: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-text-secondary-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-text-grey: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-text-grey-hsl: 339.45 0% 80.77%;
-        --prefix-theme-text-active: hsl(38.98, 83.1%, 70.06%); /* yellow-750 */
-        --prefix-theme-text-active-hsl: 38.98 83.1% 70.06%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-text-primary-hsl: 158.13 44.92% 78.23%;
+        --prefix-theme-text-secondary: hsl(
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-text-secondary-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-text-grey: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-text-grey-hsl: 339.45 0% 85.99%;
+        --prefix-theme-text-active: hsl(41.77, 81.71%, 77.5%); /* yellow-800 */
+        --prefix-theme-text-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-text-disabled: hsl(339.45, 0%, 75.61%); /* base-700 */
         --prefix-theme-text-disabled-hsl: 339.45 0% 75.61%;
         --prefix-theme-ui: hsl(339.45, 0%, 85.99%); /* base-800 */
         --prefix-theme-ui-hsl: 339.45 0% 85.99%;
         --prefix-theme-ui-primary: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-ui-primary-hsl: 158.92 41.51% 69.24%;
-        --prefix-theme-ui-secondary: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-ui-secondary-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-ui-grey: hsl(339.45, 0%, 80.77%); /* base-750 */
-        --prefix-theme-ui-grey-hsl: 339.45 0% 80.77%;
-        --prefix-theme-ui-active: hsl(38.98, 83.1%, 70.06%); /* yellow-750 */
-        --prefix-theme-ui-active-hsl: 38.98 83.1% 70.06%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-ui-primary-hsl: 158.13 44.92% 78.23%;
+        --prefix-theme-ui-secondary: hsl(324.37, 75.86%, 87.25%); /* pink-800 */
+        --prefix-theme-ui-secondary-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-ui-grey: hsl(339.45, 0%, 85.99%); /* base-800 */
+        --prefix-theme-ui-grey-hsl: 339.45 0% 85.99%;
+        --prefix-theme-ui-active: hsl(41.77, 81.71%, 77.5%); /* yellow-800 */
+        --prefix-theme-ui-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-ui-disabled: hsl(339.45, 0%, 75.61%); /* base-700 */
         --prefix-theme-ui-disabled-hsl: 339.45 0% 75.61%;
         --prefix-selection-background: hsla(323.5, 70%, 77%, 95%);
-        --prefix-focus-ring-outline-color: hsl(323.97, 72.5%, 82.2%);
+        --prefix-focus-ring-outline-color: hsl(324.37, 75.86%, 87.25%);
         --prefix-theme-button-primary-outline: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-outline-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-outline-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-primary-outline-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-primary-outline-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-primary-outline-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-primary-outline-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-primary-outline-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-primary-outline-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-secondary-outline: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-outline-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-outline-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-secondary-outline-active: hsl(
-            158.92,
-            41.51%,
-            69.24%
-        ); /* turquoise-750 */
-        --prefix-theme-button-secondary-outline-active-hsl: 158.92 41.51% 69.24%;
+            158.13,
+            44.92%,
+            78.23%
+        ); /* turquoise-800 */
+        --prefix-theme-button-secondary-outline-active-hsl: 158.13 44.92% 78.23%;
         --prefix-theme-button-secondary-outline-hover: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-secondary-outline-hover-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-secondary-outline-hover-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-grey-outline: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-outline-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-outline-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-grey-outline-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-button-grey-outline-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-button-grey-outline-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-button-grey-outline-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-grey-outline-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-grey-outline-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-button-disabled-outline: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-button-disabled-outline-hsl: 323.97 72.5% 82.2%;
-        --prefix-theme-link-outline: hsl(323.97, 72.5%, 82.2%); /* pink-750 */
-        --prefix-theme-link-outline-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-button-disabled-outline-hsl: 324.37 75.86% 87.25%;
+        --prefix-theme-link-outline: hsl(324.37, 75.86%, 87.25%); /* pink-800 */
+        --prefix-theme-link-outline-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-link-outline-active: hsl(
-            38.98,
-            83.1%,
-            70.06%
-        ); /* yellow-750 */
-        --prefix-theme-link-outline-active-hsl: 38.98 83.1% 70.06%;
+            41.77,
+            81.71%,
+            77.5%
+        ); /* yellow-800 */
+        --prefix-theme-link-outline-active-hsl: 41.77 81.71% 77.5%;
         --prefix-theme-link-outline-hover: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-link-outline-hover-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-link-outline-hover-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-link-outline-visited: hsl(
-            323.97,
-            72.5%,
-            82.2%
-        ); /* pink-750 */
-        --prefix-theme-link-outline-visited-hsl: 323.97 72.5% 82.2%;
+            324.37,
+            75.86%,
+            87.25%
+        ); /* pink-800 */
+        --prefix-theme-link-outline-visited-hsl: 324.37 75.86% 87.25%;
         --prefix-theme-link-outline-disabled: hsl(
             339.45,
             0%,
@@ -14808,16 +14619,16 @@ body {
 }
 .font-family-icons,
 .font-family-icons *,
-.website-settings-menu .font-family-override-default .font-family-icons,
-.website-settings-menu .font-family-override-dyslexic .font-family-icons,
-.website-settings-menu .font-family-override-hyperlegible .font-family-icons,
-.website-settings-menu
+.website-settings .font-family-override-default .font-family-icons,
+.website-settings .font-family-override-dyslexic .font-family-icons,
+.website-settings .font-family-override-hyperlegible .font-family-icons,
+.website-settings
     .font-family-override-hyperlegible-monospace
     .font-family-icons,
-.website-settings-menu .font-family-override-default .font-family-icons *,
-.website-settings-menu .font-family-override-dyslexic .font-family-icons *,
-.website-settings-menu .font-family-override-hyperlegible .font-family-icons *,
-.website-settings-menu
+.website-settings .font-family-override-default .font-family-icons *,
+.website-settings .font-family-override-dyslexic .font-family-icons *,
+.website-settings .font-family-override-hyperlegible .font-family-icons *,
+.website-settings
     .font-family-override-hyperlegible-monospace
     .font-family-icons
     *,

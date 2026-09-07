@@ -85,9 +85,20 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == content {
-            background: var-theme(background);
             width: 100%;
-            max-width: min(var-width(content), 90vw);
+
+            @if $includeStyles {
+                max-width: min(var-width(content), 90vw);
+
+                background: var-theme(background);
+
+                border-radius: 0;
+
+                border-end-end-radius: var-style(toggle-content-border-radius);
+                border-end-start-radius: var-style(
+                    toggle-content-border-radius
+                );
+            }
 
             @content ($location);
         }
@@ -153,7 +164,10 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--settings-menu--control {
-            @include cx-prop(icon-size, do-var(icon-size-large));
+            @include cx-prop(
+                icon-size,
+                var-style(icon-size-large, $fallbackOnly: true)
+            );
 
             @content ($location);
         }
@@ -166,6 +180,27 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         //
         @else if $location == js--settings-menu--content--container {
             padding-inline: var-style(widget-padding-inline);
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--settings-menu--open--content {
+            @if $includeStyles {
+                border-start-end-radius: var-style(
+                    toggle-content-border-radius-top,
+                    $value_failureReturn: var-style(
+                            toggle-content-border-radius
+                        ),
+                    $value_warnOnFail: false
+                );
+                border-start-start-radius: var-style(
+                    toggle-content-border-radius-top,
+                    $value_failureReturn: var-style(
+                            toggle-content-border-radius
+                        ),
+                    $value_warnOnFail: false
+                );
+            }
 
             @content ($location);
         }
@@ -229,7 +264,7 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
             @if $_classSel {
                 $class_selectors: list.append(
                     $class_selectors,
-                    ('.website-settings-menu .#{$_classSel}', '%#{$_classSel}'),
+                    ('.website-settings .#{$_classSel}', '%#{$_classSel}'),
                     $separator: comma
                 );
             }
@@ -238,7 +273,7 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
         @if $override_slug == body {
             $class_selectors: list.join(
                 $class_selectors,
-                ('.website-settings-menu .font-family-override-default'),
+                ('.website-settings .font-family-override-default'),
                 $separator: comma
             );
         }

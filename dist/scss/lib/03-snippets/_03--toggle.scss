@@ -463,6 +463,29 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $content_container_paddingBlock: var-style(toggle-content-padding-block),
     $content_container_paddingInline: var-style(toggle-content-padding-inline),
     //
+    $borderColor: var-theme(link-ui),
+    $borderColor_hover: if($borderColor, var-theme(link-ui-hover), false),
+    $borderColor_active: if($borderColor, var-theme(link-ui-active), false),
+    $borderColor_open: if($borderColor, var-theme(link-ui-hover), false),
+    $borderColor_open_hover: if(
+            $borderColor_open,
+            var-theme(link-ui-active),
+            false
+        ),
+    $borderColor_open_active: if($borderColor_open, var-theme(link-ui), false),
+    //
+    $titleColor: var-theme(link),
+    $titleColor_hover: if($titleColor, var-theme(link-hover), false),
+    $titleColor_active: if($titleColor, var-theme(link-active), false),
+    $titleColor_open: if($titleColor, var-theme(link-hover), false),
+    $titleColor_open_hover: if($titleColor_open, var-theme(link-active), false),
+    $titleColor_open_active: if($titleColor_open, var-theme(link), false),
+    //
+    $includeBorderColor_headings: meta.is-truthy($borderColor),
+    $includeBorderColor_headings_open: $includeBorderColor_headings,
+    $includeTitleColor_headings: meta.is-truthy($titleColor),
+    $includeTitleColor_headings_open: $includeTitleColor_headings,
+    //
     $gridGap: $_toggle_gridGap,
     //
     $svg_sel_moving: $_toggle_svg_sel_moving,
@@ -530,7 +553,9 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == toggle-container {
-            @include cx-prop(toggle-border-color, var-theme(link-ui));
+            @if $borderColor {
+                @include cx-prop(toggle-border-color, $borderColor);
+            }
 
             @content ($location);
         }
@@ -545,14 +570,18 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                 &:has(
                     #{selector.unify('.toggle-block__title__heading', '%h#{$slug}')}
                 ) {
-                    @include cx-prop(
-                        toggle-border-color,
-                        var-theme(heading-#{$slug})
-                    );
-                    @include cx-prop(
-                        toggle-title-color,
-                        var-theme(heading-#{$slug})
-                    );
+                    @if $includeBorderColor_headings {
+                        @include cx-prop(
+                            toggle-border-color,
+                            var-theme(heading-#{$slug})
+                        );
+                    }
+                    @if $includeTitleColor_headings {
+                        @include cx-prop(
+                            toggle-title-color,
+                            var-theme(heading-#{$slug})
+                        );
+                    }
 
                     margin-block-start: max(
                         do-var(flow-margin--large),
@@ -569,23 +598,25 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             }
 
             // HAS BUTTON HOVER OR FOCUS
-            &:has(
-                #{$selector_toggleControl__isHover},
-                #{selector.nest('.toggle-block__title__heading', $selector_toggleControl__isHover)}
-            ) {
-                @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
-                @include cx-prop(toggle-title-color, var-theme(link-hover));
+            &:has(#{$selector_toggleControl__isHover}) {
+                @if $borderColor_hover {
+                    @include cx-prop(toggle-border-color, $borderColor_hover);
+                }
+                @if $titleColor_hover {
+                    @include cx-prop(toggle-title-color, $titleColor_hover);
+                }
 
                 @content (#{$location}--has-control-focus-or-hover);
             }
 
             // HAS BUTTON ACTIVE
             &:has(#{$selector_toggleControl__isActive}) {
-                @include cx-prop(
-                    toggle-border-color,
-                    var-theme(link-ui-active)
-                );
-                @include cx-prop(toggle-title-color, var-theme(link-active));
+                @if $borderColor_active {
+                    @include cx-prop(toggle-border-color, $borderColor_active);
+                }
+                @if $titleColor_active {
+                    @include cx-prop(toggle-title-color, $titleColor_active);
+                }
 
                 @content (#{$location}--has-control-active);
             }
@@ -829,26 +860,47 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--toggle-container--open {
-            @include cx-prop(toggle-border-color, var-theme(link-ui-hover));
-            @include cx-prop(toggle-title-color, var-theme(link-hover));
+            @if $borderColor_open {
+                @include cx-prop(toggle-border-color, $borderColor_open);
+            }
+            @if $titleColor_open {
+                @include cx-prop(toggle-title-color, $titleColor_open);
+            }
 
             @content ($location);
 
             // HAS BUTTON HOVER OR FOCUS
             &:has(#{$selector_toggleControl__isHover}) {
-                @include cx-prop(
-                    toggle-border-color,
-                    var-theme(link-ui-active)
-                );
-                @include cx-prop(toggle-title-color, var-theme(link-active));
+                @if $borderColor_open_hover {
+                    @include cx-prop(
+                        toggle-border-color,
+                        $borderColor_open_hover
+                    );
+                }
+                @if $titleColor_open_hover {
+                    @include cx-prop(
+                        toggle-title-color,
+                        $titleColor_open_hover
+                    );
+                }
 
                 @content (#{$location}--has-control-focus-or-hover);
             }
 
             // HAS BUTTON ACTIVE
             &:has(#{$selector_toggleControl__isActive}) {
-                @include cx-prop(toggle-border-color, var-theme(link-ui));
-                @include cx-prop(toggle-title-color, var-theme(link));
+                @if $borderColor_open_active {
+                    @include cx-prop(
+                        toggle-border-color,
+                        $borderColor_open_active
+                    );
+                }
+                @if $titleColor_open_active {
+                    @include cx-prop(
+                        toggle-title-color,
+                        $titleColor_open_active
+                    );
+                }
 
                 @content (#{$location}--has-control-active);
             }
@@ -864,14 +916,18 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                     $unify: true
                 );
                 &:has(#{$_sel_heading_has_buttonHover}) {
-                    @include cx-prop(
-                        toggle-border-color,
-                        var-theme(heading-#{$slug})
-                    );
-                    @include cx-prop(
-                        toggle-title-color,
-                        var-theme(heading-#{$slug})
-                    );
+                    @if $includeBorderColor_headings_open {
+                        @include cx-prop(
+                            toggle-border-color,
+                            var-theme(heading-#{$slug})
+                        );
+                    }
+                    @if $includeTitleColor_headings_open {
+                        @include cx-prop(
+                            toggle-title-color,
+                            var-theme(heading-#{$slug})
+                        );
+                    }
 
                     @content (#{$location}--has-h#{$slug}--has-control-focus-or-hover);
                 }
@@ -879,12 +935,6 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--toggle-container--open--content {
-            border-block-end-width: $content_borderWidth;
-
-            @content ($location);
-        }
-        //
-        @else if $location == js--toggle-container--open-or-closing--content {
             border-start-end-radius: var-style(
                 toggle-content-border-radius-top,
                 $value_failureReturn: var-style(toggle-content-border-radius),
@@ -896,13 +946,15 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                 $value_warnOnFail: false
             );
 
+            border-block-end-width: $content_borderWidth;
+
             @content ($location);
         }
-
+        //
         // @else if $location == LOCATION {
         // @content($location);
         // }
-
+        //
         @else {
             @content ($location);
         }
@@ -934,7 +986,13 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             $args...
         )
         using ($location) {
-        @if $location == js--body-nav-toggle-title {
+        @if $location == js--nav-toggle-container {
+            gap: 0;
+
+            @content ($location);
+        }
+        //
+        @else if $location == js--body-nav-toggle-title {
             border-block-end-width: $title_borderWidth;
             border-block-end-style: var-style(
                 toggle-content-border-style-top,

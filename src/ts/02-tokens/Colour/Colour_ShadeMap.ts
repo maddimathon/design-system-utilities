@@ -625,13 +625,13 @@ export namespace Tokens_Colour_ShadeMap {
 
         const [
             l_150,
-            l_250,
-            l_750,
+            // l_250,
+            // l_750,
             l_850,
         ] = await Promise.all( [
             shadeFetcher( '150', l_100, l_200 ),
-            shadeFetcher( '250', l_200, l_300 ),
-            shadeFetcher( '750', l_700, l_800 ),
+            // shadeFetcher( '250', l_200, l_300 ),
+            // shadeFetcher( '750', l_700, l_800 ),
             shadeFetcher( '850', l_800, l_900 ),
         ] );
 
@@ -641,13 +641,13 @@ export namespace Tokens_Colour_ShadeMap {
             '100': l_100,
             '150': l_150,
             '200': l_200,
-            '250': l_250,
+            // '250': l_250,
             '300': l_300,
             '400': l_400,
             '500': l_500,
             '600': l_600,
             '700': l_700,
-            '750': l_750,
+            // '750': l_750,
             '800': l_800,
             '850': l_850,
             '900': l_900,
@@ -697,6 +697,11 @@ export namespace Tokens_Colour_ShadeMap {
             // continues for 000, 050, and 950
             switch ( level as ColourUtilities.Levels.Optional ) {
 
+                case '250':
+                    lowerLevel = '200';
+                    higherLevel = '300';
+                    break;
+
                 case '350':
                     lowerLevel = '300';
                     higherLevel = '400';
@@ -715,6 +720,11 @@ export namespace Tokens_Colour_ShadeMap {
                 case '650':
                     lowerLevel = '600';
                     higherLevel = '700';
+                    break;
+
+                case '750':
+                    lowerLevel = '700';
+                    higherLevel = '800';
                     break;
             }
 

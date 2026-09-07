@@ -1005,10 +1005,12 @@ export var ColourUtilities;
          * @since 0.1.0-beta.0.draft
          */
         Levels.optional = [
+            '250',
             '350',
             '450',
             '550',
             '650',
+            '750',
         ];
         /**
          * The shade level keys always included in maps for this system.
@@ -1019,13 +1021,11 @@ export var ColourUtilities;
             '100',
             '150',
             '200',
-            '250',
             '300',
             '400',
             '500',
             '600',
             '700',
-            '750',
             '800',
             '850',
             '900',

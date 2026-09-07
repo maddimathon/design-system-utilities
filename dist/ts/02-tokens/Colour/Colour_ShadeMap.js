@@ -274,23 +274,26 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             shadeFetcher('600', l_500, l_700),
             shadeFetcher('800', l_700, l_900),
         ]);
-        const [l_150, l_250, l_750, l_850,] = await Promise.all([
+        const [l_150, 
+        // l_250,
+        // l_750,
+        l_850,] = await Promise.all([
             shadeFetcher('150', l_100, l_200),
-            shadeFetcher('250', l_200, l_300),
-            shadeFetcher('750', l_700, l_800),
+            // shadeFetcher( '250', l_200, l_300 ),
+            // shadeFetcher( '750', l_700, l_800 ),
             shadeFetcher('850', l_800, l_900),
         ]);
         const defaultLevels = {
             '100': l_100,
             '150': l_150,
             '200': l_200,
-            '250': l_250,
+            // '250': l_250,
             '300': l_300,
             '400': l_400,
             '500': l_500,
             '600': l_600,
             '700': l_700,
-            '750': l_750,
+            // '750': l_750,
             '800': l_800,
             '850': l_850,
             '900': l_900,
@@ -318,6 +321,10 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
             let higherLevel;
             // continues for 000, 050, and 950
             switch (level) {
+                case '250':
+                    lowerLevel = '200';
+                    higherLevel = '300';
+                    break;
                 case '350':
                     lowerLevel = '300';
                     higherLevel = '400';
@@ -333,6 +340,10 @@ export class Tokens_Colour_ShadeMap extends AbstractTokens {
                 case '650':
                     lowerLevel = '600';
                     higherLevel = '700';
+                    break;
+                case '750':
+                    lowerLevel = '700';
+                    higherLevel = '800';
                     break;
             }
             completeLevels.push(ColourUtilities.mixColours(defaultLevels[lowerLevel], defaultLevels[higherLevel]).then(mixed => shadeMaker(level, mixed).then(shade => [level, shade])));

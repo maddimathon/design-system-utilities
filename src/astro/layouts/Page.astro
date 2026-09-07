@@ -92,7 +92,10 @@ type Partial_LibProps = Partial<Omit<UtilPage_Props, 'footer' | 'settings'>> &
 export interface PageProps extends Partial_LibProps {
     tokens: Tokens.JsonReturn;
 
-    footer?: {
+    footer?: Omit<
+        NonNullable<UtilPage_Props['footer']>,
+        'copyright' | 'designedBy'
+    > & {
         // prettier-ignore
         copyright?: undefined | Copyright_HTML | Copyright_PlainOwner | Copyright_PlainYear;
         designedBy?: boolean | string;
@@ -177,12 +180,14 @@ const props = {
     ...inputs,
 
     components: {
-        ...inputs.components,
         PrimaryMenu: ToggleNavMenu,
         SettingsMenu: SettingsMenu,
+        ...inputs.components,
     },
 
     footer: {
+        ...inputs.footer,
+
         copyright: parseFooterInput(inputs.footer?.copyright),
 
         designedBy:
