@@ -35,7 +35,7 @@ export declare namespace Tokens_CSS_Transition {
     /**
      * @since 0.1.0-alpha
      */
-    export type Data = {
+    export type Data<T_ExtraTime extends string = never> = {
         properties: {
             always: AllowedProperties[];
             motion: AllowedProperties[];
@@ -52,15 +52,25 @@ export declare namespace Tokens_CSS_Transition {
             fast: TransitionTime;
             normal: TransitionTime;
             slow: TransitionTime;
-            'toggle-closing': TransitionTime;
-            [key: string]: TransitionTime;
+        } & {
+            [K in T_ExtraTime]: TransitionTime;
+        } & {
+            toggle: {
+                $: TransitionTime;
+                motion: TransitionTime;
+            };
         };
     };
     /**
      * @since 0.1.0-alpha
      */
     export type InputParam = Partial<Omit<Data, 'time'>> & {
-        time?: Partial<Data['time']>;
+        time?: Partial<Omit<Data['time'], 'toggle'> & {
+            toggle: TransitionTime | Partial<{
+                $: TransitionTime;
+                motion: TransitionTime;
+            }>;
+        }>;
     };
     /**
      * @since 0.1.0-alpha

@@ -118,14 +118,32 @@ export class Tokens_CSS_Transition extends AbstractTokens {
                 fast: '250ms',
                 normal: '500ms',
                 slow: '750ms',
-                'toggle-closing': '1200ms',
+                toggle: {
+                    $: '500ms',
+                    motion: '1200ms',
+                },
             },
         };
     }
     data;
     constructor(input) {
         super();
-        this.data = mergeArgs(Tokens_CSS_Transition.default, input, true);
+        const _defaults = Tokens_CSS_Transition.default;
+        this.data = mergeArgs(Tokens_CSS_Transition.default, {
+            ...input,
+            time: {
+                ...input.time,
+                toggle: typeof input.time?.toggle === 'object'
+                    ? {
+                        ...input.time?.toggle,
+                        ..._defaults.time.toggle,
+                    }
+                    : {
+                        $: input.time?.normal ?? _defaults.time.toggle.$,
+                        motion: input.time?.toggle ?? _defaults.time.toggle.motion,
+                    },
+            }
+        }, true);
     }
     toJSON() {
         return this.data;

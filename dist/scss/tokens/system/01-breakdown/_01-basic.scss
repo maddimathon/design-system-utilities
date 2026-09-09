@@ -246,6 +246,11 @@ $themes: ();
 // #region - TRANSITION
 
 $transition: map.get(default.$designSystem, transition);
+$transition: map.set(
+    $transition,
+    time,
+    map.flatten(meta.defined-else(map.get($transition, time), ()))
+);
 
 ///
 /// @since 0.1.0-beta.0.draft

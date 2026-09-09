@@ -212,6 +212,34 @@
     inherits: true;
     initial-value: currentColor;
 }
+@property --transition {
+    syntax: "*";
+    inherits: true;
+    initial-value:
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out;
+}
+@property --transition-toggle {
+    syntax: "*";
+    inherits: true;
+    initial-value:
+        accent-color 500ms ease-out,
+        background-color 500ms ease-out,
+        border-color 500ms ease-out,
+        color 500ms ease-out,
+        font-weight 500ms ease-out,
+        opacity 500ms ease-out,
+        text-decoration-color 500ms ease-out,
+        text-shadow 500ms ease-out,
+        visibility 500ms ease-out;
+}
 /* #endregion Tokens - @property */
 /*! END of @maddimathon/utility-sass/template */
 /*! START of @maddimathon/design-system-utilities/template/global */
@@ -232,17 +260,9 @@
 
 /* #endregion Tokens - Style */
 /* #region Tokens - Transitions */
-:root {
-    --transition:
-        accent-color 250ms ease-out, background-color 250ms ease-out,
-        border-color 250ms ease-out, color 250ms ease-out,
-        font-weight 250ms ease-out, opacity 250ms ease-out,
-        text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
-        visibility 250ms ease-out;
-}
-
 @media (prefers-reduced-motion: no-preference) {
     :root {
+        --tr-time-toggle: 1200ms;
         --transition:
             accent-color 250ms ease-out, background-color 250ms ease-out,
             border-color 250ms ease-out, color 250ms ease-out,
@@ -258,8 +278,41 @@
             outline-color 250ms ease-out, padding 500ms ease-out,
             right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
             width 250ms ease-out;
+        --transition-toggle:
+            accent-color 1200ms ease-out, background-color 1200ms ease-out,
+            border-color 1200ms ease-out, color 1200ms ease-out,
+            font-weight 1200ms ease-out, opacity 1200ms ease-out,
+            text-decoration-color 1200ms ease-out, text-shadow 1200ms ease-out,
+            visibility 1200ms ease-out, aspect-ratio 1200ms ease-out,
+            border-color 1200ms ease-out, border-radius 1200ms ease-out,
+            border-width 1200ms ease-out, bottom 1200ms ease-out,
+            font-weight 1200ms ease-out, gap 1200ms ease-out,
+            height 1200ms ease-out, left 1200ms ease-out,
+            margin 1200ms ease-out, max-height 1200ms ease-out,
+            max-width 1200ms ease-out, min-height 1200ms ease-out,
+            min-width 1200ms ease-out, outline-color 1200ms ease-out,
+            padding 1200ms ease-out, right 1200ms ease-out, top 1200ms ease-out,
+            transform 1200ms ease-out, width 1200ms ease-out;
     }
 }
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --tr-time-toggle: 500ms;
+        --transition:
+            accent-color 250ms ease-out, background-color 250ms ease-out,
+            border-color 250ms ease-out, color 250ms ease-out,
+            font-weight 250ms ease-out, opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
+            visibility 250ms ease-out;
+        --transition-toggle:
+            accent-color 500ms ease-out, background-color 500ms ease-out,
+            border-color 500ms ease-out, color 500ms ease-out,
+            font-weight 500ms ease-out, opacity 500ms ease-out,
+            text-decoration-color 500ms ease-out, text-shadow 500ms ease-out,
+            visibility 500ms ease-out;
+    }
+}
+
 /* #endregion Tokens - Transitions */
 /* #region Tokens - Theme - light mode + average contrast */
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
@@ -4012,7 +4065,18 @@ a[href]::after {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
 }
 a[href]:empty {
     display: none;
@@ -5360,7 +5424,18 @@ input {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
@@ -5902,7 +5977,18 @@ a[href].button {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -7361,7 +7447,18 @@ input::file-selector-button {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;

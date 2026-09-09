@@ -134,7 +134,11 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                 fast: '250ms',
                 normal: '500ms',
                 slow: '750ms',
-                'toggle-closing': '1200ms',
+
+                toggle: {
+                    $: '500ms',
+                    motion: '1200ms',
+                },
             },
         };
     }
@@ -146,7 +150,29 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
     ) {
         super();
 
-        this.data = mergeArgs( Tokens_CSS_Transition.default, input, true );
+        const _defaults = Tokens_CSS_Transition.default;
+
+        this.data = mergeArgs(
+            Tokens_CSS_Transition.default,
+            {
+                ...input,
+
+                time: {
+                    ...input.time,
+
+                    toggle: typeof input.time?.toggle === 'object'
+                        ? {
+                            ...input.time?.toggle,
+                            ..._defaults.time.toggle,
+                        } satisfies Tokens_CSS_Transition.Data[ 'time' ][ 'toggle' ]
+                        : {
+                            $: input.time?.normal ?? _defaults.time.toggle.$,
+                            motion: input.time?.toggle ?? _defaults.time.toggle.motion,
+                        } satisfies Tokens_CSS_Transition.Data[ 'time' ][ 'toggle' ],
+                }
+            },
+            true,
+        );
     }
 
     public toJSON(): Tokens_CSS_Transition.JsonReturn {
@@ -218,7 +244,7 @@ export namespace Tokens_CSS_Transition {
     /**
      * @since 0.1.0-alpha
      */
-    export type Data = {
+    export type Data<T_ExtraTime extends string = never> = {
 
         properties: {
             always: AllowedProperties[];
@@ -241,10 +267,13 @@ export namespace Tokens_CSS_Transition {
             fast: TransitionTime;
             normal: TransitionTime;
             slow: TransitionTime;
-
-            'toggle-closing': TransitionTime;
-
-            [ key: string ]: TransitionTime;
+        } & {
+            [ K in T_ExtraTime ]: TransitionTime;
+        } & {
+            toggle: {
+                $: TransitionTime;
+                motion: TransitionTime;
+            };
         };
     };
 
@@ -252,7 +281,12 @@ export namespace Tokens_CSS_Transition {
      * @since 0.1.0-alpha
      */
     export type InputParam = Partial<Omit<Data, 'time'>> & {
-        time?: Partial<Data[ 'time' ]>;
+        time?: Partial<Omit<Data[ 'time' ], 'toggle'> & {
+            toggle: TransitionTime | Partial<{
+                $: TransitionTime;
+                motion: TransitionTime;
+            }>;
+        }>;
     };
 
     /**

@@ -22,7 +22,10 @@
 @use '03-01-accessibility' as *;
 @use '03-03-typography' as *;
 
-$_closing_time: var-tr-time(toggle-closing);
+$_closing_time: do-var(
+    toggle-closing-time,
+    var-tr-time(toggle, $neverReplaceWithValue: true)
+);
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -202,6 +205,7 @@ $_closing_time: var-tr-time(toggle-closing);
         transition: _transition-value-list($bool);
     }
 
+    [data-toggle-container='opening'],
     [data-toggle-container='open'],
     [data-toggle-container='closing'] {
         [data-toggle-control] {
@@ -327,20 +331,21 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
         )
         using ($location) {
         @if $location == js--toggle-base--container {
-            @include cx-prop(toggle-closing-time, $_closing_time);
+            @include cx-prop(
+                toggle-closing-time,
+                var-tr-time(toggle, $neverReplaceWithValue: true)
+            );
 
             @content ($location);
         }
         //
         @else if $location == js--toggle-base--control-backdrop {
-            transition: transition-properties-value(false);
-
             @content ($location);
 
             &,
             &::before,
             &::after {
-                transition: transition-properties-value(false);
+                transition: do-var(transition-toggle);
 
                 @content (#{$location}--self-before-after);
             }
@@ -408,7 +413,7 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
         }
         //
         @else if $location == toggle-base--title-and-headings {
-            transition: transition-properties-value(false);
+            transition: do-var(transition-toggle);
 
             @content ($location);
         }

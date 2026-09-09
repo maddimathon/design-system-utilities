@@ -31,23 +31,27 @@ type Props = GenericElementProps<LogoProps, 'div'>;
 
 const {
     logo,
-    class: classList = [],
+    'class': classList = [],
+    'aria-hidden': ariaHidden = false,
     ...attributes
 }: Props = Astro.props?.frontmatter ?? Astro.props;
 
 /* CONSTANTS ===================================== */
-
-const { slug, svgInlineLabelled: svg } = logo;
 ---
 
 <div
     {...attributes}
+    aria-hidden={ariaHidden ? true : undefined}
     class:list={[
         'brand-logo',
-        `brand-logo--${slug}`,
+        `brand-logo--${logo.slug}`,
         { '||': classList },
         classList,
     ]}
 >
-    <Fragment set:html={svg} />
+    <Fragment
+        set:html={ariaHidden
+            ? logo.svgInlineHidden.trim()
+            : logo.svgInlineLabelled.trim()}
+    />
 </div>

@@ -6,7 +6,9 @@
  */
 
 /* import - types */
-import type { ComponentProps } from 'astro/types';
+import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { ToggleNavMenuProps as UtilsToggleNavMenuProps } from '@maddimathon/utility-astro/components';
+
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
@@ -21,9 +23,11 @@ import { ToggleNavMenu as UtilsToggleNavMenu } from '@maddimathon/utility-astro/
 
 /* PROPS ===================================== */
 
-type Props = ComponentProps<typeof UtilsToggleNavMenu> & {
+export type ToggleNavMenuProps = UtilsToggleNavMenuProps & {
     tokens?: Tokens.JsonReturn;
 };
+
+type Props = GenericElementProps<ToggleNavMenuProps, 'div'>;
 
 const { tokens = SampleTokens_Json, ...props }: Props = Astro.props;
 

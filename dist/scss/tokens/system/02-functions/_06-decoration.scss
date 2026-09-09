@@ -5,7 +5,9 @@
 
 @use '../../../config';
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
 
 // @use '../00-default' as default;
 @use '../01-breakdown' as breakdown;
@@ -39,12 +41,93 @@
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function tokens-var-tr-time($level, $fallbackOnly: false, $args...) {
+@function tokens-var-tr-time(
+    $level,
+    $fallbackOnly: false,
+    $neverReplaceWithValue: false,
+    $args...
+) {
     @return config.config-do-var(
         tr-time-#{$level},
         $fallback: tokens-transition-time-value($level),
-        $fallbackOnly: $fallbackOnly or
-            config.$fn_var_replaceWithValue_transitionTime,
+        $fallbackOnly: (
+            $fallbackOnly or config.$fn_var_replaceWithValue_transitionTime
+        )
+        and (not $neverReplaceWithValue),
         $args...
     );
+}
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$transition_property_timing: ();
+
+@each $prop,
+    $slug in map.flatten(map.get(breakdown.$transition, properties, timing))
+{
+    $transition_property_timing: map.set(
+        $transition_property_timing,
+        $prop,
+        tokens-var-tr-time($slug)
+    );
+}
+
+$_transition_time_default: tokens-var-tr-time(fast);
+
+$_transition: ();
+@each $prop in map.get(breakdown.$transition, properties, always) {
+    $__time: meta.defined-else(
+        map.get($transition_property_timing, $prop),
+        $_transition_time_default
+    );
+
+    $_transition: list.append(
+        $_transition,
+        ($prop $__time breakdown.$transition_function),
+        $separator: comma
+    );
+}
+
+$_motionTransition: ();
+@each $prop in map.get(breakdown.$transition, properties, motion) {
+    $__time: meta.defined-else(
+        map.get($transition_property_timing, $prop),
+        $_transition_time_default
+    );
+
+    $_motionTransition: list.append(
+        $_motionTransition,
+        ($prop $__time breakdown.$transition_function),
+        $separator: comma
+    );
+}
+
+///
+/// Uses the transition properties tokens to prepare a list of transition shorthand values.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function tokens-transition-properties-value($withMotion: false, $time: null) {
+    // returns
+    @if not $time {
+        @return if($withMotion, $_motionTransition, $_transition);
+    }
+
+    $transition: ();
+    @each $prop
+        in map.get(
+            breakdown.$transition,
+            properties,
+            if($withMotion, motion, always)
+        )
+    {
+        $transition: list.append(
+            $transition,
+            ($prop $time breakdown.$transition_function),
+            $separator: comma
+        );
+    }
+
+    @return $transition;
 }

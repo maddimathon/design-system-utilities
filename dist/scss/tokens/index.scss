@@ -17,24 +17,3 @@
     $line_height, $lineHeight_base, $lineHeight_multiplier, $margin,
     $margin_base, $margin_multiplier, $margin_softener, $stroke_relative,
     $style, tokens-get-at-properties;
-
-@use '../config';
-
-@use 'pkg:@maddimathon/utility-sass/map';
-@use 'pkg:@maddimathon/utility-sass/math';
-
-@use 'utility-astro' as utils;
-@use 'system';
-
-///
-/// @since 0.1.0-beta.0.draft
-///
-$transition_property_timing: ();
-
-@each $prop, $slug in map.get(system.$transition, properties, timing) {
-    $transition_property_timing: map.set(
-        $transition_property_timing,
-        $prop,
-        system.tokens-var-tr-time($slug)
-    );
-}

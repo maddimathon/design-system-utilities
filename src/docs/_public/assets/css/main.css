@@ -862,6 +862,34 @@ html[data-brightness-mode="dark"] {
     inherits: true;
     initial-value: currentColor;
 }
+@property --transition {
+    syntax: "*";
+    inherits: true;
+    initial-value:
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out;
+}
+@property --transition-toggle {
+    syntax: "*";
+    inherits: true;
+    initial-value:
+        accent-color 500ms ease-out,
+        background-color 500ms ease-out,
+        border-color 500ms ease-out,
+        color 500ms ease-out,
+        font-weight 500ms ease-out,
+        opacity 500ms ease-out,
+        text-decoration-color 500ms ease-out,
+        text-shadow 500ms ease-out,
+        visibility 500ms ease-out;
+}
 /* #endregion Tokens - @property */
 /* #region Tokens - Width */
 html {
@@ -1472,17 +1500,9 @@ html {
 
 /* #endregion Tokens - Style */
 /* #region Tokens - Transitions */
-html {
-    --transition:
-        accent-color 250ms ease-out, background-color 250ms ease-out,
-        border-color 250ms ease-out, color 250ms ease-out,
-        font-weight 250ms ease-out, opacity 250ms ease-out,
-        text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
-        visibility 250ms ease-out;
-}
-
 @media (prefers-reduced-motion: no-preference) {
     html {
+        --tr-time-toggle: 1200ms;
         --transition:
             accent-color 250ms ease-out, background-color 250ms ease-out,
             border-color 250ms ease-out, color 250ms ease-out,
@@ -1498,9 +1518,43 @@ html {
             outline-color 250ms ease-out, padding 500ms ease-out,
             right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
             width 250ms ease-out;
+        --transition-toggle:
+            accent-color 1200ms ease-out, background-color 1200ms ease-out,
+            border-color 1200ms ease-out, color 1200ms ease-out,
+            font-weight 1200ms ease-out, opacity 1200ms ease-out,
+            text-decoration-color 1200ms ease-out, text-shadow 1200ms ease-out,
+            visibility 1200ms ease-out, aspect-ratio 1200ms ease-out,
+            border-color 1200ms ease-out, border-radius 1200ms ease-out,
+            border-width 1200ms ease-out, bottom 1200ms ease-out,
+            font-weight 1200ms ease-out, gap 1200ms ease-out,
+            height 1200ms ease-out, left 1200ms ease-out,
+            margin 1200ms ease-out, max-height 1200ms ease-out,
+            max-width 1200ms ease-out, min-height 1200ms ease-out,
+            min-width 1200ms ease-out, outline-color 1200ms ease-out,
+            padding 1200ms ease-out, right 1200ms ease-out, top 1200ms ease-out,
+            transform 1200ms ease-out, width 1200ms ease-out;
     }
 }
+@media (prefers-reduced-motion: reduce) {
+    html {
+        --tr-time-toggle: 500ms;
+        --transition:
+            accent-color 250ms ease-out, background-color 250ms ease-out,
+            border-color 250ms ease-out, color 250ms ease-out,
+            font-weight 250ms ease-out, opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
+            visibility 250ms ease-out;
+        --transition-toggle:
+            accent-color 500ms ease-out, background-color 500ms ease-out,
+            border-color 500ms ease-out, color 500ms ease-out,
+            font-weight 500ms ease-out, opacity 500ms ease-out,
+            text-decoration-color 500ms ease-out, text-shadow 500ms ease-out,
+            visibility 500ms ease-out;
+    }
+}
+
 [data-motion="no-preference"] {
+    --tr-time-toggle: 1200ms;
     --transition:
         accent-color 250ms ease-out, background-color 250ms ease-out,
         border-color 250ms ease-out, color 250ms ease-out,
@@ -1515,6 +1569,37 @@ html {
         min-width 500ms ease-out, outline-color 250ms ease-out,
         padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
         transform 500ms ease-out, width 250ms ease-out;
+    --transition-toggle:
+        accent-color 1200ms ease-out, background-color 1200ms ease-out,
+        border-color 1200ms ease-out, color 1200ms ease-out,
+        font-weight 1200ms ease-out, opacity 1200ms ease-out,
+        text-decoration-color 1200ms ease-out, text-shadow 1200ms ease-out,
+        visibility 1200ms ease-out, aspect-ratio 1200ms ease-out,
+        border-color 1200ms ease-out, border-radius 1200ms ease-out,
+        border-width 1200ms ease-out, bottom 1200ms ease-out,
+        font-weight 1200ms ease-out, gap 1200ms ease-out,
+        height 1200ms ease-out, left 1200ms ease-out, margin 1200ms ease-out,
+        max-height 1200ms ease-out, max-width 1200ms ease-out,
+        min-height 1200ms ease-out, min-width 1200ms ease-out,
+        outline-color 1200ms ease-out, padding 1200ms ease-out,
+        right 1200ms ease-out, top 1200ms ease-out, transform 1200ms ease-out,
+        width 1200ms ease-out;
+}
+
+[data-motion="reduce"] {
+    --tr-time-toggle: 500ms;
+    --transition:
+        accent-color 250ms ease-out, background-color 250ms ease-out,
+        border-color 250ms ease-out, color 250ms ease-out,
+        font-weight 250ms ease-out, opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
+        visibility 250ms ease-out;
+    --transition-toggle:
+        accent-color 500ms ease-out, background-color 500ms ease-out,
+        border-color 500ms ease-out, color 500ms ease-out,
+        font-weight 500ms ease-out, opacity 500ms ease-out,
+        text-decoration-color 500ms ease-out, text-shadow 500ms ease-out,
+        visibility 500ms ease-out;
 }
 
 /* #endregion Tokens - Transitions */
@@ -7635,7 +7720,18 @@ a.skip-link[href] {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -8569,7 +8665,18 @@ a[href]::after {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
 }
 a[href]:empty {
     display: none;
@@ -10696,7 +10803,18 @@ input {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
 }
 textarea::-moz-placeholder,
 select::-moz-placeholder,
@@ -11289,7 +11407,18 @@ a[href].button {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -13405,7 +13534,18 @@ input::file-selector-button {
         text-decoration-color 250ms ease-out,
         text-shadow 250ms ease-out,
         visibility 250ms ease-out;
-    transition: var(--transition);
+    transition: var(
+        --transition,
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out
+    );
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -17174,7 +17314,18 @@ form.search-form [type="submit"] {
             text-decoration-color 250ms ease-out,
             text-shadow 250ms ease-out,
             visibility 250ms ease-out;
-        transition: var(--transition);
+        transition: var(
+            --transition,
+            accent-color 250ms ease-out,
+            background-color 250ms ease-out,
+            border-color 250ms ease-out,
+            color 250ms ease-out,
+            font-weight 250ms ease-out,
+            opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out,
+            visibility 250ms ease-out
+        );
         transition-duration: 500ms;
     }
 }
@@ -17618,15 +17769,27 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 [data-toggle-title],
 [data-toggle-title-heading] {
     transition:
-        accent-color 250ms ease-out,
-        background-color 250ms ease-out,
-        border-color 250ms ease-out,
-        color 250ms ease-out,
-        font-weight 250ms ease-out,
-        opacity 250ms ease-out,
-        text-decoration-color 250ms ease-out,
-        text-shadow 250ms ease-out,
-        visibility 250ms ease-out;
+        accent-color 500ms ease-out,
+        background-color 500ms ease-out,
+        border-color 500ms ease-out,
+        color 500ms ease-out,
+        font-weight 500ms ease-out,
+        opacity 500ms ease-out,
+        text-decoration-color 500ms ease-out,
+        text-shadow 500ms ease-out,
+        visibility 500ms ease-out;
+    transition: var(
+        --transition-toggle,
+        accent-color 500ms ease-out,
+        background-color 500ms ease-out,
+        border-color 500ms ease-out,
+        color 500ms ease-out,
+        font-weight 500ms ease-out,
+        opacity 500ms ease-out,
+        text-decoration-color 500ms ease-out,
+        text-shadow 500ms ease-out,
+        visibility 500ms ease-out
+    );
 }
 
 [data-toggle-content] > .container {
@@ -17634,342 +17797,420 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 
 /* Javascript Enabled ==================================== */
-:where(.js) [data-toggle-container],
-:where(.js) .toggle-block .toggle-block__title,
-:where(.js) .toggle-block .toggle-block__title > .toggle-block__title__heading,
-:where(.js) [data-toggle-content],
-:where(.js) [data-toggle-title],
-:where(.js) [data-toggle-title-heading],
-:where(.js) [data-toggle-control] {
-    --display: grid;
-    display: grid;
-    display: var(--display, grid);
-    position: relative;
-    --grid-template-columns--toggle: [icon] minmax(max-content, auto) [content]
-        1fr;
-    grid-template-columns: [icon] minmax(max-content, auto) [content] 1fr;
-    grid-template-columns: var(
-        --grid-template-columns--toggle,
-        [icon] minmax(max-content, auto) [content] 1fr
-    );
-    grid-auto-rows: auto;
-    grid-auto-flow: column;
-    justify-content: stretch;
-    justify-items: stretch;
-    align-content: start;
-    align-items: start;
-    grid-gap: 0 0.475em;
-    grid-gap: 0 var(--pad-firm-200, 0.5em);
-    gap: 0 0.475em;
-    gap: 0 var(--pad-firm-200, 0.5em);
-}
-
-:where(.js) .toggle-block .toggle-block__title,
-:where(.js) .toggle-block .toggle-block__title > .toggle-block__title__heading,
-:where(.js) [data-toggle-content],
-:where(.js) [data-toggle-title],
-:where(.js) [data-toggle-title-heading],
-:where(.js) [data-toggle-control] {
-    grid-template-columns: subgrid;
-    grid-column: 1/-1;
-}
-
-:where(.js) [data-toggle-container] {
-    z-index: 1;
-    --toggle-closing-time: 1200ms;
-}
-:where(.js) [data-toggle-control][data-toggle-control-backdrop] {
-    position: fixed !important;
-    align-self: auto;
-    justify-self: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0 !important;
-    padding: 0;
-    width: auto !important;
-    height: auto !important;
-    border-radius: 0 !important;
-    -webkit-backdrop-filter: blur(1rem);
-    backdrop-filter: blur(1rem);
-    -webkit-backdrop-filter: var(--backdrop-filter, blur(1rem));
-    backdrop-filter: var(--backdrop-filter, blur(1rem));
-    cursor: pointer;
-    z-index: -2;
-    transition:
-        accent-color 250ms ease-out,
-        background-color 250ms ease-out,
-        border-color 250ms ease-out,
-        color 250ms ease-out,
-        font-weight 250ms ease-out,
-        opacity 250ms ease-out,
-        text-decoration-color 250ms ease-out,
-        text-shadow 250ms ease-out,
-        visibility 250ms ease-out;
-}
-:where(.js) [data-toggle-control][data-toggle-control-backdrop],
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]::before,
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
-    transition:
-        accent-color 250ms ease-out,
-        background-color 250ms ease-out,
-        border-color 250ms ease-out,
-        color 250ms ease-out,
-        font-weight 250ms ease-out,
-        opacity 250ms ease-out,
-        text-decoration-color 250ms ease-out,
-        text-shadow 250ms ease-out,
-        visibility 250ms ease-out;
-}
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]::before,
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
-    content: "";
-    content: ""/"";
-    --display: block;
-    display: block;
-    display: var(--display, block);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-    opacity: 0.625;
-}
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]:hover::before,
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-
-:where(.js):where(.js__no-focusVisible)
-    [data-toggle-control][data-toggle-control-backdrop]:focus::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop]:focus-visible::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop]:has(
-        :is(:focus-visible, [data-state-focus="true"])
-    )::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]:active::before,
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop]:has(
-        :is(:active, [data-state-active="true"])
-    )::before {
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
-    background: hsl(162, 100%, 15%);
-    background: var(--theme-link, LinkText);
-    opacity: 0.1875;
-}
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]:hover::after,
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::after {
-    background: hsl(321, 68%, 26%);
-    background: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js):where(.js__no-focusVisible)
-    [data-toggle-control][data-toggle-control-backdrop]:focus::after {
-    background: hsl(321, 68%, 26%);
-    background: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop]:focus-visible::after {
-    background: hsl(321, 68%, 26%);
-    background: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop]:has(
-        :is(:focus-visible, [data-state-focus="true"])
-    )::after {
-    background: hsl(321, 68%, 26%);
-    background: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js) [data-toggle-control][data-toggle-control-backdrop]:active::after,
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::after {
-    background: hsl(321, 68%, 26%);
-    background: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js)
-    [data-toggle-control][data-toggle-control-backdrop]:has(
-        :is(:active, [data-state-active="true"])
-    )::after {
-    background: hsl(321, 68%, 26%);
-    background: var(--theme-link-hover, ActiveText);
-}
-
-:where(.js) [data-toggle-control] .icon svg #a,
-:where(.js) [data-toggle-control] .icon svg #b,
-:where(.js) [data-toggle-control] .toggle-block__control__icon svg #a,
-:where(.js) [data-toggle-control] .toggle-block__control__icon svg #b {
-    transform-origin: center;
-}
-:where(.js) [data-toggle-title] {
-    z-index: 2;
-}
-:where(.js) [data-toggle-content] {
-    grid-row: 2;
-    grid-template-rows: 0fr;
-    overflow: hidden;
-}
-:where(.js) [data-toggle-content] > *,
-:where(.js) [data-toggle-content] > .container > * {
-    flex-shrink: 0;
-}
-:where(.js) [data-toggle-content] > .container {
-    --grid-column: 1 / -1;
-    grid-column: 1 / -1;
-    grid-column: var(--grid-column, 1 / -1);
-    --display: flex;
-    display: flex;
-    display: var(--display, flex);
-    width: 100%;
-    max-height: 100%;
-    overflow: auto;
-    visibility: hidden;
-    opacity: 0;
+@media screen {
+    :where(.js) [data-toggle-container],
+    :where(.js) [data-toggle-control],
+    :where(.js) [data-toggle-title],
+    :where(.js) [data-toggle-title-heading],
+    :where(.js) [data-toggle-content],
+    :where(.js) .toggle-block .toggle-block__title,
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading {
+        --display: grid;
+        display: grid;
+        display: var(--display, grid);
+        position: relative;
+        --grid-template-columns--toggle: [icon] minmax(max-content, auto)
+            [content] 1fr;
+        grid-template-columns: [icon] minmax(max-content, auto) [content] 1fr;
+        grid-template-columns: var(
+            --grid-template-columns--toggle,
+            [icon] minmax(max-content, auto) [content] 1fr
+        );
+        grid-auto-rows: auto;
+        grid-auto-flow: column;
+        justify-content: stretch;
+        justify-items: stretch;
+        align-content: start;
+        align-items: start;
+        grid-gap: 0 0.475em;
+        grid-gap: 0 var(--pad-firm-200, 0.5em);
+        gap: 0 0.475em;
+        gap: 0 var(--pad-firm-200, 0.5em);
+    }
+    :where(.js) [data-toggle-control],
+    :where(.js) [data-toggle-title],
+    :where(.js) [data-toggle-title-heading],
+    :where(.js) [data-toggle-content],
+    :where(.js) .toggle-block .toggle-block__title,
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading {
+        grid-template-columns: subgrid;
+        grid-column: 1/-1;
+    }
+    :where(.js) [data-toggle-container] {
+        z-index: 1;
+        --toggle-closing-time: var(--tr-time-toggle, 500ms);
+    }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop] {
+        display: block !important;
+        display: var(--display, block) !important;
+        --display: block;
+        display: var(--display, block);
+        position: fixed !important;
+        align-self: auto;
+        justify-self: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 !important;
+        padding: 0;
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 0 !important;
+        -webkit-backdrop-filter: blur(1rem);
+        backdrop-filter: blur(1rem);
+        -webkit-backdrop-filter: var(--backdrop-filter, blur(1rem));
+        backdrop-filter: var(--backdrop-filter, blur(1rem));
+        cursor: pointer;
+        z-index: -2;
+    }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop],
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]::before,
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
+        transition:
+            accent-color 500ms ease-out,
+            background-color 500ms ease-out,
+            border-color 500ms ease-out,
+            color 500ms ease-out,
+            font-weight 500ms ease-out,
+            opacity 500ms ease-out,
+            text-decoration-color 500ms ease-out,
+            text-shadow 500ms ease-out,
+            visibility 500ms ease-out;
+        transition: var(
+            --transition-toggle,
+            accent-color 500ms ease-out,
+            background-color 500ms ease-out,
+            border-color 500ms ease-out,
+            color 500ms ease-out,
+            font-weight 500ms ease-out,
+            opacity 500ms ease-out,
+            text-decoration-color 500ms ease-out,
+            text-shadow 500ms ease-out,
+            visibility 500ms ease-out
+        );
+    }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]::before,
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
+        content: "";
+        content: ""/"";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+        opacity: 0.625;
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:hover::before,
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js):where(.js__no-focusVisible)
+        [data-toggle-control][data-toggle-control-backdrop]:focus::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:focus-visible::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:has(
+            :is(:focus-visible, [data-state-focus="true"])
+        )::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:active::before,
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:has(
+            :is(:active, [data-state-active="true"])
+        )::before {
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
+        background: hsl(162, 100%, 15%);
+        background: var(--theme-link, LinkText);
+        opacity: 0.1875;
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:hover::after,
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::after {
+        background: hsl(321, 68%, 26%);
+        background: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js):where(.js__no-focusVisible)
+        [data-toggle-control][data-toggle-control-backdrop]:focus::after {
+        background: hsl(321, 68%, 26%);
+        background: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:focus-visible::after {
+        background: hsl(321, 68%, 26%);
+        background: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:has(
+            :is(:focus-visible, [data-state-focus="true"])
+        )::after {
+        background: hsl(321, 68%, 26%);
+        background: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:active::after,
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::after {
+        background: hsl(321, 68%, 26%);
+        background: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js)
+        [data-toggle-control][data-toggle-control-backdrop]:has(
+            :is(:active, [data-state-active="true"])
+        )::after {
+        background: hsl(321, 68%, 26%);
+        background: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js) [data-toggle-control] .icon svg #a,
+    :where(.js) [data-toggle-control] .icon svg #b,
+    :where(.js) [data-toggle-control] .toggle-block__control__icon svg #a,
+    :where(.js) [data-toggle-control] .toggle-block__control__icon svg #b {
+        transform-origin: center;
+    }
+    :where(.js) [data-toggle-title] {
+        z-index: 2;
+    }
+    :where(.js) [data-toggle-content] {
+        grid-row: 2;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+    }
+    :where(.js) [data-toggle-content] > *,
+    :where(.js) [data-toggle-content] > .container > * {
+        flex-shrink: 0;
+    }
+    :where(.js) [data-toggle-content] > .container {
+        --grid-column: 1 / -1;
+        grid-column: 1 / -1;
+        grid-column: var(--grid-column, 1 / -1);
+        --display: flex;
+        display: flex;
+        display: var(--display, flex);
+        width: 100%;
+        max-height: 100%;
+        overflow: auto;
+        opacity: 0;
+    }
 }
 
 /* Opening & Closing ==================================== */
-:where(.js)
-    body:has(
-        [data-toggle-container="open"]:is(
-            [data-toggle-container-type="menu"],
-            [data-toggle-container-type~="menu"],
-            [data-toggle-container-type="modal"],
-            [data-toggle-container-type~="modal"]
-        )
-    ):has([data-toggle-control-backdrop]) {
-    overflow: hidden !important;
-}
-
-:where(.js)
-    [data-toggle-container="closed"]
-    [data-toggle-control][data-toggle-control-backdrop] {
-    opacity: 0;
-}
-:where(.js)
-    [data-toggle-container="closed"]
-    > [data-toggle-content]
-    > .container {
-    opacity: 0;
-    visibility: hidden;
-}
-:where(.js) [data-toggle-container="open"] > [data-toggle-content] > .container,
-:where(.js)
-    [data-toggle-container="closing"]
-    > [data-toggle-content]
-    > .container {
-    visibility: visible;
-}
-:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control][data-toggle-control-backdrop],
-:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control][data-toggle-control-backdrop] {
-    display: block !important;
-    display: var(--display, block) !important;
-}
-:where(.js) [data-toggle-container="open"] [data-toggle-control] .icon > svg #b,
-:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #b {
-    transform: rotate(270deg);
-}
-:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control][data-toggle-control-backdrop] {
-    opacity: 1;
-}
-:where(.js) [data-toggle-container="open"] > [data-toggle-content] {
-    grid-template-rows: 1fr;
-}
-:where(.js)
-    [data-toggle-container="open"]
-    > [data-toggle-content]
-    > .container {
-    opacity: 1;
-}
-:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #b,
-:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #b {
-    transform: rotate(540deg);
-}
-:where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
-    grid-template-rows: 0fr;
-}
-:where(.js)
-    [data-toggle-container="closing"]
-    > [data-toggle-content]
-    > .container {
-    opacity: 0;
-    visibility: visible;
+@media screen {
+    :where(.js)
+        body:has(
+            [data-toggle-container="open"]:is(
+                [data-toggle-container-type="menu"],
+                [data-toggle-container-type~="menu"],
+                [data-toggle-container-type="modal"],
+                [data-toggle-container-type~="modal"]
+            )
+        ):has([data-toggle-control-backdrop]) {
+        overflow: hidden !important;
+    }
+    :where(.js)
+        [data-toggle-container="closed"]
+        [data-toggle-control][data-toggle-control-backdrop] {
+        display: none;
+    }
+    :where(.js)
+        [data-toggle-container="closed"]
+        > [data-toggle-content]
+        > .container {
+        display: none;
+        opacity: 0;
+    }
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control][data-toggle-control-backdrop],
+    :where(.js)
+        [data-toggle-container="closed"]
+        [data-toggle-control][data-toggle-control-backdrop] {
+        opacity: 0;
+    }
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control][data-toggle-control-backdrop],
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control][data-toggle-control-backdrop],
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control][data-toggle-control-backdrop] {
+        display: block;
+        display: var(--display, block);
+        bottom: 0;
+    }
+    :where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
+        display: block;
+        display: var(--display, block);
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b {
+        transform: rotate(270deg);
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control][data-toggle-control-backdrop] {
+        opacity: 1;
+    }
+    :where(.js) [data-toggle-container="open"] > [data-toggle-content] {
+        grid-template-rows: 1fr;
+    }
+    :where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content]
+        > .container {
+        opacity: 1;
+    }
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b {
+        transform: rotate(540deg);
+    }
+    :where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control][data-toggle-control-backdrop] {
+        opacity: 0;
+    }
+    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+        grid-template-rows: 0fr;
+    }
+    :where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
+        opacity: 0;
+    }
 }
 
 /* Transition Overrides ==================================== */
-@media (prefers-reduced-motion: no-preference) {
+@media screen and (prefers-reduced-motion: no-preference) {
     :where(.js) [data-toggle-content] {
         transition:
             border-color 500ms ease-out 0ms,
-            border-radius 1200ms ease-out 0ms,
-            border-width 1200ms ease-out 0ms,
-            grid-template-rows 1200ms ease-out 0ms,
-            margin 1200ms ease-out 0ms;
+            border-radius 500ms ease-out 0ms,
+            border-width 500ms ease-out 0ms,
+            grid-template-rows 500ms ease-out 0ms,
+            margin 500ms ease-out 0ms;
+        transition:
+            border-color 500ms ease-out 0ms,
+            border-radius
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            border-width
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            grid-template-rows
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            margin var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms;
     }
     :where(.js) [data-toggle-content] > .container {
         transition:
-            opacity 1200ms ease-out 100ms,
-            visibility 1200ms ease-out 100ms,
-            margin 1200ms ease-out 0ms,
-            padding 1200ms ease-out 0ms;
+            opacity 500ms ease-out 100ms,
+            visibility 500ms ease-out 100ms,
+            margin 500ms ease-out 0ms,
+            padding 500ms ease-out 0ms;
+        transition:
+            opacity var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 100ms,
+            visibility var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 100ms,
+            margin var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            padding var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms;
     }
     :where(.js) [data-toggle-container] {
-        transition: margin 1200ms ease-out 0ms;
+        transition: margin 500ms ease-out 0ms;
+        transition: margin
+            var(--toggle-closing-time, var(--tr-time-toggle, 500ms)) ease-out
+            0ms;
     }
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b,
     :where(.js)
         [data-toggle-container="open"]
         [data-toggle-control]
@@ -18018,17 +18259,40 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block__control__icon
         > svg
         #b {
-        transition: transform 1200ms ease-out 0ms;
+        transition: transform 500ms ease-out 0ms;
+        transition: transform
+            var(--toggle-closing-time, var(--tr-time-toggle, 500ms)) ease-out
+            0ms;
     }
+    :where(.js) [data-toggle-container="opening"] > [data-toggle-content],
     :where(.js) [data-toggle-container="open"] > [data-toggle-content],
     :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
         transition:
-            border-color 1200ms ease-out 0ms,
-            border-radius 1200ms ease-out 0ms,
-            border-width 1200ms ease-out 0ms,
-            grid-template-rows 1200ms ease-out 0ms,
-            margin 1200ms ease-out 0ms;
+            border-color 500ms ease-out 0ms,
+            border-radius 500ms ease-out 0ms,
+            border-width 500ms ease-out 0ms,
+            grid-template-rows 500ms ease-out 0ms,
+            margin 500ms ease-out 0ms;
+        transition:
+            border-color
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            border-radius
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            border-width
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            grid-template-rows
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            margin var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms;
     }
+    :where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
     :where(.js)
         [data-toggle-container="open"]
         > [data-toggle-content]
@@ -18040,103 +18304,184 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         transition-delay: 0ms;
     }
 }
-[data-motion="no-preference"]:where(.js) [data-toggle-content] {
-    transition:
-        border-color 500ms ease-out 0ms,
-        border-radius 1200ms ease-out 0ms,
-        border-width 1200ms ease-out 0ms,
-        grid-template-rows 1200ms ease-out 0ms,
-        margin 1200ms ease-out 0ms;
+@media screen {
+    [data-motion="no-preference"]:where(.js) [data-toggle-content] {
+        transition:
+            border-color 500ms ease-out 0ms,
+            border-radius 500ms ease-out 0ms,
+            border-width 500ms ease-out 0ms,
+            grid-template-rows 500ms ease-out 0ms,
+            margin 500ms ease-out 0ms;
+        transition:
+            border-color 500ms ease-out 0ms,
+            border-radius
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            border-width
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            grid-template-rows
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            margin var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms;
+    }
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-content]
+        > .container {
+        transition:
+            opacity 500ms ease-out 100ms,
+            visibility 500ms ease-out 100ms,
+            margin 500ms ease-out 0ms,
+            padding 500ms ease-out 0ms;
+        transition:
+            opacity var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 100ms,
+            visibility var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 100ms,
+            margin var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            padding var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms;
+    }
+    [data-motion="no-preference"]:where(.js) [data-toggle-container] {
+        transition: margin 500ms ease-out 0ms;
+        transition: margin
+            var(--toggle-closing-time, var(--tr-time-toggle, 500ms)) ease-out
+            0ms;
+    }
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b {
+        transition: transform 500ms ease-out 0ms;
+        transition: transform
+            var(--toggle-closing-time, var(--tr-time-toggle, 500ms)) ease-out
+            0ms;
+    }
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content],
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content],
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content] {
+        transition:
+            border-color 500ms ease-out 0ms,
+            border-radius 500ms ease-out 0ms,
+            border-width 500ms ease-out 0ms,
+            grid-template-rows 500ms ease-out 0ms,
+            margin 500ms ease-out 0ms;
+        transition:
+            border-color
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            border-radius
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            border-width
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            grid-template-rows
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms,
+            margin var(--toggle-closing-time, var(--tr-time-toggle, 500ms))
+                ease-out 0ms;
+    }
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content]
+        > .container,
+    [data-motion="no-preference"]:where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
+        transition-delay: 0ms;
+    }
 }
-[data-motion="no-preference"]:where(.js) [data-toggle-content] > .container {
-    transition:
-        opacity 1200ms ease-out 100ms,
-        visibility 1200ms ease-out 100ms,
-        margin 1200ms ease-out 0ms,
-        padding 1200ms ease-out 0ms;
-}
-[data-motion="no-preference"]:where(.js) [data-toggle-container] {
-    transition: margin 1200ms ease-out 0ms;
-}
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #a,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #b,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #a,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #b,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #a,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #b,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #a,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #b {
-    transition: transform 1200ms ease-out 0ms;
-}
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="open"]
-    > [data-toggle-content],
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="closing"]
-    > [data-toggle-content] {
-    transition:
-        border-color 1200ms ease-out 0ms,
-        border-radius 1200ms ease-out 0ms,
-        border-width 1200ms ease-out 0ms,
-        grid-template-rows 1200ms ease-out 0ms,
-        margin 1200ms ease-out 0ms;
-}
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="open"]
-    > [data-toggle-content]
-    > .container,
-[data-motion="no-preference"]:where(.js)
-    [data-toggle-container="closing"]
-    > [data-toggle-content]
-    > .container {
-    transition-delay: 0ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
+@media screen and (prefers-reduced-motion: reduce) {
     :where(.js) [data-toggle-content] {
         transition:
             border-color 500ms ease-out 0ms,
-            grid-template-rows 0ms ease-out 1200ms;
+            grid-template-rows 0ms ease-out 500ms;
+        transition:
+            border-color 500ms ease-out 0ms,
+            grid-template-rows 0ms ease-out
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms));
     }
     :where(.js) [data-toggle-content] > .container {
         transition:
@@ -18146,6 +18491,30 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js) [data-toggle-container] {
         transition: none;
     }
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    :where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b,
     :where(.js)
         [data-toggle-container="open"]
         [data-toggle-control]
@@ -18196,10 +18565,15 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         #b {
         transition: none;
     }
+    :where(.js) [data-toggle-container="opening"] > [data-toggle-content],
     :where(.js) [data-toggle-container="open"] > [data-toggle-content],
     :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
         transition: border-color 500ms ease-out 0ms;
     }
+    :where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
     :where(.js)
         [data-toggle-container="open"]
         > [data-toggle-content]
@@ -18211,86 +18585,123 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         transition-delay: 0ms, 0ms;
     }
 }
-[data-motion="reduce"]:where(.js) [data-toggle-content] {
-    transition:
-        border-color 500ms ease-out 0ms,
-        grid-template-rows 0ms ease-out 1200ms;
-}
-[data-motion="reduce"]:where(.js) [data-toggle-content] > .container {
-    transition:
-        opacity 500ms ease-out 100ms,
-        visibility 500ms ease-out 100ms;
-}
-[data-motion="reduce"]:where(.js) [data-toggle-container] {
-    transition: none;
-}
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #a,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #b,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #a,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="open"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #b,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #a,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .icon
-    > svg
-    #b,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #a,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="closing"]
-    [data-toggle-control]
-    .toggle-block__control__icon
-    > svg
-    #b {
-    transition: none;
-}
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="open"]
-    > [data-toggle-content],
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="closing"]
-    > [data-toggle-content] {
-    transition: border-color 500ms ease-out 0ms;
-}
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="open"]
-    > [data-toggle-content]
-    > .container,
-[data-motion="reduce"]:where(.js)
-    [data-toggle-container="closing"]
-    > [data-toggle-content]
-    > .container {
-    transition-delay: 0ms, 0ms;
+@media screen {
+    [data-motion="reduce"]:where(.js) [data-toggle-content] {
+        transition:
+            border-color 500ms ease-out 0ms,
+            grid-template-rows 0ms ease-out 500ms;
+        transition:
+            border-color 500ms ease-out 0ms,
+            grid-template-rows 0ms ease-out
+                var(--toggle-closing-time, var(--tr-time-toggle, 500ms));
+    }
+    [data-motion="reduce"]:where(.js) [data-toggle-content] > .container {
+        transition:
+            opacity 500ms ease-out 100ms,
+            visibility 500ms ease-out 100ms;
+    }
+    [data-motion="reduce"]:where(.js) [data-toggle-container] {
+        transition: none;
+    }
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="opening"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="open"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #a,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .icon
+        > svg
+        #b,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #a,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="closing"]
+        [data-toggle-control]
+        .toggle-block__control__icon
+        > svg
+        #b {
+        transition: none;
+    }
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content],
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content],
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content] {
+        transition: border-color 500ms ease-out 0ms;
+    }
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="open"]
+        > [data-toggle-content]
+        > .container,
+    [data-motion="reduce"]:where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
+        transition-delay: 0ms, 0ms;
+    }
 }
 
 /* Toggle Blocks ==================================== */
@@ -18416,733 +18827,743 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 }
 
 /* Javascript Enabled ==================================== */
-:where(.js) .toggle-block {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: 0.40625rem;
-    margin-bottom: var(--flow-margin-firm-end--large, 0.40625rem);
-}
-:where(.js)
-    .toggle-block:has(
-        .toggle-block__title__heading.h1,
-        h1.toggle-block__title__heading
-    ) {
-    --toggle-border-color: var(--theme-heading-1, CanvasText);
-    --toggle-title-color: var(--theme-heading-1, CanvasText);
-    margin-top: max(1.84375rem, 3.34375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-800, 3.34375rem)
-    );
-}
-:where(.js)
-    .toggle-block:has(
-        .toggle-block__title__heading.h2,
-        h2.toggle-block__title__heading
-    ) {
-    --toggle-border-color: var(--theme-heading-2, CanvasText);
-    --toggle-title-color: var(--theme-heading-2, CanvasText);
-    margin-top: max(1.84375rem, 3.34375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-800, 3.34375rem)
-    );
-}
-:where(.js)
-    .toggle-block:has(
-        .toggle-block__title__heading.h3,
-        h3.toggle-block__title__heading
-    ) {
-    --toggle-border-color: var(--theme-heading-3, CanvasText);
-    --toggle-title-color: var(--theme-heading-3, CanvasText);
-    margin-top: max(1.84375rem, 3.34375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-800, 3.34375rem)
-    );
-}
-:where(.js)
-    .toggle-block:has(
-        .toggle-block__title__heading.h4,
-        h4.toggle-block__title__heading
-    ) {
-    --toggle-border-color: var(--theme-heading-4, CanvasText);
-    --toggle-title-color: var(--theme-heading-4, CanvasText);
-    margin-top: max(1.84375rem, 1.84375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-600, 1.84375rem)
-    );
-}
-:where(.js)
-    .toggle-block:has(
-        .toggle-block__title__heading.h5,
-        h5.toggle-block__title__heading
-    ) {
-    --toggle-border-color: var(--theme-heading-5, CanvasText);
-    --toggle-title-color: var(--theme-heading-5, CanvasText);
-    margin-top: max(1.84375rem, 1.84375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-600, 1.84375rem)
-    );
-}
-:where(.js)
-    .toggle-block:has(
-        .toggle-block__title__heading.h6,
-        h6.toggle-block__title__heading
-    ) {
-    --toggle-border-color: var(--theme-heading-6, CanvasText);
-    --toggle-title-color: var(--theme-heading-6, CanvasText);
-    margin-top: max(1.84375rem, 1.84375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-600, 1.84375rem)
-    );
-}
-:where(.js) .toggle-block:has(.toggle-block__title__heading.h7) {
-    --toggle-border-color: var(--theme-heading-7, CanvasText);
-    --toggle-title-color: var(--theme-heading-7, CanvasText);
-    margin-top: max(1.84375rem, 1.84375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-600, 1.84375rem)
-    );
-}
-:where(.js) .toggle-block:has(.toggle-block__title__heading.h8) {
-    --toggle-border-color: var(--theme-heading-8, CanvasText);
-    --toggle-title-color: var(--theme-heading-8, CanvasText);
-    margin-top: max(1.84375rem, 1.84375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-600, 1.84375rem)
-    );
-}
-:where(.js) .toggle-block:has(.toggle-block__title__heading.h9) {
-    --toggle-border-color: var(--theme-heading-9, CanvasText);
-    --toggle-title-color: var(--theme-heading-9, CanvasText);
-    margin-top: max(1.84375rem, 1.34375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-500, 1.34375rem)
-    );
-}
-:where(.js) .toggle-block:has(.toggle-block__title__heading.h10) {
-    --toggle-border-color: var(--theme-heading-10, CanvasText);
-    --toggle-title-color: var(--theme-heading-10, CanvasText);
-    margin-top: max(1.84375rem, 1.34375rem);
-    margin-top: max(
-        var(--flow-margin--large, 1.84375rem),
-        var(--mrg-soft-500, 1.34375rem)
-    );
-}
-:where(.js)
-    .toggle-block:has(
-        :is(
-            [data-toggle-control]:hover,
-            [data-toggle-control]:focus-visible,
-            [data-toggle-control][data-state-focus="true"]
-        )
-    ) {
-    --toggle-border-color: var(--theme-link-ui-hover, ActiveText);
-    --toggle-title-color: var(--theme-link-hover, ActiveText);
-}
-:where(.js)
-    .toggle-block:has(
-        :is(
-            [data-toggle-control]:active,
-            [data-toggle-control][data-state-active="true"]
-        )
-    ) {
-    --toggle-border-color: var(--theme-link-ui-active, ActiveText);
-    --toggle-title-color: var(--theme-link-active, ActiveText);
-}
-:where(.js) .toggle-block .toggle-block__control {
-    align-items: center;
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-    cursor: pointer;
-}
-:where(.js) .toggle-block .toggle-block__control .toggle-block__control__icon {
-    grid-column: icon;
-}
-:where(.js) .toggle-block .toggle-block__control__inner {
-    grid-column: content;
-}
-:where(.js) .toggle-block .toggle-block__title,
-:where(.js) .toggle-block .toggle-block__title > .toggle-block__title__heading {
-    justify-content: center;
-    justify-items: stretch;
-    align-content: stretch;
-    align-items: center;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: hsl(162, 100%, 15%);
-    color: var(--toggle-title-color, var(--theme-text-primary, CanvasText));
-}
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h1
-    [data-toggle-control],
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > h1.toggle-block__title__heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h2
-    [data-toggle-control],
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > h2.toggle-block__title__heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h3
-    [data-toggle-control],
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > h3.toggle-block__title__heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h4
-    [data-toggle-control],
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > h4.toggle-block__title__heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h5
-    [data-toggle-control],
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > h5.toggle-block__title__heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h6
-    [data-toggle-control],
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > h6.toggle-block__title__heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h7
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h8
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h9
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.h10
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__title
-    > .toggle-block__title__heading.unstyled-heading
-    [data-toggle-control] {
-    margin-bottom: 0.3em;
-    margin-top: 0;
-    margin-bottom: var(--pad-firm-100, 0.3125em);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-:where(.js) .toggle-block .toggle-block__content {
-    line-height: 1.5;
-    line-height: var(--line-height-300, 1.5);
-    background: hsl(339.45, 0%, 85.99%);
-    background: var(--theme-background-grey, Canvas);
-    border-width: 0.125rem;
-    border-width: var(--border-width-200, 0.125rem);
-    border-bottom-width: 0;
-    border-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-style: dotted;
-    border-bottom-style: dotted;
-    border-left-style: dotted;
-    border-right-style: dotted;
-    border-color: hsl(162, 100%, 15%);
-    border-color: var(--toggle-border-color, var(--theme-link-ui, LinkText));
-}
-:where(.js) .toggle-block .toggle-block__content > * {
-    --flow-margin: var(--mrg-soft-300, 0.5rem);
-    --flow-margin--small: var(--mrg-soft-200, 0.3125rem);
-    --flow-margin--large: var(--mrg-soft-500, 1.34375rem);
-    --flow-margin-firm-start: var(--mrg-firm-300, 0.8125rem);
-    --flow-margin-firm-end: var(--mrg-half-300, 0.3125rem);
-    --flow-margin-firm-start--small: var(--mrg-firm-200, 0.5rem);
-    --flow-margin-firm-end--small: var(--mrg-half-200, 0.1875rem);
-    --flow-margin-firm-start--large: var(--mrg-firm-500, 1.6875rem);
-    --flow-margin-firm-end--large: var(--mrg-half-500, 0.34375rem);
-    --flow-margin-button-span-block--touch: var(--mrg-firm-300, 0.8125rem);
-    --flow-margin-button-span-inline--touch: var(--mrg-firm-300, 0.8125rem);
-    --flow-margin-button-span-block: var(
-        --flow-margin-button-span-block--touch,
-        var(--mrg-firm-300, 0.8125rem)
-    );
-    --flow-margin-button-span-inline: var(
-        --flow-margin-button-span-inline--touch,
-        var(--mrg-firm-300, 0.8125rem)
-    );
-}
-:where(.js):where(.js__no-touch) .toggle-block .toggle-block__content > * {
-    --flow-margin-button-span-block: var(--pad-firm-200, 0.5em);
-    --flow-margin-button-span-inline: var(--pad-firm-200, 0.5em);
-    --flow-margin-button-span-block--touch: var(
-        --flow-margin-button-span-block,
-        var(--pad-firm-200, 0.5em)
-    );
-    --flow-margin-button-span-inline--touch: var(
-        --flow-margin-button-span-inline,
-        var(--pad-firm-200, 0.5em)
-    );
-}
-
-:where(.js) .toggle-block .toggle-block__content > .container {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-left: var(--mrg-firm-400, 1.25rem);
-    padding-right: var(--mrg-firm-400, 1.25rem);
-}
-:where(.js) .toggle-block .toggle-block__content > .container > :first-child,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > ol:first-child
-    > li:first-child,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > ul:first-child
-    > li:first-child,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > .screen-reader-text:first-child
-    + *,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > .screen-reader-text:first-child
-    + ol
-    > li:first-child,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > .screen-reader-text:first-child
-    + ul
-    > li:first-child {
-    margin-top: 0 !important;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > :first-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ) {
-    margin-top: 0.46875rem !important;
-    margin-top: var(--flow-margin-firm-end, 0.46875rem) !important;
-}
-
-:where(.js) .toggle-block .toggle-block__content > .container > :last-child,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > ol:last-child
-    > li:last-child,
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > ul:last-child
-    > li:last-child {
-    margin-bottom: 0 !important;
-}
-
-:where(.js)
-    .toggle-block
-    .toggle-block__content
-    > .container
-    > :last-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ) {
-    margin-bottom: 0.46875rem !important;
-    margin-bottom: var(--flow-margin-firm-end, 0.46875rem) !important;
-}
-
-:where(.js) .toggle-block .toggle-block__content > .container > ol,
-:where(.js) .toggle-block .toggle-block__content > .container > ul {
-    width: 100%;
-}
-:where(.js) .toggle-block .toggle-block__content > .container > ol:only-child,
-:where(.js) .toggle-block .toggle-block__content > .container > ul:only-child {
-    margin-left: 0;
-    margin-right: 0;
+@media screen {
+    :where(.js) .toggle-block {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0.40625rem;
+        margin-bottom: var(--flow-margin-firm-end--large, 0.40625rem);
+    }
+    :where(.js)
+        .toggle-block:has(
+            .toggle-block__title__heading.h1,
+            h1.toggle-block__title__heading
+        ) {
+        --toggle-border-color: var(--theme-heading-1, CanvasText);
+        --toggle-title-color: var(--theme-heading-1, CanvasText);
+        margin-top: max(1.84375rem, 3.34375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-800, 3.34375rem)
+        );
+    }
+    :where(.js)
+        .toggle-block:has(
+            .toggle-block__title__heading.h2,
+            h2.toggle-block__title__heading
+        ) {
+        --toggle-border-color: var(--theme-heading-2, CanvasText);
+        --toggle-title-color: var(--theme-heading-2, CanvasText);
+        margin-top: max(1.84375rem, 3.34375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-800, 3.34375rem)
+        );
+    }
+    :where(.js)
+        .toggle-block:has(
+            .toggle-block__title__heading.h3,
+            h3.toggle-block__title__heading
+        ) {
+        --toggle-border-color: var(--theme-heading-3, CanvasText);
+        --toggle-title-color: var(--theme-heading-3, CanvasText);
+        margin-top: max(1.84375rem, 3.34375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-800, 3.34375rem)
+        );
+    }
+    :where(.js)
+        .toggle-block:has(
+            .toggle-block__title__heading.h4,
+            h4.toggle-block__title__heading
+        ) {
+        --toggle-border-color: var(--theme-heading-4, CanvasText);
+        --toggle-title-color: var(--theme-heading-4, CanvasText);
+        margin-top: max(1.84375rem, 1.84375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-600, 1.84375rem)
+        );
+    }
+    :where(.js)
+        .toggle-block:has(
+            .toggle-block__title__heading.h5,
+            h5.toggle-block__title__heading
+        ) {
+        --toggle-border-color: var(--theme-heading-5, CanvasText);
+        --toggle-title-color: var(--theme-heading-5, CanvasText);
+        margin-top: max(1.84375rem, 1.84375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-600, 1.84375rem)
+        );
+    }
+    :where(.js)
+        .toggle-block:has(
+            .toggle-block__title__heading.h6,
+            h6.toggle-block__title__heading
+        ) {
+        --toggle-border-color: var(--theme-heading-6, CanvasText);
+        --toggle-title-color: var(--theme-heading-6, CanvasText);
+        margin-top: max(1.84375rem, 1.84375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-600, 1.84375rem)
+        );
+    }
+    :where(.js) .toggle-block:has(.toggle-block__title__heading.h7) {
+        --toggle-border-color: var(--theme-heading-7, CanvasText);
+        --toggle-title-color: var(--theme-heading-7, CanvasText);
+        margin-top: max(1.84375rem, 1.84375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-600, 1.84375rem)
+        );
+    }
+    :where(.js) .toggle-block:has(.toggle-block__title__heading.h8) {
+        --toggle-border-color: var(--theme-heading-8, CanvasText);
+        --toggle-title-color: var(--theme-heading-8, CanvasText);
+        margin-top: max(1.84375rem, 1.84375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-600, 1.84375rem)
+        );
+    }
+    :where(.js) .toggle-block:has(.toggle-block__title__heading.h9) {
+        --toggle-border-color: var(--theme-heading-9, CanvasText);
+        --toggle-title-color: var(--theme-heading-9, CanvasText);
+        margin-top: max(1.84375rem, 1.34375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-500, 1.34375rem)
+        );
+    }
+    :where(.js) .toggle-block:has(.toggle-block__title__heading.h10) {
+        --toggle-border-color: var(--theme-heading-10, CanvasText);
+        --toggle-title-color: var(--theme-heading-10, CanvasText);
+        margin-top: max(1.84375rem, 1.34375rem);
+        margin-top: max(
+            var(--flow-margin--large, 1.84375rem),
+            var(--mrg-soft-500, 1.34375rem)
+        );
+    }
+    :where(.js)
+        .toggle-block:has(
+            :is(
+                [data-toggle-control]:hover,
+                [data-toggle-control]:focus-visible,
+                [data-toggle-control][data-state-focus="true"]
+            )
+        ) {
+        --toggle-border-color: var(--theme-link-ui-hover, ActiveText);
+        --toggle-title-color: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js)
+        .toggle-block:has(
+            :is(
+                [data-toggle-control]:active,
+                [data-toggle-control][data-state-active="true"]
+            )
+        ) {
+        --toggle-border-color: var(--theme-link-ui-active, ActiveText);
+        --toggle-title-color: var(--theme-link-active, ActiveText);
+    }
+    :where(.js) .toggle-block .toggle-block__control {
+        align-items: center;
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+        cursor: pointer;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__control
+        .toggle-block__control__icon {
+        grid-column: icon;
+    }
+    :where(.js) .toggle-block .toggle-block__control__inner {
+        grid-column: content;
+    }
+    :where(.js) .toggle-block .toggle-block__title,
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading {
+        justify-content: center;
+        justify-items: stretch;
+        align-content: stretch;
+        align-items: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: hsl(162, 100%, 15%);
+        color: var(--toggle-title-color, var(--theme-text-primary, CanvasText));
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h1
+        [data-toggle-control],
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > h1.toggle-block__title__heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h2
+        [data-toggle-control],
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > h2.toggle-block__title__heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h3
+        [data-toggle-control],
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > h3.toggle-block__title__heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h4
+        [data-toggle-control],
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > h4.toggle-block__title__heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h5
+        [data-toggle-control],
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > h5.toggle-block__title__heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h6
+        [data-toggle-control],
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > h6.toggle-block__title__heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h7
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h8
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h9
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.h10
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading.unstyled-heading
+        [data-toggle-control] {
+        margin-bottom: 0.3em;
+        margin-top: 0;
+        margin-bottom: var(--pad-firm-100, 0.3125em);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    :where(.js) .toggle-block .toggle-block__content {
+        line-height: 1.5;
+        line-height: var(--line-height-300, 1.5);
+        background: hsl(339.45, 0%, 85.99%);
+        background: var(--theme-background-grey, Canvas);
+        border-width: 0.125rem;
+        border-width: var(--border-width-200, 0.125rem);
+        border-bottom-width: 0;
+        border-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-style: dotted;
+        border-bottom-style: dotted;
+        border-left-style: dotted;
+        border-right-style: dotted;
+        border-color: hsl(162, 100%, 15%);
+        border-color: var(
+            --toggle-border-color,
+            var(--theme-link-ui, LinkText)
+        );
+    }
+    :where(.js) .toggle-block .toggle-block__content > * {
+        --flow-margin: var(--mrg-soft-300, 0.5rem);
+        --flow-margin--small: var(--mrg-soft-200, 0.3125rem);
+        --flow-margin--large: var(--mrg-soft-500, 1.34375rem);
+        --flow-margin-firm-start: var(--mrg-firm-300, 0.8125rem);
+        --flow-margin-firm-end: var(--mrg-half-300, 0.3125rem);
+        --flow-margin-firm-start--small: var(--mrg-firm-200, 0.5rem);
+        --flow-margin-firm-end--small: var(--mrg-half-200, 0.1875rem);
+        --flow-margin-firm-start--large: var(--mrg-firm-500, 1.6875rem);
+        --flow-margin-firm-end--large: var(--mrg-half-500, 0.34375rem);
+        --flow-margin-button-span-block--touch: var(--mrg-firm-300, 0.8125rem);
+        --flow-margin-button-span-inline--touch: var(--mrg-firm-300, 0.8125rem);
+        --flow-margin-button-span-block: var(
+            --flow-margin-button-span-block--touch,
+            var(--mrg-firm-300, 0.8125rem)
+        );
+        --flow-margin-button-span-inline: var(
+            --flow-margin-button-span-inline--touch,
+            var(--mrg-firm-300, 0.8125rem)
+        );
+    }
+    :where(.js):where(.js__no-touch) .toggle-block .toggle-block__content > * {
+        --flow-margin-button-span-block: var(--pad-firm-200, 0.5em);
+        --flow-margin-button-span-inline: var(--pad-firm-200, 0.5em);
+        --flow-margin-button-span-block--touch: var(
+            --flow-margin-button-span-block,
+            var(--pad-firm-200, 0.5em)
+        );
+        --flow-margin-button-span-inline--touch: var(
+            --flow-margin-button-span-inline,
+            var(--pad-firm-200, 0.5em)
+        );
+    }
+    :where(.js) .toggle-block .toggle-block__content > .container {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        padding-left: var(--mrg-firm-400, 1.25rem);
+        padding-right: var(--mrg-firm-400, 1.25rem);
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > :first-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > ol:first-child
+        > li:first-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > ul:first-child
+        > li:first-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > .screen-reader-text:first-child
+        + *,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > .screen-reader-text:first-child
+        + ol
+        > li:first-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > .screen-reader-text:first-child
+        + ul
+        > li:first-child {
+        margin-top: 0 !important;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > :first-child:is(
+            .icon,
+            svg,
+            .button-span,
+            a[href].button-grey,
+            a[href].button-secondary,
+            a[href].button-primary,
+            a[href].button,
+            .brand-logo,
+            .alert-block,
+            .margins-flow-firm,
+            [data-toggle-container],
+            button,
+            [role="button"],
+            details,
+            pre,
+            .table-wrapper,
+            img,
+            figure,
+            input,
+            select,
+            textarea,
+            hr,
+            form.search-form,
+            .margins-flow-firm-small,
+            .margins-flow-firm-large,
+            blockquote,
+            table
+        ) {
+        margin-top: 0.46875rem !important;
+        margin-top: var(--flow-margin-firm-end, 0.46875rem) !important;
+    }
+    :where(.js) .toggle-block .toggle-block__content > .container > :last-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > ol:last-child
+        > li:last-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > ul:last-child
+        > li:last-child {
+        margin-bottom: 0 !important;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > :last-child:is(
+            .icon,
+            svg,
+            .button-span,
+            a[href].button-grey,
+            a[href].button-secondary,
+            a[href].button-primary,
+            a[href].button,
+            .brand-logo,
+            .alert-block,
+            .margins-flow-firm,
+            [data-toggle-container],
+            button,
+            [role="button"],
+            details,
+            pre,
+            .table-wrapper,
+            img,
+            figure,
+            input,
+            select,
+            textarea,
+            hr,
+            form.search-form,
+            .margins-flow-firm-small,
+            .margins-flow-firm-large,
+            blockquote,
+            table
+        ) {
+        margin-bottom: 0.46875rem !important;
+        margin-bottom: var(--flow-margin-firm-end, 0.46875rem) !important;
+    }
+    :where(.js) .toggle-block .toggle-block__content > .container > ol,
+    :where(.js) .toggle-block .toggle-block__content > .container > ul {
+        width: 100%;
+    }
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > ol:only-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > ul:only-child {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 /* Opening & Closing ==================================== */
-:where(.js) .toggle-block[data-toggle-container="open"] {
-    --toggle-border-color: var(--theme-link-ui-hover, ActiveText);
-    --toggle-title-color: var(--theme-link-hover, ActiveText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        :is(
-            [data-toggle-control]:hover,
-            [data-toggle-control]:focus-visible,
-            [data-toggle-control][data-state-focus="true"]
-        )
-    ) {
-    --toggle-border-color: var(--theme-link-ui-active, ActiveText);
-    --toggle-title-color: var(--theme-link-active, ActiveText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        :is(
-            [data-toggle-control]:active,
-            [data-toggle-control][data-state-active="true"]
-        )
-    ) {
-    --toggle-border-color: var(--theme-link-ui, LinkText);
-    --toggle-title-color: var(--theme-link, LinkText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h1:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            ),
-        h1.toggle-block__title__heading:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
+@media screen {
+    :where(.js) .toggle-block[data-toggle-container="open"] {
+        --toggle-border-color: var(--theme-link-ui-hover, ActiveText);
+        --toggle-title-color: var(--theme-link-hover, ActiveText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            :is(
+                [data-toggle-control]:hover,
+                [data-toggle-control]:focus-visible,
+                [data-toggle-control][data-state-focus="true"]
             )
-    ) {
-    --toggle-border-color: var(--theme-heading-1, CanvasText);
-    --toggle-title-color: var(--theme-heading-1, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h2:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            ),
-        h2.toggle-block__title__heading:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
+        ) {
+        --toggle-border-color: var(--theme-link-ui-active, ActiveText);
+        --toggle-title-color: var(--theme-link-active, ActiveText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            :is(
+                [data-toggle-control]:active,
+                [data-toggle-control][data-state-active="true"]
             )
-    ) {
-    --toggle-border-color: var(--theme-heading-2, CanvasText);
-    --toggle-title-color: var(--theme-heading-2, CanvasText);
+        ) {
+        --toggle-border-color: var(--theme-link-ui, LinkText);
+        --toggle-title-color: var(--theme-link, LinkText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h1:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                ),
+            h1.toggle-block__title__heading:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-1, CanvasText);
+        --toggle-title-color: var(--theme-heading-1, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h2:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                ),
+            h2.toggle-block__title__heading:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-2, CanvasText);
+        --toggle-title-color: var(--theme-heading-2, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h3:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                ),
+            h3.toggle-block__title__heading:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-3, CanvasText);
+        --toggle-title-color: var(--theme-heading-3, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h4:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                ),
+            h4.toggle-block__title__heading:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-4, CanvasText);
+        --toggle-title-color: var(--theme-heading-4, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h5:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                ),
+            h5.toggle-block__title__heading:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-5, CanvasText);
+        --toggle-title-color: var(--theme-heading-5, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h6:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                ),
+            h6.toggle-block__title__heading:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-6, CanvasText);
+        --toggle-title-color: var(--theme-heading-6, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h7:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-7, CanvasText);
+        --toggle-title-color: var(--theme-heading-7, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h8:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-8, CanvasText);
+        --toggle-title-color: var(--theme-heading-8, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h9:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-9, CanvasText);
+        --toggle-title-color: var(--theme-heading-9, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]:has(
+            .toggle-block__title__heading.h10:has(
+                    :is(
+                        [data-toggle-control]:active,
+                        [data-toggle-control][data-state-active="true"]
+                    )
+                )
+        ) {
+        --toggle-border-color: var(--theme-heading-10, CanvasText);
+        --toggle-title-color: var(--theme-heading-10, CanvasText);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]
+        > .toggle-block__content {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-width: 0.125rem;
+        border-bottom-width: var(--border-width-200, 0.125rem);
+    }
+    :where(.js)
+        .toggle-block[data-toggle-container="open"]
+        > .toggle-block__content
+        > .container {
+        padding-top: 0.78125rem;
+        padding-bottom: 0.78125rem;
+        padding-top: var(--mrg-soft-400, 0.78125rem);
+        padding-bottom: var(--mrg-soft-400, 0.78125rem);
+    }
 }
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h3:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            ),
-        h3.toggle-block__title__heading:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-3, CanvasText);
-    --toggle-title-color: var(--theme-heading-3, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h4:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            ),
-        h4.toggle-block__title__heading:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-4, CanvasText);
-    --toggle-title-color: var(--theme-heading-4, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h5:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            ),
-        h5.toggle-block__title__heading:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-5, CanvasText);
-    --toggle-title-color: var(--theme-heading-5, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h6:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            ),
-        h6.toggle-block__title__heading:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-6, CanvasText);
-    --toggle-title-color: var(--theme-heading-6, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h7:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-7, CanvasText);
-    --toggle-title-color: var(--theme-heading-7, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h8:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-8, CanvasText);
-    --toggle-title-color: var(--theme-heading-8, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h9:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-9, CanvasText);
-    --toggle-title-color: var(--theme-heading-9, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]:has(
-        .toggle-block__title__heading.h10:has(
-                :is(
-                    [data-toggle-control]:active,
-                    [data-toggle-control][data-state-active="true"]
-                )
-            )
-    ) {
-    --toggle-border-color: var(--theme-heading-10, CanvasText);
-    --toggle-title-color: var(--theme-heading-10, CanvasText);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]
-    > .toggle-block__content {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    border-bottom-width: 0.125rem;
-    border-bottom-width: var(--border-width-200, 0.125rem);
-}
-:where(.js)
-    .toggle-block[data-toggle-container="open"]
-    > .toggle-block__content
-    > .container {
-    padding-top: 0.78125rem;
-    padding-bottom: 0.78125rem;
-    padding-top: var(--mrg-soft-400, 0.78125rem);
-    padding-bottom: var(--mrg-soft-400, 0.78125rem);
-}
+
 /* # ASTRO COMPONENT - TOGGLE NAV MENU
  * ======================================================================== */
 body > nav.toggle-nav-menu {
@@ -19151,146 +19572,142 @@ body > nav.toggle-nav-menu {
     grid-column: var(--grid-column, page-start/page-end);
 }
 
-:where(.js) body > nav.toggle-nav-menu {
-    /* prettier-ignore */
-    --grid-template-columns--toggle: var(--grid-template-columns--page, [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] 1fr [page-end]);
-    /* prettier-ignore */
-    grid-template-columns: [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end];
-    grid-template-columns: var(
-        --grid-template-columns--page,
-        [page-start] 1fr [sidebar-start] 0 [content-start]
-            minmax(auto, var(--width-content, 36rem)) [content-end] 0
-            [sidebar-end] 1fr [page-end]
-    );
-    grid-template-columns: subgrid;
-    justify-content: center;
-    justify-items: stretch;
-    align-content: start;
-    align-items: start;
-    grid-column: 1/-1;
-    gap: 0;
-}
-:where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__content {
-    --grid-column: page-start/page-end;
-    grid-column: page-start/page-end;
-    grid-column: var(--grid-column, page-start/page-end);
-    border-top: none;
-    border-left-width: 0.125rem;
-    border-right-width: 0.125rem;
-    border-left-width: var(--border-width-200, 0.125rem);
-    border-right-width: var(--border-width-200, 0.125rem);
-    background: hsl(339.45, 0%, 91.26%);
-    background: var(--theme-background, Canvas);
-}
-:where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__content > .container {
-    max-height: 85vh;
-    max-height: calc(100svh - 0 - max(1.625rem, min(5svw, 3.125rem)));
-    max-height: calc(
-        100svh - var(--height-nav-primary, 0) - var(--gap-block-layout, 5vw)
-    );
-}
-:where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__title {
-    border-bottom-width: 0.125rem;
-    border-bottom-width: var(--border-width-200, 0.125rem);
-    border-bottom-style: dotted;
-    border-bottom-color: hsl(162, 100%, 15%);
-    border-bottom-color: var(
-        --toggle-border-color,
-        var(--theme-link-ui, LinkText)
-    );
-    background: hsl(339.45, 0%, 85.99%);
-    background: var(--theme-background-grey, Canvas);
-}
-:where(.js)
-    body
-    > nav.toggle-nav-menu
-    .toggle-nav-menu__title
-    [data-toggle-control],
-:where(.js)
-    body
-    > nav.toggle-nav-menu
-    .toggle-nav-menu__title
-    > .toggle-nav-menu__title__heading.toggle-nav-menu__title__heading
-    [data-toggle-control] {
-    margin-bottom: calc(0.125rem * -1);
-    margin-top: 0;
-    margin-bottom: calc(var(--border-width-200, 0.125rem) * -1);
-}
-:where(.js)
-    body
-    > nav.toggle-nav-menu
-    .toggle-nav-menu__title
-    .toggle-nav-menu__control {
-    --grid-column: page-start/page-end;
-    grid-column: page-start/page-end;
-    grid-column: var(--grid-column, page-start/page-end);
-    /* prettier-ignore */
-    --grid-template-columns--toggle: [content] 1fr [icon] minmax(max-content, auto);
-    /* prettier-ignore */
-    grid-template-columns: [content] 1fr [icon] minmax(max-content, auto);
-    grid-template-columns: var(
-        --grid-template-columns--toggle,
-        [content] 1fr [icon] minmax(max-content, auto)
-    );
-}
-:where(.js)
-    body
-    > nav.toggle-nav-menu[data-toggle-container="open"]
-    > .toggle-nav-menu__content {
-    border-bottom-width: 0.125rem;
-    border-bottom-width: var(--border-width-200, 0.125rem);
-}
-/* # ASTRO SUPPORT - STICKY TOGGLE NAV
- * ======================================================================== */
-html:where(.js),
-:where(.js) body {
-    --height-nav-primary: 3.125rem;
-    --scroll-padding-top: calc(
-        var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw)
-    );
-    scroll-padding-top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
-    scroll-padding-top: var(
-        --scroll-padding-top,
-        calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
-    );
+@media screen {
+    :where(.js) body > nav.toggle-nav-menu {
+        /* prettier-ignore */
+        --grid-template-columns--toggle: var(--grid-template-columns--page, [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] 0 [sidebar-end] 1fr [page-end]);
+        /* prettier-ignore */
+        grid-template-columns: [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end];
+        grid-template-columns: var(
+            --grid-template-columns--page,
+            [page-start] 1fr [sidebar-start] 0 [content-start]
+                minmax(auto, var(--width-content, 36rem)) [content-end] 0
+                [sidebar-end] 1fr [page-end]
+        );
+        grid-template-columns: subgrid;
+        justify-content: center;
+        justify-items: stretch;
+        align-content: start;
+        align-items: start;
+        grid-column: 1/-1;
+        gap: 0;
+    }
+    :where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__content {
+        --grid-column: page-start/page-end;
+        grid-column: page-start/page-end;
+        grid-column: var(--grid-column, page-start/page-end);
+        border-top: none;
+        border-left-width: 0.125rem;
+        border-right-width: 0.125rem;
+        border-left-width: var(--border-width-200, 0.125rem);
+        border-right-width: var(--border-width-200, 0.125rem);
+        background: hsl(339.45, 0%, 91.26%);
+        background: var(--theme-background, Canvas);
+    }
+    :where(.js)
+        body
+        > nav.toggle-nav-menu
+        .toggle-nav-menu__content
+        > .container {
+        max-height: 85vh;
+        max-height: calc(100svh - 0 - max(1.625rem, min(5svw, 3.125rem)));
+        max-height: calc(
+            100svh - var(--height-nav-primary, 0) - var(--gap-block-layout, 5vw)
+        );
+    }
+    :where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__title {
+        border-bottom-width: 0.125rem;
+        border-bottom-width: var(--border-width-200, 0.125rem);
+        border-bottom-style: dotted;
+        border-bottom-color: hsl(162, 100%, 15%);
+        border-bottom-color: var(
+            --toggle-border-color,
+            var(--theme-link-ui, LinkText)
+        );
+        background: hsl(339.45, 0%, 85.99%);
+        background: var(--theme-background-grey, Canvas);
+    }
+    :where(.js)
+        body
+        > nav.toggle-nav-menu
+        .toggle-nav-menu__title
+        [data-toggle-control],
+    :where(.js)
+        body
+        > nav.toggle-nav-menu
+        .toggle-nav-menu__title
+        > .toggle-nav-menu__title__heading.toggle-nav-menu__title__heading
+        [data-toggle-control] {
+        margin-bottom: calc(0.125rem * -1);
+        margin-top: 0;
+        margin-bottom: calc(var(--border-width-200, 0.125rem) * -1);
+    }
+    :where(.js)
+        body
+        > nav.toggle-nav-menu
+        .toggle-nav-menu__title
+        .toggle-nav-menu__control {
+        --grid-column: page-start/page-end;
+        grid-column: page-start/page-end;
+        grid-column: var(--grid-column, page-start/page-end);
+        /* prettier-ignore */
+        --grid-template-columns--toggle: [content] 1fr [icon] minmax(max-content, auto);
+        /* prettier-ignore */
+        grid-template-columns: [content] 1fr [icon] minmax(max-content, auto);
+        grid-template-columns: var(
+            --grid-template-columns--toggle,
+            [content] 1fr [icon] minmax(max-content, auto)
+        );
+    }
+    :where(.js)
+        body
+        > nav.toggle-nav-menu[data-toggle-container="open"]
+        > .toggle-nav-menu__content {
+        border-bottom-width: 0.125rem;
+        border-bottom-width: var(--border-width-200, 0.125rem);
+    }
 }
 
-:where(.js) .nav-primary[data-toggle-container] {
-    position: sticky;
-    top: 0;
-    grid-row: 1;
-    margin: 0;
-    padding: 0;
-    gap: 0;
-    z-index: 9999;
-}
-:where(.js) .nav-primary[data-toggle-container] > .toggle-block__title {
-    min-height: 3.125rem;
-    min-height: var(--height-nav-primary, 3.125rem);
-}
-:where(.js)
-    .nav-primary[data-toggle-container]
-    > .toggle-block__title
-    [data-toggle-control] {
-    padding-top: min(0.75vh, 0.5rem);
-    padding-bottom: min(0.75vh, 0.5rem);
-    padding-top: min(0.75vh, var(--flow-margin--small, 0.5rem));
-    padding-bottom: min(0.75vh, var(--flow-margin--small, 0.5rem));
-}
-:where(.js)
-    .nav-primary[data-toggle-container][data-toggle-container="open"]
-    [data-toggle-control-backdrop] {
-    opacity: 0;
-    animation: fade-in 500ms ease-out 10ms forwards;
-}
-:where(.js)
-    .nav-primary[data-toggle-container][data-toggle-container="closing"]
-    [data-toggle-control-backdrop] {
-    opacity: 0;
-    animation: fade-out 500ms ease-out 0ms forwards;
-}
-:where(.js) .website-settings {
-    margin-top: 0;
+/* # ASTRO SUPPORT - STICKY TOGGLE NAV
+ * ======================================================================== */
+@media screen {
+    html:where(.js),
+    :where(.js) body {
+        --height-nav-primary: 3.125rem;
+        --scroll-padding-top: calc(
+            var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw)
+        );
+        scroll-padding-top: calc(0 + max(1.625rem, min(5svw, 3.125rem)));
+        scroll-padding-top: var(
+            --scroll-padding-top,
+            calc(var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw))
+        );
+    }
+    :where(.js) .nav-primary[data-toggle-container] {
+        position: sticky;
+        top: 0;
+        grid-row: 1;
+        margin: 0;
+        padding: 0;
+        gap: 0;
+        z-index: 9999;
+    }
+    :where(.js) .nav-primary[data-toggle-container] > .toggle-block__title {
+        min-height: 3.125rem;
+        min-height: var(--height-nav-primary, 3.125rem);
+    }
+    :where(.js)
+        .nav-primary[data-toggle-container]
+        > .toggle-block__title
+        [data-toggle-control] {
+        padding-top: min(0.75vh, 0.5rem);
+        padding-bottom: min(0.75vh, 0.5rem);
+        padding-top: min(0.75vh, var(--flow-margin--small, 0.5rem));
+        padding-bottom: min(0.75vh, var(--flow-margin--small, 0.5rem));
+    }
+    :where(.js) .website-settings {
+        margin-top: 0;
+    }
 }
 
 /* # BLOCKS - SETTINGS MENU
@@ -19300,17 +19717,18 @@ html:where(.js),
     grid-column: page-start/page-end;
     grid-column: var(--grid-column, page-start/page-end);
     display: none;
+    --toggle-closing-time: var(--tr-time-toggle, 500ms);
+    margin-top: 0;
+    margin-bottom: 0;
 }
-@media (prefers-reduced-motion: reduce) {
-    .website-settings {
-        --toggle-closing-time: 500ms;
-    }
-}
-[data-motion="reduce"] .website-settings {
-    --toggle-closing-time: 500ms;
-}
-
 .website-settings [data-toggle-control] {
+    --display: block;
+    display: block;
+    display: var(--display, block);
+    justify-content: start;
+    justify-items: start;
+    align-content: start;
+    align-items: start;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
@@ -19319,7 +19737,8 @@ html:where(.js),
     z-index: 1000;
 }
 .website-settings .website-settings__content {
-    width: 100%;
+    grid-template-columns: 1fr;
+    width: auto;
     max-width: min(36rem, 90vw);
     max-width: min(var(--width-content, 36rem), 90vw);
     background: hsl(339.45, 0%, 91.26%);
@@ -19489,57 +19908,61 @@ html:where(.js),
 }
 
 /* With Javascript ==================================== */
-:where(.js) .website-settings {
-    --display: flex;
-    display: flex;
-    display: var(--display, flex);
-    position: relative;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    justify-content: start;
-    align-content: center;
-    align-items: end;
-}
-:where(.js) .website-settings .website-settings__control {
-    --icon-size: var(--icon-size-large, 2em);
-}
-:where(.js) .website-settings .website-settings__content {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-:where(.js) .website-settings .website-settings__content > .container {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-left: var(--mrg-firm-400, 1.25rem);
-    padding-right: var(--mrg-firm-400, 1.25rem);
-}
-:where(.js) .website-settings[data-toggle-container="open"] {
-    z-index: 999999;
-}
-:where(.js)
-    .website-settings[data-toggle-container="open"]
-    > .website-settings__content {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-}
-:where(.js)
-    .website-settings[data-toggle-container="open"]
-    > .website-settings__content
-    > .container {
-    padding-top: 0.78125rem;
-    padding-bottom: 0.78125rem;
-    padding-top: var(--mrg-soft-400, 0.78125rem);
-    padding-bottom: var(--mrg-soft-400, 0.78125rem);
-    max-height: 82.5vh;
-    max-height: calc(
-        100svh - calc(0 + max(1.625rem, min(5svw, 3.125rem))) -
-            max(1.625rem, min(5svw, 3.125rem)) - 1.25em - 0.5rem * 2
-    );
-    max-height: calc(
-        100svh - var(--scroll-padding-top, 0px) - var(--gap-block-layout, 5vw) -
-            var(--icon-size, 1.25em) - var(--mrg-firm-200, 0.5rem) * 2
-    );
+@media screen {
+    :where(.js) .website-settings {
+        --display: flex;
+        display: flex;
+        display: var(--display, flex);
+        position: relative;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 0;
+        justify-content: start;
+        align-content: center;
+        align-items: end;
+    }
+    :where(.js) .website-settings .website-settings__control {
+        --icon-size: var(--icon-size-large, 2em);
+    }
+    :where(.js) .website-settings .website-settings__content {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    :where(.js) .website-settings .website-settings__content > .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        padding-left: var(--mrg-firm-400, 1.25rem);
+        padding-right: var(--mrg-firm-400, 1.25rem);
+    }
+    :where(.js) .website-settings[data-toggle-container="open"],
+    :where(.js) .website-settings[data-toggle-container="opening"] {
+        z-index: 999999;
+    }
+    :where(.js)
+        .website-settings[data-toggle-container="open"]
+        > .website-settings__content {
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+    }
+    :where(.js)
+        .website-settings[data-toggle-container="open"]
+        > .website-settings__content
+        > .container {
+        padding-top: 0.78125rem;
+        padding-bottom: 0.78125rem;
+        padding-top: var(--mrg-soft-400, 0.78125rem);
+        padding-bottom: var(--mrg-soft-400, 0.78125rem);
+        max-height: 82.5vh;
+        max-height: calc(
+            100svh - calc(0 + max(1.625rem, min(5svw, 3.125rem))) -
+                max(1.625rem, min(5svw, 3.125rem)) - 1.25em - 0.5rem * 2
+        );
+        max-height: calc(
+            100svh - var(--scroll-padding-top, 0px) -
+                var(--gap-block-layout, 5vw) - var(--icon-size, 1.25em) -
+                var(--mrg-firm-200, 0.5rem) * 2
+        );
+    }
 }
 
 /* ## Blocks - Settings Menu - Font Overrides ==================================== */

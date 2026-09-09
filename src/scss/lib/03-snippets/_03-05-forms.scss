@@ -732,7 +732,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     @include props-icon-spacing(button, $includeBase: $includeTextBasics, $important: true);
 
     @if $display != false {
-        @include prop-display($display);
+        @include prop-display(var-style(button-display, $fallback: $display));
     }
 
     @if ($display == flex) or

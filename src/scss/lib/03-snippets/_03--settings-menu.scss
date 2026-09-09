@@ -22,7 +22,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
-$_closing_time: var-tr-time(toggle-closing);
+$_closing_time: var-tr-time(toggle);
 
 $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 
@@ -68,13 +68,22 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         using ($location) {
         //
         @if $location == settings-menu {
-            @include no-motion {
-                @include cx-prop(toggle-closing-time, var-tr-time(normal));
-            }
+            @include cx-prop(
+                toggle-closing-time,
+                var-tr-time(toggle, $neverReplaceWithValue: true)
+            );
+            margin-block: 0;
 
             @content ($location);
 
             [data-toggle-control] {
+                @include prop-display(var-style(button-display));
+
+                justify-content: start;
+                justify-items: start;
+                align-content: start;
+                align-items: start;
+
                 margin-block: 0 !important;
 
                 @content (#{$location}--control);
@@ -82,7 +91,8 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == content {
-            width: 100%;
+            grid-template-columns: 1fr;
+            width: auto;
 
             @if $includeStyles {
                 max-width: min(var-width(content), 90vw);

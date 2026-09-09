@@ -729,6 +729,34 @@
     inherits: true;
     initial-value: currentColor;
 }
+@property --fallback-transition {
+    syntax: "*";
+    inherits: true;
+    initial-value:
+        accent-color 250ms ease-out,
+        background-color 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out,
+        font-weight 250ms ease-out,
+        opacity 250ms ease-out,
+        text-decoration-color 250ms ease-out,
+        text-shadow 250ms ease-out,
+        visibility 250ms ease-out;
+}
+@property --fallback-transition-toggle {
+    syntax: "*";
+    inherits: true;
+    initial-value:
+        accent-color 500ms ease-out,
+        background-color 500ms ease-out,
+        border-color 500ms ease-out,
+        color 500ms ease-out,
+        font-weight 500ms ease-out,
+        opacity 500ms ease-out,
+        text-decoration-color 500ms ease-out,
+        text-shadow 500ms ease-out,
+        visibility 500ms ease-out;
+}
 /* #endregion Tokens - @property */
 /* #region Tokens - Width */
 :root {
@@ -983,21 +1011,9 @@
 
 /* #endregion Tokens - Style */
 /* #region Tokens - Transitions */
-:root {
-    --fallback-transition:
-        accent-color var(--tr-time-fast, 250ms) ease-out,
-        background-color var(--tr-time-fast, 250ms) ease-out,
-        border-color var(--tr-time-fast, 250ms) ease-out,
-        color var(--tr-time-fast, 250ms) ease-out,
-        font-weight var(--tr-time-fast, 250ms) ease-out,
-        opacity var(--tr-time-fast, 250ms) ease-out,
-        text-decoration-color var(--tr-time-fast, 250ms) ease-out,
-        text-shadow var(--tr-time-fast, 250ms) ease-out,
-        visibility var(--tr-time-fast, 250ms) ease-out;
-}
-
 @media (prefers-reduced-motion: no-preference) {
     :root {
+        --fallback-tr-time-toggle: 1200ms;
         --fallback-transition:
             accent-color var(--tr-time-fast, 250ms) ease-out,
             background-color var(--tr-time-fast, 250ms) ease-out,
@@ -1028,8 +1044,64 @@
             top var(--tr-time-normal, 500ms) ease-out,
             transform var(--tr-time-normal, 500ms) ease-out,
             width var(--tr-time-fast, 250ms) ease-out;
+        --fallback-transition-toggle:
+            accent-color var(--tr-time-toggle, 1200ms) ease-out,
+            background-color var(--tr-time-toggle, 1200ms) ease-out,
+            border-color var(--tr-time-toggle, 1200ms) ease-out,
+            color var(--tr-time-toggle, 1200ms) ease-out,
+            font-weight var(--tr-time-toggle, 1200ms) ease-out,
+            opacity var(--tr-time-toggle, 1200ms) ease-out,
+            text-decoration-color var(--tr-time-toggle, 1200ms) ease-out,
+            text-shadow var(--tr-time-toggle, 1200ms) ease-out,
+            visibility var(--tr-time-toggle, 1200ms) ease-out,
+            aspect-ratio var(--tr-time-toggle, 1200ms) ease-out,
+            border-color var(--tr-time-toggle, 1200ms) ease-out,
+            border-radius var(--tr-time-toggle, 1200ms) ease-out,
+            border-width var(--tr-time-toggle, 1200ms) ease-out,
+            bottom var(--tr-time-toggle, 1200ms) ease-out,
+            font-weight var(--tr-time-toggle, 1200ms) ease-out,
+            gap var(--tr-time-toggle, 1200ms) ease-out,
+            height var(--tr-time-toggle, 1200ms) ease-out,
+            left var(--tr-time-toggle, 1200ms) ease-out,
+            margin var(--tr-time-toggle, 1200ms) ease-out,
+            max-height var(--tr-time-toggle, 1200ms) ease-out,
+            max-width var(--tr-time-toggle, 1200ms) ease-out,
+            min-height var(--tr-time-toggle, 1200ms) ease-out,
+            min-width var(--tr-time-toggle, 1200ms) ease-out,
+            outline-color var(--tr-time-toggle, 1200ms) ease-out,
+            padding var(--tr-time-toggle, 1200ms) ease-out,
+            right var(--tr-time-toggle, 1200ms) ease-out,
+            top var(--tr-time-toggle, 1200ms) ease-out,
+            transform var(--tr-time-toggle, 1200ms) ease-out,
+            width var(--tr-time-toggle, 1200ms) ease-out;
     }
 }
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --fallback-tr-time-toggle: 500ms;
+        --fallback-transition:
+            accent-color var(--tr-time-fast, 250ms) ease-out,
+            background-color var(--tr-time-fast, 250ms) ease-out,
+            border-color var(--tr-time-fast, 250ms) ease-out,
+            color var(--tr-time-fast, 250ms) ease-out,
+            font-weight var(--tr-time-fast, 250ms) ease-out,
+            opacity var(--tr-time-fast, 250ms) ease-out,
+            text-decoration-color var(--tr-time-fast, 250ms) ease-out,
+            text-shadow var(--tr-time-fast, 250ms) ease-out,
+            visibility var(--tr-time-fast, 250ms) ease-out;
+        --fallback-transition-toggle:
+            accent-color var(--tr-time-toggle, 500ms) ease-out,
+            background-color var(--tr-time-toggle, 500ms) ease-out,
+            border-color var(--tr-time-toggle, 500ms) ease-out,
+            color var(--tr-time-toggle, 500ms) ease-out,
+            font-weight var(--tr-time-toggle, 500ms) ease-out,
+            opacity var(--tr-time-toggle, 500ms) ease-out,
+            text-decoration-color var(--tr-time-toggle, 500ms) ease-out,
+            text-shadow var(--tr-time-toggle, 500ms) ease-out,
+            visibility var(--tr-time-toggle, 500ms) ease-out;
+    }
+}
+
 /* #endregion Tokens - Transitions */
 /* #region Tokens - Theme - light mode + average contrast */
 @media (( prefers-color-scheme: light ) and ( prefers-contrast: no-preference )) {
@@ -8710,14 +8782,28 @@ a.skip-link[href] {
         --button-icon-vertical-align,
         middle
     ) !important;
-    --fallback-display: block;
-    --display: block;
-    display: var(--fallback-display, block);
+    --fallback-display: var(--button-display, block);
+    --display: var(--button-display, block);
+    display: var(--fallback-display, var(--button-display, block));
     height: auto;
     text-decoration: none;
     text-wrap: balance;
     text-wrap: pretty;
-    transition: var(--transition, var(--fallback-transition));
+    transition: var(
+        --transition,
+        var(
+            --fallback-transition,
+            accent-color 250ms ease-out,
+            background-color 250ms ease-out,
+            border-color 250ms ease-out,
+            color 250ms ease-out,
+            font-weight 250ms ease-out,
+            opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out,
+            visibility 250ms ease-out
+        )
+    );
     appearance: button;
     cursor: pointer;
     width: var(--button-width, fit-content);
@@ -10189,7 +10275,21 @@ a[aria-disabled="true"][href]:has(
 a[href],
 a[href]::before,
 a[href]::after {
-    transition: var(--transition, var(--fallback-transition));
+    transition: var(
+        --transition,
+        var(
+            --fallback-transition,
+            accent-color 250ms ease-out,
+            background-color 250ms ease-out,
+            border-color 250ms ease-out,
+            color 250ms ease-out,
+            font-weight 250ms ease-out,
+            opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out,
+            visibility 250ms ease-out
+        )
+    );
 }
 a[href]:empty {
     display: none;
@@ -13608,7 +13708,21 @@ input {
         --theme-input-accent,
         var(--fallback-theme-input-accent, CanvasText)
     );
-    transition: var(--transition, var(--fallback-transition));
+    transition: var(
+        --transition,
+        var(
+            --fallback-transition,
+            accent-color 250ms ease-out,
+            background-color 250ms ease-out,
+            border-color 250ms ease-out,
+            color 250ms ease-out,
+            font-weight 250ms ease-out,
+            opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out,
+            visibility 250ms ease-out
+        )
+    );
 }
 textarea::placeholder,
 select::placeholder,
@@ -14411,15 +14525,29 @@ a[href].button {
         --button-icon-vertical-align,
         middle
     ) !important;
-    --fallback-display: block;
-    --display: block;
-    display: var(--fallback-display, block);
+    --fallback-display: var(--button-display, block);
+    --display: var(--button-display, block);
+    display: var(--fallback-display, var(--button-display, block));
     position: relative;
     height: auto;
     text-decoration: none;
     text-wrap: balance;
     text-wrap: pretty;
-    transition: var(--transition, var(--fallback-transition));
+    transition: var(
+        --transition,
+        var(
+            --fallback-transition,
+            accent-color 250ms ease-out,
+            background-color 250ms ease-out,
+            border-color 250ms ease-out,
+            color 250ms ease-out,
+            font-weight 250ms ease-out,
+            opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out,
+            visibility 250ms ease-out
+        )
+    );
     appearance: button;
     cursor: pointer;
     width: var(--button-width, fit-content);
@@ -17426,7 +17554,21 @@ input::file-selector-button {
     text-decoration: none;
     text-wrap: balance;
     text-wrap: pretty;
-    transition: var(--transition, var(--fallback-transition));
+    transition: var(
+        --transition,
+        var(
+            --fallback-transition,
+            accent-color 250ms ease-out,
+            background-color 250ms ease-out,
+            border-color 250ms ease-out,
+            color 250ms ease-out,
+            font-weight 250ms ease-out,
+            opacity 250ms ease-out,
+            text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out,
+            visibility 250ms ease-out
+        )
+    );
     appearance: button;
     cursor: pointer;
     padding-block: var(
@@ -21431,7 +21573,21 @@ form.search-form [type="submit"] {
     form.search-form > [type="submit"] *,
     form.search-form > [type="submit"]::before,
     form.search-form > [type="submit"]::after {
-        transition: var(--transition, var(--fallback-transition));
+        transition: var(
+            --transition,
+            var(
+                --fallback-transition,
+                accent-color 250ms ease-out,
+                background-color 250ms ease-out,
+                border-color 250ms ease-out,
+                color 250ms ease-out,
+                font-weight 250ms ease-out,
+                opacity 250ms ease-out,
+                text-decoration-color 250ms ease-out,
+                text-shadow 250ms ease-out,
+                visibility 250ms ease-out
+            )
+        );
         transition-duration: var(--tr-time-normal, 500ms);
     }
 }
