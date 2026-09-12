@@ -1,0 +1,83 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { GenericElementProps } from '@maddimathon/utility-astro';
+
+import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
+import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
+
+import type {
+    BrandImageData,
+    PhotoData,
+} from '../BrandPhoto.astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+type Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams>  = GenericElementProps<{
+
+    data: PhotoData<T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']>;
+
+    spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
+}, 'dl'>
+
+const {
+    class: classList,
+    data,
+    spanColour,
+    ...listAttrs
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const { filepath, image, imagesAll } = data;
+---
+
+{ imagesAll ? <dl class:list={classList} {...listAttrs}>{ ( Object.entries(imagesAll) as [ BrandImageData['format'], BrandImageData[] ][]  ).map(
+    ([format, _images]) => (
+        <dt set:text={format} />
+        <dd><ul>{ _images.map( _img => (
+            <li>
+                {_img.filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1')}{' '}<span
+                    class={`color-${spanColour}`}
+                >({_img.width}&nbsp;x&nbsp;{_img.height})</span>{''}&nbsp;{'— '}<a
+                    href={_img.filepath}
+                    set:text='download'
+                    download
+                />{''}&nbsp;{'— '}<a
+                    href={_img.filepath}
+                    set:text='view'
+                    target='_blank'
+                />
+            </li>
+        ) ) }</ul></dd>
+    )
+) }</dl> : (
+    <ul class:list={classList} {...listAttrs}><li>
+        { filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1') }{' '}<span
+            class={`color-${spanColour}`}
+        >({image.width}&nbsp;x&nbsp;{image.height})</span>{''}&nbsp;{'— '}<a
+            href={filepath}
+            set:text='download'
+            download
+        />{''}&nbsp;{'— '}<a
+            href={filepath}
+            set:text='view'
+            target='_blank'
+        />
+    </li></ul>
+) }

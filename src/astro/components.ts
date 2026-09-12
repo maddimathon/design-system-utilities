@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+export * from './components/BrandPhotoList_Sample/index.ts';
+
 import Alert from './components/Alert.astro';
 export type * from './components/Alert.astro';
 

@@ -1,0 +1,51 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { HTMLAttributes } from 'astro/types';
+import type { ElementProps } from '@maddimathon/utility-astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+type Props  = ElementProps<{
+    label: string;
+    wrapItems?: boolean | HTMLAttributes<'div'>;
+}, 'dd'>
+
+const {
+    label,
+    wrapItems = false,
+    class: defClassList,
+    ...defAttrs
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const wrapItemAttrs = wrapItems && typeof wrapItems === 'object' ? wrapItems : {};
+---
+
+{ wrapItems ? (
+    <div {...wrapItemAttrs}>
+        <dt set:text={label} />
+        <dd class:list={defClassList} {...defAttrs}><slot /></dd>
+    </div>
+) : (
+    <dt set:text={label} />
+    <dd class:list={defClassList} {...defAttrs}><slot /></dd>
+) }
+
+

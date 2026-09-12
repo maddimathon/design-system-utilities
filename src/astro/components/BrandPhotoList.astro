@@ -9,7 +9,6 @@
 import type { GenericElementProps } from '@maddimathon/utility-astro';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 import type { AllPhotos, AllThumbnails } from './BrandPhoto.astro';
 
@@ -25,28 +24,24 @@ import {
 } from '@maddimathon/utility-astro/components';
 
 import BrandPhotoList_Sample from './BrandPhotoList_Sample.astro';
+import type { ComponentProps } from 'astro/types';
+import type { BrandPhotoList_Sample_MetadataProps } from './BrandPhotoList_Sample';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
 // prettier-ignore
-export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
-    copyCredit?:undefined | boolean;
+export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Omit<Partial<BrandPhotoList_Sample_MetadataProps>, 'data'> {
 
     defineSize?: boolean;
-    displayHeading?: undefined | number;
 
     heading: number;
-    includeCaption?: undefined | boolean;
-    includeCaptionMeta?: undefined | boolean;
-    includeCredit?: undefined | boolean;
-    includeSource?: undefined | boolean;
     
     photos: AllPhotos<T_Types>;
     thumbnails: AllThumbnails<T_Types>;
 
-    spanColour?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
+    SampleComponent?: (props: ComponentProps<typeof BrandPhotoList_Sample>) => any;
 
     urlMaker: (currentURL: URL, targetSubpath: string) => string;
 
@@ -64,11 +59,14 @@ const {
     includeCaption,
     includeCaptionMeta,
     includeCredit,
+    includeFiles,
     includeSource,
     photos,
+    SampleComponent = BrandPhotoList_Sample,
     spanColour = 'primary',
     thumbnails,
     urlMaker,
+    wrapItems,
     version,
     ...attrs
 }: Props = Astro.props;
@@ -135,7 +133,7 @@ const photosOnly = photosData
                         heading={heading}
                         set:text={data.meta.label ?? data.slug}
                     />
-                    <BrandPhotoList_Sample
+                    <SampleComponent
                         {...{
                             copyCredit,
                             data,
@@ -144,11 +142,13 @@ const photosOnly = photosData
                             includeCaption,
                             includeCaptionMeta,
                             includeCredit,
+                            includeFiles,
                             includeSource,
                             photos,
                             spanColour,
                             thumbnails,
                             urlMaker,
+                            wrapItems,
                         }}
                     />
                 </div>

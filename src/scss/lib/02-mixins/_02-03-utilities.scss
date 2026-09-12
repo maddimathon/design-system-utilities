@@ -126,21 +126,34 @@ $_firmFlowMarginChildren: list.join(
 
             @if $includeListsFirstItem {
                 $__lists: if($useIs_root, ':is( ol, ul )', 'ol, ul');
+                $__lists_dl: 'dl';
 
                 @if $marginSide == start {
                     $_universal_selector: list.join(
                         $_universal_selector,
-                        selector.nest($__lists, '>', selector.unify('li', $_childSelector)),
+                        list.join(
+                            selector.nest($__lists_dl, '>', selector.unify('dt', $_childSelector)),
+                            selector.nest($__lists, '>', selector.unify('li', $_childSelector)),
+                            $separator: comma
+                        ),
                         $separator: comma
                     );
                 }
 
                 $_to_nest: list.join(
                     $_to_nest,
-                    selector.nest(
-                        selector.unify($_childSelector, $__lists),
-                        '>',
-                        selector.unify('li', $_childSelector)
+                    list.join(
+                        selector.nest(
+                            selector.unify($_childSelector, $__lists_dl),
+                            '>',
+                            selector.unify('dt', $_childSelector)
+                        ),
+                        selector.nest(
+                            selector.unify($_childSelector, $__lists),
+                            '>',
+                            selector.unify('li', $_childSelector)
+                        ),
+                        $separator: comma
                     ),
                     $separator: comma
                 );

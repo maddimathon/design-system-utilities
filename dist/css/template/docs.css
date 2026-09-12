@@ -17166,9 +17166,11 @@ td {
     text-align: left;
 }
 th > :first-child,
+th > dl:first-child > dt:first-child,
 th > ol:first-child > li:first-child,
 th > ul:first-child > li:first-child,
 td > :first-child,
+td > dl:first-child > dt:first-child,
 td > ol:first-child > li:first-child,
 td > ul:first-child > li:first-child {
     margin-top: 0 !important;
@@ -17895,9 +17897,15 @@ body
     padding-right: var(--gap-inline-layout, 8vw);
 }
 body > :is(.main-subgrid--full-width) > :first-child,
+body > :is(.main-subgrid--full-width) > dl:first-child > dt:first-child,
 body > :is(.main-subgrid--full-width) > ol:first-child > li:first-child,
 body > :is(.main-subgrid--full-width) > ul:first-child > li:first-child,
 body > :is(.main-subgrid--full-width) > .screen-reader-text:first-child + *,
+body
+    > :is(.main-subgrid--full-width)
+    > .screen-reader-text:first-child
+    + dl
+    > dt:first-child,
 body
     > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
@@ -17909,6 +17917,11 @@ body
     + ul
     > li:first-child,
 body > :where(main) > :is(.main-subgrid--full-width) > :first-child,
+body
+    > :where(main)
+    > :is(.main-subgrid--full-width)
+    > dl:first-child
+    > dt:first-child,
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
@@ -17924,6 +17937,12 @@ body
     > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
     + *,
+body
+    > :where(main)
+    > :is(.main-subgrid--full-width)
+    > .screen-reader-text:first-child
+    + dl
+    > dt:first-child,
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
@@ -17945,6 +17964,12 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
+    > dl:first-child
+    > dt:first-child,
+body
+    > :where(main)
+    > :where(.main-subgrid, .main-content__article)
+    > :is(.main-subgrid--full-width)
     > ol:first-child
     > li:first-child,
 body
@@ -17959,6 +17984,13 @@ body
     > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
     + *,
+body
+    > :where(main)
+    > :where(.main-subgrid, .main-content__article)
+    > :is(.main-subgrid--full-width)
+    > .screen-reader-text:first-child
+    + dl
+    > dt:first-child,
 body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
@@ -20711,6 +20743,10 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 .widget-block > .widget-block__content:first-child > :first-child,
 .widget-block
     > .widget-block__content:first-child
+    > dl:first-child
+    > dt:first-child,
+.widget-block
+    > .widget-block__content:first-child
     > ol:first-child
     > li:first-child,
 .widget-block
@@ -20721,6 +20757,11 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content
     > :first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > dl:first-child
+    > dt:first-child,
 .widget-block
     > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content
@@ -20735,6 +20776,11 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .screen-reader-text.widget-block__hgroup:first-child
     + .widget-block__content
     > :first-child,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > dl:first-child
+    > dt:first-child,
 .widget-block
     > .screen-reader-text.widget-block__hgroup:first-child
     + .widget-block__content
@@ -20749,6 +20795,11 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
     > :first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > dl:first-child
+    > dt:first-child,
 .widget-block
     > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
@@ -21030,8 +21081,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     color: inherit;
 }
 
-[data-toggle-title],
-[data-toggle-title-heading] {
+[data-toggle-title] {
     transition:
         accent-color 500ms ease-out,
         background-color 500ms ease-out,
@@ -21055,7 +21105,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         visibility 500ms ease-out
     );
 }
-
 [data-toggle-content] > .container {
     margin: 0;
 }
@@ -22457,6 +22506,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
+        > dl:first-child
+        > dt:first-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
         > ol:first-child
         > li:first-child,
     :where(.js)
@@ -22471,6 +22526,13 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         > .container
         > .screen-reader-text:first-child
         + *,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > .screen-reader-text:first-child
+        + dl
+        > dt:first-child,
     :where(.js)
         .toggle-block
         .toggle-block__content
@@ -22524,6 +22586,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         margin-top: var(--flow-margin-firm-end, 0.46875rem) !important;
     }
     :where(.js) .toggle-block .toggle-block__content > .container > :last-child,
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
+        > dl:last-child
+        > dt:last-child,
     :where(.js)
         .toggle-block
         .toggle-block__content
@@ -22990,6 +23058,11 @@ body > nav.toggle-nav-menu {
 .website-settings
     .website-settings__content
     > .container
+    > dl:first-child
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
     > ol:first-child
     > li:first-child,
 .website-settings
@@ -23002,6 +23075,12 @@ body > nav.toggle-nav-menu {
     > .container
     > .screen-reader-text:first-child
     + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + dl
+    > dt:first-child,
 .website-settings
     .website-settings__content
     > .container
@@ -23054,6 +23133,11 @@ body > nav.toggle-nav-menu {
 }
 
 .website-settings .website-settings__content > .container > :last-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > dl:last-child
+    > dt:last-child,
 .website-settings
     .website-settings__content
     > .container

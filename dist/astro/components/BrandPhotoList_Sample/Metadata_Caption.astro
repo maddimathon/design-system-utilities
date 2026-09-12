@@ -1,0 +1,57 @@
+---
+/**
+ * @since 0.1.0-beta.0.draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
+
+import type { PhotoData } from '../BrandPhoto.astro';
+
+/* import - functions */
+import { captionHTML, captionText } from '../BrandPhoto_Caption.astro';
+
+/* import - values */
+
+/* import - components */
+import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
+import BrandPhoto_Caption from '../BrandPhoto_Caption.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    buttonSpacer: string;
+    data: PhotoData<
+        T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']
+    >;
+}
+
+const {
+    buttonSpacer,
+    data: { meta },
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<p>
+    <samp><BrandPhoto_Caption meta={meta} /></samp><Fragment
+        set:html={buttonSpacer}
+    /><CopyToClipboardButton
+        class:list='display-inline'
+        successMessage='copied!'
+        toClipboard={captionText({ meta })}
+        set:text='copy'
+    /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
+        class:list='display-inline'
+        successMessage='copied! (HTML)'
+        toClipboard={captionHTML({ meta })}
+        set:text='copy (HTML)'
+    />
+</p>

@@ -1,0 +1,213 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { HTMLAttributes } from 'astro/types';
+import type { GenericElementProps } from '@maddimathon/utility-astro';
+
+import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
+import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
+
+import type { PhotoData } from '../BrandPhoto.astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
+import BrandPhotoList_Sample_Metadata_Caption from './Metadata_Caption.astro';
+import BrandPhotoList_Sample_Metadata_Credit from './Metadata_Credit.astro';
+import BrandPhotoList_Sample_Metadata_Files from './Metadata_Files.astro';
+import BrandPhotoList_Sample_Metadata_Item from './Metadata_Item.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export interface BrandPhotoList_Sample_MetadataProps<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+> {
+    copyCredit: undefined | boolean;
+
+    displayHeading: undefined | number;
+
+    data: PhotoData<
+        T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']
+    >;
+
+    includeCaption: undefined | boolean;
+    includeCaptionMeta: undefined | boolean;
+    includeCredit: undefined | boolean;
+    includeFiles: undefined | boolean;
+    includeSource: undefined | boolean;
+
+    spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
+
+    wrapItems: undefined | boolean | HTMLAttributes<'div'>;
+}
+
+type Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> =
+    GenericElementProps<BrandPhotoList_Sample_MetadataProps<T_Types>, 'dl'>;
+
+const {
+    class: classList,
+    copyCredit = false,
+    displayHeading = -1,
+    data,
+    includeCaption = false,
+    includeCaptionMeta = !includeCaption,
+    includeCredit = false,
+    includeFiles = true,
+    includeSource = includeCredit,
+    spanColour,
+    wrapItems,
+    ...listAttrs
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const buttonSpacer =
+    '<span class="brand-photo-list__sample__spacer">&NoBreak;&ensp;&NoBreak;</span>';
+
+const { attrs, caption, meta, slug } = data;
+---
+
+<dl
+    class:list={classList}
+    {...listAttrs}
+>
+    {
+        displayHeading < 0 && meta.label ? (
+            <BrandPhotoList_Sample_Metadata_Item
+                {...{ wrapItems }}
+                label='Label'
+            >
+                <p set:text={meta.label} />
+            </BrandPhotoList_Sample_Metadata_Item>
+        ) : (
+            slug && (
+                <BrandPhotoList_Sample_Metadata_Item
+                    {...{ wrapItems }}
+                    label='Slug'
+                >
+                    <p>
+                        <samp
+                            class='display-inline'
+                            set:text={slug}
+                        />
+                    </p>
+                </BrandPhotoList_Sample_Metadata_Item>
+            )
+        )
+    }
+
+    {
+        attrs.alt && (
+            <BrandPhotoList_Sample_Metadata_Item
+                {...{ wrapItems }}
+                label='Alt Text'
+            >
+                <p>
+                    <>
+                        <samp set:text={attrs.alt} />
+                        <Fragment set:html={buttonSpacer} />
+                        <CopyToClipboardButton
+                            class:list='display-inline'
+                            successMessage='copied!'
+                            toClipboard={attrs.alt}
+                            set:text='copy'
+                        />
+                    </>
+                </p>
+            </BrandPhotoList_Sample_Metadata_Item>
+        )
+    }
+
+    {
+        includeCaptionMeta && caption && meta.credit && (
+            <BrandPhotoList_Sample_Metadata_Item
+                {...{ wrapItems }}
+                label='Caption'
+            >
+                <BrandPhotoList_Sample_Metadata_Caption
+                    {...{ buttonSpacer, data }}
+                />
+            </BrandPhotoList_Sample_Metadata_Item>
+        )
+    }
+
+    {
+        includeCredit &&
+            (meta.credit || meta.attributionRequired !== false) && (
+                <BrandPhotoList_Sample_Metadata_Item
+                    {...{ wrapItems }}
+                    label='Credit'
+                >
+                    <BrandPhotoList_Sample_Metadata_Credit
+                        {...{ buttonSpacer, copyCredit, data }}
+                    />
+                </BrandPhotoList_Sample_Metadata_Item>
+            )
+    }
+
+    {
+        includeSource && meta.source && (
+            <BrandPhotoList_Sample_Metadata_Item
+                {...{ wrapItems }}
+                label='Source'
+            >
+                <p>
+                    <a
+                        href={meta.source.href}
+                        set:text={meta.source.label}
+                        target='_blank'
+                        rel='noreferrer noopener'
+                    />
+                </p>
+            </BrandPhotoList_Sample_Metadata_Item>
+        )
+    }
+
+    {
+        meta.license && (
+            <BrandPhotoList_Sample_Metadata_Item
+                {...{ wrapItems }}
+                label='License'
+            >
+                {typeof meta.license === 'object' ? (
+                    <p>
+                        <a
+                            href={meta.license.href}
+                            set:text={meta.license.label}
+                            target='_blank'
+                            rel='noreferrer noopener'
+                        />
+                    </p>
+                ) : (
+                    <p set:text={meta.license} />
+                )}
+            </BrandPhotoList_Sample_Metadata_Item>
+        )
+    }
+
+    {
+        includeFiles && (
+            <BrandPhotoList_Sample_Metadata_Item
+                class='brand-photo-list__sample__links'
+                label='Files'
+                {...{ wrapItems }}
+            >
+                <BrandPhotoList_Sample_Metadata_Files
+                    {...{ data, spanColour }}
+                />
+            </BrandPhotoList_Sample_Metadata_Item>
+        )
+    }
+</dl>

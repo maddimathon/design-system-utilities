@@ -1,0 +1,77 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
+
+import type { PhotoData } from '../BrandPhoto.astro';
+
+/* import - functions */
+import { captionHTML, captionText } from '../BrandPhoto_Caption.astro';
+
+/* import - values */
+
+/* import - components */
+import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
+import BrandPhoto_Caption from '../BrandPhoto_Caption.astro';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    buttonSpacer: string;
+    copyCredit: boolean;
+    data: PhotoData<
+        T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']
+    >;
+}
+
+const {
+    buttonSpacer,
+    copyCredit,
+    data: { meta },
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+<p>
+    <samp><BrandPhoto_Caption meta={{ ...meta, source: undefined }} /></samp>{
+        copyCredit && (
+            <Fragment set:html={buttonSpacer} />
+            <CopyToClipboardButton
+                class:list='display-inline'
+                successMessage='copied!'
+                toClipboard={captionText({
+                    meta: { ...meta, source: undefined },
+                })}
+                set:text='copy'
+            />
+            <Fragment set:html={buttonSpacer} />
+            <CopyToClipboardButton
+                class:list='display-inline'
+                successMessage='copied! (HTML)'
+                toClipboard={captionHTML({
+                    meta: { ...meta, source: undefined },
+                })}
+                set:text='copy (HTML)'
+            />
+        )
+    }
+</p>
+{
+    typeof meta.attributionRequired !== 'boolean' ? (
+        <p class='aside'>This photo’s attribution requirements are unknown.</p>
+    ) : (
+        meta.attributionRequired && (
+            <p class='aside'>This photo’s license requires attribution.</p>
+        )
+    )
+}

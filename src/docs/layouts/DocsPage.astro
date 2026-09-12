@@ -84,7 +84,7 @@ const props: ComponentProps<typeof LibPage> = {
 
 /* CONSTANTS ===================================== */
 
-const cssUrl = relativeURL(Astro.url, 'assets/css/main.css');
+// const cssUrl = relativeURL(Astro.url, 'assets/css/main.css');
 
 const primaryMenu: MenuItem[] = [
     { label: 'Home', href: '' },
@@ -144,7 +144,7 @@ const primaryMenu: MenuItem[] = [
     accessibilityReportEmail={undefined}
     primaryMenu={primaryMenu}
     stylesheetVersion={pkgJson.version}
-    stylesheetURLs={[cssUrl].concat(props.stylesheetURLs ?? [])}
+    stylesheetURLs={['assets/css/main.css'].concat(props.stylesheetURLs ?? [])}
     title={title}
     urlMaker={relativeURL}
 >

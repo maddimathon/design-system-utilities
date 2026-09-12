@@ -6,18 +6,15 @@
  */
 
 /* import - types */
-
-import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
-import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type { BrandPhotoList_Sample_MetadataProps } from './BrandPhotoList_Sample/index.js';
 
 import type {
     AllPhotos,
     AllThumbnails,
-    BrandImageData,
     BrandPhotoProps,
     BrandPhotoProps_Linked,
-    PhotoData,
 } from './BrandPhoto.astro';
 
 /* import - functions */
@@ -26,7 +23,7 @@ import type {
 
 /* import - components */
 import BrandPhoto from './BrandPhoto.astro';
-import BrandPhoto_Caption, { captionHTML, captionText } from './BrandPhoto_Caption.astro';
+import { BrandPhotoList_Sample_Metadata } from './BrandPhotoList_Sample/index.js';
 
 /* import - layouts */
 
@@ -35,63 +32,55 @@ import BrandPhoto_Caption, { captionHTML, captionText } from './BrandPhoto_Capti
 /* PROPS ===================================== */
 
 // prettier-ignore
-interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
-
-    copyCredit:undefined | boolean;
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends BrandPhotoList_Sample_MetadataProps<T_Types> {
     
     defineSize: undefined | boolean;
-    displayHeading: false | number;
-    
-    data: PhotoData<T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']>;
-
-    includeCaption: undefined | boolean;
-    includeCaptionMeta: undefined | boolean;
-    includeCredit: undefined | boolean;
-    includeSource: undefined | boolean;
     
     photos: AllPhotos<T_Types>;
     thumbnails: AllThumbnails<T_Types>;
 
-    spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
-
     urlMaker: (currentURL: URL, targetSubpath: string) => string;
-};
+}
 
 const {
-    copyCredit = false,
     defineSize,
-    displayHeading,
-    data: { attrs, caption, filepath, image, imagesAll, meta, slug },
-    includeCaption = false, 
-    includeCaptionMeta = !includeCaption, 
-    includeCredit = false,
-    includeSource = includeCredit,
+    displayHeading = -1,
+    data,
+    includeCaption = false,
     photos,
     thumbnails,
-    spanColour,
     urlMaker,
+    ...metadataProps
 }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-const linkProps = attrs.src ? {
-    href: attrs.src,
-    linkAttrs: {
-        'class:list': [
-            'brand-photo-list__sample__img',
-            `brand-photo-list__sample__img--${slug}`,
-            { 'brand-photo-list__sample__img--hidden-heading': displayHeading === false },
-        ],
-        target: '_blank',
-    },
-    linkLabel: 'open image in new tab',
-} satisfies Pick<BrandPhotoProps_Linked, 'href'|'linkAttrs'|'linkLabel'> : {};
+const linkProps = data.attrs.src
+    ? ({
+          href: data.attrs.src,
+          linkAttrs: {
+              'class:list': [
+                  'brand-photo-list__sample__img',
+                  `brand-photo-list__sample__img--${data.slug}`,
+                  {
+                      'brand-photo-list__sample__img--hidden-heading':
+                          displayHeading < 0,
+                  },
+              ],
+              'target': '_blank',
+          },
+          linkLabel: 'open image in new tab',
+      } satisfies Pick<
+          BrandPhotoProps_Linked,
+          'href' | 'linkAttrs' | 'linkLabel'
+      >)
+    : {};
 
 const photoProps = {
     defineSize,
     includeCaption,
     photos,
-    slug,
+    slug: data.slug,
     thumbnails,
     urlMaker,
     ...linkProps,
@@ -100,124 +89,16 @@ const photoProps = {
         ...linkProps.linkAttrs,
     },
 } satisfies BrandPhotoProps;
-
-const buttonSpacer = '<span class="brand-photo-list__sample__spacer">&NoBreak;&ensp;&NoBreak;</span>';
 ---
 
 <BrandPhoto {...photoProps} />
 
-<dl class='brand-photo-list__sample__meta'>
-
-    { displayHeading === false && meta.label ? (
-        <dt set:text='Label' />
-        <dd><p set:text={meta.label} /></dd>
-    ) : slug && (
-        <dt set:text='Slug' />
-        <dd><p><samp class="display-inline" set:text={slug} /></p></dd>
-    ) }
-
-    { attrs.alt && (
-        <dt set:text='Alt Text' />
-        <dd><p><samp set:text={attrs.alt} /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
-            class:list="display-inline"
-            successMessage='copied!'
-            toClipboard={attrs.alt}
-            set:text='copy'
-        /></p></dd>
-    ) }
-
-    { includeCaptionMeta && caption && (
-        <dt set:text='Caption' />
-        <dd>
-            { meta.credit && <p><samp><BrandPhoto_Caption
-                meta={meta}
-            /></samp><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
-                class:list="display-inline"
-                successMessage='copied!'
-                toClipboard={captionText({meta})}
-                set:text='copy'
-            /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
-                class:list="display-inline"
-                successMessage='copied! (HTML)'
-                toClipboard={captionHTML({meta})}
-                set:text='copy (HTML)'
-            /></p> }
-        </dd>
-    ) }
-
-    { includeCredit && (meta.credit || meta.attributionRequired !== false) && (
-        <dt set:text='Credit' />
-        <dd>
-            <p><samp><BrandPhoto_Caption 
-                meta={{...meta, source: undefined}}
-            /></samp>{
-                copyCredit && ( <Fragment set:html={buttonSpacer} /><CopyToClipboardButton
-                    class:list="display-inline"
-                    successMessage='copied!'
-                    toClipboard={captionText({ meta: {...meta, source: undefined} })}
-                    set:text='copy'
-                /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
-                    class:list="display-inline"
-                    successMessage='copied! (HTML)'
-                    toClipboard={captionHTML({ meta: {...meta, source: undefined} })}
-                    set:text='copy (HTML)'
-                /> )
-            }</p>
-            { typeof meta.attributionRequired !== 'boolean' ? (
-                <p class="aside">This photo’s attribution requirements are unknown.</p>
-            ) : meta.attributionRequired && (
-                <p class="aside">This photo’s license requires attribution.</p>
-            )}
-        </dd>
-    ) }
-
-    { includeSource && meta.source && (
-        <dt set:text='Source' />
-        <dd><p><a href={meta.source.href} set:text={meta.source.label} target="_blank" rel="noreferrer noopener" /></p></dd>
-    ) }
-
-    { meta.license && (
-        <dt set:text='License' />
-        <dd>{ typeof meta.license === 'object' ? (
-            <p><a href={meta.license.href} set:text={meta.license.label} target="_blank" rel="noreferrer noopener" /></p>
-        ) : <p set:text={meta.license} /> }</dd>
-    ) }
-
-    <dt set:text='Files' />
-    <dd class='brand-photo-list__sample__links'>
-        { imagesAll ? <dl>{ ( Object.entries(imagesAll) as [ BrandImageData['format'], BrandImageData[] ][]  ).map(
-            ([format, _images]) => (
-                <dt set:text={format} />
-                <dd><ul>{ _images.map( _img => (
-                    <li>
-                        {_img.filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1')}{' '}<span
-                            class={`color-${spanColour}`}
-                        >({_img.width}&nbsp;x&nbsp;{_img.height})</span>{''}&nbsp;{'— '}<a
-                            href={_img.filepath}
-                            set:text='download'
-                            download
-                        />{''}&nbsp;{'— '}<a
-                            href={_img.filepath}
-                            set:text='view'
-                            target='_blank'
-                        />
-                    </li>
-                ) ) }</ul></dd>
-            )
-        ) }</dl> : (
-            <ul><li>
-                { filepath.replace(/^.*\/([^\/]+\.[a-z][a-z0-9]*)$/gi, '$1') }{' '}<span
-                    class={`color-${spanColour}`}
-                >({image.width}&nbsp;x&nbsp;{image.height})</span>{''}&nbsp;{'— '}<a
-                    href={filepath}
-                    set:text='download'
-                    download
-                />{''}&nbsp;{'— '}<a
-                    href={filepath}
-                    set:text='view'
-                    target='_blank'
-                />
-            </li></ul>
-        ) }
-    </dd>
-</dl>
+<BrandPhotoList_Sample_Metadata
+    class:list='brand-photo-list__sample__meta'
+    {...{
+        ...metadataProps,
+        displayHeading,
+        data,
+        includeCaption,
+    }}
+/>

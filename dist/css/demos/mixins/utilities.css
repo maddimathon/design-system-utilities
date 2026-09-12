@@ -29,6 +29,7 @@
         /* @include first-child-no-top-margin {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0 !important;
@@ -72,6 +73,7 @@
         /* @include first-child-no-top-margin( $asImportant: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0;
@@ -115,6 +117,7 @@
         /* @include first-child-no-top-margin( $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0 !important;
@@ -157,6 +160,7 @@
     parent {
         /* @include first-child-no-top-margin( $useNotInsteadOfChildren: true ) {} */
     }
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0 !important;
@@ -185,6 +189,7 @@
         /* @include first-child-no-top-margin( $includeChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0 !important;
@@ -196,6 +201,7 @@
         /* @include first-child-no-top-margin( $asImportant: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0;
@@ -239,6 +245,7 @@
         /* @include first-child-no-top-margin( $childrenInIs: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0 !important;
@@ -279,6 +286,7 @@
         /* @include first-child-no-top-margin( $asImportant: false, $childrenInIs: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child {
         margin-block-start: 0;
@@ -590,9 +598,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0 !important;
@@ -636,9 +646,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $asImportant: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0;
@@ -682,9 +694,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0 !important;
@@ -727,9 +741,11 @@
     parent {
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $useNotInsteadOfChildren: true ) {} */
     }
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0 !important;
@@ -758,9 +774,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $includeChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0 !important;
@@ -772,9 +790,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $asImportant: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0;
@@ -818,9 +838,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $childrenInIs: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0 !important;
@@ -861,9 +883,11 @@
         /* @include first-child-no-top-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $asImportant: false, $childrenInIs: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :first-child,
+    parent > dl:first-child > dt:first-child,
     parent > ol:first-child > li:first-child,
     parent > ul:first-child > li:first-child,
     parent > .screen-reader-text:first-child + *,
+    parent > .screen-reader-text:first-child + dl > dt:first-child,
     parent > .screen-reader-text:first-child + ol > li:first-child,
     parent > .screen-reader-text:first-child + ul > li:first-child {
         margin-block-start: 0;
@@ -1177,8 +1201,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0 !important;
@@ -1224,8 +1250,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0;
@@ -1271,8 +1299,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0 !important;
@@ -1317,8 +1347,10 @@
     }
     :is(parent)
         > :is(
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0 !important;
@@ -1349,8 +1381,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0 !important;
@@ -1364,8 +1398,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0;
@@ -1411,8 +1447,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0 !important;
@@ -1455,8 +1493,10 @@
     :is(parent)
         > :is(
             :first-child,
+            dl:first-child > dt:first-child,
             :first-child:is(ol, ul) > li:first-child,
             .screen-reader-text:first-child + *,
+            .screen-reader-text:first-child + dl > dt:first-child,
             .screen-reader-text:first-child + :is(ol, ul) > li:first-child
         ) {
         margin-block-start: 0;
@@ -2041,6 +2081,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0 !important;
@@ -2084,6 +2125,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $asImportant: false ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0;
@@ -2127,6 +2169,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0 !important;
@@ -2169,6 +2212,7 @@
     parent {
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $useNotInsteadOfChildren: true ) {} */
     }
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0 !important;
@@ -2197,6 +2241,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $includeChildren: false ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0 !important;
@@ -2208,6 +2253,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $asImportant: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0;
@@ -2251,6 +2297,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $childrenInIs: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0 !important;
@@ -2291,6 +2338,7 @@
         /* @include last-child-no-bottom-margin( $includeListsFirstItem: true, $includeSrTextFirstItem: true, $asImportant: false, $childrenInIs: false, $useNotInsteadOfChildren: false ) {} */
     }
     parent > :last-child,
+    parent > dl:last-child > dt:last-child,
     parent > ol:last-child > li:last-child,
     parent > ul:last-child > li:last-child {
         margin-block-end: 0;
@@ -2604,6 +2652,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2650,6 +2699,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2696,6 +2746,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2741,6 +2792,7 @@
     }
     :is(parent)
         > :is(
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2772,6 +2824,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2786,6 +2839,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2832,6 +2886,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
@@ -2875,6 +2930,7 @@
     :is(parent)
         > :is(
             :last-child,
+            dl:last-child > dt:last-child,
             :last-child:is(ol, ul) > li:last-child,
             :has(+ .screen-reader-text:last-child)
         ) {
