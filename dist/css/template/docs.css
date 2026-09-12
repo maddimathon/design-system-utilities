@@ -14091,7 +14091,7 @@ input::-moz-placeholder {
     letter-spacing: inherit;
     letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
-    opacity: 75%;
+    opacity: 0.75;
     opacity: var(--input-placeholder-opacity, 1);
 }
 textarea::placeholder,
@@ -14102,7 +14102,7 @@ input::placeholder {
     letter-spacing: inherit;
     letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
-    opacity: 75%;
+    opacity: 0.75;
     opacity: var(--input-placeholder-opacity, 1);
 }
 textarea:hover,
@@ -20993,6 +20993,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 [data-toggle-control-backdrop] {
     display: none !important;
     position: fixed;
+    opacity: 0;
 }
 [data-toggle-control-backdrop],
 [data-toggle-control-backdrop]:hover,
@@ -21002,21 +21003,18 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 :where(.js__no-focusVisible) [data-toggle-control-backdrop]:focus {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 [data-toggle-control-backdrop]:focus-visible {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 [data-toggle-control-backdrop]:has(
@@ -21030,7 +21028,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 [data-toggle-title],
@@ -21114,10 +21111,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         --toggle-closing-time: var(--tr-time-toggle, 500ms);
     }
     :where(.js) [data-toggle-control][data-toggle-control-backdrop] {
-        display: block !important;
-        display: var(--display, block) !important;
         --display: block;
-        display: var(--display, block);
+        display: none !important;
         position: fixed !important;
         align-self: auto;
         justify-self: auto;
@@ -21174,89 +21169,55 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     }
     :where(.js) [data-toggle-control][data-toggle-control-backdrop]::before {
         background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
+        background: var(
+            --backdrop-background-before,
+            var(--theme-background, Canvas)
+        );
         opacity: 0.625;
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:hover::before,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::before {
-        background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
-    }
-    :where(.js):where(.js__no-focusVisible)
-        [data-toggle-control][data-toggle-control-backdrop]:focus::before {
-        background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:focus-visible::before {
-        background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:has(
-            :is(:focus-visible, [data-state-focus="true"])
-        )::before {
-        background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:active::before,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::before {
-        background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:has(
-            :is(:active, [data-state-active="true"])
-        )::before {
-        background: hsl(339.45, 0%, 91.26%);
-        background: var(--theme-background, Canvas);
     }
     :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
         background: hsl(162, 100%, 15%);
-        background: var(--theme-link, LinkText);
+        background: var(
+            --backdrop-background-after,
+            var(--theme-link, LinkText)
+        );
         opacity: 0.1875;
     }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]:hover,
     :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:hover::after,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::after {
-        background: hsl(321, 68%, 26%);
-        background: var(--theme-link-hover, ActiveText);
+        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"] {
+        --backdrop-background-before: var(--theme-background, Canvas);
+        --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
     :where(.js):where(.js__no-focusVisible)
-        [data-toggle-control][data-toggle-control-backdrop]:focus::after {
-        background: hsl(321, 68%, 26%);
-        background: var(--theme-link-hover, ActiveText);
+        [data-toggle-control][data-toggle-control-backdrop]:focus {
+        --backdrop-background-before: var(--theme-background, Canvas);
+        --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
     :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:focus-visible::after {
-        background: hsl(321, 68%, 26%);
-        background: var(--theme-link-hover, ActiveText);
+        [data-toggle-control][data-toggle-control-backdrop]:focus-visible {
+        --backdrop-background-before: var(--theme-background, Canvas);
+        --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
     :where(.js)
         [data-toggle-control][data-toggle-control-backdrop]:has(
             :is(:focus-visible, [data-state-focus="true"])
-        )::after {
-        background: hsl(321, 68%, 26%);
-        background: var(--theme-link-hover, ActiveText);
+        ) {
+        --backdrop-background-before: var(--theme-background, Canvas);
+        --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]:active,
     :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:active::after,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::after {
-        background: hsl(321, 68%, 26%);
-        background: var(--theme-link-hover, ActiveText);
+        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"] {
+        --backdrop-background-before: var(--theme-background, Canvas);
+        --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
     :where(.js)
         [data-toggle-control][data-toggle-control-backdrop]:has(
             :is(:active, [data-state-active="true"])
-        )::after {
-        background: hsl(321, 68%, 26%);
-        background: var(--theme-link-hover, ActiveText);
+        ) {
+        --backdrop-background-before: var(--theme-background, Canvas);
+        --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
     :where(.js) [data-toggle-control] .icon svg #a,
     :where(.js) [data-toggle-control] .icon svg #b,
@@ -21305,11 +21266,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     }
     :where(.js)
         [data-toggle-container="closed"]
-        [data-toggle-control][data-toggle-control-backdrop] {
-        display: none;
-    }
-    :where(.js)
-        [data-toggle-container="closed"]
         > [data-toggle-content]
         > .container {
         display: none;
@@ -21320,7 +21276,29 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         [data-toggle-control][data-toggle-control-backdrop],
     :where(.js)
         [data-toggle-container="closed"]
+        [data-toggle-control][data-toggle-control-backdrop],
+    :where(.js)
+        [data-toggle-container="closing"]
         [data-toggle-control][data-toggle-control-backdrop] {
+        opacity: 0;
+    }
+    :where(.js) [data-toggle-container="opening"] > [data-toggle-content],
+    :where(.js) [data-toggle-container="closed"] > [data-toggle-content],
+    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+        grid-template-rows: 0fr;
+    }
+    :where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closed"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
         opacity: 0;
     }
     :where(.js)
@@ -21332,8 +21310,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         [data-toggle-container="closing"]
         [data-toggle-control][data-toggle-control-backdrop] {
-        display: block;
-        display: var(--display, block);
+        display: block !important;
+        display: var(--display, block) !important;
         bottom: 0;
     }
     :where(.js)
@@ -21392,20 +21370,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         > svg
         #b {
         transform: rotate(540deg);
-    }
-    :where(.js)
-        [data-toggle-container="closing"]
-        [data-toggle-control][data-toggle-control-backdrop] {
-        opacity: 0;
-    }
-    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
-        grid-template-rows: 0fr;
-    }
-    :where(.js)
-        [data-toggle-container="closing"]
-        > [data-toggle-content]
-        > .container {
-        opacity: 0;
     }
 }
 
@@ -22971,6 +22935,14 @@ body > nav.toggle-nav-menu {
         padding-bottom: min(0.75vh, 0.5rem);
         padding-top: min(0.75vh, var(--flow-margin--small, 0.5rem));
         padding-bottom: min(0.75vh, var(--flow-margin--small, 0.5rem));
+    }
+    :where(.js)
+        .nav-primary[data-toggle-container][data-toggle-container="open"],
+    :where(.js)
+        .nav-primary[data-toggle-container][data-toggle-container="opening"],
+    :where(.js)
+        .nav-primary[data-toggle-container][data-toggle-container="closing"] {
+        z-index: 999999;
     }
     :where(.js) .website-settings {
         margin-top: 0;

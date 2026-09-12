@@ -18316,7 +18316,7 @@ td {
         var(--mrg-firm-300, 0.8125rem)
     );
     background: var(--theme-background, Canvas);
-    text-align: left;
+    text-align: start;
 }
 th > :first-child,
 th > ol:first-child > li:first-child,
@@ -22088,6 +22088,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
 [data-toggle-control-backdrop] {
     display: none !important;
     position: fixed;
+    opacity: 0;
 }
 [data-toggle-control-backdrop],
 [data-toggle-control-backdrop]:hover,
@@ -22097,21 +22098,18 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 :where(.js__no-focusVisible) [data-toggle-control-backdrop]:focus {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 [data-toggle-control-backdrop]:focus-visible {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 [data-toggle-control-backdrop]:has(
@@ -22125,7 +22123,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     background: none !important;
     border: none !important;
     color: inherit;
-    opacity: 0;
 }
 
 [data-toggle-title],
@@ -22194,9 +22191,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         --toggle-closing-time: var(--tr-time-toggle, 500ms);
     }
     :where(.js) [data-toggle-control][data-toggle-control-backdrop] {
-        display: var(--display, block) !important;
         --display: block;
-        display: var(--display, block);
+        display: none !important;
         position: fixed !important;
         align-self: auto;
         justify-self: auto;
@@ -22245,68 +22241,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         );
         opacity: var(--backdrop-opacity-before, 62.5%);
     }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:hover::before,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::before {
-        background: var(
-            --backdrop-background-before-hover,
-            var(--backdrop-background-before, var(--theme-background, Canvas))
-        );
-    }
-    :where(.js):where(.js__no-focusVisible)
-        [data-toggle-control][data-toggle-control-backdrop]:focus::before {
-        background: var(
-            --backdrop-background-before-hover,
-            var(--backdrop-background-before, var(--theme-background, Canvas))
-        );
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:focus-visible::before {
-        background: var(
-            --backdrop-background-before-hover,
-            var(--backdrop-background-before, var(--theme-background, Canvas))
-        );
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:has(
-            :is(:focus-visible, [data-state-focus="true"])
-        )::before {
-        background: var(
-            --backdrop-background-before-hover,
-            var(--backdrop-background-before, var(--theme-background, Canvas))
-        );
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:active::before,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::before {
-        background: var(
-            --backdrop-background-before-active,
-            var(
-                --backdrop-background-before-hover,
-                var(
-                    --backdrop-background-before,
-                    var(--theme-background, Canvas)
-                )
-            )
-        );
-    }
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:has(
-            :is(:active, [data-state-active="true"])
-        )::before {
-        background: var(
-            --backdrop-background-before-active,
-            var(
-                --backdrop-background-before-hover,
-                var(
-                    --backdrop-background-before,
-                    var(--theme-background, Canvas)
-                )
-            )
-        );
-    }
     :where(.js) [data-toggle-control][data-toggle-control-backdrop]::after {
         background: var(
             --backdrop-background-after,
@@ -22314,25 +22248,36 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         );
         opacity: var(--backdrop-opacity-after, 18.75%);
     }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]:hover,
     :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:hover::after,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"]::after {
-        background: var(
+        [data-toggle-control][data-toggle-control-backdrop][data-state-focus="true"] {
+        --backdrop-background-before: var(
+            --backdrop-background-before-hover,
+            var(--theme-background, Canvas)
+        );
+        --backdrop-background-after: var(
             --backdrop-background-after-hover,
             var(--theme-link-hover, ActiveText)
         );
     }
     :where(.js):where(.js__no-focusVisible)
-        [data-toggle-control][data-toggle-control-backdrop]:focus::after {
-        background: var(
+        [data-toggle-control][data-toggle-control-backdrop]:focus {
+        --backdrop-background-before: var(
+            --backdrop-background-before-hover,
+            var(--theme-background, Canvas)
+        );
+        --backdrop-background-after: var(
             --backdrop-background-after-hover,
             var(--theme-link-hover, ActiveText)
         );
     }
     :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:focus-visible::after {
-        background: var(
+        [data-toggle-control][data-toggle-control-backdrop]:focus-visible {
+        --backdrop-background-before: var(
+            --backdrop-background-before-hover,
+            var(--theme-background, Canvas)
+        );
+        --backdrop-background-after: var(
             --backdrop-background-after-hover,
             var(--theme-link-hover, ActiveText)
         );
@@ -22340,34 +22285,39 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         [data-toggle-control][data-toggle-control-backdrop]:has(
             :is(:focus-visible, [data-state-focus="true"])
-        )::after {
-        background: var(
+        ) {
+        --backdrop-background-before: var(
+            --backdrop-background-before-hover,
+            var(--theme-background, Canvas)
+        );
+        --backdrop-background-after: var(
             --backdrop-background-after-hover,
             var(--theme-link-hover, ActiveText)
         );
     }
+    :where(.js) [data-toggle-control][data-toggle-control-backdrop]:active,
     :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop]:active::after,
-    :where(.js)
-        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"]::after {
-        background: var(
+        [data-toggle-control][data-toggle-control-backdrop][data-state-active="true"] {
+        --backdrop-background-before: var(
+            --backdrop-background-before-active,
+            var(--theme-background, Canvas)
+        );
+        --backdrop-background-after: var(
             --backdrop-background-after-active,
-            var(
-                --backdrop-background-after-hover,
-                var(--theme-link-hover, ActiveText)
-            )
+            var(--theme-link-hover, ActiveText)
         );
     }
     :where(.js)
         [data-toggle-control][data-toggle-control-backdrop]:has(
             :is(:active, [data-state-active="true"])
-        )::after {
-        background: var(
+        ) {
+        --backdrop-background-before: var(
+            --backdrop-background-before-active,
+            var(--theme-background, Canvas)
+        );
+        --backdrop-background-after: var(
             --backdrop-background-after-active,
-            var(
-                --backdrop-background-after-hover,
-                var(--theme-link-hover, ActiveText)
-            )
+            var(--theme-link-hover, ActiveText)
         );
     }
     :where(.js) [data-toggle-control] .icon svg #a,
@@ -22415,11 +22365,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     }
     :where(.js)
         [data-toggle-container="closed"]
-        [data-toggle-control][data-toggle-control-backdrop] {
-        display: none;
-    }
-    :where(.js)
-        [data-toggle-container="closed"]
         > [data-toggle-content]
         > .container {
         display: none;
@@ -22430,7 +22375,29 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         [data-toggle-control][data-toggle-control-backdrop],
     :where(.js)
         [data-toggle-container="closed"]
+        [data-toggle-control][data-toggle-control-backdrop],
+    :where(.js)
+        [data-toggle-container="closing"]
         [data-toggle-control][data-toggle-control-backdrop] {
+        opacity: 0;
+    }
+    :where(.js) [data-toggle-container="opening"] > [data-toggle-content],
+    :where(.js) [data-toggle-container="closed"] > [data-toggle-content],
+    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
+        grid-template-rows: 0fr;
+    }
+    :where(.js)
+        [data-toggle-container="opening"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closed"]
+        > [data-toggle-content]
+        > .container,
+    :where(.js)
+        [data-toggle-container="closing"]
+        > [data-toggle-content]
+        > .container {
         opacity: 0;
     }
     :where(.js)
@@ -22442,7 +22409,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         [data-toggle-container="closing"]
         [data-toggle-control][data-toggle-control-backdrop] {
-        display: var(--display, block);
+        display: var(--display, block) !important;
         bottom: 0;
     }
     :where(.js)
@@ -22500,20 +22467,6 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         > svg
         #b {
         transform: rotate(540deg);
-    }
-    :where(.js)
-        [data-toggle-container="closing"]
-        [data-toggle-control][data-toggle-control-backdrop] {
-        opacity: 0;
-    }
-    :where(.js) [data-toggle-container="closing"] > [data-toggle-content] {
-        grid-template-rows: 0fr;
-    }
-    :where(.js)
-        [data-toggle-container="closing"]
-        > [data-toggle-content]
-        > .container {
-        opacity: 0;
     }
 }
 
@@ -24150,6 +24103,14 @@ body > nav.toggle-nav-menu {
         > .toggle-block__title
         [data-toggle-control] {
         padding-block: min(0.75vh, var(--flow-margin--small, 0.5rem));
+    }
+    :where(.js)
+        .nav-primary[data-toggle-container][data-toggle-container="open"],
+    :where(.js)
+        .nav-primary[data-toggle-container][data-toggle-container="opening"],
+    :where(.js)
+        .nav-primary[data-toggle-container][data-toggle-container="closing"] {
+        z-index: var(--z-index-popup, 999999);
     }
     :where(.js) .website-settings {
         margin-block-start: 0;

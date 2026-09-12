@@ -156,6 +156,79 @@
 }
 
 ///
+/// Gets the colour slug for the given theme token.
+///
+/// @since 0.1.0-beta.0.draft
+///
+@function tokens-theme-token-clr-slug(
+    $slug,
+    $brightness: breakdown.$brightnessMode_default,
+    $contrast: breakdown.$contrastMode_default,
+    $themeSlug: breakdown.$activeTheme,
+    $failureReturn: null,
+    $warnOnFalse: false
+) {
+    $activeTheme_flat: map.get(breakdown.$themes__nestedFlat, $themeSlug);
+
+    @if $activeTheme_flat == null {
+        @if $warnOnFalse {
+            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat";
+        }
+
+        $themeSlug: default;
+        $activeTheme_flat: map.get(breakdown.$themes__nestedFlat, default);
+
+        // returns
+        @if $activeTheme_flat == null {
+            @return $failureReturn;
+        }
+    }
+
+    // returns
+    @if $contrast == forced-colors {
+        $value: map.get($activeTheme_flat, $contrast, $slug);
+
+        // returns
+        @if $value == null {
+            @if $warnOnFalse {
+                @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$contrast}";
+            }
+            @return $failureReturn;
+        }
+
+        @return $value;
+    }
+
+    // returns
+    @if not map.has-key($activeTheme_flat, $brightness) {
+        @if $warnOnFalse {
+            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}";
+        }
+        @return $failureReturn;
+    }
+
+    // returns
+    @if not map.has-key($activeTheme_flat, $brightness, $contrast) {
+        @if $warnOnFalse {
+            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}";
+        }
+        @return $failureReturn;
+    }
+
+    $value: map.get($activeTheme_flat, $brightness, $contrast, $slug);
+
+    // returns - no fallback
+    @if $value == null {
+        @if $warnOnFalse {
+            @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat.#{$themeSlug}.#{$brightness}.#{$contrast}";
+        }
+        @return $failureReturn;
+    }
+
+    @return $value;
+}
+
+///
 /// Gets the value for the given token slug.
 ///
 /// @since 0.1.0-beta.0.draft

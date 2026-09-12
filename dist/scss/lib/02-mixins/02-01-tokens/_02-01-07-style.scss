@@ -17,13 +17,24 @@
 
 $_styleValue_failureReturn: 'FAILURE----yfcvgulbihknldfshmv86451';
 
+$_styleValue_skipRegex: string.concat(
+    '^(',
+    string.join('|', 'icon-color'),
+    ')$'
+);
+
 ///
 /// Prints out the style custom property tokens based on tokens.
 ///
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0.draft — Added $includeRegion param.
 ///
-@mixin tokens-style($requiredOnly: null, $includeRegion: true) {
+@mixin tokens-style(
+    $requiredOnly: null,
+    $includeRegion: true,
+    $skipRegex: null,
+    $skipRegex_flags: 'gi'
+) {
     @if $requiredOnly == null {
         $requiredOnly: config.$fn_var_replaceWithValue_style and not
             config.$mx_tokensStyle_printAll;
@@ -43,9 +54,27 @@ $_styleValue_failureReturn: 'FAILURE----yfcvgulbihknldfshmv86451';
         }
         #{$_sel} {
             @each $slug, $_value in $_tokensMap {
-                @if style-is-flow-margin($slug) or $slug == icon-color {
+                $_skipThisToken: string.match(
+                        $slug,
+                        $_styleValue_skipRegex,
+                        $flags: 'gi'
+                    ) !=
+                    null;
+
+                @if not $_skipThisToken {
                     // skip these flow-margin tokens in favour of set-flow-margins() mixin
-                } @else {
+                    $_skipThisToken: style-is-flow-margin($slug);
+
+                    @if not $_skipThisToken and $skipRegex {
+                        $_skipThisToken: string.match(
+                            $slug,
+                            $skipRegex,
+                            $flags: $skipRegex_flags
+                        );
+                    }
+                }
+
+                @if not $_skipThisToken {
                     $_fallback: style-value(
                         $slug,
                         $onlyFallbackPrefix: true,

@@ -208,14 +208,47 @@ $_toggle_gridGap: 0 var-pad-firm('200');
 $_toggle_svg_sel_static: '#a';
 $_toggle_svg_sel_moving: '#b';
 
+$_backdrop_background_before: style-value(
+    backdrop-background-before,
+    $failureReturn: null,
+    $warnOnFail: false
+);
 $_backdrop_background_after: style-value(
     backdrop-background-after,
     $failureReturn: null,
     $warnOnFail: false
 );
-$_backdrop_background_after: if(
-    $_backdrop_background_after,
-    var-style(backdrop-background-after, $_backdrop_background_after),
+
+$_backdrop_background_before_hover: style-value(
+    backdrop-background-before-hover,
+    $failureReturn: $_backdrop_background_before,
+    $warnOnFail: false
+);
+$_backdrop_background_after_hover: style-value(
+    backdrop-background-after-hover,
+    $failureReturn: $_backdrop_background_after,
+    $warnOnFail: false
+);
+
+$_backdrop_background_before_active: style-value(
+    backdrop-background-before-active,
+    $failureReturn: $_backdrop_background_before_hover,
+    $warnOnFail: false
+);
+$_backdrop_background_after_active: style-value(
+    backdrop-background-after-active,
+    $failureReturn: $_backdrop_background_after_hover,
+    $warnOnFail: false
+);
+
+$_backdrop_opacity_before: style-value(
+    backdrop-opacity-before,
+    $failureReturn: null,
+    $warnOnFail: false
+);
+$_backdrop_opacity_before: if(
+    $_backdrop_opacity_before,
+    var-style(backdrop-opacity-before, $_backdrop_opacity_before),
     false
 );
 
@@ -242,47 +275,31 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
     $includeBackdropStyles: true,
     $gridGap: $_toggle_gridGap,
     //
-    $backdrop_background_before: var-style(backdrop-background-before),
+    $backdrop_background_before: $_backdrop_background_before,
     $backdrop_background_before_hover: if(
             $backdrop_background_before,
-            var-style(
-                backdrop-background-before-hover,
-                $value_failureReturn: $backdrop_background_before,
-                $value_warnOnFail: false
-            ),
+            var-style(backdrop-background-before-hover, $_backdrop_background_before_hover),
             $backdrop_background_before
         ),
     $backdrop_background_before_active: if(
             $backdrop_background_before,
-            var-style(
-                backdrop-background-before-active,
-                $value_failureReturn: $backdrop_background_before_hover,
-                $value_warnOnFail: false
-            ),
+            var-style(backdrop-background-before-active, $_backdrop_background_before_active),
             $backdrop_background_before
         ),
     //
     $backdrop_background_after: $_backdrop_background_after,
     $backdrop_background_after_hover: if(
             $backdrop_background_after,
-            var-style(
-                backdrop-background-after-hover,
-                $value_failureReturn: $backdrop_background_after,
-                $value_warnOnFail: false
-            ),
+            var-style(backdrop-background-after-hover, $_backdrop_background_after_hover),
             $backdrop_background_after
         ),
     $backdrop_background_after_active: if(
             $backdrop_background_after,
-            var-style(
-                backdrop-background-after-active,
-                $value_failureReturn: $backdrop_background_after_hover,
-                $value_warnOnFail: false
-            ),
+            var-style(backdrop-background-after-active, $_backdrop_background_after_active),
             $backdrop_background_after
         ),
     //
-    $backdrop_opacity_before: var-style(backdrop-opacity-before),
+    $backdrop_opacity_before: $_backdrop_opacity_before,
     $backdrop_opacity_after: $_backdrop_opacity_after,
     //
     $svg_sel_moving: $_toggle_svg_sel_moving,
@@ -292,6 +309,11 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
 ) {
     @include utils.snippet-support-toggle-block-base(
             $gridGap: $gridGap,
+            //
+            $backdrop_background_before: false,
+            $backdrop_background_after: false,
+            $backdrop_opacity_before: false,
+            $backdrop_opacity_after: false,
             //
             $svg_sel_static: $svg_sel_static,
             $svg_sel_moving: $svg_sel_moving,
@@ -324,53 +346,75 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
         //
         @else if $location == js--toggle-base--control-backdrop--before {
             @if $backdrop_background_before {
-                background: $backdrop_background_before;
+                background: do-var(backdrop-background-before, $backdrop_background_before);
             }
-            @if $backdrop_opacity_before != null {
+            @if $backdrop_opacity_before != false {
                 opacity: $backdrop_opacity_before;
             }
 
             @content ($location);
         }
         //
-        @else if $location == js--toggle-base--control-backdrop--before--hover-focus-or-within {
-            @if $backdrop_background_before_hover {
-                background: $backdrop_background_before_hover;
-            }
+        // @else if $location == js--toggle-base--control-backdrop--before--hover-focus-or-within {
+        //     @if $backdrop_background_before_hover {
+        //         background: $backdrop_background_before_hover;
+        //     }
 
-            @content ($location);
-        }
+        //     @content ($location);
+        // }
         //
-        @else if $location == js--toggle-base--control-backdrop--before--active {
-            @if $backdrop_background_before_active {
-                background: $backdrop_background_before_active;
-            }
+        // @else if $location == js--toggle-base--control-backdrop--before--active {
+        //     @if $backdrop_background_before_active {
+        //         background: $backdrop_background_before_active;
+        //     }
 
-            @content ($location);
-        }
+        //     @content ($location);
+        // }
         //
         @else if $location == js--toggle-base--control-backdrop--after {
             @if $backdrop_background_after {
-                background: $backdrop_background_after;
+                background: do-var(backdrop-background-after, $backdrop_background_after);
             }
-            @if $backdrop_opacity_after != null {
+            @if $backdrop_opacity_after != false {
                 opacity: $backdrop_opacity_after;
             }
 
             @content ($location);
         }
         //
-        @else if $location == js--toggle-base--control-backdrop--after--hover-focus-or-within {
+        // @else if $location == js--toggle-base--control-backdrop--after--hover-focus-or-within {
+        //     @if $backdrop_background_after_hover {
+        //         background: $backdrop_background_after_hover;
+        //     }
+
+        //     @content ($location);
+        // }
+        //
+        // @else if $location == js--toggle-base--control-backdrop--after--active {
+        //     @if $backdrop_background_after_active {
+        //         background: $backdrop_background_after_active;
+        //     }
+
+        //     @content ($location);
+        // }
+        //
+        @else if $location == js--toggle-base--control-backdrop--hover-focus-or-within {
+            @if $backdrop_background_before_hover {
+                @include cx-prop(backdrop-background-before, $backdrop_background_before_hover);
+            }
             @if $backdrop_background_after_hover {
-                background: $backdrop_background_after_hover;
+                @include cx-prop(backdrop-background-after, $backdrop_background_after_hover);
             }
 
             @content ($location);
         }
         //
-        @else if $location == js--toggle-base--control-backdrop--after--active {
+        @else if $location == js--toggle-base--control-backdrop--active {
+            @if $backdrop_background_before_active {
+                @include cx-prop(backdrop-background-before, $backdrop_background_before_active);
+            }
             @if $backdrop_background_after_active {
-                background: $backdrop_background_after_active;
+                @include cx-prop(backdrop-background-after, $backdrop_background_after_active);
             }
 
             @content ($location);

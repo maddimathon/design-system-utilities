@@ -884,6 +884,28 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
+/// @since ___PKG_VERSION___
+///
+@mixin _tokens-theme-individual--extras-printer($tokens, $isImportant) {
+    @each $prop, $value in map.ksort($tokens) {
+        $prop_args: (
+            important: $isImportant,
+        );
+
+        @if meta.type-of($value) == map {
+            $prop_args: map.merge($prop_args, $value);
+            $prop_args: map.remove($prop_args, value);
+
+            $value: map.get($value, value);
+        }
+
+        @each $_val in $value {
+            @include utils.cx-prop(#{$prop}, $_val, $prop_args...);
+        }
+    }
+}
+
+///
 /// Prints a single theme's properties.
 ///
 /// @since 0.1.0-alpha.5
@@ -1022,13 +1044,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             $flattened_raw: $flattened_raw_root
         );
 
-        $_importantSuffix: if($contrast == forced-colors, ' !important', '');
+        $_propIsImportant: $contrast == forced-colors;
 
-        @each $prop, $value in map.ksort(map.flatten($extra_tokens)) {
-            @each $_val in $value {
-                @include utils.cx-prop(#{$prop}, $_val $_importantSuffix);
-            }
-        }
+        @include _tokens-theme-individual--extras-printer(
+            $tokens: $extra_tokens,
+            $isImportant: $_propIsImportant
+        );
 
         @if $multipleContentBlocks {
             @content (root);
@@ -1056,11 +1077,10 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         $flattened_raw: $flattened_raw_childrenOnly
                     );
 
-                    @each $prop, $value in map.ksort(map.flatten($extra_tokens_children)) {
-                        @each $_val in $value {
-                            @include utils.cx-prop(#{$prop}, $_val $_importantSuffix);
-                        }
-                    }
+                    @include _tokens-theme-individual--extras-printer(
+                        $tokens: $extra_tokens_children,
+                        $isImportant: $_propIsImportant
+                    );
                 }
 
                 @if $multipleContentBlocks {
@@ -1098,11 +1118,10 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     $flattened_raw: $flattened_raw_childrenOnly
                 );
 
-                @each $prop, $value in map.ksort(map.flatten($extra_tokens_children)) {
-                    @each $_val in $value {
-                        @include utils.cx-prop(#{$prop}, $_val $_importantSuffix);
-                    }
-                }
+                @include _tokens-theme-individual--extras-printer(
+                    $tokens: $extra_tokens_children,
+                    $isImportant: $_propIsImportant
+                );
 
                 @if $multipleContentBlocks {
                     @content ('base--root-body-or-direct-child');
