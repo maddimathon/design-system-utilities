@@ -20,6 +20,24 @@
 
 @use 'pkg:@maddimathon/utility-astro/02-mixins' as utils;
 
+@mixin _conditional-root($atRoot, $parentSelector: &) {
+    $_sel: selector.parent-or-root();
+
+    @if $atRoot {
+        @if $parentSelector or not selector.parent-exists() {
+            @at-root #{$_sel} {
+                @content;
+            }
+        } @else {
+            @at-root {
+                @content;
+            }
+        }
+    } @else {
+        @content;
+    }
+}
+
 @function _font-src-list($list, $isVariable: false) {
     $_list: ();
 
@@ -161,44 +179,73 @@ $_familiesList: list.sort(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin tokens-font-size($multiplier: 1, $includeRegion: true) {
+@mixin tokens-font-size(
+    $multiplier: 1,
+    $roundingFactor: config.$math_fontSize_roundingFactor,
+    $scale_multiplier: 1,
+    $scale_multiplier_smaller: $scale_multiplier,
+    $scale_multiplier_bigger: $scale_multiplier,
+    $includeRegion: true,
+    $atRoot: $includeRegion
+) {
     $_sel: selector.parent-or-root();
 
-    @at-root {
+    @include _conditional-root($atRoot) {
         @if $includeRegion {
-            /* #region Tokens - Font Size */
+            @include _conditional-root($atRoot, $parentSelector: false) {
+                /* #region Tokens - Font Size */
+            }
         }
-        #{$_sel} {
+
+        @each $slug, $_value in tokens.$font_size {
+            @each $value
+                in fs-value(
+                    $slug,
+                    $multiplier: $multiplier,
+                    $roundingFactor: $roundingFactor,
+                    $scale_multiplier: if(
+                            $_value < 0,
+                            $scale_multiplier_smaller,
+                            $scale_multiplier_bigger
+                        )
+                )
+            {
+                @include utils.cx-prop(
+                    fs-#{$slug},
+                    $value,
+                    $allPrefixes: false
+                );
+            }
+        }
+
+        @if config.$mx_tokens_fontSize_printRelative {
             @each $slug, $_value in tokens.$font_size {
-                @each $value in fs-value($slug, $multiplier: $multiplier) {
+                @each $value
+                    in fs-value(
+                        $slug,
+                        $multiplier: $multiplier,
+                        $roundingFactor: $roundingFactor,
+                        $scale_multiplier: if(
+                                $_value < 0,
+                                $scale_multiplier_smaller,
+                                $scale_multiplier_bigger
+                            ),
+                        $relative: true
+                    )
+                {
                     @include utils.cx-prop(
-                        fs-#{$slug},
+                        fs-rel-#{$slug},
                         $value,
                         $allPrefixes: false
                     );
                 }
             }
-
-            @if config.$mx_tokens_fontSize_printRelative {
-                @each $slug, $_value in tokens.$font_size {
-                    @each $value
-                        in fs-value(
-                            $slug,
-                            $multiplier: $multiplier,
-                            $relative: true
-                        )
-                    {
-                        @include utils.cx-prop(
-                            fs-rel-#{$slug},
-                            $value,
-                            $allPrefixes: false
-                        );
-                    }
-                }
-            }
         }
+
         @if $includeRegion {
-            /* #endregion Tokens - Font Size */
+            @include _conditional-root($atRoot, $parentSelector: false) {
+                /* #endregion Tokens - Font Size */
+            }
         }
     }
 }

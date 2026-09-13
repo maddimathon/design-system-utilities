@@ -457,25 +457,7 @@
                     @if $print_typeDefaults {
                         @if config.$include_html {
                             %root {
-                                $_body_exists: font-family-exists(body);
-                                @if not $_body_exists {
-                                    font-family: font-family-system-ui();
-                                }
-                                font-weight: 400;
-                                line-height: var-line-height('400');
-                                font-size: 110%;
-
-                                @if $_body_exists {
-                                    @include set-font-family(body);
-                                }
-
-                                @include min-width(mobile) {
-                                    font-size: 105%;
-                                }
-
-                                @include min-width(tablet) {
-                                    font-size: 100%;
-                                }
+                                @include typography-base;
                             }
                         }
 

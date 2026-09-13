@@ -130,7 +130,7 @@ export declare namespace Tokens_Typography {
         line_height: Tokens_Typography.Data<T_FontFamilySlug, number>['lineHeight'];
     };
     export namespace ScssVars {
-        type Family = Pick<Tokens_Typography.Font.Family, 'contentWidthScale' | 'css' | 'lineHeightScale'> & {
+        type Family = Pick<Tokens_Typography.Font.Family, 'contentWidthScale' | 'css' | 'lineHeightScale' | 'sizeAdjust'> & {
             weights: {
                 [K in WholeTokenLevel]?: undefined | {
                     normal: undefined | Classify<Tokens_Typography.Font.SingleFamilyScss>;
@@ -301,12 +301,12 @@ export declare namespace Tokens_Typography {
                 /**
                  * Will be used as a multiplier.
                  */
-                'letter-spacing': TokenTypes.Css.LineHeight | {
-                    $: TokenTypes.Css.LineHeight;
-                    italic?: TokenTypes.Css.LineHeight;
-                    monospace?: TokenTypes.Css.LineHeight | {
-                        $?: TokenTypes.Css.LineHeight;
-                        italic?: TokenTypes.Css.LineHeight;
+                'letter-spacing': TokenTypes.Css.LetterSpacing | {
+                    $: TokenTypes.Css.LetterSpacing;
+                    italic?: TokenTypes.Css.LetterSpacing;
+                    monospace?: TokenTypes.Css.LetterSpacing | {
+                        $?: TokenTypes.Css.LetterSpacing;
+                        italic?: TokenTypes.Css.LetterSpacing;
                     };
                 };
             }>;

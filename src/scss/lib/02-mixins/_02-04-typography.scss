@@ -1,0 +1,48 @@
+///
+/// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
+/// @since ___PKG_VERSION___
+///
+
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use 'pkg:@maddimathon/utility-astro/lib/mixins' as utils;
+
+// @use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+
+@use '02-01-tokens' as *;
+
+@mixin typography-base--font-size($fontSizeMultiplier: 100%) {
+    $fontSizeMultiplier: math.div(math.to-percent($fontSizeMultiplier), 100%);
+
+    font-size: math.round-to-pixel((110% * $fontSizeMultiplier), $factor: 10);
+
+    @content;
+
+    @include utils.min-width(mobile) {
+        font-size: math.round-to-pixel((105% * $fontSizeMultiplier), $factor: 10);
+    }
+
+    @include utils.min-width(tablet) {
+        font-size: math.round-to-pixel((100% * $fontSizeMultiplier), $factor: 10);
+    }
+}
+
+@mixin typography-base($fontSizeMultiplier: 100%) {
+    @include typography-base--font-size($fontSizeMultiplier: $fontSizeMultiplier) {
+        $_body_exists: font-family-exists(body);
+        @if not $_body_exists {
+            font-family: font-family-system-ui();
+        }
+
+        font-weight: 400;
+        line-height: var-line-height('400');
+
+        @if $_body_exists {
+            @include set-font-family(body);
+        }
+    }
+}

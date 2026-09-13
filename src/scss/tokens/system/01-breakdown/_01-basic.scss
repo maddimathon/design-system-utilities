@@ -100,14 +100,7 @@ $font_size: map.flatten($font_size);
     } @else if $_valueType == map and list.length(map.keys($value)) < 1 {
         $font_size: map.remove($font_size, $key);
     } @else {
-        $font_size: map.set(
-            $font_size,
-            $key,
-            math.round-to-pixel(
-                math.pow($fontSize_multiplier, $value),
-                $factor: config.$math_fontSize_roundingFactor
-            )
-        );
+        $font_size: map.set($font_size, $key, $value);
     }
 }
 // #endregion - FONTS

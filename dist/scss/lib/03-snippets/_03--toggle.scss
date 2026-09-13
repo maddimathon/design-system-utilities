@@ -30,7 +30,7 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-value-list($bool) {
+@function _transition-list($bool) {
     $_transitionList: ();
 
     @if $bool {
@@ -51,7 +51,7 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-value-list--content($bool) {
+@function _transition-list--content($bool) {
     $_transitionList: (
         string.unquote(
             'border-color #{var-tr-time(normal)} #{tokens.$transition_function} 0ms'
@@ -93,7 +93,7 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-value-list--content--container($bool) {
+@function _transition-list--content--container($bool) {
     $_transitionList: (
         string.unquote(
             'opacity #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
@@ -124,7 +124,9 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-value-list--open-or-closing--icon($bool) {
+@function snippet-toggle-block-base--transition-list--open-or-closing--icon(
+    $bool
+) {
     $_transitionList: ();
 
     @if $bool {
@@ -145,7 +147,7 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-value-list--open-or-closing--content($bool) {
+@function _transition-list--open-or-closing--content($bool) {
     $_transitionList: (
         string.unquote(
             'border-color #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 0ms'
@@ -194,15 +196,15 @@ $_closing_time: do-var(
     $svg_sel_moving
 ) {
     [data-toggle-content] {
-        transition: _transition-value-list--content($bool);
+        transition: _transition-list--content($bool);
 
         > .container {
-            transition: _transition-value-list--content--container($bool);
+            transition: _transition-list--content--container($bool);
         }
     }
 
     [data-toggle-container] {
-        transition: _transition-value-list($bool);
+        transition: _transition-list($bool);
     }
 
     [data-toggle-container='opening'],
@@ -211,17 +213,19 @@ $_closing_time: do-var(
         [data-toggle-control] {
             %icon,
             .toggle-block__control__icon {
-                > svg #{$svg_sel_static},
-                > svg #{$svg_sel_moving} {
-                    transition: _transition-value-list--open-or-closing--icon(
-                        $bool
-                    );
+                > svg {
+                    #{$svg_sel_static},
+                    #{$svg_sel_moving} {
+                        transition: snippet-toggle-block-base--transition-list--open-or-closing--icon(
+                            $bool
+                        );
+                    }
                 }
             }
         }
 
         > [data-toggle-content] {
-            transition: _transition-value-list--open-or-closing--content($bool);
+            transition: _transition-list--open-or-closing--content($bool);
 
             > .container {
                 transition-delay: _transition-delay--open-or-closing--content--container(
@@ -399,22 +403,6 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
             @content ($location);
         }
         //
-        // @else if $location == js--toggle-base--control-backdrop--before--hover-focus-or-within {
-        //     @if $backdrop_background_before_hover {
-        //         background: $backdrop_background_before_hover;
-        //     }
-
-        //     @content ($location);
-        // }
-        //
-        // @else if $location == js--toggle-base--control-backdrop--before--active {
-        //     @if $backdrop_background_before_active {
-        //         background: $backdrop_background_before_active;
-        //     }
-
-        //     @content ($location);
-        // }
-        //
         @else if $location == js--toggle-base--control-backdrop--after {
             @if $backdrop_background_after {
                 background: do-var(
@@ -428,22 +416,6 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
 
             @content ($location);
         }
-        //
-        // @else if $location == js--toggle-base--control-backdrop--after--hover-focus-or-within {
-        //     @if $backdrop_background_after_hover {
-        //         background: $backdrop_background_after_hover;
-        //     }
-
-        //     @content ($location);
-        // }
-        //
-        // @else if $location == js--toggle-base--control-backdrop--after--active {
-        //     @if $backdrop_background_after_active {
-        //         background: $backdrop_background_after_active;
-        //     }
-
-        //     @content ($location);
-        // }
         //
         @else if
             $location ==

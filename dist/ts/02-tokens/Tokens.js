@@ -517,10 +517,10 @@ export class Tokens extends AbstractTokens {
                     slug: 'dyslexic',
                     name: 'Open Dyslexic',
                     appendSystemFontsToFallbacks: true,
-                    contentWidthScale: 1.2,
+                    contentWidthScale: 1.1,
                     css: {
                         'letter-spacing': {
-                            $: '-0.0875em',
+                            $: '-0.075em',
                             italic: '0.0375em',
                             monospace: '-0.05em',
                         },
@@ -541,7 +541,7 @@ export class Tokens extends AbstractTokens {
                     ],
                     fontOverrideOption: true,
                     lineHeightScale: 1.15,
-                    sizeAdjust: '93%',
+                    sizeAdjust: '94%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight == '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
                     }))),

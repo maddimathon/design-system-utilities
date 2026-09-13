@@ -24,6 +24,7 @@ import BrandPhotoList_Sample_Metadata_Caption from './Metadata_Caption.astro';
 import BrandPhotoList_Sample_Metadata_Credit from './Metadata_Credit.astro';
 import BrandPhotoList_Sample_Metadata_Files from './Metadata_Files.astro';
 import BrandPhotoList_Sample_Metadata_Item from './Metadata_Item.astro';
+import BrandPhotoList_Sample_Metadata_License from './Metadata_License.astro';
 
 /* import - layouts */
 
@@ -46,6 +47,7 @@ export interface BrandPhotoList_Sample_MetadataProps<
     includeCaptionMeta: undefined | boolean;
     includeCredit: undefined | boolean;
     includeFiles: undefined | boolean;
+    includeLicense: undefined | boolean;
     includeSource: undefined | boolean;
 
     spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
@@ -65,6 +67,7 @@ const {
     includeCaptionMeta = !includeCaption,
     includeCredit = false,
     includeFiles = true,
+    includeLicense = true,
     includeSource = includeCredit,
     spanColour,
     wrapItems,
@@ -115,16 +118,14 @@ const { attrs, caption, meta, slug } = data;
                 label='Alt Text'
             >
                 <p>
-                    <>
-                        <samp set:text={attrs.alt} />
-                        <Fragment set:html={buttonSpacer} />
-                        <CopyToClipboardButton
-                            class:list='display-inline'
-                            successMessage='copied!'
-                            toClipboard={attrs.alt}
-                            set:text='copy'
-                        />
-                    </>
+                    <samp set:text={attrs.alt} />
+                    <Fragment set:html={buttonSpacer} />
+                    <CopyToClipboardButton
+                        class:list='display-inline'
+                        successMessage='copied!'
+                        toClipboard={attrs.alt}
+                        set:text='copy'
+                    />
                 </p>
             </BrandPhotoList_Sample_Metadata_Item>
         )
@@ -176,23 +177,12 @@ const { attrs, caption, meta, slug } = data;
     }
 
     {
-        meta.license && (
+        includeLicense && meta.license && (
             <BrandPhotoList_Sample_Metadata_Item
                 {...{ wrapItems }}
                 label='License'
             >
-                {typeof meta.license === 'object' ? (
-                    <p>
-                        <a
-                            href={meta.license.href}
-                            set:text={meta.license.label}
-                            target='_blank'
-                            rel='noreferrer noopener'
-                        />
-                    </p>
-                ) : (
-                    <p set:text={meta.license} />
-                )}
+                <BrandPhotoList_Sample_Metadata_License {...{ data }} />
             </BrandPhotoList_Sample_Metadata_Item>
         )
     }

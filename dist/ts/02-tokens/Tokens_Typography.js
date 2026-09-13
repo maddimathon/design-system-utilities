@@ -214,6 +214,7 @@ export class Tokens_Typography extends AbstractTokens {
                     contentWidthScale: family.contentWidthScale,
                     css: family.css,
                     lineHeightScale: family.lineHeightScale,
+                    sizeAdjust: family.sizeAdjust,
                     variable: family.variable && objectMap(family.variable, ([key, value]) => familyMapper(family, 'variable', { key, value })),
                     weights: objectMap(family.weights, ([weight, fontSet]) => fontSet && objectMap(fontSet, ([key, value]) => familyMapper(family, weight, { key, value }))),
                 }),

@@ -329,22 +329,22 @@ export declare namespace Tokens {
                     slug: 'dyslexic';
                     name: 'Open Dyslexic';
                     appendSystemFontsToFallbacks: true;
-                    contentWidthScale: 1.2;
+                    contentWidthScale: 1.1;
                     css: {
                         'letter-spacing': {
-                            $: '-0.0875em';
+                            $: '-0.075em';
                             italic: '0.0375em';
                             monospace: '-0.05em';
                         };
                         icon: {
                             inline: {
                                 buffer: {
-                                    start: 1.5;
+                                    start: number;
                                 };
                             };
                             size: {
-                                $: 1.0625;
-                                inline: 1.25;
+                                $: number;
+                                inline: number;
                             };
                         };
                     };
@@ -353,25 +353,79 @@ export declare namespace Tokens {
                     ];
                     fontOverrideOption: true;
                     lineHeightScale: 1.15;
-                    sizeAdjust: '93%';
+                    sizeAdjust: '94%';
                     weights: Tokens_Typography.Font.Family<'dyslexic'>['weights'];
                 }>;
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                const dyslexicMonospace: Readonly<Tokens_Typography.Font.Family<'dyslexic-monospace'>>;
+                const dyslexicMonospace: Readonly<{
+                    slug: 'dyslexic-monospace';
+                    name: 'Open Dyslexic Mono';
+                    appendSystemFontsToFallbacks: 'monospace';
+                    contentWidthScale: 1;
+                    css: Omit<typeof dyslexic.css, 'letter-spacing'> & {
+                        'letter-spacing': typeof dyslexic.css['letter-spacing']['monospace'];
+                    };
+                    fallbacks: [];
+                    fontOverrideOption: false;
+                    sizeAdjust: '100%';
+                    weights: Tokens_Typography.Font.Family<'dyslexic'>['weights'];
+                }>;
                 /**
                  * @since 0.1.0-alpha
                  */
-                const hyperlegible: Readonly<Tokens_Typography.Font.Family<'hyperlegible'>>;
+                const hyperlegible: Readonly<{
+                    slug: 'hyperlegible';
+                    name: 'Atkinson Hyperlegible Next';
+                    appendSystemFontsToFallbacks: true;
+                    contentWidthScale: 1.035;
+                    css: {
+                        'letter-spacing': 'normal';
+                    };
+                    fallbacks: [
+                        'Verdana'
+                    ];
+                    fontOverrideOption: 'Atkinson Hyperlegible';
+                    lineHeightScale: 1;
+                    sizeAdjust: '105%';
+                    weights: Tokens_Typography.Font.Family<'hyperlegible'>['weights'];
+                    variable: Tokens_Typography.Font.Family<'hyperlegible'>['variable'];
+                }>;
                 /**
                  * @since 0.1.0-beta.0.draft
                  */
-                const hyperlegibleMonospace: Readonly<Tokens_Typography.Font.Family<'hyperlegible-monospace'>>;
+                const hyperlegibleMonospace: Readonly<{
+                    slug: 'hyperlegible-monospace';
+                    name: 'Atkinson Hyperlegible Mono';
+                    appendSystemFontsToFallbacks: 'monospace';
+                    contentWidthScale: 1.035;
+                    css: {
+                        'letter-spacing': 'normal';
+                    };
+                    fallbacks: [];
+                    fontOverrideOption: 'Monospace';
+                    lineHeightScale: 1.05;
+                    sizeAdjust: '96%';
+                    weights: Tokens_Typography.Font.Family<'hyperlegible-monospace'>['weights'];
+                    variable: Tokens_Typography.Font.Family<'hyperlegible-monospace'>['variable'];
+                }>;
                 /**
                  * @since 0.1.0-alpha
                  */
-                const monospace: Readonly<Tokens_Typography.Font.Family<'monospace'>>;
+                const monospace: Readonly<{
+                    slug: 'monospace';
+                    name: 'IBM Plex Mono';
+                    appendSystemFontsToFallbacks: 'monospace';
+                    contentWidthScale: 1.125;
+                    css: {
+                        'letter-spacing': '-0.015em';
+                    };
+                    fallbacks: [];
+                    fontOverrideOption: false;
+                    sizeAdjust: '96.5%';
+                    weights: Tokens_Typography.Font.Family<'hyperlegible'>['weights'];
+                }>;
             }
         }
     }

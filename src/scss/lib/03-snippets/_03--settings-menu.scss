@@ -239,7 +239,9 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
     @each $override_slug, $family_map in map.get(tokens.$font, family) {
         $override_map: map.get($_overrides, $override_slug);
 
-        $selectors: ('[data-font-family-override=#{$override_slug}]');
+        $attribute_selectors: ('[data-font-family-override=#{$override_slug}]');
+
+        $selectors: $attribute_selectors;
 
         $override_css: map.flatten(map.get($family_map, css));
 
@@ -357,6 +359,45 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
                     display: none !important;
 
                     @content (if-font-family-override-is-not);
+                }
+
+                @if $override_slug != icons {
+                    $_sizeAdjust: math.to-percent(
+                        meta.defined-else(
+                            map.get(tokens.$font, family, $override_slug, sizeAdjust),
+                            100%
+                        )
+                    );
+
+                    $_sizeAdjust_body: math.to-percent(
+                        meta.defined-else(map.get(tokens.$font, family, body, sizeAdjust), 100%)
+                    );
+
+                    $_contentWidth: meta.defined-else(
+                        map.get(tokens.$font, family, $override_slug, contentWidthScale),
+                        1
+                    );
+                    $_baseFontSize: math.div(100%, $_sizeAdjust) * 100% * $_contentWidth;
+                    // $_baseFontSize: math.div(100%, $_sizeAdjust) * 100%;
+
+                    $_fs_sizeAdjust: math.div($_sizeAdjust, 100%);
+                    $_fs_multiplier: math.div(100%, $_baseFontSize) * $_fs_sizeAdjust;
+                    @include tokens-font-size(
+                        $multiplier: $_fs_multiplier,
+                        $roundingFactor: config.$math_fontSize_roundingFactor * 2,
+                        $scale_multiplier_bigger: if(
+                                $_fs_multiplier < 1,
+                                math.pow($_fs_multiplier, -0.125),
+                                1
+                            ),
+                        $scale_multiplier_smaller: math.min(1, math.pow($_fs_multiplier, 4)),
+                        $includeRegion: false
+                    );
+
+                    @at-root #{selector.unify($attribute_selectors, config.$selector_root)} {
+                        @include typography-base--font-size($fontSizeMultiplier: $_baseFontSize) {
+                        }
+                    }
                 }
             }
 

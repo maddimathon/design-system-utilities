@@ -1031,11 +1031,11 @@ export namespace Tokens {
                     name: 'Open Dyslexic',
 
                     appendSystemFontsToFallbacks: true,
-                    contentWidthScale: 1.2,
+                    contentWidthScale: 1.1,
 
                     css: {
                         'letter-spacing': {
-                            $: '-0.0875em',
+                            $: '-0.075em',
                             italic: '0.0375em',
                             monospace: '-0.05em',
                         },
@@ -1044,13 +1044,13 @@ export namespace Tokens {
 
                             inline: {
                                 buffer: {
-                                    start: 1.5,
+                                    start: number,
                                 },
                             },
 
                             size: {
-                                $: 1.0625,
-                                inline: 1.25,
+                                $: number,
+                                inline: number,
                             },
                         },
                     },
@@ -1061,7 +1061,7 @@ export namespace Tokens {
                     fontOverrideOption: true,
 
                     lineHeightScale: 1.15,
-                    sizeAdjust: '93%',
+                    sizeAdjust: '94%',
 
                     weights: Tokens_Typography.Font.Family<'dyslexic'>[ 'weights' ],
                 }> = {
@@ -1069,11 +1069,11 @@ export namespace Tokens {
                     name: 'Open Dyslexic',
 
                     appendSystemFontsToFallbacks: true,
-                    contentWidthScale: 1.2,
+                    contentWidthScale: 1.1,
 
                     css: {
                         'letter-spacing': {
-                            $: '-0.0875em',
+                            $: '-0.075em',
                             italic: '0.0375em',
                             monospace: '-0.05em',
                         },
@@ -1099,7 +1099,7 @@ export namespace Tokens {
                     fontOverrideOption: true,
 
                     lineHeightScale: 1.15,
-                    sizeAdjust: '93%',
+                    sizeAdjust: '94%',
 
                     weights: objectGenerator(
                         [ '400', '700' ] as const,
@@ -1121,7 +1121,24 @@ export namespace Tokens {
                 /**
                  * @since ___PKG_VERSION___
                  */
-                export const dyslexicMonospace: Readonly<Tokens_Typography.Font.Family<'dyslexic-monospace'>> = {
+                export const dyslexicMonospace: Readonly<{
+                    slug: 'dyslexic-monospace',
+                    name: 'Open Dyslexic Mono',
+
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1,
+
+                    css: Omit<typeof dyslexic.css, 'letter-spacing'> & {
+                        'letter-spacing': typeof dyslexic.css[ 'letter-spacing' ][ 'monospace' ],
+                    },
+
+                    fallbacks: [],
+                    fontOverrideOption: false,
+
+                    sizeAdjust: '100%',
+
+                    weights: Tokens_Typography.Font.Family<'dyslexic'>[ 'weights' ],
+                }> = {
                     slug: 'dyslexic-monospace',
                     name: 'Open Dyslexic Mono',
 
@@ -1158,7 +1175,28 @@ export namespace Tokens {
                 /**
                  * @since 0.1.0-alpha
                  */
-                export const hyperlegible: Readonly<Tokens_Typography.Font.Family<'hyperlegible'>> = {
+                export const hyperlegible: Readonly<{
+                    slug: 'hyperlegible',
+                    name: 'Atkinson Hyperlegible Next',
+
+                    appendSystemFontsToFallbacks: true,
+                    contentWidthScale: 1.035,
+
+                    css: {
+                        'letter-spacing': 'normal',
+                    },
+
+                    fallbacks: [
+                        'Verdana',
+                    ],
+                    fontOverrideOption: 'Atkinson Hyperlegible',
+
+                    lineHeightScale: 1,
+                    sizeAdjust: '105%',
+
+                    weights: Tokens_Typography.Font.Family<'hyperlegible'>[ 'weights' ],
+                    variable: Tokens_Typography.Font.Family<'hyperlegible'>[ 'variable' ],
+                }> = {
                     slug: 'hyperlegible',
                     name: 'Atkinson Hyperlegible Next',
 
@@ -1244,7 +1282,25 @@ export namespace Tokens {
                 /**
                  * @since ___PKG_VERSION___
                  */
-                export const hyperlegibleMonospace: Readonly<Tokens_Typography.Font.Family<'hyperlegible-monospace'>> = {
+                export const hyperlegibleMonospace: Readonly<{
+                    slug: 'hyperlegible-monospace',
+                    name: 'Atkinson Hyperlegible Mono',
+
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1.035,
+
+                    css: {
+                        'letter-spacing': 'normal',
+                    },
+
+                    fallbacks: [],
+                    fontOverrideOption: 'Monospace',
+                    lineHeightScale: 1.05,
+                    sizeAdjust: '96%',
+
+                    weights: Tokens_Typography.Font.Family<'hyperlegible-monospace'>[ 'weights' ],
+                    variable: Tokens_Typography.Font.Family<'hyperlegible-monospace'>[ 'variable' ],
+                }> = {
                     slug: 'hyperlegible-monospace',
                     name: 'Atkinson Hyperlegible Mono',
 
@@ -1327,7 +1383,24 @@ export namespace Tokens {
                 /**
                  * @since 0.1.0-alpha
                  */
-                export const monospace: Readonly<Tokens_Typography.Font.Family<'monospace'>> = {
+                export const monospace: Readonly<{
+                    slug: 'monospace',
+                    name: 'IBM Plex Mono',
+
+                    appendSystemFontsToFallbacks: 'monospace',
+                    contentWidthScale: 1.125,
+
+                    css: {
+                        'letter-spacing': '-0.015em',
+                    },
+
+                    fallbacks: [],
+                    fontOverrideOption: false,
+
+                    sizeAdjust: '96.5%',
+
+                    weights: Tokens_Typography.Font.Family<'hyperlegible'>[ 'weights' ],
+                }> = {
                     slug: 'monospace',
                     name: 'IBM Plex Mono',
 

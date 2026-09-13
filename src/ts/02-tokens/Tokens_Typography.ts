@@ -346,6 +346,7 @@ export class Tokens_Typography<
                         contentWidthScale: family.contentWidthScale,
                         css: family.css,
                         lineHeightScale: family.lineHeightScale,
+                        sizeAdjust: family.sizeAdjust,
 
                         variable: family.variable && objectMap(
                             family.variable,
@@ -508,7 +509,7 @@ export namespace Tokens_Typography {
 
     export namespace ScssVars {
 
-        export type Family = Pick<Tokens_Typography.Font.Family, 'contentWidthScale' | 'css' | 'lineHeightScale'> & {
+        export type Family = Pick<Tokens_Typography.Font.Family, 'contentWidthScale' | 'css' | 'lineHeightScale' | 'sizeAdjust'> & {
 
             weights: {
                 [ K in WholeTokenLevel ]?: undefined | {
@@ -739,12 +740,12 @@ export namespace Tokens_Typography {
                 /**
                  * Will be used as a multiplier.
                  */
-                'letter-spacing': TokenTypes.Css.LineHeight | {
-                    $: TokenTypes.Css.LineHeight;
-                    italic?: TokenTypes.Css.LineHeight;
-                    monospace?: TokenTypes.Css.LineHeight | {
-                        $?: TokenTypes.Css.LineHeight;
-                        italic?: TokenTypes.Css.LineHeight;
+                'letter-spacing': TokenTypes.Css.LetterSpacing | {
+                    $: TokenTypes.Css.LetterSpacing;
+                    italic?: TokenTypes.Css.LetterSpacing;
+                    monospace?: TokenTypes.Css.LetterSpacing | {
+                        $?: TokenTypes.Css.LetterSpacing;
+                        italic?: TokenTypes.Css.LetterSpacing;
                     };
                 };
             }>;

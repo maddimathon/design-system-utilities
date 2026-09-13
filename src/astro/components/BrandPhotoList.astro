@@ -42,6 +42,7 @@ export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = Tok
     thumbnails: AllThumbnails<T_Types>;
 
     SampleComponent?: (props: ComponentProps<typeof BrandPhotoList_Sample>) => any;
+        sampleComponentArgs?: Record<string,any>;
 
     urlMaker: (currentURL: URL, targetSubpath: string) => string;
 
@@ -60,9 +61,11 @@ const {
     includeCaptionMeta,
     includeCredit,
     includeFiles,
+    includeLicense,
     includeSource,
     photos,
     SampleComponent = BrandPhotoList_Sample,
+    sampleComponentArgs = {},
     spanColour = 'primary',
     thumbnails,
     urlMaker,
@@ -135,6 +138,7 @@ const photosOnly = photosData
                     />
                     <SampleComponent
                         {...{
+                            ...sampleComponentArgs,
                             copyCredit,
                             data,
                             defineSize,
@@ -143,6 +147,7 @@ const photosOnly = photosData
                             includeCaptionMeta,
                             includeCredit,
                             includeFiles,
+                            includeLicense,
                             includeSource,
                             photos,
                             spanColour,

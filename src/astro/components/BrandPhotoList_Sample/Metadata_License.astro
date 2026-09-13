@@ -1,0 +1,51 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
+
+import type { PhotoData } from '../BrandPhoto.astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+    data: PhotoData<
+        T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']
+    >;
+}
+
+const {
+    data: { meta },
+}: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+---
+
+{
+    typeof meta.license === 'object' ? (
+        <p>
+            <a
+                href={meta.license.href}
+                set:text={meta.license.label}
+                target='_blank'
+                rel='noreferrer noopener'
+            />
+        </p>
+    ) : (
+        <p set:text={meta.license} />
+    )
+}

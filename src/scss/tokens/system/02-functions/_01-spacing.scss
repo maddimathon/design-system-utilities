@@ -12,7 +12,13 @@
 // @use '../00-default' as default;
 @use '../01-breakdown' as breakdown;
 
-$_marginRelativizer: calc(1 / (map.get(breakdown.$font_size, normal) * breakdown.$fontSize_base));
+$_marginRelativizer: calc(
+    1 /
+        (
+            math.pow(breakdown.$fontSize_multiplier, map.get(breakdown.$font_size, normal)) *
+                breakdown.$fontSize_base
+        )
+);
 $_marginRelativizer_method: if($_marginRelativizer >= 1, null, 'ceil');
 
 ///

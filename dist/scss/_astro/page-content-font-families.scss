@@ -156,9 +156,8 @@ $_grid_rows: string.unquote(string.join(' ', $_grid_rows));
     }
 }
 
-:global(#{feature-check.get-selector( subgrid, true )}) {
-    //
-    .font-family-swatch-list {
+.font-family-swatch-list {
+    @include feature-check.supports(subgrid) {
         grid-template-rows: $_grid_rows;
 
         .font-family-swatch {

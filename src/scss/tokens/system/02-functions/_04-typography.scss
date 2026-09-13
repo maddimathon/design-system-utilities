@@ -67,6 +67,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
     $multiplier: 1,
     $relative: false,
     $roundingFactor: config.$math_fontSize_roundingFactor,
+    $scale_multiplier: 1,
     //
     $args...
 ) {
@@ -76,7 +77,10 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
         @return ();
     }
 
-    $size: map.get(breakdown.$font_size, $slug);
+    $size: math.pow(
+        breakdown.$fontSize_multiplier,
+        map.get(breakdown.$font_size, $slug) * $scale_multiplier
+    );
 
     @if $clampFontSize == null {
         $clampFontSize: false;
@@ -116,29 +120,28 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
     $num: map.get($_raw_font_size_flat, $slug);
 
     $max_multi_post: config.$math_clampFontSize_multiplier_max;
+    $max_multi: calc(1 + ((config.$math_clampFontSize_multiplier_max) - 1) / 2) * $scale_multiplier;
 
-    $max_multi: calc(1 + (config.$math_clampFontSize_multiplier_max - 1) / 2);
+    $size_max: math.pow(breakdown.$fontSize_multiplier, $num * $max_multi) * $max_multi_post;
+
+    $min_multi_post: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
+    $min_multi: if($num > 0, config.$math_clampFontSize_multiplier_min, 1) * $scale_multiplier;
+
+    $size_min: math.pow(breakdown.$fontSize_multiplier, $num * $min_multi) * $min_multi_post;
 
     $size_max: math.round-to-pixel(
-        math.pow(breakdown.$spacing_multiplier, $num * $max_multi) * $max_multi_post,
-        $factor: config.$math_fontSize_roundingFactor,
+        $size_max * $fontScale * $multiplier,
+        $factor: $roundingFactor * 4,
         $method: ceil
     );
 
-    $min_multi_post: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
-
-    $min_multi: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
-
     $size_min: math.round-to-pixel(
-        math.pow(breakdown.$spacing_multiplier, $num * $min_multi) * $min_multi_post,
-        $factor: config.$math_fontSize_roundingFactor,
+        $size_min * $fontScale * $multiplier,
+        $factor: $roundingFactor * 4,
         $method: floor
     );
 
     $sizeScalingSlope: calc(($size_max - $size_min) / ($max_viewport - $min_viewport));
-
-    $size_max: $size_max * $fontScale * $multiplier;
-    $size_min: $size_min * $fontScale * $multiplier;
 
     @return (
         $size_withUnit,
