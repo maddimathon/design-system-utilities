@@ -254,6 +254,10 @@ export declare namespace Tokens_CSS_Style {
         };
         font: {
             /**
+             * Should be a font-family token slug.
+             */
+            family?: undefined | string;
+            /**
              * Should be a font-size token slug.
              */
             size: string;

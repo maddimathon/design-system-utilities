@@ -50,13 +50,13 @@ export class Compile extends CompileStage {
         await buildTokens(this, tokens, level, paths, args);
     }
     async astro() {
-        await this.runCustomDirCopySubStage('astro');
+        await this.customCopySubstage('astro');
     }
     async scss() {
-        await this.runCustomDirCopySubStage('scss');
+        await this.customCopySubstage('scss');
     }
     async templates(sassDebugCheckpoints = false, { maxConcurrent, ...args } = {}) {
-        await this.runCustomScssDirSubStage('template', this.getDistDir(undefined, 'css'), {
+        await this.customScssSubstage.dir('template', this.getDistDir(undefined, 'css'), {
             postCSS: true,
             ...args,
             maxConcurrent: maxConcurrent ?? (sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 10),

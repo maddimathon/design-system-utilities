@@ -45,13 +45,11 @@ export class Test extends TestStage {
             params: this.params,
         } );
 
-        const compiled = await this.runCustomScssDirSubStage(
+        const compiled = await this.customScssSubstage.demoDir(
             'demos',
             'dist/css',
             {
-                clearOutputDir: false,
                 maxConcurrent: 30,
-                postCSS: false,
                 srcDir: 'src/scss',
             },
             1,

@@ -538,6 +538,15 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $svg_sel_moving: $_toggle_svg_sel_moving,
     $svg_sel_static: $_toggle_svg_sel_static,
     //
+    $selector_container: '.toggle-block',
+    // $selector_content: selector.append($selector_container, '__content'),
+    $selector_control: selector.append($selector_container, '__control'),
+    // $selector_control_backdrop: '[data-toggle-control-backdrop]',
+    // $selector_control_icon: selector.append($selector_control, '__icon'),
+    // $selector_control_inner: selector.append($selector_control, '__inner'),
+    // $selector_title: selector.append($selector_container, '__title'),
+    // $selector_title_heading: selector.append($selector_container, '__title__heading'),
+    //
     $includeBackdropStyles: true,
     $includeStyles: true,
     $mixin_support_base: $_mixin_support_base,
@@ -549,27 +558,24 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $control_paddingBlockEnd: var-style(toggle-control-padding-block-end);
 
     $selector_toggleControl__isHover: selector.is-list(
-        list.join(
-            (
-                '[data-toggle-control]:hover',
-                '[data-toggle-control]:focus-visible'
-            ),
-            selector.unify(
-                '[data-toggle-control]',
-                config.$selector_interactiveState_focus
-            ),
-            $separator: comma
+        selector.unify(
+            $selector_control,
+            list.join(
+                (':hover', ':focus-visible'),
+                config.$selector_interactiveState_focus,
+                $separator: comma
+            )
         )
     );
 
     $selector_toggleControl__isActive: selector.is-list(
-        list.join(
-            ('[data-toggle-control]:active'),
-            selector.unify(
-                '[data-toggle-control]',
-                config.$selector_interactiveState_active
-            ),
-            $separator: comma
+        selector.unify(
+            $selector_control,
+            list.join(
+                (':active'),
+                config.$selector_interactiveState_active,
+                $separator: comma
+            )
         )
     );
 
@@ -583,6 +589,15 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             $svg_sel_static: $svg_sel_static,
             $svg_sel_moving: $svg_sel_moving,
             //
+            $selector_container: $selector_container,
+            // $selector_content: $selector_content,
+            $selector_control: $selector_control,
+            // $selector_control_backdrop: $selector_control_backdrop,
+            // $selector_control_icon: $selector_control_icon,
+            // $selector_control_inner: $selector_control_inner,
+            // $selector_title: $selector_title,
+            // $selector_title_heading: $selector_title_heading,
+            //
             $includeBackdropStyles: false,
             $includeStyles: false,
             $includeMarginBlock: false,
@@ -595,11 +610,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         /// CONTAINER
         ///
 
-        @if $location == flex-contents-container {
-            @content ($location);
-        }
-        //
-        @else if $location == toggle-container {
+        @if $location == toggle-container {
             @if $borderColor {
                 @include cx-prop(toggle-border-color, $borderColor);
             }
@@ -742,12 +753,19 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         ///
 
         @else if $location == js--toggle-title-and-headings {
+            @include cx-prop(icon-color, currentColor);
             color: do-var(
                 toggle-title-color,
                 var-style(heading-unstyled-color)
             );
 
             @content ($location);
+
+            #{$selector_control} {
+                color: inherit;
+
+                @content (#{$location}--control);
+            }
         }
         //
         @else if $location == js--toggle-title--heading {
@@ -758,7 +776,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                 @at-root #{selector.unify(&, '%h#{$slug}')} {
                     @content (#{$location}--h#{$slug});
 
-                    [data-toggle-control] {
+                    #{$selector_control} {
                         margin-block: var-style(
                                 toggle-control-heading-#{$slug}-margin-block-start,
                                 $value_failureReturn: $control_marginBlockStart,
@@ -790,7 +808,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             @at-root #{selector.unify(&, ('%unstyled-heading', '%unstyled-heading--where'))} {
                 @content (#{$location}--unstyled-heading);
 
-                [data-toggle-control] {
+                #{$selector_control} {
                     margin-block: 0 $control_marginBlockEnd;
                     padding-block: $control_paddingBlockStart
                         $control_paddingBlockEnd;
@@ -869,7 +887,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 
             @content ($location);
 
-            @at-root #{selector.replace(&, '[data-toggle-content]', ':where( [data-toggle-content] )')} {
+            @at-root #{selector.replace(&, $selector_control, ':where( #{$selector_control} )')} {
                 @include set-flow-margins(
                     $default: $flowMargin_default,
                     $large: $flowMargin_large,
@@ -1033,13 +1051,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             $args...
         )
         using ($location) {
-        @if $location == js--nav-toggle-container {
-            gap: 0;
-
-            @content ($location);
-        }
-        //
-        @else if $location == js--body-nav-toggle-title {
+        @if $location == js--body-nav-toggle-title {
             border-block-end-width: $title_borderWidth;
             border-block-end-style: var-style(
                 toggle-content-border-style-top,
@@ -1062,10 +1074,6 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                     margin-block: 0 calc($title_borderWidth * -1);
                 }
             }
-        }
-        //
-        @else if $location == js--body-nav-toggle-title--control {
-            @content ($location);
         }
         //
         @else if $location == js--nav-toggle-content {
@@ -1098,6 +1106,8 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         //
         @else if $location == js--nav-toggle-container--open--content {
             border-block-end-width: $title_borderWidth;
+
+            @content ($location);
         }
         //
         // @else if $location == LOCATION {

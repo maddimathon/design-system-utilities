@@ -180,7 +180,7 @@ export class Document extends DocumentStage {
             'assets/css',
         );
 
-        const paths = await this.runCustomScssDirSubStage(
+        const paths = await this.customScssSubstage.dir(
             '',
             outDir,
             {

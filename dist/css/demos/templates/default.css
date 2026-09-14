@@ -6255,6 +6255,7 @@ a[href].button {
     border-width: 0.0625rem;
     border-radius: 0;
     border-style: solid;
+    font-family: inherit;
     font-weight: 500;
     letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
@@ -6487,7 +6488,6 @@ a[href].button:is(.display-inline)
     justify-self: center;
     vertical-align: var(--icon-vertical-align, middle);
     color: var(--icon-color, var(--theme-ui, CanvasText));
-    margin: 0;
     bottom: 0.0625em;
 }
 a[href].button-primary:is(.display-inline)
@@ -6581,8 +6581,7 @@ a[href].button:is(.display-inline)
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
-    margin-block-start: 0;
-    margin-inline: 0;
+    margin: 0;
     letter-spacing: normal !important;
 }
 a[href].button-primary code,
@@ -6714,7 +6713,6 @@ a[href].button
     justify-self: center;
     vertical-align: var(--icon-vertical-align, middle);
     color: var(--icon-color, var(--theme-ui, CanvasText));
-    margin: 0;
     bottom: 0.0625em;
 }
 a[href].button-primary
@@ -6808,8 +6806,7 @@ a[href].button
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
-    margin-block-start: 0;
-    margin-inline: 0;
+    margin: 0;
     letter-spacing: normal !important;
 }
 
@@ -8050,6 +8047,7 @@ input::file-selector-button {
     border-width: 0.0625rem;
     border-radius: 0;
     border-style: solid;
+    font-family: inherit;
     font-weight: 500;
     letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
@@ -11278,11 +11276,15 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         --backdrop-background-before: var(--theme-background, Canvas);
         --backdrop-background-after: var(--theme-link-hover, ActiveText);
     }
-    :where(.js) [data-toggle-control] .icon svg #a,
-    :where(.js) [data-toggle-control] .icon svg #b,
-    :where(.js) [data-toggle-control] .toggle-block__control__icon svg #a,
-    :where(.js) [data-toggle-control] .toggle-block__control__icon svg #b {
+    :where(.js) [data-toggle-control] .icon > svg #a,
+    :where(.js) [data-toggle-control] .icon > svg #b,
+    :where(.js) [data-toggle-control] .toggle-block__control__icon > svg #a,
+    :where(.js) [data-toggle-control] .toggle-block__control__icon > svg #b {
         transform-origin: center;
+    }
+    :where(.js) [data-toggle-control] .icon > svg #b,
+    :where(.js) [data-toggle-control] .toggle-block__control__icon > svg #b {
+        transform: rotate(0deg);
     }
     :where(.js) [data-toggle-title] {
         z-index: 2;
@@ -11913,9 +11915,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         .toggle-block:has(
             :is(
-                [data-toggle-control]:hover,
-                [data-toggle-control]:focus-visible,
-                [data-toggle-control][data-state-focus="true"]
+                .toggle-block__control:hover,
+                .toggle-block__control:focus-visible,
+                .toggle-block__control[data-state-focus="true"]
             )
         ) {
         --toggle-border-color: var(--theme-link-ui-hover, ActiveText);
@@ -11924,8 +11926,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         .toggle-block:has(
             :is(
-                [data-toggle-control]:active,
-                [data-toggle-control][data-state-active="true"]
+                .toggle-block__control:active,
+                .toggle-block__control[data-state-active="true"]
             )
         ) {
         --toggle-border-color: var(--theme-link-ui-active, ActiveText);
@@ -11957,18 +11959,27 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         align-content: stretch;
         align-items: center;
         margin-block: 0;
+        --icon-color: currentColor;
         color: var(--toggle-title-color, var(--theme-text-primary, CanvasText));
+    }
+    :where(.js) .toggle-block .toggle-block__title .toggle-block__control,
+    :where(.js)
+        .toggle-block
+        .toggle-block__title
+        > .toggle-block__title__heading
+        .toggle-block__control {
+        color: inherit;
     }
     :where(.js)
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h1
-        [data-toggle-control],
+        .toggle-block__control,
     :where(.js)
         .toggle-block
         .toggle-block__title
         > h1.toggle-block__title__heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -11976,12 +11987,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h2
-        [data-toggle-control],
+        .toggle-block__control,
     :where(.js)
         .toggle-block
         .toggle-block__title
         > h2.toggle-block__title__heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -11989,12 +12000,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h3
-        [data-toggle-control],
+        .toggle-block__control,
     :where(.js)
         .toggle-block
         .toggle-block__title
         > h3.toggle-block__title__heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12002,12 +12013,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h4
-        [data-toggle-control],
+        .toggle-block__control,
     :where(.js)
         .toggle-block
         .toggle-block__title
         > h4.toggle-block__title__heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12015,12 +12026,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h5
-        [data-toggle-control],
+        .toggle-block__control,
     :where(.js)
         .toggle-block
         .toggle-block__title
         > h5.toggle-block__title__heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12028,12 +12039,12 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h6
-        [data-toggle-control],
+        .toggle-block__control,
     :where(.js)
         .toggle-block
         .toggle-block__title
         > h6.toggle-block__title__heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12041,7 +12052,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h7
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12049,7 +12060,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h8
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12057,7 +12068,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h9
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12065,7 +12076,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.h10
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12073,7 +12084,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__title
         > .toggle-block__title__heading.unstyled-heading
-        [data-toggle-control] {
+        .toggle-block__control {
         margin-block: 0 0.3125em;
         padding-block: 0 0;
     }
@@ -12301,9 +12312,9 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         .toggle-block[data-toggle-container="open"]:has(
             :is(
-                [data-toggle-control]:hover,
-                [data-toggle-control]:focus-visible,
-                [data-toggle-control][data-state-focus="true"]
+                .toggle-block__control:hover,
+                .toggle-block__control:focus-visible,
+                .toggle-block__control[data-state-focus="true"]
             )
         ) {
         --toggle-border-color: var(--theme-link-ui-active, ActiveText);
@@ -12312,8 +12323,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     :where(.js)
         .toggle-block[data-toggle-container="open"]:has(
             :is(
-                [data-toggle-control]:active,
-                [data-toggle-control][data-state-active="true"]
+                .toggle-block__control:active,
+                .toggle-block__control[data-state-active="true"]
             )
         ) {
         --toggle-border-color: var(--theme-link-ui, LinkText);
@@ -12323,14 +12334,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h1:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 ),
             h1.toggle-block__title__heading:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12341,14 +12352,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h2:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 ),
             h2.toggle-block__title__heading:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12359,14 +12370,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h3:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 ),
             h3.toggle-block__title__heading:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12377,14 +12388,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h4:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 ),
             h4.toggle-block__title__heading:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12395,14 +12406,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h5:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 ),
             h5.toggle-block__title__heading:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12413,14 +12424,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h6:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 ),
             h6.toggle-block__title__heading:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12431,8 +12442,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h7:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12443,8 +12454,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h8:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12455,8 +12466,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h9:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12467,8 +12478,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block[data-toggle-container="open"]:has(
             .toggle-block__title__heading.h10:has(
                     :is(
-                        [data-toggle-control]:active,
-                        [data-toggle-control][data-state-active="true"]
+                        .toggle-block__control:active,
+                        .toggle-block__control[data-state-active="true"]
                     )
                 )
         ) {
@@ -12497,18 +12508,27 @@ body > nav.toggle-nav-menu {
 }
 
 @media screen {
-    :where(.js) body > nav.toggle-nav-menu {
+    :where(.js) body > nav.toggle-nav-menu,
+    :where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__title,
+    :where(.js)
+        body
+        > nav.toggle-nav-menu
+        .toggle-nav-menu__title
+        > .toggle-nav-menu__title__heading,
+    :where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__content {
         /* prettier-ignore */
         --grid-template-columns--toggle: var(--grid-template-columns--page, [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end]);
         /* prettier-ignore */
         grid-template-columns: var(--grid-template-columns--page, [page-start] 1fr [sidebar-start] 0 [content-start] minmax(auto, 36rem) [content-end] 0 [sidebar-end] 1fr [page-end]);
         grid-template-columns: subgrid;
+        gap: 0;
+    }
+    :where(.js) body > nav.toggle-nav-menu {
         justify-content: center;
         justify-items: stretch;
         align-content: start;
         align-items: start;
         grid-column: 1/-1;
-        gap: 0;
     }
     :where(.js) body > nav.toggle-nav-menu .toggle-nav-menu__content {
         grid-column: page-start/page-end;
@@ -12574,7 +12594,7 @@ body > nav.toggle-nav-menu {
     :where(.js) body {
         --height-nav-primary: 3.125rem;
         --scroll-padding-top: calc(
-            var(--height-nav-primary, 0) + var(--gap-block-layout, 5vw)
+            var(--height-nav-primary, 3.125rem) + var(--flow-margin, 0.78125rem)
         );
         scroll-padding-top: var(
             --scroll-padding-top,
@@ -13055,58 +13075,31 @@ body > nav.toggle-nav-menu {
     .if-font-family-override-is-not-dyslexic {
     display: none !important;
 }
-[data-font-family-override="dyslexic"],
-.website-settings .font-family-override-dyslexic {
-    --fs-heading-1: 2.4375rem;
-    --fs-heading-1: clamp(1.875rem, 1.375svw + 1.5rem, 3.1875rem);
-    --fs-heading-2: 1.8125rem;
-    --fs-heading-2: clamp(1.4375rem, 0.90625svw + 1.1875rem, 2.3125rem);
-    --fs-heading-3: 1.5625rem;
-    --fs-heading-3: clamp(1.25rem, 0.71875svw + 1.0625rem, 1.96875rem);
-    --fs-heading-4: 1.34375rem;
-    --fs-heading-4: clamp(1.09375rem, 0.59375svw + 0.96875rem, 1.65625rem);
-    --fs-heading-5: 1.15625rem;
-    --fs-heading-5: clamp(0.96875rem, 0.46875svw + 0.84375rem, 1.40625rem);
-    --fs-heading-6: 1rem;
-    --fs-heading-6: clamp(0.84375rem, 0.375svw + 0.75rem, 1.1875rem);
-    --fs-heading-7: 0.8125rem;
-    --fs-heading-7: clamp(0.8125rem, 0.1875svw + 0.78125rem, 1rem);
-    --fs-heading-8: 0.8125rem;
-    --fs-heading-8: clamp(0.8125rem, 0.15625svw + 0.75rem, 0.96875rem);
-    --fs-heading-9: 0.78125rem;
-    --fs-heading-9: clamp(0.78125rem, 0.15625svw + 0.75rem, 0.9375rem);
-    --fs-heading-10: 0.75rem;
-    --fs-heading-10: clamp(0.75rem, 0.15625svw + 0.71875rem, 0.90625rem);
-    --fs-normal: 0.84375rem;
-    --fs-smaller-3: 0.75rem;
-    --fs-smaller-2: 0.78125rem;
-    --fs-smaller-1: 0.8125rem;
-    --fs-rel-heading-1: 2.28125em;
-    --fs-rel-heading-1: clamp(1.75em, 1.3125svw + 1.4375em, 3em);
-    --fs-rel-heading-2: 1.6875em;
-    --fs-rel-heading-2: clamp(1.34375em, 0.875svw + 1.125em, 2.15625em);
-    --fs-rel-heading-3: 1.46875em;
-    --fs-rel-heading-3: clamp(1.1875em, 0.6875svw + 1em, 1.84375em);
-    --fs-rel-heading-4: 1.25em;
-    --fs-rel-heading-4: clamp(1.03125em, 0.5625svw + 0.90625em, 1.5625em);
-    --fs-rel-heading-5: 1.09375em;
-    --fs-rel-heading-5: clamp(0.90625em, 0.4375svw + 0.78125em, 1.34375em);
-    --fs-rel-heading-6: 0.9375em;
-    --fs-rel-heading-6: clamp(0.8125em, 0.34375svw + 0.71875em, 1.125em);
-    --fs-rel-heading-7: 0.78125em;
-    --fs-rel-heading-7: clamp(0.78125em, 0.15625svw + 0.71875em, 0.9375em);
-    --fs-rel-heading-8: 0.75em;
-    --fs-rel-heading-8: clamp(0.75em, 0.15625svw + 0.71875em, 0.90625em);
-    --fs-rel-heading-9: 0.71875em;
-    --fs-rel-heading-9: clamp(0.71875em, 0.15625svw + 0.6875em, 0.875em);
-    --fs-rel-heading-10: 0.71875em;
-    --fs-rel-heading-10: clamp(0.71875em, 0.125svw + 0.6875em, 0.84375em);
-    --fs-rel-normal: 0.8125em;
-    --fs-rel-smaller-3: 0.71875em;
-    --fs-rel-smaller-2: 0.71875em;
-    --fs-rel-smaller-1: 0.75em;
-}
 [data-font-family-override="dyslexic"]:root {
+    --fs-heading-1: 2.25rem;
+    --fs-heading-1: clamp(1.78125rem, 1.5svw + 1.40625rem, 3.21875rem);
+    --fs-heading-2: 1.78125rem;
+    --fs-heading-2: clamp(1.46875rem, 1svw + 1.1875rem, 2.40625rem);
+    --fs-heading-3: 1.59375rem;
+    --fs-heading-3: clamp(1.3125rem, 0.8125svw + 1.09375rem, 2.09375rem);
+    --fs-heading-4: 1.40625rem;
+    --fs-heading-4: clamp(1.1875rem, 0.6875svw + 1rem, 1.8125rem);
+    --fs-heading-5: 1.25rem;
+    --fs-heading-5: clamp(1.0625rem, 0.53125svw + 0.9375rem, 1.59375rem);
+    --fs-heading-6: 1.125rem;
+    --fs-heading-6: clamp(0.96875rem, 0.4375svw + 0.84375rem, 1.375rem);
+    --fs-heading-7: 0.9375rem;
+    --fs-heading-7: clamp(0.9375rem, 0.1875svw + 0.90625rem, 1.125rem);
+    --fs-heading-8: 0.875rem;
+    --fs-heading-8: clamp(0.875rem, 0.15625svw + 0.84375rem, 1.03125rem);
+    --fs-heading-9: 0.84375rem;
+    --fs-heading-9: clamp(0.84375rem, 0.125svw + 0.8125rem, 0.96875rem);
+    --fs-heading-10: 0.78125rem;
+    --fs-heading-10: clamp(0.78125rem, 0.125svw + 0.75rem, 0.90625rem);
+    --fs-normal: 1rem;
+    --fs-smaller-3: 0.78125rem;
+    --fs-smaller-2: 0.84375rem;
+    --fs-smaller-1: 0.875rem;
     font-size: 128.7%;
 }
 @media (width >= 25em) {
@@ -13194,7 +13187,7 @@ body > nav.toggle-nav-menu {
     .if-font-family-override-is-not-dyslexic-monospace {
     display: none !important;
 }
-[data-font-family-override="dyslexic-monospace"] {
+[data-font-family-override="dyslexic-monospace"]:root {
     --fs-heading-1: 2.9375rem;
     --fs-heading-1: clamp(2.25rem, 1.65625svw + 1.84375rem, 3.84375rem);
     --fs-heading-2: 2.1875rem;
@@ -13219,32 +13212,6 @@ body > nav.toggle-nav-menu {
     --fs-smaller-3: 0.78125rem;
     --fs-smaller-2: 0.84375rem;
     --fs-smaller-1: 0.90625rem;
-    --fs-rel-heading-1: 2.75em;
-    --fs-rel-heading-1: clamp(2.125em, 1.5625svw + 1.75em, 3.625em);
-    --fs-rel-heading-2: 2.0625em;
-    --fs-rel-heading-2: clamp(1.65625em, 1.03125svw + 1.375em, 2.625em);
-    --fs-rel-heading-3: 1.78125em;
-    --fs-rel-heading-3: clamp(1.46875em, 0.84375svw + 1.25em, 2.25em);
-    --fs-rel-heading-4: 1.53125em;
-    --fs-rel-heading-4: clamp(1.28125em, 0.6875svw + 1.09375em, 1.90625em);
-    --fs-rel-heading-5: 1.34375em;
-    --fs-rel-heading-5: clamp(1.125em, 0.53125svw + 1em, 1.625em);
-    --fs-rel-heading-6: 1.15625em;
-    --fs-rel-heading-6: clamp(1em, 0.4375svw + 0.875em, 1.40625em);
-    --fs-rel-heading-7: 0.9375em;
-    --fs-rel-heading-7: clamp(0.9375em, 0.1875svw + 0.875em, 1.09375em);
-    --fs-rel-heading-8: 0.875em;
-    --fs-rel-heading-8: clamp(0.875em, 0.15625svw + 0.8125em, 1.03125em);
-    --fs-rel-heading-9: 0.8125em;
-    --fs-rel-heading-9: clamp(0.8125em, 0.15625svw + 0.75em, 0.9375em);
-    --fs-rel-heading-10: 0.75em;
-    --fs-rel-heading-10: clamp(0.75em, 0.125svw + 0.71875em, 0.875em);
-    --fs-rel-normal: 1em;
-    --fs-rel-smaller-3: 0.75em;
-    --fs-rel-smaller-2: 0.8125em;
-    --fs-rel-smaller-1: 0.875em;
-}
-[data-font-family-override="dyslexic-monospace"]:root {
     font-size: 110%;
 }
 @media (width >= 25em) {
@@ -13351,58 +13318,31 @@ body > nav.toggle-nav-menu {
     .if-font-family-override-is-not-hyperlegible {
     display: none !important;
 }
-[data-font-family-override="hyperlegible"],
-.website-settings .font-family-override-hyperlegible {
-    --fs-heading-1: 3.125rem;
-    --fs-heading-1: clamp(2.40625rem, 1.78125svw + 1.96875rem, 4.09375rem);
-    --fs-heading-2: 2.34375rem;
-    --fs-heading-2: clamp(1.875rem, 1.15625svw + 1.5625rem, 2.96875rem);
-    --fs-heading-3: 2.03125rem;
-    --fs-heading-3: clamp(1.65625rem, 0.9375svw + 1.40625rem, 2.53125rem);
-    --fs-heading-4: 1.75rem;
-    --fs-heading-4: clamp(1.4375rem, 0.75svw + 1.25rem, 2.1875rem);
+[data-font-family-override="hyperlegible"]:root {
+    --fs-heading-1: 3.09375rem;
+    --fs-heading-1: clamp(2.375rem, 1.75svw + 1.9375rem, 4.03125rem);
+    --fs-heading-2: 2.3125rem;
+    --fs-heading-2: clamp(1.84375rem, 1.15625svw + 1.53125rem, 2.9375rem);
+    --fs-heading-3: 2rem;
+    --fs-heading-3: clamp(1.625rem, 0.9375svw + 1.375rem, 2.5rem);
+    --fs-heading-4: 1.71875rem;
+    --fs-heading-4: clamp(1.4375rem, 0.75svw + 1.21875rem, 2.15625rem);
     --fs-heading-5: 1.5rem;
-    --fs-heading-5: clamp(1.28125rem, 0.59375svw + 1.125rem, 1.84375rem);
-    --fs-heading-6: 1.3125rem;
-    --fs-heading-6: clamp(1.125rem, 0.5svw + 1rem, 1.59375rem);
-    --fs-heading-7: 1.0625rem;
-    --fs-heading-7: clamp(1.0625rem, 0.21875svw + 1rem, 1.25rem);
+    --fs-heading-5: clamp(1.25rem, 0.59375svw + 1.125rem, 1.8125rem);
+    --fs-heading-6: 1.28125rem;
+    --fs-heading-6: clamp(1.09375rem, 0.46875svw + 0.96875rem, 1.5625rem);
+    --fs-heading-7: 1.03125rem;
+    --fs-heading-7: clamp(1.03125rem, 0.21875svw + 0.96875rem, 1.21875rem);
     --fs-heading-8: 0.96875rem;
-    --fs-heading-8: clamp(0.96875rem, 0.1875svw + 0.9375rem, 1.15625rem);
+    --fs-heading-8: clamp(0.96875rem, 0.1875svw + 0.90625rem, 1.125rem);
     --fs-heading-9: 0.90625rem;
-    --fs-heading-9: clamp(0.90625rem, 0.15625svw + 0.875rem, 1.0625rem);
+    --fs-heading-9: clamp(0.90625rem, 0.15625svw + 0.84375rem, 1.0625rem);
     --fs-heading-10: 0.84375rem;
-    --fs-heading-10: clamp(0.84375rem, 0.15625svw + 0.8125rem, 1rem);
+    --fs-heading-10: clamp(0.84375rem, 0.15625svw + 0.78125rem, 0.96875rem);
     --fs-normal: 1.125rem;
     --fs-smaller-3: 0.84375rem;
     --fs-smaller-2: 0.90625rem;
     --fs-smaller-1: 0.96875rem;
-    --fs-rel-heading-1: 2.9375em;
-    --fs-rel-heading-1: clamp(2.28125em, 1.65625svw + 1.84375em, 3.84375em);
-    --fs-rel-heading-2: 2.1875em;
-    --fs-rel-heading-2: clamp(1.75em, 1.09375svw + 1.46875em, 2.8125em);
-    --fs-rel-heading-3: 1.90625em;
-    --fs-rel-heading-3: clamp(1.5625em, 0.875svw + 1.3125em, 2.40625em);
-    --fs-rel-heading-4: 1.65625em;
-    --fs-rel-heading-4: clamp(1.375em, 0.71875svw + 1.1875em, 2.03125em);
-    --fs-rel-heading-5: 1.4375em;
-    --fs-rel-heading-5: clamp(1.1875em, 0.5625svw + 1.0625em, 1.75em);
-    --fs-rel-heading-6: 1.21875em;
-    --fs-rel-heading-6: clamp(1.0625em, 0.4375svw + 0.9375em, 1.5em);
-    --fs-rel-heading-7: 1em;
-    --fs-rel-heading-7: clamp(1em, 0.1875svw + 0.9375em, 1.1875em);
-    --fs-rel-heading-8: 0.90625em;
-    --fs-rel-heading-8: clamp(0.90625em, 0.1875svw + 0.875em, 1.09375em);
-    --fs-rel-heading-9: 0.84375em;
-    --fs-rel-heading-9: clamp(0.84375em, 0.15625svw + 0.8125em, 1em);
-    --fs-rel-heading-10: 0.78125em;
-    --fs-rel-heading-10: clamp(0.78125em, 0.125svw + 0.75em, 0.9375em);
-    --fs-rel-normal: 1.0625em;
-    --fs-rel-smaller-3: 0.78125em;
-    --fs-rel-smaller-2: 0.84375em;
-    --fs-rel-smaller-1: 0.90625em;
-}
-[data-font-family-override="hyperlegible"]:root {
     font-size: 108.4%;
 }
 @media (width >= 25em) {
@@ -13639,58 +13579,31 @@ body > nav.toggle-nav-menu {
     .if-font-family-override-is-not-hyperlegible-monospace {
     display: none !important;
 }
-[data-font-family-override="hyperlegible-monospace"],
-.website-settings .font-family-override-hyperlegible-monospace {
-    --fs-heading-1: 2.65625rem;
-    --fs-heading-1: clamp(2.03125rem, 1.5svw + 1.65625rem, 3.46875rem);
-    --fs-heading-2: 1.96875rem;
-    --fs-heading-2: clamp(1.5625rem, 1svw + 1.3125rem, 2.53125rem);
-    --fs-heading-3: 1.71875rem;
-    --fs-heading-3: clamp(1.375rem, 0.8125svw + 1.1875rem, 2.15625rem);
-    --fs-heading-4: 1.46875rem;
-    --fs-heading-4: clamp(1.21875rem, 0.65625svw + 1.0625rem, 1.84375rem);
-    --fs-heading-5: 1.28125rem;
-    --fs-heading-5: clamp(1.0625rem, 0.5svw + 0.9375rem, 1.5625rem);
-    --fs-heading-6: 1.09375rem;
-    --fs-heading-6: clamp(0.9375rem, 0.40625svw + 0.84375rem, 1.3125rem);
-    --fs-heading-7: 0.90625rem;
-    --fs-heading-7: clamp(0.90625rem, 0.1875svw + 0.84375rem, 1.0625rem);
-    --fs-heading-8: 0.875rem;
-    --fs-heading-8: clamp(0.875rem, 0.1875svw + 0.8125rem, 1.03125rem);
-    --fs-heading-9: 0.8125rem;
-    --fs-heading-9: clamp(0.8125rem, 0.15625svw + 0.78125rem, 0.96875rem);
-    --fs-heading-10: 0.78125rem;
-    --fs-heading-10: clamp(0.78125rem, 0.15625svw + 0.75rem, 0.9375rem);
-    --fs-normal: 0.9375rem;
-    --fs-smaller-3: 0.78125rem;
-    --fs-smaller-2: 0.8125rem;
-    --fs-smaller-1: 0.875rem;
-    --fs-rel-heading-1: 2.5em;
-    --fs-rel-heading-1: clamp(1.90625em, 1.4375svw + 1.5625em, 3.28125em);
-    --fs-rel-heading-2: 1.875em;
-    --fs-rel-heading-2: clamp(1.46875em, 0.9375svw + 1.25em, 2.375em);
-    --fs-rel-heading-3: 1.59375em;
-    --fs-rel-heading-3: clamp(1.3125em, 0.75svw + 1.125em, 2.03125em);
-    --fs-rel-heading-4: 1.375em;
-    --fs-rel-heading-4: clamp(1.15625em, 0.59375svw + 1em, 1.71875em);
-    --fs-rel-heading-5: 1.1875em;
-    --fs-rel-heading-5: clamp(1em, 0.46875svw + 0.875em, 1.46875em);
-    --fs-rel-heading-6: 1.03125em;
-    --fs-rel-heading-6: clamp(0.875em, 0.375svw + 0.78125em, 1.25em);
-    --fs-rel-heading-7: 0.84375em;
-    --fs-rel-heading-7: clamp(0.84375em, 0.1875svw + 0.8125em, 1em);
-    --fs-rel-heading-8: 0.8125em;
-    --fs-rel-heading-8: clamp(0.8125em, 0.15625svw + 0.78125em, 0.96875em);
-    --fs-rel-heading-9: 0.78125em;
-    --fs-rel-heading-9: clamp(0.78125em, 0.15625svw + 0.75em, 0.90625em);
-    --fs-rel-heading-10: 0.75em;
-    --fs-rel-heading-10: clamp(0.75em, 0.125svw + 0.6875em, 0.875em);
-    --fs-rel-normal: 0.875em;
-    --fs-rel-smaller-3: 0.75em;
-    --fs-rel-smaller-2: 0.78125em;
-    --fs-rel-smaller-1: 0.8125em;
-}
 [data-font-family-override="hyperlegible-monospace"]:root {
+    --fs-heading-1: 2.53125rem;
+    --fs-heading-1: clamp(1.96875rem, 1.5625svw + 1.59375rem, 3.46875rem);
+    --fs-heading-2: 1.9375rem;
+    --fs-heading-2: clamp(1.5625rem, 1.03125svw + 1.3125rem, 2.5625rem);
+    --fs-heading-3: 1.71875rem;
+    --fs-heading-3: clamp(1.40625rem, 0.84375svw + 1.1875rem, 2.21875rem);
+    --fs-heading-4: 1.5rem;
+    --fs-heading-4: clamp(1.25rem, 0.6875svw + 1.09375rem, 1.90625rem);
+    --fs-heading-5: 1.3125rem;
+    --fs-heading-5: clamp(1.125rem, 0.5625svw + 0.96875rem, 1.65625rem);
+    --fs-heading-6: 1.15625rem;
+    --fs-heading-6: clamp(1rem, 0.4375svw + 0.875rem, 1.40625rem);
+    --fs-heading-7: 0.96875rem;
+    --fs-heading-7: clamp(0.96875rem, 0.1875svw + 0.90625rem, 1.125rem);
+    --fs-heading-8: 0.90625rem;
+    --fs-heading-8: clamp(0.90625rem, 0.15625svw + 0.84375rem, 1.0625rem);
+    --fs-heading-9: 0.84375rem;
+    --fs-heading-9: clamp(0.84375rem, 0.125svw + 0.8125rem, 0.96875rem);
+    --fs-heading-10: 0.78125rem;
+    --fs-heading-10: clamp(0.78125rem, 0.125svw + 0.75rem, 0.90625rem);
+    --fs-normal: 1.03125rem;
+    --fs-smaller-3: 0.78125rem;
+    --fs-smaller-2: 0.84375rem;
+    --fs-smaller-1: 0.90625rem;
     font-size: 118.6%;
 }
 @media (width >= 25em) {
@@ -13787,57 +13700,31 @@ body > nav.toggle-nav-menu {
     .if-font-family-override-is-not-monospace {
     display: none !important;
 }
-[data-font-family-override="monospace"] {
-    --fs-heading-1: 2.5rem;
-    --fs-heading-1: clamp(1.90625rem, 1.4375svw + 1.5625rem, 3.28125rem);
-    --fs-heading-2: 1.84375rem;
-    --fs-heading-2: clamp(1.46875rem, 0.9375svw + 1.25rem, 2.375rem);
-    --fs-heading-3: 1.59375rem;
-    --fs-heading-3: clamp(1.28125rem, 0.75svw + 1.09375rem, 2rem);
-    --fs-heading-4: 1.375rem;
-    --fs-heading-4: clamp(1.125rem, 0.59375svw + 0.96875rem, 1.71875rem);
-    --fs-heading-5: 1.1875rem;
-    --fs-heading-5: clamp(1rem, 0.5svw + 0.875rem, 1.46875rem);
-    --fs-heading-6: 1.03125rem;
-    --fs-heading-6: clamp(0.875rem, 0.375svw + 0.78125rem, 1.25rem);
-    --fs-heading-7: 0.84375rem;
-    --fs-heading-7: clamp(0.84375rem, 0.1875svw + 0.8125rem, 1rem);
-    --fs-heading-8: 0.8125rem;
-    --fs-heading-8: clamp(0.8125rem, 0.15625svw + 0.78125rem, 0.96875rem);
-    --fs-heading-9: 0.78125rem;
-    --fs-heading-9: clamp(0.78125rem, 0.15625svw + 0.75rem, 0.9375rem);
-    --fs-heading-10: 0.78125rem;
-    --fs-heading-10: clamp(0.78125rem, 0.15625svw + 0.71875rem, 0.90625rem);
-    --fs-normal: 0.875rem;
-    --fs-smaller-3: 0.78125rem;
-    --fs-smaller-2: 0.78125rem;
-    --fs-smaller-1: 0.8125rem;
-    --fs-rel-heading-1: 2.34375em;
-    --fs-rel-heading-1: clamp(1.8125em, 1.34375svw + 1.46875em, 3.0625em);
-    --fs-rel-heading-2: 1.75em;
-    --fs-rel-heading-2: clamp(1.375em, 0.875svw + 1.15625em, 2.21875em);
-    --fs-rel-heading-3: 1.5em;
-    --fs-rel-heading-3: clamp(1.21875em, 0.71875svw + 1.03125em, 1.90625em);
-    --fs-rel-heading-4: 1.28125em;
-    --fs-rel-heading-4: clamp(1.0625em, 0.5625svw + 0.90625em, 1.59375em);
-    --fs-rel-heading-5: 1.125em;
-    --fs-rel-heading-5: clamp(0.9375em, 0.4375svw + 0.8125em, 1.375em);
-    --fs-rel-heading-6: 0.96875em;
-    --fs-rel-heading-6: clamp(0.8125em, 0.375svw + 0.71875em, 1.15625em);
-    --fs-rel-heading-7: 0.8125em;
-    --fs-rel-heading-7: clamp(0.8125em, 0.15625svw + 0.75em, 0.96875em);
-    --fs-rel-heading-8: 0.78125em;
-    --fs-rel-heading-8: clamp(0.78125em, 0.15625svw + 0.71875em, 0.90625em);
-    --fs-rel-heading-9: 0.75em;
-    --fs-rel-heading-9: clamp(0.75em, 0.15625svw + 0.71875em, 0.875em);
-    --fs-rel-heading-10: 0.71875em;
-    --fs-rel-heading-10: clamp(0.71875em, 0.125svw + 0.6875em, 0.84375em);
-    --fs-rel-normal: 0.8125em;
-    --fs-rel-smaller-3: 0.71875em;
-    --fs-rel-smaller-2: 0.75em;
-    --fs-rel-smaller-1: 0.78125em;
-}
 [data-font-family-override="monospace"]:root {
+    --fs-heading-1: 2.375rem;
+    --fs-heading-1: clamp(1.875rem, 1.53125svw + 1.46875rem, 3.34375rem);
+    --fs-heading-2: 1.875rem;
+    --fs-heading-2: clamp(1.53125rem, 1.03125svw + 1.25rem, 2.5rem);
+    --fs-heading-3: 1.65625rem;
+    --fs-heading-3: clamp(1.375rem, 0.84375svw + 1.15625rem, 2.1875rem);
+    --fs-heading-4: 1.46875rem;
+    --fs-heading-4: clamp(1.21875rem, 0.6875svw + 1.0625rem, 1.875rem);
+    --fs-heading-5: 1.3125rem;
+    --fs-heading-5: clamp(1.09375rem, 0.5625svw + 0.96875rem, 1.625rem);
+    --fs-heading-6: 1.15625rem;
+    --fs-heading-6: clamp(1rem, 0.4375svw + 0.875rem, 1.40625rem);
+    --fs-heading-7: 0.96875rem;
+    --fs-heading-7: clamp(0.96875rem, 0.1875svw + 0.90625rem, 1.15625rem);
+    --fs-heading-8: 0.90625rem;
+    --fs-heading-8: clamp(0.90625rem, 0.15625svw + 0.875rem, 1.0625rem);
+    --fs-heading-9: 0.84375rem;
+    --fs-heading-9: clamp(0.84375rem, 0.125svw + 0.8125rem, 1rem);
+    --fs-heading-10: 0.8125rem;
+    --fs-heading-10: clamp(0.8125rem, 0.125svw + 0.78125rem, 0.90625rem);
+    --fs-normal: 1.03125rem;
+    --fs-smaller-3: 0.8125rem;
+    --fs-smaller-2: 0.84375rem;
+    --fs-smaller-1: 0.90625rem;
     font-size: 128.2%;
 }
 @media (width >= 25em) {

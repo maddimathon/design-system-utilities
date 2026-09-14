@@ -149,7 +149,7 @@ export class Document extends DocumentStage {
         }
     }
 
-    protected async scss( args: Partial<AbstractStage.runCustomScssDirSubStage.Opts> = {} ): Promise<void> {
+    protected async scss( args: Partial<AbstractStage.customScssSubstage.Opts> = {} ): Promise<void> {
         // returns - we don't need to compile this
         if (
             this.isWatchedUpdate
@@ -166,7 +166,7 @@ export class Document extends DocumentStage {
             this.astroPublicDir.replace( /\/$/g, '' ) + '/assets/css',
         );
 
-        const paths = await this.runCustomScssDirSubStage(
+        const paths = await this.customScssSubstage.dir(
             '',
             outDir,
             {

@@ -227,7 +227,6 @@ $_mixin_button_colour_single_state: meta.get-mixin(
                         $useIconFont: false
                     );
 
-                    margin: 0;
                     bottom: $embeddedBottom;
                 }
 
@@ -258,8 +257,7 @@ $_mixin_button_colour_single_state: meta.get-mixin(
                     @include cx-prop(icon-inline-buffer-start, 0);
                     @include cx-prop(icon-inline-buffer-end, 0);
 
-                    margin-block-start: 0;
-                    margin-inline: 0;
+                    margin: 0;
                     letter-spacing: normal !important;
                 } @else {
                     @content (icon--is-only-child);
@@ -729,6 +727,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $borderStyle: null,
     $borderWidth: null,
     $display: null,
+    $fontFamily: null,
     $fontSize: if($includeTextBasics == false, false, null),
     $fontStyle: if($includeTextBasics == false, false, null),
     $fontWeight: null,
@@ -879,6 +878,28 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     border-style: $borderStyle;
 
+    $_fontFamily_slug: if(
+        $fontFamily == null,
+        style-value(
+            button-font-family,
+            $raw: true,
+            $failureReturn: null,
+            $warnOnFail: false
+        ),
+        null
+    );
+    $_fontFamily_slug_exists: if(
+        $_fontFamily_slug,
+        font-family-exists($_fontFamily_slug),
+        false
+    );
+
+    @if $fontFamily {
+        font-family: $fontFamily;
+    } @else if $fontFamily == null and not $_fontFamily_slug_exists {
+        font-family: inherit;
+    }
+
     @if $includeTextBasics != false {
         font-weight: if(
             $fontWeight != null,
@@ -919,10 +940,20 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
         user-select: text;
 
-        @if $multipleContentBlocks {
-            @content (root);
+        @if $_fontFamily_slug_exists {
+            @include set-font-family($_fontFamily_slug, $setBaseProps: false) {
+                @if $multipleContentBlocks {
+                    @content (root);
+                } @else {
+                    @content;
+                }
+            }
         } @else {
-            @content;
+            @if $multipleContentBlocks {
+                @content (root);
+            } @else {
+                @content;
+            }
         }
 
         @if $includeColours {
@@ -2472,6 +2503,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
 ///
 @mixin snippet-support-all-buttons(
     $includeColours: true,
+    $includeColours_fileSelectorButton: $includeColours,
     $includeDisabled: true,
     $includeFileSelector: true,
     $includeInline: true,
@@ -2634,7 +2666,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
             // file-selector-button
             @include meta.apply(
                 $mixin_addPseudoFileSelectorButton,
-                $includeColours: $includeColours,
+                $includeColours: $includeColours_fileSelectorButton,
                 $mixin_button: $mixin_button,
                 $mixin_button_disabled: $mixin_button_disabled,
                 $mixin_button_colour_single_state:

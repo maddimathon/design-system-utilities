@@ -88,19 +88,19 @@ export class Compile extends CompileStage {
     }
 
     protected async astro(): Promise<void> {
-        await this.runCustomDirCopySubStage( 'astro' );
+        await this.customCopySubstage( 'astro' );
     }
 
     protected override async scss(): Promise<void> {
-        await this.runCustomDirCopySubStage( 'scss' );
+        await this.customCopySubstage( 'scss' );
     }
 
     protected async templates(
         sassDebugCheckpoints: boolean = false,
-        { maxConcurrent, ...args }: Partial<AbstractStage.runCustomScssDirSubStage.Opts> = {},
+        { maxConcurrent, ...args }: Partial<AbstractStage.customScssSubstage.Opts> = {},
     ): Promise<void> {
 
-        await this.runCustomScssDirSubStage(
+        await this.customScssSubstage.dir(
             'template',
             this.getDistDir( undefined, 'css' ),
             {

@@ -22,21 +22,30 @@
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-support-astro-sticky-toggle-nav($includeToggleNavSupport) {
+@mixin snippet-support-astro-sticky-toggle-nav(
+    $includeToggleNavSupport,
+    $includeScrollPadding: true,
+    $navHeight: 3.125rem
+) {
     @if $includeToggleNavSupport {
         @include snippet-support-astro-toggle-nav-menu;
     }
 
     @include feature-check.js {
-        $_navHeight: 3.125rem;
-        // $_scrollPaddingFallback: calc($_navHeight + var-gap-block(layout));
+        @if $includeScrollPadding {
+            @at-root #{selector.add-root-selector('%root')},
+                #{selector.add-body-selector('body')} {
+                @include cx-prop(height-nav-primary, $navHeight);
+                @include cx-prop(
+                    scroll-padding-top,
+                    scroll-padding-top-value(
+                        $margin: var-style(flow-margin),
+                        $navHeightFallback: $navHeight
+                    )
+                );
 
-        @at-root #{selector.add-root-selector('%root')},
-            #{selector.add-body-selector('body')} {
-            @include cx-prop(height-nav-primary, $_navHeight);
-            @include cx-prop(scroll-padding-top, scroll-padding-top-value());
-
-            scroll-padding-top: var-scroll-padding-top();
+                scroll-padding-top: var-scroll-padding-top();
+            }
         }
 
         body {
@@ -54,7 +63,7 @@
             z-index: var-z-index(nav);
 
             > .toggle-block__title {
-                min-height: do-var(height-nav-primary, $_navHeight);
+                min-height: do-var(height-nav-primary, $navHeight);
 
                 [data-toggle-control] {
                     padding-block: min(0.75vh, do-var(flow-margin--small));

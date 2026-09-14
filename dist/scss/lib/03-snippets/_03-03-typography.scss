@@ -1295,6 +1295,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $color,
     $focusRingOutlineColor,
     $iconColor,
+    $important,
     $textDecorationColor
 ) {
     @if $color == null {
@@ -1315,10 +1316,16 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         $textDecorationColor: var-theme(link-decoration#{$suffix});
     }
 
-    @include cx-prop(focus-ring-outline-color, $focusRingOutlineColor);
-    @include cx-prop(icon-color, $iconColor);
-    text-decoration-color: $textDecorationColor;
-    color: $color;
+    $_importantSuffix: if($important, ' !important', '');
+
+    @include cx-prop(
+        focus-ring-outline-color,
+        $focusRingOutlineColor,
+        $important: $important
+    );
+    @include cx-prop(icon-color, $iconColor, $important: $important);
+    text-decoration-color: $textDecorationColor#{$_importantSuffix};
+    color: $color#{$_importantSuffix};
 }
 
 ///
@@ -1330,6 +1337,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $color: null,
     $focusRingOutlineColor: null,
     $iconColor: null,
+    $important: false,
     $textDecorationColor: null,
     //
     $selector_except: (),
@@ -1343,6 +1351,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $color: $color,
                 $focusRingOutlineColor: $focusRingOutlineColor,
                 $iconColor: $iconColor,
+                $important: $important,
                 $textDecorationColor: $textDecorationColor
             );
         }
@@ -1353,6 +1362,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $color: $color,
                 $focusRingOutlineColor: $focusRingOutlineColor,
                 $iconColor: $iconColor,
+                $important: $important,
                 $textDecorationColor: $textDecorationColor
             );
         }
@@ -1363,6 +1373,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $color: $color,
                 $focusRingOutlineColor: $focusRingOutlineColor,
                 $iconColor: $iconColor,
+                $important: $important,
                 $textDecorationColor: $textDecorationColor
             );
         }
@@ -1372,6 +1383,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             $color: $color,
             $focusRingOutlineColor: $focusRingOutlineColor,
             $iconColor: $iconColor,
+            $important: $important,
             $textDecorationColor: $textDecorationColor
         );
     }

@@ -101,7 +101,7 @@ export class Document extends DocumentStage {
             return;
         }
         const outDir = this.getSrcDir(undefined, this.astroPublicDir.replace(/\/$/g, '') + '/assets/css');
-        const paths = await this.runCustomScssDirSubStage('', outDir, {
+        const paths = await this.customScssSubstage.dir('', outDir, {
             clearOutputDir: this.isWatchedUpdate ? false : this.params.building ? "complete" : "targeted",
             ...args,
             postCSS: {

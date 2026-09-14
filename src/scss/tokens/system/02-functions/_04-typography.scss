@@ -120,7 +120,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
     $num: map.get($_raw_font_size_flat, $slug);
 
     $max_multi_post: config.$math_clampFontSize_multiplier_max;
-    $max_multi: calc(1 + ((config.$math_clampFontSize_multiplier_max) - 1) / 2) * $scale_multiplier;
+    $max_multi: calc(1 + ((config.$math_clampFontSize_multiplier_max * $scale_multiplier) - 1) / 2);
 
     $size_max: math.pow(breakdown.$fontSize_multiplier, $num * $max_multi) * $max_multi_post;
 

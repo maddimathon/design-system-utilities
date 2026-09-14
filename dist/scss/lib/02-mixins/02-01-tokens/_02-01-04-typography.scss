@@ -181,10 +181,16 @@ $_familiesList: list.sort(
 ///
 @mixin tokens-font-size(
     $multiplier: 1,
+    $multiplier_smaller: $multiplier,
+    $multiplier_bigger: $multiplier,
+    $printRelative: config.$mx_tokens_fontSize_printRelative,
     $roundingFactor: config.$math_fontSize_roundingFactor,
+    $roundingFactor_relative: $roundingFactor * 2,
     $scale_multiplier: 1,
     $scale_multiplier_smaller: $scale_multiplier,
     $scale_multiplier_bigger: $scale_multiplier,
+    $scale_multiplier_relative_smaller: $scale_multiplier_smaller,
+    $scale_multiplier_relative_bigger: $scale_multiplier_bigger,
     $includeRegion: true,
     $atRoot: $includeRegion
 ) {
@@ -201,7 +207,11 @@ $_familiesList: list.sort(
             @each $value
                 in fs-value(
                     $slug,
-                    $multiplier: $multiplier,
+                    $multiplier: if(
+                            $_value < 0,
+                            $multiplier_smaller,
+                            $multiplier_bigger
+                        ),
                     $roundingFactor: $roundingFactor,
                     $scale_multiplier: if(
                             $_value < 0,
@@ -218,17 +228,21 @@ $_familiesList: list.sort(
             }
         }
 
-        @if config.$mx_tokens_fontSize_printRelative {
+        @if $printRelative {
             @each $slug, $_value in tokens.$font_size {
                 @each $value
                     in fs-value(
                         $slug,
-                        $multiplier: $multiplier,
-                        $roundingFactor: $roundingFactor,
+                        $multiplier: if(
+                                $_value < 0,
+                                $multiplier_smaller,
+                                $multiplier_bigger
+                            ),
+                        $roundingFactor: $roundingFactor_relative,
                         $scale_multiplier: if(
                                 $_value < 0,
-                                $scale_multiplier_smaller,
-                                $scale_multiplier_bigger
+                                $scale_multiplier_relative_smaller,
+                                $scale_multiplier_relative_bigger
                             ),
                         $relative: true
                     )
@@ -823,6 +837,8 @@ $_fontOverrideSels_body: ();
 @mixin set-font-family($slug, $args...) {
     @include _set-font-family-shared-props($slug: $slug, $args...) {
         font-family: do-var(font-family-#{$slug}, var-font-family($slug));
+
+        @content;
     }
 }
 

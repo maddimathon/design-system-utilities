@@ -47,7 +47,7 @@ export class Compile extends CompileStage {
      * @protected
      */
     async astro() {
-        await this.runCustomDirCopySubStage( 'astro' );
+        await this.customCopySubstage( 'astro' );
     }
 
     /**
@@ -55,7 +55,7 @@ export class Compile extends CompileStage {
      * @override
      */
     async scss() {
-        await this.runCustomDirCopySubStage( 'scss' );
+        await this.customCopySubstage( 'scss' );
 
         await setSassCompilerFns( this.compiler, {
             config: this.config,
@@ -63,7 +63,7 @@ export class Compile extends CompileStage {
             params: this.params,
         } );
 
-        const cssPaths = await this.runCustomScssDirSubStage(
+        const cssPaths = await this.customScssSubstage.dir(
             '',
             'src/astro/css',
             {
@@ -107,7 +107,7 @@ export class Compile extends CompileStage {
             params: this.params,
         } );
 
-        await this.runCustomScssDirSubStage(
+        await this.customScssSubstage.dir(
             'template',
             'dist/css',
             {

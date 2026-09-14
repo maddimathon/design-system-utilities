@@ -30,5 +30,5 @@ export declare class Document extends DocumentStage {
     protected readonly astroPublicDir = "docs/_public";
     protected assets(extraEnvVars?: [string, string][]): Promise<void>;
     protected astro(): Promise<void>;
-    protected scss(args?: Partial<AbstractStage.runCustomScssDirSubStage.Opts>): Promise<void>;
+    protected scss(args?: Partial<AbstractStage.customScssSubstage.Opts>): Promise<void>;
 }

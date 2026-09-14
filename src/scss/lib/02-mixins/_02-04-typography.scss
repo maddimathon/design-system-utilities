@@ -42,7 +42,11 @@
         line-height: var-line-height('400');
 
         @if $_body_exists {
-            @include set-font-family(body);
+            @include set-font-family(body) {
+                @content;
+            }
+        } @else {
+            @content;
         }
     }
 }
