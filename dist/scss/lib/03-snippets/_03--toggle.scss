@@ -30,7 +30,7 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-list($bool) {
+@function snippet-toggle-block-base--transition-list--container($bool) {
     $_transitionList: ();
 
     @if $bool {
@@ -51,7 +51,7 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-list--content($bool) {
+@function snippet-toggle-block-base--transition-list--content($bool) {
     $_transitionList: (
         string.unquote(
             'border-color #{var-tr-time(normal)} #{tokens.$transition_function} 0ms'
@@ -93,7 +93,9 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-list--content--container($bool) {
+@function snippet-toggle-block-base--transition-list--content--container(
+    $bool
+) {
     $_transitionList: (
         string.unquote(
             'opacity #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
@@ -147,7 +149,9 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-list--open-or-closing--content($bool) {
+@function snippet-toggle-block-base--transition-list--open-or-closing--content(
+    $bool
+) {
     $_transitionList: (
         string.unquote(
             'border-color #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 0ms'
@@ -181,7 +185,9 @@ $_closing_time: do-var(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@function _transition-delay--open-or-closing--content--container($bool) {
+@function snippet-toggle-block-base--transition-delay--open-or-closing--content--container(
+    $bool
+) {
     // returns
     @if $bool {
         @return 0ms;
@@ -196,15 +202,19 @@ $_closing_time: do-var(
     $svg_sel_moving
 ) {
     [data-toggle-content] {
-        transition: _transition-list--content($bool);
+        transition: snippet-toggle-block-base--transition-list--content($bool);
 
         > .container {
-            transition: _transition-list--content--container($bool);
+            transition: snippet-toggle-block-base--transition-list--content--container(
+                $bool
+            );
         }
     }
 
     [data-toggle-container] {
-        transition: _transition-list($bool);
+        transition: snippet-toggle-block-base--transition-list--container(
+            $bool
+        );
     }
 
     [data-toggle-container='opening'],
@@ -225,10 +235,12 @@ $_closing_time: do-var(
         }
 
         > [data-toggle-content] {
-            transition: _transition-list--open-or-closing--content($bool);
+            transition: snippet-toggle-block-base--transition-list--open-or-closing--content(
+                $bool
+            );
 
             > .container {
-                transition-delay: _transition-delay--open-or-closing--content--container(
+                transition-delay: snippet-toggle-block-base--transition-delay--open-or-closing--content--container(
                     $bool
                 );
             }
@@ -424,13 +436,15 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
             @if $backdrop_background_before_hover {
                 @include cx-prop(
                     backdrop-background-before,
-                    $backdrop_background_before_hover
+                    $backdrop_background_before_hover,
+                    $important: true
                 );
             }
             @if $backdrop_background_after_hover {
                 @include cx-prop(
                     backdrop-background-after,
-                    $backdrop_background_after_hover
+                    $backdrop_background_after_hover,
+                    $important: true
                 );
             }
 
@@ -441,13 +455,15 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
             @if $backdrop_background_before_active {
                 @include cx-prop(
                     backdrop-background-before,
-                    $backdrop_background_before_active
+                    $backdrop_background_before_active,
+                    $important: true
                 );
             }
             @if $backdrop_background_after_active {
                 @include cx-prop(
                     backdrop-background-after,
-                    $backdrop_background_after_active
+                    $backdrop_background_after_active,
+                    $important: true
                 );
             }
 
@@ -1086,22 +1102,26 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--nav-toggle-content--container {
-            max-height: math.add-unit(
-                100 -
-                    (
-                        meta.defined-else(
-                                map.get(tokens.$gap, block, layout),
-                                5
-                            ) *
-                            3
-                    ),
-                1vh
-            );
-            max-height: calc(
-                100svh - do-var(height-nav-primary) - var-gap-block(layout)
-            );
-
             @content ($location);
+
+            @include min-height(tokens.$breakpoint_minHeight_fixedHeight) {
+                max-height: math.add-unit(
+                    100 -
+                        (
+                            meta.defined-else(
+                                    map.get(tokens.$gap, block, layout),
+                                    5
+                                ) *
+                                3
+                        ),
+                    1vh
+                );
+                max-height: calc(
+                    100svh - do-var(height-nav-primary) - var-gap-block(layout)
+                );
+
+                @content (#{$location}--min-height);
+            }
         }
         //
         @else if $location == js--nav-toggle-container--open--content {

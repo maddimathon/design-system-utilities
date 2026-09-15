@@ -140,7 +140,7 @@
 @property --height-nav-primary {
     syntax: "<length-percentage> | <number>";
     inherits: true;
-    initial-value: 0;
+    initial-value: 0px;
 }
 @property --icon-color {
     syntax: "*";
@@ -201,6 +201,11 @@
     syntax: "*";
     inherits: true;
     initial-value: middle;
+}
+@property --page-top {
+    syntax: "<length-percentage> | <number>";
+    inherits: true;
+    initial-value: 0px;
 }
 @property --scroll-padding-top {
     syntax: "<length-percentage> | <number>";
@@ -3597,6 +3602,8 @@ li {
 
 form,
 dt {
+    scroll-margin-top: 1.84375rem;
+    scroll-margin-top: var(--flow-margin--large, 1.84375rem);
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
     margin-bottom: 0;
@@ -3646,6 +3653,8 @@ input,
 select,
 textarea,
 hr {
+    scroll-margin-top: 1.25rem;
+    scroll-margin-top: var(--flow-margin-firm-start, 1.25rem);
     margin-top: 1.25rem;
     margin-bottom: 0.46875rem;
     margin-top: var(--flow-margin-firm-start, 1.25rem);
@@ -3730,6 +3739,8 @@ hr {
 
 blockquote,
 table {
+    scroll-margin-top: 2.25rem;
+    scroll-margin-top: var(--flow-margin-firm-start--large, 2.25rem);
     margin-top: 2.25rem;
     margin-bottom: 0.40625rem;
     margin-top: var(--flow-margin-firm-start--large, 2.25rem);
@@ -4589,13 +4600,19 @@ h1 {
     color: var(--theme-heading-1, CanvasText);
 }
 h1 {
+    scroll-margin-top: 3.34375rem;
     margin-top: 3.34375rem;
+    scroll-margin-top: max(1.84375rem, 3.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
 }
 
 :where([role="heading"][aria-level="1"]) {
+    scroll-margin-top: 3.34375rem;
     margin-top: 3.34375rem;
+    scroll-margin-top: max(1.84375rem, 3.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     padding-top: 0;
@@ -4628,13 +4645,19 @@ h2 {
     color: var(--theme-heading-2, CanvasText);
 }
 h2 {
+    scroll-margin-top: 3.34375rem;
     margin-top: 3.34375rem;
+    scroll-margin-top: max(1.84375rem, 3.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
 }
 
 :where([role="heading"][aria-level="2"]) {
+    scroll-margin-top: 3.34375rem;
     margin-top: 3.34375rem;
+    scroll-margin-top: max(1.84375rem, 3.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     padding-top: 0;
@@ -4667,13 +4690,19 @@ h3 {
     color: var(--theme-heading-3, CanvasText);
 }
 h3 {
+    scroll-margin-top: 3.34375rem;
     margin-top: 3.34375rem;
+    scroll-margin-top: max(1.84375rem, 3.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
 }
 
 :where([role="heading"][aria-level="3"]) {
+    scroll-margin-top: 3.34375rem;
     margin-top: 3.34375rem;
+    scroll-margin-top: max(1.84375rem, 3.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     padding-top: 0;
@@ -4726,13 +4755,19 @@ h4 em em em em {
     font-style: italic;
 }
 h4 {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
 }
 
 :where([role="heading"][aria-level="4"]) {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
@@ -4805,13 +4840,19 @@ h5 em em em em {
     font-style: italic;
 }
 h5 {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
 }
 
 :where([role="heading"][aria-level="5"]) {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
@@ -4884,13 +4925,19 @@ h6 em em em em {
     font-style: italic;
 }
 h6 {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
 }
 
 :where([role="heading"][aria-level="6"]) {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
@@ -4930,7 +4977,10 @@ h6 {
 @container style(--font-override-letter-spacing) {
 }
 :where([role="heading"][aria-level="7"]) {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
@@ -4955,7 +5005,10 @@ h6 {
 @container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
 }
 :where([role="heading"][aria-level="8"]) {
+    scroll-margin-top: 1.84375rem;
     margin-top: 1.84375rem;
+    scroll-margin-top: max(1.84375rem, 1.84375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
@@ -5018,7 +5071,10 @@ h6 {
 @container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
 }
 :where([role="heading"][aria-level="9"]) {
+    scroll-margin-top: 1.34375rem;
     margin-top: 1.34375rem;
+    scroll-margin-top: max(1.84375rem, 1.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.34375rem);
     margin-top: max(1.84375rem, 1.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.34375rem);
     padding-top: 0;
@@ -5081,7 +5137,10 @@ h6 {
 @container style(--font-override-letter-spacing) or style(--font-override-letter-spacing-italic) or style(--font-override-letter-spacing-monospace) or style(--font-override-letter-spacing-monospace-italic) {
 }
 :where([role="heading"][aria-level="10"]) {
+    scroll-margin-top: 1.34375rem;
     margin-top: 1.34375rem;
+    scroll-margin-top: max(1.84375rem, 1.34375rem);
+    scroll-margin-top: max(var(--flow-margin--large, 1.84375rem), 1.34375rem);
     margin-top: max(1.84375rem, 1.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.34375rem);
     padding-top: 0;
@@ -7879,6 +7938,8 @@ th {
     --icon-size-font: 1em;
     --icon-size-pseudo: 1em;
     --icon-vertical-align: middle;
+    scroll-margin-top: 1.84375rem;
+    scroll-margin-top: var(--flow-margin--large, 1.84375rem);
     margin-top: 1.84375rem;
     margin-top: var(--flow-margin--large, 1.84375rem);
     font-family: inherit;

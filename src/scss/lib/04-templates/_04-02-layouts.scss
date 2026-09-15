@@ -5,15 +5,103 @@
 
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
 
 @use 'pkg:@maddimathon/utility-astro/lib/templates' as utils;
 
 @use '../../config';
-// @use '../../tokens';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
 @use '../03-snippets' as *;
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin template-content-layouts-body(
+    $print_scrollPadding: map.get(config.$template_styles, scrollPadding),
+    //
+    $css_headings: null,
+    $content_exists: null,
+    $args...
+) {
+    $_print_any: $print_scrollPadding;
+
+    @if $content_exists == null {
+        $content_exists: meta.content-exists();
+    }
+
+    @if $css_headings == null {
+        $css_headings: if(
+            config.$template_cssHeadings and ($content_exists or $_print_any),
+            true,
+            null
+        );
+    }
+
+    @include debug-checkpoint(
+        '#{config.$template_slug} - layouts - scrollPadding start',
+        $level: config.$template_debug_checkpointsLevel + 1,
+        $verbose: true
+    );
+
+    @include utils.template-content-layouts-body(
+            $print_scrollPadding: false,
+            $css_headings: $css_headings,
+            $content_exists: $content_exists,
+            $args...
+        )
+        using ($location) {
+        @if $location == start {
+            @if $print_scrollPadding {
+                @include template-design-system {
+                    @at-root #{selector.parent-or-root()} {
+                        @include cx-prop(height-nav-primary, tokens.$heightNavPrimary);
+
+                        @include cx-prop(
+                            scroll-padding-top,
+                            do-var(height-nav-primary, tokens.$heightNavPrimary)
+                        );
+                        @include cx-prop(scroll-padding-top, scroll-padding-top-value());
+
+                        @if tokens.$heightNavPrimary_wide and
+                            (tokens.$heightNavPrimary != tokens.$heightNavPrimary_wide)
+                        {
+                            @include min-width(nav) {
+                                @include cx-prop(height-nav-primary, tokens.$heightNavPrimary_wide);
+
+                                @include cx-prop(
+                                    scroll-padding-top,
+                                    do-var(height-nav-primary, tokens.$heightNavPrimary_wide)
+                                );
+                                @include cx-prop(scroll-padding-top, scroll-padding-top-value());
+                            }
+                        }
+                    }
+
+                    %root,
+                    %body {
+                        scroll-padding-top: var-scroll-padding-top();
+                    }
+
+                    * {
+                        scroll-margin-top: do-var(flow-margin);
+                        scroll-margin-bottom: do-var(flow-margin);
+
+                        scroll-margin-left: do-var(flow-margin-firm-end);
+                        scroll-margin-right: do-var(flow-margin-firm-end);
+                    }
+                }
+            }
+            @content (scrollPadding);
+
+            @content ($location);
+        } @else if $location != scrollPadding {
+            @content ($location);
+        }
+    }
+}
 
 ///
 /// @since ___PKG_VERSION___
@@ -50,6 +138,9 @@
                     $selector_subgrid_nester: ':is( %full-width-subgrid-block )',
                     $includeSubgridOnly: true
                 ) {
+                    scroll-margin-top: 0;
+                    scroll-margin-bottom: 0;
+
                     margin-block: var-gap-block(layout) do-var(flow-margin-firm-end--large);
                     margin-block-end: calc(
                         var-gap-block(layout) - do-var(flow-margin--large) +
@@ -137,6 +228,7 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin template-content-layouts(
+    $print_body: true,
     $print_bodyGrid: true,
     $print_contentHeader: true,
     //
@@ -155,6 +247,7 @@
     );
 
     @include utils.template-content-layouts(
+            $print_body: false,
             $print_bodyGrid: false,
             $print_contentHeader: false,
             $content_exists: $content_exists,
@@ -163,6 +256,16 @@
         )
         using ($location) {
         @if $location == body {
+            @if $print_body {
+                @include template-content-layouts-body(
+                        $content_exists: $content_exists,
+                        $css_headings: $css_headings
+                    )
+                    using ($_loc) {
+                    @content (body--#{$_loc});
+                }
+            }
+
             @if $print_bodyGrid {
                 @include template-content-layouts-body-grid($css_headings: $css_headings) using
                     ($_loc) {

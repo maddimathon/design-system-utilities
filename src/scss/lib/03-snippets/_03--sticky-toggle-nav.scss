@@ -24,46 +24,34 @@
 ///
 @mixin snippet-support-astro-sticky-toggle-nav(
     $includeToggleNavSupport,
-    $includeScrollPadding: true,
-    $navHeight: 3.125rem
+    $navHeight: tokens.$heightNavPrimary
 ) {
     @if $includeToggleNavSupport {
         @include snippet-support-astro-toggle-nav-menu;
     }
 
     @include feature-check.js {
-        @if $includeScrollPadding {
-            @at-root #{selector.add-root-selector('%root')},
-                #{selector.add-body-selector('body')} {
-                @include cx-prop(height-nav-primary, $navHeight);
-                @include cx-prop(
-                    scroll-padding-top,
-                    scroll-padding-top-value(
-                        $margin: var-style(flow-margin),
-                        $navHeightFallback: $navHeight
-                    )
-                );
-
-                scroll-padding-top: var-scroll-padding-top();
-            }
-        }
-
         body {
         }
 
         .nav-primary[data-toggle-container] {
             position: sticky;
-            top: 0;
+            top: do-var(page-top, 0px);
             grid-row: 1;
 
             margin: 0;
             padding: 0;
             gap: 0;
 
+            border-block-start: none !important;
+            border-inline: none !important;
+
             z-index: var-z-index(nav);
 
             > .toggle-block__title {
-                min-height: do-var(height-nav-primary, $navHeight);
+                @if config.$nav_define_heightNavPrimary {
+                    min-height: do-var(height-nav-primary, $navHeight);
+                }
 
                 [data-toggle-control] {
                     padding-block: min(0.75vh, do-var(flow-margin--small));

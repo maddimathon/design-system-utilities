@@ -70,6 +70,10 @@ $_mixin_buttonColourSingle: meta.get-mixin('snippet-button-colour-single-state')
                     @content (link-active-colours);
                 }
             }
+        } @else if $location == link-focus-or-active {
+            top: calc(var-scroll-padding-top() + do-var(flow-margin-firm-start));
+
+            @content ($location);
         } @else {
             @content ($location);
         }

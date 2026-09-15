@@ -17,3 +17,23 @@
     $line_height, $lineHeight_base, $lineHeight_multiplier, $margin,
     $margin_base, $margin_multiplier, $margin_softener, $stroke_relative,
     $style, tokens-get-at-properties;
+
+@use '../config';
+
+$heightNavPrimary: null !default;
+$heightNavPrimary: config.config-valid-number(
+    $heightNavPrimary,
+    'heightNavPrimary',
+    $default: 3.25rem,
+    $min: 2rem,
+    $unit: 1rem
+);
+
+$heightNavPrimary_wide: null !default;
+$heightNavPrimary_wide: config.config-valid-number(
+    $heightNavPrimary_wide,
+    'heightNavPrimary_wide',
+    $default: $heightNavPrimary,
+    $min: 2rem,
+    $unit: 1rem
+);

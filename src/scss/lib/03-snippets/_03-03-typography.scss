@@ -188,6 +188,7 @@
         var-mrg-half($firmEnd_small)
     );
 
+    $var_firm_start: do-var(flow-margin-firm-start, $val_firm_start);
     $var_firm_start_small: do-var(flow-margin-firm-start--small, $val_firm_start_small);
     $var_firm_end_small: do-var(flow-margin-firm-end--small, $val_firm_end_small);
 
@@ -297,6 +298,7 @@
         }
 
         %margins-flow-large {
+            scroll-margin-top: $var_large;
             margin-block: $var_large 0;
 
             @include _set-flow-margins--large-margin-direct-siblings(
@@ -309,8 +311,8 @@
 
         %button-span,
         %margins-flow-firm {
-            margin-block: do-var(flow-margin-firm-start, $val_firm_start)
-                do-var(flow-margin-firm-end, $val_firm_end);
+            scroll-margin-top: $var_firm_start;
+            margin-block: $var_firm_start do-var(flow-margin-firm-end, $val_firm_end);
         }
 
         :is(%button) {
@@ -334,10 +336,12 @@
         }
 
         %margins-flow-firm-small {
+            scroll-margin-top: $var_firm_start;
             margin-block: $var_firm_start_small $var_firm_end_small;
         }
 
         %margins-flow-firm-large {
+            scroll-margin-top: $var_firm_start_large;
             margin-block: $var_firm_start_large
                 do-var(flow-margin-firm-end--large, $val_firm_end_large);
 
@@ -811,9 +815,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             }
 
             @if not $includeHGroup {
+                scroll-margin-top: $marginBlockStart;
                 margin-block-start: $marginBlockStart;
 
                 @if $_marginBlock_unstyled and $_marginBlock_unstyled != $marginBlockStart {
+                    scroll-margin-top: $_marginBlockStart_withMax;
                     margin-block-start: $_marginBlockStart_withMax;
                 }
             }
@@ -990,9 +996,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         @at-root &,
             #{$selector_hgroup} {
             @if $marginBlockStart != false {
+                scroll-margin-top: $marginBlockStart;
                 margin-block-start: $marginBlockStart;
 
                 @if $_marginBlockStart_withMax != null {
+                    scroll-margin-top: $_marginBlockStart_withMax;
                     margin-block-start: $_marginBlockStart_withMax;
                 }
             }

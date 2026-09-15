@@ -47,6 +47,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $zIndex_open: var-z-index(popup),
     //
     $includeStyles: true,
+    $setContainerMaxHeight: true,
     //
     $mixin_support_base: $_mixin_support_base,
     $args...
@@ -216,25 +217,31 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         @else if $location == js--settings-menu--open--content--container {
             padding-block: var-style(widget-padding-block);
 
-            max-height: math.add-unit(
-                100 -
-                    (
-                        meta.defined-else(
-                                map.get(tokens.$gap, block, layout),
-                                5
-                            ) *
-                            3.5
-                    ),
-                1vh
-            );
-            max-height: calc(
-                100svh - do-var(scroll-padding-top) - var-gap-block(
-                        layout
-                    ) - do-var(icon-size) -
-                    ($_paddingBlock_hasIconOnlyChild * 2)
-            );
-
             @content ($location);
+
+            @include min-height(tokens.$breakpoint_minHeight_fixedHeight) {
+                @if $setContainerMaxHeight {
+                    max-height: math.add-unit(
+                        100 -
+                            (
+                                meta.defined-else(
+                                        map.get(tokens.$gap, block, layout),
+                                        5
+                                    ) *
+                                    3.5
+                            ),
+                        1vh
+                    );
+                    max-height: calc(
+                        100svh - var-scroll-padding-top() - var-gap-block(
+                                layout
+                            ) - do-var(icon-size) -
+                            ($_paddingBlock_hasIconOnlyChild * 2)
+                    );
+                }
+
+                @content (#{$location}--min-height);
+            }
         }
         //
         // @else if $location == LOCATION {
