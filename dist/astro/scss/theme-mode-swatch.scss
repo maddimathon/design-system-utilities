@@ -32,7 +32,12 @@
 }
 
 .theme-mode-swatch
-    > :first-child:is(
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
         .icon,
         svg,
         .button-span,

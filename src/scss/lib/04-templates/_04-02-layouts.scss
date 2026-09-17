@@ -150,7 +150,10 @@
                     padding-block: var-gap-block(layout);
                     padding-inline: var-gap-inline(layout);
 
-                    @include first-child-no-top-margin($includeSrTextFirstItem: true);
+                    @include first-child-no-top-margin(
+                        $includeListsFirstItem: true,
+                        $includeSrTextFirstItem: true
+                    );
 
                     &:last-child {
                         margin-block-end: 0;
@@ -203,7 +206,10 @@
                 %content-header {
                     &,
                     > hgroup {
-                        @include first-child-no-top-margin($includeListsFirstItem: false);
+                        @include first-child-no-top-margin(
+                            $includeListsFirstItem: false,
+                            $includeSrTextFirstItem: false
+                        );
                     }
 
                     + * {

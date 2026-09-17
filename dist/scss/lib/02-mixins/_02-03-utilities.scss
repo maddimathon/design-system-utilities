@@ -23,7 +23,7 @@ $_firmFlowMarginChildren: list.join(
         '%margins-flow-firm-small',
         '%margins-flow-firm-large'
     ),
-    config.$fn_firstLastChildMargin_additionalFirmChildren,
+    config.$fn_firstLastChildNoMargin_additionalFirmChildren,
     $separator: comma
 );
 
@@ -41,7 +41,7 @@ $_firmFlowMarginChildren: list.join(
     $includeChildren: true,
     $includeRoot: true,
     $useNotInsteadOfChildren:
-        config.$fn_firstLastChildMargin_useNotInsteadOfChildren
+        config.$fn_firstLastChildNoMargin_useNotInsteadOfChildren
 ) {
     $importantSuffix: if($asImportant, ' !important', '');
 
@@ -87,25 +87,58 @@ $_firmFlowMarginChildren: list.join(
     $marginSide,
     $additionalSelectors: (),
     $asImportant: true,
-    $childrenInIs: true,
+    $childrenInIs: null,
+    $doubleNestItems: false,
     $includeChildren: true,
     $includeRoot: true,
     $includeListsFirstItem: false,
+    $includeScriptsFirstItem: false,
     $includeSrTextFirstItem: false,
     $setFirstChildSelector: null,
     $useNotInsteadOfChildren:
-        config.$fn_firstLastChildMargin_useNotInsteadOfChildren,
+        config.$fn_firstLastChildNoMargin_useNotInsteadOfChildren,
     $args...
 ) {
     $args: meta.keywords($args);
 
     $useIs_root: map.get($args, useIs_root);
+    $useIs_firstChild: map.get($args, useIs_firstChild);
+
+    $_parentSelectorHasIs: if(
+        selector.parent-exists(),
+        string.match(#{&}, ':(has|is|where)\\(') != null,
+        false
+    );
+
+    @if $useIs_root == null {
+        $useIs_root: $childrenInIs == true and not $_parentSelectorHasIs;
+    }
+    @if $useIs_firstChild == null {
+        $useIs_firstChild: $childrenInIs ==
+            true or
+            $useIs_root or
+            $_parentSelectorHasIs;
+    }
+
     $args: map.remove($args, useIs_root);
+    $args: map.remove($args, useIs_firstChild);
+
+    @if $childrenInIs == null {
+        $childrenInIs: true;
+    }
 
     $_childSelector: if(
         $marginSide == start,
         ':first-child',
-        if($marginSide == end, ':last-child', ':first-child, :last-child')
+        if(
+            $marginSide == end,
+            ':last-child',
+            if(
+                $useIs_firstChild,
+                ':is( :first-child, :last-child )',
+                (':first-child', ':last-child')
+            )
+        )
     );
 
     @if $setFirstChildSelector == null {
@@ -121,47 +154,82 @@ $_firmFlowMarginChildren: list.join(
     }
 
     @if $setFirstChildSelector {
-        @if $includeRoot {
-            $_to_nest: if($useNotInsteadOfChildren, (), $_childSelector);
+        $_parentSelector: selector.parse(#{&});
 
-            $_universal_selector: '*';
+        $_universal_selector: ('*');
+        $_universal_selector_withChild: $_childSelector;
+
+        @if $includeRoot {
+            $_to_nest: ();
+            $_to_unify: if($useNotInsteadOfChildren, (), ('*'));
 
             @if $includeListsFirstItem {
-                $__lists: if($useIs_root, ':is( ol, ul )', 'ol, ul');
+                $__lists: 'ol, ul';
                 $__lists_dl: 'dl';
 
                 @if $marginSide == start {
                     $_universal_selector: list.join(
                         $_universal_selector,
-                        list.join(
-                            selector.nest(
-                                $__lists_dl,
-                                '>',
-                                selector.unify('dt', $_childSelector)
+                        selector.unify(
+                            list.join(
+                                selector.nest($__lists_dl, '>', 'dt'),
+                                selector.nest($__lists, '>', 'li'),
+                                $separator: comma
                             ),
-                            selector.nest(
-                                $__lists,
-                                '>',
-                                selector.unify('li', $_childSelector)
+                            $_childSelector
+                        ),
+                        $separator: comma
+                    );
+                    $_universal_selector_withChild: list.join(
+                        $_universal_selector_withChild,
+                        selector.unify(
+                            selector.unify(
+                                $_childSelector,
+                                list.join(
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            $__lists_dl
+                                        ),
+                                        '>',
+                                        'dt'
+                                    ),
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            $__lists
+                                        ),
+                                        '>',
+                                        'li'
+                                    ),
+                                    $separator: comma
+                                )
                             ),
-                            $separator: comma
+                            $_childSelector
                         ),
                         $separator: comma
                     );
                 }
 
-                $_to_nest: list.join(
-                    $_to_nest,
+                $_to_unify: list.join(
+                    $_to_unify,
                     list.join(
                         selector.nest(
-                            selector.unify($_childSelector, $__lists_dl),
+                            selector.unify($__lists_dl, $_childSelector),
                             '>',
-                            selector.unify('dt', $_childSelector)
+                            'dt'
                         ),
                         selector.nest(
-                            selector.unify($_childSelector, $__lists),
+                            selector.unify(
+                                if(
+                                    $useIs_firstChild,
+                                    ':is( #{$__lists} )',
+                                    $__lists
+                                ),
+                                $_childSelector
+                            ),
                             '>',
-                            selector.unify('li', $_childSelector)
+                            'li'
                         ),
                         $separator: comma
                     ),
@@ -169,46 +237,237 @@ $_firmFlowMarginChildren: list.join(
                 );
             }
 
-            @if $includeSrTextFirstItem {
-                $_to_nest: list.join(
-                    $_to_nest,
-                    if(
-                        $marginSide == start,
-                        selector.nest(
-                            selector.unify(
-                                $_childSelector,
-                                '.screen-reader-text'
-                            ),
-                            '+',
-                            $_universal_selector
-                        ),
-                        if(
-                            $useIs_root,
-                            selector.unify(
-                                $_universal_selector,
-                                ':has( #{selector.nest('+', selector.unify($_childSelector, ".screen-reader-text"))} )'
-                            ),
-                            ()
-                        )
-                    ),
-                    $separator: comma
+            @if $includeScriptsFirstItem or $includeSrTextFirstItem {
+                $__is_universal_selector: if(
+                    $useIs_firstChild and
+                        selector.is-multi($_universal_selector),
+                    ':is( #{$_universal_selector} )',
+                    $_universal_selector
                 );
+
+                $__unifier: ();
+                $__unifier_withChild: ();
+
+                @if $includeScriptsFirstItem and $includeSrTextFirstItem {
+                    $__unifier: ('script', 'style', '.screen-reader-text');
+
+                    @if $marginSide == start {
+                        $__unifier_withChild: list.join(
+                            $__unifier_withChild,
+                            selector.nest(
+                                selector.unify(
+                                    $_childSelector,
+                                    '.screen-reader-text'
+                                ),
+                                '+',
+                                if(
+                                    $useIs_firstChild,
+                                    ':is( script, style )',
+                                    ('script', 'style')
+                                )
+                            ),
+                            $separator: comma
+                        );
+
+                        $_universal_selector_withChild: list.join(
+                            $_universal_selector_withChild,
+                            selector.nest(
+                                selector.unify($_childSelector, $__unifier),
+                                '+',
+                                '*'
+                            ),
+                            $separator: comma
+                        );
+
+                        @if $doubleNestItems {
+                            $_universal_selector_withChild: list.join(
+                                list.join(
+                                    $_universal_selector_withChild,
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            ('script', 'style')
+                                        ),
+                                        '+',
+                                        '.screen-reader-text',
+                                        '+',
+                                        '*'
+                                    ),
+                                    $separator: comma
+                                ),
+                                list.join(
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            ('script', '.screen-reader-text')
+                                        ),
+                                        '+',
+                                        'style',
+                                        '+',
+                                        '*'
+                                    ),
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            ('style', '.screen-reader-text')
+                                        ),
+                                        '+',
+                                        'script',
+                                        '+',
+                                        '*'
+                                    ),
+                                    $separator: comma
+                                ),
+                                $separator: comma
+                            );
+                        }
+                    }
+                } @else if $includeScriptsFirstItem {
+                    $__unifier: ('script', 'style');
+
+                    @if $marginSide == start {
+                        $_universal_selector_withChild: list.join(
+                            $_universal_selector_withChild,
+                            selector.nest(
+                                selector.unify($_childSelector, $__unifier),
+                                '+',
+                                '*'
+                            ),
+                            $separator: comma
+                        );
+
+                        @if $doubleNestItems {
+                            $_universal_selector_withChild: list.join(
+                                $_universal_selector_withChild,
+                                list.join(
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            'script'
+                                        ),
+                                        '+',
+                                        'style',
+                                        '+',
+                                        '*'
+                                    ),
+                                    selector.nest(
+                                        selector.unify(
+                                            $_childSelector,
+                                            'style'
+                                        ),
+                                        '+',
+                                        'script',
+                                        '+',
+                                        '*'
+                                    ),
+                                    $separator: comma
+                                ),
+                                $separator: comma
+                            );
+                        }
+                    }
+                } @else if $includeSrTextFirstItem {
+                    $__unifier: ('.screen-reader-text');
+
+                    @if $marginSide == start {
+                        $_universal_selector_withChild: list.join(
+                            $_universal_selector_withChild,
+                            selector.nest(
+                                selector.unify($_childSelector, $__unifier),
+                                '+',
+                                '*'
+                            ),
+                            $separator: comma
+                        );
+                    }
+                }
+
+                @if list.length($__unifier) >
+                    0 or
+                    list.length($__unifier_withChild) >
+                    0
+                {
+                    @if $marginSide == start {
+                        $__all_unified: list.join(
+                            if(
+                                list.length($__unifier) > 0,
+                                selector.unify(
+                                    $_childSelector,
+                                    if(
+                                        $useIs_firstChild and
+                                            list.length($__unifier) >
+                                            1,
+                                        ':is( #{$__unifier} )',
+                                        $__unifier
+                                    )
+                                ),
+                                ()
+                            ),
+                            $__unifier_withChild,
+                            $separator: comma
+                        );
+
+                        $_to_nest: list.join(
+                            $_to_nest,
+                            selector.nest(
+                                $__all_unified,
+                                '+',
+                                $__is_universal_selector
+                            ),
+                            $separator: comma
+                        );
+                    } @else if $marginSide == end and $useIs_firstChild {
+                        $__all_unified: list.join(
+                            if(
+                                list.length($__unifier) > 0,
+                                selector.unify($_childSelector, $__unifier),
+                                ()
+                            ),
+                            $__unifier_withChild,
+                            $separator: comma
+                        );
+
+                        $_to_nest: list.join(
+                            $_to_nest,
+                            selector.unify(
+                                $__is_universal_selector,
+                                ':has( #{selector.nest('+', $__all_unified)} )'
+                            ),
+                            $separator: comma
+                        );
+                    }
+                }
             }
 
-            $_to_nest: list.unique($_to_nest);
+            $_to_unify: list.unique($_to_unify);
+
+            $_to_nest: list.unique(
+                list.join(
+                    if(
+                        list.length($_to_unify) > 0,
+                        selector.unify($_childSelector, $_to_unify),
+                        ()
+                    ),
+                    $_to_nest,
+                    $separator: comma
+                )
+            );
 
             $_sels: list.join(
                 $additionalSelectors,
                 if(
-                    list.length($_to_nest) > 0,
+                    (list.length($_to_nest) > 0) or
+                        (list.length($_to_unify) > 0),
                     selector.nest(
-                        &,
-                        '>',
                         if(
-                            $useIs_root and list.length($_to_nest) > 1,
-                            ':is( #{$_to_nest} )',
-                            $_to_nest
-                        )
+                            $useIs_root and
+                                selector.is-multi($_to_nest) and
+                                selector.is-multi($_parentSelector),
+                            ':is( #{$_parentSelector} )',
+                            $_parentSelector
+                        ),
+                        '>',
+                        $_to_nest
                     ),
                     ()
                 ),
@@ -233,9 +492,30 @@ $_firmFlowMarginChildren: list.join(
         }
 
         @if $includeChildren {
+            $__parentInIs: false;
+
+            @if $useIs_root {
+                $__parentInIs: true;
+            } @else if $childrenInIs and not $_parentSelectorHasIs {
+                $__parentInIs: selector.is-multi($_parentSelector);
+            }
+
             $_sels: list.join(
                 $additionalSelectors,
-                selector.nest(&, '>', $_childSelector),
+                selector.nest(
+                    if(
+                        $__parentInIs,
+                        ':is( #{$_parentSelector} )',
+                        $_parentSelector
+                    ),
+                    '>',
+                    if(
+                        $childrenInIs and
+                            selector.is-multi($_universal_selector_withChild),
+                        ':is( #{$_universal_selector_withChild} )',
+                        $_universal_selector_withChild
+                    )
+                ),
                 $separator: comma
             );
 
@@ -255,23 +535,9 @@ $_firmFlowMarginChildren: list.join(
                 }
             }
         }
-    } @else {
-        @if meta.is-truthy($additionalSelectors) {
-            @at-root &,
-                #{$additionalSelectors} {
-                @include flow-margin-conditional-override(
-                    $marginSide,
-                    $includeChildren: $includeChildren,
-                    $includeRoot: $includeRoot,
-                    $asImportant: $asImportant,
-                    $childrenInIs: $childrenInIs,
-                    $useNotInsteadOfChildren: $useNotInsteadOfChildren,
-                    $args...
-                ) {
-                    @content;
-                }
-            }
-        } @else {
+    } @else if meta.is-truthy($additionalSelectors) {
+        @at-root &,
+            #{$additionalSelectors} {
             @include flow-margin-conditional-override(
                 $marginSide,
                 $includeChildren: $includeChildren,
@@ -284,6 +550,18 @@ $_firmFlowMarginChildren: list.join(
                 @content;
             }
         }
+    } @else {
+        @include flow-margin-conditional-override(
+            $marginSide,
+            $includeChildren: $includeChildren,
+            $includeRoot: $includeRoot,
+            $asImportant: $asImportant,
+            $childrenInIs: $childrenInIs,
+            $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+            $args...
+        ) {
+            @content;
+        }
     }
 }
 
@@ -293,10 +571,20 @@ $_firmFlowMarginChildren: list.join(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin first-child-no-top-margin($includeListsFirstItem: true, $args...) {
+@mixin first-child-no-top-margin(
+    $includeListsFirstItem:
+        config.$fn_firstChildNoTopMargin_includeListsFirstItem,
+    $includeScriptsFirstItem:
+        config.$fn_firstChildNoTopMargin_includeScriptsFirstItem,
+    $includeSrTextFirstItem:
+        config.$fn_firstChildNoTopMargin_includeSrTextFirstItem,
+    $args...
+) {
     @include _child-no-margin-template(
         start,
         $includeListsFirstItem: $includeListsFirstItem,
+        $includeScriptsFirstItem: $includeScriptsFirstItem,
+        $includeSrTextFirstItem: $includeSrTextFirstItem,
         $args...
     ) {
         @content;
@@ -309,8 +597,19 @@ $_firmFlowMarginChildren: list.join(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-@mixin last-child-no-bottom-margin($args...) {
-    @include _child-no-margin-template(end, $args...) {
+@mixin last-child-no-bottom-margin(
+    $includeScriptsFirstItem:
+        config.$fn_lastChildNoBottomMargin_includeScriptsFirstItem,
+    $includeSrTextFirstItem:
+        config.$fn_lastChildNoBottomMargin_includeSrTextFirstItem,
+    $args...
+) {
+    @include _child-no-margin-template(
+        end,
+        $includeScriptsFirstItem: $includeScriptsFirstItem,
+        $includeSrTextFirstItem: $includeSrTextFirstItem,
+        $args...
+    ) {
         @content;
     }
 }

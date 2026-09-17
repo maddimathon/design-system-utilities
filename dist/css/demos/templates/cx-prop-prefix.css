@@ -1006,20 +1006,35 @@
             right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
             width 250ms ease-out;
         --prefix-transition-toggle:
-            accent-color 1200ms ease-out, background-color 1200ms ease-out,
-            border-color 1200ms ease-out, color 1200ms ease-out,
-            font-weight 1200ms ease-out, opacity 1200ms ease-out,
-            text-decoration-color 1200ms ease-out, text-shadow 1200ms ease-out,
-            visibility 1200ms ease-out, aspect-ratio 1200ms ease-out,
-            border-color 1200ms ease-out, border-radius 1200ms ease-out,
-            border-width 1200ms ease-out, bottom 1200ms ease-out,
-            font-weight 1200ms ease-out, gap 1200ms ease-out,
-            height 1200ms ease-out, left 1200ms ease-out,
-            margin 1200ms ease-out, max-height 1200ms ease-out,
-            max-width 1200ms ease-out, min-height 1200ms ease-out,
-            min-width 1200ms ease-out, outline-color 1200ms ease-out,
-            padding 1200ms ease-out, right 1200ms ease-out, top 1200ms ease-out,
-            transform 1200ms ease-out, width 1200ms ease-out;
+            accent-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            background-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            border-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            font-weight var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            opacity var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            text-decoration-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            text-shadow var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            visibility var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            aspect-ratio var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            border-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            border-radius var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            border-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            bottom var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            font-weight var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            gap var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            height var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            left var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            margin var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            max-height var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            max-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            min-height var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            min-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            outline-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            padding var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            right var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            top var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            transform var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            width var(--prefix-tr-time-toggle, 1200ms) ease-out;
     }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -1032,11 +1047,15 @@
             text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
             visibility 250ms ease-out;
         --prefix-transition-toggle:
-            accent-color 500ms ease-out, background-color 500ms ease-out,
-            border-color 500ms ease-out, color 500ms ease-out,
-            font-weight 500ms ease-out, opacity 500ms ease-out,
-            text-decoration-color 500ms ease-out, text-shadow 500ms ease-out,
-            visibility 500ms ease-out;
+            accent-color var(--prefix-tr-time-toggle, 500ms) ease-out,
+            background-color var(--prefix-tr-time-toggle, 500ms) ease-out,
+            border-color var(--prefix-tr-time-toggle, 500ms) ease-out,
+            color var(--prefix-tr-time-toggle, 500ms) ease-out,
+            font-weight var(--prefix-tr-time-toggle, 500ms) ease-out,
+            opacity var(--prefix-tr-time-toggle, 500ms) ease-out,
+            text-decoration-color var(--prefix-tr-time-toggle, 500ms) ease-out,
+            text-shadow var(--prefix-tr-time-toggle, 500ms) ease-out,
+            visibility var(--prefix-tr-time-toggle, 500ms) ease-out;
     }
 }
 
@@ -14331,38 +14350,13 @@ td > ul:first-child > li:first-child {
     margin-block-start: 0 !important;
 }
 
-th
-    > :first-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-td
-    > :first-child:is(
+:is(th, td)
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
         .icon,
         svg,
         .button-span,
@@ -14402,37 +14396,7 @@ td > :last-child {
     margin-block-end: 0 !important;
 }
 
-th
-    > :last-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-td
+:is(th, td)
     > :last-child:is(
         .icon,
         svg,

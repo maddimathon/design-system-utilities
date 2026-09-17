@@ -18511,38 +18511,13 @@ td > ul:first-child > li:first-child {
     margin-block-start: 0 !important;
 }
 
-th
-    > :first-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-td
-    > :first-child:is(
+:is(th, td)
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
         .icon,
         svg,
         .button-span,
@@ -18579,37 +18554,7 @@ td > :last-child {
     margin-block-end: 0 !important;
 }
 
-th
-    > :last-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-td
+:is(th, td)
     > :last-child:is(
         .icon,
         svg,
@@ -19062,6 +19007,22 @@ body > :where(main) > :where(aside, .main-sidebar) {
     grid-template-columns: var(--gap-inline-layout-half, 4vw) [site-start] 0 [page-start] 0 [sidebar-start] 0 [content-start] 1fr minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) var(--gap-inline-layout-half, 4vw) minmax(auto, var(--width-content, 36rem)) var(--gap-inline-layout-half, 4vw) minmax(auto, calc(var(--width-sidebar, 18rem) / 2)) 1fr [content-end] 0 [sidebar-end] 0 [page-end] 0 [site-end] var(--gap-inline-layout-half, 4vw);
 }
 
+.layout_sidebar-left > :where(main) > :is(.main-content__article),
+.layout_sidebar-right > :where(main) > :is(.main-content__article) {
+    --grid-column: content-start/content-end;
+    grid-column: var(--grid-column, content-start/content-end);
+    width: auto;
+}
+.layout_sidebar-left > :is(aside, .main-sidebar),
+.layout_sidebar-left > :where(main) > :is(aside, .main-sidebar),
+.layout_sidebar-right > :is(aside, .main-sidebar),
+.layout_sidebar-right > :where(main) > :is(aside, .main-sidebar) {
+    --grid-column: sidebar-start/sidebar-end;
+    grid-column: var(--grid-column, sidebar-start/sidebar-end);
+    width: auto;
+    margin-block: 0;
+}
+
 @media (width >= 55.625em) {
     .layout_sidebar-left {
         /* prettier-ignore */
@@ -19074,21 +19035,6 @@ body > :where(main) > :where(aside, .main-sidebar) {
         --grid-template-columns--page: 0 [page-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, var(--width-sidebar, 18rem)) [sidebar-end] 0 [page-end] 0;
         /* prettier-ignore */
         grid-template-columns: var(--gap-inline-layout-half, 4vw) [site-start] 1fr [page-start] 0 [content-start] minmax(auto, var(--width-content, 36rem)) [content-end] var(--gap-inline-layout, 8vw) [sidebar-start] minmax(auto, var(--width-sidebar, 18rem)) [sidebar-end] 0 [page-end] 1fr [site-end] var(--gap-inline-layout-half, 4vw);
-    }
-    .layout_sidebar-left > :where(main) > :is(.main-content__article),
-    .layout_sidebar-right > :where(main) > :is(.main-content__article) {
-        --grid-column: content-start/content-end;
-        grid-column: var(--grid-column, content-start/content-end);
-        width: auto;
-    }
-    .layout_sidebar-left > :is(aside, .main-sidebar),
-    .layout_sidebar-left > :where(main) > :is(aside, .main-sidebar),
-    .layout_sidebar-right > :is(aside, .main-sidebar),
-    .layout_sidebar-right > :where(main) > :is(aside, .main-sidebar) {
-        --grid-column: sidebar-start/sidebar-end;
-        grid-column: var(--grid-column, sidebar-start/sidebar-end);
-        width: auto;
-        margin-block: 0;
     }
 }
 /*! END of @maddimathon/design-system-utilities/template */
@@ -19112,24 +19058,14 @@ body
 }
 body > :is(.main-subgrid--full-width) > :first-child,
 body > :is(.main-subgrid--full-width) > dl:first-child > dt:first-child,
-body > :is(.main-subgrid--full-width) > ol:first-child > li:first-child,
-body > :is(.main-subgrid--full-width) > ul:first-child > li:first-child,
-body > :is(.main-subgrid--full-width) > .screen-reader-text:first-child + *,
 body
     > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + dl
-    > dt:first-child,
-body
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + ol
+    > :is(ol, ul):first-child
     > li:first-child,
 body
     > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
-    + ul
-    > li:first-child,
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
 body > :where(main) > :is(.main-subgrid--full-width) > :first-child,
 body
     > :where(main)
@@ -19139,36 +19075,13 @@ body
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
-    > ol:first-child
-    > li:first-child,
-body
-    > :where(main)
-    > :is(.main-subgrid--full-width)
-    > ul:first-child
+    > :is(ol, ul):first-child
     > li:first-child,
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
-    + *,
-body
-    > :where(main)
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + dl
-    > dt:first-child,
-body
-    > :where(main)
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + ol
-    > li:first-child,
-body
-    > :where(main)
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + ul
-    > li:first-child,
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
 body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
@@ -19184,47 +19097,26 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
-    > ol:first-child
-    > li:first-child,
-body
-    > :where(main)
-    > :where(.main-subgrid, .main-content__article)
-    > :is(.main-subgrid--full-width)
-    > ul:first-child
+    > :is(ol, ul):first-child
     > li:first-child,
 body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
-    + *,
-body
-    > :where(main)
-    > :where(.main-subgrid, .main-content__article)
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + dl
-    > dt:first-child,
-body
-    > :where(main)
-    > :where(.main-subgrid, .main-content__article)
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + ol
-    > li:first-child,
-body
-    > :where(main)
-    > :where(.main-subgrid, .main-content__article)
-    > :is(.main-subgrid--full-width)
-    > .screen-reader-text:first-child
-    + ul
-    > li:first-child {
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child) {
     margin-block-start: 0 !important;
 }
 
 body
     > :is(.main-subgrid--full-width)
-    > :first-child:is(
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child,
+        .screen-reader-text:first-child + *
+    ):is(
         .icon,
         svg,
         .button-span,
@@ -19256,7 +19148,13 @@ body
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
-    > :first-child:is(
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child,
+        .screen-reader-text:first-child + *
+    ):is(
         .icon,
         svg,
         .button-span,
@@ -19289,7 +19187,13 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
-    > :first-child:is(
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child,
+        .screen-reader-text:first-child + *
+    ):is(
         .icon,
         svg,
         .button-span,
@@ -19361,38 +19265,7 @@ body
     margin-block-start: 0 !important;
 }
 
-.main-content__header
-    > :first-child:is(
-        .icon,
-        svg,
-        .button-span,
-        a[href].button-grey,
-        a[href].button-secondary,
-        a[href].button-primary,
-        a[href].button,
-        .brand-logo,
-        .alert-block,
-        .margins-flow-firm,
-        [data-toggle-container],
-        button,
-        [role="button"],
-        details,
-        pre,
-        .table-wrapper,
-        img,
-        figure,
-        input,
-        select,
-        textarea,
-        hr,
-        form.search-form,
-        .margins-flow-firm-small,
-        .margins-flow-firm-large,
-        blockquote,
-        table
-    ),
-.main-content__header
-    > hgroup
+:is(.main-content__header, .main-content__header > hgroup)
     > :first-child:is(
         .icon,
         svg,
@@ -23893,48 +23766,32 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
-        > ol:first-child
-        > li:first-child,
-    :where(.js)
-        .toggle-block
-        .toggle-block__content
-        > .container
-        > ul:first-child
+        > :is(ol, ul):first-child
         > li:first-child,
     :where(.js)
         .toggle-block
         .toggle-block__content
         > .container
         > .screen-reader-text:first-child
-        + *,
-    :where(.js)
-        .toggle-block
-        .toggle-block__content
-        > .container
-        > .screen-reader-text:first-child
-        + dl
-        > dt:first-child,
-    :where(.js)
-        .toggle-block
-        .toggle-block__content
-        > .container
-        > .screen-reader-text:first-child
-        + ol
-        > li:first-child,
-    :where(.js)
-        .toggle-block
-        .toggle-block__content
-        > .container
-        > .screen-reader-text:first-child
-        + ul
-        > li:first-child {
+        + :is(
+            *,
+            dl > dt:first-child,
+            ol > li:first-child,
+            ul > li:first-child
+        ) {
         margin-block-start: 0 !important;
     }
     :where(.js)
         .toggle-block
         .toggle-block__content
         > .container
-        > :first-child:is(
+        > :is(
+            :first-child,
+            dl:first-child > dt:first-child,
+            ol:first-child > li:first-child,
+            ul:first-child > li:first-child,
+            .screen-reader-text:first-child + *
+        ):is(
             .icon,
             svg,
             .button-span,
@@ -23976,14 +23833,13 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
-        > ol:last-child
+        > :is(ol, ul):last-child
         > li:last-child,
     :where(.js)
         .toggle-block
         .toggle-block__content
         > .container
-        > ul:last-child
-        > li:last-child {
+        > :has(+ .screen-reader-text:last-child) {
         margin-block-end: 0 !important;
     }
     :where(.js)
@@ -24474,7 +24330,13 @@ body > nav.toggle-nav-menu {
 .website-settings
     .website-settings__content
     > .container
-    > :first-child:is(
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child,
+        .screen-reader-text:first-child + *
+    ):is(
         .icon,
         svg,
         .button-span,

@@ -36,22 +36,72 @@ $fn_clampHighContrastBorderWidth_min: config-valid-number(
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$fn_firstLastChildMargin_useNotInsteadOfChildren: null !default;
-$fn_firstLastChildMargin_useNotInsteadOfChildren: config-valid-bool(
-    $fn_firstLastChildMargin_useNotInsteadOfChildren,
-    'fn_firstLastChildMargin_useNotInsteadOfChildren',
+$fn_firstLastChildNoMargin_additionalFirmChildren: null !default;
+$fn_firstLastChildNoMargin_additionalFirmChildren: config-valid-selector(
+    $fn_firstLastChildNoMargin_additionalFirmChildren,
+    'fn_firstLastChildNoMargin_additionalFirmChildren',
+    $default: (),
+    $allowEmpty: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_firstLastChildNoMargin_useNotInsteadOfChildren: null !default;
+$fn_firstLastChildNoMargin_useNotInsteadOfChildren: config-valid-bool(
+    $fn_firstLastChildNoMargin_useNotInsteadOfChildren,
+    'fn_firstLastChildNoMargin_useNotInsteadOfChildren',
     $default: false
 );
 
 ///
 /// @since 0.1.0-beta.0.draft
 ///
-$fn_firstLastChildMargin_additionalFirmChildren: null !default;
-$fn_firstLastChildMargin_additionalFirmChildren: config-valid-selector(
-    $fn_firstLastChildMargin_additionalFirmChildren,
-    'fn_firstLastChildMargin_additionalFirmChildren',
-    $default: (),
-    $allowEmpty: true
+$fn_firstChildNoTopMargin_includeListsFirstItem: null !default;
+$fn_firstChildNoTopMargin_includeListsFirstItem: config-valid-bool(
+    $fn_firstChildNoTopMargin_includeListsFirstItem,
+    'fn_firstChildNoTopMargin_includeListsFirstItem',
+    $default: true
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_firstChildNoTopMargin_includeScriptsFirstItem: null !default;
+$fn_firstChildNoTopMargin_includeScriptsFirstItem: config-valid-bool(
+    $fn_firstChildNoTopMargin_includeScriptsFirstItem,
+    'fn_firstChildNoTopMargin_includeScriptsFirstItem',
+    $default: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_firstChildNoTopMargin_includeSrTextFirstItem: null !default;
+$fn_firstChildNoTopMargin_includeSrTextFirstItem: config-valid-bool(
+    $fn_firstChildNoTopMargin_includeSrTextFirstItem,
+    'fn_firstChildNoTopMargin_includeSrTextFirstItem',
+    $default: false
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_lastChildNoBottomMargin_includeScriptsFirstItem: null !default;
+$fn_lastChildNoBottomMargin_includeScriptsFirstItem: config-valid-bool(
+    $fn_lastChildNoBottomMargin_includeScriptsFirstItem,
+    'fn_lastChildNoBottomMargin_includeScriptsFirstItem',
+    $default: $fn_firstChildNoTopMargin_includeScriptsFirstItem
+);
+
+///
+/// @since 0.1.0-beta.0.draft
+///
+$fn_lastChildNoBottomMargin_includeSrTextFirstItem: null !default;
+$fn_lastChildNoBottomMargin_includeSrTextFirstItem: config-valid-bool(
+    $fn_lastChildNoBottomMargin_includeSrTextFirstItem,
+    'fn_lastChildNoBottomMargin_includeSrTextFirstItem',
+    $default: $fn_firstChildNoTopMargin_includeSrTextFirstItem
 );
 
 ///

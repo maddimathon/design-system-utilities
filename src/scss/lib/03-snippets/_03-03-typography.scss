@@ -771,7 +771,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $useRelativeFontSize: config.$heading_fontSize_useRelative
 ) {
     $_parentSel: selector.parse(#{&});
-    $_parentSel_inIs: list.length($_parentSel) > 1 and list.separator($_parentSel) == 'comma';
+    $_parentSel_inIs: selector.is-multi($_parentSel);
 
     @if $slug == title {
         $slug: '1';
@@ -1028,6 +1028,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                         $includeChildren: false,
                         $includeRoot: true,
                         $includeListsFirstItem: false,
+                        $includeSrTextFirstItem: false,
                         $setFirstChildSelector: true
                     );
 
@@ -1036,12 +1037,14 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                             $includeChildren: true,
                             $includeRoot: false,
                             $includeListsFirstItem: false,
+                            $includeSrTextFirstItem: false,
                             $setFirstChildSelector: true
                         );
                     }
                 } @else {
                     @include first-child-no-top-margin(
                         $includeListsFirstItem: false,
+                        $includeSrTextFirstItem: false,
                         $setFirstChildSelector: true
                     );
                 }

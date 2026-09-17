@@ -299,7 +299,12 @@ a[href].brand-photo-list__sample__img--hidden-heading {
 
 .brand-photo-list__sample__meta
     .brand-photo-list__sample__links
-    > :first-child:is(
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
         .icon,
         svg,
         .button-span,

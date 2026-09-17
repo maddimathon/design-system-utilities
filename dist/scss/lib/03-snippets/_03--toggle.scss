@@ -22,10 +22,7 @@
 @use '03-01-accessibility' as *;
 @use '03-03-typography' as *;
 
-$_closing_time: do-var(
-    toggle-closing-time,
-    var-tr-time(toggle, $neverReplaceWithValue: true)
-);
+$_closing_time: do-var(toggle-closing-time, var-tr-time(toggle));
 
 ///
 /// @since 0.1.0-beta.0.draft
@@ -381,10 +378,7 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
         )
         using ($location) {
         @if $location == js--toggle-base--container {
-            @include cx-prop(
-                toggle-closing-time,
-                var-tr-time(toggle, $neverReplaceWithValue: true)
-            );
+            @include cx-prop(toggle-closing-time, var-tr-time(toggle));
 
             @content ($location);
         }

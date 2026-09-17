@@ -8,6 +8,7 @@
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 // @use '../00-default' as default;
 @use '../01-breakdown' as breakdown;
@@ -44,9 +45,13 @@
 @function tokens-var-tr-time(
     $level,
     $fallbackOnly: false,
-    $neverReplaceWithValue: false,
+    $neverReplaceWithValue: null,
     $args...
 ) {
+    @if $neverReplaceWithValue == null {
+        $neverReplaceWithValue: string.index($level, 'toggle') == 1;
+    }
+
     @return config.config-do-var(
         tr-time-#{$level},
         $fallback: tokens-transition-time-value($level),

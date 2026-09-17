@@ -173,6 +173,7 @@
                     padding-inline: var-gap-inline(layout);
 
                     @include first-child-no-top-margin(
+                        $includeListsFirstItem: true,
                         $includeSrTextFirstItem: true
                     );
 
@@ -229,7 +230,8 @@
                     &,
                     > hgroup {
                         @include first-child-no-top-margin(
-                            $includeListsFirstItem: false
+                            $includeListsFirstItem: false,
+                            $includeSrTextFirstItem: false
                         );
                     }
 

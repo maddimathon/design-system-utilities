@@ -67,10 +67,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         using ($location) {
         //
         @if $location == settings-menu {
-            @include cx-prop(
-                toggle-closing-time,
-                var-tr-time(toggle, $neverReplaceWithValue: true)
-            );
+            @include cx-prop(toggle-closing-time, var-tr-time(toggle));
             margin-block: 0;
 
             @content ($location);
