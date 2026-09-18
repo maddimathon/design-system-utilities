@@ -31,15 +31,18 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         alarm: 0xf148;
         alert: 0xf154;
         attachment: 0xf101;
+        barricade: 0xf161;
         biography: 0xf149;
         book: 0xf14a;
         caution: 0xf102;
+        celebration: 0xf162;
         check: 0xf103;
         clock: 0xf104;
         close: 0xf105;
         code: 0xf106;
         compass: 0xf107;
         computer: 0xf147;
+        confetti: 0xf163;
         contact: 0xf14b;
         continue: 0xf160;
         dash: 0xf108;
@@ -55,6 +58,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         forbidden: 0xf116;
         group: 0xf14d;
         hidden: 0xf117;
+        hub: 0xf167;
         info: 0xf118;
         left: 0xf119;
         lightbulb: 0xf120;
@@ -62,12 +66,12 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         link: 0xf14e;
         location: 0xf14f;
         lock: 0xf122;
-        'logo-facebook': 0xf123;
-        'logo-instagram': 0xf124;
-        'logo-linkedin': 0xf125;
         'logo-circle-facebook': 0xf155;
         'logo-circle-instagram': 0xf156;
         'logo-circle-linkedin': 0xf157;
+        'logo-facebook': 0xf123;
+        'logo-instagram': 0xf124;
+        'logo-linkedin': 0xf125;
         maximum: 0xf126;
         minimum: 0xf127;
         minus: 0xf128;
@@ -86,6 +90,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         right: 0xf136;
         search: 0xf137;
         settings: 0xf138;
+        signpost: 0xf168;
         singlecolumn: 0xf15b;
         star: 0xf139;
         stopwatch: 0xf159;
@@ -93,6 +98,8 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         success: 0xf140;
         timer: 0xf15a;
         toggle: 0xf158;
+        toolbox: 0xf164;
+        'traffic-cone': 0xf165;
         twocolumns: 0xf15c;
         ui: 0xf141;
         'ui-check': 0xf142;
@@ -100,6 +107,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         unlock: 0xf144;
         up: 0xf145;
         warning: 0xf146;
+        wrench: 0xf166;
     };
     static get default(): {
         [I in Tokens_Icons.DefaultIcon]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
@@ -178,7 +186,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta.0.draft
      */
-    const optionalIconNames: readonly ["alarm", "alert", "attachment", "biography", "book", "clock", "code", "compass", "compass", "computer", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "hidden", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "singlecolumn", "star", "stopwatch", "success", "timer", "twocolumns", "unlock", "up", "warning"];
+    const optionalIconNames: readonly ["alarm", "alert", "attachment", "barricade", "biography", "book", "celebration", "clock", "code", "compass", "compass", "computer", "confetti", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "hidden", "hub", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "signpost", "singlecolumn", "star", "stopwatch", "success", "timer", "toolbox", "traffic-cone", "twocolumns", "unlock", "up", "warning", "wrench"];
     /**
      * @since 0.1.0-beta.0.draft
      */
