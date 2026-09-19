@@ -480,9 +480,9 @@ export namespace ColourUtilities {
         }
 
         const _hslFormatter = ( hsl: Value_HSL ) => round ? {
-            h: roundToPixel( hsl.h, 100 ),
-            s: roundToPixel( hsl.s, 100 ),
-            l: roundToPixel( hsl.l, 100 ),
+            h: roundToPixel( hsl.h, 4 ),
+            s: roundToPixel( hsl.s, 4 ),
+            l: roundToPixel( hsl.l, 2 ),
         } : hsl;
 
         const _hslValidator = ( hsl: Value_HSL ) => _hslFormatter(
@@ -636,9 +636,9 @@ export namespace ColourUtilities {
         }
 
         const _rgbFormatter = ( rgb: Value_RGB ) => round ? {
-            r: roundToPixel( rgb.r, 100 ),
-            g: roundToPixel( rgb.g, 100 ),
-            b: roundToPixel( rgb.b, 100 ),
+            r: roundToPixel( rgb.r, 4 ),
+            g: roundToPixel( rgb.g, 4 ),
+            b: roundToPixel( rgb.b, 4 ),
         } : rgb;
 
         const _rgbValidator = ( rgb: Value_RGB ) => _rgbFormatter(
@@ -1261,9 +1261,9 @@ export namespace ColourUtilities {
             }
 
             const _hslFormatter = ( hsl: Value_HSL ) => round ? {
-                h: roundToPixel( hsl.h, 100 ),
-                s: roundToPixel( hsl.s, 100 ),
-                l: roundToPixel( hsl.l, 100 ),
+                h: roundToPixel( hsl.h, 4 ),
+                s: roundToPixel( hsl.s, 4 ),
+                l: roundToPixel( hsl.l, 2 ),
             } : hsl;
 
             const _hslValidator = ( hsl: Partial<Value_HSL> ) => hslValidator(
@@ -1415,9 +1415,9 @@ export namespace ColourUtilities {
             }
 
             const _rgbFormatter = ( rgb: Value_RGB ) => round ? {
-                r: roundToPixel( rgb.r, 100 ),
-                g: roundToPixel( rgb.g, 100 ),
-                b: roundToPixel( rgb.b, 100 ),
+                r: roundToPixel( rgb.r, 4 ),
+                g: roundToPixel( rgb.g, 4 ),
+                b: roundToPixel( rgb.b, 4 ),
             } : rgb;
 
             const _rgbValidator = ( rgb: Partial<Value_RGB> ) => rgbValidator(
@@ -1961,6 +1961,15 @@ export namespace ColourUtilities {
             );
         }
 
+
+        export function max<T_Level extends Levels.Optional | Levels.Required>(
+            arr: [ "black" | "white" | T_Level, ...( "black" | "white" | T_Level )[] ],
+        ): "black" | "white" | T_Level;
+
+        export function max<T_Level extends Levels.Optional | Levels.Required>(
+            arr: ( "black" | "white" | T_Level )[],
+        ): "black" | "white" | T_Level | undefined;
+
         /**
          * Gets the max level in the given array.
          * 
@@ -1968,7 +1977,11 @@ export namespace ColourUtilities {
          */
         export function max<T_Level extends Levels.Optional | Levels.Required>(
             arr: ( "black" | "white" | T_Level )[],
-        ): "black" | "white" | T_Level {
+        ): "black" | "white" | T_Level | undefined {
+            // returns
+            if ( !arr.length ) {
+                return undefined;
+            }
 
             // returns
             if ( arr.includes( 'black' ) ) {
@@ -1985,6 +1998,15 @@ export namespace ColourUtilities {
             return String( Math.max( ...levelNums ) ) as T_Level;
         }
 
+
+        export function min<T_Level extends Levels.Optional | Levels.Required>(
+            arr: [ "black" | "white" | T_Level, ...( "black" | "white" | T_Level )[] ],
+        ): "black" | "white" | T_Level;
+
+        export function min<T_Level extends Levels.Optional | Levels.Required>(
+            arr: ( "black" | "white" | T_Level )[],
+        ): "black" | "white" | T_Level | undefined;
+
         /**
          * Gets the max level in the given array.
          * 
@@ -1992,7 +2014,11 @@ export namespace ColourUtilities {
          */
         export function min<T_Level extends Levels.Optional | Levels.Required>(
             arr: ( "black" | "white" | T_Level )[],
-        ): "black" | "white" | T_Level {
+        ): "black" | "white" | T_Level | undefined {
+            // returns
+            if ( !arr.length ) {
+                return undefined;
+            }
 
             // returns
             if ( arr.includes( 'white' ) ) {

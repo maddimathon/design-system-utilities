@@ -1,0 +1,87 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { HTMLAttributes } from 'astro/types';
+import type { TokenTypes } from '../../ts/index.js';
+
+/* import - functions */
+import { ColourUtilities, getDataFromClrSlug } from '../../ts/index.js';
+
+/* import - values */
+
+/* import - components */
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+interface Props<
+    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
+> extends Omit<HTMLAttributes<'samp'>, 'class'> {
+    brightness:
+        undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>;
+
+    clrSlug: null | string | string[];
+}
+
+const { brightness, clrSlug }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const toDarkValue = (slug: string) => {
+    const data = getDataFromClrSlug(slug);
+
+    // returns
+    if (!data) {
+        return slug;
+    }
+
+    // returns
+    if (data.name === '$') {
+        return data.level;
+    }
+
+    return `${data.name}-${ColourUtilities.Levels.toDark(data.level)}`;
+};
+
+/* CONSTANTS ===================================== */
+
+const allSlugs = Array.isArray(clrSlug) ? clrSlug : clrSlug ? [clrSlug] : [];
+---
+
+{
+    allSlugs.length ? (
+        brightness === 'dark' ? (
+            allSlugs.map((slug, i) => (
+                <Fragment>{i > 0 ? ', ' : ''}</Fragment>
+                <samp set:text={toDarkValue(slug)} />
+            ))
+        ) : (
+            allSlugs.map((slug, i) => (
+                <Fragment>{i > 0 ? ', ' : ''}</Fragment>
+                <samp set:text={slug} />
+            ))
+        )
+    ) : (
+        <samp set:text='??' />
+    )
+}
+
+<style>
+    code,
+    kbd,
+    samp {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        color: inherit !important;
+    }
+</style>

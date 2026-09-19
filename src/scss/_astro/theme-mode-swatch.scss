@@ -3,7 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 
-@use 'lib';
+@use 'lib' as *;
 // @use 'lib/config';
 
 @use 'pkg:@maddimathon/utility-sass/selector';
@@ -11,40 +11,40 @@
 /* # THEME MODE SWATCH ==================================== */
 
 .theme-mode-swatch {
-    @include lib.prop-display(flex);
-    @include lib.snippet-body-grid--flex-container(
+    @include prop-display(flex);
+    @include snippet-body-grid--flex-container(
         (
             justify-content: start,
             justify-items: start,
         )
     );
 
-    @include lib.first-child-no-top-margin;
-    @include lib.last-child-no-bottom-margin;
+    @include first-child-no-top-margin;
+    @include last-child-no-bottom-margin;
 
     .theme-mode-swatch__sample {
-        margin-block-start: lib.var-mrg-soft('200');
-        line-height: lib.var-line-height('200');
-        font-size: lib.var-fs(smaller-1);
+        margin-block-start: var-mrg-soft('200');
+        line-height: var-line-height('200');
+        font-size: var-fs(smaller-1);
 
         %code,
         %kbd,
         %samp {
-            margin: 0;
-            padding: 0;
-            background: transparent;
-            border: none;
-            color: inherit;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            color: inherit !important;
         }
     }
 
     input.theme-mode-swatch__sample {
-        font-size: lib.var-fs(normal);
+        font-size: var-fs(normal);
     }
 
     :global(.table-wrapper):has(> table.theme-mode-swatch__shades-in-use) {
-        margin-block-start: lib.var-mrg-firm('100');
-        background: lib.var-theme(background);
+        margin-block-start: var-mrg-firm('100');
+        background: var-theme(background);
         width: 100%;
 
         > :global(table.theme-mode-swatch__shades-in-use) {
@@ -52,8 +52,8 @@
 
             :global(th) {
                 padding-inline: 0;
-                background: lib.var-theme(background);
-                @include lib.theme-set-color;
+                background: var-theme(background);
+                @include theme-set-color;
             }
         }
     }
@@ -62,8 +62,8 @@
     %kbd,
     %pre,
     %samp {
-        color: inherit;
+        color: inherit !important;
     }
 }
 
-@include lib.extend-selectors;
+@include extend-selectors;

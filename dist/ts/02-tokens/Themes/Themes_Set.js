@@ -146,7 +146,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
     class SingleMode extends AbstractTokens {
         name;
         brightness;
-        constrast;
+        contrast;
         description;
         levelsInUse;
         data;
@@ -156,9 +156,9 @@ export class Tokens_Themes_Set extends AbstractTokens {
          * @since 0.1.0-alpha
          * @since 0.1.0-beta.0.draft — Changed fourth param to colours object with both names and all levels set.
          */
-        static async build(themeName, brightness, constrast, colours, input, inputOverrides = {}) {
-            const defaultLevels = constrast !== 'forcedColors'
-                ? SingleMode.Levels.DEFAULT[constrast]
+        static async build(themeName, brightness, contrast, colours, input, inputOverrides = {}) {
+            const defaultLevels = contrast !== 'forcedColors'
+                ? SingleMode.Levels.DEFAULT[contrast]
                 : SingleMode.Levels.DEFAULT.max;
             const levels = SingleMode.Levels.parse(defaultLevels, input.levels);
             const variations = SingleMode.Build.completeVariations(colours.names, input.variations);
@@ -166,7 +166,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
             let description = input.description ?? null;
             const defaultOverrides = {};
             // returns if forced colours
-            switch (constrast) {
+            switch (contrast) {
                 case 'average':
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
                     if (!inputOverrides.selection) {
@@ -207,7 +207,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     return SingleMode.Build.forcedColors({
                         ...input,
                         variations,
-                    }, inputOverrides).then((completedData) => new SingleMode(themeName, brightness, constrast, 'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], completedData));
+                    }, inputOverrides).then((completedData) => new SingleMode(themeName, brightness, contrast, 'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], completedData));
             }
             const allLevelsInUse = Object.values(objectFlatten(levels)).concat(Object.values(objectFlatten(inputOverrides)).map((val) => {
                 const match = String(val).match(/\-(\d+)$/);
@@ -218,13 +218,13 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 return false;
             }).filter(v => v !== false));
             const levelsInUse = arrayUnique(allLevelsInUse).sort();
-            return SingleMode.Build.data({ levels, variations }, mergeArgs(defaultOverrides, inputOverrides, true)).then((completedData) => new SingleMode(themeName, brightness, constrast, description, levelsInUse, completedData));
+            return SingleMode.Build.data({ levels, variations }, mergeArgs(defaultOverrides, inputOverrides, true)).then((completedData) => new SingleMode(themeName, brightness, contrast, description, levelsInUse, completedData));
         }
-        constructor(name, brightness, constrast, description, levelsInUse, data) {
+        constructor(name, brightness, contrast, description, levelsInUse, data) {
             super();
             this.name = name;
             this.brightness = brightness;
-            this.constrast = constrast;
+            this.contrast = contrast;
             this.description = description;
             this.levelsInUse = levelsInUse;
             this.data = data;
@@ -237,7 +237,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
             return {
                 name: this.name,
                 brightness: this.brightness,
-                constrast: this.constrast,
+                contrast: this.contrast,
                 description: this.description ?? undefined,
                 data: objectKeySort_Tokens({
                     ...this.data,

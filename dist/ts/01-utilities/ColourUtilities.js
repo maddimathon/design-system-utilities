@@ -248,9 +248,9 @@ export var ColourUtilities;
             throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
         }
         const _hslFormatter = (hsl) => round ? {
-            h: roundToPixel(hsl.h, 100),
-            s: roundToPixel(hsl.s, 100),
-            l: roundToPixel(hsl.l, 100),
+            h: roundToPixel(hsl.h, 4),
+            s: roundToPixel(hsl.s, 4),
+            l: roundToPixel(hsl.l, 2),
         } : hsl;
         const _hslValidator = (hsl) => _hslFormatter(hslValidator(hsl, errContext, errMaker));
         // returns - converts
@@ -348,9 +348,9 @@ export var ColourUtilities;
             throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
         }
         const _rgbFormatter = (rgb) => round ? {
-            r: roundToPixel(rgb.r, 100),
-            g: roundToPixel(rgb.g, 100),
-            b: roundToPixel(rgb.b, 100),
+            r: roundToPixel(rgb.r, 4),
+            g: roundToPixel(rgb.g, 4),
+            b: roundToPixel(rgb.b, 4),
         } : rgb;
         const _rgbValidator = (rgb) => _rgbFormatter(rgbValidator(rgb, errContext, errMaker));
         // returns - converts
@@ -710,9 +710,9 @@ export var ColourUtilities;
                 throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
             }
             const _hslFormatter = (hsl) => round ? {
-                h: roundToPixel(hsl.h, 100),
-                s: roundToPixel(hsl.s, 100),
-                l: roundToPixel(hsl.l, 100),
+                h: roundToPixel(hsl.h, 4),
+                s: roundToPixel(hsl.s, 4),
+                l: roundToPixel(hsl.l, 2),
             } : hsl;
             const _hslValidator = (hsl) => hslValidator(hsl, errContext, errMaker).then(_hslFormatter);
             // returns - converts
@@ -810,9 +810,9 @@ export var ColourUtilities;
                 throw errMaker(`Input clr '${clr}' was falsey`, errContext, { cause: clr });
             }
             const _rgbFormatter = (rgb) => round ? {
-                r: roundToPixel(rgb.r, 100),
-                g: roundToPixel(rgb.g, 100),
-                b: roundToPixel(rgb.b, 100),
+                r: roundToPixel(rgb.r, 4),
+                g: roundToPixel(rgb.g, 4),
+                b: roundToPixel(rgb.b, 4),
             } : rgb;
             const _rgbValidator = (rgb) => rgbValidator(rgb, errContext, errMaker).then(_rgbFormatter);
             // returns - converts
@@ -1124,6 +1124,10 @@ export var ColourUtilities;
          */
         function max(arr) {
             // returns
+            if (!arr.length) {
+                return undefined;
+            }
+            // returns
             if (arr.includes('black')) {
                 return 'black';
             }
@@ -1141,6 +1145,10 @@ export var ColourUtilities;
          * @since 0.1.0-beta.0.draft
          */
         function min(arr) {
+            // returns
+            if (!arr.length) {
+                return undefined;
+            }
             // returns
             if (arr.includes('white')) {
                 return 'white';

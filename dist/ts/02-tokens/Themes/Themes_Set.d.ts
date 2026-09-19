@@ -134,19 +134,19 @@ export declare namespace Tokens_Themes_Set {
     }> {
         readonly name: "default" | T_ThemeTypes['name'];
         readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
-        readonly constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
+        readonly contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
         readonly description: null | string;
         readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[];
         readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, constrast: "forcedColors", colours: {
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, contrast: "forcedColors", colours: {
             names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
             allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
         }, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes, TokenTypes.Css.SystemColor>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>, TokenTypes.Css.SystemColor>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes, TokenTypes.Css.SystemColor>>;
-        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, colours: {
+        static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, contrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, colours: {
             names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
             allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
         }, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
-        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
+        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
         toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
     }
@@ -691,7 +691,7 @@ export declare namespace Tokens_Themes_Set {
         export type JsonReturn<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>> = {
             name: "default" | T_ThemeTypes['name'];
             brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
-            constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
+            contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
             description?: undefined | string;
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
                 button: {

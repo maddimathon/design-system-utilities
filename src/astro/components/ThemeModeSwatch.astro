@@ -19,11 +19,7 @@ import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js'
 import type { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
-import { 
-    objectEntries,
-    objectMap,
-    toTitleCase,
-} from '@maddimathon/utility-typescript';
+import { objectEntries, objectMap, toTitleCase } from '@maddimathon/utility-typescript';
 import { CssColours } from '@maddimathon/utility-sass';
 
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
@@ -35,22 +31,18 @@ import { textColorLevel } from '../functions/textColorLevel.js';
 /* import - values */
 
 /* import - components */
-import {
-    Heading,
-    Table,
-    VariableDump,
-} from '@maddimathon/utility-astro/components';
+import { Heading, Table, VariableDump } from '@maddimathon/utility-astro/components';
 
 import LoremIpsum from './LoremIpsum.astro';
+import ThemeModeSwatch_ThemeSlug from './ThemeModeSwatch_ThemeSlug.astro';
 import Toggle from './Toggle.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-interface Props<
-    T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-> extends Omit<HTMLAttributes<'div'>, 'class'> {
+// prettier-ignore
+interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Omit<HTMLAttributes<'div'>, 'class'> {
     heading: number;
     theme: Tokens_Themes_Set.SingleMode.JsonReturn<T_Types['colour'], T_Types['theme']>;
     tokens: Tokens.JsonReturn;
@@ -81,13 +73,13 @@ interface Props<
 }
 
 const {
-    brightness,
-    contrast,
+    theme,
+    brightness = theme.brightness ?? undefined,
+    contrast = theme.contrast && theme.contrast !== 'forcedColors' ? theme.contrast : undefined,
     displayHeading = 3,
     displayMode,
     equals = '=',
     heading,
-    theme,
     tokens,
 
     LoremIpsumComponent = LoremIpsum,
@@ -116,7 +108,7 @@ type _ButtonVariation = {
                     '$'
                 >;
                 key: string;
-                value: string | string[] ;
+                value: string | string[];
             };
         };
     };
@@ -144,9 +136,7 @@ type _ParsedInputField = {
 
 /* FUNCTIONS ===================================== */
 
-export function getCssColourForThemePreview<
-    T_Types extends TokenTypes.TypeParams,
->(
+export function getCssColourForThemePreview<T_Types extends TokenTypes.TypeParams>(
     tokens: Tokens.JsonReturn<T_Types>,
     brightness?: TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>,
     clrSlug: string | string[],
@@ -301,20 +291,11 @@ const buttons: {
     } ),
 );
 
-function _inputFieldGenerator<
-    T_InputType extends '$',
-    T_State extends '$'|'active'|'focus' |'hover'
->(inputType: T_InputType, state: T_State): _ParsedInputField[T_InputType][T_State];
+function _inputFieldGenerator<T_InputType extends '$', T_State extends '$'|'active'|'focus' |'hover'>(inputType: T_InputType, state: T_State): _ParsedInputField[T_InputType][T_State];
 
-function _inputFieldGenerator<
-    T_InputType extends 'disabled'|'readonly',
-    T_State extends '$'
->(inputType: T_InputType, state: T_State): _ParsedInputField[T_InputType][T_State];
+function _inputFieldGenerator<T_InputType extends 'disabled'|'readonly', T_State extends '$'>(inputType: T_InputType, state: T_State): _ParsedInputField[T_InputType][T_State];
 
-function _inputFieldGenerator<
-    T_InputType extends '$'|'disabled'|'readonly',
-    T_State extends '$'|'active'|'focus' |'hover'
->(inputType: T_InputType, key: T_State) {
+function _inputFieldGenerator<T_InputType extends '$'|'disabled'|'readonly', T_State extends '$'|'active'|'focus' |'hover'>(inputType: T_InputType, key: T_State) {
     const state =  key === '$' ? null : key as Exclude<T_State, '$'>;
 
     const keySuffix = key == '$' ? '' : `-${key}`;
@@ -414,14 +395,14 @@ const inputField = {
                     `background: ${getCssColourForThemePreview(tokens, brightness, _bgValue)}`,
                     `color: ${getCssColourForThemePreview(tokens, brightness, theme.data.text.$)}`,
                 ].join(';') }
-            ><code set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <code set:text={_bgValue} /></p>
+            ><samp set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: _bgValue}} /></p>
         ))}
         <p
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
-        ><code set:text='theme-selection-background' /> {equals} <code set:text={theme.data.selection.background} /></p>
+        ><samp set:text='theme-selection-background' /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: theme.data.selection.background}} /></p>
         <p
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
-        ><code set:text='theme-selection-text' /> {equals} <code set:text={theme.data.selection.text} /></p>
+        ><samp set:text='theme-selection-text' /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: theme.data.selection.text}} /></p>
         {
             autoTokens.map((_tokens) => (
                 <Heading
@@ -433,7 +414,7 @@ const inputField = {
                     <p
                         class="theme-mode-swatch__sample"
                         style={ `color: ${getCssColourForThemePreview(tokens, brightness, value)}` }
-                    ><code set:text={key} /> {equals} <code set:text={value} /></p>
+                    ><samp set:text={key} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: value}} /></p>
                 ) ) : (
                     <VariableDump
                         name='_tokens'
@@ -508,7 +489,7 @@ const inputField = {
                                         : '',
                                 `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)}`,
                             ].filter( v => v ).join(';') }
-                        ><code set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
+                        ><samp set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state[key].value}} /></p>
                     )
                 )
             ) }</Fragment>
@@ -533,7 +514,7 @@ const inputField = {
                                     : '',
                             `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)}`,
                         ].filter( v => v ).join(';') }
-                    ><code set:text={`theme-button-${buttons.disabled.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].value} /></p>
+                    ><samp set:text={`theme-button-${buttons.disabled.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state[key].value}} /></p>
                 )
             )
         ) }
@@ -591,7 +572,7 @@ const inputField = {
                                     : '',
                                 state[key].clrSlug && `color: ${getCssColourForThemePreview(tokens, brightness, state[key].clrSlug)}`,
                             ].filter( v => v ).join(';') }
-                        ><code set:text={`theme-input${ variation !== '$' ? `-${variation}` : '' }-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <code set:text={state[key].clrSlug} /></p>
+                        ><samp set:text={`theme-input${ variation !== '$' ? `-${variation}` : '' }-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state[key].clrSlug}} /></p>
                     )
                 )
              ) }</Fragment>

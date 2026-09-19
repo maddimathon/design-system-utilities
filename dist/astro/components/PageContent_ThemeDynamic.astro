@@ -134,7 +134,7 @@ const default_brightnessSet = {
     }
 </p>
 
-<section>
+<section class='theme-dynamic-preview__display-options'>
     <h2 class='screen-reader-text'>Display Options</h2>
 
     <fieldset
@@ -142,7 +142,7 @@ const default_brightnessSet = {
             .map(({ value }) => value)
             .join(',')}
     >
-        <legend>Brightness Mode</legend>
+        <legend>Brightness</legend>
         <div class='container'>
             {
                 brightnessOptions.map(({ label, value }) => (
@@ -278,7 +278,9 @@ const default_brightnessSet = {
                                     displayHeading={3}
                                     heading={5}
                                     class:list={'widget-block--alt-theme'}
+                                    data-tokens-theme-dynamic-preview-preview-container='brightness-only'
                                     data-active-theme={themeName ?? ''}
+                                    data-contrast-mode={set.contrast}
                                 >
                                     <Fragment
                                         slot='heading'
@@ -557,13 +559,23 @@ const default_brightnessSet = {
                 }
 
                 const promises: Promise<any>[] =
-                    this.dynamicPreviewContainers.map((container) =>
-                        ThemeDynamicManager._setValue_dynamicPreviewContainers(
+                    this.dynamicPreviewContainers.map(async (container) => {
+                        // returns
+                        if (
+                            container.getAttribute(
+                                'data-tokens-theme-dynamic-preview-preview-container',
+                            ) === 'brightness-only' &&
+                            key !== 'brightness'
+                        ) {
+                            return;
+                        }
+
+                        return ThemeDynamicManager._setValue_dynamicPreviewContainers(
                             container,
                             dynamicPeviewAttrKey,
                             newValue,
-                        ),
-                    );
+                        );
+                    });
 
                 if (setInputValues) {
                     for (const input of this.inputs[key]) {

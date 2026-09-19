@@ -458,7 +458,7 @@ export namespace Tokens_Themes_Set {
         >(
             themeName: "default" | T_ThemeTypes[ 'name' ],
             brightness: null,
-            constrast: "forcedColors",
+            contrast: "forcedColors",
 
             colours: {
                 names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
@@ -483,7 +483,7 @@ export namespace Tokens_Themes_Set {
         >(
             themeName: "default" | T_ThemeTypes[ 'name' ],
             brightness: TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
-            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
+            contrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
 
             colours: {
                 names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
@@ -512,7 +512,7 @@ export namespace Tokens_Themes_Set {
         >(
             themeName: "default" | T_ThemeTypes[ 'name' ],
             brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
-            constrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> | "forcedColors",
+            contrast: TokenTypes.Theme.GetContrastKeys<T_ThemeTypes> | "forcedColors",
 
             colours: {
                 names: TokenTypes.Colour.GenericNameArray<T_ColourTypes[ 'names' ]>;
@@ -528,8 +528,8 @@ export namespace Tokens_Themes_Set {
                 NoInfer<T_ThemeTypes>
             > = {},
         ): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>> {
-            const defaultLevels: SingleMode.Levels.Required<never> = constrast !== 'forcedColors'
-                ? SingleMode.Levels.DEFAULT[ constrast ]
+            const defaultLevels: SingleMode.Levels.Required<never> = contrast !== 'forcedColors'
+                ? SingleMode.Levels.DEFAULT[ contrast ]
                 : SingleMode.Levels.DEFAULT.max;
 
             const levels = SingleMode.Levels.parse<T_ColourTypes>(
@@ -546,15 +546,15 @@ export namespace Tokens_Themes_Set {
             const defaultOverrides: SingleMode.Data.Partial<T_ColourTypes, T_ThemeTypes> = {};
 
             // returns if forced colours
-            switch ( constrast ) {
+            switch ( contrast ) {
 
                 case 'average':
                     description = description ?? 'This is the default contrast mode for most users, unless they have defined a specific preference (‘low’, ‘high’, or ‘forced-colors’) in their OS or browser settings.  It meets or exceeds WCAG AAA contrast standards.';
 
                     if ( !inputOverrides.selection ) {
 
-                        const _text_levels = Object.values( levels.text ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
-                        const _bg_levels = Object.values( levels.background ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+                        const _text_levels = Object.values( levels.text ) as [ TokenTypes.Colour.AnyLevel<T_ColourTypes>, ...TokenTypes.Colour.AnyLevel<T_ColourTypes>[] ];
+                        const _bg_levels = Object.values( levels.background ) as [ TokenTypes.Colour.AnyLevel<T_ColourTypes>, ...TokenTypes.Colour.AnyLevel<T_ColourTypes>[] ];
 
                         defaultOverrides.selection = {
                             background: clrOpt(
@@ -582,8 +582,8 @@ export namespace Tokens_Themes_Set {
 
                     if ( !inputOverrides.selection ) {
 
-                        const _text_levels = Object.values( levels.text ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
-                        const _bg_levels = Object.values( levels.background ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+                        const _text_levels = Object.values( levels.text ) as [ TokenTypes.Colour.AnyLevel<T_ColourTypes>, ...TokenTypes.Colour.AnyLevel<T_ColourTypes>[] ];
+                        const _bg_levels = Object.values( levels.background ) as [ TokenTypes.Colour.AnyLevel<T_ColourTypes>, ...TokenTypes.Colour.AnyLevel<T_ColourTypes>[] ];
 
                         defaultOverrides.selection = {
                             background: clrOpt(
@@ -611,8 +611,8 @@ export namespace Tokens_Themes_Set {
 
                     if ( !inputOverrides.selection ) {
 
-                        const _text_levels = Object.values( levels.text ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
-                        const _bg_levels = Object.values( levels.background ) as TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+                        const _text_levels = Object.values( levels.text ) as [ TokenTypes.Colour.AnyLevel<T_ColourTypes>, ...TokenTypes.Colour.AnyLevel<T_ColourTypes>[] ];
+                        const _bg_levels = Object.values( levels.background ) as [ TokenTypes.Colour.AnyLevel<T_ColourTypes>, ...TokenTypes.Colour.AnyLevel<T_ColourTypes>[] ];
 
                         defaultOverrides.selection = {
                             background: clrOpt(
@@ -650,7 +650,7 @@ export namespace Tokens_Themes_Set {
                         >(
                             themeName,
                             brightness,
-                            constrast,
+                            contrast,
                             'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!',
                             [],
                             completedData,
@@ -689,7 +689,7 @@ export namespace Tokens_Themes_Set {
                 ( completedData ) => new SingleMode<T_ColourTypes, T_ThemeTypes>(
                     themeName,
                     brightness,
-                    constrast,
+                    contrast,
 
                     description,
                     levelsInUse,
@@ -702,7 +702,7 @@ export namespace Tokens_Themes_Set {
         protected constructor (
             public readonly name: "default" | T_ThemeTypes[ 'name' ],
             public readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
-            public readonly constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
+            public readonly contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
             public readonly description: null | string,
             public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Any )[],
             public readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>,
@@ -720,7 +720,7 @@ export namespace Tokens_Themes_Set {
             return {
                 name: this.name,
                 brightness: this.brightness,
-                constrast: this.constrast,
+                contrast: this.contrast,
                 description: this.description ?? undefined,
 
                 data: objectKeySort_Tokens(
@@ -1740,7 +1740,7 @@ export namespace Tokens_Themes_Set {
         > = {
             name: "default" | T_ThemeTypes[ 'name' ];
             brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
-            constrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
+            contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
             description?: undefined | string;
 
             data: Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption> & {
