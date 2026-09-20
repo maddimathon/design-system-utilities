@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -14,12 +14,12 @@ import { AbstractError } from '@maddimathon/build-utilities/internal';
  * Utilities for errors thrown within this package.
  * 
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ — Moved to global namespace and renamed.
+ * @since 0.1.0-beta.0 — Moved to global namespace and renamed.
  */
 export namespace LocalErrors {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type Cause = AbstractError.Input | Error;
 
@@ -27,31 +27,31 @@ export namespace LocalErrors {
      * Object used to give context for where this error was triggered.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Changed to union of new types.
+     * @since 0.1.0-beta.0 — Changed to union of new types.
      */
     export type Context = Context.Class | Context.Function;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Context {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         interface Basic {
             line?: string;
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export interface Function extends Partial<Basic> {
             function: string;
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export interface Class extends Partial<Basic> {
             class: string;
@@ -93,7 +93,7 @@ export namespace LocalErrors {
     /**
      * For use within the package.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export abstract class Abst_Error<
         T_CauseType extends Cause = any,
@@ -191,7 +191,7 @@ export namespace LocalErrors {
     /**
      * Used to throw errors while in the {@link ColourUtilities} namespace.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export class ColourUtilitiesError<T_CauseType extends Cause> extends Abst_Error<T_CauseType> {
         public override readonly name: string = 'ColourUtilitiesError';
@@ -201,7 +201,7 @@ export namespace LocalErrors {
      * Used to throw errors while compiling the tokens.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to global namespace and renamed.
+     * @since 0.1.0-beta.0 — Moved to global namespace and renamed.
      */
     export class TokenBuildError<T_CauseType extends Cause> extends Abst_Error<T_CauseType> {
         public override readonly name: string = 'TokenBuildError';

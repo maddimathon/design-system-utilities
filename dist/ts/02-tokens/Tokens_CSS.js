@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript';
@@ -25,7 +25,7 @@ export class Tokens_CSS extends AbstractTokens {
     /**
      * Builds tokens faster.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async build(input) {
         return Tokens_CSS_Style.build(input.style ?? {}).then(style => new Tokens_CSS(new Tokens_CSS_Border(input.border ?? {}), style, new Tokens_CSS_Transition(input.transition ?? {}), mergeArgs(Tokens_CSS.default.zIndex, input.zIndex)));

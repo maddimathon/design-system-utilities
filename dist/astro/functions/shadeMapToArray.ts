@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 
@@ -66,14 +66,14 @@ export function shadeMapToArray<
 /**
  * Utilities for the {@link shadeMapToArray} function.
  * 
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export namespace shadeMapToArray {
 
     /**
      * Shape of the input object param for the {@link shadeMapToArray} function.
      * 
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type ObjTypeParam<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -87,7 +87,7 @@ export namespace shadeMapToArray {
     /**
      * Shape of a single item in the {@link shadeMapToArray} function's return array.
      * 
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type ReturnItem<
         T_Object extends ObjTypeParam<any>,

@@ -40,7 +40,7 @@ export class Tokens_Themes<
     /**
      * Used instead of the constructor so that it can be async.
      * 
-     * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0 — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     public static async build<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -75,7 +75,7 @@ export class Tokens_Themes<
     /**
      * Used to initialize multiple themes at once.
      * 
-     * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0 — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected static async buildSets<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -149,12 +149,12 @@ export class Tokens_Themes<
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public readonly meta: Omit<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>, 'brightness' | 'contrast'>;
 
     /**
-     * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0 — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor (
         protected readonly brightnessModes: readonly TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>[],
@@ -308,7 +308,7 @@ export namespace Tokens_Themes {
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         _meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
 
@@ -318,14 +318,14 @@ export namespace Tokens_Themes {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         _meta: Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>;
 

@@ -106,7 +106,7 @@ export namespace Tokens_Logos {
         };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<
         T_LogoNames extends string,

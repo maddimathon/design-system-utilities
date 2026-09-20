@@ -6,43 +6,43 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { CssColours } from '@maddimathon/utility-sass';
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace TokenTypes {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Colour {
         /**
          * Takes colour params and returns any allowed level, including 'black'
          * or 'white'.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type AnyLevel<T_ColourTypes extends Colour.TypeParams> = "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes['extraLevels'];
         /**
          * Enforces some shade names that are always present.
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved to {@link Colour} namespace.
+         * @since 0.1.0-beta.0 — Moved to {@link Colour} namespace.
          */
         type GenericName<T_ColourName extends string> = "base" | T_ColourName;
         /**
          * Enforces some shade names that are always present.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type GenericNameArray<T_ColourName extends string> = readonly ["base", ...T_ColourName[]];
         /**
          * Creates a Record-like object indexed instead colour shade levels.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          * @internal
          */
         type LevelRecord<T_ColourTypes extends Colour.TypeParams, T_Value extends any> = {
@@ -53,7 +53,7 @@ export declare namespace TokenTypes {
         /**
          * Creates a Record-like object indexed instead colour shade names.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          * @internal
          */
         type NameRecord<T_ColourTypes extends Colour.TypeParams, T_Value extends any> = {
@@ -64,7 +64,7 @@ export declare namespace TokenTypes {
         /**
          * Creates a partial-ized Record-like object indexed instead colour shade levels.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          * @internal
          */
         type PartialLevelRecord<T_ColourTypes extends Colour.TypeParams, T_Value extends any> = {
@@ -75,7 +75,7 @@ export declare namespace TokenTypes {
         /**
          * Creates a partial-ized Record-like object indexed instead colour shade names.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          * @internal
          */
         type PartialNameRecord<T_ColourTypes extends Colour.TypeParams, T_Value extends any> = {
@@ -87,13 +87,13 @@ export declare namespace TokenTypes {
          * Slugs representing the colour tokens in this system.
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved to {@link Colour} namespace. Changed param to {@link Colour.TypeParams}.
+         * @since 0.1.0-beta.0 — Moved to {@link Colour} namespace. Changed param to {@link Colour.TypeParams}.
          */
         type TokenSlug<T_ColourTypes extends Colour.TypeParams> = `${TokenTypes.Colour.GenericName<T_ColourTypes['names']>}-${ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']}`;
         /**
          * Type params for colour tokens.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type TypeParams<T_ColourNames extends string = string, T_ExtraColourLevels extends ColourUtilities.Levels.Optional = ColourUtilities.Levels.Optional> = {
             names: T_ColourNames;
@@ -101,61 +101,61 @@ export declare namespace TokenTypes {
         };
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Css {
         /**
          * Any valid string value for css.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type AnyCssColour = CssColours.Keyword | CssColours.Slug | SystemColor;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type BorderRadius = 0 | AnyTokenLevel;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type BorderStyle = 'none' | 'hidden' | 'dashed' | 'dotted' | 'double' | 'groove' | 'inset' | 'outset' | 'ridge' | 'solid' | GlobalKeywords;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type BorderWidth = 0 | AnyTokenLevel;
         /**
          * Global keywords available for most properties.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         namespace Number {
             /**
              * A number with em units.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             type Em = 0 | `${number}em` | `-${number}em`;
             /**
              * A number with % units.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             type Percent = 0 | `${number}%` | `-${number}%`;
         }
         /**
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved to {@link Css} namespace.
+         * @since 0.1.0-beta.0 — Moved to {@link Css} namespace.
          */
         type SystemColor = CssColours.SystemColor | CssColours.SystemColor[];
         /**
@@ -164,11 +164,11 @@ export declare namespace TokenTypes {
         type TextTransform = "none" | "capitalize" | "uppercase" | "lowercase" | "full-width" | "full-size-kana" | "math-auto";
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Photos {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type TypeParams<T_PhotoSlug extends string = string, T_ThumbnailSlug extends string = string> = {
             photoSlugs: T_PhotoSlug;
@@ -176,18 +176,18 @@ export declare namespace TokenTypes {
         };
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Style {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type TypeParams<T_IconExtraSize extends string = string> = {
             iconSizes: T_IconExtraSize;
         };
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Theme {
         /**
@@ -195,65 +195,65 @@ export declare namespace TokenTypes {
          * System Colors or colour design tokens in this system).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved to {@link Theme} namespace.
+         * @since 0.1.0-beta.0 — Moved to {@link Theme} namespace.
          */
         type ColourOption<T_Types extends TokenTypes.Colour.TypeParams> = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<T_Types>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type GetBrightnessKeys<T_ThemeTypes extends TokenTypes.Theme.TypeParams> = "light" | "dark" | T_ThemeTypes['brightness'][number];
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type GetExtraBrightnessKeys<T_ThemeTypes extends TokenTypes.Theme.TypeParams> = Exclude<T_ThemeTypes['brightness'][number], Mode.BrightnessRequired>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type GetContrastKeys<T_ThemeTypes extends TokenTypes.Theme.TypeParams> = "low" | "average" | "high" | T_ThemeTypes['contrast'][number];
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type GetExtraContrastKeys<T_ThemeTypes extends TokenTypes.Theme.TypeParams> = Exclude<T_ThemeTypes['contrast'][number], Mode.ContrastRequired>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         namespace Mode {
             /**
              * An array of brightness mode slugs with the required slugs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             type Brightness<T_ParamValue extends BrightnessOption[] | readonly BrightnessOption[] = BrightnessOption[]> = readonly ["light", "dark", ...T_ParamValue];
             /**
              * All allowed brightness mode slugs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             type BrightnessOption = "light" | "dark";
             /**
              * All required brightness mode slugs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             type BrightnessRequired = "light" | "dark";
             /**
              * An array of contrast mode slugs with the required slugs.
              *
              * @since 0.1.0-alpha
-             * @since 0.1.0-beta.0.draft — Moved to {@link Theme.Mode} namespace.
+             * @since 0.1.0-beta.0 — Moved to {@link Theme.Mode} namespace.
              */
             type Contrast<T_ParamValue extends ContrastOption[] | readonly ContrastOption[] = ContrastOption[]> = readonly ["low", "average", "high", ...T_ParamValue];
             /**
              * All allowed contrast mode slugs.
              *
              * @since 0.1.0-alpha
-             * @since 0.1.0-beta.0.draft — Moved to {@link Theme.Mode} namespace.
+             * @since 0.1.0-beta.0 — Moved to {@link Theme.Mode} namespace.
              */
             type ContrastOption = "low" | "average" | "high" | "max";
             /**
              * Creates a Record-like object indexed instead by contrast mode values.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              * @internal
              */
             type ContrastRecord<T_ThemeTypes extends Theme.TypeParams, T_Value extends any> = {
@@ -264,13 +264,13 @@ export declare namespace TokenTypes {
             /**
              * All required contrast mode slugs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             type ContrastRequired = "low" | "average" | "high";
             /**
              * Creates an object of nested values indexed first by brightness mode, then by contrast mode.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              * @internal
              */
             type NestedObject<T_ThemeTypes extends Theme.TypeParams, T_NestedValue extends any> = {
@@ -281,7 +281,7 @@ export declare namespace TokenTypes {
             /**
              * Creates a partial-ized Record-like object indexed instead by contrast mode values.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              * @internal
              */
             type PartialContrastRecord<T_ThemeTypes extends Theme.TypeParams, T_Value extends any> = {
@@ -292,7 +292,7 @@ export declare namespace TokenTypes {
             /**
              * Creates an object of nested values indexed first by brightness mode, then by contrast mode.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              * @internal
              */
             type PartialNestedObject<T_ThemeTypes extends TokenTypes.Theme.TypeParams, T_NestedValue extends any> = {
@@ -304,7 +304,7 @@ export declare namespace TokenTypes {
         /**
          * Type params for theme tokens.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type TypeParams<T_ThemeName extends string = string, T_ThemeBrightnessMode extends readonly TokenTypes.Theme.Mode.BrightnessOption[] = readonly TokenTypes.Theme.Mode.BrightnessOption[], T_ThemeContrastMode extends readonly TokenTypes.Theme.Mode.ContrastOption[] = readonly TokenTypes.Theme.Mode.ContrastOption[], T_Keyword_Universal extends string = string, T_Keyword_Text extends string = string, T_Keyword_Background extends string = string> = {
             name: T_ThemeName;
@@ -327,12 +327,12 @@ export declare namespace TokenTypes {
     };
 }
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export type AnyTokenLevel = WholeTokenLevel | '050' | '150' | '250' | '350' | '450' | '550' | '650' | '750' | '850' | '950';
 /**
  * @since 0.1.0-alpha
- * @since 0.1.0-beta.0.draft — Renamed.
+ * @since 0.1.0-beta.0 — Renamed.
  */
 export type WholeTokenLevel = '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
 /**

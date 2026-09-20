@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { sassCompilerOpts } from '@maddimathon/utility-sass';
@@ -12,7 +12,7 @@ import { sassFn_themeFlattenGetValues } from './sass-functions/themeFlattenGetVa
 /**
  * Defines on the sass compiler options part of the build-utilities config.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export function defineSassCompilerOpts(stage, partial) {
     const partialSassArgs = typeof partial === 'function'

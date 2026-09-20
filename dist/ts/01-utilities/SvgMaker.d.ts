@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { Classify } from '@maddimathon/utility-typescript/types';
@@ -12,7 +12,7 @@ import type { Classify } from '@maddimathon/utility-typescript/types';
  * The object that defines a single SVG token.
  *
  * @since 0.1.0-alpha
- * @since 0.1.0-beta.0.draft —
+ * @since 0.1.0-beta.0 —
  */
 export declare class SvgMaker<T_Slug extends string = string, T_Metadata extends any = undefined> implements SvgMaker.Data<T_Slug, T_Metadata> {
     protected readonly svgAttrs: string[];
@@ -32,7 +32,7 @@ export declare class SvgMaker<T_Slug extends string = string, T_Metadata extends
     readonly aspectRatio: [number, number];
     readonly innerSVG: string;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     readonly meta: T_Metadata;
     constructor(data: SvgMaker.Data<T_Slug, T_Metadata>, svgAttrs?: string[]);
@@ -114,7 +114,7 @@ export declare namespace SvgMaker {
         svgInlineLabelled: string;
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type ScssVars<T_Slug extends string = string, T_Metadata extends any = any> = Omit<JsonReturn<T_Slug, T_Metadata>, "ariaLabel" | "aspectRatio" | "innerSVG" | "svgAttrString" | "svgFile" | "svgCssEmbedded" | "svgInlineHidden" | "svgInlineLabelled"> & {
         aspectRatio: number | `${number} / ${number}`;

@@ -39,7 +39,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     /**
      * Builds style tokens faster.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async build<T_Params extends TokenTypes.Style.TypeParams>( partial: Tokens_CSS_Style.InputParam<T_Params> = {} ): Promise<Tokens_CSS_Style<T_Params>> {
 
@@ -51,7 +51,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     /**
      * Builds style tokens data faster.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async buildData<T_Params extends TokenTypes.Style.TypeParams>( partial: Tokens_CSS_Style.InputParam<T_Params> = {} ): Promise<Tokens_CSS_Style.Data<T_Params>> {
 
@@ -206,7 +206,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async alertStyle<T_Params extends TokenTypes.Style.TypeParams>(
         iconStyles: Tokens_CSS_Style.IconStyles<never>,
@@ -370,7 +370,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async backdropStyle<T_Params extends TokenTypes.Style.TypeParams>(
         partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'backdrop' ],
@@ -454,7 +454,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
     /**
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Added partial param.
+     * @since 0.1.0-beta.0 — Added partial param.
      */
     public static async buttonStyle<T_Params extends TokenTypes.Style.TypeParams>(
         iconStyles: Tokens_CSS_Style.IconStyles<never>,
@@ -624,7 +624,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
     /**
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Added partial param.
+     * @since 0.1.0-beta.0 — Added partial param.
      */
     public static async headingStyle<
         T_Params extends TokenTypes.Style.TypeParams,
@@ -742,7 +742,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async subheadingStyle<
         T_Params extends TokenTypes.Style.TypeParams,
@@ -799,7 +799,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async iconStyle<T_Params extends TokenTypes.Style.TypeParams>(
         partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'icon' ],
@@ -844,7 +844,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async inputStyle<T_Params extends TokenTypes.Style.TypeParams>( partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'input' ] ): Promise<Tokens_CSS_Style.Data<T_Params>[ 'input' ]> {
 
@@ -940,7 +940,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(
         headingStyles: Tokens_CSS_Style.Data<T_Params>[ 'heading' ],
@@ -1079,7 +1079,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public static async widgetStyle<T_Params extends TokenTypes.Style.TypeParams>(
         partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'widget' ],
@@ -1164,7 +1164,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 export namespace Tokens_CSS_Style {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type AlertStyles = {
 
@@ -1247,7 +1247,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type AlertStyles_Heading = {
         /**
@@ -1269,7 +1269,7 @@ export namespace Tokens_CSS_Style {
     /**
      * Styles for modal-type backdrops (that block the screen and can be clicked to exit the modal).
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type BackdropStyles = {
         /**
@@ -1300,11 +1300,11 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace BackdropStyles {
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Parsed = Omit<BackdropStyles, 'background' | 'opacity'> & {
             /**
@@ -1331,7 +1331,7 @@ export namespace Tokens_CSS_Style {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ButtonStyles = {
 
@@ -1387,7 +1387,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ButtonStyles_Disabled = Omit<
         ButtonStyles,
@@ -1401,7 +1401,7 @@ export namespace Tokens_CSS_Style {
      * Inline buttons are buttons meant to be inline with text (rather than in
      * its own line(s)).
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'flow-margin' | 'margin'> & {
         border: Omit<ButtonStyles[ 'border' ], 'width'>;
@@ -1430,36 +1430,36 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace FlowMargin {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Parsed = Omit<FlowMargin, 'button'> & {
             button: Extract<FlowMargin[ 'button' ], object>;
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Self = 'margins-flow' | 'margins-flow-small' | 'margins-flow-large';
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type SelfFirm = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type WithSelf = FlowMargin & {
             self: Self;
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type WithSelfFirm = FlowMargin & {
             self: SelfFirm;
@@ -1467,7 +1467,7 @@ export namespace Tokens_CSS_Style {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type HeadingStyles = {
 
@@ -1507,7 +1507,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data<TokenTypes.Style.TypeParams>[ 'heading' ]> =
         "unstyled" extends T_Key
@@ -1515,7 +1515,7 @@ export namespace Tokens_CSS_Style {
         : HeadingStyles;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type HeadingStyles_Unstyled = Omit<HeadingStyles, 'margin'> & {
         /**
@@ -1536,7 +1536,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type IconStyles_Spacing = {
         buffer: {
@@ -1558,7 +1558,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type IconStyles<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
@@ -1597,7 +1597,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type InputStyles = {
 
@@ -1661,7 +1661,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         placeholder: {
 
@@ -1679,7 +1679,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type InputStyles_Variation = Omit<
         InputStyles,
@@ -1689,7 +1689,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type SubheadingStyles = Omit<HeadingStyles_Unstyled, 'font' | 'subheading'> & {
         /**
@@ -1703,7 +1703,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ToggleStyles = {
 
@@ -1798,7 +1798,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ToggleStyles_ControlHeading = {
         margin: {
@@ -1811,7 +1811,7 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type WidgetStyles = {
         /**
@@ -1849,12 +1849,12 @@ export namespace Tokens_CSS_Style {
     export type Data<T_Params extends TokenTypes.Style.TypeParams> = {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         alert: AlertStyles;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         backdrop: BackdropStyles.Parsed;
 
@@ -1867,12 +1867,12 @@ export namespace Tokens_CSS_Style {
         /**
          * Default values for the set-flow-margins mixin.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         'flow-margin': FlowMargin.Parsed;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         form: {
             $: {
@@ -1896,7 +1896,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         hr: {
             border: {
@@ -1914,12 +1914,12 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         icon: IconStyles<T_Params>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         input: {
             $: InputStyles;
@@ -1929,7 +1929,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         label: {
             'flow-margin': {
@@ -1938,7 +1938,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         logo: {
             /**
@@ -1952,7 +1952,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___ — Restructured object nesting.
+         * @since 0.1.0-beta.0 — Restructured object nesting.
          */
         selection: {
             background: {
@@ -1966,7 +1966,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         subheading: {
             [ L in RequiredHeadingLevels | 'unstyled' ]?: undefined | RecursivePartial<SubheadingStyles>;
@@ -1975,7 +1975,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         table: {
             'flow-margin': {
@@ -1986,12 +1986,12 @@ export namespace Tokens_CSS_Style {
         /**
          * Toggle block styles.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         toggle: ToggleStyles;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         widget: WidgetStyles;
     };
@@ -2002,7 +2002,7 @@ export namespace Tokens_CSS_Style {
     export type InputParam<T_Params extends TokenTypes.Style.TypeParams> = {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         alert?: Omit<RecursivePartial<AlertStyles>, 'heading'> & {
             heading?: undefined | {
@@ -2013,7 +2013,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         backdrop?: RecursivePartial<BackdropStyles>;
 
@@ -2024,12 +2024,12 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         'flow-margin'?: RecursivePartial<Data<T_Params>[ 'flow-margin' ]>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         form?: RecursivePartial<Data<T_Params>[ 'form' ]>;
 
@@ -2042,12 +2042,12 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         hr?: RecursivePartial<Data<T_Params>[ 'hr' ]>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         icon?: RecursivePartial<Omit<IconStyles<T_Params>, 'size'>> & {
             size: Partial<IconStyles<T_Params>[ 'size' ]> & {
@@ -2063,17 +2063,17 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         label?: RecursivePartial<Data<T_Params>[ 'label' ]>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         logo?: RecursivePartial<Data<T_Params>[ 'logo' ]>;
 
         /**
-         * @since ___PKG_VERSION___ — Restructured object nesting.
+         * @since 0.1.0-beta.0 — Restructured object nesting.
          */
         selection?: {
             background?: {
@@ -2087,7 +2087,7 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         subheading?: {
             [ L in RequiredHeadingLevels | 'unstyled' ]?: undefined | RecursivePartial<SubheadingStyles>;
@@ -2096,17 +2096,17 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         table?: RecursivePartial<Data<T_Params>[ 'table' ]>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         toggle?: RecursivePartial<ToggleStyles>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         widget?: RecursivePartial<WidgetStyles>;
     };
@@ -2117,7 +2117,7 @@ export namespace Tokens_CSS_Style {
     export type JsonReturn<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params>;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params> & {
         /**

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { RecursiveRecord } from '../../01-utilities/@types.js';
@@ -13,7 +13,7 @@ import { LocalErrors } from '../../01-utilities/Errors.js';
  * Base class for the classes used to manage tokens and token groups.
  *
  * @since 0.1.0-alpha
- * @since 0.1.0-beta.0.draft — Converted type param to an object.
+ * @since 0.1.0-beta.0 — Converted type param to an object.
  */
 export declare abstract class AbstractTokens<T_Params extends {
     data: any;
@@ -30,7 +30,7 @@ export declare abstract class AbstractTokens<T_Params extends {
     /**
      * Returns a local error object.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     newError<T_CauseType extends LocalErrors.Cause>(message: string, context: Omit<LocalErrors.Context.Class, "class">, opts?: undefined | {
         cause?: T_CauseType;
@@ -89,7 +89,7 @@ export declare namespace AbstractTokens {
     /**
      * Options for the {@link AbstractTokens.try} method.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export interface TryOpts {
         /**

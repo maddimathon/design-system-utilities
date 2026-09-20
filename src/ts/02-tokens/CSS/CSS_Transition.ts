@@ -295,7 +295,7 @@ export namespace Tokens_CSS_Transition {
     export type JsonReturn = Data;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars = Data;
 }

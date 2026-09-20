@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { RunnerOptions } from 'fantasticon';
@@ -24,7 +24,7 @@ import { Tokens_Photos } from './Tokens_Photos.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  * @internal
  */
 export declare class Internal {
@@ -60,7 +60,7 @@ export declare class Tokens<T_Params extends TokenTypes.TypeParams = TokenTypes.
      */
     static build<T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams>(input: Tokens_Internal.InputParam<T_Params>, config?: Partial<Tokens.Config<NoInfer<T_Params['colour']['extraLevels']>>>): Promise<Tokens<T_Params>>;
     /**
-     *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     *  * @since 0.1.0-beta.0 — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor(name: string, colourOpts: {
         names: TokenTypes.Colour.GenericNameArray<T_Params['colour']['names']>;
@@ -154,11 +154,11 @@ export declare namespace Tokens {
         extraColourLevels: readonly T_ExtraColourLevels[];
         iconFontName: string;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         scssTokenParserImportPath?: string;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         scssUtilitySassImportPath?: string;
         tokensAsDefault: boolean;
@@ -184,24 +184,24 @@ export declare namespace Tokens {
      */
     export type JsonReturn<T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.JsonReturn<T_Params>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Internal.ScssVars<T_Params>;
     export type DefaultIcon = Tokens_Icons.DefaultIcon;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type OptionalIcon = Tokens_Icons.OptionalIcon;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type RequiredIcon = Tokens_Icons.RequiredIcon;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export const isOptionalIcon: (name: string) => name is Tokens_Icons.OptionalIcon;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
     */
     export const isRequiredIcon: (name: string) => name is Tokens_Icons.RequiredIcon;
     type SampleColourName = "yardstick" | "yardstick-accent" | "base" | "blue" | "green" | "orange" | "pink" | "purple" | "red" | "turquoise" | "yellow";
@@ -285,7 +285,7 @@ export declare namespace Tokens {
                  */
                 type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
                     /**
-                     * @since 0.1.0-beta.0.draft
+                     * @since 0.1.0-beta.0
                      */
                     filename?: string;
                     /**
@@ -299,7 +299,7 @@ export declare namespace Tokens {
                     /**
                      * File formats to include.
                      *
-                     * @since 0.1.0-beta.0.draft
+                     * @since 0.1.0-beta.0
                      */
                     formats?: Partial<{
                         ttf?: boolean;
@@ -315,7 +315,7 @@ export declare namespace Tokens {
             /**
              * Helps to generate all the weights for a font family.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function familyRenamer<T_Slug extends string>(slug: T_Slug, name: string, font: Tokens_Typography.Font.Family<string>): Tokens_Typography.Font.Family<T_Slug>;
             /**
@@ -353,11 +353,11 @@ export declare namespace Tokens {
                     ];
                     fontOverrideOption: true;
                     lineHeightScale: 1.15;
-                    sizeAdjust: '94%';
+                    sizeAdjust: '93%';
                     weights: Tokens_Typography.Font.Family<'dyslexic'>['weights'];
                 }>;
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 const dyslexicMonospace: Readonly<{
                     slug: 'dyslexic-monospace';
@@ -393,7 +393,7 @@ export declare namespace Tokens {
                     variable: Tokens_Typography.Font.Family<'hyperlegible'>['variable'];
                 }>;
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 const hyperlegibleMonospace: Readonly<{
                     slug: 'hyperlegible-monospace';
@@ -460,7 +460,7 @@ export declare namespace Tokens {
         interface AllVariations<T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Tokens_Themes_Set.SingleMode.AllVariations<T_Params['colour'], T_Params['theme']> {
         }
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type JsonReturn<T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams> = Tokens_Themes.JsonReturn<T_Params['colour'], T_Params['theme']>;
         /**
@@ -481,46 +481,46 @@ export declare namespace Tokens {
              */
             const colourOption: typeof Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             namespace Levels {
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 interface Input<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ColourTypes> {
                 }
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 interface Parsed<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ColourTypes> {
                 }
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 interface Required<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ColourTypes> {
                 }
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse;
             }
             /**
              * Common object shapes used to set multiple level types.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             namespace Set {
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 interface AccentMin<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ColourTypes> {
                 }
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 interface AccentGrey<T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams> extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentGrey<T_ColourTypes> {
                 }
@@ -531,7 +531,7 @@ export declare namespace Tokens {
             interface Data<T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_Params['colour']> = TokenTypes.Theme.ColourOption<T_Params['colour']>> extends Tokens_Themes_Set.SingleMode.Data<T_Params['colour'], T_Params['theme'], __T_ColourOption> {
             }
             /**
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             namespace Data {
                 /**

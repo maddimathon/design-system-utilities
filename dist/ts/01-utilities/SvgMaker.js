@@ -4,14 +4,14 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 /**
  * The object that defines a single SVG token.
  *
  * @since 0.1.0-alpha
- * @since 0.1.0-beta.0.draft —
+ * @since 0.1.0-beta.0 —
  */
 export class SvgMaker {
     svgAttrs;
@@ -55,7 +55,7 @@ export class SvgMaker {
     aspectRatio;
     innerSVG;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     meta;
     constructor(data, svgAttrs = []) {

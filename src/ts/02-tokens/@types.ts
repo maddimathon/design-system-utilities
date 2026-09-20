@@ -15,12 +15,12 @@ import type { CssColours } from '@maddimathon/utility-sass';
 import type { ColourUtilities } from '../01-utilities/ColourUtilities.js';
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export namespace TokenTypes {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Colour {
 
@@ -28,7 +28,7 @@ export namespace TokenTypes {
          * Takes colour params and returns any allowed level, including 'black'
          * or 'white'.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type AnyLevel<T_ColourTypes extends Colour.TypeParams> = "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ];
 
@@ -36,21 +36,21 @@ export namespace TokenTypes {
          * Enforces some shade names that are always present.
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved to {@link Colour} namespace.
+         * @since 0.1.0-beta.0 — Moved to {@link Colour} namespace.
          */
         export type GenericName<T_ColourName extends string> = "base" | T_ColourName;
 
         /**
          * Enforces some shade names that are always present.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type GenericNameArray<T_ColourName extends string> = readonly [ "base", ...T_ColourName[] ];
 
         /**
          * Creates a Record-like object indexed instead colour shade levels.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * @internal
          */
         export type LevelRecord<
@@ -65,7 +65,7 @@ export namespace TokenTypes {
         /**
          * Creates a Record-like object indexed instead colour shade names.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * @internal
          */
         export type NameRecord<
@@ -80,7 +80,7 @@ export namespace TokenTypes {
         /**
          * Creates a partial-ized Record-like object indexed instead colour shade levels.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * @internal
          */
         export type PartialLevelRecord<
@@ -95,7 +95,7 @@ export namespace TokenTypes {
         /**
          * Creates a partial-ized Record-like object indexed instead colour shade names.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          * @internal
          */
         export type PartialNameRecord<
@@ -111,7 +111,7 @@ export namespace TokenTypes {
          * Slugs representing the colour tokens in this system.
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved to {@link Colour} namespace. Changed param to {@link Colour.TypeParams}.
+         * @since 0.1.0-beta.0 — Moved to {@link Colour} namespace. Changed param to {@link Colour.TypeParams}.
          */
         export type TokenSlug<
             T_ColourTypes extends Colour.TypeParams,
@@ -120,7 +120,7 @@ export namespace TokenTypes {
         /**
          * Type params for colour tokens.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type TypeParams<
             T_ColourNames extends string = string,
@@ -132,14 +132,14 @@ export namespace TokenTypes {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Css {
 
         /**
          * Any valid string value for css.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type AnyCssColour =
             | CssColours.Keyword
@@ -147,60 +147,60 @@ export namespace TokenTypes {
             | SystemColor;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type BorderRadius = 0 | AnyTokenLevel;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type BorderStyle = 'none' | 'hidden' | 'dashed' | 'dotted' | 'double' | 'groove' | 'inset' | 'outset' | 'ridge' | 'solid' | GlobalKeywords;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type BorderWidth = 0 | AnyTokenLevel;
 
         /**
          * Global keywords available for most properties.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type GlobalKeywords = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type LetterSpacing = 'normal' | number | Number.Em | Number.Percent | 'inherit';
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type LineHeight = 'normal' | number | Number.Em | Number.Percent | AnyTokenLevel | GlobalKeywords;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export namespace Number {
 
             /**
              * A number with em units.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type Em = 0 | `${ number }em` | `-${ number }em`;
 
             /**
              * A number with % units.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type Percent = 0 | `${ number }%` | `-${ number }%`;
         }
 
         /**
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved to {@link Css} namespace.
+         * @since 0.1.0-beta.0 — Moved to {@link Css} namespace.
          */
         export type SystemColor =
             | CssColours.SystemColor
@@ -213,12 +213,12 @@ export namespace TokenTypes {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Photos {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type TypeParams<
             T_PhotoSlug extends string = string,
@@ -230,12 +230,12 @@ export namespace TokenTypes {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Style {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type TypeParams<
             T_IconExtraSize extends string = string,
@@ -245,7 +245,7 @@ export namespace TokenTypes {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Theme {
 
@@ -254,49 +254,49 @@ export namespace TokenTypes {
          * System Colors or colour design tokens in this system).
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved to {@link Theme} namespace.
+         * @since 0.1.0-beta.0 — Moved to {@link Theme} namespace.
          */
         export type ColourOption<
             T_Types extends TokenTypes.Colour.TypeParams,
         > = Css.AnyCssColour | "black" | "white" | Colour.TokenSlug<T_Types>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type GetBrightnessKeys<
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         > = "light" | "dark" | T_ThemeTypes[ 'brightness' ][ number ];
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type GetExtraBrightnessKeys<
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         > = Exclude<T_ThemeTypes[ 'brightness' ][ number ], Mode.BrightnessRequired>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type GetContrastKeys<
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         > = "low" | "average" | "high" | T_ThemeTypes[ 'contrast' ][ number ];
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type GetExtraContrastKeys<
             T_ThemeTypes extends TokenTypes.Theme.TypeParams,
         > = Exclude<T_ThemeTypes[ 'contrast' ][ number ], Mode.ContrastRequired>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export namespace Mode {
 
             /**
              * An array of brightness mode slugs with the required slugs.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type Brightness<
                 T_ParamValue extends BrightnessOption[] | readonly BrightnessOption[] = BrightnessOption[],
@@ -305,14 +305,14 @@ export namespace TokenTypes {
             /**
              * All allowed brightness mode slugs.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type BrightnessOption = "light" | "dark";
 
             /**
              * All required brightness mode slugs.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type BrightnessRequired = "light" | "dark";
 
@@ -320,7 +320,7 @@ export namespace TokenTypes {
              * An array of contrast mode slugs with the required slugs.
              * 
              * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to {@link Theme.Mode} namespace.
+             * @since 0.1.0-beta.0 — Moved to {@link Theme.Mode} namespace.
              */
             export type Contrast<
                 T_ParamValue extends ContrastOption[] | readonly ContrastOption[] = ContrastOption[],
@@ -330,14 +330,14 @@ export namespace TokenTypes {
              * All allowed contrast mode slugs.
              * 
              * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to {@link Theme.Mode} namespace.
+             * @since 0.1.0-beta.0 — Moved to {@link Theme.Mode} namespace.
              */
             export type ContrastOption = "low" | "average" | "high" | "max";
 
             /**
              * Creates a Record-like object indexed instead by contrast mode values.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * @internal
              */
             export type ContrastRecord<
@@ -352,14 +352,14 @@ export namespace TokenTypes {
             /**
              * All required contrast mode slugs.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type ContrastRequired = "low" | "average" | "high";
 
             /**
              * Creates an object of nested values indexed first by brightness mode, then by contrast mode.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * @internal
              */
             export type NestedObject<
@@ -374,7 +374,7 @@ export namespace TokenTypes {
             /**
              * Creates a partial-ized Record-like object indexed instead by contrast mode values.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * @internal
              */
             export type PartialContrastRecord<
@@ -389,7 +389,7 @@ export namespace TokenTypes {
             /**
              * Creates an object of nested values indexed first by brightness mode, then by contrast mode.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              * @internal
              */
             export type PartialNestedObject<
@@ -405,7 +405,7 @@ export namespace TokenTypes {
         /**
          * Type params for theme tokens.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type TypeParams<
             T_ThemeName extends string = string,
@@ -447,7 +447,7 @@ export namespace TokenTypes {
 }
 
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export type AnyTokenLevel =
     | WholeTokenLevel
@@ -465,7 +465,7 @@ export type AnyTokenLevel =
 
 /**
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ — Renamed.
+ * @since 0.1.0-beta.0 — Renamed.
  */
 export type WholeTokenLevel =
     | '100'

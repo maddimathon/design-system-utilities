@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { SvgMaker } from '../01-utilities/SvgMaker.js';
@@ -12,13 +12,13 @@ import { Tokens } from '../02-tokens/Tokens.js';
 /**
  * Tools for build scripts to write files of brand kit values .
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace getBrandConstants {
     /**
      * Prepares values to write files of constants for the given set of SVGs.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function getSvgConsts<T_SetName extends getSvgConsts.SetName, T_ReturnOptions extends getSvgConsts.ReturnOptions>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], args?: getSvgConsts.Args): Promise<null | {
         readonly setName: T_SetName;
@@ -31,17 +31,17 @@ export declare namespace getBrandConstants {
     /**
      * Utilities for the {@link getSvgConstants} function.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace getSvgConsts {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Args<T_ExtraReturnOptions extends string = never> = {
             /**
              * Optionally map entry key strings as they are built.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             keyMappers?: {
                 [K in ReturnOptions]?: (item: string) => string;
@@ -49,7 +49,7 @@ export declare namespace getBrandConstants {
             /**
              * Optionally map entry value strings as they are built.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             valueMappers?: {
                 [K in ReturnOptions]?: (item: string) => string;
@@ -62,22 +62,22 @@ export declare namespace getBrandConstants {
             };
         };
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         const returnOpts: readonly ["base64", "css", "glyphs", "names", "slugs", "svg", "svgHidden"];
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type ReturnOptions = typeof returnOpts[number];
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type SetName = "icons" | "logos";
     }
     /**
      * Prepares values to write files of token value constants.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function getThemeConsts<T_ReturnOptions extends getThemeConsts.ReturnOptions>(tokens: Tokens.JsonReturn, args?: getThemeConsts.Args): Promise<null | {
         readonly entries: {
@@ -87,17 +87,17 @@ export declare namespace getBrandConstants {
     /**
      * Utilities for the {@link getSvgConstants} function.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace getThemeConsts {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Args<T_ExtraReturnOptions extends string = never> = {
             /**
              * Optionally map entry key strings as they are built.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             keyMappers?: {
                 [K in ReturnOptions]?: (item: string) => string;
@@ -105,7 +105,7 @@ export declare namespace getBrandConstants {
             /**
              * Optionally map entry value strings as they are built.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             valueMappers?: {
                 [K in Extract<ReturnOptions, 'themes' | 'themeNames'>]?: (item: string) => string;
@@ -120,30 +120,30 @@ export declare namespace getBrandConstants {
             };
         };
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         const returnOpts: readonly ["themes", "themeNames", "tokenSlugs", "tokenSlugNames"];
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type ReturnOptions = typeof returnOpts[number];
     }
     /**
      * For use in Wordpress projects (uses _x for translation).
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Wordpress {
         /**
          * Export to a PHP string.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         namespace PHP {
             /**
              * Tries its best to recursively format a value.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function prepareConstant([key, value]: [string, unknown], { indent, keyFilter, valueFilter, }?: {
                 indent?: string | undefined;
@@ -156,30 +156,30 @@ export declare namespace getBrandConstants {
              * Gets a string of valid PHP code for wordpress defining custom
              * constants to go with the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getCustom<T_ConstName extends string, T_Value extends getCustom.Value>(constants: getCustom.Input<T_ConstName, T_Value>[], phpNamespace: string): Promise<null | string>;
             /**
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             namespace getCustom {
                 /**
                  * Accepted values for custom constants.
                  *
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 type Value = string | string[] | Record<number | string, string>;
                 /**
                  * @template T_ConstName Constant name.
                  * @template T_Value Constant value in JS.
                  *
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 type Input<T_ConstName extends string = string, T_Value extends Value = Value> = [T_ConstName, T_Value, Args];
                 /**
                  * Configure how to output a custom constant’s definition.
                  *
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 type Args = {
                     comment?: undefined | string;
@@ -194,21 +194,21 @@ export declare namespace getBrandConstants {
              * Gets a string of valid PHP code for wordpress defining constants for the given set of
              * SVGs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string, phpNamespace: string, args?: Omit<getSvgConsts.Args, 'valueMappers'>): Promise<null | string>;
             /**
              * Gets a string of valid PHP code for wordpress defining constants
              * for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getTheme(tokens: Tokens.JsonReturn, textDomain: string, phpNamespace: string, args?: Omit<getThemeConsts.Args, 'valueMappers'>): Promise<null | string>;
             /**
              * Gets a string of valid PHP code for wordpress defining constants
              * for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getAll(tokens: Tokens.JsonReturn, textDomain: string, phpNamespace: string, args?: {
                 custom?: getCustom.Input[];
@@ -220,7 +220,7 @@ export declare namespace getBrandConstants {
         /**
          * Export to a TypeScript string.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         namespace TS {
             function entriesToArray(entries: [string, string][] | readonly [string, string][]): string;
@@ -234,7 +234,7 @@ export declare namespace getBrandConstants {
              * Gets a string of valid TypeScript code for wordpress defining
              * custom constants to go with the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getCustom<T_ConstName extends string, T_Value extends getCustom.Value>(
             /**
@@ -242,26 +242,26 @@ export declare namespace getBrandConstants {
              */
             constants: getCustom.Input<T_ConstName, T_Value>[]): Promise<null | string>;
             /**
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             namespace getCustom {
                 /**
                  * Accepted values for custom constants.
                  *
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 type Value = string | string[] | Record<number | string, string>;
                 /**
                  * @template T_ConstName Constant name.
                  * @template T_Value Constant value in JS.
                  *
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 type Input<T_ConstName extends string = string, T_Value extends Value = Value> = [T_ConstName, T_Value] | [T_ConstName, T_Value, Args];
                 /**
                  * Configure how to output a custom constant’s definition.
                  *
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 type Args = {
                     comment?: string;
@@ -272,21 +272,21 @@ export declare namespace getBrandConstants {
              * Gets a string of valid TypeScript code for wordpress defining
              * constants for the given set of SVGs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getSvg<T_SetName extends getSvgConsts.SetName>(_setName: T_SetName, svgSet: Tokens.JsonReturn[T_SetName] | Tokens.Instance[T_SetName], textDomain: string, args?: Omit<getSvgConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
             /**
              * Gets a string of valid TypeScript code for wordpress defining
              * constants for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getTheme(tokens: Tokens.JsonReturn, textDomain: string, args?: Omit<getThemeConsts.Args<"react">, 'valueMappers'>): Promise<null | string>;
             /**
              * Gets a string of valid TypeScript code for wordpress defining
              * constants for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function getAll(tokens: Tokens.JsonReturn, textDomain: string, args?: {
                 custom?: getCustom.Input[];

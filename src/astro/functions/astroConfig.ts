@@ -46,7 +46,7 @@ import {
  * @param envConfig             Optional environment variable config.
  * 
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ — Started using the astroConfig() from utility-astro as well. Improved typing. Added optional envConfig param.
+ * @since 0.1.0-beta.0 — Started using the astroConfig() from utility-astro as well. Improved typing. Added optional envConfig param.
  */
 export function astroConfig<
     T_Locales extends Locales = never,
@@ -148,7 +148,7 @@ export function astroConfig<
 /**
  * Utilities for the {@link astroConfig} function.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export namespace astroConfig {
 

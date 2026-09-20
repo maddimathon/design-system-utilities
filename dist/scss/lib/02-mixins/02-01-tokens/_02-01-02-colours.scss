@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.0
 /// @since 0.1.0-alpha
 ///
 
@@ -34,7 +34,7 @@ $_rootAliasesWithAllModeOptions: list.join(
 ///
 /// Returns simple selectors for the given themes.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @function active-theme-simple-selectors(
     $keys: tokens.$activeTheme,
@@ -100,7 +100,7 @@ $_allThemeSlugs: map.keys(tokens.$themes);
 ///
 /// Returns simple selectors for the all themes.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @function active-theme-simple-selectors-all($args...) {
     @return active-theme-simple-selectors($_allThemeSlugs, $args...);
@@ -117,7 +117,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 ///
 /// Add selectors for selecting an active theme with the appropriate nesting.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin active-theme(
     $keys: tokens.$activeTheme,
@@ -450,7 +450,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 /// Prints out the colour custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
+/// @since 0.1.0-beta.0 — Added $includeRegion param.
 ///
 @mixin tokens-colour($includeRegion: true) {
     @at-root {
@@ -574,7 +574,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 ///
 /// Sets the color and associated props to the given theme text variant.
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin theme-set-color(
     $variant: null,
@@ -652,7 +652,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin _tokens-theme-individual-selectors--root-body-or-direct-child(
     $parsedParentSelector: null,
@@ -788,7 +788,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 ///
 /// @since 0.1.0-alpha.5
 /// @since 0.1.0-alpha.9 — Made public.
-/// @since 0.1.0-beta.0.draft — Allowed $slug, $brightness, and $contrast to be optional. Added optional $focusRing_setChildrenOnly, $multipleContentBlocks params.
+/// @since 0.1.0-beta.0 — Allowed $slug, $brightness, and $contrast to be optional. Added optional $focusRing_setChildrenOnly, $multipleContentBlocks params.
 ///
 @mixin tokens-theme-individual-base-properties(
     $slug: tokens.$activeTheme,
@@ -912,7 +912,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin _tokens-theme-individual--inner(
     $slug,
@@ -1019,7 +1019,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
-/// @since 0.1.0-beta.0.draft
+/// @since 0.1.0-beta.0
 ///
 @mixin _tokens-theme-individual--extras-printer($tokens, $isImportant) {
     @each $prop, $value in map.ksort($tokens) {
@@ -1044,7 +1044,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 /// Prints a single theme's properties.
 ///
 /// @since 0.1.0-alpha.5
-/// @since 0.1.0-beta.0.draft — Added optional $extra_tokens, $focusRing_setChildrenOnly, $includeDefault, $multipleContentBlocks, $noWhereRootOrBody params.
+/// @since 0.1.0-beta.0 — Added optional $extra_tokens, $focusRing_setChildrenOnly, $includeDefault, $multipleContentBlocks, $noWhereRootOrBody params.
 ///
 @mixin tokens-theme-individual(
     $slug,
@@ -1290,7 +1290,7 @@ $_themes_includeAlternatives: if(
 /// Handles iterating through each colour mode.
 ///
 /// @since 0.1.0-alpha.4
-/// @since 0.1.0-beta.0.draft — Added $includeRegion param.
+/// @since 0.1.0-beta.0 — Added $includeRegion param.
 ///
 @mixin tokens-theme-iterator(
     $includeAlternatives: $_themes_includeAlternatives,
@@ -1357,7 +1357,7 @@ $_mixin_individual: meta.get-mixin('tokens-theme-individual');
 /// Prints out the theme custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.0-beta.0.draft — Added optional $includeRegion, $mixin_individual params.
+/// @since 0.1.0-beta.0 — Added optional $includeRegion, $mixin_individual params.
 ///
 @mixin tokens-theme(
     $checkpointName: false,

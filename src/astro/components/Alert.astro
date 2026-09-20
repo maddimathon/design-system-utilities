@@ -22,6 +22,7 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 /* import - components */
 import { Alert as UtilsAlert } from '@maddimathon/utility-astro/components';
 import Icon from './Icon.astro';
+import type { ComponentProps } from 'astro/types';
 // import Icon from './Icon.astro';
 
 /* import - layouts */
@@ -38,11 +39,15 @@ const { icon, class: classList = [], ...props }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
-// @ts-expect-error
-props.slug = icon.slug;
+const utilsProps = {
+    ...props,
+    slug: icon.slug,
+} as unknown as ComponentProps<typeof UtilsAlert> & {};
 ---
 
+{/* @ts-ignore */}
 <UtilsAlert
+    {...utilsProps}
     class:list={[
         {
             'alert-block--has-heading': props.heading,
@@ -50,7 +55,6 @@ props.slug = icon.slug;
         },
         classList,
     ]}
-    {...props}
 >
     <Icon
         slot='icon'

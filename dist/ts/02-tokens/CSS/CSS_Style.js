@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { deleteUndefinedProps, mergeArgs, mergeArgsAsync, } from '@maddimathon/utility-typescript';
@@ -21,7 +21,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * Builds style tokens faster.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async build(partial = {}) {
         return Tokens_CSS_Style.buildData(partial).then((data) => new Tokens_CSS_Style(data));
@@ -29,7 +29,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     /**
      * Builds style tokens data faster.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async buildData(partial = {}) {
         const defaults = {
@@ -143,7 +143,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         });
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async alertStyle(iconStyles, partial = {}) {
         const headingMaker = (num) => {
@@ -262,7 +262,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }, true);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async backdropStyle(partial) {
         const defaults = {
@@ -331,7 +331,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     }
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0.draft — Added partial param.
+     * @since 0.1.0-beta.0 — Added partial param.
      */
     static async buttonStyle(iconStyles, partial) {
         const style = mergeArgs({
@@ -446,7 +446,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
     }
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0.draft — Added partial param.
+     * @since 0.1.0-beta.0 — Added partial param.
      */
     static async headingStyle(heading, partial) {
         const headingAsNum = (typeof heading === 'number' && heading >= 1) ? heading : 11;
@@ -530,7 +530,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return mergeArgs(style, partial, true);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async subheadingStyle(subheading, headingStyles, partial) {
         const subheadingAsNum = (typeof subheading === 'number' && subheading >= 1) ? subheading : 11;
@@ -568,7 +568,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return mergeArgs(style, partial, true);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async iconStyle(partial) {
         return mergeArgs({
@@ -597,7 +597,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }, partial, true);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async inputStyle(partial) {
         const style = mergeArgs({
@@ -672,7 +672,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async toggleStyle(headingStyles, iconStyles, widgetStyles, partial = {}) {
         const flowMargins_widget_button = typeof widgetStyles['flow-margin'].button === 'object'
@@ -767,7 +767,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async widgetStyle(partial) {
         const flowMargin_button_default = '200';

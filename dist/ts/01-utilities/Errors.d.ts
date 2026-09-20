@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { AbstractError } from '@maddimathon/build-utilities/internal';
@@ -12,38 +12,38 @@ import { AbstractError } from '@maddimathon/build-utilities/internal';
  * Utilities for errors thrown within this package.
  *
  * @since 0.1.0-alpha
- * @since 0.1.0-beta.0.draft — Moved to global namespace and renamed.
+ * @since 0.1.0-beta.0 — Moved to global namespace and renamed.
  */
 export declare namespace LocalErrors {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type Cause = AbstractError.Input | Error;
     /**
      * Object used to give context for where this error was triggered.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0.draft — Changed to union of new types.
+     * @since 0.1.0-beta.0 — Changed to union of new types.
      */
     type Context = Context.Class | Context.Function;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Context {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         interface Basic {
             line?: string;
         }
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         export interface Function extends Partial<Basic> {
             function: string;
         }
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         export interface Class extends Partial<Basic> {
             class: string;
@@ -64,7 +64,7 @@ export declare namespace LocalErrors {
     /**
      * For use within the package.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     abstract class Abst_Error<T_CauseType extends Cause = any> extends AbstractError {
         protected readonly opts?: undefined | {
@@ -78,7 +78,7 @@ export declare namespace LocalErrors {
     /**
      * Used to throw errors while in the {@link ColourUtilities} namespace.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class ColourUtilitiesError<T_CauseType extends Cause> extends Abst_Error<T_CauseType> {
         readonly name: string;
@@ -87,7 +87,7 @@ export declare namespace LocalErrors {
      * Used to throw errors while compiling the tokens.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0.draft — Moved to global namespace and renamed.
+     * @since 0.1.0-beta.0 — Moved to global namespace and renamed.
      */
     class TokenBuildError<T_CauseType extends Cause> extends Abst_Error<T_CauseType> {
         readonly name: string;

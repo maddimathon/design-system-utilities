@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { Classify, RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -41,7 +41,7 @@ export declare class Tokens_Typography<T_FontFamilySlug extends string> extends 
  */
 export declare namespace Tokens_Typography {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type DefaultFontFamilies = "icons";
     type DefaultLineHeightLevels = "100" | "200" | "300" | "400" | "500" | "600";
@@ -78,13 +78,13 @@ export declare namespace Tokens_Typography {
             [key: string]: T_SizeValue | RecursiveRecord<number | string, T_SizeValue>;
         };
         /**
-         * @since 0.1.0-beta.0.draft — Renamed from sizeScale to sizeBase.
+         * @since 0.1.0-beta.0 — Renamed from sizeScale to sizeBase.
          */
         sizeBase: number;
         /**
          * To overrule the value in spacing tokens, optionally.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         sizeMultiplier: number;
     };
@@ -113,7 +113,7 @@ export declare namespace Tokens_Typography {
         };
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<T_FontFamilySlug extends string> = {
         font: {
@@ -190,7 +190,7 @@ export declare namespace Tokens_Typography {
          * Used to alter various size and alignment tokens in css, typically
          * when a font override is active (e.g., from the settings menu).
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type FamilyOverride = {
             label: string;
@@ -209,7 +209,7 @@ export declare namespace Tokens_Typography {
             lineHeightScale?: number;
         };
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type SingleFamilyScss = {
             family: string;

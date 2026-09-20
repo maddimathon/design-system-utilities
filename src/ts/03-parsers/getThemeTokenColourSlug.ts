@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -18,7 +18,7 @@ import type { Tokens } from '../02-tokens/Tokens.js';
 /**
  * Gets the colour slug value of the given theme slug.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function getThemeTokenColourSlug<
     T_Types extends TokenTypes.TypeParams,

@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { isObjectEmpty, slugify, toTitleCase, } from '@maddimathon/utility-typescript';
@@ -12,14 +12,14 @@ import { Tokens } from '../02-tokens/Tokens.js';
 /**
  * Tools for build scripts to write files of brand kit values .
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export var getBrandConstants;
 (function (getBrandConstants) {
     /**
      * Prepares values to write files of constants for the given set of SVGs.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function getSvgConsts(_setName, svgSet, args = {}) {
         // returns
@@ -160,11 +160,11 @@ export var getBrandConstants;
     /**
      * Utilities for the {@link getSvgConstants} function.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     (function (getSvgConsts) {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         getSvgConsts.returnOpts = [
             'base64',
@@ -179,7 +179,7 @@ export var getBrandConstants;
     /**
      * Prepares values to write files of token value constants.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function getThemeConsts(tokens, args = {}) {
         const include = {
@@ -222,11 +222,11 @@ export var getBrandConstants;
     /**
      * Utilities for the {@link getSvgConstants} function.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     (function (getThemeConsts) {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         getThemeConsts.returnOpts = [
             'themes',
@@ -238,12 +238,12 @@ export var getBrandConstants;
     /**
      * For use in Wordpress projects (uses _x for translation).
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     let Wordpress;
     (function (Wordpress) {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         function parseReturnOpt(setName, opt) {
             const commentName = setName.replace(/\Bs$/gi, '');
@@ -291,14 +291,14 @@ export var getBrandConstants;
         /**
          * Export to a PHP string.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         let PHP;
         (function (PHP) {
             /**
              * Tries its best to recursively format a value.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function prepareConstant([key, value], { indent = '', keyFilter, valueFilter, } = {}) {
                 let ret;
@@ -419,7 +419,7 @@ export var getBrandConstants;
              * Gets a string of valid PHP code for wordpress defining custom
              * constants to go with the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getCustom(constants, phpNamespace) {
                 const ret = [];
@@ -461,7 +461,7 @@ export var getBrandConstants;
              * Gets a string of valid PHP code for wordpress defining constants for the given set of
              * SVGs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getSvg(_setName, svgSet, textDomain, phpNamespace, args = {}) {
                 const setName = _setName.replace(/s$/g, '');
@@ -536,7 +536,7 @@ export var getBrandConstants;
              * Gets a string of valid PHP code for wordpress defining constants
              * for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getTheme(tokens, textDomain, phpNamespace, args = {}) {
                 const SVG_CONSTANTS = await getThemeConsts(tokens, {
@@ -607,7 +607,7 @@ export var getBrandConstants;
              * Gets a string of valid PHP code for wordpress defining constants
              * for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getAll(tokens, textDomain, phpNamespace, args = {}) {
                 return Promise.all([
@@ -627,7 +627,7 @@ export var getBrandConstants;
         /**
          * Export to a TypeScript string.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         let TS;
         (function (TS) {
@@ -677,7 +677,7 @@ export var getBrandConstants;
              * Gets a string of valid TypeScript code for wordpress defining
              * custom constants to go with the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getCustom(
             /**
@@ -716,7 +716,7 @@ export var getBrandConstants;
              * Gets a string of valid TypeScript code for wordpress defining
              * constants for the given set of SVGs.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getSvg(_setName, svgSet, textDomain, args = {}) {
                 const setName = _setName.replace(/s$/g, '');
@@ -772,7 +772,7 @@ export var getBrandConstants;
              * Gets a string of valid TypeScript code for wordpress defining
              * constants for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getTheme(tokens, textDomain, args = {}) {
                 const SVG_CONSTANTS = await getThemeConsts(tokens, {
@@ -827,7 +827,7 @@ export var getBrandConstants;
              * Gets a string of valid TypeScript code for wordpress defining
              * constants for the theme tokens.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             async function getAll(tokens, textDomain, args = {}) {
                 return Promise.all([

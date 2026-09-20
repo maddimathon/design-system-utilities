@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { FontAssetType } from 'fantasticon';
@@ -14,7 +14,7 @@ import { objectGenerator } from '../01-utilities/objectGenerator.js';
 /**
  * Take a token object and write its relevant files and assets to their output directories.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export async function buildTokens(stage, tokens, level, paths, args = {}) {
     stage.console.progress('building token files...', 0 + level);
@@ -79,11 +79,11 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
 /**
  * Utilities for the {@link buildTokens} function.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 (function (buildTokens) {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function writeIcons(stage, tokens, paths, level) {
         // returns
@@ -99,7 +99,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     }
     buildTokens.writeIcons = writeIcons;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function buildIconFontArgs(stage, level, paths, args) {
         // returns
@@ -139,7 +139,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     }
     buildTokens.buildIconFontArgs = buildIconFontArgs;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function writeJson(stage, tokens, paths, level) {
         // returns
@@ -152,7 +152,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     }
     buildTokens.writeJson = writeJson;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function writeLogos(stage, tokens, paths, level) {
         // returns
@@ -168,7 +168,7 @@ export async function buildTokens(stage, tokens, level, paths, args = {}) {
     }
     buildTokens.writeLogos = writeLogos;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async function writeScss(stage, tokens, paths, level) {
         // returns

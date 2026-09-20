@@ -1,5 +1,5 @@
-<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Changelog | Design System Utilities @ 0.1.0-beta.0.draft</title><meta name="description" content="Documentation for Design System Utilities @ 0.1.0-beta.0.draft"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
-<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Design System Utilities @ 0.1.0-beta.0.draft</a>
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Changelog | Design System Utilities @ 0.1.0-beta.0</title><meta name="description" content="Documentation for Design System Utilities @ 0.1.0-beta.0"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Design System Utilities @ 0.1.0-beta.0</a>
 <div id="tsd-toolbar-links"><a href="https://github.com/maddimathon/design-system-utilities">GitHub</a><a href="https://www.maddimathon.com/web">by Maddi Mathon</a></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
 <ul role="listbox" id="tsd-search-results"></ul>
 <div id="tsd-search-status" aria-live="polite" aria-atomic="true">
@@ -25,6 +25,350 @@ and this project adheres to
 </ul>
 </blockquote>
 <!--CHANGELOG_NEW-->
+<h2 id="010-beta0-2026-09-20" class="tsd-anchor-link"><strong>0.1.0-beta.0</strong> — 2026-09-20<a href="#010-beta0-2026-09-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Streamlined token types, thome theme &amp; css style tokens, improved scss config &amp;
+token vars, more scss output configuration, more ts utilities for using tokens,
+and dependency updates.</p>
+<h3 id="removed" class="tsd-anchor-link">Removed<a href="#removed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Removed deprecated types and functions</li>
+<li>Removed Zod schemas (not used)</li>
+<li>Removed smaller-4 as a default font size token</li>
+<li>Removed $internal_supressCredit_sass config var</li>
+<li>Removed config vars:
+<ul>
+<li>$mx_tokensTheme_nestActiveThemeSelectors</li>
+</ul>
+</li>
+<li>Removed active-theme-selector--[...] pseudo selectors in favour of
+config.$mx_activeTheme_extraSelectors map with theme slug keys</li>
+</ul>
+<h3 id="moved-renamed" class="tsd-anchor-link">Moved &amp; Renamed<a href="#moved-renamed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Restructured token types, classes (incl. type params) for better maintainability</li>
+<li>TS token utilities renamed:
+<ul>
+<li>ColourContrastTest → ColourUtilities.ContrastTest</li>
+<li>ColourLevels → ColourUtilities.Levels.Required</li>
+<li>ColourLevels_Extended → ColourUtilities.Levels.Optional</li>
+<li>ColourUtilities.getDarkLevel → ColourUtilities.Levels.toDark</li>
+<li>ColourUtilities.LevelConverter → ColourUtilities.Levels.converter</li>
+<li>Tokens.ColourLevels → ColourUtilities.Levels.Required</li>
+<li>Tokens.ColourLevels_Extended → ColourUtilities.Levels.Optional</li>
+</ul>
+</li>
+<li>Renamed scss template 'globals' → 'global'</li>
+<li>Renamed config vars (for more consistency in their impacts/casing):
+<ul>
+<li>$checkpointLevel → $template_debug_checkpointsLevel</li>
+<li>$mx_tokensAll_includeFontFace → $mx_tokens_print_fontFace</li>
+<li>$mx_tokensTheme_unifyActiveThemeSelectors → $mx_tokensTheme_unifyActiveTheme</li>
+<li>$print_alertBlocks → map.get( $template_styles, alerts )</li>
+<li>$print_astro_settingsMenu → map.get( $template_styles, siteSettingsMenu )</li>
+<li>$print_astro_settingsMenu_fontOverrides → $template_print_siteSettingsMenu_fontOverrides</li>
+<li>$print_docs → $template_docs</li>
+<li>$print_icons → map.get( $template_styles, icons )</li>
+<li>$template_button_inlineIcons → $include_button_inlineIcons</li>
+<li>$template_link_inlineIcons → $include_link_inlineIcons</li>
+</ul>
+</li>
+<li>Removed 'style-' prefix from css style token custom props in css</li>
+<li>Merged template config vars $template_include_buttons and
+$template_include_headings into $template_styles map (from utility-sass)</li>
+<li>Moved Compile.buildTokens() from build stage to global function buildTokens()</li>
+<li>Moved modules &amp; template config directories to <code>src/config/</code> directory</li>
+</ul>
+<h4 id="moved-to-dependencies" class="tsd-anchor-link">Moved to Dependencies<a href="#moved-to-dependencies" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<ul>
+<li>Moved to utility-typescript:
+<ul>
+<li>functions:
+<ul>
+<li>makeNumber()</li>
+<li>makeNumberAsync()</li>
+<li>objectFlatten()</li>
+<li>objectKeySort()</li>
+<li>objectKeySortAsync()</li>
+<li>objectMap()</li>
+<li>objectMapAsync()</li>
+</ul>
+</li>
+<li>types: RecursiveRecord</li>
+</ul>
+</li>
+<li>Moved to utility-sass:
+<ul>
+<li>ColourUtilities.CssColours</li>
+</ul>
+</li>
+</ul>
+<h3 id="misc-breaking" class="tsd-anchor-link">Misc. Breaking<a href="#misc-breaking" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Changed Tokens.typography.familyOverrides from an array to a string-keyed object</li>
+<li>Changed field theme tokens to input</li>
+<li>Renamed theme token from link-ui to link-decoration</li>
+<li>Switched link tokens to be a nested object (link all similar tokens)</li>
+<li>Changed AbstractTokens type param</li>
+<li>Updated to utility-typescript@2.0.0-beta.2, which includes breaking changes</li>
+<li>Updated to utility-sass@0.1.0-beta, which includes breaking changes</li>
+<li>Switched to using reset by default instead of normalize</li>
+</ul>
+<h3 id="added" class="tsd-anchor-link">Added<a href="#added" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>New theme tokens:
+<ul>
+<li>link-outline</li>
+<li>readonly inputs</li>
+<li>more background options (for alts without creating whole new theme sets)</li>
+<li>custom icon-size tokens</li>
+</ul>
+</li>
+<li>New css style token sets:
+<ul>
+<li>alert blocks (replaced custom token values)</li>
+<li>basic subheading support</li>
+<li>disabled and inline buttons</li>
+<li>hr</li>
+<li>icons (replaced custom token values)</li>
+<li>subtitle</li>
+<li>toggle blocks</li>
+<li>toggle nav menu</li>
+<li>widgets</li>
+</ul>
+</li>
+<li>New white &amp; black colour tokens (in a '$' property of tokens.colour) for
+better high-contrast modes</li>
+<li>New icons to defaults: attachment, alarm, alert, barricade, biography, book,
+celebration, code, computer, confetti, contact, discussion, download, draft,
+group, hidden, hub, link, location, lock, note, paperclip, person, pinned,
+private, quote, reading, signpost, stopwatch, timer, toolbox, traffic-cone,
+unlock, wrench</li>
+<li>New <code>_meta</code> prop in Tokens_Themes.JsonReturn and Tokens_Themes_Set.JsonReturn
+with information about common keys &amp; levels in use</li>
+<li>New added icon font generation in BuildUtilities.buildTokens</li>
+<li>Added a variety of demo stylesheets to the templates (mostly to ensure
+consistent output)</li>
+</ul>
+<h4 id="added-to-astro" class="tsd-anchor-link">Added to Astro<a href="#added-to-astro" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<ul>
+<li>Astro utility functions:
+<ul>
+<li>getColourValue()</li>
+<li>getBaseColourObject()</li>
+<li>getMapColourObject()</li>
+<li>textColorLevel()</li>
+</ul>
+</li>
+<li>Astro components:
+<ul>
+<li>PageContent_ThemeDynamic</li>
+<li>ShadeSwatchAllLists</li>
+</ul>
+</li>
+<li>New footer-text slot in Page layout to add to a text container div</li>
+</ul>
+<h4 id="added-to-scss" class="tsd-anchor-link">Added to Scss<a href="#added-to-scss" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<ul>
+<li>Debug checkpoints added from utility-sass update</li>
+<li>New scss config function: config-get-template-styles()</li>
+<li>New scss config vars:
+<ul>
+<li>$fn_clampHighContrastBorderWidth_max</li>
+<li>$fn_clampHighContrastBorderWidth_min</li>
+<li>$fn_marginSoftValue_roundToPixelFactor</li>
+<li>$fn_marginValue_roundToPixelFactor</li>
+<li>$fn_pseudoIconsUseFont</li>
+<li>$heading_fontSize_useRelative</li>
+<li>$include_colourValues_hsl</li>
+<li>$include_colourValues_rgb</li>
+<li>$mx_activeTheme_extraSelectors</li>
+<li>$mx_activeTheme_nestExtraSpecific_includeExtraSelectors</li>
+<li>$mx_activeTheme_nestExtraSpecific_includePseudoSelector</li>
+<li>$mx_tokens_fontFace_asBase64</li>
+<li>$mx_tokens_print_borderRadius</li>
+<li>$mx_tokens_print_colour</li>
+<li>$mx_tokens_print_fontFamily</li>
+<li>$mx_tokens_print_style</li>
+<li>$mx_tokens_print_theme</li>
+<li>$mx_tokens_print_transition</li>
+<li>$mx_tokens_print_trTime</li>
+<li>$mx_tokens_print_zIndex</li>
+<li>$mx_tokens_printAll</li>
+<li>$mx_tokensColour_presetOpacities_include</li>
+<li>$mx_tokensTheme_activeTheme_nestExtraSpecific</li>
+<li>$mx_tokensTheme_includeDefault</li>
+<li>$mx_tokensTheme_includeForcedColorAlternatives</li>
+<li>$mx_tokensTheme_includeQuery</li>
+<li>$mx_tokensTheme_nestActiveTheme</li>
+<li>$regex_themeTokenGreyVariations</li>
+<li>$regex_themeTokenGreyVariations_flags</li>
+<li>$regex_themeTokenSetChildrenOnly</li>
+<li>$regex_themeTokenSetChildrenOnly_flags</li>
+<li>$regex_tokenFlowMargins</li>
+<li>$regex_tokenFlowMargins_flags</li>
+<li>$subheading_fontSize_useRelative</li>
+<li>$themes__nestedFlat_tokenValues_warnIfNoFunction</li>
+</ul>
+</li>
+<li>New scss token vars:
+<ul>
+<li>$button_fileSelector_variation_default</li>
+<li>$button_inline_variation_default</li>
+<li>$button_variation_default</li>
+<li>$button_variation_reset</li>
+<li>$button_variation_secondary</li>
+<li>$colour_presetOpacities</li>
+<li>$colour_presetOpacities_includeFromTheme</li>
+<li>$themesMeta_buttonVariations</li>
+<li>$themesMeta_buttonVariations_extra</li>
+</ul>
+</li>
+<li>New scss functions:
+<ul>
+<li>active-theme-simple-selectors()</li>
+<li>clamp-high-contrast-border-width()</li>
+<li>flow-margin-class-to-style-token()</li>
+<li>get-active-theme-flat()</li>
+<li>get-active-theme()</li>
+<li>selector-all-background-variations()</li>
+<li>style-token-exists()</li>
+<li>theme-token-exists()</li>
+<li>var-flow-margin-from-class()</li>
+<li>var-flow-margin-from-token()</li>
+</ul>
+</li>
+<li>New scss mixins:
+<ul>
+<li>active-theme</li>
+<li>first-child-no-top-margin</li>
+<li>font-family-icons</li>
+<li>last-child-no-bottom-margin</li>
+<li>props-icon-spacing</li>
+<li>set-flow-margins</li>
+<li>snippet-alert-block-colours</li>
+<li>snippet-button-colour-single-state</li>
+<li>snippet-button-disabled</li>
+<li>snippet-fieldset</li>
+<li>snippet-legend</li>
+<li>snippet-pre</li>
+<li>snippet-search-form</li>
+<li>snippet-support-code</li>
+<li>snippet-support-dl-list</li>
+<li>snippet-support-lists</li>
+<li>snippet-support-sidebar-widgets</li>
+<li>snippet-support-skip-links</li>
+<li>snippet-support-tables</li>
+<li>snippet-unstyled-heading</li>
+<li>snippet-widget-block</li>
+<li>theme-set-color</li>
+</ul>
+</li>
+<li>Utility/pseudo classes:
+<ul>
+<li>background-[…] (for background theme tokens)</li>
+<li>if-viewport-max-width-[…] (for breakpoints)</li>
+<li>if-viewport-min-width-[…] (for breakpoints)</li>
+<li>margins-flow</li>
+<li>margins-flow-firm</li>
+<li>margins-flow-large</li>
+<li>margins-flow-small</li>
+<li>max-width-[…] (for width tokens, plus utilities for common values)</li>
+<li>min-width-[…] (for width tokens, plus utilities for common values)</li>
+<li>overflow-block-auto</li>
+<li>overflow-inline-auto</li>
+<li>text-align-center</li>
+<li>text-align-end</li>
+<li>text-align-start</li>
+<li>text-transform-lowercase</li>
+<li>text-transform-uppercase</li>
+<li>uppercase-emphasis (applies text-transform-uppercase but inherits font weight - to use e.g., on a <strong> element for better accessibility)</li>
+</ul>
+</li>
+<li>New scss template functions:
+<ul>
+<li>get-extend-selectors-layout-globals()</li>
+<li>get-extend-selectors-layout-utils()</li>
+</ul>
+</li>
+<li>Updated with utility-sass 0.1.0-beta.0, including:
+<ul>
+<li>extend-selectors-* mixins now have $additional_optional param for
+always-optional selectors</li>
+<li>extend-selectors-generic mixin is now public (was _extend-selectors)</li>
+</ul>
+</li>
+<li>add-[slug]-icon, add-[slug]-icon-after, add-[slug]-icon-before utility classes</li>
+</ul>
+<h4 id="added-to-ts" class="tsd-anchor-link">Added to TS<a href="#added-to-ts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<ul>
+<li>TS methods:
+<ul>
+<li>AbstractTokens.newError()</li>
+</ul>
+</li>
+<li>TS utility functions:
+<ul>
+<li>BuildUtilities.defineSassCompilerOpts()</li>
+<li>BuildUtilities.getBrandConstants.[…]</li>
+<li>ColourUtilities.Async.[…] (async versions of existing utilities)</li>
+<li>ColourUtilities.Levels.augmentor()</li>
+<li>ColourUtilities.ShadeMaps</li>
+<li>ColourUtilities.toList()</li>
+<li>ColourUtilities.toList.hsl()</li>
+<li>ColourUtilities.toList.lch()</li>
+<li>ColourUtilities.toList.rgb()</li>
+<li>getColourCSS()</li>
+<li>getDataFromClrSlug()</li>
+<li>getFontSizeCSS()</li>
+<li>getThemeTokenColourSlug()</li>
+<li>objectKeySort_Tokens()</li>
+<li>objectKeySortAsync_Tokens()</li>
+<li>themeSlugToCSS()</li>
+</ul>
+</li>
+<li>TS types:
+<ul>
+<li>ColourUtilities.Levels.Any</li>
+<li>TokenTypes.Colour.AnyLevel</li>
+</ul>
+</li>
+</ul>
+<h3 id="changed" class="tsd-anchor-link">Changed<a href="#changed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Changed param from $lh to $lineHeight in mixins - snippet-button, snippet-input, snippet-label</li>
+<li>Background levels now have an object option for input</li>
+<li>Changed var-theme function fallback to look for forced-colors fallback by default</li>
+<li>Made border-width and stroke-relative values larger in high-contrast modes
+(via local token function &amp; mixin overrides)</li>
+<li>Added &quot;white&quot; and &quot;black&quot; as valid options for various levels in colour/theme
+classes and utilities</li>
+<li>Added $version param to scss functions - theme-token-exists(), theme-token-value()</li>
+<li>Added $raw param to scss function - style-value()</li>
+<li>Updated scss config &amp; templates with utility-sass 0.1.0-beta.0 &amp; utility-astro 0.1.0-beta.0</li>
+<li>Improved internal errors classes</li>
+</ul>
+<h3 id="fixed" class="tsd-anchor-link">Fixed<a href="#fixed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul>
+<li>Fixed bug in writing logo files during included compile stage</li>
+<li>Minor logo &amp; icon token improvements</li>
+<li>A couple exported build script improvements</li>
+<li>Huge fix to compile times via custom function in compiler to parse
+asynchronously - 10-60x faster!
+<ul>
+<li>BuildUtilities.defineSassCompilerOpts to add compiler functions to
+build-utilities config</li>
+</ul>
+</li>
+<li>Updates to the Tokens_Themes_Set.SingleMode.Build.data - now accepts and
+parses overrides internally, allowing overwritten values to ripple through to
+the unset default values appropriately</li>
+<li>Improved theme preview component</li>
+<li>Improved sass mixins theme-set-color and tokens-theme-individual-base-properties</li>
+<li>Improvements to tokens-theme definition of outline colours (for better active theme nesting)</li>
+<li>Updated Atkinson Hyperlegible font to Atkinson Hyperlegible Next (with variable)</li>
+<li>Added monospace fonts to accessible overrides (dyslexic &amp; hyperlegible)</li>
+<li>Fixed letter spacing for the open dyslexic font override</li>
+</ul>
 <h2 id="all-010-alpha-releases-2025-10-30-to-2026-01-20" class="tsd-anchor-link">All <strong>0.1.0-alpha</strong> Releases — 2025-10-30 to 2026-01-20<a href="#all-010-alpha-releases-2025-10-30-to-2026-01-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <h3 id="010-alpha12-2026-01-20" class="tsd-anchor-link"><strong>0.1.0-alpha.12</strong> — 2026-01-20<a href="#010-alpha12-2026-01-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>Minor scss updates.</p>
@@ -35,11 +379,11 @@ and this project adheres to
 <h3 id="010-alpha9-2026-01-20" class="tsd-anchor-link"><strong>0.1.0-alpha.9</strong> — 2026-01-20<a href="#010-alpha9-2026-01-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>Have to make many test releases so it's the same instance of sass-embedded as
 its dependents.</p>
-<h3 id="added" class="tsd-anchor-link">Added<a href="#added" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-1" class="tsd-anchor-link">Added<a href="#added-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Made scss mixin public - tokens-theme-individual-base-properties</li>
 </ul>
-<h3 id="fixed" class="tsd-anchor-link">Fixed<a href="#fixed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="fixed-1" class="tsd-anchor-link">Fixed<a href="#fixed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>$designTokens !default overrides now merge recursively</li>
 </ul>
@@ -48,12 +392,12 @@ its dependents.</p>
 <h3 id="010-alpha7-2026-01-20" class="tsd-anchor-link"><strong>0.1.0-alpha.7</strong> — 2026-01-20<a href="#010-alpha7-2026-01-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>Mini scss fixes.</p>
 <h3 id="010-alpha6-2026-01-20" class="tsd-anchor-link"><strong>0.1.0-alpha.6</strong> — 2026-01-20<a href="#010-alpha6-2026-01-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<h3 id="added-1" class="tsd-anchor-link">Added<a href="#added-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-2" class="tsd-anchor-link">Added<a href="#added-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Config var - $mx_tokensAll_includeFontFace</li>
 <li>Testing $customPropertyPrefix config var from utility-sass</li>
 </ul>
-<h3 id="fixed-1" class="tsd-anchor-link">Fixed<a href="#fixed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="fixed-2" class="tsd-anchor-link">Fixed<a href="#fixed-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Updated dependencies</li>
 </ul>
@@ -61,11 +405,11 @@ its dependents.</p>
 <p>Updated build-utilities and utility-sass.</p>
 <h3 id="010-alpha4-2025-12-27" class="tsd-anchor-link"><strong>0.1.0-alpha.4</strong> — 2025-12-27<a href="#010-alpha4-2025-12-27" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>Display and component improvements, plus a couple shade map generation fixes.</p>
-<h3 id="misc-breaking" class="tsd-anchor-link">Misc. Breaking<a href="#misc-breaking" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="misc-breaking-1" class="tsd-anchor-link">Misc. Breaking<a href="#misc-breaking-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Changed file structure in src/scss/_astro</li>
 </ul>
-<h3 id="added-2" class="tsd-anchor-link">Added<a href="#added-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-3" class="tsd-anchor-link">Added<a href="#added-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <h4 id="astro" class="tsd-anchor-link">Astro<a href="#astro" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
 <ul>
 <li>Added option to ShadeSwatchTable to generate colour target levels by using a
@@ -78,7 +422,7 @@ colour map's JSON return (can separate base and accent targets)</li>
 <li>New mixin - tokens-theme-iterator</li>
 <li>Added support for img, figure, and svg element selectors in styles &amp; selectors</li>
 </ul>
-<h3 id="changed" class="tsd-anchor-link">Changed<a href="#changed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="changed-1" class="tsd-anchor-link">Changed<a href="#changed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <h4 id="astro-1" class="tsd-anchor-link">Astro<a href="#astro-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
 <ul>
 <li>Misc. ShadeSwatchTable improvements</li>
@@ -93,7 +437,7 @@ completing colour maps</li>
 <ul>
 <li>Misc. style updates for preview pages</li>
 </ul>
-<h3 id="fixed-2" class="tsd-anchor-link">Fixed<a href="#fixed-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="fixed-3" class="tsd-anchor-link">Fixed<a href="#fixed-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <h4 id="astro-2" class="tsd-anchor-link">Astro<a href="#astro-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4>
 <ul>
 <li>Improved ShadeSwatchTable options &amp; code</li>
@@ -117,7 +461,7 @@ completing colour maps</li>
 </ul>
 <h3 id="010-alpha3-2025-11-15" class="tsd-anchor-link"><strong>0.1.0-alpha.3</strong> — 2025-11-15<a href="#010-alpha3-2025-11-15" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>Improved theme swatches, logos.</p>
-<h3 id="added-3" class="tsd-anchor-link">Added<a href="#added-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-4" class="tsd-anchor-link">Added<a href="#added-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Added widget previews of alternate themes to default theme swatches</li>
 <li>Added option to override theme descriptions</li>
@@ -127,12 +471,12 @@ completing colour maps</li>
 <li>Added $mx_aspectRatio_includeFallback config var</li>
 <li>Added local aspect-ratio fallback mixin</li>
 </ul>
-<h3 id="changed-1" class="tsd-anchor-link">Changed<a href="#changed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="changed-2" class="tsd-anchor-link">Changed<a href="#changed-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Switched colour token toScss() to output the hsl value (was causing
 inconsistency to convert from lch in the scss)</li>
 </ul>
-<h3 id="fixed-3" class="tsd-anchor-link">Fixed<a href="#fixed-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="fixed-4" class="tsd-anchor-link">Fixed<a href="#fixed-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Fixed theme swatch token inheritance</li>
 <li>Fixed missing 'link-icon' and 'link-ui' keys in
@@ -140,15 +484,15 @@ Tokens_Themes_Set.SingleMode.Data_RecursivePartial type</li>
 </ul>
 <h3 id="010-alpha2-2025-11-03" class="tsd-anchor-link"><strong>0.1.0-alpha.2</strong> — 2025-11-03<a href="#010-alpha2-2025-11-03" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <p>Small astro component &amp; style fixes.</p>
-<h3 id="removed" class="tsd-anchor-link">Removed<a href="#removed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="removed-1" class="tsd-anchor-link">Removed<a href="#removed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>$mx_tokensTheme_nestModeSelectors config var</li>
 </ul>
-<h3 id="added-4" class="tsd-anchor-link">Added<a href="#added-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="added-5" class="tsd-anchor-link">Added<a href="#added-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>getLevelsInUse() function for themes</li>
 </ul>
-<h3 id="changed-2" class="tsd-anchor-link">Changed<a href="#changed-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h3 id="changed-3" class="tsd-anchor-link">Changed<a href="#changed-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul>
 <li>Updated dependencies</li>
 </ul>
@@ -166,17 +510,34 @@ progress beyond alpha.</p>
 <div class="tsd-accordion-details">
 <div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
 <ul id="tsd-filter-options">
-<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-alpha" name="alpha" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Alpha</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-alpha" name="alpha"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Alpha</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-beta" name="beta" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Beta</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
-<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-private" name="private"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Private</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li></ul></div>
 <div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
 <details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details"><a href="#design-system-utilities-brand-kit-changelog"><span>Design <wbr/>System <wbr/>Utilities -<wbr/> <wbr/>Brand <wbr/>Kit <wbr/>Changelog</span></a>
 <ul>
+<li><a href="#010-beta0-2026-09-20"><span>0.1.0-<wbr/>beta.0 — 2026-<wbr/>09-<wbr/>20</span></a></li>
+<li>
+<ul>
+<li><a href="#removed"><span>Removed</span></a></li>
+<li><a href="#moved-renamed"><span>Moved &amp; <wbr/>Renamed</span></a></li>
+<li>
+<ul>
+<li><a href="#moved-to-dependencies"><span>Moved to <wbr/>Dependencies</span></a></li></ul></li>
+<li><a href="#misc-breaking"><span>Misc. <wbr/>Breaking</span></a></li>
+<li><a href="#added"><span>Added</span></a></li>
+<li>
+<ul>
+<li><a href="#added-to-astro"><span>Added to <wbr/>Astro</span></a></li>
+<li><a href="#added-to-scss"><span>Added to <wbr/>Scss</span></a></li>
+<li><a href="#added-to-ts"><span>Added to <wbr/>TS</span></a></li></ul></li>
+<li><a href="#changed"><span>Changed</span></a></li>
+<li><a href="#fixed"><span>Fixed</span></a></li></ul></li>
 <li><a href="#all-010-alpha-releases-2025-10-30-to-2026-01-20"><span>All 0.1.0-<wbr/>alpha <wbr/>Releases — 2025-<wbr/>10-<wbr/>30 to 2026-<wbr/>01-<wbr/>20</span></a></li>
 <li>
 <ul>
@@ -184,28 +545,28 @@ progress beyond alpha.</p>
 <li><a href="#010-alpha11-2026-01-20"><span>0.1.0-<wbr/>alpha.11 — 2026-<wbr/>01-<wbr/>20</span></a></li>
 <li><a href="#010-alpha10-2026-01-20"><span>0.1.0-<wbr/>alpha.10 — 2026-<wbr/>01-<wbr/>20</span></a></li>
 <li><a href="#010-alpha9-2026-01-20"><span>0.1.0-<wbr/>alpha.9 — 2026-<wbr/>01-<wbr/>20</span></a></li>
-<li><a href="#added"><span>Added</span></a></li>
-<li><a href="#fixed"><span>Fixed</span></a></li>
+<li><a href="#added-1"><span>Added</span></a></li>
+<li><a href="#fixed-1"><span>Fixed</span></a></li>
 <li><a href="#010-alpha8-2026-01-20"><span>0.1.0-<wbr/>alpha.8 — 2026-<wbr/>01-<wbr/>20</span></a></li>
 <li><a href="#010-alpha7-2026-01-20"><span>0.1.0-<wbr/>alpha.7 — 2026-<wbr/>01-<wbr/>20</span></a></li>
 <li><a href="#010-alpha6-2026-01-20"><span>0.1.0-<wbr/>alpha.6 — 2026-<wbr/>01-<wbr/>20</span></a></li>
-<li><a href="#added-1"><span>Added</span></a></li>
-<li><a href="#fixed-1"><span>Fixed</span></a></li>
+<li><a href="#added-2"><span>Added</span></a></li>
+<li><a href="#fixed-2"><span>Fixed</span></a></li>
 <li><a href="#010-alpha5-2025-12-28"><span>0.1.0-<wbr/>alpha.5 — 2025-<wbr/>12-<wbr/>28</span></a></li>
 <li><a href="#010-alpha4-2025-12-27"><span>0.1.0-<wbr/>alpha.4 — 2025-<wbr/>12-<wbr/>27</span></a></li>
-<li><a href="#misc-breaking"><span>Misc. <wbr/>Breaking</span></a></li>
-<li><a href="#added-2"><span>Added</span></a></li>
+<li><a href="#misc-breaking-1"><span>Misc. <wbr/>Breaking</span></a></li>
+<li><a href="#added-3"><span>Added</span></a></li>
 <li>
 <ul>
 <li><a href="#astro"><span>Astro</span></a></li>
 <li><a href="#scss"><span>Scss</span></a></li></ul></li>
-<li><a href="#changed"><span>Changed</span></a></li>
+<li><a href="#changed-1"><span>Changed</span></a></li>
 <li>
 <ul>
 <li><a href="#astro-1"><span>Astro</span></a></li>
 <li><a href="#js-tokens"><span>JS &amp; <wbr/>Tokens</span></a></li>
 <li><a href="#scss-1"><span>Scss</span></a></li></ul></li>
-<li><a href="#fixed-2"><span>Fixed</span></a></li>
+<li><a href="#fixed-3"><span>Fixed</span></a></li>
 <li>
 <ul>
 <li><a href="#astro-2"><span>Astro</span></a></li>
@@ -213,18 +574,18 @@ progress beyond alpha.</p>
 <li><a href="#scss-2"><span>Scss</span></a></li>
 <li><a href="#scripts-build"><span>Scripts &amp; <wbr/>Build</span></a></li></ul></li>
 <li><a href="#010-alpha3-2025-11-15"><span>0.1.0-<wbr/>alpha.3 — 2025-<wbr/>11-<wbr/>15</span></a></li>
-<li><a href="#added-3"><span>Added</span></a></li>
-<li><a href="#changed-1"><span>Changed</span></a></li>
-<li><a href="#fixed-3"><span>Fixed</span></a></li>
-<li><a href="#010-alpha2-2025-11-03"><span>0.1.0-<wbr/>alpha.2 — 2025-<wbr/>11-<wbr/>03</span></a></li>
-<li><a href="#removed"><span>Removed</span></a></li>
 <li><a href="#added-4"><span>Added</span></a></li>
 <li><a href="#changed-2"><span>Changed</span></a></li>
+<li><a href="#fixed-4"><span>Fixed</span></a></li>
+<li><a href="#010-alpha2-2025-11-03"><span>0.1.0-<wbr/>alpha.2 — 2025-<wbr/>11-<wbr/>03</span></a></li>
+<li><a href="#removed-1"><span>Removed</span></a></li>
+<li><a href="#added-5"><span>Added</span></a></li>
+<li><a href="#changed-3"><span>Changed</span></a></li>
 <li><a href="#010-alpha1-2025-10-30"><span>0.1.0-<wbr/>alpha.1 — 2025-<wbr/>10-<wbr/>30</span></a></li>
 <li><a href="#010-alpha-2025-10-30"><span>0.1.0-<wbr/>alpha — 2025-<wbr/>10-<wbr/>30</span></a></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav id="tsd-sidebar-links" class="tsd-navigation"><a href="https://github.com/maddimathon/design-system-utilities" class="tsd-nav-link">GitHub</a><a href="https://www.maddimathon.com/web" class="tsd-nav-link">by Maddi Mathon</a></nav>
-<nav class="tsd-navigation"><a href="../index.html">Design System Utilities @ 0.1.0-beta.0.draft</a>
+<nav class="tsd-navigation"><a href="../index.html">Design System Utilities @ 0.1.0-beta.0</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">
 <li>Loading...</li></ul></nav></div></div></div><footer><p>Copyright <a href="https://www.maddimathon.com/web" target="_blank">Maddi Mathon</a>, 2025.</p><p>Site generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a>.</p></footer>
 <div class="overlay"></div></body></html>

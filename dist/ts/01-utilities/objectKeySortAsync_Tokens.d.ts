@@ -1,15 +1,15 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 /**
  * Sorts a record according to its keys and returns a sorted copy.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare function objectKeySortAsync_Tokens<T_Obj extends Record<number | string, any>>(obj: T_Obj, recursive?: boolean): Promise<T_Obj>;

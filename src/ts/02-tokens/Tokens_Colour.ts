@@ -238,7 +238,7 @@ export namespace Tokens_Colour {
     >;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = {
         $: {

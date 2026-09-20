@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import type { PartialPick } from '@maddimathon/utility-typescript/types';
@@ -13,7 +13,7 @@ import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare class Tokens_Photos<T_Params extends TokenTypes.Photos.TypeParams> extends AbstractTokens<{
     data: Tokens_Photos.Data<T_Params>;
@@ -29,11 +29,11 @@ export declare class Tokens_Photos<T_Params extends TokenTypes.Photos.TypeParams
 /**
  * Utilities for the {@link Tokens_Photos} class.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace Tokens_Photos {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type Data<T_Params extends TokenTypes.Photos.TypeParams> = {
         photos: {
@@ -44,7 +44,7 @@ export declare namespace Tokens_Photos {
         };
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type InputParam<T_Params extends TokenTypes.Photos.TypeParams> = {
         photos: {
@@ -55,7 +55,7 @@ export declare namespace Tokens_Photos {
         };
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type JsonReturn<T_Params extends TokenTypes.Photos.TypeParams> = {
         photos: {
@@ -66,7 +66,7 @@ export declare namespace Tokens_Photos {
         };
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type ScssVars<T_Params extends TokenTypes.Photos.TypeParams> = {
         photos: {
@@ -74,7 +74,7 @@ export declare namespace Tokens_Photos {
         };
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class Photo<T_Slug extends string> implements Photo.Data<T_Slug> {
         protected readonly data: Photo.Data<T_Slug>;
@@ -93,11 +93,11 @@ export declare namespace Tokens_Photos {
         toScssVars(): Photo.ScssVars<T_Slug>;
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Photo {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Data<T_Slug extends string> = {
             /**
@@ -155,26 +155,26 @@ export declare namespace Tokens_Photos {
             };
         };
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Input_Keys = 'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source';
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, Input_Keys>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type JSON<T_Slug extends string> = Data<T_Slug>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type ScssVars<T_Slug extends string> = Omit<Data<T_Slug>, 'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source'> & {
             filepath: string;
         };
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class Thumbnail<T_Slug extends string> extends Photo<T_Slug> implements Thumbnail.Data<T_Slug> {
         static buildData<T_Slug extends string>(slug: T_Slug, input: Thumbnail.Input<T_Slug>): Promise<Thumbnail.Data<T_Slug>>;
@@ -182,27 +182,27 @@ export declare namespace Tokens_Photos {
         protected constructor(data: Thumbnail.Data<T_Slug>);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     namespace Thumbnail {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Data<T_Slug extends string> = Photo.Data<T_Slug> & {};
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Input_Keys = Photo.Input_Keys;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, Input_Keys>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type JSON<T_Slug extends string> = Data<T_Slug>;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         type ScssVars<T_Slug extends string> = Photo.ScssVars<T_Slug> & PartialPick<Omit<Data<T_Slug>, keyof Photo.ScssVars<T_Slug>>, never>;
     }

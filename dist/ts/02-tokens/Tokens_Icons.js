@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { FontAssetType, generateFonts, OtherAssetType, } from 'fantasticon';
@@ -24,7 +24,7 @@ export class Tokens_Icons extends AbstractTokens {
     fontName;
     data;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static get defaultCodepoints() {
         return {
@@ -758,7 +758,7 @@ export class Tokens_Icons extends AbstractTokens {
         }));
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static getCodepointCounter(input) {
         const CounterClass = class {
@@ -777,7 +777,7 @@ export class Tokens_Icons extends AbstractTokens {
         return new CounterClass(customStartingCodepoint);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static build_entryMapper([key, value], codepointCounter, defaults) {
         // returns if its an optional icon
@@ -816,7 +816,7 @@ export class Tokens_Icons extends AbstractTokens {
         ]);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static build(fontName, input) {
         const defaultIcons = Tokens_Icons.default;
@@ -835,7 +835,7 @@ export class Tokens_Icons extends AbstractTokens {
         return new Tokens_Icons(fontName, objectKeySort_Tokens(mapped, false));
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static async buildAsync(fontName, input) {
         const defaultIcons = Tokens_Icons.default;
@@ -854,17 +854,17 @@ export class Tokens_Icons extends AbstractTokens {
         return mapped_prom.then(async (mapped) => new Tokens_Icons(fontName, await objectKeySortAsync_Tokens(mapped, false)));
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     _font;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     get font() {
         return this._font;
     }
     /**
-     * @since 0.1.0-beta.0.draft — Made protected. Added fontName param as first.
+     * @since 0.1.0-beta.0 — Made protected. Added fontName param as first.
      *                            Replaced input param with data. See
      *                            {@link Tokens_Icons.build} and
      *                            {@link Tokens_Icons.buildAsync}.
@@ -876,7 +876,7 @@ export class Tokens_Icons extends AbstractTokens {
     }
     #getCodepoints = undefined;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     getCodepoints() {
         // returns
@@ -888,7 +888,7 @@ export class Tokens_Icons extends AbstractTokens {
         return this.#getCodepoints;
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     async toIconFont({ formatOptionsDefault, ...args }) {
         const assetTypes = args.assetTypes ?? [];
@@ -955,7 +955,7 @@ export class Tokens_Icons extends AbstractTokens {
  */
 (function (Tokens_Icons) {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     const optionalIconNames = [
         'alarm',
@@ -1022,18 +1022,18 @@ export class Tokens_Icons extends AbstractTokens {
         'wrench',
     ];
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     const optionalIconNames_set = Immutable.Set(optionalIconNames);
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function isOptionalIcon(name) {
         return optionalIconNames_set.has(name);
     }
     Tokens_Icons.isOptionalIcon = isOptionalIcon;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     const requiredIconNames = [
         'caution',
@@ -1058,11 +1058,11 @@ export class Tokens_Icons extends AbstractTokens {
         'ui',
     ];
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     const requiredIconNames_set = Immutable.Set(requiredIconNames);
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function isRequiredIcon(name) {
         return requiredIconNames_set.has(name);

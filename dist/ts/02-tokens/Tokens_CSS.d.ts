@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
@@ -29,7 +29,7 @@ export declare class Tokens_CSS<T_StyleParams extends TokenTypes.Style.TypeParam
     /**
      * Builds tokens faster.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     static build<T_StyleParams extends TokenTypes.Style.TypeParams>(input: Tokens_CSS.InputParam<T_StyleParams>): Promise<Tokens_CSS<T_StyleParams>>;
     static get default(): Omit<Tokens_CSS.Data<{
@@ -79,7 +79,7 @@ export declare namespace Tokens_CSS {
         transition: Tokens_CSS_Transition.JsonReturn;
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type ScssVars<T_StyleParams extends TokenTypes.Style.TypeParams> = {
         border: Tokens_CSS_Border.ScssVars;

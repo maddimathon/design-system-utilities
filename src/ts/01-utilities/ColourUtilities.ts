@@ -139,7 +139,7 @@ export namespace ColourUtilities {
      * ====================================================================== */
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     function isAllValues(
         clr: Value | Value_All | { data: Value_All; },
@@ -154,7 +154,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     function isSingleShade(
         clr: Value | Value_All | { data: Value_All; }
@@ -168,7 +168,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     function validator<T_Space extends keyof Value_All>(
         clr: { data: Value_All; } | Value_All | Value_Generic<T_Space>,
@@ -733,7 +733,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function toList(
         clr: Exclude<Value, Value_Hex> | Value_All | { data: Value_All; },
@@ -802,7 +802,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace toList {
 
@@ -833,7 +833,7 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export function toString(
         clr: Value | Value_All | { data: Value_All; },
@@ -934,12 +934,12 @@ export namespace ColourUtilities {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Async {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         async function validator<T_Space extends keyof Value_All>(
             clr: { data: Value_All; } | Value_All | Value_Generic<T_Space>,
@@ -1183,7 +1183,7 @@ export namespace ColourUtilities {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export async function toHex(
             clr: Value | Value_All | { data: Value_All; },
@@ -1240,7 +1240,7 @@ export namespace ColourUtilities {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export async function toHSL(
             clr: Value | Value_All | { data: Value_All; },
@@ -1317,7 +1317,7 @@ export namespace ColourUtilities {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export async function toLCH(
             clr: Value | Value_All | { data: Value_All; },
@@ -1394,7 +1394,7 @@ export namespace ColourUtilities {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export async function toRGB(
             clr: Value | Value_All | { data: Value_All; },
@@ -1471,7 +1471,7 @@ export namespace ColourUtilities {
         }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export async function toString(
             clr: Value | Value_All | { data: Value_All; },
@@ -1552,7 +1552,7 @@ export namespace ColourUtilities {
      * {@link Tokens_Colour_ShadeMap.Shade} objects.
      *
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to ColourUtilities and renamed.
+     * @since 0.1.0-beta.0 — Moved to ColourUtilities and renamed.
      * @internal
      */
     export class ContrastTest {
@@ -1660,7 +1660,7 @@ export namespace ColourUtilities {
      * Utilities for the {@link Tokens} class.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to ColourUtilities and renamed.
+     * @since 0.1.0-beta.0 — Moved to ColourUtilities and renamed.
      * @internal
      */
     export namespace ContrastTest {
@@ -1679,7 +1679,7 @@ export namespace ColourUtilities {
 
         /**
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Renamed.
+         * @since 0.1.0-beta.0 — Renamed.
          */
         export type Result = {
             ratio: number;
@@ -1689,7 +1689,7 @@ export namespace ColourUtilities {
 
         /**
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Renamed.
+         * @since 0.1.0-beta.0 — Renamed.
          */
         export type SingleResult = {
             ui: boolean;
@@ -1700,7 +1700,7 @@ export namespace ColourUtilities {
          * An object defining the minimum contrast ratios required for a pass.
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Renamed.
+         * @since 0.1.0-beta.0 — Renamed.
          */
         export type Standards = {
             [ T in "aa" | "aaa" ]: {
@@ -1712,7 +1712,7 @@ export namespace ColourUtilities {
     /**
      * Utilities for dealing with shade level values.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Levels {
 
@@ -1721,7 +1721,7 @@ export namespace ColourUtilities {
          * (e.g., dark to light modes).
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         export const converter: Readonly<{
             '100': '900',
@@ -1775,7 +1775,7 @@ export namespace ColourUtilities {
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const optional = [
             '250',
@@ -1789,7 +1789,7 @@ export namespace ColourUtilities {
         /**
          * The shade level keys always included in maps for this system.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export const required = [
             '100',
@@ -1817,7 +1817,7 @@ export namespace ColourUtilities {
         /**
          * All possible shade levels possibly in shade maps for this system.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Any = Optional | Required;
 
@@ -1825,7 +1825,7 @@ export namespace ColourUtilities {
          * Shade levels that can be optionally included in shade maps for this system.
          * 
          * @since 0.1.0-alpha — Introduced as a global `Levels.Optional` type in `02-tokens/@types.d.ts`.
-         * @since ___PKG_VERSION___ — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export type Optional = typeof optional[ number ];
 
@@ -1833,14 +1833,14 @@ export namespace ColourUtilities {
          * Shade levels always included in shade maps for this system.
          * 
          * @since 0.1.0-alpha — Introduced as a global `Levels.Required` type in `02-tokens/@types.d.ts`.
-         * @since ___PKG_VERSION___ — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export type Required = typeof required[ number ];
 
         /**
          * Augments a single level by the given amount, creating a new valid level.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function augmentor<T_AnyColourLevel extends Levels.Any>(
             allColourLevels: Set<T_AnyColourLevel>,
@@ -1973,7 +1973,7 @@ export namespace ColourUtilities {
         /**
          * Gets the max level in the given array.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function max<T_Level extends Levels.Optional | Levels.Required>(
             arr: ( "black" | "white" | T_Level )[],
@@ -2010,7 +2010,7 @@ export namespace ColourUtilities {
         /**
          * Gets the max level in the given array.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export function min<T_Level extends Levels.Optional | Levels.Required>(
             arr: ( "black" | "white" | T_Level )[],
@@ -2040,7 +2040,7 @@ export namespace ColourUtilities {
          * {@link ColourUtilities.Levels.converter}).
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         export function toDark<
             T_LightLevel extends "black" | "white" | Levels.Any

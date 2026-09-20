@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { CssColours } from '@maddimathon/utility-sass';
@@ -12,7 +12,7 @@ import { objectFlatten } from '@maddimathon/utility-typescript';
 /**
  * Takes a font size slug and returns a css-friendly variable with fallback value.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export function getFontSizeCSS(tokens, fontSize) {
     const varMaker = (slug, value) => slug?.length

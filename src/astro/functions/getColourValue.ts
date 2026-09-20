@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -17,7 +17,7 @@ import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_Sh
  * Takes a colour object and returns a css-compatible string of its colour value
  * (if possible).
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function getColourValue<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -59,7 +59,7 @@ export function getColourValue<
  * Takes a base shade map and a level and returns that level's colour object, if
  * it exists.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function getBaseColourObject<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -82,7 +82,7 @@ export function getBaseColourObject<
  * Takes any shade map, a fallback base shade map, and a target level and
  * returns that level's colour object, if it exists.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function getMapColourObject<
     T_ColourTypes extends TokenTypes.Colour.TypeParams,

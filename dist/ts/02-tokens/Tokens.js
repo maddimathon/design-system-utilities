@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { arrayUnique, mergeArgs, objectMap, slugify } from '@maddimathon/utility-typescript';
@@ -25,7 +25,7 @@ import { Tokens_Photos } from './Tokens_Photos.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  * @internal
  */
 export class Internal {
@@ -107,7 +107,7 @@ export class Tokens extends AbstractTokens {
         });
     }
     /**
-     *  * @since 0.1.0-beta.0.draft — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     *  * @since 0.1.0-beta.0 — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     constructor(name, colourOpts, { colour, css, icons, photos, themes }, input, config = {}) {
         super();
@@ -278,11 +278,11 @@ export class Tokens extends AbstractTokens {
     Tokens.sample = sample;
     ;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     Tokens.isOptionalIcon = Tokens_Icons.isOptionalIcon;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
     */
     Tokens.isRequiredIcon = Tokens_Icons.isRequiredIcon;
     /**
@@ -493,7 +493,7 @@ export class Tokens extends AbstractTokens {
             /**
              * Helps to generate all the weights for a font family.
              *
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             function familyRenamer(slug, name, font) {
                 return {
@@ -541,13 +541,13 @@ export class Tokens extends AbstractTokens {
                     ],
                     fontOverrideOption: true,
                     lineHeightScale: 1.15,
-                    sizeAdjust: '94%',
+                    sizeAdjust: '93%',
                     weights: objectGenerator(['400', '700'], (weight) => objectGenerator(["normal", "italic"], (style) => familyGenerator.fileGenerator('dyslexic', 'Open Dyslexic', weight == '400' ? '100 400' : '500 900', style, {
                         pathWeight: weight,
                     }))),
                 };
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 Family.dyslexicMonospace = {
                     slug: 'dyslexic-monospace',
@@ -621,7 +621,7 @@ export class Tokens extends AbstractTokens {
                     })),
                 };
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 Family.hyperlegibleMonospace = {
                     slug: 'hyperlegible-monospace',
@@ -710,16 +710,16 @@ export class Tokens extends AbstractTokens {
              */
             SingleMode.colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
             /**
-             * @since 0.1.0-beta.0.draft
+             * @since 0.1.0-beta.0
              */
             let Levels;
             (function (Levels) {
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
                 /**
-                 * @since 0.1.0-beta.0.draft
+                 * @since 0.1.0-beta.0
                  */
                 Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;
             })(Levels = SingleMode.Levels || (SingleMode.Levels = {}));

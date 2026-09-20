@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import clrConvert from 'color-convert';
@@ -47,7 +47,7 @@ export var ColourUtilities;
     /* UTILITY FUNCTIONS
      * ====================================================================== */
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function isAllValues(clr, spaceToCheck = 'hsl') {
         // returns
@@ -57,7 +57,7 @@ export var ColourUtilities;
         return !!((spaceToCheck in clr) && clr[spaceToCheck]);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function isSingleShade(clr) {
         // returns
@@ -67,7 +67,7 @@ export var ColourUtilities;
         return !!(('data' in clr) && clr.data);
     }
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function validator(clr, space, errContext, errMaker) {
         let validClr;
@@ -416,7 +416,7 @@ export var ColourUtilities;
     }
     ColourUtilities.mixColours = mixColours;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function toList(clr, separator, errContext, errMaker, _defaultSpace) {
         const defaultSpace = _defaultSpace ?? 'hsl';
@@ -447,7 +447,7 @@ export var ColourUtilities;
     }
     ColourUtilities.toList = toList;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     (function (toList) {
         function hsl(clr, separator = 'space') {
@@ -469,7 +469,7 @@ export var ColourUtilities;
         toList.rgb = rgb;
     })(toList = ColourUtilities.toList || (ColourUtilities.toList = {}));
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function toString(clr, separator, errContext, errMaker, _defaultSpace) {
         const defaultSpace = _defaultSpace ?? 'hsl';
@@ -521,12 +521,12 @@ export var ColourUtilities;
         toString.rgb = rgb;
     })(toString = ColourUtilities.toString || (ColourUtilities.toString = {}));
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     let Async;
     (function (Async) {
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         async function validator(clr, space, errContext, errMaker) {
             let validClr;
@@ -662,7 +662,7 @@ export var ColourUtilities;
         }
         ;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         async function toHex(clr, errMaker = defaultErrorMaker) {
             const errContext = {
@@ -699,7 +699,7 @@ export var ColourUtilities;
         }
         Async.toHex = toHex;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         async function toHSL(clr, errMaker = defaultErrorMaker, round = true) {
             const errContext = {
@@ -749,7 +749,7 @@ export var ColourUtilities;
         }
         Async.toHSL = toHSL;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         async function toLCH(clr, errMaker = defaultErrorMaker, round = true) {
             const errContext = {
@@ -799,7 +799,7 @@ export var ColourUtilities;
         }
         Async.toLCH = toLCH;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         async function toRGB(clr, errMaker = defaultErrorMaker, round = true) {
             const errContext = {
@@ -849,7 +849,7 @@ export var ColourUtilities;
         }
         Async.toRGB = toRGB;
         /**
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         async function toString(clr, separator, errContext, errMaker, _defaultSpace) {
             const defaultSpace = _defaultSpace ?? 'hsl';
@@ -885,7 +885,7 @@ export var ColourUtilities;
      * {@link Tokens_Colour_ShadeMap.Shade} objects.
      *
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0.draft — Moved to ColourUtilities and renamed.
+     * @since 0.1.0-beta.0 — Moved to ColourUtilities and renamed.
      * @internal
      */
     class ContrastTest {
@@ -966,7 +966,7 @@ export var ColourUtilities;
     /**
      * Utilities for dealing with shade level values.
      *
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     let Levels;
     (function (Levels) {
@@ -975,7 +975,7 @@ export var ColourUtilities;
          * (e.g., dark to light modes).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0 — Moved from {@link ColourUtilities} to {@link ColourUtilities.Levels} and renamed.
          */
         Levels.converter = {
             '100': '900',
@@ -1002,7 +1002,7 @@ export var ColourUtilities;
          * The shade level keys that can be optionally included in maps for this
          * system.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         Levels.optional = [
             '250',
@@ -1015,7 +1015,7 @@ export var ColourUtilities;
         /**
          * The shade level keys always included in maps for this system.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         Levels.required = [
             '100',
@@ -1041,7 +1041,7 @@ export var ColourUtilities;
         /**
          * Augments a single level by the given amount, creating a new valid level.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         function augmentor(allColourLevels, level, levelOffset, minimum = 0, maximum = 1000) {
             // returns
@@ -1120,7 +1120,7 @@ export var ColourUtilities;
         /**
          * Gets the max level in the given array.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         function max(arr) {
             // returns
@@ -1142,7 +1142,7 @@ export var ColourUtilities;
         /**
          * Gets the max level in the given array.
          *
-         * @since 0.1.0-beta.0.draft
+         * @since 0.1.0-beta.0
          */
         function min(arr) {
             // returns
@@ -1166,7 +1166,7 @@ export var ColourUtilities;
          * {@link ColourUtilities.Levels.converter}).
          *
          * @since 0.1.0-alpha
-         * @since 0.1.0-beta.0.draft — Moved to {@link ColourUtilities.Levels} and renamed.
+         * @since 0.1.0-beta.0 — Moved to {@link ColourUtilities.Levels} and renamed.
          */
         function toDark(lightLevel) {
             return Levels.converter[lightLevel];

@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -24,7 +24,7 @@ import { getDataFromClrSlug } from './getDataFromClrSlug.js';
  * Takes a colour slug and returns a css-friendly colour code, if possible.
  * Optionally returns a css colour var with the colour code as fallback.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function getColourCSS<
     T_Types extends TokenTypes.TypeParams,

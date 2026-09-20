@@ -52,7 +52,7 @@ export class Tokens_Themes_Set<
     /**
      * Used instead of the constructor so that it can be async.
      * 
-     * @since ___PKG_VERSION___ — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0 — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     public static async build<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -161,12 +161,12 @@ export class Tokens_Themes_Set<
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public readonly meta: Omit<Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>, 'brightness' | 'contrast'>;
 
     /**
-     * @since ___PKG_VERSION___ — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     * @since 0.1.0-beta.0 — Changed second & third param to colours object (as fourth param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor (
         /** Name for this shade set. */
@@ -322,7 +322,7 @@ export class Tokens_Themes_Set<
 export namespace Tokens_Themes_Set {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type Metadata<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -357,7 +357,7 @@ export namespace Tokens_Themes_Set {
         },
 
         /**
-         * @since ___PKG_VERSION___ — Moved to be a child of the new meta prop.
+         * @since 0.1.0-beta.0 — Moved to be a child of the new meta prop.
          */
         levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
     };
@@ -407,12 +407,12 @@ export namespace Tokens_Themes_Set {
         T_ThemeTypes extends TokenTypes.Theme.TypeParams,
     > = {
         /**
-         * @since ___PKG_VERSION___ — Renamed to follow 'private' naming scheme for metadata.
+         * @since 0.1.0-beta.0 — Renamed to follow 'private' naming scheme for metadata.
          */
         _name: T_ThemeTypes[ 'name' ];
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         _meta: Metadata<T_ColourTypes, T_ThemeTypes>;
 
@@ -424,7 +424,7 @@ export namespace Tokens_Themes_Set {
     >;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -440,7 +440,7 @@ export namespace Tokens_Themes_Set {
      * Generates a complete token object for the design system.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to {@link Tokens_Themes_Set} and renamed.
+     * @since 0.1.0-beta.0 — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     export class SingleMode<
         T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -504,7 +504,7 @@ export namespace Tokens_Themes_Set {
          * An easy way to generate a complete token set from limited inputs.
          * 
          * @since 0.1.0-alpha
-         * @since ___PKG_VERSION___ — Changed fourth param to colours object with both names and all levels set.
+         * @since 0.1.0-beta.0 — Changed fourth param to colours object with both names and all levels set.
          */
         public static async build<
             T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -844,7 +844,7 @@ export namespace Tokens_Themes_Set {
      * Utilities for the {@link SingleMode} class.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to {@link Tokens_Themes_Set} and renamed.
+     * @since 0.1.0-beta.0 — Moved to {@link Tokens_Themes_Set} and renamed.
      */
     export namespace SingleMode {
 
@@ -923,7 +923,7 @@ export namespace Tokens_Themes_Set {
             };
 
             /**
-             * @since ___PKG_VERSION___ — Switched to a nested object instead of separate keys. 
+             * @since 0.1.0-beta.0 — Switched to a nested object instead of separate keys. 
              */
             link: {
 
@@ -935,7 +935,7 @@ export namespace Tokens_Themes_Set {
                 };
 
                 /**
-                 * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
+                 * @since 0.1.0-beta.0 — Renamed from link-ui to link-decoration.
                  */
                 decoration: {
                     $: __T_ColourOption,
@@ -954,7 +954,7 @@ export namespace Tokens_Themes_Set {
                 /**
                  * Used for the focus outline and similar elements.
                  * 
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 outline: {
                     [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]: __T_ColourOption;
@@ -964,7 +964,7 @@ export namespace Tokens_Themes_Set {
                  * Used for borders and other decoration around links. Used
                  * instead of decoration since decoration might be transparent.
                  *
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 ui: {
                     $: __T_ColourOption,
@@ -1007,13 +1007,13 @@ export namespace Tokens_Themes_Set {
         /**
          * Utilities and types for the complete tokens theme data for a single mode.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export namespace Data {
 
             /**
              * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to SingleMode.Data and renamed.
+             * @since 0.1.0-beta.0 — Moved to SingleMode.Data and renamed.
              */
             export type Button<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1029,7 +1029,7 @@ export namespace Tokens_Themes_Set {
             };
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export type Input<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1045,7 +1045,7 @@ export namespace Tokens_Themes_Set {
 
             /**
              * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to SingleMode.Data and renamed.
+             * @since 0.1.0-beta.0 — Moved to SingleMode.Data and renamed.
              */
             export type Partial<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1107,7 +1107,7 @@ export namespace Tokens_Themes_Set {
                     },
 
                     /**
-                     * @since ___PKG_VERSION___ — Renamed from link-ui to link-decoration.
+                     * @since 0.1.0-beta.0 — Renamed from link-ui to link-decoration.
                      */
                     decoration?: undefined | {
                         $?: undefined | __T_ColourOption,
@@ -1124,14 +1124,14 @@ export namespace Tokens_Themes_Set {
                     },
 
                     /**
-                     * @since ___PKG_VERSION___
+                     * @since 0.1.0-beta.0
                      */
                     outline?: undefined | {
                         [ K in keyof RequiredVariations<T_ColourTypes[ 'names' ]>[ 'interactive' ] ]?: undefined | __T_ColourOption;
                     },
 
                     /**
-                     * @since ___PKG_VERSION___
+                     * @since 0.1.0-beta.0
                      */
                     ui?: undefined | {
                         $?: undefined | __T_ColourOption,
@@ -1240,12 +1240,12 @@ export namespace Tokens_Themes_Set {
         /**
          * Utilities and types for levels.
          * 
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export namespace Levels {
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export interface Input<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1260,7 +1260,7 @@ export namespace Tokens_Themes_Set {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export interface Parsed<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1275,7 +1275,7 @@ export namespace Tokens_Themes_Set {
             };
 
             /**
-             * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels and renamed.
+             * @since 0.1.0-beta.0 — Made public, moved to SingleMode.Levels and renamed.
              */
             export interface Required<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1294,12 +1294,12 @@ export namespace Tokens_Themes_Set {
             /**
              * Common object shapes used to set multiple level types.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export namespace Set {
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface AccentBrightGrey<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1311,7 +1311,7 @@ export namespace Tokens_Themes_Set {
                 }
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface AccentGrey<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1322,7 +1322,7 @@ export namespace Tokens_Themes_Set {
                 }
 
                 /**
-                 * @since ___PKG_VERSION___ — Made public, moved to SingleMode.Levels.Sets and renamed.
+                 * @since 0.1.0-beta.0 — Made public, moved to SingleMode.Levels.Sets and renamed.
                  */
                 export interface AccentMin<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1334,7 +1334,7 @@ export namespace Tokens_Themes_Set {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export namespace DEFAULT {
 
@@ -1574,7 +1574,7 @@ export namespace Tokens_Themes_Set {
             }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             function normalize<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1627,7 +1627,7 @@ export namespace Tokens_Themes_Set {
 
             /**
              * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
+             * @since 0.1.0-beta.0 — Moved to SingleMode.Levels and renamed. Added default param and made inputs optional.
              */
             export function parse<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1771,7 +1771,7 @@ export namespace Tokens_Themes_Set {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type ScssVars<
             T_ColourTypes extends TokenTypes.Colour.TypeParams,

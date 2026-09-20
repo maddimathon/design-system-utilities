@@ -31,7 +31,7 @@ import { LocalErrors } from '../01-utilities/Errors.js';
 /**
  * Generates a complete token object for the design system.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export class Tokens_Photos<T_Params extends TokenTypes.Photos.TypeParams> extends AbstractTokens<{
     data: Tokens_Photos.Data<T_Params>;
@@ -103,12 +103,12 @@ export class Tokens_Photos<T_Params extends TokenTypes.Photos.TypeParams> extend
 /**
  * Utilities for the {@link Tokens_Photos} class.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export namespace Tokens_Photos {
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type Data<T_Params extends TokenTypes.Photos.TypeParams> = {
         // UPGRADE - add favicon property that intakes an SVG and outputs the various sizes/formats desired
@@ -124,7 +124,7 @@ export namespace Tokens_Photos {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type InputParam<T_Params extends TokenTypes.Photos.TypeParams> = {
 
@@ -138,7 +138,7 @@ export namespace Tokens_Photos {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type JsonReturn<T_Params extends TokenTypes.Photos.TypeParams> = {
 
@@ -152,7 +152,7 @@ export namespace Tokens_Photos {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<T_Params extends TokenTypes.Photos.TypeParams> = {
 
@@ -162,7 +162,7 @@ export namespace Tokens_Photos {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     const globOpts = {
         absolute: false,
@@ -180,7 +180,7 @@ export namespace Tokens_Photos {
     } satisfies GlobOptions;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export class Photo<T_Slug extends string> implements Photo.Data<T_Slug> {
 
@@ -305,12 +305,12 @@ export namespace Tokens_Photos {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Photo {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Data<T_Slug extends string> = {
 
@@ -377,22 +377,22 @@ export namespace Tokens_Photos {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Input_Keys = 'attributionRequired' | 'credit' | 'filepath' | 'label' | 'license' | 'source';
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, Input_Keys>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type JSON<T_Slug extends string> = Data<T_Slug>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type ScssVars<T_Slug extends string> = Omit<
             Data<T_Slug>,
@@ -403,7 +403,7 @@ export namespace Tokens_Photos {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export class Thumbnail<T_Slug extends string> extends Photo<T_Slug> implements Thumbnail.Data<T_Slug> {
 
@@ -494,32 +494,32 @@ export namespace Tokens_Photos {
     }
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export namespace Thumbnail {
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Data<T_Slug extends string> = Photo.Data<T_Slug> & {};
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Input_Keys = Photo.Input_Keys;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type Input<T_Slug extends string> = PartialPick<Omit<Data<T_Slug>, 'slug'>, Input_Keys>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type JSON<T_Slug extends string> = Data<T_Slug>;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type ScssVars<T_Slug extends string> = Photo.ScssVars<T_Slug> & PartialPick<
             Omit<Data<T_Slug>, keyof Photo.ScssVars<T_Slug>>,

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { globSync } from 'glob';
@@ -16,7 +16,7 @@ import { LocalErrors } from '../01-utilities/Errors.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export class Tokens_Photos extends AbstractTokens {
     data;
@@ -45,11 +45,11 @@ export class Tokens_Photos extends AbstractTokens {
 /**
  * Utilities for the {@link Tokens_Photos} class.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 (function (Tokens_Photos) {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     const globOpts = {
         absolute: false,
@@ -66,7 +66,7 @@ export class Tokens_Photos extends AbstractTokens {
         realpath: true,
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class Photo {
         data;
@@ -152,7 +152,7 @@ export class Tokens_Photos extends AbstractTokens {
     }
     Tokens_Photos.Photo = Photo;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     class Thumbnail extends Photo {
         static async buildData(slug, input) {

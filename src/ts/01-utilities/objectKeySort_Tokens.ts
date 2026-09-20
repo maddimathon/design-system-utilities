@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -13,7 +13,7 @@ import { objectKeySort } from '@maddimathon/utility-typescript';
 /**
  * Sorts a record according to its keys and returns a sorted copy.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function objectKeySort_Tokens<T_Obj extends Record<number | string, any>>(
     obj: T_Obj,

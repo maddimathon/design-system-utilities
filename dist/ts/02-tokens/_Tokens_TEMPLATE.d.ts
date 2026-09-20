@@ -4,14 +4,14 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { AbstractTokens } from './abstract/AbstractTokens.js';
 /**
  * Generates a complete token object for the design system.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare class Tokens_TEMPLATE<T_SimpleStringParam extends string> extends AbstractTokens<{
     data: Tokens_TEMPLATE.Data<T_SimpleStringParam>;
@@ -28,23 +28,23 @@ export declare class Tokens_TEMPLATE<T_SimpleStringParam extends string> extends
 /**
  * Utilities for the {@link Tokens_TEMPLATE} class.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace Tokens_TEMPLATE {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type Data<T_SimpleStringParam extends string> = {};
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type InputParam<T_SimpleStringParam extends string> = Partial<Data<T_SimpleStringParam>>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type JsonReturn<T_SimpleStringParam extends string> = Data<T_SimpleStringParam>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type ScssVars<T_SimpleStringParam extends string> = Data<T_SimpleStringParam>;
 }

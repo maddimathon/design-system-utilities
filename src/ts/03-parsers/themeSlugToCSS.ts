@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -20,7 +20,7 @@ const _themeVarMaker = ( slug?: string ) => slug?.length ? `var(--theme-${ slug 
  * Takes a theme slug and returns a css-friendly colour code of its value, if
  * possible.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function themeSlugToCSS<
     T_Types extends TokenTypes.TypeParams,

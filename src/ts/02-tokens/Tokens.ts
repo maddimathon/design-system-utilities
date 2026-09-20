@@ -43,7 +43,7 @@ import { Tokens_Photos } from './Tokens_Photos.js';
 /**
  * Internal utilities available for documentation but not meant to be public.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * @internal
  */
 export class Internal { }
@@ -182,7 +182,7 @@ export class Tokens<
     }
 
     /**
-     *  * @since ___PKG_VERSION___ — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
+     *  * @since 0.1.0-beta.0 — Changed first & second param to colours object (as third param) with both names and all levels set (to match change to {@link Tokens_Themes_Set.SingleMode.build}).
      */
     protected constructor (
         public readonly name: string,
@@ -528,12 +528,12 @@ export namespace Tokens {
         iconFontName: string;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         scssTokenParserImportPath?: string;
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         scssUtilitySassImportPath?: string;
 
@@ -572,7 +572,7 @@ export namespace Tokens {
     > = Tokens_Internal.JsonReturn<T_Params>;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<
         T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
@@ -581,22 +581,22 @@ export namespace Tokens {
     export type DefaultIcon = Tokens_Icons.DefaultIcon;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type OptionalIcon = Tokens_Icons.OptionalIcon;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type RequiredIcon = Tokens_Icons.RequiredIcon;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export const isOptionalIcon: ( name: string ) => name is Tokens_Icons.OptionalIcon = Tokens_Icons.isOptionalIcon;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
     */
     export const isRequiredIcon: ( name: string ) => name is Tokens_Icons.RequiredIcon = Tokens_Icons.isRequiredIcon;
 
@@ -849,7 +849,7 @@ export namespace Tokens {
                 export type FileOptions = Omit<Tokens_Typography.Font.File, "path" | "style" | "weight"> & {
 
                     /**
-                     * @since ___PKG_VERSION___
+                     * @since 0.1.0-beta.0
                      */
                     filename?: string;
 
@@ -866,7 +866,7 @@ export namespace Tokens {
                     /**
                      * File formats to include.
                      * 
-                     * @since ___PKG_VERSION___
+                     * @since 0.1.0-beta.0
                      */
                     formats?: Partial<{
                         ttf?: boolean;
@@ -991,7 +991,7 @@ export namespace Tokens {
             /**
              * Helps to generate all the weights for a font family.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export function familyRenamer<T_Slug extends string>(
                 slug: T_Slug,
@@ -1061,7 +1061,7 @@ export namespace Tokens {
                     fontOverrideOption: true,
 
                     lineHeightScale: 1.15,
-                    sizeAdjust: '94%',
+                    sizeAdjust: '93%',
 
                     weights: Tokens_Typography.Font.Family<'dyslexic'>[ 'weights' ],
                 }> = {
@@ -1099,7 +1099,7 @@ export namespace Tokens {
                     fontOverrideOption: true,
 
                     lineHeightScale: 1.15,
-                    sizeAdjust: '94%',
+                    sizeAdjust: '93%',
 
                     weights: objectGenerator(
                         [ '400', '700' ] as const,
@@ -1119,7 +1119,7 @@ export namespace Tokens {
                 } as const satisfies Tokens_Typography.Font.Family<'dyslexic'>;
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export const dyslexicMonospace: Readonly<{
                     slug: 'dyslexic-monospace',
@@ -1280,7 +1280,7 @@ export namespace Tokens {
                 };
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export const hyperlegibleMonospace: Readonly<{
                     slug: 'hyperlegible-monospace',
@@ -1481,7 +1481,7 @@ export namespace Tokens {
         > extends Tokens_Themes_Set.SingleMode.AllVariations<T_Params[ 'colour' ], T_Params[ 'theme' ]> { }
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type JsonReturn<
             T_Params extends TokenTypes.TypeParams = TokenTypes.TypeParams,
@@ -1512,38 +1512,38 @@ export namespace Tokens {
             export const colourOption: typeof Tokens_Themes_Set.SingleMode.Build.colourOption = Tokens_Themes_Set.SingleMode.Build.colourOption;
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export namespace Levels {
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface Input<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Input<T_ColourTypes> { }
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface Parsed<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Parsed<T_ColourTypes> { }
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface Required<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Required<T_ColourTypes> { }
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export const DEFAULT: typeof Tokens_Themes_Set.SingleMode.Levels.DEFAULT = Tokens_Themes_Set.SingleMode.Levels.DEFAULT;
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export const parse: typeof Tokens_Themes_Set.SingleMode.Levels.parse = Tokens_Themes_Set.SingleMode.Levels.parse;
             }
@@ -1551,19 +1551,19 @@ export namespace Tokens {
             /**
              * Common object shapes used to set multiple level types.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export namespace Set {
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface AccentMin<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
                 > extends Tokens_Themes_Set.SingleMode.Levels.Set.AccentMin<T_ColourTypes> { }
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export interface AccentGrey<
                     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
@@ -1583,7 +1583,7 @@ export namespace Tokens {
             > { }
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export namespace Data {
                 /**

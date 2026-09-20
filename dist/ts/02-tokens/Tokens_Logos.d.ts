@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { SvgMaker } from '../01-utilities/SvgMaker.js';
@@ -49,7 +49,7 @@ export declare namespace Tokens_Logos {
         [L in T_LogoNames]: SvgMaker.JsonReturn<L>;
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type ScssVars<T_LogoNames extends string> = undefined | {
         [L in T_LogoNames]: SvgMaker.ScssVars<L>;

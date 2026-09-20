@@ -125,7 +125,7 @@ export namespace Tokens_CSS_Border {
     export type JsonReturn = Data;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars = Data;
 }

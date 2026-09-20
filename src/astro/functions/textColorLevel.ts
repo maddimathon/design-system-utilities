@@ -1,5 +1,5 @@
 /**
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  * 
  * @packageDocumentation
  */
@@ -14,7 +14,7 @@ import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
  * Returns a default text level for the given background level. Should only be
  * used as a last-resort fallback.
  * 
- * @since ___PKG_VERSION___
+ * @since 0.1.0-beta.0
  */
 export function textColorLevel(
     lvl: 'black' | 'white' | ColourUtilities.Levels.Any,

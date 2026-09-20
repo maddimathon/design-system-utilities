@@ -2,7 +2,7 @@
 /// Variables before the utility-astro lib is loaded.
 ///
 /// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -17,7 +17,7 @@ $_doVar_allPrefixesSlugs: ('focus-ring-outline-color', 'icon-size');
 $_customProperty_allPrefixesSlugs: ('display', 'grid-column', 'icon-color');
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $fn_var_replaceWithValue_resist: null !default;
 $fn_var_replaceWithValue_resist: config-valid-bool(
@@ -69,7 +69,7 @@ $fn_var_replaceWithValue_strokeRelative: config-valid-bool(
 /// List of slugs that should default to $allPrefixes: true in the
 /// do-var function.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $fn_doVar_allPrefixesSlugs: null !default;
 $fn_doVar_allPrefixesSlugs: config-valid-list-strings(
@@ -87,7 +87,7 @@ $fn_doVar_allPrefixesSlugs: list.join(
 ///
 /// List of slugs that should default to $allPrefixes: true in the custom-property mixin.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_customProperty_allPrefixesSlugs: null !default;
 $mx_customProperty_allPrefixesSlugs: config-valid-list-strings(
@@ -106,7 +106,7 @@ $mx_customProperty_allPrefixesSlugs: list.join(
 /// List of slugs that should be excluded from the default
 /// $mx_customProperty_allPrefixesSlugs list.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_customProperty_allPrefixesSlugs_except: null !default;
 $mx_customProperty_allPrefixesSlugs_except: config-valid-list-strings(
@@ -123,13 +123,13 @@ $mx_customProperty_allPrefixesSlugs: list.except-any(
 );
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_tokens_printAll: null !default;
 $mx_tokens_printAll: config-valid-bool($mx_tokens_printAll, 'mx_tokens_printAll', $default: false);
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $mx_tokens_print_style: null !default;
 $mx_tokens_print_style: config-valid-bool(
@@ -149,12 +149,12 @@ $template_name: 'Default' !default;
 $template_slug: string.to-lower-case($template_name) !default;
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $template_isDefault: $template_slug == default !default;
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $template_title_base: null !default;
 $template_title_base: config-valid-string(
@@ -164,7 +164,7 @@ $template_title_base: config-valid-string(
 ) !default;
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $template_title: null !default;
 $template_title: config-valid-string(
@@ -178,7 +178,7 @@ $template_title: config-valid-string(
 ) !default;
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $internal_designSystem_stylesheetPath: null !default;
 
@@ -192,13 +192,13 @@ $internal_designSystem_stylesheetPath: null !default;
 
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_docs to $template_docs and moved to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_docs to $template_docs and moved to template config.
 ///
 $template_docs: false !default;
 
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_astro to $template_astro and moved from lib to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_astro to $template_astro and moved from lib to template config.
 ///
 $template_astro: $template_docs !default;
 
@@ -207,7 +207,7 @@ $template_astro: $template_docs !default;
 /// selectors are pseudo selectors.
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_globals to $template_globals and moved from lib to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_globals to $template_globals and moved from lib to template config.
 ///
 $template_globals: $template_astro or $template_docs !default;
 
@@ -215,7 +215,7 @@ $template_globals: $template_astro or $template_docs !default;
 /// Whether to include the utility class selectors in the output.
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_utils to $template_utils and moved from lib to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_utils to $template_utils and moved from lib to template config.
 ///
 $template_utils: lib.$include_html and ($template_globals or $template_astro or $template_docs) !default;
 
@@ -223,13 +223,13 @@ $template_utils: lib.$include_html and ($template_globals or $template_astro or 
 /// Whether to include the custom property definitions in the output.
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $print_tokens to $template_tokens and moved from lib to template config.
+/// @since 0.1.0-beta.0 — Renamed from $print_tokens to $template_tokens and moved from lib to template config.
 ///
 $template_tokens: $template_globals or $template_utils !default;
 
 ///
 /// @since 0.1.0-alpha
-/// @since ___PKG_VERSION___ — Renamed from $template_cssHeadings to $template_cssHeadings and moved from lib to template config.
+/// @since 0.1.0-beta.0 — Renamed from $template_cssHeadings to $template_cssHeadings and moved from lib to template config.
 ///
 $template_cssHeadings: lib.$isTemplate and
     ($template_astro or $template_docs or $template_globals or $template_tokens or $template_utils) !default;
@@ -237,14 +237,14 @@ $template_cssHeadings: lib.$isTemplate and
 ///
 /// Whether to include the extend selectors mixin after the template content.
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.0
 ///
 $template_extendSelectors: $template_globals or $template_utils !default;
 
 ///
 /// Whether to print certain styles.
 ///
-/// @since ___PKG_VERSION___ — Merged $print_alertBlocks, $print_astro_settingsMenu, $print_astro_skipLinks, $template_astro_stickyToggleNav, $print_astro_toggle into this var (from utility-sass update).
+/// @since 0.1.0-beta.0 — Merged $print_alertBlocks, $print_astro_settingsMenu, $print_astro_skipLinks, $template_astro_stickyToggleNav, $print_astro_toggle into this var (from utility-sass update).
 ///
 $template_styles: () !default;
 $template_styles: config-get-template-styles(

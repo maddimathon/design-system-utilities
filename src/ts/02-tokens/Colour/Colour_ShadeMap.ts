@@ -145,7 +145,7 @@ export namespace Tokens_Colour_ShadeMap {
     >;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<T_Types extends TokenTypes.Colour.TypeParams> = TokenTypes.Colour.LevelRecord<
         T_Types,
@@ -161,7 +161,7 @@ export namespace Tokens_Colour_ShadeMap {
      * Generates a complete token object for the design system.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     * @since 0.1.0-beta.0 — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
      */
     export class Shade<T_Types extends TokenTypes.Colour.TypeParams> extends AbstractTokens<{
         data: Shade.Data;
@@ -349,7 +349,7 @@ export namespace Tokens_Colour_ShadeMap {
      * Utilities for the {@link Shade} class.
      * 
      * @since 0.1.0-alpha
-     * @since ___PKG_VERSION___ — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
+     * @since 0.1.0-beta.0 — Moved to {@link Tokens_Colour_ShadeMap} and renamed.
      */
     export namespace Shade {
 
@@ -393,7 +393,7 @@ export namespace Tokens_Colour_ShadeMap {
 
             /**
              * @since 0.1.0-alpha
-             * @since ___PKG_VERSION___ — Moved to {@link Shade.Contrast} and renamed.
+             * @since 0.1.0-beta.0 — Moved to {@link Shade.Contrast} and renamed.
              */
             export type Results<T_Types extends TokenTypes.Colour.TypeParams> = {
                 base: Results.LevelsMap<T_Types>;
@@ -402,12 +402,12 @@ export namespace Tokens_Colour_ShadeMap {
             };
 
             /**
-             * @since ___PKG_VERSION___
+             * @since 0.1.0-beta.0
              */
             export namespace Results {
 
                 /**
-                 * @since ___PKG_VERSION___
+                 * @since 0.1.0-beta.0
                  */
                 export type LevelsMap<T_Types extends TokenTypes.Colour.TypeParams> = {
                     [ L in ColourUtilities.Levels.Required ]: undefined | ColourUtilities.ContrastTest.Result;
@@ -444,7 +444,7 @@ export namespace Tokens_Colour_ShadeMap {
         };
 
         /**
-         * @since ___PKG_VERSION___
+         * @since 0.1.0-beta.0
          */
         export type ScssVars = string;
     }

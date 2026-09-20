@@ -15,7 +15,7 @@ import type { Classify } from '@maddimathon/utility-typescript/types';
  * The object that defines a single SVG token.
  * 
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ — 
+ * @since 0.1.0-beta.0 — 
  */
 export class SvgMaker<
     T_Slug extends string = string,
@@ -81,7 +81,7 @@ export class SvgMaker<
     public readonly innerSVG: string;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public readonly meta: T_Metadata;
 
@@ -280,7 +280,7 @@ export namespace SvgMaker {
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export type ScssVars<
         T_Slug extends string = string,

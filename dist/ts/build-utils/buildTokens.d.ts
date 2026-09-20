@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { type RunnerOptions } from 'fantasticon';
@@ -14,23 +14,23 @@ import type { RequiredPartially } from '@maddimathon/utility-typescript/types';
 /**
  * Take a token object and write its relevant files and assets to their output directories.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare function buildTokens(stage: AbstractStage<any, any>, tokens: Tokens.Instance, level: number, paths: buildTokens.Paths, args?: Partial<buildTokens.Args>): Promise<void>;
 /**
  * Utilities for the {@link buildTokens} function.
  *
- * @since 0.1.0-beta.0.draft
+ * @since 0.1.0-beta.0
  */
 export declare namespace buildTokens {
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type Args = {
         iconFont: Partial<RunnerOptions>;
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     type Paths = {
         assets?: false | {
@@ -78,23 +78,23 @@ export declare namespace buildTokens {
         slug: string;
     };
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function writeIcons(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<void>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function buildIconFontArgs(stage: AbstractStage<any, any>, level: number, paths: buildTokens.Paths, args: RequiredPartially<Partial<RunnerOptions>, 'name'>): Promise<false | RunnerOptions>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function writeJson(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[]>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function writeLogos(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[][]>;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     function writeScss(stage: AbstractStage<any, any>, tokens: Tokens.Instance, paths: false | string[], level: number): Promise<(string | false)[]>;
 }

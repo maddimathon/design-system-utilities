@@ -20,7 +20,7 @@ import { LocalErrors } from '../../01-utilities/Errors.js';
  * Base class for the classes used to manage tokens and token groups.
  *
  * @since 0.1.0-alpha
- * @since ___PKG_VERSION___ — Converted type param to an object.
+ * @since 0.1.0-beta.0 — Converted type param to an object.
  */
 export abstract class AbstractTokens<T_Params extends {
     data: any;
@@ -46,7 +46,7 @@ export abstract class AbstractTokens<T_Params extends {
     /**
      * Returns a local error object.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     public newError<T_CauseType extends LocalErrors.Cause>(
         message: string,
@@ -208,7 +208,7 @@ export namespace AbstractTokens {
     /**
      * Options for the {@link AbstractTokens.try} method.
      * 
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.0
      */
     export interface TryOpts {
         /**

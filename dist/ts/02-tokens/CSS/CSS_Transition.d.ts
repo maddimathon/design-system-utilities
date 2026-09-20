@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.0
  * @license MIT
  */
 import { AbstractTokens } from '../abstract/AbstractTokens.js';
@@ -77,7 +77,7 @@ export declare namespace Tokens_CSS_Transition {
      */
     export type JsonReturn = Data;
     /**
-     * @since 0.1.0-beta.0.draft
+     * @since 0.1.0-beta.0
      */
     export type ScssVars = Data;
     export {};
