@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0
+ * @maddimathon/design-system-utilities@0.1.0-beta.1
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -650,6 +650,14 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0
          */
         backdrop: BackdropStyles.Parsed;
+        /**
+         * @since 0.1.0-beta.1
+         */
+        blockquote: {
+            'flow-margin': {
+                self: FlowMargin.SelfFirm;
+            };
+        };
         button: {
             $: ButtonStyles;
             disabled: ButtonStyles_Disabled;
@@ -786,6 +794,10 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0
          */
         backdrop?: RecursivePartial<BackdropStyles>;
+        /**
+         * @since 0.1.0-beta.1
+         */
+        blockquote?: RecursivePartial<Data<T_Params>['blockquote']>;
         button?: {
             $?: RecursivePartial<ButtonStyles>;
             disabled?: RecursivePartial<ButtonStyles_Disabled>;

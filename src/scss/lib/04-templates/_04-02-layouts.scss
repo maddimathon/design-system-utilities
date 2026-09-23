@@ -152,6 +152,7 @@
 
                     @include first-child-no-top-margin(
                         $includeListsFirstItem: true,
+                        $includeScriptsFirstItem: true,
                         $includeSrTextFirstItem: true
                     );
 
@@ -160,11 +161,11 @@
                     }
 
                     &:has(+ %full-width-subgrid-block) {
-                        margin-block-end: 0;
+                        margin-block-end: 0 !important;
                     }
 
                     + :is(%full-width-subgrid-block) {
-                        margin-block-start: 0;
+                        margin-block-start: 0 !important;
                     }
                 }
             }
@@ -208,6 +209,7 @@
                     > hgroup {
                         @include first-child-no-top-margin(
                             $includeListsFirstItem: false,
+                            $includeScriptsFirstItem: false,
                             $includeSrTextFirstItem: false
                         );
                     }

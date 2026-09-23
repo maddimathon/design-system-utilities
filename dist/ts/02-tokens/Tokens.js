@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0
+ * @maddimathon/design-system-utilities@0.1.0-beta.1
  * @license MIT
  */
 import { arrayUnique, mergeArgs, objectMap, slugify } from '@maddimathon/utility-typescript';

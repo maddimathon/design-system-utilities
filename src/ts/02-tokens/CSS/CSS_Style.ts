@@ -57,6 +57,12 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
         const defaults = {
 
+            blockquote: {
+                'flow-margin': {
+                    self: 'margins-flow-firm-large',
+                },
+            },
+
             'flow-margin': {
                 $: '400',
                 large: '600',
@@ -121,7 +127,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     self: 'margins-flow-firm-large',
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'flow-margin' | 'form' | 'hr' | 'label' | 'logo' | 'selection' | 'table'>;
+        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'blockquote' | 'flow-margin' | 'form' | 'hr' | 'label' | 'logo' | 'selection' | 'table'>;
 
         return Promise.all( [
             Tokens_CSS_Style.iconStyle<T_Params>( partial.icon ),
@@ -179,6 +185,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                 return {
                     alert,
                     backdrop,
+                    blockquote: mergeArgs( defaults.blockquote, partial.blockquote, true ),
                     button,
                     'flow-margin': mergeArgs(
                         defaults[ 'flow-margin' ],
@@ -1858,6 +1865,15 @@ export namespace Tokens_CSS_Style {
          */
         backdrop: BackdropStyles.Parsed;
 
+        /**
+         * @since 0.1.0-beta.1
+         */
+        blockquote: {
+            'flow-margin': {
+                self: FlowMargin.SelfFirm,
+            },
+        };
+
         button: {
             $: ButtonStyles;
             disabled: ButtonStyles_Disabled;
@@ -2016,6 +2032,11 @@ export namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0
          */
         backdrop?: RecursivePartial<BackdropStyles>;
+
+        /**
+         * @since 0.1.0-beta.1
+         */
+        blockquote?: RecursivePartial<Data<T_Params>[ 'blockquote' ]>;
 
         button?: {
             $?: RecursivePartial<ButtonStyles>;

@@ -150,7 +150,16 @@
     //
     $additional: list.join(
         $additional,
-        ((('%figure', '%img'), image), dd, dt, img, figure, figcaption, svg)
+        (
+            (('%figure', '%img'), image),
+            dd,
+            dt,
+            img,
+            figure,
+            figcaption,
+            svg,
+            ((dt, dd, li, p), hide-if-empty)
+        )
     );
 
     $additional: list.join($additional, _get-extend-selectors-all-buttons--additions());

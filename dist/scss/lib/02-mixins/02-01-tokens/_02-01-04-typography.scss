@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.0
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.1
 /// @since 0.1.0-alpha
 ///
 
@@ -483,6 +483,8 @@ $_fontOverrideSels_body: ();
             justify-self: center;
         }
 
+        @content;
+
         @include _font-family-icons-base-properties--selector(
             $addOverrideSels: $addOverrideSels,
             $includeChildren: $includeChildren
@@ -511,6 +513,8 @@ $_fontOverrideSels_body: ();
 
             color: var-style(icon-color);
         }
+    } @else {
+        @content;
     }
 }
 
@@ -545,7 +549,9 @@ $_fontOverrideSels_body: ();
         $useIconFont: true,
         $includeChildren: $includeChildren,
         $args...
-    );
+    ) {
+        @content;
+    }
 
     @if $includeChildren {
         &:first-child {
@@ -575,8 +581,10 @@ $_fontOverrideSels_body: ();
     $setMargins: $asOverride,
     $setProps: $setBaseProps,
     $setWhereProps: $setChildProps,
-    $setWidths: $asOverride
+    $setWidths: $asOverride,
+    $args...
 ) {
+    $args: meta.keywords($args);
     $map: map.get(tokens.$font, family, $slug);
 
     @if not $map {

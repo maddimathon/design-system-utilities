@@ -23,7 +23,7 @@ $_firmFlowMarginChildren: list.join(
         '%margins-flow-firm-small',
         '%margins-flow-firm-large'
     ),
-    config.$fn_firstLastChildNoMargin_additionalFirmChildren,
+    config.$fn_flowMarginConditionalOverride_additionalFirmChildren,
     $separator: comma
 );
 
@@ -40,7 +40,7 @@ $_firmFlowMarginChildren: list.join(
     $childrenInIs: true,
     $includeChildren: true,
     $includeRoot: true,
-    $useNotInsteadOfChildren: config.$fn_firstLastChildNoMargin_useNotInsteadOfChildren
+    $useNotInsteadOfChildren: config.$fn_flowMarginConditionalOverride_useNotInsteadOfChildren
 ) {
     $importantSuffix: if($asImportant, ' !important', '');
 
@@ -49,6 +49,10 @@ $_firmFlowMarginChildren: list.join(
         $additionalFirmChildren,
         $separator: comma
     );
+
+    @if list.length($additionalFirmChildren) > 0 {
+        $firmFlowMarginChildren: list.unique($firmFlowMarginChildren);
+    }
 
     $firmFlowMarginChildren: if(
         $childrenInIs,
@@ -94,7 +98,7 @@ $_firmFlowMarginChildren: list.join(
     $includeScriptsFirstItem: false,
     $includeSrTextFirstItem: false,
     $setFirstChildSelector: null,
-    $useNotInsteadOfChildren: config.$fn_firstLastChildNoMargin_useNotInsteadOfChildren,
+    $useNotInsteadOfChildren: config.$fn_flowMarginConditionalOverride_useNotInsteadOfChildren,
     $args...
 ) {
     $args: meta.keywords($args);

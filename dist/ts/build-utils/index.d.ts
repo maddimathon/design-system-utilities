@@ -6,7 +6,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0
+ * @maddimathon/design-system-utilities@0.1.0-beta.1
  * @license MIT
  */
 export * from './classes/Build.js';

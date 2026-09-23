@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.0
+ * @maddimathon/design-system-utilities@0.1.0-beta.1
  * @license MIT
  */
 import { deleteUndefinedProps, mergeArgs, mergeArgsAsync, } from '@maddimathon/utility-typescript';
@@ -33,6 +33,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
      */
     static async buildData(partial = {}) {
         const defaults = {
+            blockquote: {
+                'flow-margin': {
+                    self: 'margins-flow-firm-large',
+                },
+            },
             'flow-margin': {
                 $: '400',
                 large: '600',
@@ -122,6 +127,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             return {
                 alert,
                 backdrop,
+                blockquote: mergeArgs(defaults.blockquote, partial.blockquote, true),
                 button,
                 'flow-margin': mergeArgs(defaults['flow-margin'], {
                     ...partial?.['flow-margin'],

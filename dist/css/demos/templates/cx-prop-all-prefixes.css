@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/design-system-utilities/template@0.1.0-beta.0
+ * @maddimathon/design-system-utilities/template@0.1.0-beta.1
  * 
  * This is a sample stylesheet with a custom property prefix and a fallback
  * prefix set in the config (i.e. — $customPropertyPrefix: "",
@@ -10115,7 +10115,7 @@ a[href]::after {
     );
 }
 a[href]:empty {
-    display: none;
+    display: none !important;
 }
 a.display-block[href] {
     --fallback-display: inline-block;
@@ -10316,8 +10316,11 @@ abbr[title] {
 /*! END of @maddimathon/design-system-utilities/template */
 /* ## Typography - Blocks ==================================== */
 /*! START of @maddimathon/design-system-utilities/template */
+dt:empty,
+dd:empty,
+li:empty,
 p:empty {
-    display: none;
+    display: none !important;
 }
 
 blockquote {
@@ -10409,25 +10412,25 @@ blockquote > * {
 }
 :where(.js__no-touch) blockquote > * {
     --fallback-flow-margin-button-span-block: var(
-        --mrg-firm-200,
-        var(--fallback-mrg-firm-200, 0.5rem)
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
     );
     --fallback-flow-margin-button-span-inline: var(
-        --mrg-firm-200,
-        var(--fallback-mrg-firm-200, 0.5rem)
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
     );
     --fallback-flow-margin-button-span-block--touch: var(
         --flow-margin-button-span-block,
         var(
             --fallback-flow-margin-button-span-block,
-            var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem))
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
         )
     );
     --fallback-flow-margin-button-span-inline--touch: var(
         --flow-margin-button-span-inline,
         var(
             --fallback-flow-margin-button-span-inline,
-            var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem))
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
         )
     );
 }
@@ -10956,6 +10959,56 @@ hgroup .h8,
 hgroup .h9,
 hgroup .h10 {
     margin-block-start: 0;
+}
+
+:is(
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):last-child {
+    margin-block-end: 0;
+    padding-block-end: 0;
+}
+
+:is(
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):has(
+    + :last-child:is(.screen-reader-text, dt:empty, dd:empty, li:empty, p:empty)
+) {
+    margin-block-end: 0;
+    padding-block-end: 0;
 }
 
 .unstyled-heading__hgroup,
@@ -14818,6 +14871,17 @@ a[disabled][href].button::before {
         );
     }
 }
+a[href].button-primary:empty,
+a[href].button-secondary:empty,
+a[href].button-grey:empty,
+button:empty,
+[role="button"]:empty,
+input[type="button"]:empty,
+input[type="reset"]:empty,
+input[type="submit"]:empty,
+a[href].button:empty {
+    display: var(--fallback-display, var(--button-display, block)) !important;
+}
 a[href].button-primary:empty:not(input),
 a[href].button-secondary:empty:not(input),
 a[href].button-grey:empty:not(input),
@@ -14832,64 +14896,43 @@ a[href].button:empty:not(input) {
         var(--pad-soft-200, var(--fallback-pad-soft-200, 0.3125em))
     );
 }
-a[href].button-primary:has(> .icon:only-child),
-a[href].button-secondary:has(> .icon:only-child),
-a[href].button-grey:has(> .icon:only-child),
-button:has(> .icon:only-child),
-[role="button"]:has(> .icon:only-child),
-input[type="button"]:has(> .icon:only-child),
-input[type="reset"]:has(> .icon:only-child),
-input[type="submit"]:has(> .icon:only-child),
-a[href].button:has(> .icon:only-child),
-a[href].button-primary:has(> .brand-logo:only-child),
-a[href].button-secondary:has(> .brand-logo:only-child),
-a[href].button-grey:has(> .brand-logo:only-child),
-button:has(> .brand-logo:only-child),
-[role="button"]:has(> .brand-logo:only-child),
-input[type="button"]:has(> .brand-logo:only-child),
-input[type="reset"]:has(> .brand-logo:only-child),
-input[type="submit"]:has(> .brand-logo:only-child),
-a[href].button:has(> .brand-logo:only-child) {
+:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+):has(> .icon:only-child, > .brand-logo:only-child) {
     padding-block: var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem));
     padding-inline: var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem));
     line-height: 1 !important;
 }
-a[href].button-primary:has(> .icon:only-child)::after,
-a[href].button-secondary:has(> .icon:only-child)::after,
-a[href].button-grey:has(> .icon:only-child)::after,
-button:has(> .icon:only-child)::after,
-[role="button"]:has(> .icon:only-child)::after,
-input[type="button"]:has(> .icon:only-child)::after,
-input[type="reset"]:has(> .icon:only-child)::after,
-input[type="submit"]:has(> .icon:only-child)::after,
-a[href].button:has(> .icon:only-child)::after,
-a[href].button-primary:has(> .icon:only-child)::before,
-a[href].button-secondary:has(> .icon:only-child)::before,
-a[href].button-grey:has(> .icon:only-child)::before,
-button:has(> .icon:only-child)::before,
-[role="button"]:has(> .icon:only-child)::before,
-input[type="button"]:has(> .icon:only-child)::before,
-input[type="reset"]:has(> .icon:only-child)::before,
-input[type="submit"]:has(> .icon:only-child)::before,
-a[href].button:has(> .icon:only-child)::before,
-a[href].button-primary:has(> .brand-logo:only-child)::after,
-a[href].button-secondary:has(> .brand-logo:only-child)::after,
-a[href].button-grey:has(> .brand-logo:only-child)::after,
-button:has(> .brand-logo:only-child)::after,
-[role="button"]:has(> .brand-logo:only-child)::after,
-input[type="button"]:has(> .brand-logo:only-child)::after,
-input[type="reset"]:has(> .brand-logo:only-child)::after,
-input[type="submit"]:has(> .brand-logo:only-child)::after,
-a[href].button:has(> .brand-logo:only-child)::after,
-a[href].button-primary:has(> .brand-logo:only-child)::before,
-a[href].button-secondary:has(> .brand-logo:only-child)::before,
-a[href].button-grey:has(> .brand-logo:only-child)::before,
-button:has(> .brand-logo:only-child)::before,
-[role="button"]:has(> .brand-logo:only-child)::before,
-input[type="button"]:has(> .brand-logo:only-child)::before,
-input[type="reset"]:has(> .brand-logo:only-child)::before,
-input[type="submit"]:has(> .brand-logo:only-child)::before,
-a[href].button:has(> .brand-logo:only-child)::before {
+:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ):has(> .icon:only-child, > .brand-logo:only-child)::after,
+:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ):has(> .icon:only-child, > .brand-logo:only-child)::before {
     content: none !important;
 }
 
@@ -14954,15 +14997,17 @@ a[disabled][href].button {
     }
 }
 
-a[href].button-primary:is(.display-inline),
-a[href].button-secondary:is(.display-inline),
-a[href].button-grey:is(.display-inline),
-button:is(.display-inline),
-[role="button"]:is(.display-inline),
-input[type="button"]:is(.display-inline),
-input[type="reset"]:is(.display-inline),
-input[type="submit"]:is(.display-inline),
-a[href].button:is(.display-inline) {
+.display-inline:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+) {
     --fallback-focus-ring-outline-offset: var(
         --button-inline-focus-offset,
         var(
@@ -15023,15 +15068,18 @@ a[href].button:is(.display-inline) {
     text-transform: var(--button-inline-text-transform, none);
     vertical-align: var(--button-inline-vertical-align, baseline);
 }
-a[href].button-primary:is(.display-inline) .icon,
-a[href].button-secondary:is(.display-inline) .icon,
-a[href].button-grey:is(.display-inline) .icon,
-button:is(.display-inline) .icon,
-[role="button"]:is(.display-inline) .icon,
-input[type="button"]:is(.display-inline) .icon,
-input[type="reset"]:is(.display-inline) .icon,
-input[type="submit"]:is(.display-inline) .icon,
-a[href].button:is(.display-inline) .icon {
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon) {
     --fallback-display: inline-block;
     --display: inline-block;
     display: var(--fallback-display, inline-block);
@@ -15045,24 +15093,18 @@ a[href].button:is(.display-inline) .icon {
         )
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon) {
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon) {
     margin-inline: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
             var(
@@ -15075,40 +15117,18 @@ a[href].button:is(.display-inline)
             )
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
     --fallback-icon-size: var(--button-icon-size-pseudo, 1em);
@@ -15182,40 +15202,18 @@ a[href].button:is(.display-inline)
     );
     bottom: var(--button-icon-embedded-bottom, 0.0625em);
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):first-child {
     margin-inline-start: 0;
@@ -15231,24 +15229,18 @@ a[href].button:is(.display-inline)
             )
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):last-child {
     margin-inline-start: calc(
@@ -15264,24 +15256,18 @@ a[href].button:is(.display-inline)
     );
     margin-inline-end: 0;
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):only-child {
     --fallback-icon-inline-margin-block-start: 0;
@@ -15290,6 +15276,7 @@ a[href].button:is(.display-inline)
     margin: 0;
     letter-spacing: normal !important;
 }
+
 a[href].button-primary::after,
 a[href].button-secondary::after,
 a[href].button-grey::after,

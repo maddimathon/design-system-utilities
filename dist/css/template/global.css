@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template - Global
- * @maddimathon/design-system-utilities/template/global@0.1.0-beta.0
+ * @maddimathon/design-system-utilities/template/global@0.1.0-beta.1
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -3745,7 +3745,7 @@ a[href]::after {
     );
 }
 a[href]:empty {
-    display: none;
+    display: none !important;
 }
 a.display-block[href] {
     display: inline-block;
@@ -3786,8 +3786,11 @@ abbr[title] {
 /*! END of @maddimathon/design-system-utilities/template/global */
 /* ## Typography - Blocks ==================================== */
 /*! START of @maddimathon/design-system-utilities/template/global */
+dt:empty,
+dd:empty,
+li:empty,
 p:empty {
-    display: none;
+    display: none !important;
 }
 
 blockquote {
@@ -3822,15 +3825,15 @@ blockquote > * {
     );
 }
 :where(.js__no-touch) blockquote > * {
-    --flow-margin-button-span-block: 0.5rem;
-    --flow-margin-button-span-inline: 0.5rem;
+    --flow-margin-button-span-block: 0.5em;
+    --flow-margin-button-span-inline: 0.5em;
     --flow-margin-button-span-block--touch: var(
         --flow-margin-button-span-block,
-        0.5rem
+        0.5em
     );
     --flow-margin-button-span-inline--touch: var(
         --flow-margin-button-span-inline,
-        0.5rem
+        0.5em
     );
 }
 
@@ -4095,6 +4098,18 @@ hgroup h4,
 hgroup h5,
 hgroup h6 {
     margin-top: 0;
+}
+
+:is(h1, h2, h3, h4, h5, h6):last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+:is(h1, h2, h3, h4, h5, h6):has(
+    + :last-child:is(.screen-reader-text, dt:empty, dd:empty, li:empty, p:empty)
+) {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 :is(h1, h2, h3, h4, h5, h6):has(
@@ -5728,6 +5743,17 @@ a[href].button {
     -moz-user-select: text;
     user-select: text;
 }
+a[href].button-primary:empty,
+a[href].button-secondary:empty,
+a[href].button-grey:empty,
+button:empty,
+[role="button"]:empty,
+input[type="button"]:empty,
+input[type="reset"]:empty,
+input[type="submit"]:empty,
+a[href].button:empty {
+    display: block !important;
+}
 a[href].button-primary:empty:not(input),
 a[href].button-secondary:empty:not(input),
 a[href].button-grey:empty:not(input),
@@ -5767,15 +5793,17 @@ a[disabled][href].button {
     text-transform: none;
     cursor: not-allowed;
 }
-a[href].button-primary:is(.display-inline),
-a[href].button-secondary:is(.display-inline),
-a[href].button-grey:is(.display-inline),
-button:is(.display-inline),
-[role="button"]:is(.display-inline),
-input[type="button"]:is(.display-inline),
-input[type="reset"]:is(.display-inline),
-input[type="submit"]:is(.display-inline),
-a[href].button:is(.display-inline) {
+.display-inline:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+) {
     --focus-ring-outline-offset: 0.1875em;
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;

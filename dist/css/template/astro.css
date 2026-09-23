@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template - Astro
- * @maddimathon/design-system-utilities/template/astro@0.1.0-beta.0
+ * @maddimathon/design-system-utilities/template/astro@0.1.0-beta.1
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -5835,7 +5835,7 @@ a[href]::after {
     );
 }
 a[href]:empty {
-    display: none;
+    display: none !important;
 }
 a.display-block[href] {
     --display: inline-block;
@@ -5980,8 +5980,11 @@ abbr[title] {
 /*! END of @maddimathon/design-system-utilities/template/astro */
 /* ## Typography - Blocks ==================================== */
 /*! START of @maddimathon/design-system-utilities/template/astro */
+dt:empty,
+dd:empty,
+li:empty,
 p:empty {
-    display: none;
+    display: none !important;
 }
 
 blockquote {
@@ -6030,15 +6033,15 @@ blockquote > * {
     );
 }
 :where(.js__no-touch) blockquote > * {
-    --flow-margin-button-span-block: var(--mrg-firm-200, 0.5rem);
-    --flow-margin-button-span-inline: var(--mrg-firm-200, 0.5rem);
+    --flow-margin-button-span-block: var(--pad-firm-200, 0.5em);
+    --flow-margin-button-span-inline: var(--pad-firm-200, 0.5em);
     --flow-margin-button-span-block--touch: var(
         --flow-margin-button-span-block,
-        var(--mrg-firm-200, 0.5rem)
+        var(--pad-firm-200, 0.5em)
     );
     --flow-margin-button-span-inline--touch: var(
         --flow-margin-button-span-inline,
-        var(--mrg-firm-200, 0.5rem)
+        var(--pad-firm-200, 0.5em)
     );
 }
 
@@ -6434,6 +6437,56 @@ hgroup .h8,
 hgroup .h9,
 hgroup .h10 {
     margin-top: 0;
+}
+
+:is(
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+:is(
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):has(
+    + :last-child:is(.screen-reader-text, dt:empty, dd:empty, li:empty, p:empty)
+) {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .unstyled-heading__hgroup,
@@ -8754,6 +8807,18 @@ a[disabled][href].button::before {
     content: "\f15d"/"" !important;
 }
 
+a[href].button-primary:empty,
+a[href].button-secondary:empty,
+a[href].button-grey:empty,
+button:empty,
+[role="button"]:empty,
+input[type="button"]:empty,
+input[type="reset"]:empty,
+input[type="submit"]:empty,
+a[href].button:empty {
+    display: block !important;
+    display: var(--display, block) !important;
+}
 a[href].button-primary:empty:not(input),
 a[href].button-secondary:empty:not(input),
 a[href].button-grey:empty:not(input),
@@ -8768,24 +8833,17 @@ a[href].button:empty:not(input) {
     padding-left: var(--pad-soft-200, 0.3125em);
     padding-right: var(--pad-soft-200, 0.3125em);
 }
-a[href].button-primary:has(> .icon:only-child),
-a[href].button-secondary:has(> .icon:only-child),
-a[href].button-grey:has(> .icon:only-child),
-button:has(> .icon:only-child),
-[role="button"]:has(> .icon:only-child),
-input[type="button"]:has(> .icon:only-child),
-input[type="reset"]:has(> .icon:only-child),
-input[type="submit"]:has(> .icon:only-child),
-a[href].button:has(> .icon:only-child),
-a[href].button-primary:has(> .brand-logo:only-child),
-a[href].button-secondary:has(> .brand-logo:only-child),
-a[href].button-grey:has(> .brand-logo:only-child),
-button:has(> .brand-logo:only-child),
-[role="button"]:has(> .brand-logo:only-child),
-input[type="button"]:has(> .brand-logo:only-child),
-input[type="reset"]:has(> .brand-logo:only-child),
-input[type="submit"]:has(> .brand-logo:only-child),
-a[href].button:has(> .brand-logo:only-child) {
+:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+):has(> .icon:only-child, > .brand-logo:only-child) {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-top: var(--mrg-firm-200, 0.5rem);
@@ -8796,42 +8854,28 @@ a[href].button:has(> .brand-logo:only-child) {
     padding-right: var(--mrg-firm-200, 0.5rem);
     line-height: 1 !important;
 }
-a[href].button-primary:has(> .icon:only-child)::after,
-a[href].button-secondary:has(> .icon:only-child)::after,
-a[href].button-grey:has(> .icon:only-child)::after,
-button:has(> .icon:only-child)::after,
-[role="button"]:has(> .icon:only-child)::after,
-input[type="button"]:has(> .icon:only-child)::after,
-input[type="reset"]:has(> .icon:only-child)::after,
-input[type="submit"]:has(> .icon:only-child)::after,
-a[href].button:has(> .icon:only-child)::after,
-a[href].button-primary:has(> .icon:only-child)::before,
-a[href].button-secondary:has(> .icon:only-child)::before,
-a[href].button-grey:has(> .icon:only-child)::before,
-button:has(> .icon:only-child)::before,
-[role="button"]:has(> .icon:only-child)::before,
-input[type="button"]:has(> .icon:only-child)::before,
-input[type="reset"]:has(> .icon:only-child)::before,
-input[type="submit"]:has(> .icon:only-child)::before,
-a[href].button:has(> .icon:only-child)::before,
-a[href].button-primary:has(> .brand-logo:only-child)::after,
-a[href].button-secondary:has(> .brand-logo:only-child)::after,
-a[href].button-grey:has(> .brand-logo:only-child)::after,
-button:has(> .brand-logo:only-child)::after,
-[role="button"]:has(> .brand-logo:only-child)::after,
-input[type="button"]:has(> .brand-logo:only-child)::after,
-input[type="reset"]:has(> .brand-logo:only-child)::after,
-input[type="submit"]:has(> .brand-logo:only-child)::after,
-a[href].button:has(> .brand-logo:only-child)::after,
-a[href].button-primary:has(> .brand-logo:only-child)::before,
-a[href].button-secondary:has(> .brand-logo:only-child)::before,
-a[href].button-grey:has(> .brand-logo:only-child)::before,
-button:has(> .brand-logo:only-child)::before,
-[role="button"]:has(> .brand-logo:only-child)::before,
-input[type="button"]:has(> .brand-logo:only-child)::before,
-input[type="reset"]:has(> .brand-logo:only-child)::before,
-input[type="submit"]:has(> .brand-logo:only-child)::before,
-a[href].button:has(> .brand-logo:only-child)::before {
+:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ):has(> .icon:only-child, > .brand-logo:only-child)::after,
+:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ):has(> .icon:only-child, > .brand-logo:only-child)::before {
     content: none !important;
 }
 
@@ -8862,15 +8906,17 @@ a[disabled][href].button {
     text-transform: none;
     cursor: not-allowed;
 }
-a[href].button-primary:is(.display-inline),
-a[href].button-secondary:is(.display-inline),
-a[href].button-grey:is(.display-inline),
-button:is(.display-inline),
-[role="button"]:is(.display-inline),
-input[type="button"]:is(.display-inline),
-input[type="reset"]:is(.display-inline),
-input[type="submit"]:is(.display-inline),
-a[href].button:is(.display-inline) {
+.display-inline:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+) {
     --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;
@@ -8906,15 +8952,18 @@ a[href].button:is(.display-inline) {
     text-transform: none;
     vertical-align: baseline;
 }
-a[href].button-primary:is(.display-inline) .icon,
-a[href].button-secondary:is(.display-inline) .icon,
-a[href].button-grey:is(.display-inline) .icon,
-button:is(.display-inline) .icon,
-[role="button"]:is(.display-inline) .icon,
-input[type="button"]:is(.display-inline) .icon,
-input[type="reset"]:is(.display-inline) .icon,
-input[type="submit"]:is(.display-inline) .icon,
-a[href].button:is(.display-inline) .icon {
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon) {
     --display: inline-block;
     display: inline-block;
     display: var(--display, inline-block);
@@ -8923,24 +8972,18 @@ a[href].button:is(.display-inline) .icon {
     vertical-align: middle;
     vertical-align: var(--icon-vertical-align, middle);
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon) {
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon) {
     margin-left: calc(0.25em * 1 * 1);
     margin-right: calc(0.25em * 1 * 1);
     margin-left: calc(
@@ -8952,40 +8995,18 @@ a[href].button:is(.display-inline)
             var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
     --icon-size: 1em;
@@ -9020,40 +9041,18 @@ a[href].button:is(.display-inline)
     color: var(--icon-color, var(--theme-ui, CanvasText));
     bottom: 0.0625em;
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):first-child {
     margin-left: 0;
@@ -9063,24 +9062,18 @@ a[href].button:is(.display-inline)
             var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):last-child {
     margin-left: calc(0.25em * 1 * 1);
@@ -9090,24 +9083,18 @@ a[href].button:is(.display-inline)
     );
     margin-right: 0;
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):only-child {
     --icon-inline-margin-block-start: 0;
@@ -9116,6 +9103,7 @@ a[href].button:is(.display-inline)
     margin: 0;
     letter-spacing: normal !important;
 }
+
 a[href].button-primary::after,
 a[href].button-secondary::after,
 a[href].button-grey::after,
@@ -11794,7 +11782,12 @@ body
     > li:first-child,
 body
     > :is(.main-subgrid--full-width)
+    > :first-child:is(script, style, .screen-reader-text)
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+body
+    > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
+    + :is(script, style)
     + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
 body > :where(main) > :is(.main-subgrid--full-width) > :first-child,
 body
@@ -11810,7 +11803,13 @@ body
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
+    > :first-child:is(script, style, .screen-reader-text)
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+body
+    > :where(main)
+    > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
+    + :is(script, style)
     + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
 body
     > :where(main)
@@ -11833,7 +11832,14 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
+    > :first-child:is(script, style, .screen-reader-text)
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+body
+    > :where(main)
+    > :where(.main-subgrid, .main-content__article)
+    > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
+    + :is(script, style)
     + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child) {
     margin-top: 0 !important;
 }
@@ -11845,6 +11851,8 @@ body
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -11883,6 +11891,8 @@ body
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -11922,6 +11932,8 @@ body
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -11972,7 +11984,7 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width):has(+ .main-subgrid--full-width) {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
 }
 body > :is(.main-subgrid--full-width) + :is(.main-subgrid--full-width),
 body
@@ -11984,7 +11996,7 @@ body
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
     + :is(.main-subgrid--full-width) {
-    margin-top: 0;
+    margin-top: 0 !important;
 }
 
 /*! END of @maddimathon/design-system-utilities/template/astro */
@@ -16522,7 +16534,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
+        > :first-child:is(script, style, .screen-reader-text)
+        + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
         > .screen-reader-text:first-child
+        + :is(script, style)
         + :is(
             *,
             dl > dt:first-child,
@@ -16540,6 +16559,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
             dl:first-child > dt:first-child,
             ol:first-child > li:first-child,
             ul:first-child > li:first-child,
+            script:first-child + *,
+            style:first-child + *,
             .screen-reader-text:first-child + *
         ):is(
             .icon,
@@ -16590,7 +16611,11 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
-        > :has(+ .screen-reader-text:last-child) {
+        > :has(
+            + script:last-child,
+            + style:last-child,
+            + .screen-reader-text:last-child
+        ) {
         margin-bottom: 0 !important;
     }
     :where(.js)
@@ -16631,7 +16656,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     }
     :where(.js) .toggle-block .toggle-block__content > .container > ol,
     :where(.js) .toggle-block .toggle-block__content > .container > ul {
-        width: 100%;
+        align-self: stretch;
     }
     :where(.js)
         .toggle-block
@@ -17066,6 +17091,52 @@ body > nav.toggle-nav-menu {
 .website-settings
     .website-settings__content
     > .container
+    > script:first-child
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > script:first-child
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > script:first-child
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > script:first-child
+    + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
     > .screen-reader-text:first-child
     + *,
 .website-settings
@@ -17085,6 +17156,60 @@ body > nav.toggle-nav-menu {
     > .container
     > .screen-reader-text:first-child
     + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + ul
     > li:first-child {
     margin-top: 0 !important;
 }
@@ -17097,6 +17222,8 @@ body > nav.toggle-nav-menu {
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,

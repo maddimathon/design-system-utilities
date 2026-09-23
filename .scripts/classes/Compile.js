@@ -274,6 +274,9 @@ export class Compile extends CompileStage {
                     declarationMap: false,
                     noUnusedParameters: false,
                     outDir: '../../dist/ts/',
+                    types: [
+                        'node',
+                    ],
                 },
             },
         ] );

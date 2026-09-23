@@ -19,6 +19,15 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.1** — 2026-09-23
+
+### Added
+- New pseudo-selector: %hide-if-empty
+- New config vars:
+    - $button_selector_icon
+    - $button_selector_logo
+
+
 ## **0.1.0-beta.0** — 2026-09-20
 
 Streamlined token types, thome theme & css style tokens, improved scss config &

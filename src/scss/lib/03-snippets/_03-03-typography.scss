@@ -22,6 +22,12 @@
 @use '03-00-tokens' as *;
 @use '03-02-objects' as *;
 
+$_flowMarginFirmSiblings: list.join(
+    ('%button-span', '%margins-flow-firm', '%margins-flow-firm-small', '%margins-flow-firm-large'),
+    config.$fn_flowMarginConditionalOverride_additionalFirmChildren,
+    $separator: comma
+);
+
 ///
 /// @since 0.1.0-beta.0
 ///
@@ -493,7 +499,10 @@
 @mixin snippet-blockquote(
     $includeBorder: true,
     $includeCite: true,
-    $includeMarginBlock: false,
+    $includeStyles: true,
+    $includeMarginBlock: true,
+    $includeFlowMargins: $includeMarginBlock,
+    $multipleContentBlocks: false,
     $args...
 ) {
     @include utils.snippet-blockquote(
@@ -507,7 +516,18 @@
             @if $includeBorder {
                 border-inline-start: var-border-width('200') solid var-theme(ui-primary);
             }
-            @include set-flow-margins($default: '300', $large: '500', $small: '200');
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            } @else if $location == root {
+                @content;
+            }
+
+            @if $includeFlowMargins {
+                @include set-flow-margins-by-token(widget);
+            }
+        } @else if $multipleContentBlocks {
+            @content ($location);
         }
     }
 
@@ -519,12 +539,24 @@
             justify-self: end;
             text-align: end;
 
-            font-size: var-fs(smaller-1);
+            @if $includeStyles {
+                font-size: var-fs(smaller-1);
 
-            @include theme-set-color(primary);
+                @include theme-set-color(primary);
+            }
+
+            @if $multipleContentBlocks {
+                @content (cite);
+            }
 
             &::before {
-                content: '— ' / '';
+                @if $includeStyles {
+                    content: '— ' / '';
+                }
+
+                @if $multipleContentBlocks {
+                    @content (cite--before);
+                }
             }
         }
     }
@@ -711,6 +743,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 ///
 /// @since 0.1.0-alpha
 /// @since 0.1.0-beta.0 — Added optional $fontWeight, $fontWeight_strong, $link_decorationThickness, $link_focusOutlineOffset, $link_underlineOffset, $includeChildren, $includeColor, $includeMargin, $includeMarginSiblings, $useRelativeFontSize params.
+/// @since 0.1.0-beta.1 — Added optional $includeMargin_lastChild param.
 ///
 @mixin snippet-heading(
     $slug: 'unstyled',
@@ -748,6 +781,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $includeHGroup_child: $includeHGroup,
     $includeIconSpacingProps: true,
     $includeMargin: true,
+    $includeMargin_lastChild: null,
     $includeMarginSiblings: $includeMargin,
     $includeMarginSiblings_inIs: null,
     $includePadding: true,
@@ -992,6 +1026,41 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         }
     }
 
+    $_sels_include_zeroBlockEnd: (
+        ':last-child',
+        ':has(+ :last-child:is(.screen-reader-text, %hide-if-empty:empty))'
+    );
+
+    $_sels_includeMarginSiblings: if(
+        if(
+            $includeMarginSiblings_inIs == null,
+            $_parentSel_inIs,
+            meta.is-truthy($includeMarginSiblings_inIs)
+        ),
+        ':is(#{&})',
+        &
+    );
+
+    @if $includeMargin_lastChild == null {
+        $includeMargin_lastChild: $includeMargin and
+            $includeBase and
+            (not $slug or meta.is-truthy($paddingBlockEnd));
+    } @else {
+        $includeMargin_lastChild: $includeMargin_lastChild and
+            ($includeBase or meta.is-truthy($paddingBlockEnd));
+    }
+
+    @each $__sel in $_sels_include_zeroBlockEnd {
+        @at-root #{selector.unify($_sels_includeMarginSiblings, $__sel)} {
+            @if $includeMargin_lastChild {
+                margin-block-end: 0;
+                padding-block-end: 0;
+            }
+
+            @content (is-last-child);
+        }
+    }
+
     @if $includeHGroup {
         @at-root &,
             #{$selector_hgroup} {
@@ -1028,6 +1097,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                         $includeChildren: false,
                         $includeRoot: true,
                         $includeListsFirstItem: false,
+                        $includeScriptsFirstItem: false,
                         $includeSrTextFirstItem: false,
                         $setFirstChildSelector: true
                     );
@@ -1037,6 +1107,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                             $includeChildren: true,
                             $includeRoot: false,
                             $includeListsFirstItem: false,
+                            $includeScriptsFirstItem: false,
                             $includeSrTextFirstItem: false,
                             $setFirstChildSelector: true
                         );
@@ -1044,6 +1115,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 } @else {
                     @include first-child-no-top-margin(
                         $includeListsFirstItem: false,
+                        $includeScriptsFirstItem: false,
                         $includeSrTextFirstItem: false,
                         $setFirstChildSelector: true
                     );
@@ -1079,25 +1151,8 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeMarginSiblings {
-        $_sels: if(
-            if(
-                $includeMarginSiblings_inIs == null,
-                $_parentSel_inIs,
-                meta.is-truthy($includeMarginSiblings_inIs)
-            ),
-            ':is(#{&})',
-            &
-        );
-
-        @at-root #{$_sels} {
-            &:has(
-                + :is(
-                    %button-span,
-                    %margins-flow-firm,
-                    %margins-flow-firm-small,
-                    %margins-flow-firm-large
-                )
-            ) {
+        @at-root #{$_sels_includeMarginSiblings} {
+            &:has(+ :is(#{$_flowMarginFirmSiblings})) {
                 @if $includeBase_children {
                     margin-block-end: 0;
                 }
@@ -1450,7 +1505,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $includeEmpty {
         &:empty {
-            display: none;
+            display: none !important;
 
             @content (empty);
         }

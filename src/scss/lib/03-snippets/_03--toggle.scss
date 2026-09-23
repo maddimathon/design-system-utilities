@@ -456,9 +456,13 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $flowMargin_small: style-value(toggle-flow-margin-small, $raw: true),
     $flowMargin_buttonGapBlock: style-value(toggle-flow-margin-small, $raw: true),
     //
+    $content_background: var-style(toggle-content-background),
     $content_borderWidth: var-style(toggle-content-border-width),
+    //
     $content_container_paddingBlock: var-style(toggle-content-padding-block),
     $content_container_paddingInline: var-style(toggle-content-padding-inline),
+    //
+    $borderRadius: var-style(toggle-content-border-radius),
     //
     $borderColor: var-theme(link-ui),
     $borderColor_hover: if($borderColor, var-theme(link-ui-hover), false),
@@ -772,15 +776,15 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         @else if $location == js--toggle-content {
             line-height: var-style(toggle-content-line-height);
 
-            background: var-style(toggle-content-background);
+            background: $content_background;
 
             border-width: $content_borderWidth;
             border-block-end-width: 0;
 
             border-radius: 0;
 
-            border-end-end-radius: var-style(toggle-content-border-radius);
-            border-end-start-radius: var-style(toggle-content-border-radius);
+            border-end-end-radius: $borderRadius;
+            border-end-start-radius: $borderRadius;
 
             border-block-start-style: var-style(
                 toggle-content-border-style-top,
@@ -825,18 +829,20 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 
             @include first-child-no-top-margin(
                 $includeListsFirstItem: true,
+                $includeScriptsFirstItem: true,
                 $includeSrTextFirstItem: true,
                 $setFirstChildSelector: true
             );
             @include last-child-no-bottom-margin(
                 $includeListsFirstItem: true,
+                $includeScriptsFirstItem: true,
                 $includeSrTextFirstItem: true,
                 $setFirstChildSelector: true
             );
 
             > %ol,
             > %ul {
-                width: 100%;
+                align-self: stretch;
 
                 &:only-child {
                     margin-inline: 0;
@@ -901,12 +907,12 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         @else if $location == js--toggle-container--open--content {
             border-start-end-radius: var-style(
                 toggle-content-border-radius-top,
-                $value_failureReturn: var-style(toggle-content-border-radius),
+                $value_failureReturn: $borderRadius,
                 $value_warnOnFail: false
             );
             border-start-start-radius: var-style(
                 toggle-content-border-radius-top,
-                $value_failureReturn: var-style(toggle-content-border-radius),
+                $value_failureReturn: $borderRadius,
                 $value_warnOnFail: false
             );
 

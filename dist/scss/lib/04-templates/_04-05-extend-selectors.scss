@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.0
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.1
 /// @since 0.1.0-beta.0
 ///
 
@@ -153,7 +153,16 @@
     //
     $additional: list.join(
         $additional,
-        ((('%figure', '%img'), image), dd, dt, img, figure, figcaption, svg)
+        (
+            (('%figure', '%img'), image),
+            dd,
+            dt,
+            img,
+            figure,
+            figcaption,
+            svg,
+            ((dt, dd, li, p), hide-if-empty)
+        )
     );
 
     $additional: list.join(

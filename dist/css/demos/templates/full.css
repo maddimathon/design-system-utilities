@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template Demo - Full Template
- * @maddimathon/design-system-utilities/template@0.1.0-beta.0
+ * @maddimathon/design-system-utilities/template@0.1.0-beta.1
  * 
  * This is a sample stylesheet using the default template with almost all
  * options enabled (html, $fn_var_replaceWithValue_resist: true,
@@ -12311,7 +12311,7 @@ a[href]::after {
     );
 }
 a[href]:empty {
-    display: none;
+    display: none !important;
 }
 a.display-block[href] {
     --display: inline-block;
@@ -12432,8 +12432,11 @@ abbr[title] {
 /*! END of @maddimathon/design-system-utilities/template */
 /* ## Typography - Blocks ==================================== */
 /*! START of @maddimathon/design-system-utilities/template */
+dt:empty,
+dd:empty,
+li:empty,
 p:empty {
-    display: none;
+    display: none !important;
 }
 
 blockquote {
@@ -12477,15 +12480,15 @@ blockquote > * {
     );
 }
 :where(.js__no-touch) blockquote > * {
-    --flow-margin-button-span-block: var(--mrg-firm-200, 0.5rem);
-    --flow-margin-button-span-inline: var(--mrg-firm-200, 0.5rem);
+    --flow-margin-button-span-block: var(--pad-firm-200, 0.5em);
+    --flow-margin-button-span-inline: var(--pad-firm-200, 0.5em);
     --flow-margin-button-span-block--touch: var(
         --flow-margin-button-span-block,
-        var(--mrg-firm-200, 0.5rem)
+        var(--pad-firm-200, 0.5em)
     );
     --flow-margin-button-span-inline--touch: var(
         --flow-margin-button-span-inline,
-        var(--mrg-firm-200, 0.5rem)
+        var(--pad-firm-200, 0.5em)
     );
 }
 
@@ -12839,6 +12842,56 @@ hgroup .h10 {
     margin-block-start: 0;
 }
 
+:is(
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):last-child {
+    margin-block-end: 0;
+    padding-block-end: 0;
+}
+
+:is(
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10
+):has(
+    + :last-child:is(.screen-reader-text, dt:empty, dd:empty, li:empty, p:empty)
+) {
+    margin-block-end: 0;
+    padding-block-end: 0;
+}
+
 .unstyled-heading__hgroup,
 .h1__hgroup,
 .h2__hgroup,
@@ -12914,7 +12967,8 @@ hgroup .h10 {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
@@ -12993,7 +13047,8 @@ hgroup .h10 {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     )
 ) {
     margin-block-end: 0;
@@ -15382,6 +15437,17 @@ a[disabled][href].button::before {
         );
     }
 }
+a[href].button-primary:empty,
+a[href].button-secondary:empty,
+a[href].button-grey:empty,
+button:empty,
+[role="button"]:empty,
+input[type="button"]:empty,
+input[type="reset"]:empty,
+input[type="submit"]:empty,
+a[href].button:empty {
+    display: var(--display, var(--button-display, block)) !important;
+}
 a[href].button-primary:empty:not(input),
 a[href].button-secondary:empty:not(input),
 a[href].button-grey:empty:not(input),
@@ -15393,64 +15459,43 @@ input[type="submit"]:empty:not(input),
 a[href].button:empty:not(input) {
     padding-inline: var(--button-padding-block, var(--pad-soft-200, 0.3125em));
 }
-a[href].button-primary:has(> .icon:only-child),
-a[href].button-secondary:has(> .icon:only-child),
-a[href].button-grey:has(> .icon:only-child),
-button:has(> .icon:only-child),
-[role="button"]:has(> .icon:only-child),
-input[type="button"]:has(> .icon:only-child),
-input[type="reset"]:has(> .icon:only-child),
-input[type="submit"]:has(> .icon:only-child),
-a[href].button:has(> .icon:only-child),
-a[href].button-primary:has(> .brand-logo:only-child),
-a[href].button-secondary:has(> .brand-logo:only-child),
-a[href].button-grey:has(> .brand-logo:only-child),
-button:has(> .brand-logo:only-child),
-[role="button"]:has(> .brand-logo:only-child),
-input[type="button"]:has(> .brand-logo:only-child),
-input[type="reset"]:has(> .brand-logo:only-child),
-input[type="submit"]:has(> .brand-logo:only-child),
-a[href].button:has(> .brand-logo:only-child) {
+:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+):has(> .icon:only-child, > .brand-logo:only-child) {
     padding-block: var(--mrg-firm-200, 0.5rem);
     padding-inline: var(--mrg-firm-200, 0.5rem);
     line-height: 1 !important;
 }
-a[href].button-primary:has(> .icon:only-child)::after,
-a[href].button-secondary:has(> .icon:only-child)::after,
-a[href].button-grey:has(> .icon:only-child)::after,
-button:has(> .icon:only-child)::after,
-[role="button"]:has(> .icon:only-child)::after,
-input[type="button"]:has(> .icon:only-child)::after,
-input[type="reset"]:has(> .icon:only-child)::after,
-input[type="submit"]:has(> .icon:only-child)::after,
-a[href].button:has(> .icon:only-child)::after,
-a[href].button-primary:has(> .icon:only-child)::before,
-a[href].button-secondary:has(> .icon:only-child)::before,
-a[href].button-grey:has(> .icon:only-child)::before,
-button:has(> .icon:only-child)::before,
-[role="button"]:has(> .icon:only-child)::before,
-input[type="button"]:has(> .icon:only-child)::before,
-input[type="reset"]:has(> .icon:only-child)::before,
-input[type="submit"]:has(> .icon:only-child)::before,
-a[href].button:has(> .icon:only-child)::before,
-a[href].button-primary:has(> .brand-logo:only-child)::after,
-a[href].button-secondary:has(> .brand-logo:only-child)::after,
-a[href].button-grey:has(> .brand-logo:only-child)::after,
-button:has(> .brand-logo:only-child)::after,
-[role="button"]:has(> .brand-logo:only-child)::after,
-input[type="button"]:has(> .brand-logo:only-child)::after,
-input[type="reset"]:has(> .brand-logo:only-child)::after,
-input[type="submit"]:has(> .brand-logo:only-child)::after,
-a[href].button:has(> .brand-logo:only-child)::after,
-a[href].button-primary:has(> .brand-logo:only-child)::before,
-a[href].button-secondary:has(> .brand-logo:only-child)::before,
-a[href].button-grey:has(> .brand-logo:only-child)::before,
-button:has(> .brand-logo:only-child)::before,
-[role="button"]:has(> .brand-logo:only-child)::before,
-input[type="button"]:has(> .brand-logo:only-child)::before,
-input[type="reset"]:has(> .brand-logo:only-child)::before,
-input[type="submit"]:has(> .brand-logo:only-child)::before,
-a[href].button:has(> .brand-logo:only-child)::before {
+:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ):has(> .icon:only-child, > .brand-logo:only-child)::after,
+:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    ):has(> .icon:only-child, > .brand-logo:only-child)::before {
     content: none !important;
 }
 
@@ -15509,15 +15554,17 @@ a[disabled][href].button {
     }
 }
 
-a[href].button-primary:is(.display-inline),
-a[href].button-secondary:is(.display-inline),
-a[href].button-grey:is(.display-inline),
-button:is(.display-inline),
-[role="button"]:is(.display-inline),
-input[type="button"]:is(.display-inline),
-input[type="reset"]:is(.display-inline),
-input[type="submit"]:is(.display-inline),
-a[href].button:is(.display-inline) {
+.display-inline:is(
+    a[href].button-primary,
+    a[href].button-secondary,
+    a[href].button-grey,
+    button,
+    [role="button"],
+    input[type="button"],
+    input[type="reset"],
+    input[type="submit"],
+    a[href].button
+) {
     --focus-ring-outline-offset: var(
         --button-inline-focus-offset,
         var(--stroke-relative-400, 0.1875em)
@@ -15565,15 +15612,18 @@ a[href].button:is(.display-inline) {
     text-transform: var(--button-inline-text-transform, none);
     vertical-align: var(--button-inline-vertical-align, baseline);
 }
-a[href].button-primary:is(.display-inline) .icon,
-a[href].button-secondary:is(.display-inline) .icon,
-a[href].button-grey:is(.display-inline) .icon,
-button:is(.display-inline) .icon,
-[role="button"]:is(.display-inline) .icon,
-input[type="button"]:is(.display-inline) .icon,
-input[type="reset"]:is(.display-inline) .icon,
-input[type="submit"]:is(.display-inline) .icon,
-a[href].button:is(.display-inline) .icon {
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon) {
     --display: inline-block;
     display: var(--display, inline-block);
     align-self: center;
@@ -15583,63 +15633,35 @@ a[href].button:is(.display-inline) .icon {
         var(--button-icon-vertical-align, middle)
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon),
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon) {
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon) {
     margin-inline: calc(
         var(--icon-inline-buffer, 0.25em) * var(--icon-inline-buffer-start, 1) *
             var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
-        :only-child
-    ),
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
     --icon-size: var(--button-icon-size-pseudo, 1em);
@@ -15668,40 +15690,18 @@ a[href].button:is(.display-inline)
     color: var(--icon-color, var(--theme-ui, CanvasText));
     bottom: var(--button-icon-embedded-bottom, 0.0625em);
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):first-child {
     margin-inline-start: 0;
@@ -15710,24 +15710,18 @@ a[href].button:is(.display-inline)
             var(--icon-inline-buffer-start--font-multiplier, 1)
     );
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):last-child {
     margin-inline-start: calc(
@@ -15736,24 +15730,18 @@ a[href].button:is(.display-inline)
     );
     margin-inline-end: 0;
 }
-a[href].button-primary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-secondary:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-grey:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-[role="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="button"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="reset"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="submit"]:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button:is(.display-inline)
-    .icon:not(.settings-menu-icon):not(
+.display-inline:is(
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey,
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button
+    )
+    :is(.icon):not(.settings-menu-icon):not(
         .toggle-block__control__icon
     ):only-child {
     --icon-inline-margin-block-start: 0;
@@ -15762,6 +15750,7 @@ a[href].button:is(.display-inline)
     margin: 0;
     letter-spacing: normal !important;
 }
+
 a[href].button-primary::after,
 a[href].button-secondary::after,
 a[href].button-grey::after,
@@ -17603,10 +17592,18 @@ th > :first-child,
 th > dl:first-child > dt:first-child,
 th > ol:first-child > li:first-child,
 th > ul:first-child > li:first-child,
+th > .screen-reader-text:first-child + *,
+th > .screen-reader-text:first-child + dl > dt:first-child,
+th > .screen-reader-text:first-child + ol > li:first-child,
+th > .screen-reader-text:first-child + ul > li:first-child,
 td > :first-child,
 td > dl:first-child > dt:first-child,
 td > ol:first-child > li:first-child,
-td > ul:first-child > li:first-child {
+td > ul:first-child > li:first-child,
+td > .screen-reader-text:first-child + *,
+td > .screen-reader-text:first-child + dl > dt:first-child,
+td > .screen-reader-text:first-child + ol > li:first-child,
+td > .screen-reader-text:first-child + ul > li:first-child {
     margin-block-start: 0 !important;
 }
 
@@ -17615,7 +17612,8 @@ td > ul:first-child > li:first-child {
         :first-child,
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
-        ul:first-child > li:first-child
+        ul:first-child > li:first-child,
+        .screen-reader-text:first-child + *
     ):is(
         .icon,
         svg,
@@ -17643,7 +17641,8 @@ td > ul:first-child > li:first-child {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
@@ -17681,7 +17680,8 @@ td > :last-child {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-end: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
@@ -18163,7 +18163,12 @@ body
     > li:first-child,
 body
     > :is(.main-subgrid--full-width)
+    > :first-child:is(script, style, .screen-reader-text)
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+body
+    > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
+    + :is(script, style)
     + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
 body > :where(main) > :is(.main-subgrid--full-width) > :first-child,
 body
@@ -18179,7 +18184,13 @@ body
 body
     > :where(main)
     > :is(.main-subgrid--full-width)
+    > :first-child:is(script, style, .screen-reader-text)
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+body
+    > :where(main)
+    > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
+    + :is(script, style)
     + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
 body
     > :where(main)
@@ -18202,7 +18213,14 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
+    > :first-child:is(script, style, .screen-reader-text)
+    + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+body
+    > :where(main)
+    > :where(.main-subgrid, .main-content__article)
+    > :is(.main-subgrid--full-width)
     > .screen-reader-text:first-child
+    + :is(script, style)
     + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child) {
     margin-block-start: 0 !important;
 }
@@ -18214,6 +18232,8 @@ body
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -18242,7 +18262,8 @@ body
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ),
 body
     > :where(main)
@@ -18252,6 +18273,8 @@ body
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -18280,7 +18303,8 @@ body
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ),
 body
     > :where(main)
@@ -18291,6 +18315,8 @@ body
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -18319,7 +18345,8 @@ body
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
@@ -18340,7 +18367,7 @@ body
     > :where(main)
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width):has(+ .main-subgrid--full-width) {
-    margin-block-end: 0;
+    margin-block-end: 0 !important;
 }
 body > :is(.main-subgrid--full-width) + :is(.main-subgrid--full-width),
 body
@@ -18352,7 +18379,7 @@ body
     > :where(.main-subgrid, .main-content__article)
     > :is(.main-subgrid--full-width)
     + :is(.main-subgrid--full-width) {
-    margin-block-start: 0;
+    margin-block-start: 0 !important;
 }
 
 /*! END of @maddimathon/design-system-utilities/template */
@@ -18392,7 +18419,8 @@ body
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
@@ -18428,7 +18456,8 @@ body
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(
         --flow-margin-firm-start--large,
@@ -21136,6 +21165,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     margin-block-start: 0;
 }
 .widget-block > :first-child,
+.widget-block > .widget-block__content:first-child,
 .widget-block
     > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content,
@@ -21158,6 +21188,38 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .widget-block__content:first-child
     > ul:first-child
     > li:first-child,
+.widget-block > .widget-block__content:first-child > script:first-child + *,
+.widget-block
+    > .widget-block__content:first-child
+    > script:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .widget-block__content:first-child
+    > script:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .widget-block__content:first-child
+    > script:first-child
+    + ul
+    > li:first-child,
+.widget-block > .widget-block__content:first-child > style:first-child + *,
+.widget-block
+    > .widget-block__content:first-child
+    > style:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .widget-block__content:first-child
+    > style:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .widget-block__content:first-child
+    > style:first-child
+    + ul
+    > li:first-child,
 .widget-block
     > .screen-reader-text.widget-block__header:first-child
     + .widget-block__content
@@ -21178,6 +21240,52 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > ul:first-child
     > li:first-child,
 .widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > script:first-child
+    + *,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > script:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > script:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > script:first-child
+    + ul
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > style:first-child
+    + *,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > style:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > style:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__header:first-child
+    + .widget-block__content
+    > style:first-child
+    + ul
+    > li:first-child,
+.widget-block
     > .screen-reader-text.widget-block__hgroup:first-child
     + .widget-block__content
     > :first-child,
@@ -21197,6 +21305,52 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > ul:first-child
     > li:first-child,
 .widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > script:first-child
+    + *,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > script:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > script:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > script:first-child
+    + ul
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > style:first-child
+    + *,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > style:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > style:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__hgroup:first-child
+    + .widget-block__content
+    > style:first-child
+    + ul
+    > li:first-child,
+.widget-block
     > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
     > :first-child,
@@ -21214,6 +21368,52 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
     > .screen-reader-text.widget-block__title:first-child
     + .widget-block__content
     > ul:first-child
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > script:first-child
+    + *,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > script:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > script:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > script:first-child
+    + ul
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > style:first-child
+    + *,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > style:first-child
+    + dl
+    > dt:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > style:first-child
+    + ol
+    > li:first-child,
+.widget-block
+    > .screen-reader-text.widget-block__title:first-child
+    + .widget-block__content
+    > style:first-child
+    + ul
     > li:first-child {
     margin-block-start: 0;
 }
@@ -21258,7 +21458,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem);
 }
@@ -23007,7 +23208,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
+        > :first-child:is(script, style, .screen-reader-text)
+        + :is(*, dl > dt:first-child, ol > li:first-child, ul > li:first-child),
+    :where(.js)
+        .toggle-block
+        .toggle-block__content
+        > .container
         > .screen-reader-text:first-child
+        + :is(script, style)
         + :is(
             *,
             dl > dt:first-child,
@@ -23025,6 +23233,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
             dl:first-child > dt:first-child,
             ol:first-child > li:first-child,
             ul:first-child > li:first-child,
+            script:first-child + *,
+            style:first-child + *,
             .screen-reader-text:first-child + *
         ):is(
             .icon,
@@ -23053,7 +23263,8 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
             .margins-flow-firm-small,
             .margins-flow-firm-large,
             blockquote,
-            table
+            table,
+            .extra-firm-child
         ) {
         margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
     }
@@ -23074,7 +23285,11 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         .toggle-block
         .toggle-block__content
         > .container
-        > :has(+ .screen-reader-text:last-child) {
+        > :has(
+            + script:last-child,
+            + style:last-child,
+            + .screen-reader-text:last-child
+        ) {
         margin-block-end: 0 !important;
     }
     :where(.js)
@@ -23108,13 +23323,14 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
             .margins-flow-firm-small,
             .margins-flow-firm-large,
             blockquote,
-            table
+            table,
+            .extra-firm-child
         ) {
         margin-block-end: var(--flow-margin-firm-end, 0.46875rem) !important;
     }
     :where(.js) .toggle-block .toggle-block__content > .container > ol,
     :where(.js) .toggle-block .toggle-block__content > .container > ul {
-        width: 100%;
+        align-self: stretch;
     }
     :where(.js)
         .toggle-block
@@ -23539,6 +23755,52 @@ body > nav.toggle-nav-menu {
 .website-settings
     .website-settings__content
     > .container
+    > script:first-child
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > script:first-child
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > script:first-child
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > script:first-child
+    + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > style:first-child
+    + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
     > .screen-reader-text:first-child
     + *,
 .website-settings
@@ -23558,6 +23820,60 @@ body > nav.toggle-nav-menu {
     > .container
     > .screen-reader-text:first-child
     + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + script
+    + ul
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + *,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + dl
+    > dt:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + ol
+    > li:first-child,
+.website-settings
+    .website-settings__content
+    > .container
+    > .screen-reader-text:first-child
+    + style
+    + ul
     > li:first-child {
     margin-block-start: 0 !important;
 }
@@ -23570,6 +23886,8 @@ body > nav.toggle-nav-menu {
         dl:first-child > dt:first-child,
         ol:first-child > li:first-child,
         ul:first-child > li:first-child,
+        script:first-child + *,
+        style:first-child + *,
         .screen-reader-text:first-child + *
     ):is(
         .icon,
@@ -23598,7 +23916,8 @@ body > nav.toggle-nav-menu {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-start: var(--flow-margin-firm-end, 0.46875rem) !important;
 }
@@ -23652,7 +23971,8 @@ body > nav.toggle-nav-menu {
         .margins-flow-firm-small,
         .margins-flow-firm-large,
         blockquote,
-        table
+        table,
+        .extra-firm-child
     ) {
     margin-block-end: var(--flow-margin-firm-end, 0.46875rem) !important;
 }

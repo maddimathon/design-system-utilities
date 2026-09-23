@@ -516,9 +516,9 @@
             @if $print_p or $print_blockquote or $print_code or $print_pre or $print_aside {
                 @include template-design-system {
                     @if $print_p {
-                        %p {
+                        %hide-if-empty {
                             &:empty {
-                                display: none;
+                                display: none !important;
                             }
                         }
                     }

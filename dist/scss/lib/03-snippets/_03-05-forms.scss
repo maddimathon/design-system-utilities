@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.0
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.1
 /// @since 0.1.0-alpha
 ///
 
@@ -185,13 +185,28 @@ $_mixin_button_colour_single_state: meta.get-mixin(
 /// @since 0.1.0-beta.0
 ///
 @mixin _snippet-button--icon-child(
+    $icon_marginInlineZero,
     $iconSize,
     $embeddedBottom,
     $verticalAlign,
     //
+    $selector_icon,
+    //
     $includeBaseProps: true
 ) {
-    %icon {
+    $_parent_has_is: string.match(
+            '#{&}, #{$selector_icon}',
+            ':(has|is|where)\\('
+        )
+        != null;
+
+    $_is_selector_icon: if(
+        $_parent_has_is and selector.is-multi($selector_icon),
+        ':is( #{$selector_icon} )',
+        $selector_icon
+    );
+
+    #{$_is_selector_icon} {
         @if $includeBaseProps {
             @include prop-display(inline-block);
             align-self: center;
@@ -235,7 +250,11 @@ $_mixin_button_colour_single_state: meta.get-mixin(
 
             @if $includeBaseProps {
                 &:first-child {
-                    margin-inline-start: 0;
+                    @if meta.type-of($icon_marginInlineZero) == calc {
+                        margin-inline-start: 0;
+                    }
+                    margin-inline-start: $icon_marginInlineZero;
+
                     margin-inline-end: font-family-icons--margin-inline(start);
 
                     @content (icon--is-first-child);
@@ -245,7 +264,11 @@ $_mixin_button_colour_single_state: meta.get-mixin(
                     margin-inline-start: font-family-icons--margin-inline(
                         start
                     );
-                    margin-inline-end: 0;
+
+                    @if meta.type-of($icon_marginInlineZero) == calc {
+                        margin-inline-end: 0;
+                    }
+                    margin-inline-end: $icon_marginInlineZero;
 
                     @content (icon--is-last-child);
                 }
@@ -447,6 +470,7 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
     $fontSize: null,
     $fontStyle: null,
     $fontWeight: null,
+    $icon_marginInlineZero: 0,
     $letterSpacing: null,
     $lineHeight: null,
     $marginBlockEnd: null,
@@ -455,6 +479,8 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
     $paddingInline: null,
     $textTransform: null,
     $width: null,
+    //
+    $selector_icon: config.$button_selector_icon,
     //
     $focusWithin: false,
     $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
@@ -686,9 +712,12 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
         }
 
         @include _snippet-button--icon-child(
+            $icon_marginInlineZero: $icon_marginInlineZero,
             $iconSize: var-style(button-icon-size-pseudo),
             $embeddedBottom: var-style(button-icon-embedded-bottom),
-            $verticalAlign: var-style(button-icon-vertical-align)
+            $verticalAlign: var-style(button-icon-vertical-align),
+            //
+            $selector_icon: $selector_icon
         );
     }
 }
@@ -732,6 +761,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $fontStyle: if($includeTextBasics == false, false, null),
     $fontWeight: null,
     $gap: false,
+    $icon_marginInlineZero: 0,
     $letterSpacing: if($includeTextBasics == false, false, null),
     $marginBlockEnd: null,
     $marginBlockStart: null,
@@ -741,6 +771,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $paddingInline_hasIconOnlyChild: null,
     $textTransform: if($includeTextBasics == false, false, null),
     $width: null,
+    //
+    $selector_icon: config.$button_selector_icon,
+    $selector_logo: config.$button_selector_logo,
     //
     $focusWithin: false,
     $focus_fallbacksOnly: config.$mx_focusVisible_fallbacksOnly,
@@ -808,6 +841,23 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         $paddingInline_hasIconOnlyChild,
         $paddingBlock_hasIconOnlyChild
     );
+
+    $_parentSelector_hasIs: string.match(#{&}, ':(has|is|where)\\(') != null;
+
+    $_is_unpoppedParent: &;
+
+    @if selector.is-multi(&) {
+        $_poppedParent: selector.popped(&);
+
+        @if selector.exists($_poppedParent) {
+            $_is_unpoppedParent: selector.nest(
+                $_poppedParent,
+                ':is( #{selector.pop(&)} )'
+            );
+        } @else {
+            $_is_unpoppedParent: ':is(#{&})';
+        }
+    }
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
@@ -998,6 +1048,20 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     @if $includeEmpty {
+        &:empty {
+            @if $display != false {
+                @include prop-display(
+                    var-style(button-display, $fallback: $display),
+                    $important: true,
+                    $setCxProp: false
+                );
+            }
+
+            @if $multipleContentBlocks {
+                @content (not-empty);
+            }
+        }
+
         &:empty:not(input) {
             padding-inline: $paddingBlock;
 
@@ -1008,9 +1072,16 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     @if $includeOnlyChild {
+        $_sel_iconOrLogo_onlyChild: selector.unify(
+            list.join($selector_icon, $selector_logo, $separator: comma),
+            ':only-child'
+        );
+
         @include selector.has(
-            selector.unify(('%icon', '%brand-logo'), ':only-child'),
+            $_sel_iconOrLogo_onlyChild,
             $direct: true,
+            $parentSelector: $_is_unpoppedParent,
+            $split: false,
             $unifyParent: true
         ) {
             padding-block: $paddingBlock_hasIconOnlyChild;
@@ -1022,15 +1093,20 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 @content (has-logo-or-icon-only-child);
             }
 
-            &::after,
-            &::before {
+            @at-root #{selector.unify(&, ('::after', '::before'))} {
                 content: none !important;
+
+                @if $multipleContentBlocks {
+                    @content (has-logo-or-icon-only-child--before-or-after);
+                }
             }
         }
 
         @include selector.has(
-            selector.unify('%icon', ':only-child'),
+            selector.unify($selector_icon, ':only-child'),
             $direct: true,
+            $parentSelector: $_is_unpoppedParent,
+            $split: false,
             $unifyParent: true
         ) {
             @if $multipleContentBlocks {
@@ -1039,8 +1115,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         }
 
         @include selector.has(
-            selector.unify('%brand-logo', ':only-child'),
+            selector.unify($selector_logo, ':only-child'),
             $direct: true,
+            $parentSelector: $_is_unpoppedParent,
+            $split: false,
             $unifyParent: true
         ) {
             @if $multipleContentBlocks {
@@ -1076,76 +1154,79 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     @if $includeInline {
-        &:is(.display-inline) {
-            @include meta.apply(
-                    $mixin_button_inline,
-                    $focus_fallbacksOnly: $focus_fallbacksOnly,
-                    $focus_includeFallbacks: $focus_includeFallbacks,
-                    $focus_includeNoWhereSelectorFallback:
-                        $focus_includeNoWhereSelectorFallback,
-
-                    $includeBaseProps: false,
-                    $includeColours: false,
-                    $includeDisabled: $includeDisabled,
-                    $multipleContentBlocks: true,
-
-                    $mixin_button_colours: $mixin_button_colours,
-                    $useIconFont: $useIconFont
-                )
-                using ($location) {
-                @if $multipleContentBlocks {
-                    @content (inline-#{$location});
-                }
-            }
-        }
-
-        &:where(.display-inline) {
-            // using :where() to reduce specificity so that 'button-[...]' classes can overrule colours
-            @if $includeColours_inline and
-                (
-                    tokens.$button_variation_default !=
-                        tokens.$button_inline_variation_default
-                )
-            {
+        @at-root #{$_is_unpoppedParent} {
+            @at-root #{selector.unify(&, '.display-inline')} {
                 @include meta.apply(
-                        $mixin_button_colours,
-                        tokens.$button_inline_variation_default,
-                        $buttonType: inline,
-                        $focusWithin: $focusWithin,
+                        $mixin_button_inline,
                         $focus_fallbacksOnly: $focus_fallbacksOnly,
                         $focus_includeFallbacks: $focus_includeFallbacks,
                         $focus_includeNoWhereSelectorFallback:
                             $focus_includeNoWhereSelectorFallback,
 
-                        $includeVisited: $includeVisited
+                        $includeBaseProps: false,
+                        $includeColours: false,
+                        $includeDisabled: $includeDisabled,
+                        $multipleContentBlocks: true,
+
+                        $mixin_button_colours: $mixin_button_colours,
+                        $useIconFont: $useIconFont
                     )
                     using ($location) {
                     @if $multipleContentBlocks {
-                        @content (inline--colours--#{$location});
+                        @content (inline-#{$location});
                     }
                 }
+            }
 
-                @if $includeDisabled {
-                    @include config.selector-button-disabled($is: true) {
+            &:where(.display-inline) {
+                // using :where() to reduce specificity so that 'button-[...]' classes can overrule colours
+                @if $includeColours_inline and
+                    (
+                        tokens.$button_variation_default !=
+                            tokens.$button_inline_variation_default
+                    )
+                {
+                    @include meta.apply(
+                            $mixin_button_colours,
+                            tokens.$button_inline_variation_default,
+                            $buttonType: inline,
+                            $focusWithin: $focusWithin,
+                            $focus_fallbacksOnly: $focus_fallbacksOnly,
+                            $focus_includeFallbacks: $focus_includeFallbacks,
+                            $focus_includeNoWhereSelectorFallback:
+                                $focus_includeNoWhereSelectorFallback,
+
+                            $includeVisited: $includeVisited
+                        )
+                        using ($location) {
                         @if $multipleContentBlocks {
-                            @content (inline--colours--disabled);
+                            @content (inline--colours--#{$location});
                         }
+                    }
 
-                        @include meta.apply(
-                                $mixin_button_colours,
-                                disabled,
-                                $buttonType: inline,
-                                $focusWithin: $focusWithin,
-                                $focus_fallbacksOnly: $focus_fallbacksOnly,
-                                $focus_includeFallbacks: $focus_includeFallbacks,
-                                $focus_includeNoWhereSelectorFallback:
-                                    $focus_includeNoWhereSelectorFallback,
-
-                                $includeVisited: $includeVisited
-                            )
-                            using ($location) {
+                    @if $includeDisabled {
+                        @include config.selector-button-disabled($is: true) {
                             @if $multipleContentBlocks {
-                                @content (inline--colours--disabled-#{$location});
+                                @content (inline--colours--disabled);
+                            }
+
+                            @include meta.apply(
+                                    $mixin_button_colours,
+                                    disabled,
+                                    $buttonType: inline,
+                                    $focusWithin: $focusWithin,
+                                    $focus_fallbacksOnly: $focus_fallbacksOnly,
+                                    $focus_includeFallbacks:
+                                        $focus_includeFallbacks,
+                                    $focus_includeNoWhereSelectorFallback:
+                                        $focus_includeNoWhereSelectorFallback,
+
+                                    $includeVisited: $includeVisited
+                                )
+                                using ($location) {
+                                @if $multipleContentBlocks {
+                                    @content (inline--colours--disabled-#{$location});
+                                }
                             }
                         }
                     }
@@ -1189,9 +1270,12 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         }
 
         @include _snippet-button--icon-child(
+                $icon_marginInlineZero: $icon_marginInlineZero,
                 $iconSize: var-style(button-icon-size-pseudo),
                 $embeddedBottom: var-style(button-icon-embedded-bottom),
-                $verticalAlign: var-style(button-icon-vertical-align)
+                $verticalAlign: var-style(button-icon-vertical-align),
+                //
+                $selector_icon: $selector_icon
             )
             using ($location) {
             @if $multipleContentBlocks {
@@ -2374,6 +2458,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             @include selector.has(
                 selector.unify('%icon', ':only-child'),
                 $direct: true,
+                $split: false,
                 $unifyParent: true
             ) {
                 &::before,
