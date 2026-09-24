@@ -32,6 +32,13 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
     /**
+     * Colours to exclude from the output.
+     *
+     * @since 0.1.0-beta.2.draft
+     */
+    exclude?: TokenTypes.TypeParams['colour']['names'][];
+
+    /**
      * @since 0.1.0-beta.0
      */
     ToggleComponent?: (
@@ -39,7 +46,7 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     ) => any;
 }
 
-const { tokens, ToggleComponent = Toggle }: Props = Astro.props;
+const { exclude = [], tokens, ToggleComponent = Toggle }: Props = Astro.props;
 
 /* FUNCTION ===================================== */
 
@@ -57,7 +64,8 @@ const baseShades: ComponentProps<typeof ShadeSwatchTable>['colour']['base'] = {
             tokens.colour[name] &&
             name !== '$' &&
             name !== 'black' &&
-            name !== 'white' && (
+            name !== 'white' &&
+            !exclude.includes(name) && (
                 <ToggleComponent
                     class='shades-list-toggle'
                     heading={2}
@@ -72,6 +80,7 @@ const baseShades: ComponentProps<typeof ShadeSwatchTable>['colour']['base'] = {
                         colour={
                             name === 'base' ? baseShades : tokens.colour[name]
                         }
+                        exclude={exclude}
                         id={`shades-${name}__list`}
                         name={name}
                         shadeHeading={3}

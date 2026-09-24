@@ -1057,7 +1057,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 padding-block-end: 0;
             }
 
-            @content (is-last-child);
+            @if $multipleContentBlocks {
+                @content (is-last-child);
+            }
         }
     }
 

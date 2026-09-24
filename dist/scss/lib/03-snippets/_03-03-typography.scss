@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.1
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.2.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -1188,7 +1188,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 padding-block-end: 0;
             }
 
-            @content (is-last-child);
+            @if $multipleContentBlocks {
+                @content (is-last-child);
+            }
         }
     }
 

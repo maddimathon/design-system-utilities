@@ -3,6 +3,7 @@
 /// @since 0.1.0-alpha
 ///
 
+@use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
@@ -60,7 +61,7 @@
         );
 
         @if $_fallback != false {
-            @if ($_fallback != null) or
+            @if ($_fallback != null and list.length(list.flatten($_fallback)) > 0) or
                 (not $_hasOverride and $includeBase and $includeFallbackWithBase)
             {
                 @if $_fallback == null {

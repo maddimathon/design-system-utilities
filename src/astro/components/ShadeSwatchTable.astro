@@ -51,6 +51,13 @@ export type ShadeSwatchTableProps<T_Types extends TokenTypes.TypeParams = TokenT
     heading: number;
     tokens: Tokens.JsonReturn;
 
+    /**
+     * Colours to exclude from the output.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    exclude?: TokenTypes.TypeParams['colour']['names'][];
+
     excludeLevels?: ( ColourUtilities.Levels.Required | T_Types['colour']['extraLevels'] )[];
     
     /**
@@ -91,6 +98,7 @@ export type ShadeSwatchTableProps<T_Types extends TokenTypes.TypeParams = TokenT
 type Props = GenericElementProps<ShadeSwatchTableProps, 'table'>;
 
 const {
+    exclude = [],
     excludeLevels = [],
     heading,
     id,
@@ -778,6 +786,7 @@ const TARGET_HSL_CLRS = {
                             contrastIsCondensed={true}
                             displayHeading={name === 'base' ? 7 : false}
                             displayValues={name === 'base'}
+                            exclude={exclude}
                             heading={heading}
                             id={id}
                             level='white'
@@ -800,6 +809,7 @@ const TARGET_HSL_CLRS = {
                                 bases={props.colour.base}
                                 contrastIsCondensed={true}
                                 displayHeading={7}
+                                exclude={exclude}
                                 heading={heading}
                                 id={id}
                                 level={level}
@@ -823,6 +833,7 @@ const TARGET_HSL_CLRS = {
                             contrastIsCondensed={true}
                             displayHeading={name === 'base' ? 7 : false}
                             displayValues={name === 'base'}
+                            exclude={exclude}
                             heading={heading}
                             id={id}
                             level='black'

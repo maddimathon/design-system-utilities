@@ -730,10 +730,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             style.font.weight = '500';
             style.font.style = 'normal';
 
-            style[ 'letter-spacing' ] = '0.0625em';
             style[ 'line-height' ] = '400';
-
-            style[ 'text-transform' ] = 'uppercase';
         }
 
         if ( headingAsNum >= 8 ) {

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.1
+ * @maddimathon/design-system-utilities@0.1.0-beta.2.draft
  * @license MIT
  */
 import { deleteUndefinedProps, mergeArgs, mergeArgsAsync, } from '@maddimathon/utility-typescript';
@@ -522,9 +522,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
         if (headingAsNum >= 7) {
             style.font.weight = '500';
             style.font.style = 'normal';
-            style['letter-spacing'] = '0.0625em';
             style['line-height'] = '400';
-            style['text-transform'] = 'uppercase';
         }
         if (headingAsNum >= 8) {
             style.font.style = 'italic';

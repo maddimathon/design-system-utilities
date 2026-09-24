@@ -48,11 +48,19 @@ interface Props<
     
     brightness?: string;
     isCondensed?: boolean;
+
+    /**
+     * Colours to exclude from the output.
+     * 
+     * @since ___PKG_VERSION___
+     */
+    exclude?: TokenTypes.TypeParams['colour']['names'][];
 }
 
 const {
     brightness,
     class: classList,
+    exclude = [],
     heading: headingRaw,
     id,
     isCondensed = false,
@@ -131,7 +139,11 @@ function getShadeMapSets<
 ): ColourSet<T_Types['colour']> {
 
     const allColours = arrayUnique(
-        ['base'].concat(Object.keys(_values.min ?? []).concat(Object.keys(_values.max ?? [])))
+        ['base'].concat(
+            Object.keys(_values.min ?? []).concat(Object.keys(_values.max ?? []))
+        ).filter(
+            slug => ! exclude.includes(slug)
+        )
     ) as TokenTypes.Colour.GenericName<T_Types['colour']['names']>[];
 
     // returns

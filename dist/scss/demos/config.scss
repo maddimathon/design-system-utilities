@@ -1,0 +1,45 @@
+///
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.2.draft
+/// @since 0.1.0-beta.0
+///
+
+@forward '../config';
+
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../config';
+
+@use '../config/01-modules' as configModules;
+@use '../config/02-lib' as configLib;
+@use '../config/03-template' as configTemplate;
+
+// @use '../../lib';
+
+/* # CONFIG
+ * This is a dump of the available vars from the config end points
+ * ======================================================================== */
+
+modules.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/modules'` */
+    @include meta.var-dump(
+        'default vars',
+        map.ksort(meta.module-variables(configModules))
+    );
+}
+
+lib.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/lib'` */
+    @include meta.var-dump(
+        'default vars',
+        map.ksort(meta.module-variables(configLib))
+    );
+}
+
+template.config-vars {
+    /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/template'` */
+    @include meta.var-dump(
+        'default vars',
+        map.ksort(meta.module-variables(configTemplate))
+    );
+}

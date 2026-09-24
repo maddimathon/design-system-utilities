@@ -43,6 +43,13 @@ interface Props<
     tokens: Tokens.JsonReturn<T_Types>;
 
     /**
+     * Colours to exclude from the output.
+     * 
+     * @since 0.1.0-beta.2.draft
+     */
+    exclude?: TokenTypes.TypeParams['colour']['names'][];
+
+    /**
      * @since 0.1.0-beta.0 - Combined include.colourFormats, includeOnlyUsedLevels, and includeTargetLevels into this prop.
      */
     include?: {
@@ -104,6 +111,7 @@ interface Props<
 }
 
 const {
+    exclude = [],
     include: _include,
     tokens,
     yardstick,
@@ -158,6 +166,9 @@ const levelTargets = yardsticks?.base ? {
         : undefined,
 } : undefined;
 
+const allColoursInput = Object.fromEntries(Object.entries(tokens.colour)
+                        .filter(([name]) => name !== '$' && !exclude.includes(name))) as typeof tokens.colour
+
 const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] =
     include.tableOfContents
         ? [
@@ -169,8 +180,7 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] =
                   : null,
 
               ...(include.lists
-                  ? Object.entries(tokens.colour)
-                        .filter(([name]) => name !== '$')
+                  ? Object.entries(allColoursInput)
                         .map(([name]) => ({
                             label: `${toTitleCase(name)} Shade Details`,
                             href: `#shades-${name}`,
@@ -180,12 +190,12 @@ const shadeList_toc: ComponentProps<typeof TableOfContents>['menu'] =
         : [];
 
 const baseShades: ShadeSwatchTableProps['colour']['base'] = {
-    ...tokens.colour.base,
+    ...allColoursInput.base,
     ...tokens.colour.$,
 };
 
 const allColours = {
-    ...tokens.colour,
+    ...allColoursInput,
     base: baseShades,
 } as ShadeSwatchTableProps['colour'];
 ---
@@ -212,6 +222,7 @@ const allColours = {
     <ShadeSwatchTable
         {...{
             colour: allColours,
+            exclude,
             excludeLevels,
             includeColourFormats: include.colourFormats,
             includeTargetLevels: include.targetLevels,
@@ -222,9 +233,9 @@ const allColours = {
         targets={levelTargets}
         targetShades={yardsticks && {
             base: yardsticks?.base,
-            accent: typeof yardsticks?.accent === 'object' ? yardsticks.accent : (tokens.colour[ yardsticks.accent ?? 'base' ] ?? yardsticks.base),
+            accent: typeof yardsticks?.accent === 'object' ? yardsticks.accent : (allColoursInput[ yardsticks.accent ?? 'base' ] ?? yardsticks.base),
         }}
     />
 )}
 
-{include.lists && <ShadeSwatchAllLists {...{ ToggleComponent, tokens }} />}
+{include.lists && <ShadeSwatchAllLists {...{ exclude, ToggleComponent, tokens }} />}

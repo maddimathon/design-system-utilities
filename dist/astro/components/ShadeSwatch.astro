@@ -64,6 +64,13 @@ interface Props<
 
     displayValues?: boolean;
 
+    /**
+     * Colours to exclude from the output.
+     *
+     * @since 0.1.0-beta.2.draft
+     */
+    exclude?: TokenTypes.TypeParams['colour']['names'][];
+
     wrapperElement?: 'article' | 'div' | 'li' | 'td' | 'section';
 
     frontmatter?: Omit<Props, 'frontmatter'>;
@@ -77,6 +84,7 @@ const {
     heading,
     headingClass = [],
     displayHeading,
+    exclude = [],
     id,
     level,
     name,
@@ -188,6 +196,7 @@ const clrValueTypes = objectGenerator(
         contrast && values.contrast && (
             <ShadeSwatch_Contrast
                 brightness={brightnessMode}
+                exclude={exclude}
                 id={`${id}--${name}-${level}`}
                 isCondensed={contrastIsCondensed}
                 heading={heading + 1}
