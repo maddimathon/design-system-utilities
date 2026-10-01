@@ -56,7 +56,12 @@ export function astroConfig<
 >(
     homepage: URL,
     partialProjectConfig: BuildConfig,
-    siteConfig: astroConfig.AstroConfig<T_Locales, T_Driver, T_FontProviders> = {},
+    {
+        publicDir,
+        ...siteConfig
+    }: astroConfig.AstroConfig<T_Locales, T_Driver, T_FontProviders> & {
+        publicDir?: string | undefined;
+    } = {},
     envConfig: RecursivePartial<astroConfig.EnvironmentConfig> = {},
 ): AstroUserConfig<T_Locales, T_Driver, T_FontProviders> {
 
@@ -80,7 +85,7 @@ export function astroConfig<
         homepage,
         {
             outDir,
-            publicDir: srcDir + '/public',
+            publicDir: publicDir ?? ( srcDir + '/public' ),
             srcDir,
         },
         siteConfig,
@@ -192,7 +197,7 @@ export namespace astroConfig {
                 },
 
                 // we need this for offline internal relative paths to work (mostly) reliably
-                trailingSlash: 'always',
+                trailingSlash: import.meta.env.DEV ? 'ignore' : 'always',
 
                 vite: {
                     ...siteConfig?.vite,
