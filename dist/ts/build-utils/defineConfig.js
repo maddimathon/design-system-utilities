@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.2.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.2
  * @license MIT
  */
 import {} from '@maddimathon/build-utilities';
@@ -30,15 +30,6 @@ export function defineConfig(config, _classes = {}) {
         compiler: {
             ...config.compiler ?? {},
             sass: (stage) => defineSassCompilerOpts(stage, config.compiler?.sass),
-            // postCSS: {
-            //     ...config.compiler?.postCSS ?? {},
-            //     presetEnv: {
-            //         features: {
-            //             'custom-properties': false,
-            //         },
-            //         ...config.compiler?.postCSS?.presetEnv ?? {},
-            //     },
-            // },
         },
         stages: {
             ...config.stages,

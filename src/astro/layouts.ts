@@ -8,9 +8,14 @@
  * @license MIT
  */
 
+import utilityAstro from '@maddimathon/utility-astro/layouts';
+
 import Page from './layouts/Page.astro';
 export type * from './layouts/Page.astro';
 
-export {
+const layouts = {
+    ...utilityAstro,
     Page,
-};
+} as const;
+
+export default layouts;

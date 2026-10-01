@@ -35,11 +35,11 @@ export function defineConfig(
         stages?: undefined | Omit<Config[ 'stages' ], 'build' | 'compile' | 'document' | 'package' | 'test'>;
     },
     _classes: {
-        Build?: typeof Build,
-        Compile?: typeof Compile,
-        Document?: typeof Document,
-        Package?: typeof PackageStage,
-        Test?: typeof TestStage,
+        Build?: typeof Build | false | undefined,
+        Compile?: typeof Compile | false | undefined,
+        Document?: typeof Document | false | undefined,
+        Package?: typeof PackageStage | undefined,
+        Test?: typeof TestStage | undefined,
     } = {},
 ): Config {
 
@@ -65,18 +65,6 @@ export function defineConfig(
         compiler: {
             ...config.compiler ?? {},
             sass: ( stage ) => defineSassCompilerOpts( stage, config.compiler?.sass ),
-
-            // postCSS: {
-            //     ...config.compiler?.postCSS ?? {},
-
-            //     presetEnv: {
-            //         features: {
-            //             'custom-properties': false,
-            //         },
-
-            //         ...config.compiler?.postCSS?.presetEnv ?? {},
-            //     },
-            // },
         },
 
         stages: {

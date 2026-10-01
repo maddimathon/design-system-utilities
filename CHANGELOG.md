@@ -19,6 +19,23 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.2** — 2026-10-01
+
+Minor styles improvements. Dependency updates.
+
+### Added
+- New pseudo-selector: %hide-if-empty
+- New config vars:
+    - $button_selector_icon
+    - $button_selector_logo
+
+### Changed
+- Made default heading styles less opinionated
+
+### Fixed
+- Updated with utility-sass and utility-astro
+
+
 ## **0.1.0-beta.1** — 2026-09-23
 
 ### Added

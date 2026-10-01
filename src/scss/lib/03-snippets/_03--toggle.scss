@@ -425,7 +425,7 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
     /* Transition Overrides ==================================== */
 
     @include feature-check.js {
-        @include motion($nestParent: false, $unifyParent: true) {
+        @include motion {
             @include _toggle-block--base--motion-props(
                 true,
                 $svg_sel_static: $svg_sel_static,
@@ -433,7 +433,7 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
             );
         }
 
-        @include no-motion($nestParent: false, $unifyParent: true) {
+        @include no-motion {
             @include _toggle-block--base--motion-props(
                 false,
                 $svg_sel_static: $svg_sel_static,

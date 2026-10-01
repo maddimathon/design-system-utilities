@@ -8,6 +8,8 @@
  * @license MIT
  */
 
+import utilityAstro from '@maddimathon/utility-astro/components';
+
 export * from './components/BrandPhotoList_Sample/index.ts';
 
 import Alert from './components/Alert.astro';
@@ -99,7 +101,8 @@ export type * from './components/ThemeModeSwatch.astro';
 import Widget from './components/Widget.astro';
 export type * from './components/Widget.astro';
 
-export {
+const components = {
+    ...utilityAstro,
     Alert,
     BrandPhoto,
     BrandPhoto_Caption,
@@ -129,4 +132,6 @@ export {
     Toggle,
     ToggleNavMenu,
     Widget,
-};
+} as const;
+
+export default components;

@@ -8,6 +8,7 @@
 
 @use 'utility-astro' as utils;
 
+@use '../01-modules' as modules;
 @use '../02-lib' as lib;
 
 @use 'fn-config';
@@ -299,7 +300,7 @@ $mx_tokensTheme_separateQueriesAndSelectors: null !default;
 $mx_tokensTheme_separateQueriesAndSelectors: utils.config-valid-bool(
     $mx_tokensTheme_separateQueriesAndSelectors,
     'mx_tokensTheme_separateQueriesAndSelectors',
-    $default: lib.$selectorType_mode != 'null'
+    $default: modules.$selectorType_mode != 'null'
 );
 
 ///

@@ -20,26 +20,27 @@ import { relativeURL } from '../functions/relativeURL.js';
 
 /* import - values */
 import pkgJson from '../../../package.json';
-import { SampleTokens_Json } from '../../astro/functions/index.js';
+import { SampleTokens_Json } from '../../astro/functions.js';
 import { SITE_TITLE } from '../constants.js';
 
 /* import - components */
-import { Heading } from '@maddimathon/utility-astro/components';
-import { SearchForm, Widget } from '../../astro/components.js';
+import components from '../../astro/components.js';
+const { Heading, SearchForm, Widget } = components;
 
 /* import - layouts */
-import LibPage from '../../astro/layouts/Page.astro';
+import layouts from '../../astro/layouts.js';
+const { Page } = layouts;
 
 /* PROPS ===================================== */
 
 type Partial_UtilProps = Partial<
     Omit<
-        ComponentProps<typeof LibPage>,
+        ComponentProps<typeof Page>,
         'meta' | 'settings' | 'stylesheetVersion' | 'urlMaker'
     >
 > &
-    Pick<ComponentProps<typeof LibPage>, 'title'> & {
-        meta?: Partial<ComponentProps<typeof LibPage>['meta']>;
+    Pick<ComponentProps<typeof Page>, 'title'> & {
+        meta?: Partial<ComponentProps<typeof Page>['meta']>;
     };
 
 export interface Props extends Partial_UtilProps {}
@@ -48,7 +49,7 @@ const inputs: Props = Astro.props;
 
 const title = Array.isArray(inputs.title) ? inputs.title : [inputs.title];
 
-const props: ComponentProps<typeof LibPage> = {
+const props: ComponentProps<typeof Page> = {
     lang: 'en-CA',
 
     ...inputs,
@@ -139,7 +140,7 @@ const primaryMenu: MenuItem[] = [
 ];
 ---
 
-<LibPage
+<Page
     {...props}
     accessibilityReportEmail={undefined}
     primaryMenu={primaryMenu}
@@ -353,4 +354,4 @@ const primaryMenu: MenuItem[] = [
         slot='footer-scripts'
         name='footer-scripts'
     />
-</LibPage>
+</Page>

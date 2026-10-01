@@ -6,9 +6,13 @@
  */
 
 /* import - types */
-import type { ComponentProps } from 'astro/types';
 import type { ArrayItem } from '@maddimathon/utility-typescript/types';
+
 import type { GenericProps } from '@maddimathon/utility-astro';
+import type {
+    ContentTypeInput,
+    PageProps as LibPageProps,
+} from '@maddimathon/utility-astro/layouts';
 
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
@@ -18,7 +22,8 @@ import { absoluteInternalURL } from '@maddimathon/utility-astro/functions';
 /* import - values */
 
 /* import - components */
-import { SettingsMenu, ToggleNavMenu } from '../components.ts';
+import components from '../components.ts';
+const { SettingsMenu, ToggleNavMenu } = components;
 
 /* import - layouts */
 import { Page as UtilPage } from '@maddimathon/utility-astro/layouts';
@@ -84,16 +89,18 @@ type Copyright_PlainYear = {
 
 /* PROPS ===================================== */
 
-type UtilPage_Props = Omit<ComponentProps<typeof UtilPage>, 'frontmatter'>;
+type Partial_LibProps<T_ContentType extends ContentTypeInput> = Partial<
+    Omit<LibPageProps<T_ContentType>, 'footer' | 'meta' | 'settings' | 'title'>
+> &
+    Pick<LibPageProps<T_ContentType>, 'meta' | 'title'>;
 
-type Partial_LibProps = Partial<Omit<UtilPage_Props, 'footer' | 'settings'>> &
-    Pick<UtilPage_Props, 'meta' | 'title'>;
-
-export interface PageProps extends Partial_LibProps {
+export interface PageProps<
+    T_ContentType extends ContentTypeInput = ContentTypeInput,
+> extends Partial_LibProps<T_ContentType> {
     tokens: Tokens.JsonReturn;
 
     footer?: Omit<
-        NonNullable<UtilPage_Props['footer']>,
+        NonNullable<LibPageProps['footer']>,
         'copyright' | 'designedBy'
     > & {
         // prettier-ignore
@@ -124,7 +131,7 @@ const stylesheetVersion =
 
 const urlMaker = inputs?.urlMaker ?? absoluteInternalURL;
 
-const _settings: UtilPage_Props['settings'] & {
+const _settings: LibPageProps['settings'] & {
     tokens?: Tokens.JsonReturn;
 } = {
     settings: {
@@ -167,7 +174,7 @@ function parseFooterInput(_input?: Required<PageProps>['footer']['copyright']) {
     }
 
     return _input as InputFooterType_NotUseDefaultFooter satisfies NonNullable<
-        UtilPage_Props['footer']
+        LibPageProps['footer']
     >['copyright'];
 }
 
@@ -203,7 +210,7 @@ const props = {
 
     settings: _settings,
     urlMaker,
-} satisfies UtilPage_Props;
+} satisfies LibPageProps;
 
 /* CONSTANTS ===================================== */
 
@@ -219,7 +226,7 @@ const stylesheets = props.stylesheetURLs
 
 /* Menus ------------------ */
 
-const _menuMapper = (_obj: ArrayItem<[] & UtilPage_Props['primaryMenu']>) => {
+const _menuMapper = (_obj: ArrayItem<[] & LibPageProps['primaryMenu']>) => {
     _obj = { ..._obj };
 
     if (typeof _obj.href === 'string') {
@@ -280,7 +287,7 @@ const footerTextHTML =
 ---
 
 <UtilPage
-    {...props as UtilPage_Props}
+    {...props as LibPageProps}
     layout={props.layout || 'content-only'}
 >
     <slot
