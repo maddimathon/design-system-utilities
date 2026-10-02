@@ -10,12 +10,7 @@
 
 import { FontAssetType, type RunnerOptions } from 'fantasticon';
 
-import {
-    // objectMap,
-    // slugify,
-    // timestamp,
-    // VariableInspector,
-} from '@maddimathon/utility-typescript';
+import { } from '@maddimathon/utility-typescript';
 
 import {
     AbstractStage,

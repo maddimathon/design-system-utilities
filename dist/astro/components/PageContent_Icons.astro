@@ -13,7 +13,7 @@ import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
 
-import type  { LoremIpsumProps } from './LoremIpsum.astro';
+import type { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import { arrayUnique } from '@maddimathon/utility-typescript';
@@ -22,7 +22,9 @@ import { objectKeySort_Tokens } from '../../ts/01-utilities/objectKeySort_Tokens
 /* import - values */
 
 /* import - components */
+import type { ButtonProps } from '@maddimathon/utility-astro/components';
 import {
+    Button as ButtonComponent,
     CopyToClipboardButton,
     Heading,
 } from '@maddimathon/utility-astro/components';
@@ -30,8 +32,8 @@ import {
 import Alert from './Alert.astro';
 import Icon from './Icon.astro';
 import IconFontTester from './IconFontTester.astro';
-import LoremIpsum from './LoremIpsum.astro';
-import Toggle from './Toggle.astro';
+import LoremIpsumComponent from './LoremIpsum.astro';
+import ToggleComponent from './Toggle.astro';
 
 /* import - layouts */
 
@@ -48,14 +50,23 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3.draft
      */
-    LoremIpsumComponent?: ( props: Partial<LoremIpsumProps> ) => any;
+    components?: {
+        Button?: undefined | ((props: ButtonProps) => any);
 
-    /**
-     * @since 0.1.0-beta.0
-     */
-    ToggleComponent?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
+        /**
+         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta.3.draft — Moved to a components prop.
+         */
+        LoremIpsum?: ( props: Partial<LoremIpsumProps> ) => any;
+
+        /**
+         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta.3.draft — Moved to a components prop.
+         */
+        Toggle?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
+    };
 }
 
 const {
@@ -68,8 +79,11 @@ const {
     subheadingDisplayHeading = 6,
     tokens,
 
-    LoremIpsumComponent = LoremIpsum,
-    ToggleComponent = Toggle,
+    components: {
+        Button = ButtonComponent,
+        LoremIpsum = LoremIpsumComponent,
+        Toggle = ToggleComponent,
+    } = {},
 }: Props = Astro.props;
 
 /* FUNCTIONS ===================================== */
@@ -197,7 +211,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             <p>You can use utility classes to add inline icons to HTML text. Find the slug in the list of alerts below and choose from <samp set:text="add-[slug]-icon-before" /> or <samp set:text="add-[slug]-icon-after" />.</p>
         </Alert>
         
-        <ToggleComponent
+        <Toggle
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
@@ -231,9 +245,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                     
                 ))}
             </ul>
-        </ToggleComponent>
+        </Toggle>
     
-        <ToggleComponent
+        <Toggle
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
@@ -249,37 +263,26 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             set:text={icon.slug}
                         />
                         <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
-                            {/* <li>
-                                <a
-                                    class={`button | add-${icon.slug}-icon`}
-                                    href='#'
-                                    set:text={`${icon.label} Default`}
-                                />
-                            </li> */}
-
                             <li>
-                                <a
-                                    class={`button | add-${icon.slug}-icon-before` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
-                                    href='#'
-                                    set:text={`${icon.label} Before`}
-                                />
+                                <Button
+                                    class={`add-${icon.slug}-icon-before` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
+                                    type="button"
+                                >{`${icon.label} Before`}</Button>
                             </li>
-
                             <li>
-                                <a
-                                    class={`button | add-${icon.slug}-icon-after` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
-                                    href='#'
-                                    set:text={`${icon.label} After`}
-                                />
+                                <Button
+                                    class={`add-${icon.slug}-icon-after` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
+                                    type="button"
+                                >{`${icon.label} After`}</Button>
                             </li>
                         </ul>
                     </li>
                     
                 ))}
             </ul>
-        </ToggleComponent>
+        </Toggle>
     
-        <ToggleComponent
+        <Toggle
             class:list={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
@@ -295,34 +298,30 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             set:text={icon.slug}
                         />
                         <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
-
                             <li>
-                                <a
+                                <Button
                                     aria-label={icon.label} 
-                                    class='button'
-                                    href='#'
-                                ><Icon icon={icon} /></a>
+                                    type="button"
+                                ><Icon icon={icon} /></Button>
                             </li>
-
                             <li>
-                                <a
-                                    class={'button' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
-                                    href='#'
-                                ><Icon icon={icon} />{''}<span set:text={`${icon.label} Before`} /></a>
+                                <Button
+                                    class={ import.meta.env.DEV ? 'font-size-heading-5' : undefined }
+                                    type="button"
+                                ><Icon icon={icon} />{''}<span set:text={`${icon.label} Before`} /></Button>
                             </li>
-
                             <li>
-                                <a
-                                    class={'button' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
-                                    href='#'
-                                ><span set:text={`${icon.label} After`} />{''}<Icon icon={icon} /></a>
+                                <Button
+                                    class={ import.meta.env.DEV ? 'font-size-heading-5' : undefined }
+                                    type="button"
+                                ><span set:text={`${icon.label} After`} />{''}<Icon icon={icon} /></Button>
                             </li>
                         </ul>
                     </li>
                     
                 ))}
             </ul>
-        </ToggleComponent>
+        </Toggle>
     )
 }
 
@@ -346,6 +345,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                     set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                 />&NoBreak;&ensp;<CopyToClipboardButton
                     class:list={`button-${buttonColour} display-inline`}
+                    components={{Button}}
                     successMessage='copied!'
                     toClipboard={String.fromCharCode(icon.meta.codepoint)}
                     set:text='copy'
@@ -375,6 +375,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         />&NoBreak;&ensp;<CopyToClipboardButton
                             class:list={`button-${buttonColour} display-inline`}
+                            components={{Button}}
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
                             set:text='copy'
@@ -406,6 +407,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         />&NoBreak;&ensp;<CopyToClipboardButton
                             class:list={`button-${buttonColour} display-inline`}
+                            components={{Button}}
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
                             set:text='copy'
@@ -417,7 +419,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
     </div>
 ) : '' }
 
-<ToggleComponent
+<Toggle
     defaultOpen={defaultToggleToOpen}
     displayHeading={subheadingDisplayHeading}
     heading={3}
@@ -468,9 +470,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
         />
     </Alert>
-</ToggleComponent>
+</Toggle>
 
-<ToggleComponent
+<Toggle
     defaultOpen={defaultToggleToOpen}
     displayHeading={subheadingDisplayHeading}
     heading={3}
@@ -485,7 +487,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             slot='headline'
             set:text={`Default Colour Variation`}
         />
-        <LoremIpsumComponent superAbbreviated={true} />
+        <LoremIpsum superAbbreviated={true} />
     </Alert>
     {
         textAndBackgroundKeys.map((key) => (
@@ -496,11 +498,11 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 <Fragment slot='headline'>
                     Colour Variation: <samp set:text={key} />
                 </Fragment>
-                <LoremIpsumComponent superAbbreviated={true} />
+                <LoremIpsum superAbbreviated={true} />
             </Alert>
         ))
     }
-</ToggleComponent>
+</Toggle>
 
 <style lang='scss'>
     @forward '../scss/page-content-icons';

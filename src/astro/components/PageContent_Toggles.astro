@@ -7,12 +7,13 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type {
+    ButtonComponentType,
+    LoremIpsumComponentType,
+    ToggleComponentType,
+} from '@maddimathon/utility-astro/components';
 
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
-
-import type { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 
@@ -21,8 +22,8 @@ import type { LoremIpsumProps } from './LoremIpsum.astro';
 /* import - components */
 import { TableOfContents } from '@maddimathon/utility-astro/components';
 
-import LoremIpsum from './LoremIpsum.astro';
-import Toggle from './Toggle.astro';
+import LoremIpsumComponent from './LoremIpsum.astro';
+import ToggleComponent from './Toggle.astro';
 
 /* import - layouts */
 
@@ -34,26 +35,24 @@ interface Props {
     tokens: Tokens.JsonReturn;
 
     /**
-     * @since 0.1.0-beta.0
+     * @since ___PKG_VERSION___
      */
-    LoremIpsumComponent?: (props: Partial<LoremIpsumProps>) => any;
-
-    /**
-     * @since 0.1.0-beta.0
-     */
-    ToggleComponent?: (
-        props: PartialExcept<ToggleProps, 'children' | 'id'>,
-    ) => any;
+    components?: Partial<{
+        Button: ButtonComponentType;
+        LoremIpsum: LoremIpsumComponentType;
+        Toggle: ToggleComponentType;
+    }>;
 }
 
 const {
+    components = {},
     tocDefaultOpen = false,
     tocDisplayLevel = 0,
     tokens,
-
-    LoremIpsumComponent = LoremIpsum,
-    ToggleComponent = Toggle,
 }: Props = Astro.props as Props;
+
+const { LoremIpsum = LoremIpsumComponent, Toggle = ToggleComponent } =
+    components;
 
 /* CONSTANTS ===================================== */
 
@@ -120,39 +119,39 @@ const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
     defaultOpen={tocDefaultOpen}
     heading={2}
     menu={tocMenu}
-    ToggleComponent={ToggleComponent}
+    ToggleComponent={Toggle}
     toggleProps={{ tokens }}
 />
 
 <h2>Toggle Demos</h2>
 
-<ToggleComponent id={exampleMenuIds.one.id}>
+<Toggle id={exampleMenuIds.one.id}>
     <p>Boo!</p>
     <hr />
-    <LoremIpsumComponent
+    <LoremIpsum
+        components={components}
         superAbbreviated={true}
-        ToggleComponent={ToggleComponent}
     />
-</ToggleComponent>
+</Toggle>
 
-<ToggleComponent
+<Toggle
     id={exampleMenuIds.two.id}
     defaultOpen={true}
 >
     <Fragment slot='button'>I am open by default</Fragment>
     <p>Boo!</p>
     <hr />
-    <LoremIpsumComponent
+    <LoremIpsum
         superAbbreviated={true}
-        ToggleComponent={ToggleComponent}
+        components={components}
     />
-</ToggleComponent>
+</Toggle>
 
 {
     headingIDs.map(
         ([heading, headingID]) =>
             exampleMenuIds[headingID] && (
-                <ToggleComponent
+                <Toggle
                     id={exampleMenuIds[headingID].id}
                     heading={-1}
                     displayHeading={heading}
@@ -163,11 +162,11 @@ const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
                     />
                     <p>Boo!</p>
                     <hr />
-                    <LoremIpsumComponent
+                    <LoremIpsum
+                        components={components}
                         superAbbreviated={true}
-                        ToggleComponent={ToggleComponent}
                     />
-                </ToggleComponent>
+                </Toggle>
             ),
     )
 }

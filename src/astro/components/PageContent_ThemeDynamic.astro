@@ -7,14 +7,18 @@
 
 /* import - types */
 import type {} from 'astro/types';
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type {} from '@maddimathon/utility-typescript/types';
+import type {
+    ButtonComponentType,
+    HeadingComponentType,
+    LoremIpsumComponentType,
+    ToggleComponentType,
+} from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
-import type { LoremIpsumProps } from './LoremIpsum.astro';
-import type { WidgetProps } from './Widget.astro';
+import type { WidgetComponentType } from './Widget.astro';
 
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript';
@@ -25,11 +29,13 @@ import { parseThemeSets } from './PageContent_Theme.astro';
 /* import - values */
 
 /* import - components */
+import { Heading as HeadingComponent } from '@maddimathon/utility-astro/components';
+
 import Alert from './Alert.astro';
-import LoremIpsum from './LoremIpsum.astro';
+import LoremIpsumComponent from './LoremIpsum.astro';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
-import Toggle from './Toggle.astro';
-import Widget from './Widget.astro';
+import ToggleComponent from './Toggle.astro';
+import WidgetComponent from './Widget.astro';
 
 /* import - layouts */
 
@@ -40,38 +46,60 @@ import Widget from './Widget.astro';
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
+    /**
+     * @since ___PKG_VERSION___
+     */
+    components?: Partial<{
+        Button: ButtonComponentType;
+
+        Heading: HeadingComponentType;
+
+        /**
+         * @since 0.1.0-beta.0
+         * @since ___PKG_VERSION___ — Moved to components prop.
+         */
+        LoremIpsum: LoremIpsumComponentType;
+
+        /**
+         * @since 0.1.0-beta.0
+         * @since ___PKG_VERSION___ — Moved to components prop.
+         */
+        Toggle: ToggleComponentType;
+
+        Widget: WidgetComponentType;
+    }>;
+
     defaultPreviewToOpen?: boolean;
     defaultTokensToOpen?: boolean;
 
-    /**
-     * @since 0.1.0-beta.0
-     */
-    LoremIpsumComponent?: (props: Partial<LoremIpsumProps>) => any;
+    heading?: number;
+    displayHeading?: number;
+    displayHeading_swatch?: number;
 
     /**
-     * @since 0.1.0-beta.0
+     * @since ___PKG_VERSION___
      */
-    ToggleComponent?: (
-        props: PartialExcept<ToggleProps, 'children' | 'id'>,
-    ) => any;
-
-    /**
-     * @since 0.1.0-beta.0
-     */
-    WidgetComponent?: (
-        props: PartialExcept<WidgetProps, 'children' | 'heading'>,
-    ) => any;
+    levelsInUseTable?: 'prepend' | 'append';
 }
 
 const {
+    heading = 2,
+    displayHeading = -1,
+    displayHeading_swatch = 2,
+
+    components = {},
     defaultPreviewToOpen = true,
     defaultTokensToOpen = false,
+    levelsInUseTable,
     tokens,
-
-    LoremIpsumComponent = LoremIpsum,
-    ToggleComponent = Toggle,
-    WidgetComponent = Widget,
 }: Props = Astro.props;
+
+const {
+    Heading = HeadingComponent,
+    LoremIpsum = LoremIpsumComponent,
+    Toggle = ToggleComponent,
+    Widget = WidgetComponent,
+} = components;
 
 /* CONSTANTS ===================================== */
 
@@ -180,12 +208,15 @@ const default_brightnessSet = {
             }
         </div>
     </fieldset>
+
+    <slot name='display-options' />
 </section>
 
-<ToggleComponent
+<Toggle
     class='theme-mode-toggle'
     defaultOpen={defaultPreviewToOpen}
-    heading={2}
+    displayHeading={displayHeading}
+    heading={heading}
     id={'theme-preview'}
 >
     <Fragment slot='button'
@@ -206,16 +237,17 @@ const default_brightnessSet = {
                 <ThemeModeSwatch
                     {...{
                         ...set,
-                        displayHeading: 3,
+                        components,
+                        displayHeading: displayHeading_swatch,
                         displayMode: 'preview',
-                        heading: 3,
+                        heading: heading + 1,
                         id: `${set.id}-swatch`,
-                        LoremIpsumComponent,
-                        ToggleComponent,
+                        levelsInUseTable,
                         tokens,
                     }}
                     data-active-theme={light_parsed[0]?.key}
                     data-contrast-mode={set.contrast}
+                    data-tokens-theme-preview-container
                     data-tokens-theme-dynamic-preview-preview-container
                 >
                     <Fragment
@@ -244,7 +276,8 @@ const default_brightnessSet = {
                                                     set:text={`background-${backgroundSlug}`}
                                                 />
                                             </Fragment>
-                                            <LoremIpsumComponent
+                                            <LoremIpsum
+                                                components={components}
                                                 displayHeading={7}
                                                 displaySettings={{
                                                     // @ts-expect-error
@@ -259,9 +292,7 @@ const default_brightnessSet = {
                                                 }
                                                 superAbbreviated={true}
                                                 tokens={tokens}
-                                                ToggleComponent={
-                                                    ToggleComponent
-                                                }
+                                                Toggle={Toggle}
                                             />
                                         </Alert>
                                     ),
@@ -274,10 +305,11 @@ const default_brightnessSet = {
                             slot='preview'
                         >
                             {[null, ...themeNames].map((themeName) => (
-                                <WidgetComponent
+                                <Widget
                                     displayHeading={3}
                                     heading={5}
                                     class:list={'widget-block--alt-theme'}
+                                    data-tokens-theme-preview-container
                                     data-tokens-theme-dynamic-preview-preview-container='brightness-only'
                                     data-active-theme={themeName ?? ''}
                                     data-contrast-mode={set.contrast}
@@ -301,7 +333,8 @@ const default_brightnessSet = {
                                             This inherits the parent’s theme
                                         </Fragment>
                                     )}
-                                    <LoremIpsumComponent
+                                    <LoremIpsum
+                                        components={components}
                                         displayHeading={4}
                                         displaySettings={{
                                             buttons: false,
@@ -320,9 +353,9 @@ const default_brightnessSet = {
                                         }
                                         superAbbreviated={true}
                                         tokens={tokens}
-                                        ToggleComponent={ToggleComponent}
+                                        Toggle={Toggle}
                                     />
-                                </WidgetComponent>
+                                </Widget>
                             ))}
                         </div>
                     )}
@@ -330,12 +363,13 @@ const default_brightnessSet = {
             ))
         }
     </div>
-</ToggleComponent>
+</Toggle>
 
-<ToggleComponent
+<Toggle
     class='theme-mode-toggle'
     defaultOpen={defaultTokensToOpen}
-    heading={2}
+    displayHeading={displayHeading}
+    heading={heading}
     id={'theme-tokens'}
 >
     <Fragment
@@ -350,8 +384,9 @@ const default_brightnessSet = {
                         brightness
                     }
                 >
-                    <h3
+                    <Heading
                         class='screen-reader-text'
+                        heading={heading + 1}
                         set:text={`${brightnessLabel} Mode`}
                     />
                     {parsed.map((parsedTheme) =>
@@ -367,17 +402,19 @@ const default_brightnessSet = {
                                     <ThemeModeSwatch
                                         {...{
                                             ...set,
-                                            displayHeading: 3,
+                                            components,
+                                            displayHeading:
+                                                displayHeading_swatch,
                                             displayMode: 'tokens',
-                                            heading: 4,
+                                            heading: heading + 2,
                                             id: `${set.id}-token-values`,
-                                            LoremIpsumComponent,
-                                            ToggleComponent,
+                                            levelsInUseTable,
                                             tokens,
                                         }}
                                         data-active-theme={set.theme.name}
                                         data-brightness-mode={set.brightness}
                                         data-contrast-mode={set.contrast}
+                                        data-tokens-theme-preview-container
                                     >
                                         <Fragment
                                             slot='heading'
@@ -392,13 +429,18 @@ const default_brightnessSet = {
             ),
         )
     }
-</ToggleComponent>
+</Toggle>
 
 <style lang='scss'>
     @forward '../scss/page-content-theme-dynamic';
 </style>
 
 <script>
+    import {
+        objectFromEntries,
+        objectMap,
+    } from '@maddimathon/utility-typescript';
+
     /**
      * Listens to options inputs and updates attribute values accordingly.
      */
@@ -409,6 +451,7 @@ const default_brightnessSet = {
          */
         public static readonly attrNames = {
             brightness: 'data-tokens-theme-dynamic-preview-brightness',
+            custom: 'data-tokens-theme-dynamic-preview-custom',
             theme: 'data-tokens-theme-dynamic-preview-theme',
         } as const;
 
@@ -418,10 +461,18 @@ const default_brightnessSet = {
         public readonly dynamicPreviewContainers: HTMLElement[];
 
         /**
+         * These containers get their data attributes set whenever a new custom value is set.
+         */
+        public readonly previewContainers: HTMLElement[];
+
+        /**
          * These inputs let users select the brightness mode and active theme values.
          */
         public readonly inputs: {
             brightness: HTMLInputElement[];
+            custom: {
+                [key: string]: HTMLInputElement[];
+            };
             theme: HTMLInputElement[];
         };
 
@@ -435,30 +486,89 @@ const default_brightnessSet = {
          */
         public readonly themeOptions: null | string[];
 
+        /**
+         * All custom options, indexed by the attribute name.
+         */
+        public readonly customOptions: {
+            [key: string]: {
+                default: string | null;
+                opts: string[];
+            };
+        };
+
         public constructor() {
             this.brightnessOptions = document
                 .querySelector<HTMLFieldSetElement>(
-                    'fieldset[data-tokens-theme-dynamic-preview-brightness-options]',
+                    `fieldset[${ThemeDynamicManager.attrNames.brightness}-options]`,
                 )
                 ?.getAttribute(
-                    'data-tokens-theme-dynamic-preview-brightness-options',
+                    `${ThemeDynamicManager.attrNames.brightness}-options`,
                 )
                 ?.split(',') ?? ['light', 'dark'];
 
             this.themeOptions =
                 document
                     .querySelector<HTMLFieldSetElement>(
-                        'fieldset[data-tokens-theme-dynamic-preview-theme-options]',
+                        `fieldset[${ThemeDynamicManager.attrNames.theme}-options]`,
                     )
                     ?.getAttribute(
-                        'data-tokens-theme-dynamic-preview-theme-options',
+                        `${ThemeDynamicManager.attrNames.theme}-options`,
                     )
                     ?.split(',') ?? null;
+
+            const customOptions = Array.from(
+                document.querySelectorAll<HTMLFieldSetElement>(
+                    `fieldset[${ThemeDynamicManager.attrNames.custom}-attr][${ThemeDynamicManager.attrNames.custom}-options]`,
+                ),
+                (fieldset) => {
+                    const opts =
+                        fieldset
+                            .getAttribute(
+                                `${ThemeDynamicManager.attrNames.custom}-options`,
+                            )
+                            ?.split(',') ?? null;
+
+                    return [
+                        fieldset.getAttribute(
+                            `${ThemeDynamicManager.attrNames.custom}-attr`,
+                        ),
+                        opts
+                            ? {
+                                  default: fieldset.getAttribute(
+                                      `${ThemeDynamicManager.attrNames.custom}-default`,
+                                  ),
+                                  opts,
+                              }
+                            : null,
+                    ] as const;
+                },
+            ).filter(
+                (
+                    arr,
+                ): arr is [
+                    NonNullable<(typeof arr)[0]>,
+                    NonNullable<(typeof arr)[1]>,
+                ] => !!arr[0] && !!arr[1],
+            );
+
+            console.log({ customOptions });
+
+            this.customOptions = objectFromEntries(customOptions);
+
+            console.log({ 'this.customOptions': this.customOptions });
 
             this.inputs = {
                 brightness: Array.from(
                     document.querySelectorAll<HTMLInputElement>(
                         'input[name=theme-dynamic-preview__display-options__brightness-control]',
+                    ),
+                ),
+
+                custom: objectMap(this.customOptions, ([key, value]) =>
+                    Array.from(
+                        document.querySelectorAll<HTMLInputElement>(
+                            `input[name=theme-dynamic-preview__display-options__${key}]`,
+                        ),
                     ),
                 ),
 
@@ -469,17 +579,31 @@ const default_brightnessSet = {
                 ),
             };
 
+            console.log({ 'this.inputs.custom': this.inputs.custom });
+
+            this.previewContainers = Array.from(
+                document.querySelectorAll<HTMLElement>(
+                    '[data-tokens-theme-preview-container]',
+                ),
+            );
+
             this.dynamicPreviewContainers = Array.from(
                 document.querySelectorAll<HTMLElement>(
                     '[data-tokens-theme-dynamic-preview-preview-container]',
                 ),
             );
 
-            for (const _key in ThemeDynamicManager.attrNames) {
+            for (const __key in ThemeDynamicManager.attrNames) {
+                const _key =
+                    __key as keyof typeof ThemeDynamicManager.attrNames;
+
+                // continues
+                if (_key === 'custom') {
+                    continue;
+                }
+
                 const _local = localStorage.getItem(
-                    ThemeDynamicManager.attrNames[
-                        _key as keyof typeof ThemeDynamicManager.attrNames
-                    ],
+                    ThemeDynamicManager.attrNames[_key],
                 );
 
                 switch (_key) {
@@ -505,7 +629,7 @@ const default_brightnessSet = {
             );
 
             this.inputs.theme.forEach((input) =>
-                input.addEventListener('change', (event) => {
+                input.addEventListener('change', () => {
                     // returns - this is not an input we take action on
                     if (!input.checked) {
                         return;
@@ -514,19 +638,42 @@ const default_brightnessSet = {
                     this.setThemeValue(input.value, false);
                 }),
             );
+
+            for (const _attr in this.customOptions) {
+                const _local = localStorage.getItem(
+                    `${ThemeDynamicManager.attrNames.custom}-${_attr}`,
+                );
+
+                this.setCustomValue(
+                    _attr,
+                    _local ?? this.customOptions[_attr]?.default ?? null,
+                    true,
+                );
+
+                this.inputs.custom[_attr]?.forEach((input) =>
+                    input.addEventListener('change', () => {
+                        // returns - this is not an input we take action on
+                        if (!input.checked) {
+                            return;
+                        }
+
+                        this.setCustomValue(_attr, input.value, false);
+                    }),
+                );
+            }
         }
 
         protected static async _setValue_dynamicPreviewContainers(
             container: HTMLElement,
-            dynamicPeviewAttrKey: string,
+            dynamicPreviewAttrKey: string,
             newValue: string,
         ) {
-            container.setAttribute(dynamicPeviewAttrKey, newValue);
+            container.setAttribute(dynamicPreviewAttrKey, newValue);
         }
 
         protected async _setValue(
             key: keyof typeof ThemeDynamicManager.attrNames,
-            dynamicPeviewAttrKey: string,
+            dynamicPreviewAttrKey: string,
             newValue: string,
             controllerSignal: AbortSignal,
             setInputValues: boolean = false,
@@ -549,40 +696,79 @@ const default_brightnessSet = {
                     return;
                 }
 
-                document.documentElement.setAttribute(
-                    ThemeDynamicManager.attrNames[key],
-                    newValue,
-                );
+                const storageKey =
+                    key === 'custom'
+                        ? `${ThemeDynamicManager.attrNames.custom}-${dynamicPreviewAttrKey}`
+                        : ThemeDynamicManager.attrNames[key];
+
+                const rootAttribute =
+                    key === 'custom'
+                        ? `data-${ThemeDynamicManager.attrNames.custom}-${dynamicPreviewAttrKey}`
+                        : ThemeDynamicManager.attrNames[key];
+
+                document.documentElement.setAttribute(rootAttribute, newValue);
 
                 if (!unresolved) {
                     return;
                 }
 
-                const promises: Promise<any>[] =
-                    this.dynamicPreviewContainers.map(async (container) => {
-                        // returns
-                        if (
-                            container.getAttribute(
-                                'data-tokens-theme-dynamic-preview-preview-container',
-                            ) === 'brightness-only' &&
-                            key !== 'brightness'
-                        ) {
-                            return;
-                        }
+                const promises: Promise<any>[] = (
+                    key === 'custom'
+                        ? this.previewContainers
+                        : this.dynamicPreviewContainers
+                ).map(async (container) => {
+                    // returns
+                    if (
+                        container.getAttribute(
+                            'data-tokens-theme-dynamic-preview-preview-container',
+                        ) === 'brightness-only' &&
+                        key !== 'brightness' &&
+                        key !== 'custom'
+                    ) {
+                        return;
+                    }
 
-                        return ThemeDynamicManager._setValue_dynamicPreviewContainers(
-                            container,
-                            dynamicPeviewAttrKey,
-                            newValue,
-                        );
-                    });
+                    return ThemeDynamicManager._setValue_dynamicPreviewContainers(
+                        container,
+                        key === 'custom'
+                            ? `data-${dynamicPreviewAttrKey}`
+                            : dynamicPreviewAttrKey,
+                        newValue,
+                    );
+                });
 
                 if (setInputValues) {
-                    for (const input of this.inputs[key]) {
-                        if (!unresolved) {
-                            return;
+                    if (key === 'custom') {
+                        console.log({
+                            '_setValue()': {
+                                dynamicPreviewAttrKey,
+                                newValue,
+                                setInputValues,
+                                'this.customOptions[dynamicPreviewAttrKey].default':
+                                    this.customOptions[dynamicPreviewAttrKey]
+                                        ?.default,
+                                'this.customOptions[dynamicPreviewAttrKey].opts':
+                                    this.customOptions[dynamicPreviewAttrKey]
+                                        ?.opts,
+                                'this.inputs.custom[dynamicPreviewAttrKey]':
+                                    this.inputs.custom[dynamicPreviewAttrKey],
+                            },
+                        });
+                        for (const input of this.inputs.custom[
+                            dynamicPreviewAttrKey
+                        ] ?? []) {
+                            if (!unresolved) {
+                                return;
+                            }
+                            input.checked = input.value === newValue;
                         }
-                        input.checked = input.value === newValue;
+                    } else {
+                        for (const input of this.inputs[key]) {
+                            if (!unresolved) {
+                                return;
+                            }
+                            input.checked = input.value === newValue;
+                        }
                     }
                 }
 
@@ -590,10 +776,7 @@ const default_brightnessSet = {
                     return;
                 }
 
-                localStorage.setItem(
-                    ThemeDynamicManager.attrNames[key],
-                    newValue,
-                );
+                localStorage.setItem(storageKey, newValue);
 
                 setTimeout(
                     () => Promise.all(promises).then(doubleResolve),
@@ -622,6 +805,47 @@ const default_brightnessSet = {
                 this.abortController_setBrightnessValue.signal,
                 setInputValues,
             ).then(() => (this.abortController_setBrightnessValue = undefined));
+        }
+
+        private abortController_setCustomValue: undefined | AbortController;
+
+        protected async setCustomValue(
+            attr: string,
+            newValue: string | null,
+            setInputValues?: boolean,
+        ) {
+            console.log({
+                'setCustomValue()': {
+                    attr,
+                    newValue,
+                    setInputValues,
+                    'this.customOptions[attr].default':
+                        this.customOptions[attr]?.default,
+                    'this.customOptions[attr].opts':
+                        this.customOptions[attr]?.opts,
+                },
+            });
+
+            this.abortController_setCustomValue?.abort();
+            this.abortController_setCustomValue = new AbortController();
+
+            newValue = newValue ?? this.customOptions[attr]?.default ?? null;
+
+            // returns
+            if (
+                !newValue ||
+                !this.customOptions[attr]?.opts.includes(newValue)
+            ) {
+                return;
+            }
+
+            return this._setValue(
+                'custom',
+                attr,
+                newValue,
+                this.abortController_setCustomValue.signal,
+                setInputValues,
+            ).then(() => (this.abortController_setCustomValue = undefined));
         }
 
         private abortController_setThemeValue: undefined | AbortController;

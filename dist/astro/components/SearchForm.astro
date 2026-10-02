@@ -1,5 +1,5 @@
 ---
-import type { ElementProps } from '@maddimathon/utility-astro';
+import type { ClassList, ElementProps } from '@maddimathon/utility-astro';
 
 /**
  * @since 0.1.0-beta.0
@@ -8,16 +8,23 @@ import type { ElementProps } from '@maddimathon/utility-astro';
  */
 
 /* import - types */
+import type { HTMLAttributes } from 'astro/types';
+import type {
+    ButtonComponentType,
+    ButtonProps_Button,
+} from '@maddimathon/utility-astro/components';
+
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 import { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - components */
 import Icon from './Icon.astro';
-import type { HTMLAttributes } from 'astro/types';
+import { Button as ButtonComponent } from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
@@ -27,9 +34,13 @@ export type SearchFormProps = {
     buttonLabel?: string;
 
     button?: Omit<
-        HTMLAttributes<'button'>,
+        Partial<ButtonProps_Button & { class: ClassList }>,
         'aria-label' | 'aria-labelledby' | 'set:html' | 'set:text' | 'type'
     >;
+
+    components?: Partial<{
+        Button: ButtonComponentType;
+    }>;
 
     inputLabel?: string;
 
@@ -50,9 +61,10 @@ export type SearchFormProps = {
 type Props = ElementProps<SearchFormProps, 'form'>;
 
 const {
-    button = {},
+    button: { class: buttonClassList, ...button } = {},
     buttonLabel = 'Search',
     class: classList,
+    components: { Button = ButtonComponent } = {},
     inputLabel = 'Search the site',
     input = {},
     placeholder = 'Search the site…',
@@ -77,13 +89,13 @@ const {
         placeholder={placeholder}
         type='search'
     />
-    <button
+    <Button
         {...button}
         aria-label={buttonLabel}
-        class:list={['button--no-pseudo', { '||': button.class }, button.class]}
+        class:list={makeClassList('button--no-pseudo', buttonClassList)}
         type='submit'
         ><Icon icon={searchIcon ?? tokens.icons.search} /><slot
             name='button'
-        /></button
+        /></Button
     >
 </form>

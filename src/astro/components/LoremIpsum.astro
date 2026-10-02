@@ -20,8 +20,9 @@ import {
     Heading,
     LoremIpsum as LoremIpsumUtils,
 } from '@maddimathon/utility-astro/components';
+
 import Alert from './Alert.astro';
-import Toggle from './Toggle.astro';
+import ToggleComponent from './Toggle.astro';
 
 /* import - layouts */
 
@@ -47,9 +48,13 @@ type Props = LoremIpsumProps;
 const {
     displaySettings = {},
     tokens = SampleTokens_Json,
-    ToggleComponent = Toggle,
+    components = {},
     ...props
 }: Props = Astro.props;
+
+if (!components.Toggle) {
+    components.Toggle = ToggleComponent;
+}
 
 /* CONSTANTS ===================================== */
 
@@ -101,6 +106,7 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
     <LoremIpsumUtils
         {...props}
         asSection={false}
+        components={components}
         displaySettings={{
             ...displaySettings,
 
@@ -116,7 +122,6 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
                 ],
             },
         }}
-        ToggleComponent={ToggleComponent}
         toggleProps={{ tokens }}
     >
         {

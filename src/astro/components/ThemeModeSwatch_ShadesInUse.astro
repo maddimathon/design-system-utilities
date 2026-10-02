@@ -1,0 +1,142 @@
+---
+/**
+ * @since 0.1.0-beta.0
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type {} from 'astro/types';
+import type {} from '@maddimathon/utility-astro/components';
+
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js';
+
+/* import - functions */
+import {
+    objectMap,
+} from '@maddimathon/utility-typescript';
+
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+import { getColourValue } from '../functions/getColourValue.js';
+import { textColorLevel } from '../functions/textColorLevel.js';
+
+/* import - values */
+
+/* import - components */
+import {
+    Heading,
+    Table,
+} from '@maddimathon/utility-astro/components';
+
+/* import - layouts */
+
+/* TYPES ===================================== */
+
+type _DefClrParams<
+    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = never,
+> = {
+    names: string;
+    extraLevels: T_ExtraColourLevels;
+};
+
+/* PROPS ===================================== */
+
+interface Props {
+    heading: number;
+    displayHeading: number;
+
+    theme: Tokens_Themes_Set.SingleMode.JsonReturn<
+        TokenTypes.TypeParams['colour'],
+        TokenTypes.TypeParams['theme']
+    >;
+    tokens: Tokens.JsonReturn;
+}
+
+const { heading, displayHeading, theme, tokens }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const levelsInUseTable = theme.levelsInUse.map((levels) => ({
+    levels,
+
+    styles: objectMap(levels, ([key, value]) => {
+        key;
+
+        const textColor = textColorLevel(value);
+
+        let background: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+            _DefClrParams<ColourUtilities.Levels.Optional>
+        >;
+        let color: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+            _DefClrParams<ColourUtilities.Levels.Optional>
+        >;
+
+        switch (value) {
+            case 'black':
+            case 'white':
+                background = tokens.colour.$[value];
+                break;
+
+            default:
+                background =
+                    tokens.colour.base[
+                        value as ColourUtilities.Levels.Required
+                    ];
+                break;
+        }
+
+        switch (textColor) {
+            case 'black':
+            case 'white':
+                color = tokens.colour.$[textColor];
+                break;
+
+            default:
+                color =
+                    tokens.colour.base[
+                        textColor as ColourUtilities.Levels.Required
+                    ];
+                break;
+        }
+
+        return { background, color };
+    }),
+}));
+---
+
+{ levelsInUseTable.length && (
+    <Heading
+        heading={heading}
+        displayHeading={displayHeading }
+        set:text='Shades in Use'
+    />
+    <Table
+        class:list={['theme-mode-swatch__shades-in-use']}
+    >
+        <tr>
+            <th set:text='Light Mode' />
+            <th set:text='Dark Mode' />
+        </tr>
+        { levelsInUseTable.map( ({ levels, styles }) => <tr>
+            <td 
+                data-brightness-mode="light"
+                set:text={levels.light}
+                style={styles && [
+                    `background: ${getColourValue( styles.light.background ) ?? 'unset'}`,
+                    `color: ${getColourValue( styles.light.color ) ?? 'unset'}`,
+                ].join(';')}
+            />
+            <td 
+                data-brightness-mode="light"
+                set:text={levels.dark}
+                style={styles && [
+                    `background: ${getColourValue( styles.dark.background ) ?? 'unset'}`,
+                    `color: ${getColourValue( styles.dark.color ) ?? 'unset'}`,
+                ].join(';')}
+            />
+        </tr> ) }
+    </Table>
+)}

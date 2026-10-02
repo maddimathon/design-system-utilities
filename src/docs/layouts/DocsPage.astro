@@ -25,7 +25,7 @@ import { SITE_TITLE } from '../constants.js';
 
 /* import - components */
 import components from '../../astro/components.js';
-const { Heading, SearchForm, Widget } = components;
+const { Button, Heading, SearchForm, Widget } = components;
 
 /* import - layouts */
 import layouts from '../../astro/layouts.js';
@@ -262,15 +262,11 @@ const primaryMenu: MenuItem[] = [
             </p>
 
             <Fragment slot='cta-buttons'>
-                <a
-                    class='button'
-                    href='#'
-                    >Example CTA</a
-                >
-                <a
-                    class='button-secondary'
-                    href='#'
-                    >Example Secondary CTA</a
+                <Button type='button'>Example CTA</Button>
+                <Button
+                    type='button'
+                    variant='secondary'
+                    >Example Secondary CTA</Button
                 >
             </Fragment>
         </Widget>

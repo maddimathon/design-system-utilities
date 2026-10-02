@@ -7,8 +7,7 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -21,7 +20,7 @@ import { toTitleCase } from '@maddimathon/utility-typescript';
 /* import - values */
 
 /* import - components */
-import Toggle from './Toggle.astro';
+import ToggleComponent from './Toggle.astro';
 import ShadeSwatchList from './ShadeSwatchList.astro';
 
 /* import - layouts */
@@ -32,21 +31,25 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    components?: Partial<{
+        Toggle: ToggleComponentType;
+    }>;
+
+    /**
      * Colours to exclude from the output.
      *
      * @since 0.1.0-beta.2
      */
     exclude?: TokenTypes.TypeParams['colour']['names'][];
-
-    /**
-     * @since 0.1.0-beta.0
-     */
-    ToggleComponent?: (
-        props: PartialExcept<ToggleProps, 'children' | 'id'>,
-    ) => any;
 }
 
-const { exclude = [], tokens, ToggleComponent = Toggle }: Props = Astro.props;
+const {
+    exclude = [],
+    tokens,
+    components: { Toggle = ToggleComponent } = {},
+}: Props = Astro.props;
 
 /* FUNCTION ===================================== */
 
@@ -66,7 +69,7 @@ const baseShades: ComponentProps<typeof ShadeSwatchTable>['colour']['base'] = {
             name !== 'black' &&
             name !== 'white' &&
             !exclude.includes(name) && (
-                <ToggleComponent
+                <Toggle
                     class='shades-list-toggle'
                     heading={2}
                     id={`shades-${name}`}
@@ -86,7 +89,7 @@ const baseShades: ComponentProps<typeof ShadeSwatchTable>['colour']['base'] = {
                         shadeHeading={3}
                         tokens={tokens}
                     />
-                </ToggleComponent>
+                </Toggle>
             ),
     )
 }

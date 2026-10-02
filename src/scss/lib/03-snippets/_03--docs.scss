@@ -87,9 +87,11 @@
 
 ///
 /// @since 0.1.0-beta.0
+/// @since ___PKG_VERSION___ — Added optional $customOptions param.
 ///
 @mixin snippet-docs-page-content-theme-dynamic(
     $baseOnly: false,
+    $customOptions: (),
     $includeBase: true,
     $useGlobalPseudo: false
 ) {
@@ -125,6 +127,20 @@
 
                 [data-tokens-theme-dynamic-preview-theme-content='#{$_theme}'] {
                     display: do-var(display, grid) !important;
+                }
+            }
+        }
+
+        @each $attr, $allOptions in $customOptions {
+            @each $_opt in $allOptions {
+                @include _maybe-globalized($useGlobalPseudo, '[#{$attr}=#{$_opt}]') {
+                    [#{$attr}-content] {
+                        display: none !important;
+                    }
+
+                    [#{$attr}-content='#{$_opt}'] {
+                        display: do-var(display, grid) !important;
+                    }
                 }
             }
         }

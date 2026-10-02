@@ -161,8 +161,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                 $separator: comma
             )
         ),
-        config.$selector_null
+        ()
     );
+
+    @if not selector.exists($_parent_exceptRootOrBody) {
+        $_parent_exceptRootOrBody: config.$selector_null;
+    }
 
     $_sels_pseudo: if(
         $includeExtraSelectors,
@@ -447,6 +451,92 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
+/// @since 0.1.0-beta.3.draft
+///
+@mixin tokens-colour--single-map($slug, $map, $mode) {
+    @if $slug == white {
+        $slug: 'white';
+    } @else if $slug == black {
+        $slug: 'black';
+    }
+
+    $_shadeNameSlug: if($slug == '$', 'clr', 'clr-#{$slug}');
+
+    @each $level, $clr in $map {
+        $_clrValue: if(
+            $mode == dark,
+            map.get(
+                $map,
+                colour.shade-map-reverse-key($level, $map, $sort: false)
+            ),
+            $clr
+        );
+
+        @include utils.cx-prop(
+            #{$_shadeNameSlug}-#{$level},
+            colour.to-hsl($_clrValue, $round: false),
+            $allPrefixes: false
+        );
+    }
+
+    @if config.$include_colourValues_hsl or config.$include_colourValues_rgb {
+        @each $level, $clr in $map {
+            $_clrValue: if(
+                $mode == dark,
+                map.get(
+                    $map,
+                    colour.shade-map-reverse-key($level, $map, $sort: false)
+                ),
+                $clr
+            );
+
+            @if config.$include_colourValues_hsl {
+                @include utils.cx-prop(
+                    #{$_shadeNameSlug}-#{$level}-hsl,
+                    colour.to-hsl-list($_clrValue, $round: false),
+                    $allPrefixes: false
+                );
+            }
+
+            @if config.$include_colourValues_rgb {
+                @include utils.cx-prop(
+                    #{$_shadeNameSlug}-#{$level}-rgb,
+                    colour.to-rgb-list($_clrValue, $round: true),
+                    $allPrefixes: false
+                );
+            }
+
+            @if config.$mx_tokensColour_presetOpacities_include {
+                @each $opacity in tokens.$colour_presetOpacities {
+                    $_opacity_clrValue: $_clrValue;
+
+                    @if config.$include_colourValues_hsl {
+                        $_opacity_clrValue: colour.to-hsl(
+                            $_clrValue,
+                            $opacity: $opacity,
+                            $round: false
+                        );
+                    } @else if config.$include_colourValues_rgb {
+                        $_opacity_clrValue: colour.to-rgb(
+                            $_clrValue,
+                            $opacity: $opacity
+                        );
+                    }
+
+                    @include utils.cx-prop(
+                        #{$_shadeNameSlug}-#{$level}--#{math.deunit($opacity)},
+                        $_opacity_clrValue,
+                        $allPrefixes: false
+                    );
+                }
+            }
+        }
+    }
+
+    @content;
+}
+
+///
 /// Prints out the colour custom property tokens based on config.
 ///
 /// @since 0.1.0-alpha
@@ -461,107 +551,16 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         @each $mode in tokens.$brightnessMode_all {
             @include utils.colour-mode($mode, $includeDefault: true) {
                 @each $slug, $map in tokens.$colour {
-                    //
-                    @if $slug == white {
-                        $slug: 'white';
-                    } @else if $slug == black {
-                        $slug: 'black';
-                    }
-
-                    $_shadeNameSlug: if($slug == '$', 'clr', 'clr-#{$slug}');
-
-                    @each $level, $clr in $map {
-                        $_clrValue: if(
-                            $mode == dark,
-                            map.get(
-                                $map,
-                                colour.shade-map-reverse-key(
-                                    $level,
-                                    $map,
-                                    $sort: false
-                                )
-                            ),
-                            $clr
-                        );
-
-                        @include utils.cx-prop(
-                            #{$_shadeNameSlug}-#{$level},
-                            colour.to-hsl($_clrValue, $round: false),
-                            $allPrefixes: false
-                        );
-                    }
-
-                    @if config.$include_colourValues_hsl or
-                        config.$include_colourValues_rgb
-                    {
-                        @each $level, $clr in $map {
-                            $_clrValue: if(
-                                $mode == dark,
-                                map.get(
-                                    $map,
-                                    colour.shade-map-reverse-key(
-                                        $level,
-                                        $map,
-                                        $sort: false
-                                    )
-                                ),
-                                $clr
-                            );
-
-                            @if config.$include_colourValues_hsl {
-                                @include utils.cx-prop(
-                                    #{$_shadeNameSlug}-#{$level}-hsl,
-                                    colour.to-hsl-list(
-                                        $_clrValue,
-                                        $round: false
-                                    ),
-                                    $allPrefixes: false
-                                );
-                            }
-
-                            @if config.$include_colourValues_rgb {
-                                @include utils.cx-prop(
-                                    #{$_shadeNameSlug}-#{$level}-rgb,
-                                    colour.to-rgb-list(
-                                        $_clrValue,
-                                        $round: true
-                                    ),
-                                    $allPrefixes: false
-                                );
-                            }
-
-                            @if config.$mx_tokensColour_presetOpacities_include
-                            {
-                                @each $opacity in tokens.$colour_presetOpacities
-                                {
-                                    $_opacity_clrValue: $_clrValue;
-
-                                    @if config.$include_colourValues_hsl {
-                                        $_opacity_clrValue: colour.to-hsl(
-                                            $_clrValue,
-                                            $opacity: $opacity,
-                                            $round: false
-                                        );
-                                    } @else if config.$include_colourValues_rgb
-                                    {
-                                        $_opacity_clrValue: colour.to-rgb(
-                                            $_clrValue,
-                                            $opacity: $opacity
-                                        );
-                                    }
-
-                                    @include utils.cx-prop(
-                                        #{$_shadeNameSlug}-#{$level}--#{math.deunit(
-                                                $opacity
-                                            )},
-                                        $_opacity_clrValue,
-                                        $allPrefixes: false
-                                    );
-                                }
-                            }
-                        }
+                    @include tokens-colour--single-map(
+                        $slug: $slug,
+                        $map: $map,
+                        $mode: $mode
+                    ) {
+                        @content (#{$mode}-#{$slug});
                     }
                 }
+
+                @content ($mode);
             }
         }
 
@@ -672,7 +671,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     );
 
     // less than one selector should display nothing
-    @if list.length($parsedParentSelector) < 1 {
+    @if not selector.exists($parsedParentSelector) {
         #{config.$selector_null} {
             @content;
         }
@@ -689,11 +688,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         $_rootSels: ();
         $_whereSels: ();
 
-        $_root_aliases: if(
-            config.$fn_colourMode_selectorsAsChildren,
-            (),
-            $_rootAliasesWithAllModeOptions
-        );
+        $_root_aliases: $_rootAliasesWithAllModeOptions;
 
         // if every selector has body but none ARE root or body, then they are
         // all children of root/body --- but if root and body are not present at
@@ -721,7 +716,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             )
         {
             // doing nothing
-        } @else {
+        } @else if selector.exists($parsedParentSelector) {
             $_hasBody: selector.has-body(
                 $parsedParentSelector,
                 $aliases: $_root_aliases
