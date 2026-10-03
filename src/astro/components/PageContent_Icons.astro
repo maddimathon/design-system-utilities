@@ -7,13 +7,14 @@
 
 /* import - types */
 import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Icons } from '../../ts/02-tokens/Tokens_Icons';
 
-import type { LoremIpsumProps } from './LoremIpsum.astro';
+import type { AlertComponentType } from './Alert.astro';
+import type { LoremIpsumComponentType, LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import { arrayUnique } from '@maddimathon/utility-typescript';
@@ -22,14 +23,13 @@ import { objectKeySort_Tokens } from '../../ts/01-utilities/objectKeySort_Tokens
 /* import - values */
 
 /* import - components */
-import type { ButtonProps } from '@maddimathon/utility-astro/components';
 import {
     Button as ButtonComponent,
     CopyToClipboardButton,
-    Heading,
+    Heading as HeadingComponent,
 } from '@maddimathon/utility-astro/components';
 
-import Alert from './Alert.astro';
+import AlertComponent from './Alert.astro';
 import Icon from './Icon.astro';
 import IconFontTester from './IconFontTester.astro';
 import LoremIpsumComponent from './LoremIpsum.astro';
@@ -38,6 +38,22 @@ import ToggleComponent from './Toggle.astro';
 /* import - layouts */
 
 /* PROPS ===================================== */
+
+type Props_Components = {
+    Alert: AlertComponentType;
+
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    LoremIpsum: LoremIpsumComponentType;
+
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    Toggle: ToggleComponentType;
+} & PartialExcept<LoremIpsumProps.Components, 'Button'|'Heading'>;
 
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     alignmentIcon?: T_Types['iconNames'];
@@ -50,23 +66,9 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0-beta.3
      */
-    components?: {
-        Button?: undefined | ((props: ButtonProps) => any);
-
-        /**
-         * @since 0.1.0-beta.0
-         * @since ___PKG_VERSION___ — Moved to a components prop.
-         */
-        LoremIpsum?: ( props: Partial<LoremIpsumProps> ) => any;
-
-        /**
-         * @since 0.1.0-beta.0
-         * @since ___PKG_VERSION___ — Moved to a components prop.
-         */
-        Toggle?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
-    };
+    components?: Partial<Props_Components>;
 }
 
 const {
@@ -78,13 +80,21 @@ const {
     logoAlerts = import.meta.env.DEV,
     subheadingDisplayHeading = 6,
     tokens,
-
-    components: {
-        Button = ButtonComponent,
-        LoremIpsum = LoremIpsumComponent,
-        Toggle = ToggleComponent,
-    } = {},
+    components: inputComponents = {},
 }: Props = Astro.props;
+
+const components = {
+    ...inputComponents,
+
+    Alert: inputComponents.Alert ?? AlertComponent,
+    Button: inputComponents.Button ?? ButtonComponent,
+    Heading: inputComponents.Heading ?? HeadingComponent,
+    LoremIpsum: inputComponents.LoremIpsum ?? LoremIpsumComponent,
+    Toggle: inputComponents.Toggle ?? ToggleComponent,
+} satisfies Props_Components;
+
+const { Alert, Button, Heading, LoremIpsum, Toggle } =
+    components;
 
 /* FUNCTIONS ===================================== */
 
@@ -329,7 +339,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
     heading={2}
     set:text='All Alert Blocks'
 />
-<IconFontTester />
+<IconFontTester id="icon-font-tester" components={components} />
 
 <div class='site-width | tokens-demo-all-alerts tokens-demo-all-alerts--basic'>
     {
@@ -487,7 +497,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
             slot='headline'
             set:text={`Default Colour Variation`}
         />
-        <LoremIpsum superAbbreviated={true} />
+        <LoremIpsum components={components} superAbbreviated={true} />
     </Alert>
     {
         textAndBackgroundKeys.map((key) => (
@@ -498,7 +508,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 <Fragment slot='headline'>
                     Colour Variation: <samp set:text={key} />
                 </Fragment>
-                <LoremIpsum superAbbreviated={true} />
+                <LoremIpsum components={components} superAbbreviated={true} />
             </Alert>
         ))
     }

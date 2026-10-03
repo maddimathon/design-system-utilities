@@ -7,6 +7,8 @@
 
 /* import - types */
 import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { FormFieldComponentType, HeadingComponentType, TableComponentType } from '@maddimathon/utility-astro/components';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour } from '../../ts/02-tokens/Tokens_Colour.js';
@@ -30,7 +32,11 @@ import ShadeSwatchTable_Scripts from '../support/ShadeSwatchTable_Scripts.astro'
 /* import - values */
  
 /* import - components */
-import { Heading } from '@maddimathon/utility-astro/components';
+import {
+    FormField as FormFieldComponent,
+    Heading as HeadingComponent,
+    Table as TableComponent,
+} from '@maddimathon/utility-astro/components';
 
 import ShadeSwatch from './ShadeSwatch.astro';
 import ContrastAlert from './ContrastAlert.astro';
@@ -50,6 +56,12 @@ export type ShadeSwatchTableProps<T_Types extends TokenTypes.TypeParams = TokenT
     id: string; 
     heading: number;
     tokens: Tokens.JsonReturn;
+
+    components?: Partial<{
+        FormField: FormFieldComponentType;
+        Heading: HeadingComponentType;
+        Table: TableComponentType;
+    }>;
 
     /**
      * Colours to exclude from the output.
@@ -98,6 +110,11 @@ export type ShadeSwatchTableProps<T_Types extends TokenTypes.TypeParams = TokenT
 type Props = GenericElementProps<ShadeSwatchTableProps, 'table'>;
 
 const {
+    components: {
+        Heading = HeadingComponent,
+        FormField = FormFieldComponent,
+        Table = TableComponent,
+    } = {},
     exclude = [],
     excludeLevels = [],
     heading,
@@ -492,73 +509,168 @@ const TARGET_HSL_CLRS = {
 
 {
     colour && (
-        <label
-            class='site-width | shade-swatch-table__display-control__label'
-            aria-ignore="true"
-        ><input 
-            type="checkbox"
+        <FormField
             data-shade-swatch-table-display-text-toggle={id}
-        /> Display table without text</label>
-        
-        <section
-            class:list={['table-wrapper | site-width | shade-swatch-table__wrapper']}
-            id={id}
-        >
-            <table id={id}>
-                { includeTargetLevels && goalLevels.base && Object.values( goalLevels.base ).filter( v => v ).length > 0 && <tr>
-                    <th
-                        class="screen-reader-text" 
-                        set:text='contrast targets'
-                    />
-                    <th
-                        aria-hidden="true"
-                        data-brightness-mode='light'
-                        style={`background: var(--clr-white, ${TARGET_HSL_CLRS.white})`}
-                    ><article
+            id={`shade-swatch-table__display-control__${id}`}
+            labelAttrs={{
+                'aria-ignore': true,
+                class: 'site-width | shade-swatch-table__display-control__label',
+            }}
+            type="checkbox"
+        ><Fragment slot="label">Display table without text</Fragment></FormField>
+        <Table wrapper={{ class: 'site-width | shade-swatch-table__wrapper', id, tag: 'section' }}>
+            { includeTargetLevels && goalLevels.base && Object.values( goalLevels.base ).filter( v => v ).length > 0 && <tr>
+                <th
+                    class="screen-reader-text" 
+                    set:text='contrast targets'
+                />
+                <th
+                    aria-hidden="true"
+                    data-brightness-mode='light'
+                    style={`background: var(--clr-white, ${TARGET_HSL_CLRS.white})`}
+                ><article
+                    class:list={['container', 'shade-swatch']}
+                    data-brightness-mode='light'
+                    data-shade-swatch-has-background={true}
+                    style={ [ 
+                        `--shade-swatch-background: ${TARGET_HSL_CLRS.white}`,
+                        `--shade-swatch-color: ${TARGET_HSL_CLRS.whiteTextLevel}`,
+                    ].join(';') }
+                /></th>
+                <Fragment>{ (
+                    Object.entries( goalLevels.base ) as [ 
+                        ColourUtilities.Levels.Any,
+                        typeof goalLevels.base[ColourUtilities.Levels.Any],
+                    ][]
+                ).map( ([level, set]) => set && <th> 
+                    <article
                         class:list={['container', 'shade-swatch']}
-                        data-brightness-mode='light'
+                        data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
                         data-shade-swatch-has-background={true}
                         style={ [ 
-                            `--shade-swatch-background: ${TARGET_HSL_CLRS.white}`,
-                            `--shade-swatch-color: ${TARGET_HSL_CLRS.whiteTextLevel}`,
-                        ].join(';') }
-                    /></th>
-                    <Fragment>{ (
-                        Object.entries( goalLevels.base ) as [ 
-                            ColourUtilities.Levels.Any,
-                            typeof goalLevels.base[ColourUtilities.Levels.Any],
-                        ][]
-                    ).map( ([level, set]) => set && <th> 
-                        <article
-                            class:list={['container', 'shade-swatch']}
-                            data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
-                            data-shade-swatch-has-background={true}
-                            style={ [ 
-                                `--shade-swatch-background: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.level as ColourUtilities.Levels.Required ])}`,
-                                `--shade-swatch-color: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.textLevel as ColourUtilities.Levels.Required ])}`,
-                                ].join(';') }
+                            `--shade-swatch-background: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.level as ColourUtilities.Levels.Required ])}`,
+                            `--shade-swatch-color: ${ColourUtilities.toString.hsl(targetShadesMap.base[ set.textLevel as ColourUtilities.Levels.Required ])}`,
+                            ].join(';') }
+                    >
+                        <Heading
+                            class:list='shade-swatch__name' 
+                            displayHeading={7}
+                            heading={heading}
+                            set:text={`target-${set.level}`}
+                        />
+
+                        <Heading
+                            class:list='screen-reader-text'
+                            displayHeading={8}
+                            heading={heading + 1}
+                            set:text='Contrast Test Targets'
+                        />
+
+                        <div 
+                            class="shade-swatch__contrast"
+                            style={[
+                                `--shade-swatch-contrast-result-group-column-count: 2`,
+                                `--shade-swatch-contrast-result-group-row-count: 2`,
+                            ].join(';')}
                         >
-                            <Heading
-                                class:list='shade-swatch__name' 
-                                displayHeading={7}
-                                heading={heading}
-                                set:text={`target-${set.level}`}
-                            />
-
-                            <Heading
-                                class:list='screen-reader-text'
-                                displayHeading={8}
-                                heading={heading + 1}
-                                set:text='Contrast Test Targets'
-                            />
-
-                            <div 
-                                class="shade-swatch__contrast"
-                                style={[
-                                    `--shade-swatch-contrast-result-group-column-count: 2`,
-                                    `--shade-swatch-contrast-result-group-row-count: 2`,
-                                ].join(';')}
+                            <div
+                                class:list={[
+                                    'shade-swatch__contrast__result-group',
+                                    'shade-swatch__contrast__result-group--min-max',
+                                ]}
+                                style={`--shade-swatch-contrast-result-group-column-count: 5;`}
                             >
+                                {(['aa', 'aaa'] as const).map( (standard) => (
+                                    <div
+                                        class:list={ [
+                                            'shade-swatch__contrast__result-group__single-min-max',
+                                            `shade-swatch__contrast__result-group__single-min-max--minimum`,
+                                            `shade-swatch__contrast__result-group__single-min-max--minimum--${standard}`,
+                                        ] }
+                                        style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${set.min?.[standard].colCount}`}
+                                    >
+                                        <Heading
+                                            heading={heading + 2}
+                                            displayHeading={10}
+
+                                            class:list={[
+                                                'screen-reader-text | ',
+                                                'shade-swatch__contrast__result-group__heading',
+                                                'shade-swatch__contrast__result-group__heading--minimum',
+                                                `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
+                                            ]}
+                                            set:text={standard.toUpperCase()}
+                                        />
+                                        {set.min?.[standard].ui && (
+                                            <ContrastAlert
+                                                class={[
+                                                    'shade-swatch__contrast__result-group__alert',
+                                                    'shade-swatch__contrast__result-group__alert--minimum',
+                                                    'shade-swatch__contrast__result-group__alert--minimum--ui',
+                                                    `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
+                                                ]}
+                                                clr={getBaseColourObject( targetShadesMap.base, set.min[standard].ui )}
+                                                clrSlug={`base-${set.min[standard].ui}`}
+                                                icons={tokens.icons}
+                                                level={set.min[standard].ui}
+                                                title={`${standard.toUpperCase()} UI min: ${set.min[standard].ui}`}
+                                                type='ui-minimum'
+                                            />
+                                        )}
+                                        {set.min?.[standard].text && (
+                                            <ContrastAlert
+                                                class={[
+                                                    'shade-swatch__contrast__result-group__alert',
+                                                    'shade-swatch__contrast__result-group__alert--minimum',
+                                                    'shade-swatch__contrast__result-group__alert--minimum--text',
+                                                    `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
+                                                ]}
+                                                clr={getBaseColourObject( targetShadesMap.base, set.min[standard].text )}
+                                                clrSlug={`base-${set.min[standard].text}`}
+                                                icons={tokens.icons}
+                                                level={set.min[standard].text}
+                                                title={`${standard.toUpperCase()} text min: ${set.min[standard].text}`}
+                                                type='minimum'
+                                            />
+                                        )}
+                                    </div>
+                                ) )}
+
+                                {set.max && (
+                                    <div
+                                        class:list={[
+                                            'shade-swatch__contrast__result-group__single-min-max',
+                                            'shade-swatch__contrast__result-group__single-min-max--maximum',
+                                        ]}
+                                        style={`--shade-swatch-contrast-result-group-single-min-max-column-count: 1`}
+                                    >
+                                        <Heading 
+                                            heading={heading + 2}
+                                            displayHeading={10}
+                                            class:list={[
+                                                'screen-reader-text | ',
+                                                'shade-swatch__contrast__result-group__heading',
+                                                'shade-swatch__contrast__result-group__heading--maximum',
+                                            ]}
+                                            set:text='Max'
+                                        />
+                                        <ContrastAlert
+                                            class={[
+                                                'shade-swatch__contrast__result-group__alert',
+                                                'shade-swatch__contrast__result-group__alert--maximum',
+                                            ]}
+                                            clr={getBaseColourObject( targetShadesMap.base, set.max )}
+                                            clrSlug={`base-${set.max}`}
+                                            icons={tokens.icons}
+                                            level={set.max}
+                                            title={`max: ${set.max}`}
+                                            type='maximum'
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            { goalLevels.accent?.[level] && (
                                 <div
                                     class:list={[
                                         'shade-swatch__contrast__result-group',
@@ -566,14 +678,14 @@ const TARGET_HSL_CLRS = {
                                     ]}
                                     style={`--shade-swatch-contrast-result-group-column-count: 5;`}
                                 >
-                                    {(['aa', 'aaa'] as const).map( (standard) => (
+                                    { (['aa', 'aaa'] as const).map( (standard) => goalLevels.accent?.[level] && (
                                         <div
                                             class:list={ [
                                                 'shade-swatch__contrast__result-group__single-min-max',
                                                 `shade-swatch__contrast__result-group__single-min-max--minimum`,
                                                 `shade-swatch__contrast__result-group__single-min-max--minimum--${standard}`,
                                             ] }
-                                            style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${set.min?.[standard].colCount}`}
+                                            style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${goalLevels.accent[level].min?.[standard].colCount}`}
                                         >
                                             <Heading
                                                 heading={heading + 2}
@@ -585,9 +697,9 @@ const TARGET_HSL_CLRS = {
                                                     'shade-swatch__contrast__result-group__heading--minimum',
                                                     `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
                                                 ]}
-                                                set:text={standard.toUpperCase()}
+                                                set:text={`${standard.toUpperCase()} (accent colours)`}
                                             />
-                                            {set.min?.[standard].ui && (
+                                            {goalLevels.accent[level].min?.[standard].ui && (
                                                 <ContrastAlert
                                                     class={[
                                                         'shade-swatch__contrast__result-group__alert',
@@ -595,15 +707,15 @@ const TARGET_HSL_CLRS = {
                                                         'shade-swatch__contrast__result-group__alert--minimum--ui',
                                                         `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                     ]}
-                                                    clr={getBaseColourObject( targetShadesMap.base, set.min[standard].ui )}
-                                                    clrSlug={`base-${set.min[standard].ui}`}
+                                                    clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].min[standard].ui )}
+                                                    clrSlug={`accent-${goalLevels.accent[level].min[standard].ui}`}
                                                     icons={tokens.icons}
-                                                    level={set.min[standard].ui}
-                                                    title={`${standard.toUpperCase()} UI min: ${set.min[standard].ui}`}
+                                                    level={goalLevels.accent[level].min[standard].ui}
+                                                    title={`${standard.toUpperCase()} UI min: ${goalLevels.accent[level].min[standard].ui}`}
                                                     type='ui-minimum'
                                                 />
                                             )}
-                                            {set.min?.[standard].text && (
+                                            {goalLevels.accent[level].min?.[standard].text && (
                                                 <ContrastAlert
                                                     class={[
                                                         'shade-swatch__contrast__result-group__alert',
@@ -611,18 +723,18 @@ const TARGET_HSL_CLRS = {
                                                         'shade-swatch__contrast__result-group__alert--minimum--text',
                                                         `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
                                                     ]}
-                                                    clr={getBaseColourObject( targetShadesMap.base, set.min[standard].text )}
-                                                    clrSlug={`base-${set.min[standard].text}`}
+                                                    clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].min[standard].text )}
+                                                    clrSlug={`accent-${goalLevels.accent[level].min[standard].text}`}
                                                     icons={tokens.icons}
-                                                    level={set.min[standard].text}
-                                                    title={`${standard.toUpperCase()} text min: ${set.min[standard].text}`}
+                                                    level={goalLevels.accent[level].min[standard].text}
+                                                    title={`${standard.toUpperCase()} text min: ${goalLevels.accent[level].min[standard].text}`}
                                                     type='minimum'
                                                 />
                                             )}
                                         </div>
                                     ) )}
 
-                                    {set.max && (
+                                    {goalLevels.accent[level].max && (
                                         <div
                                             class:list={[
                                                 'shade-swatch__contrast__result-group__single-min-max',
@@ -645,217 +757,120 @@ const TARGET_HSL_CLRS = {
                                                     'shade-swatch__contrast__result-group__alert',
                                                     'shade-swatch__contrast__result-group__alert--maximum',
                                                 ]}
-                                                clr={getBaseColourObject( targetShadesMap.base, set.max )}
-                                                clrSlug={`base-${set.max}`}
+                                                clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].max )}
+                                                clrSlug={`accent-${goalLevels.accent[level].max}`}
                                                 icons={tokens.icons}
-                                                level={set.max}
-                                                title={`max: ${set.max}`}
+                                                level={goalLevels.accent[level].max}
+                                                title={`max: ${goalLevels.accent[level].max}`}
                                                 type='maximum'
                                             />
                                         </div>
                                     )}
                                 </div>
-
-                                { goalLevels.accent?.[level] && (
-                                    <div
-                                        class:list={[
-                                            'shade-swatch__contrast__result-group',
-                                            'shade-swatch__contrast__result-group--min-max',
-                                        ]}
-                                        style={`--shade-swatch-contrast-result-group-column-count: 5;`}
-                                    >
-                                        { (['aa', 'aaa'] as const).map( (standard) => goalLevels.accent?.[level] && (
-                                            <div
-                                                class:list={ [
-                                                    'shade-swatch__contrast__result-group__single-min-max',
-                                                    `shade-swatch__contrast__result-group__single-min-max--minimum`,
-                                                    `shade-swatch__contrast__result-group__single-min-max--minimum--${standard}`,
-                                                ] }
-                                                style={`--shade-swatch-contrast-result-group-single-min-max-column-count: ${goalLevels.accent[level].min?.[standard].colCount}`}
-                                            >
-                                                <Heading
-                                                    heading={heading + 2}
-                                                    displayHeading={10}
-
-                                                    class:list={[
-                                                        'screen-reader-text | ',
-                                                        'shade-swatch__contrast__result-group__heading',
-                                                        'shade-swatch__contrast__result-group__heading--minimum',
-                                                        `shade-swatch__contrast__result-group__heading--minimum--${standard}`,
-                                                    ]}
-                                                    set:text={`${standard.toUpperCase()} (accent colours)`}
-                                                />
-                                                {goalLevels.accent[level].min?.[standard].ui && (
-                                                    <ContrastAlert
-                                                        class={[
-                                                            'shade-swatch__contrast__result-group__alert',
-                                                            'shade-swatch__contrast__result-group__alert--minimum',
-                                                            'shade-swatch__contrast__result-group__alert--minimum--ui',
-                                                            `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
-                                                        ]}
-                                                        clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].min[standard].ui )}
-                                                        clrSlug={`accent-${goalLevels.accent[level].min[standard].ui}`}
-                                                        icons={tokens.icons}
-                                                        level={goalLevels.accent[level].min[standard].ui}
-                                                        title={`${standard.toUpperCase()} UI min: ${goalLevels.accent[level].min[standard].ui}`}
-                                                        type='ui-minimum'
-                                                    />
-                                                )}
-                                                {goalLevels.accent[level].min?.[standard].text && (
-                                                    <ContrastAlert
-                                                        class={[
-                                                            'shade-swatch__contrast__result-group__alert',
-                                                            'shade-swatch__contrast__result-group__alert--minimum',
-                                                            'shade-swatch__contrast__result-group__alert--minimum--text',
-                                                            `shade-swatch__contrast__result-group__alert--minimum--${standard}`,
-                                                        ]}
-                                                        clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].min[standard].text )}
-                                                        clrSlug={`accent-${goalLevels.accent[level].min[standard].text}`}
-                                                        icons={tokens.icons}
-                                                        level={goalLevels.accent[level].min[standard].text}
-                                                        title={`${standard.toUpperCase()} text min: ${goalLevels.accent[level].min[standard].text}`}
-                                                        type='minimum'
-                                                    />
-                                                )}
-                                            </div>
-                                        ) )}
-
-                                        {goalLevels.accent[level].max && (
-                                            <div
-                                                class:list={[
-                                                    'shade-swatch__contrast__result-group__single-min-max',
-                                                    'shade-swatch__contrast__result-group__single-min-max--maximum',
-                                                ]}
-                                                style={`--shade-swatch-contrast-result-group-single-min-max-column-count: 1`}
-                                            >
-                                                <Heading 
-                                                    heading={heading + 2}
-                                                    displayHeading={10}
-                                                    class:list={[
-                                                        'screen-reader-text | ',
-                                                        'shade-swatch__contrast__result-group__heading',
-                                                        'shade-swatch__contrast__result-group__heading--maximum',
-                                                    ]}
-                                                    set:text='Max'
-                                                />
-                                                <ContrastAlert
-                                                    class={[
-                                                        'shade-swatch__contrast__result-group__alert',
-                                                        'shade-swatch__contrast__result-group__alert--maximum',
-                                                    ]}
-                                                    clr={getMapColourObject( targetShadesMap.accent, targetShadesMap.base, goalLevels.accent[level].max )}
-                                                    clrSlug={`accent-${goalLevels.accent[level].max}`}
-                                                    icons={tokens.icons}
-                                                    level={goalLevels.accent[level].max}
-                                                    title={`max: ${goalLevels.accent[level].max}`}
-                                                    type='maximum'
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-                                ) }
-                            </div>
-                        </article>
-                    </th>  ) }</Fragment>
-                    <th 
-                        aria-hidden="true"
-                        data-brightness-mode='dark'
-                        style={`background: var(--clr-white, ${TARGET_HSL_CLRS.black})`}
-                    ><article
-                        class:list={['container', 'shade-swatch']}
-                        data-brightness-mode='dark'
-                        data-shade-swatch-has-background={true}
-                        style={ [ 
-                            `--shade-swatch-background: ${TARGET_HSL_CLRS.black}`,
-                            `--shade-swatch-color: ${TARGET_HSL_CLRS.blackTextLevel}`,
-                        ].join(';') }
-                    /></th>
-                </tr> }
-                { colour.map( ( { name, map } ) => name !== '$' ? (
-                    <tr>
-                        <th
-                            class="screen-reader-text"
-                            set:text={name}
+                            ) }
+                        </div>
+                    </article>
+                </th>  ) }</Fragment>
+                <th 
+                    aria-hidden="true"
+                    data-brightness-mode='dark'
+                    style={`background: var(--clr-white, ${TARGET_HSL_CLRS.black})`}
+                ><article
+                    class:list={['container', 'shade-swatch']}
+                    data-brightness-mode='dark'
+                    data-shade-swatch-has-background={true}
+                    style={ [ 
+                        `--shade-swatch-background: ${TARGET_HSL_CLRS.black}`,
+                        `--shade-swatch-color: ${TARGET_HSL_CLRS.blackTextLevel}`,
+                    ].join(';') }
+                /></th>
+            </tr> }
+            { colour.map( ( { name, map } ) => name !== '$' ? (
+                <tr>
+                    <th
+                        class="screen-reader-text"
+                        set:text={name}
+                    />
+                    <td
+                        data-brightness-mode='light'
+                        style={`background: var(--clr-white, ${HSL_CLRS.white})`}
+                    ><ShadeSwatch 
+                        bases={props.colour.base}
+                        contrast={name === 'base' && true}
+                        contrastIsCondensed={true}
+                        displayHeading={name === 'base' ? 7 : false}
+                        displayValues={name === 'base'}
+                        exclude={exclude}
+                        heading={heading}
+                        id={id}
+                        level='white'
+                        name='base' 
+                        tokens={tokens}
+                        values={ name === 'base' ? {
+                            ...props.colour.base.white,
+                            hex: includeFormats.hex ? props.colour.base.white.hex : undefined,
+                            hsl: includeFormats.hsl ? props.colour.base.white.hsl : undefined,
+                            lch: includeFormats.lch ? props.colour.base.white.lch : undefined,
+                            rgb: includeFormats.rgb ? props.colour.base.white.rgb : undefined,
+                        } : props.colour.base.white }
+                    /></td>
+                    {map.map(({ level, value }) => !( 
+                        excludeLevels.includes( level )
+                        || ( level as string ) === 'black'
+                        || ( level as string ) === 'white'
+                        ) && <td>
+                        <ShadeSwatch 
+                            bases={props.colour.base}
+                            contrastIsCondensed={true}
+                            displayHeading={7}
+                            exclude={exclude}
+                            heading={heading}
+                            id={id}
+                            level={level}
+                            name={name} 
+                            tokens={tokens}
+                            values={{
+                                ...value,
+                                hex: includeFormats.hex ? value.hex : undefined,
+                                hsl: includeFormats.hsl ? value.hsl : undefined,
+                                lch: includeFormats.lch ? value.lch : undefined,
+                                rgb: includeFormats.rgb ? value.rgb : undefined,
+                            }}
                         />
-                        <td
-                            data-brightness-mode='light'
-                            style={`background: var(--clr-white, ${HSL_CLRS.white})`}
-                        ><ShadeSwatch 
-                            bases={props.colour.base}
-                            contrast={name === 'base' && true}
-                            contrastIsCondensed={true}
-                            displayHeading={name === 'base' ? 7 : false}
-                            displayValues={name === 'base'}
-                            exclude={exclude}
-                            heading={heading}
-                            id={id}
-                            level='white'
-                            name='base' 
-                            tokens={tokens}
-                            values={ name === 'base' ? {
-                                ...props.colour.base.white,
-                                hex: includeFormats.hex ? props.colour.base.white.hex : undefined,
-                                hsl: includeFormats.hsl ? props.colour.base.white.hsl : undefined,
-                                lch: includeFormats.lch ? props.colour.base.white.lch : undefined,
-                                rgb: includeFormats.rgb ? props.colour.base.white.rgb : undefined,
-                            } : props.colour.base.white }
-                        /></td>
-                        {map.map(({ level, value }) => !( 
-                            excludeLevels.includes( level )
-                            || ( level as string ) === 'black'
-                            || ( level as string ) === 'white'
-                         ) && <td>
-                            <ShadeSwatch 
-                                bases={props.colour.base}
-                                contrastIsCondensed={true}
-                                displayHeading={7}
-                                exclude={exclude}
-                                heading={heading}
-                                id={id}
-                                level={level}
-                                name={name} 
-                                tokens={tokens}
-                                values={{
-                                    ...value,
-                                    hex: includeFormats.hex ? value.hex : undefined,
-                                    hsl: includeFormats.hsl ? value.hsl : undefined,
-                                    lch: includeFormats.lch ? value.lch : undefined,
-                                    rgb: includeFormats.rgb ? value.rgb : undefined,
-                                }}
-                            />
-                        </td> )}
-                        <td
-                            data-brightness-mode='dark'
-                            style={`background: var(--clr-white, ${HSL_CLRS.black})`}
-                        ><ShadeSwatch 
-                            bases={props.colour.base}
-                            contrast={name === 'base' && true}
-                            contrastIsCondensed={true}
-                            displayHeading={name === 'base' ? 7 : false}
-                            displayValues={name === 'base'}
-                            exclude={exclude}
-                            heading={heading}
-                            id={id}
-                            level='black'
-                            name='base' 
-                            tokens={tokens}
-                            values={ name === 'base' ? {
-                                ...props.colour.base.black,
-                                hex: includeFormats.hex ? props.colour.base.black.hex : undefined,
-                                hsl: includeFormats.hsl ? props.colour.base.black.hsl : undefined,
-                                lch: includeFormats.lch ? props.colour.base.black.lch : undefined,
-                                rgb: includeFormats.rgb ? props.colour.base.black.rgb : undefined,
-                            } : props.colour.base.black }
-                        /></td>
-                    </tr>
-                ) : '' ) }
-            </table>
-        </section>
+                    </td> )}
+                    <td
+                        data-brightness-mode='dark'
+                        style={`background: var(--clr-white, ${HSL_CLRS.black})`}
+                    ><ShadeSwatch 
+                        bases={props.colour.base}
+                        contrast={name === 'base' && true}
+                        contrastIsCondensed={true}
+                        displayHeading={name === 'base' ? 7 : false}
+                        displayValues={name === 'base'}
+                        exclude={exclude}
+                        heading={heading}
+                        id={id}
+                        level='black'
+                        name='base' 
+                        tokens={tokens}
+                        values={ name === 'base' ? {
+                            ...props.colour.base.black,
+                            hex: includeFormats.hex ? props.colour.base.black.hex : undefined,
+                            hsl: includeFormats.hsl ? props.colour.base.black.hsl : undefined,
+                            lch: includeFormats.lch ? props.colour.base.black.lch : undefined,
+                            rgb: includeFormats.rgb ? props.colour.base.black.rgb : undefined,
+                        } : props.colour.base.black }
+                    /></td>
+                </tr>
+            ) : '' ) }
+        </Table>
     )
 }
 
 <style lang="scss">
     @forward '../scss/shade-swatch';
+</style>
+<style lang="scss" is:global>
     @forward '../scss/shade-swatch-table';
 </style>
 

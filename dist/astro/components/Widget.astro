@@ -6,47 +6,68 @@
  */
 
 /* import - types */
-import type { ElementProps } from '@maddimathon/utility-astro';
+import type {
+    GenericDynamicWrapperProps,
+    DynamicWrapperComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 
 /* import - components */
-import { Heading } from '@maddimathon/utility-astro/components';
+import {
+    DynamicWrapper as DynamicWrapperComponent,
+    Heading as HeadingComponent,
+} from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface WidgetProps {
-    children: any[];
+export type WidgetProps = GenericDynamicWrapperProps<
+    {
+        children: any;
 
-    /**
-     * If any, the heading display level override for this heading (otherwise
-     * the `heading` value is used).
-     */
-    displayHeading?: number;
+        components?: Partial<{
+            DynamicWrapper: DynamicWrapperComponentType;
+            Heading: HeadingComponentType;
+        }>;
 
-    heading: number;
+        /**
+         * If any, the heading display level override for this heading (otherwise
+         * the `heading` value is used).
+         */
+        displayHeading?: number;
 
-    /**
-     * @since 0.1.0-alpha.4
-     */
-    hideHeading?: boolean;
+        heading: number;
 
-    style?: string;
-}
+        /**
+         * @since 0.1.0-alpha.4
+         */
+        hideHeading?: boolean;
 
-export type WidgetComponentType = (props: WidgetProps) => any;
+        style?: string;
+    },
+    'article' | 'div' | 'section' | false | null
+>;
 
-type Props = ElementProps<WidgetProps, 'section'>;
+export type WidgetComponentType = (props: Omit<WidgetProps, 'wrapper'>) => any;
+
+type Props = WidgetProps;
 
 const {
     class: classList,
+    components: {
+        DynamicWrapper = DynamicWrapperComponent,
+        Heading = HeadingComponent,
+    } = {},
     displayHeading,
     heading,
     hideHeading = false,
+    tag = 'section',
     ...attributes
 }: Props = Astro.props;
 
@@ -61,9 +82,10 @@ const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
 
 {
     (headingHTML || subheadingHTML) && (
-        <section
+        <DynamicWrapper
             {...attributes}
-            class:list={['widget-block', { '||': classList }, classList]}
+            class:list={makeClassList('widget-block', classList)}
+            tag={tag}
         >
             <slot name='prefix' />
 
@@ -102,6 +124,6 @@ const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
                     set:html={ctaButtonsHTML}
                 />
             )}
-        </section>
+        </DynamicWrapper>
     )
 }

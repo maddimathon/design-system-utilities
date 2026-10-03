@@ -12,6 +12,7 @@ import type { HTMLAttributes } from 'astro/types';
 import type {
     ButtonComponentType,
     ButtonProps_Button,
+    FormFieldComponentType,
 } from '@maddimathon/utility-astro/components';
 
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
@@ -24,7 +25,10 @@ import { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - components */
 import Icon from './Icon.astro';
-import { Button as ButtonComponent } from '@maddimathon/utility-astro/components';
+import {
+    Button as ButtonComponent,
+    FormField as FormFieldComponent,
+} from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
@@ -40,14 +44,19 @@ export type SearchFormProps = {
 
     components?: Partial<{
         Button: ButtonComponentType;
+        FormField: FormFieldComponentType;
     }>;
+
+    id: string;
 
     inputLabel?: string;
 
     input?: Omit<
         HTMLAttributes<'input'>,
-        'aria-label' | 'aria-labelledby' | 'placeholder' | 'type'
-    >;
+        'aria-label' | 'aria-labelledby' | 'placeholder' | 'style' | 'type'
+    > & {
+        style?: string | null | undefined;
+    };
 
     placeholder?: string;
 
@@ -64,9 +73,13 @@ const {
     button: { class: buttonClassList, ...button } = {},
     buttonLabel = 'Search',
     class: classList,
-    components: { Button = ButtonComponent } = {},
+    components: {
+        Button = ButtonComponent,
+        FormField = FormFieldComponent,
+    } = {},
+    id,
     inputLabel = 'Search the site',
-    input = {},
+    input: { class: inputClassList, ...inputAttrs } = {},
     placeholder = 'Search the site…',
     tokens,
     searchIcon,
@@ -78,17 +91,21 @@ const {
 
 <form
     {...attrs}
-    class:list={['search-form', { '||': classList }, classList]}
+    class:list={makeClassList('search-form', classList)}
     aria-label='Search Form'
     role='search'
 >
-    <label class='screen-reader-text'>{inputLabel}</label>
-    <input
+    <FormField
+        {...inputAttrs}
+        class={inputClassList ?? undefined}
         name='s'
-        {...input}
+        id={id}
         placeholder={placeholder}
         type='search'
-    />
+        labelAttrs={{ class: 'screen-reader-text' }}
+        ><Fragment slot='label'>{inputLabel}</Fragment></FormField
+    >
+
     <Button
         {...button}
         aria-label={buttonLabel}

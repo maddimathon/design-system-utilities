@@ -6,13 +6,17 @@
  */
 
 /* import - types */
-import type { HTMLAttributes } from 'astro/types';
-import type { ButtonComponentType, LoremIpsumComponentType, ToggleComponentType } from '@maddimathon/utility-astro/components';
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+import type { ElementProps } from '@maddimathon/utility-astro';
+
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js';
+
+import type { LoremIpsumComponentType, LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import { objectEntries, objectMap, toTitleCase } from '@maddimathon/utility-typescript';
@@ -25,9 +29,17 @@ import { getColourCSS } from '../../ts/03-parsers/getColourCSS.js';
 /* import - values */
 
 /* import - components */
-import { Button as ButtonComponent, Heading, VariableDump } from '@maddimathon/utility-astro/components';
+import {
+    Button as ButtonComponent,
+    FormField as FormFieldComponent,
+    Heading as HeadingComponent,
+    Table as TableComponent,
+    VariableDump,
+} from '@maddimathon/utility-astro/components';
 
 import LoremIpsumComponent from './LoremIpsum.astro';
+import ToggleComponent from './Toggle.astro';
+
 import ThemeModeSwatch_ShadesInUse from './ThemeModeSwatch_ShadesInUse.astro';
 import ThemeModeSwatch_ThemeSlug from './ThemeModeSwatch_ThemeSlug.astro';
 
@@ -35,8 +47,21 @@ import ThemeModeSwatch_ThemeSlug from './ThemeModeSwatch_ThemeSlug.astro';
 
 /* PROPS ===================================== */
 
-// prettier-ignore
-interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends Omit<HTMLAttributes<'div'>, 'class'> {
+export type ThemeModeSwatchProps_Components = {
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    LoremIpsum: LoremIpsumComponentType;
+
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    Toggle: ToggleComponentType;
+} & PartialExcept<LoremIpsumProps.Components, 'Button'|'Heading'|'FormField'|'Table'>;
+
+export type ThemeModeSwatchProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> = ElementProps<{
     heading: number;
     theme: Tokens_Themes_Set.SingleMode.JsonReturn<T_Types['colour'], T_Types['theme']>;
     tokens: Tokens.JsonReturn;
@@ -47,23 +72,9 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> e
     contrast?: TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>;
 
     /**
-     * @since 0.1.0-beta.3.draft
+     * @since 0.1.0-beta.3
      */
-    components?: Partial<{
-        Button: ButtonComponentType;
-
-        /**
-         * @since 0.1.0-beta.0
-         * @since 0.1.0-beta.3.draft — Moved to components prop.
-         */
-        LoremIpsum: LoremIpsumComponentType;
-
-        /**
-         * @since 0.1.0-beta.0
-         * @since 0.1.0-beta.3.draft — Moved to components prop.
-         */
-        Toggle: ToggleComponentType;
-    }>;
+    components?: Partial<ThemeModeSwatchProps_Components>;
 
     displayHeading?: number;
     
@@ -73,13 +84,15 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> e
     equals?: string;
 
     /**
-     * @since 0.1.0-beta.3.draft
+     * @since 0.1.0-beta.3
      */
     levelsInUseTable?: 'prepend'|'append';
-}
+}, 'div'>;
+
+type Props = ThemeModeSwatchProps
 
 const {
-    components = {},
+    components: inputComponents = {},
     theme,
     brightness = theme.brightness ?? undefined,
     contrast = theme.contrast && theme.contrast !== 'forcedColors' ? theme.contrast : undefined,
@@ -93,10 +106,18 @@ const {
     ...attributes
 }: Props = Astro.props;
 
-const {
-    Button = ButtonComponent,
-    LoremIpsum = LoremIpsumComponent,
-} = components;
+const components = {
+    ...inputComponents,
+
+    Button: inputComponents.Button ?? ButtonComponent,
+    FormField: inputComponents.FormField ?? FormFieldComponent,
+    Heading: inputComponents.Heading ?? HeadingComponent,
+    LoremIpsum: inputComponents.LoremIpsum ?? LoremIpsumComponent,
+    Table: inputComponents.Table ?? TableComponent,
+    Toggle: inputComponents.Toggle ?? ToggleComponent,
+} satisfies ThemeModeSwatchProps_Components;
+
+const { Button, FormField, Heading, LoremIpsum } = components;
 
 /* TYPES ===================================== */
 
@@ -329,8 +350,8 @@ const inputField = {
 ---
 
 <article
-    class:list={['container', 'theme-mode-swatch']}
     {...attributes}
+    class='container theme-mode-swatch'
 >
     {
         headingHTML && (
@@ -352,7 +373,7 @@ const inputField = {
     
     { displayMode == 'tokens' ? <Fragment>
         { levelsInUseTable === 'prepend' && (
-            <ThemeModeSwatch_ShadesInUse {...{ displayHeading, heading, theme, tokens }} />
+            <ThemeModeSwatch_ShadesInUse {...{ components, displayHeading, heading, theme, tokens }} />
             <hr />
         ) }
         <Heading
@@ -389,6 +410,7 @@ const inputField = {
                     ><samp set:text={key} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: value}} /></p>
                 ) ) : (
                     <VariableDump
+                        components={components}
                         name='_tokens'
                         var={_tokens}
                     />
@@ -494,17 +516,16 @@ const inputField = {
             set:text='Input Fields'
         />
         { Object.entries( inputField ).map( ( [variation, fieldSet] ) => Object.values(fieldSet).map( ( state ) => (
-            <label 
-                class="screen-reader-text"
-                set:text={state.background.label}
-            />
-            <input
+            <FormField
                 aria-disabled={ variation === 'disabled' ? 'true' : undefined }
                 class:list={ [
                     'theme-mode-swatch__sample',
                     'theme-mode-swatch__sample--input',
                 ] }
+                components={components}
                 disabled={ variation === 'disabled' ? 'true' : undefined }
+                id={`theme-mode-swatch__sample__${variation}__${state.background.state ?? 'base'}`}
+                labelAttrs={{ class: "screen-reader-text" }}
                 placeholder={ variation === '$' ? state.background.label : '' }
                 readonly={ variation === 'readonly' ? 'true' : undefined }
                 style={ [
@@ -513,8 +534,8 @@ const inputField = {
                     state.text.clrSlug && `color: ${getCssColourForThemePreview(tokens, brightness, state.text.clrSlug)}`,
                 ].filter( v => v ).join(';') }
                 type="text"
-                value ={ variation === '$' ? undefined : state.background.label }
-            /> 
+                value={ variation === '$' ? undefined : state.background.label }
+            ><Fragment slot='label'>{state.background.label}</Fragment></FormField>
         ) ) ) }
         <Heading
             heading={heading + 2}
@@ -549,7 +570,7 @@ const inputField = {
         <slot name="tokens" />
         { levelsInUseTable === 'append' && (
             <hr />
-            <ThemeModeSwatch_ShadesInUse {...{ displayHeading, heading, theme, tokens }} />
+            <ThemeModeSwatch_ShadesInUse {...{ components, displayHeading, heading, theme, tokens }} />
         ) }
     </Fragment> : (
         <LoremIpsum
@@ -574,14 +595,16 @@ const inputField = {
             tokens={tokens}
         >
             { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
-                <label set:text={fieldSet.$.background.label} />
-                <input
+                <FormField
                     aria-disabled={ variation === 'disabled' ? 'true' : undefined }
                     class:list={ [
                         'theme-mode-swatch__sample',
                         'theme-mode-swatch__sample--input',
                     ] }
+                    components={components}
                     disabled={ variation === 'disabled' ? 'true' : undefined }
+                    id={`theme-mode-swatch__sample__${variation}__preview`}
+                    labelAttrs={{ class: "screen-reader-text" }}
                     placeholder={ variation === '$' ? 'This is a placeholder value.' : '' }
                     readonly={ variation === 'readonly' ? 'true' : undefined }
                     slot="four"
@@ -591,8 +614,8 @@ const inputField = {
                       fieldSet.$.text.clrSlug &&   `color: ${getCssColourForThemePreview(tokens, brightness, fieldSet.$.text.clrSlug)}`,
                     ].filter( v => v ).join(';') }
                     type="text"
-                    value ={ variation === '$' ? undefined : `This is a ${variation} input.` }
-                /> 
+                    value={ variation === '$' ? undefined : `This is a ${variation} input.` }
+                ><Fragment slot='label'>{fieldSet.$.background.label}</Fragment></FormField>
             ) ) }
         </LoremIpsum>
         <slot name="preview" />

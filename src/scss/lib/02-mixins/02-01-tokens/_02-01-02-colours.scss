@@ -395,7 +395,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.1.0-beta.3
 ///
 @mixin tokens-colour--single-map($slug, $map, $mode) {
     @if $slug == white {
@@ -589,14 +589,18 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     // less than one selector should display nothing
     @if not selector.exists($parsedParentSelector) {
         #{config.$selector_null} {
-            @content;
+            @content (root-body-or-direct-child);
+            @content (root-body);
+            @content (direct-child);
         }
     }
 
     // a single selector (no comma-separated selectors) that is the root or
     // body takes it directly anyway
     @else if selector.is-root-or-body($parsedParentSelector) {
-        @content;
+        @content (root-body-or-direct-child);
+        @content (root-body);
+        @content (direct-child);
     }
 
     // use :where(%root, %body)
@@ -661,12 +665,14 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
         @if list.length($_togetherSels) > 0 {
             @at-root #{$_togetherSels} {
-                @content;
+                @content (root-body-or-direct-child);
+                @content (root-body);
             }
         }
 
         > * {
-            @content;
+            @content (root-body-or-direct-child);
+            @content (direct-child);
         }
     }
 }
@@ -771,19 +777,22 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
     @if $focusRing_setChildrenOnly {
         @include _tokens-theme-individual-selectors--root-body-or-direct-child(
-            $_parentSel,
-            $noWhereRootOrBody: $noWhereRootOrBody
-        ) {
-            @if $focusRingOutlineColor != false {
-                @include utils.cx-prop(
-                    focus-ring-outline-color,
-                    $focusRingOutlineColor,
-                    $allPrefixes: $focusRing_allPrefixes
-                );
+                $_parentSel,
+                $noWhereRootOrBody: $noWhereRootOrBody
+            )
+            using ($location) {
+            @if $location == root-body-or-direct-child {
+                @if $focusRingOutlineColor != false {
+                    @include utils.cx-prop(
+                        focus-ring-outline-color,
+                        $focusRingOutlineColor,
+                        $allPrefixes: $focusRing_allPrefixes
+                    );
+                }
             }
 
             @if $multipleContentBlocks {
-                @content ('root-body-or-direct-child');
+                @content ($location);
             }
         }
     }
@@ -1101,36 +1110,39 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             }
 
             @include _tokens-theme-individual-selectors--root-body-or-direct-child(
-                $noWhereRootOrBody: $noWhereRootOrBody
-            ) {
-                @include utils.cx-prop(
-                    focus-ring-outline-color,
-                    theme-token-value(
-                        link-outline-hover,
-                        $returnAsVar: false,
+                    $noWhereRootOrBody: $noWhereRootOrBody
+                )
+                using ($location) {
+                @if $location == root-body-or-direct-child {
+                    @include utils.cx-prop(
+                        focus-ring-outline-color,
+                        theme-token-value(
+                            link-outline-hover,
+                            $returnAsVar: false,
+                            $brightness: $brightness,
+                            $contrast: $contrast,
+                            $themeSlug: $slug
+                        ),
+                        $allPrefixes: false
+                    );
+                    @include _tokens-theme-individual--inner(
+                        $slug: $slug,
                         $brightness: $brightness,
                         $contrast: $contrast,
-                        $themeSlug: $slug
-                    ),
-                    $allPrefixes: false
-                );
-                @include _tokens-theme-individual--inner(
-                    $slug: $slug,
-                    $brightness: $brightness,
-                    $contrast: $contrast,
-                    $includeSystemColours: false,
-                    $flat_isValues: $flat_isValues,
-                    $flattened: $flattened_childrenOnly,
-                    $flattened_raw: $flattened_raw_childrenOnly
-                );
+                        $includeSystemColours: false,
+                        $flat_isValues: $flat_isValues,
+                        $flattened: $flattened_childrenOnly,
+                        $flattened_raw: $flattened_raw_childrenOnly
+                    );
 
-                @include _tokens-theme-individual--extras-printer(
-                    $tokens: $extra_tokens_children,
-                    $isImportant: $_propIsImportant
-                );
+                    @include _tokens-theme-individual--extras-printer(
+                        $tokens: $extra_tokens_children,
+                        $isImportant: $_propIsImportant
+                    );
+                }
 
                 @if $multipleContentBlocks {
-                    @content ('base--root-body-or-direct-child');
+                    @content ($location);
                 }
             }
 

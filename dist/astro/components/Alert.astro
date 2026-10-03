@@ -6,7 +6,8 @@
  */
 
 /* import - types */
-import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { ComponentProps } from 'astro/types';
+import type { ElementProps } from '@maddimathon/utility-astro';
 
 import type {
     AlertProps as UtilsAlertProps,
@@ -22,20 +23,27 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 /* import - components */
 import { Alert as UtilsAlert } from '@maddimathon/utility-astro/components';
 import Icon from './Icon.astro';
-import type { ComponentProps } from 'astro/types';
-// import Icon from './Icon.astro';
+import type { PartialPick } from '@maddimathon/utility-typescript/types';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export interface AlertProps extends UtilsAlertProps<AlertIconProps_Render> {
-    icon: SvgMaker.JsonReturn;
-}
+export type AlertProps = ElementProps<
+    UtilsAlertProps<AlertIconProps_Render> & {
+        icon: SvgMaker.JsonReturn;
+    },
+    'section'
+>;
 
-type Props = GenericElementProps<AlertProps, 'section'>;
+type Props = AlertProps;
 
-const { icon, class: classList = [], ...props }: Props = Astro.props;
+export type AlertComponentType =
+    | ((props: Omit<AlertProps, 'icon'> & { icon?: any }) => any)
+    | ((props: PartialPick<AlertProps, 'icon'>) => any)
+    | ((props: AlertProps) => any);
+
+const { icon, class: classList = [], ...props } = Astro.props as Props;
 
 /* CONSTANTS ===================================== */
 

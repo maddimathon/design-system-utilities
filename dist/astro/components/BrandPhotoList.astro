@@ -7,6 +7,7 @@
 
 /* import - types */
 import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { HeadingComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 
@@ -19,7 +20,7 @@ import { getPhotoData } from './BrandPhoto.astro';
 
 /* import - components */
 import {
-    Heading,
+    Heading as HeadingComponent,
     // VariableDump,
 } from '@maddimathon/utility-astro/components';
 
@@ -36,13 +37,17 @@ export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = Tok
 
     defineSize?: boolean;
 
+    components?: Partial<{
+        Heading: HeadingComponentType;
+        SampleComponent?: (props: ComponentProps<typeof BrandPhotoList_Sample>) => any;
+    }>;
+
     heading: number;
     
     photos: AllPhotos<T_Types>;
     thumbnails: AllThumbnails<T_Types>;
 
-    SampleComponent?: (props: ComponentProps<typeof BrandPhotoList_Sample>) => any;
-        sampleComponentArgs?: Record<string,any>;
+    sampleComponentArgs?: Record<string, any>;
 
     urlMaker: (currentURL: URL, targetSubpath: string) => string;
 
@@ -53,6 +58,7 @@ type Props = GenericElementProps<BrandPhotoListProps, 'dl'>;
 
 const {
     class: classList = [],
+    components = {},
     copyCredit,
     defineSize,
     displayHeading = -1,
@@ -64,7 +70,6 @@ const {
     includeLicense,
     includeSource,
     photos,
-    SampleComponent = BrandPhotoList_Sample,
     sampleComponentArgs = {},
     spanColour = 'primary',
     thumbnails,
@@ -73,6 +78,9 @@ const {
     version,
     ...attrs
 }: Props = Astro.props;
+
+const { Heading = HeadingComponent, SampleComponent = BrandPhotoList_Sample } =
+    components;
 
 /* FUNCTIONS ===================================== */
 
@@ -139,6 +147,7 @@ const photosOnly = photosData
                     <SampleComponent
                         {...{
                             ...sampleComponentArgs,
+                            components,
                             copyCredit,
                             data,
                             defineSize,

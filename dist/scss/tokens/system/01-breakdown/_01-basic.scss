@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.3.draft
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.3
 /// @since 0.1.0-beta.0
 ///
 
@@ -209,7 +209,7 @@ $themesMeta: map.set(
     )
 );
 
-$_themeNames: list.except(
+$themeOptions: list.except(
     map.keys(map.get(default.$designSystem, themes)),
     '_meta'
 );
@@ -218,14 +218,14 @@ $activeTheme: null !default;
 $activeTheme: config.config-valid-string(
     $activeTheme,
     'activeTheme',
-    $default: list.nth($_themeNames, 1),
-    $options: $_themeNames
+    $default: list.nth($themeOptions, 1),
+    $options: $themeOptions
 );
 
 $themes: ();
 
 @each $key
-    in list.unique(list.join(($activeTheme), $_themeNames, $separator: comma))
+    in list.unique(list.join(($activeTheme), $themeOptions, $separator: comma))
 {
     $themes: map.set(
         $themes,

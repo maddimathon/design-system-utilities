@@ -14,6 +14,8 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
 import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js';
 
+import type { ThemeModeSwatchProps_Components } from './ThemeModeSwatch.astro';
+
 /* import - functions */
 import {
     objectMap,
@@ -26,10 +28,6 @@ import { textColorLevel } from '../functions/textColorLevel.js';
 /* import - values */
 
 /* import - components */
-import {
-    Heading,
-    Table,
-} from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
@@ -48,6 +46,8 @@ interface Props {
     heading: number;
     displayHeading: number;
 
+    components: ThemeModeSwatchProps_Components;
+
     theme: Tokens_Themes_Set.SingleMode.JsonReturn<
         TokenTypes.TypeParams['colour'],
         TokenTypes.TypeParams['theme']
@@ -55,7 +55,7 @@ interface Props {
     tokens: Tokens.JsonReturn;
 }
 
-const { heading, displayHeading, theme, tokens }: Props = Astro.props;
+const { components: { Heading, Table }, heading, displayHeading, theme, tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 

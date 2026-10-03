@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0-beta.3** — 2026-10-03
+
+Updated with dependencies. Added custom display options to dynamic theme preview.
+
+
 ## **0.1.0-beta.2** — 2026-10-01
 
 Minor styles improvements. Dependency updates.

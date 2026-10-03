@@ -7,9 +7,11 @@
 
 /* import - types */
 import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { WholeTokenLevel } from '../../ts/02-tokens/@types.d.ts';
+
+import type { LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
 import { 
@@ -26,25 +28,41 @@ import { Tokens_Typography } from '../../ts/02-tokens/Tokens_Typography.js';
 
 /* import - components */
 import {
-    Heading,
+    Heading as HeadingComponent,
 } from '@maddimathon/utility-astro/components';
 
-import Toggle from './Toggle.astro';
+import ToggleComponent from './Toggle.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
+type Props_Components = {
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    Toggle: ToggleComponentType;
+} & PartialExcept<LoremIpsumProps.Components, 'Heading'>;
+
 interface Props {
     tokens: Tokens.JsonReturn;
 
-    /**
-     * @since 0.1.0-beta.0
-     */
-    ToggleComponent?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
+    components?: Partial<Props_Components>;
 }
 
-const { tokens, ToggleComponent = Toggle }: Props = Astro.props;
+const { tokens, 
+    components: inputComponents = {}, }: Props = Astro.props;
+
+const components = {
+    ...inputComponents,
+
+    Heading: inputComponents.Heading ?? HeadingComponent,
+    Toggle: inputComponents.Toggle ?? ToggleComponent,
+} satisfies Props_Components;
+
+const { Heading, Toggle } =
+    components;
 
 /* FUNCTIONS ===================================== */
 
@@ -173,7 +191,7 @@ if ( ! import.meta.env.DEV && allFontLevels ) {
 }
 ---
 
-<ToggleComponent
+<Toggle
     defaultOpen={defaultToggleToOpen}
     heading={2}
     id='sizes'
@@ -250,7 +268,7 @@ if ( ! import.meta.env.DEV && allFontLevels ) {
             ))
         }
     </div>
-</ToggleComponent>
+</Toggle>
 
 <style lang='scss' is:global>
     @forward '../scss/page-content-font-families';

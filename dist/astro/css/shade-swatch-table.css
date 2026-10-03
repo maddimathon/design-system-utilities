@@ -1,12 +1,12 @@
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.3.draft
+ * @maddimathon/utility-sass@0.1.0-beta.3
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/design-system-utilities@0.1.0-beta.3.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.3
  * 
  * https://maddimathon.github.io/design-system-utilities
  */
@@ -18,7 +18,7 @@ label {
     justify-self: end;
 }
 
-:global(:where(.js__subgrid)) .shade-swatch-table__wrapper {
+:where(.js__subgrid) .shade-swatch-table__wrapper {
     --display: grid;
     display: grid;
     display: var(--display, grid);
@@ -43,25 +43,25 @@ label {
     overflow-x: auto;
     overscroll-behavior-x: none;
 }
-.shade-swatch-table__wrapper > :global(table) {
+.shade-swatch-table__wrapper > table {
     width: 100%;
     border-spacing: 0;
     font-size: 0.8125rem;
     font-size: var(--fs-smaller-3, 0.8125rem);
 }
-.shade-swatch-table__wrapper > :global(table) :global(th),
-.shade-swatch-table__wrapper > :global(table) :global(td) {
+.shade-swatch-table__wrapper > table th,
+.shade-swatch-table__wrapper > table td {
     padding: 0;
     min-width: 0;
 }
-.shade-swatch-table__wrapper :global(li) :global(.shade-swatch),
-.shade-swatch-table__wrapper :global(td) :global(.shade-swatch) {
+.shade-swatch-table__wrapper th .shade-swatch,
+.shade-swatch-table__wrapper td .shade-swatch {
     min-width: 11.5rem;
     min-width: var(--shade-swatch-table-swatch-min-width, 11.5rem);
     min-height: 6rem;
     min-height: min(6rem, 9svh);
 }
-.shade-swatch-table__wrapper :global(.shade-swatch) {
+.shade-swatch-table__wrapper .shade-swatch {
     padding-top: 0.1875rem;
     padding-bottom: 0.1875rem;
     padding-top: var(--mrg-soft-100, 0.1875rem);
@@ -73,15 +73,11 @@ label {
     gap: 0 0.3125rem;
     gap: 0 var(--mrg-firm-100, 0.3125rem);
 }
-.shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__name) {
+.shade-swatch-table__wrapper .shade-swatch .shade-swatch__name {
     margin-bottom: 0.1875rem;
     margin-bottom: var(--mrg-soft-100, 0.1875rem);
 }
-.shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__colour-value) {
+.shade-swatch-table__wrapper .shade-swatch .shade-swatch__colour-value {
     padding-top: 0.25em;
     padding-bottom: 0.25em;
     padding-top: var(--stroke-relative-600, 0.25em);
@@ -90,21 +86,17 @@ label {
     font-size: var(--fs-smaller-3, 0.8125rem);
     text-wrap: nowrap;
 }
+.shade-swatch-table__wrapper .shade-swatch .shade-swatch__contrast,
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast),
+    .shade-swatch
+    .shade-swatch__contrast__result-group,
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group),
-.shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group__single-min-max) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max {
     gap: 0.1875rem 0.3125rem;
     gap: var(--mrg-soft-100, 0.1875rem) var(--mrg-firm-100, 0.3125rem);
 }
-.shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast) {
+.shade-swatch-table__wrapper .shade-swatch .shade-swatch__contrast {
     display: grid;
     display: var(--shade-swatch-display-override, grid);
     margin-top: 0.5rem;
@@ -113,71 +105,66 @@ label {
     font-size: var(--fs-smaller-3, 0.8125rem);
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group),
+    .shade-swatch
+    .shade-swatch__contrast__result-group,
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group__single-min-max) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max {
     grid-template-rows: auto;
     justify-content: space-between;
     justify-items: start;
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group {
     grid-template-columns: repeat(5, minmax(3.5ch, min-content));
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group__single-min-max--minimum) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max--minimum {
     grid-template-columns: repeat(2, minmax(3.5ch, min-content));
     grid-template-columns: subgrid;
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group__single-min-max--minimum)
-    :global(.shade-swatch__contrast__result-group__alert--minimum--ui) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max--minimum
+    .shade-swatch__contrast__result-group__alert--minimum--ui {
     grid-column: 1;
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group__single-min-max--minimum)
-    :global(.shade-swatch__contrast__result-group__alert--minimum--text) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max--minimum
+    .shade-swatch__contrast__result-group__alert--minimum--text {
     grid-column: 2;
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(
-        .shade-swatch__contrast__result-group__single-min-max--minimum--aa
-    ) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max--minimum--aa {
     grid-column: 1/3;
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(
-        .shade-swatch__contrast__result-group__single-min-max--minimum--aaa
-    ) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max--minimum--aaa {
     grid-column: 3/5;
 }
 .shade-swatch-table__wrapper
-    :global(.shade-swatch)
-    :global(.shade-swatch__contrast__result-group__single-min-max--maximum) {
+    .shade-swatch
+    .shade-swatch__contrast__result-group__single-min-max--maximum {
     --shade-swatch-contrast-result-group-single-min-max-column-count: 1 !important;
     grid-column: 5;
 }
-.shade-swatch-table__wrapper
-    > :global(table[data-shade-swatch-table-no-text="true"]) {
+.shade-swatch-table__wrapper > table[data-shade-swatch-table-no-text="true"] {
     --shade-swatch-color-override: transparent !important;
     --shade-swatch-display-override: none !important;
 }
 .shade-swatch-table__wrapper
-    > :global(table[data-shade-swatch-table-no-text="true"])
-    :global(li)
-    :global(.shade-swatch),
+    > table[data-shade-swatch-table-no-text="true"]
+    li
+    .shade-swatch,
 .shade-swatch-table__wrapper
-    > :global(table[data-shade-swatch-table-no-text="true"])
-    :global(td)
-    :global(.shade-swatch) {
+    > table[data-shade-swatch-table-no-text="true"]
+    td
+    .shade-swatch {
     min-width: 1rem;
     min-width: var(--shade-swatch-table-swatch-not-text-min-width, 1rem);
 }

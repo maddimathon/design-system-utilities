@@ -26,7 +26,7 @@ $_contrastColWidth: minmax(3.5ch, min-content);
     grid-template-columns: repeat(lib.do-var(shade-swatch-table-column-count, 18), min-content);
 }
 
-:global(#{feature-check.get-selector( subgrid, true )}) .shade-swatch-table__wrapper {
+#{selector.nest( feature-check.get-selector( subgrid, true ), '.shade-swatch-table__wrapper' )} {
     @extend %_base-grid;
 }
 
@@ -44,97 +44,94 @@ $_contrastColWidth: minmax(3.5ch, min-content);
     overflow-x: auto;
     overscroll-behavior-x: none;
 
-    &:has(> table[data-shade-swatch-table-no-text='true']) {
-    }
-
-    > :global(table) {
+    > table {
         width: 100%;
         border-spacing: 0;
         font-size: lib.var-fs(smaller-3);
 
-        :global(th),
-        :global(td) {
+        th,
+        td {
             padding: 0;
             min-width: 0;
         }
     }
 
-    :global(li),
-    :global(td) {
-        :global(.shade-swatch) {
+    th,
+    td {
+        .shade-swatch {
             min-width: lib.do-var(shade-swatch-table-swatch-min-width, 11.5rem);
             min-height: 6rem;
             min-height: min(6rem, 9svh);
         }
     }
 
-    :global(.shade-swatch) {
+    .shade-swatch {
         padding-block: lib.var-mrg-soft('100');
         padding-inline: lib.var-mrg-firm('200');
         gap: 0 lib.var-mrg-firm('100');
 
-        :global(.shade-swatch__name) {
+        .shade-swatch__name {
             margin-block-end: lib.var-mrg-soft('100');
         }
 
-        :global(.shade-swatch__colour-value) {
+        .shade-swatch__colour-value {
             padding-block: lib.var-stroke-relative('600');
             font-size: lib.var-fs(smaller-3);
             text-wrap: nowrap;
         }
 
-        :global(.shade-swatch__contrast),
-        :global(.shade-swatch__contrast__result-group),
-        :global(.shade-swatch__contrast__result-group__single-min-max) {
+        .shade-swatch__contrast,
+        .shade-swatch__contrast__result-group,
+        .shade-swatch__contrast__result-group__single-min-max {
             gap: lib.var-mrg-soft('100') lib.var-mrg-firm('100');
         }
 
-        :global(.shade-swatch__contrast) {
+        .shade-swatch__contrast {
             display: lib.do-var(shade-swatch-display-override, grid);
             margin-block-start: lib.var-mrg-firm('200');
             font-size: lib.var-fs(smaller-3);
         }
 
-        :global(.shade-swatch__contrast__result-group),
-        :global(.shade-swatch__contrast__result-group__single-min-max) {
+        .shade-swatch__contrast__result-group,
+        .shade-swatch__contrast__result-group__single-min-max {
             grid-template-rows: auto;
             justify-content: space-between;
             justify-items: start;
         }
 
-        :global(.shade-swatch__contrast__result-group) {
+        .shade-swatch__contrast__result-group {
             grid-template-columns: repeat(5, $_contrastColWidth);
         }
 
-        :global(.shade-swatch__contrast__result-group__single-min-max) {
+        .shade-swatch__contrast__result-group__single-min-max {
         }
 
-        :global(.shade-swatch__contrast__result-group__single-min-max--minimum),
-        :global(.shade-swatch__contrast__result-group__single-min-max--maximum) {
+        .shade-swatch__contrast__result-group__single-min-max--minimum,
+        .shade-swatch__contrast__result-group__single-min-max--maximum {
         }
 
-        :global(.shade-swatch__contrast__result-group__single-min-max--minimum) {
+        .shade-swatch__contrast__result-group__single-min-max--minimum {
             grid-template-columns: repeat(2, $_contrastColWidth);
             grid-template-columns: subgrid;
 
-            :global(.shade-swatch__contrast__result-group__alert--minimum--ui) {
+            .shade-swatch__contrast__result-group__alert--minimum--ui {
                 grid-column: 1;
             }
 
-            :global(.shade-swatch__contrast__result-group__alert--minimum--text) {
+            .shade-swatch__contrast__result-group__alert--minimum--text {
                 grid-column: 2;
             }
         }
 
-        :global(.shade-swatch__contrast__result-group__single-min-max--minimum--aa) {
+        .shade-swatch__contrast__result-group__single-min-max--minimum--aa {
             grid-column: 1 / 3;
         }
 
-        :global(.shade-swatch__contrast__result-group__single-min-max--minimum--aaa) {
+        .shade-swatch__contrast__result-group__single-min-max--minimum--aaa {
             grid-column: 3 / 5;
         }
 
-        :global(.shade-swatch__contrast__result-group__single-min-max--maximum) {
+        .shade-swatch__contrast__result-group__single-min-max--maximum {
             @include lib.cx-prop(
                 shade-swatch-contrast-result-group-single-min-max-column-count,
                 1,
@@ -144,13 +141,13 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
     }
 
-    > :global(table[data-shade-swatch-table-no-text='true']) {
+    > table[data-shade-swatch-table-no-text='true'] {
         @include lib.cx-prop(shade-swatch-color-override, transparent, $important: true);
         @include lib.cx-prop(shade-swatch-display-override, none, $important: true);
 
-        :global(li),
-        :global(td) {
-            :global(.shade-swatch) {
+        li,
+        td {
+            .shade-swatch {
                 min-width: lib.do-var(shade-swatch-table-swatch-not-text-min-width, 1rem);
             }
         }

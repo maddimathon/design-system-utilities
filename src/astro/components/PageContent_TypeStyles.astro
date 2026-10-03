@@ -6,8 +6,7 @@
  */
 
 /* import - types */
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { RecursiveRecord } from '../../ts/index.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -18,7 +17,7 @@ import { objectMap } from '@maddimathon/utility-typescript';
 /* import - values */
 
 /* import - components */
-import Toggle from './Toggle.astro';
+import ToggleComponent from './Toggle.astro';
 
 /* import - layouts */
 
@@ -27,13 +26,12 @@ import Toggle from './Toggle.astro';
 interface Props {
     tokens: Tokens.JsonReturn;
 
-    /**
-     * @since 0.1.0-beta.0
-     */
-    ToggleComponent?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
+    components?: Partial<{
+        Toggle: ToggleComponentType
+    }>;
 }
 
-const { tokens, ToggleComponent = Toggle }: Props = Astro.props;
+const { components: { Toggle = ToggleComponent } = {}, tokens }: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 
@@ -112,7 +110,7 @@ const flattenedSizes = objectMap(
 );
 ---
 
-<ToggleComponent
+<Toggle
     defaultOpen={defaultToggleToOpen}
     heading={2}
     id='sizes'
@@ -134,9 +132,9 @@ const flattenedSizes = objectMap(
             </dd>
         ) ) }
     </dl>
-</ToggleComponent>
+</Toggle>
 
-<ToggleComponent
+<Toggle
     class:list={'site-width'}
     defaultOpen={defaultToggleToOpen}
     heading={3}
@@ -161,9 +159,9 @@ const flattenedSizes = objectMap(
             </dd>
         ) ) }
     </dl>
-</ToggleComponent>
+</Toggle>
 
-<ToggleComponent
+<Toggle
     defaultOpen={defaultToggleToOpen}
     heading={2}
     id='heading-styles'
@@ -182,7 +180,7 @@ const flattenedSizes = objectMap(
             >Heading {num} – Maecenas Facilisis <a href="#">Sollicitudin Nisi</a>, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus</p>
         ))
     }
-</ToggleComponent>
+</Toggle>
 
 
 <style lang='scss'>

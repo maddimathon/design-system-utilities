@@ -7,13 +7,15 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ButtonProps, ToggleProps } from '@maddimathon/utility-astro/components';
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
-import type { LoremIpsumProps } from './LoremIpsum.astro';
+import type { AlertComponentType } from './Alert.astro';
+import type { LoremIpsumComponentType, LoremIpsumProps } from './LoremIpsum.astro';
+import type { ThemeModeSwatchProps_Components } from './ThemeModeSwatch.astro';
+import type { WidgetComponentType } from './Widget.astro';
 
 /* import - functions */
 import {
@@ -31,18 +33,38 @@ import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
 /* import - components */
 import {
     Button as ButtonComponent,
+    FormField as FormFieldComponent,
     TableOfContents,
 } from '@maddimathon/utility-astro/components';
 
-import Alert from './Alert.astro';
+import AlertComponent from './Alert.astro';
 import LoremIpsumComponent from './LoremIpsum.astro';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import ToggleComponent from './Toggle.astro';
-import Widget from './Widget.astro';
+import WidgetComponent from './Widget.astro';
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
+
+type Props_Components = {
+    Alert: AlertComponentType;
+
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    LoremIpsum: LoremIpsumComponentType;
+
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    Toggle: ToggleComponentType;
+
+    Widget: WidgetComponentType;
+} & PartialExcept<LoremIpsumProps.Components, 'Button'|'FormField'> & Partial<ThemeModeSwatchProps_Components>;
 
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     tokens: Tokens.JsonReturn<T_Types>;
@@ -50,35 +72,30 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     defaultToggleToOpen?: boolean | `${"default"|T_Types['theme']['name']}-${TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>}`[];
 
     /**
-     * @since 0.1.0-beta.3.draft
+     * @since 0.1.0-beta.3
      */
-    components?: {
-        Button?: undefined | ((props: ButtonProps) => any);
-
-        /**
-         * @since 0.1.0-beta.0
-         * @since 0.1.0-beta.3.draft — Moved to a components prop.
-         */
-        LoremIpsum?: ( props: Partial<LoremIpsumProps> ) => any;
-
-        /**
-         * @since 0.1.0-beta.0
-         * @since 0.1.0-beta.3.draft — Moved to a components prop.
-         */
-        Toggle?: ( props: PartialExcept<ToggleProps,  'children'|'id' > ) => any;
-    };
+    components?: Partial<Props_Components>;
 }
 
 const {
     defaultToggleToOpen: _defaultToggleToOpen,
     tokens,
     
-    components: {
-        Button = ButtonComponent,
-        LoremIpsum = LoremIpsumComponent,
-        Toggle = ToggleComponent,
-    } = {},
+    components: inputComponents = {},
 }: Props = Astro.props;
+
+const components = {
+    ...inputComponents,
+
+    Alert: inputComponents.Alert ?? AlertComponent,
+    Button: inputComponents.Button ?? ButtonComponent,
+    FormField: inputComponents.FormField ?? FormFieldComponent,
+    LoremIpsum: inputComponents.LoremIpsum ?? LoremIpsumComponent,
+    Toggle: inputComponents.Toggle ?? ToggleComponent,
+    Widget: inputComponents.Widget ?? WidgetComponent,
+} satisfies Props_Components;
+
+const { Alert, Button, FormField, LoremIpsum, Toggle, Widget } = components;
 
 /* FUNCTIONS ===================================== */
 
@@ -193,12 +210,13 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
     class="theme-mode-preview-page__display-mode__wrapper"
 >Display themes as: 
 { displayOptions.map( ( { label, value } ) => (
-    <label class='theme-mode-preview-page__display-mode__label'><input 
+    <FormField
         type='radio'
         class='theme-mode-preview-page__display-mode__label'
+        labelAttrs={{class:'theme-mode-preview-page__display-mode__label'}}
         name='theme-mode-preview-page__display-mode-control'
         value={value}
-    /> {label}</label>
+    ><Fragment slot="label">{label}</Fragment></FormField>
 ) ) }</div>
 
 <TableOfContents
@@ -241,11 +259,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                 <ThemeModeSwatch
                                     {...{
                                         ...set,
-                                        components: {
-                                            Button,
-                                            LoremIpsum,
-                                            Toggle,
-                                        },
+                                        components,
                                         tokens,
                                     }}
                                     data-active-theme={key}
@@ -262,7 +276,6 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                         <div class="theme-mode-swatch__alt-widgets" slot="preview">
                                             { Object.entries(set.theme.data.background).map(
                                                 ([backgroundSlug, backgroundClrName]) => backgroundSlug !== '$' &&(
-                                                    // displayHeading={3}
                                                     <Alert
                                                         class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
                                                         icon={ tokens.icons[backgroundSlug] ?? tokens.icons.star }
@@ -270,10 +283,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                     >
                                                         <Fragment slot='headline'>Alert Block: <samp set:text={`background-${backgroundSlug}`} /></Fragment>
                                                         <LoremIpsum
-                                                            components={{
-                                                                Button,
-                                                                Toggle,
-                                                            }}
+                                                            components={components}
                                                             displayHeading={7}
                                                             displaySettings={{ toc: false }}
                                                             heading={5}
@@ -291,6 +301,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                             { themeNames.map(
                                                 ( themeName ) => themeName !== key && (
                                                     <Widget
+                                                        components={components}
                                                         displayHeading={3}
                                                         heading={5} 
                                                         class:list={'widget-block--alt-theme'}
@@ -301,10 +312,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         <Fragment slot='heading'>Theme Demo Widget</Fragment>
                                                         <Fragment slot='subtitle'>This is the <samp set:text={toTitleCase(themeName)} /> theme</Fragment>
                                                         <LoremIpsum
-                                                            components={{
-                                                                Button,
-                                                                Toggle,
-                                                            }}
+                                                            components={components}
                                                             displayHeading={4}
                                                             displaySettings={ { 
                                                                 buttons: false,

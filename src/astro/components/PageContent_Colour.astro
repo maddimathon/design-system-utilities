@@ -8,11 +8,14 @@
 /* import - types */
 import type { ComponentProps } from 'astro/types';
 import type { Classify, PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleProps } from '@maddimathon/utility-astro/components';
+import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Colour_ShadeMap } from '../../ts/02-tokens/Colour/Colour_ShadeMap.js';
+
+import type { LoremIpsumProps } from './LoremIpsum.astro';
+import type { ThemeModeSwatchProps_Components } from './ThemeModeSwatch.astro';
 import type { ShadeSwatchTableProps } from './ShadeSwatchTable.astro';
 
 /* import - functions */
@@ -25,22 +28,36 @@ import { makeShadeTargetLevels } from '../functions/makeShadeTargetLevels.js';
 
 /* import - components */
 import {
-    Heading,
+    Heading as HeadingComponent,
     TableOfContents,
 } from '@maddimathon/utility-astro/components';
 
 import ShadeSwatchAllLists from './ShadeSwatchAllLists.astro';
 import ShadeSwatchTable from './ShadeSwatchTable.astro';
-import Toggle from './Toggle.astro';
+import ToggleComponent from './Toggle.astro';
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
+type Props_Components = {
+    /**
+     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta.3 — Moved to a components prop.
+     */
+    Toggle: ToggleComponentType;
+} & PartialExcept<LoremIpsumProps.Components, 'Heading'> &
+    Partial<ThemeModeSwatchProps_Components>;
+
 interface Props<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > {
     tokens: Tokens.JsonReturn<T_Types>;
+
+    /**
+     * @since 0.1.0-beta.3
+     */
+    components?: Partial<Props_Components>;
 
     /**
      * Colours to exclude from the output.
@@ -101,22 +118,25 @@ interface Props<
                */
               accent?: string | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
           };
-
-    /**
-     * @since 0.1.0-beta.0
-     */
-    ToggleComponent?: (
-        props: PartialExcept<ToggleProps, 'children' | 'id'>,
-    ) => any;
 }
 
 const {
+    components: inputComponents = {},
     exclude = [],
     include: _include,
     tokens,
     yardstick,
-    ToggleComponent = Toggle,
 }: Props = Astro.props;
+
+const components = {
+    ...inputComponents,
+
+    Heading: inputComponents.Heading ?? HeadingComponent,
+    Toggle: inputComponents.Toggle ?? ToggleComponent,
+} satisfies Props_Components;
+
+const { Heading, Toggle } =
+    components;
 
 const include = mergeArgs(
     {
@@ -207,7 +227,7 @@ const allColours = {
             convertHrefStringsToAbsolute={false}
             heading={2}
             menu={shadeList_toc}
-            ToggleComponent={ToggleComponent}
+            ToggleComponent={Toggle}
             toggleProps={{ tokens }}
         />
     )
@@ -222,6 +242,7 @@ const allColours = {
     <ShadeSwatchTable
         {...{
             colour: allColours,
+            components,
             exclude,
             excludeLevels,
             includeColourFormats: include.colourFormats,
@@ -238,4 +259,4 @@ const allColours = {
     />
 )}
 
-{include.lists && <ShadeSwatchAllLists {...{ exclude, ToggleComponent, tokens }} />}
+{include.lists && <ShadeSwatchAllLists {...{ components, exclude, tokens }} />}

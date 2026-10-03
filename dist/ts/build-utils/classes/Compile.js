@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.3.draft
+ * @maddimathon/design-system-utilities@0.1.0-beta.3
  * @license MIT
  */
 import { AbstractStage, CompileStage, } from '@maddimathon/build-utilities';

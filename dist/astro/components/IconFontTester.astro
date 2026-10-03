@@ -1,6 +1,4 @@
 ---
-import type { ElementProps } from '@maddimathon/utility-astro';
-
 /**
  * @since 0.1.0-beta.0
  *
@@ -8,12 +6,15 @@ import type { ElementProps } from '@maddimathon/utility-astro';
  */
 
 /* import - types */
+import type { ElementProps } from '@maddimathon/utility-astro';
+import type { FormFieldComponentType } from '@maddimathon/utility-astro/components';
 
 /* import - functions */
 
 /* import - values */
 
 /* import - components */
+import { FormField as FormFieldComponent } from '@maddimathon/utility-astro/components';
 
 /* import - layouts */
 
@@ -21,23 +22,38 @@ import type { ElementProps } from '@maddimathon/utility-astro';
 
 /* PROPS ===================================== */
 
-type Props = ElementProps<{}, 'div'>;
+type Props = ElementProps<
+    {
+        id: string;
+
+        components?: Partial<{
+            FormField: FormFieldComponentType;
+        }>;
+    },
+    'div'
+>;
 
 /* CONSTANTS ===================================== */
 
-const { class: classList = [], ...props }: Props = Astro.props;
+const {
+    class: classList = [],
+    components: { FormField = FormFieldComponent } = {},
+    id,
+    ...props
+}: Props = Astro.props;
 ---
 
 <div
     {...props}
     class:list={['display-contents', { '||': classList }, classList]}
 >
-    <label for='font-tester'>Test Icon Font</label>
-    <input
-        id='font-tester'
+    <FormField
         class='icon-font-tester font-family-icons'
+        id={id}
         type='text'
-    />
+    >
+        <Fragment slot='label'>Test Icon Font</Fragment>
+    </FormField>
     <p class='aside form-help-text'>
         Use the field above to test icon font glyphs copied to your clipboard.
     </p>

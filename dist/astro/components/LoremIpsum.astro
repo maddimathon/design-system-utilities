@@ -6,10 +6,17 @@
  */
 
 /* import - types */
+import type {
+    PartialExcept,
+    PartialPick,
+} from '@maddimathon/utility-typescript/types';
 
-/* import - functions */
 import type { LoremIpsumProps as UtilsLoremIpsumProps } from '@maddimathon/utility-astro/components';
 
+import type { AlertComponentType } from './Alert.astro';
+import type { WidgetComponentType } from './Widget.astro';
+
+/* import - functions */
 import { Tokens } from '../../ts/02-tokens/Tokens.js';
 import { SampleTokens_Json } from '../functions/SampleTokens.js';
 
@@ -17,12 +24,13 @@ import { SampleTokens_Json } from '../functions/SampleTokens.js';
 
 /* import - components */
 import {
-    Heading,
+    Heading as HeadingComponent,
     LoremIpsum as LoremIpsumUtils,
 } from '@maddimathon/utility-astro/components';
 
-import Alert from './Alert.astro';
+import AlertComponent from './Alert.astro';
 import ToggleComponent from './Toggle.astro';
+import WidgetComponent from './Widget.astro';
 
 /* import - layouts */
 
@@ -30,8 +38,10 @@ import ToggleComponent from './Toggle.astro';
 
 export interface LoremIpsumProps extends Omit<
     UtilsLoremIpsumProps,
-    'displaySettings'
+    'components' | 'displaySettings'
 > {
+    components?: Partial<LoremIpsumProps.Components>;
+
     displaySettings?: Omit<
         NonNullable<UtilsLoremIpsumProps['displaySettings']>,
         'buttonVariations' | 'headingLevels'
@@ -40,21 +50,59 @@ export interface LoremIpsumProps extends Omit<
         alertsAll?: boolean;
         buttons?: boolean;
     };
+
+    backgroundVariations?: string[];
+    backgroundVariationsExtra?: string[];
+
     tokens?: Tokens.JsonReturn;
+}
+
+/**
+ * @since 0.1.0-beta.3
+ */
+export namespace LoremIpsumProps {
+    /**
+     * @since 0.1.0-beta.3
+     */
+    export type Components = PartialExcept<
+        Omit<UtilsLoremIpsumProps.Components, 'Alert'>,
+        'Heading' | 'Toggle'
+    > & {
+        Alert: AlertComponentType;
+        Widget: WidgetComponentType;
+    };
 }
 
 type Props = LoremIpsumProps;
 
+export type LoremIpsumComponentType = (
+    props: PartialPick<LoremIpsumProps, 'tokens'>,
+) => any;
+
 const {
     displaySettings = {},
     tokens = SampleTokens_Json,
-    components = {},
+    components: inputComponents = {},
+
+    backgroundVariations = Object.entries(
+        tokens.themes.default.light.average.data.background,
+    ).map(([slug, value]) => (slug === '$' ? ('default' as const) : slug)),
+
+    backgroundVariationsExtra = [],
+
     ...props
 }: Props = Astro.props;
 
-if (!components.Toggle) {
-    components.Toggle = ToggleComponent;
-}
+const components = {
+    ...inputComponents,
+
+    Alert: inputComponents.Alert ?? AlertComponent,
+    Heading: inputComponents.Heading ?? HeadingComponent,
+    Toggle: inputComponents.Toggle ?? ToggleComponent,
+    Widget: inputComponents.Widget ?? WidgetComponent,
+} satisfies LoremIpsumProps.Components;
+
+const { Alert, Heading } = components;
 
 /* CONSTANTS ===================================== */
 
@@ -71,32 +119,34 @@ const buttonVariations = tokens.themes['default']
 
 const includeButtons = displaySettings.buttons ?? !!buttonVariations.length;
 
-const backgroundVariations = Object.entries(
-    tokens.themes.default.light.average.data.background,
-).map(([slug, value]) => [slug === '$' ? 'default' : slug, value] as const);
-
 const showAllAlertVariations =
     displaySettings.alertsAll || isFancy || (isLibrary && !abbreviated);
 
-const alertVariations =
-    displaySettings.alerts && showAllAlertVariations
-        ? showAllAlertVariations
-            ? backgroundVariations
-            : backgroundVariations.filter(
+const alertVariations = displaySettings.alerts
+    ? showAllAlertVariations
+        ? backgroundVariations.concat(backgroundVariationsExtra)
+        : backgroundVariations
+              .concat(backgroundVariationsExtra)
+              .filter(
                   ([backgroundSlug]) =>
                       backgroundSlug === 'primary' ||
                       backgroundSlug === 'secondary' ||
                       backgroundSlug === 'tertiary',
               )
-        : [];
+    : [];
 
 const tocExtraItems = Array.isArray(displaySettings.tocExtraItems)
     ? {
           $: displaySettings.tocExtraItems,
+          four: [],
       }
-    : (displaySettings.tocExtraItems ?? {});
+    : { four: [], ...(displaySettings.tocExtraItems ?? {}) };
 
 const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
+
+if (alertVariations.length > 1) {
+    tocExtraItems.four.push({ label: 'Alert Blocks', id: 'alerts' });
+}
 ---
 
 <section
@@ -109,18 +159,9 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
         components={components}
         displaySettings={{
             ...displaySettings,
-
             buttonVariations: includeButtons ? buttonVariations : [],
             headingLevels,
-
-            tocExtraItems: {
-                ...tocExtraItems,
-
-                four: [
-                    { label: 'Alert Blocks', id: 'alerts' },
-                    ...(tocExtraItems?.four ?? []),
-                ],
-            },
+            tocExtraItems,
         }}
         toggleProps={{ tokens }}
     >
@@ -164,42 +205,36 @@ const disclaimerHTML = (await Astro.slots.render('disclaimer'))?.trim();
             alertVariations.length > 1 && (
                 <Fragment slot='four'>
                     <a name='alerts' />
-                    {alertVariations.map(
-                        ([backgroundSlug, backgroundClrName]) => (
-                            <Alert
-                                class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
-                                icon={
-                                    tokens.icons[backgroundSlug] ??
-                                    tokens.icons.star
-                                }
-                                style={
-                                    backgroundSlug !== 'default' &&
-                                    `background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`
-                                }
-                            >
-                                <Fragment slot='headline'>
-                                    Alert Block:{' '}
-                                    <samp
-                                        set:text={`background-${backgroundSlug}`}
-                                    />
-                                </Fragment>
-                                <LoremIpsumUtils
-                                    displaySettings={{
-                                        buttonVariations,
-                                        headingLevels,
-                                    }}
-                                    displayHeading={7}
-                                    heading={5}
-                                    mode={
-                                        import.meta.env.DEV
-                                            ? 'library'
-                                            : 'minimum'
-                                    }
-                                    superAbbreviated={true}
+                    {alertVariations.map((backgroundSlug) => (
+                        <Alert
+                            class:list={`alert-block--${backgroundSlug in tokens.icons ? backgroundSlug : 'star'} background-${backgroundSlug}`}
+                            icon={
+                                tokens.icons[backgroundSlug] ??
+                                tokens.icons.star
+                            }
+                        >
+                            <Fragment slot='headline'>
+                                Alert Block:{' '}
+                                <samp
+                                    set:text={`background-${backgroundSlug}`}
                                 />
-                            </Alert>
-                        ),
-                    )}
+                            </Fragment>
+                            <LoremIpsumUtils
+                                components={components}
+                                displaySettings={{
+                                    buttonVariations,
+                                    headingLevels,
+                                }}
+                                displayHeading={7}
+                                heading={5}
+                                mode={
+                                    import.meta.env.DEV ? 'library' : 'minimum'
+                                }
+                                superAbbreviated={true}
+                            />
+                        </Alert>
+                    ))}
+                    <slot slot='alerts' />
                 </Fragment>
             )
         }

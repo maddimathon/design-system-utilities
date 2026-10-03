@@ -87,7 +87,7 @@
 
 ///
 /// @since 0.1.0-beta.0
-/// @since ___PKG_VERSION___ — Added optional $customOptions param.
+/// @since 0.1.0-beta.3 — Added optional $customOptions param.
 ///
 @mixin snippet-docs-page-content-theme-dynamic(
     $baseOnly: false,
@@ -133,12 +133,12 @@
 
         @each $attr, $allOptions in $customOptions {
             @each $_opt in $allOptions {
-                @include _maybe-globalized($useGlobalPseudo, '[#{$attr}=#{$_opt}]') {
-                    [#{$attr}-content] {
+                @include _maybe-globalized($useGlobalPseudo, '[data-#{$attr}=#{$_opt}]') {
+                    [data-tokens-theme-dynamic-preview-custom-#{$attr}-content] {
                         display: none !important;
                     }
 
-                    [#{$attr}-content='#{$_opt}'] {
+                    [data-tokens-theme-dynamic-preview-custom-#{$attr}-content='#{$_opt}'] {
                         display: do-var(display, grid) !important;
                     }
                 }
