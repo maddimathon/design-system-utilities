@@ -33,19 +33,21 @@
         focus-ring-outline-color,
         var-theme(button-#{$variation}-outline#{$stateSlug})
     );
-    @include cx-prop(icon-color, $ui);
-    @include cx-prop(theme-link-icon, $ui);
+    @include cx-prop(icon-color, $ui, $important: true);
+    @include cx-prop(theme-link-icon, $ui, $important: true);
 
-    // text-decoration-color: $ui !important;
     accent-color: $border;
-    background-color: var-theme(button-#{$variation}-background#{$stateSlug});
+    @include prop-background(
+        var-theme(button-#{$variation}-background#{$stateSlug}),
+        $important: true
+    );
     border-color: $border;
     color: var-theme(button-#{$variation}-text#{$stateSlug});
 
     @content;
 
     * {
-        @include cx-prop(icon-color, $ui);
+        @include cx-prop(icon-color, $ui, $important: true);
 
         @if $stateSlug == '' {
             color: inherit !important;
@@ -1000,6 +1002,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     /// EXCEPTIONS ///
 
+    @if $multipleContentBlocks {
+        @content (exceptions-start);
+    }
+
     @if $includeDisabled {
         @include config.selector-button-disabled {
             @include meta.apply(
@@ -1105,6 +1111,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     /// BLOCK ///
+
+    @if $multipleContentBlocks {
+        @content (children-start);
+    }
 
     @if $includePseudoIcons {
         &::after,
@@ -1375,7 +1385,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     @if $includeColours {
         border-color: $borderClr;
-        background-color: $background;
+        @include prop-background($background);
         color: $color;
     }
 
@@ -1390,12 +1400,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
         > %label {
             &:first-child {
-                margin-block-start: 0;
-            }
-        }
-
-        > legend {
-            + * {
                 margin-block-start: 0;
             }
         }
@@ -1430,7 +1434,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     @if $background != false {
-        background-color: $background;
+        @include prop-background($background);
     }
 
     @if $borderClr != false {
@@ -2062,7 +2066,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $marginBlock_innercheckradio: $marginBlock_innercheckradio,
             //
             $includeColours: $includeColours,
-            $includeMarginBlock: $includeMarginBlock,
+            $includeMarginBlock: false,
             $multipleContentBlocks: true,
             $args...
         )
@@ -2072,12 +2076,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 @content ($location);
             } @else {
                 @content;
-            }
-        }
-        //
-        @else if $location == has-box {
-            @if $multipleContentBlocks {
-                @content ($location);
             }
         }
         //
@@ -2096,7 +2094,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 margin-block-start: do-var(flow-margin-firm-start);
 
                 @if $multipleContentBlocks {
-                    @content (#{$location}--direct-sibling--input-base);
+                    @content (#{$location}--input-base);
                 }
             }
 
@@ -2105,7 +2103,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     margin-block-start: do-var(flow-margin-firm-start);
 
                     @if $multipleContentBlocks {
-                        @content (#{$location}--direct-sibling--input-base);
+                        @content (#{$location}--input-base);
                     }
                 }
             }
@@ -2141,6 +2139,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         margin-block: 0 do-var(flow-margin--small);
 
         padding-inline: do-var(flow-margin--small);
+
+        + * {
+            @include first-child-no-top-margin($setFirstChildSelector: false);
+        }
     }
 }
 

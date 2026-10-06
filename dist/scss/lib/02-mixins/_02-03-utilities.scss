@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.3
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.4.draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -63,19 +63,25 @@ $_firmFlowMarginChildren: list.join(
 
     @if $includeChildren and $useNotInsteadOfChildren {
         &:not(#{$firmFlowMarginChildren}) {
-            margin-block-#{$marginSide}: $soft #{$importantSuffix};
+            @each $_mrg in $soft {
+                margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+            }
 
             @content;
         }
     } @else if $includeRoot {
-        margin-block-#{$marginSide}: $soft #{$importantSuffix};
+        @each $_mrg in $soft {
+            margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+        }
 
         @content;
     }
 
     @if $includeChildren and not $useNotInsteadOfChildren {
         @at-root #{selector.unify(&, $firmFlowMarginChildren)} {
-            margin-block-#{$marginSide}: $firm #{$importantSuffix};
+            @each $_mrg in $firm {
+                margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+            }
 
             @if not $includeRoot {
                 @content;

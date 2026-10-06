@@ -3,8 +3,8 @@
 /// @since 0.1.0-alpha
 ///
 
-@use 'lib';
 @use 'lib/config';
+@use 'lib' as *;
 
 @use 'pkg:@maddimathon/utility-sass/selector';
 
@@ -12,30 +12,30 @@
 
 $_default_resultGroup_colCount: 6;
 
-$_var_contrastResultGroupColumnCount: lib.do-var(
+$_var_contrastResultGroupColumnCount: do-var(
     shade-swatch-contrast-result-group-column-count,
     $_default_resultGroup_colCount
 );
 
 .shade-swatch {
-    @include lib.prop-display(flex);
+    @include prop-display(flex);
     flex-direction: column;
 
-    padding-block: lib.var-mrg-soft('200');
-    padding-inline: lib.var-mrg-firm('300');
-    gap: lib.do-var(flow-margin--small) lib.var-mrg-firm('200');
+    padding-block: var-mrg-soft('200');
+    padding-inline: var-mrg-firm('300');
+    gap: do-var(flow-margin--small) var-mrg-firm('200');
 
-    font-size: lib.var-fs(smaller-1);
+    font-size: var-fs(smaller-1);
 
-    background: lib.do-var(shade-swatch-background);
-    color: lib.do-var(shade-swatch-color-override, lib.do-var(shade-swatch-color));
+    @include prop-background(do-var(shade-swatch-background), $important: true);
+    color: do-var(shade-swatch-color-override, do-var(shade-swatch-color));
 
     > :global(:where(*)) {
         margin: 0;
     }
 
     > :global(*) {
-        display: lib.do-var(shade-swatch-display-override, block);
+        display: do-var(shade-swatch-display-override, block);
         color: inherit;
     }
 
@@ -48,7 +48,7 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
 
         border: none;
         font-size: 1em;
-        line-height: lib.var-line-height('100');
+        line-height: var-line-height('100');
 
         :global(strong) {
             font-weight: 500;
@@ -59,26 +59,26 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
         $_allHeadingSels: (selector.unify(&, '%title'));
 
         @at-root #{$_allHeadingSels} {
-            font-size: lib.var-fs(heading-2);
+            font-size: var-fs(heading-2);
         }
 
-        @each $num in lib.token-all-heading-levels() {
+        @each $num in token-all-heading-levels() {
             $__tmp: selector.unify(&, '%h#{$num}');
 
             $_allHeadingSels: ($_allHeadingSels, $__tmp);
 
             @at-root #{$__tmp} {
-                font-size: lib.var-fs(heading-#{$num});
+                font-size: var-fs(heading-#{$num});
             }
         }
 
         @at-root #{$_allHeadingSels} {
             text-transform: none;
-            @include lib.set-font-style(normal, $letterSpacing: normal, $setChildren: true);
+            @include set-font-style(normal, $letterSpacing: normal, $setChildren: true);
 
             :global(.shade-swatch-table__wrapper) & {
                 font-weight: 700;
-                font-size: lib.var-fs(heading-10);
+                font-size: var-fs(heading-10);
             }
         }
     }
@@ -86,10 +86,10 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
     /// ## CONTRAST ==================================== ///
 
     :global(.shade-swatch__contrast) {
-        @include lib.prop-display(flex);
+        @include prop-display(flex);
         flex-direction: column;
-        gap: lib.var-mrg-half('200') lib.var-mrg-firm('200');
-        font-size: lib.var-fs(smaller-2);
+        gap: var-mrg-half('200') var-mrg-firm('200');
+        font-size: var-fs(smaller-2);
     }
 
     :global(.shade-swatch__contrast[data-brightness-mode]) {
@@ -107,31 +107,31 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
         align-content: start;
         align-items: start;
 
-        gap: lib.var-mrg-soft('200') lib.var-mrg-firm('300');
+        gap: var-mrg-soft('200') var-mrg-firm('300');
     }
 
     :global(.shade-swatch__contrast__result-group) {
-        @include lib.prop-display(grid);
+        @include prop-display(grid);
         grid-template-columns: repeat($_var_contrastResultGroupColumnCount, min-content);
         grid-template-rows: auto auto;
 
         > :global(.shade-swatch__contrast__heading) {
-            @include lib.prop-grid-column(span $_var_contrastResultGroupColumnCount);
+            @include prop-grid-column(span $_var_contrastResultGroupColumnCount);
         }
     }
 
     :global(.shade-swatch__contrast__heading),
     :global(.shade-swatch__contrast__result-group__heading) {
-        line-height: lib.var-line-height('100');
+        line-height: var-line-height('100');
         text-align: center;
     }
 
-    @include lib.colour-mode((low, average), $unifySelectors: false) {
+    @include colour-mode((low, average), $unifySelectors: false) {
         :global(.shade-swatch__contrast__heading),
         :global(.shade-swatch__contrast__result-group__heading) {
-            color: lib.do-var(
+            color: do-var(
                 shade-swatch-color-override,
-                lib.do-var(shade-swatch-contrast-result-group-heading-color)
+                do-var(shade-swatch-contrast-result-group-heading-color)
             );
         }
 
@@ -142,28 +142,28 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
             :global(
                 .shade-swatch__contrast__result-group__heading[data-contrast-result-group-has-heading-color='true']
             ) {
-                margin-block: lib.do-var(flow-margin-firm-start--small)
-                    lib.do-var(flow-margin-firm-end--small);
+                margin-block: do-var(flow-margin-firm-start--small)
+                    do-var(flow-margin-firm-end--small);
 
-                padding: lib.var-stroke-relative('200');
+                padding: var-stroke-relative('200');
 
                 font-weight: 500;
-                background: lib.do-var(
-                    shade-swatch-contrast-result-group-heading-color,
-                    lib.var-theme(text)
+
+                @include prop-background(
+                    do-var(shade-swatch-contrast-result-group-heading-color, var-theme(text))
                 );
 
-                color: lib.do-var(
+                color: do-var(
                     shade-swatch-color-override,
-                    lib.do-var(shade-swatch-background, lib.var-theme(background))
+                    do-var(shade-swatch-background, var-theme(background))
                 );
             }
         }
     }
 
     :global(.shade-swatch__contrast__heading) {
-        margin-block-start: lib.do-var(flow-margin-firm-start--small);
-        font-size: lib.var-fs(smaller-2);
+        margin-block-start: do-var(flow-margin-firm-start--small);
+        font-size: var-fs(smaller-2);
 
         + :global(.shade-swatch__contrast__result-group) {
         }
@@ -175,15 +175,15 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
 
     :global(.shade-swatch__contrast__result-group--all-shades) {
         grid-template-rows: auto repeat(
-                lib.do-var(shade-swatch-contrast-result-group-row-count, 2),
+                do-var(shade-swatch-contrast-result-group-row-count, 2),
                 auto
             );
     }
 
     :global(.shade-swatch__contrast__result-group__heading) {
-        @include lib.prop-grid-column(span $_var_contrastResultGroupColumnCount);
+        @include prop-grid-column(span $_var_contrastResultGroupColumnCount);
         margin: 0;
-        font-size: lib.var-fs(smaller-3);
+        font-size: var-fs(smaller-3);
     }
 
     :global(.shade-swatch__contrast__result-group__heading--maximum) {
@@ -195,12 +195,11 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
     }
 
     :global(.shade-swatch__contrast__result-group__single-min-max) {
-        grid-column: span
-            lib.do-var(shade-swatch-contrast-result-group-single-min-max-column-count, 1);
+        grid-column: span do-var(shade-swatch-contrast-result-group-single-min-max-column-count, 1);
 
-        @include lib.prop-display(grid);
+        @include prop-display(grid);
         grid-template-columns: repeat(
-            lib.do-var(shade-swatch-contrast-result-group-single-min-max-column-count),
+            do-var(shade-swatch-contrast-result-group-single-min-max-column-count),
             max-content
         );
 
@@ -209,7 +208,7 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
 
         :global(.shade-swatch__contrast__result-group__heading) {
             grid-column: span
-                lib.do-var(shade-swatch-contrast-result-group-single-min-max-column-count, 1);
+                do-var(shade-swatch-contrast-result-group-single-min-max-column-count, 1);
         }
 
         :global(.contrast-alert) {
@@ -217,4 +216,4 @@ $_var_contrastResultGroupColumnCount: lib.do-var(
     }
 }
 
-@include lib.extend-selectors;
+@include extend-selectors;

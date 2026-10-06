@@ -1,12 +1,12 @@
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.3
+ * @maddimathon/utility-sass@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/design-system-utilities
  */
@@ -28,7 +28,8 @@
     gap: var(--flow-margin--small, 0.5rem) var(--mrg-firm-200, 0.5rem);
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
-    background: var(--shade-swatch-background);
+    --background: var(--shade-swatch-background) !important;
+    background-color: var(--background, var(--shade-swatch-background));
     color: var(--shade-swatch-color-override, var(--shade-swatch-color));
 }
 .shade-swatch > :global(:where(*)) {
@@ -359,10 +360,17 @@
     padding: 0.125em;
     padding: var(--stroke-relative-200, 0.125em);
     font-weight: 500;
-    background: CanvasText;
-    background: var(
+    --background: var(
         --shade-swatch-contrast-result-group-heading-color,
         var(--theme-text, CanvasText)
+    );
+    background-color: CanvasText;
+    background-color: var(
+        --background,
+        var(
+            --shade-swatch-contrast-result-group-heading-color,
+            var(--theme-text, CanvasText)
+        )
     );
     color: Canvas;
     color: var(

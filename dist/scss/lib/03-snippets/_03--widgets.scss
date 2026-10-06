@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.3
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.4.draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -148,7 +148,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     }
 
     @if $background != false {
-        background: $background;
+        @include prop-background($background);
     }
 
     transition:
@@ -176,7 +176,9 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
         @each $variationKey in $_backgroundKeys {
             @if $variationKey != '$' {
                 &.background-#{$variationKey} {
-                    background: var-theme(background-#{$variationKey});
+                    @include prop-background(
+                        var-theme(background-#{$variationKey})
+                    );
 
                     @if $multipleContentBlocks {
                         @content (background-#{$variationKey});
@@ -264,6 +266,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 
         #{selector.nest($selector_sidebar, '>', $selector_widget)} {
             margin-block: $widget_marginBlockEnd 0;
+            width: auto;
 
             @content (widget--in-sidebar);
         }

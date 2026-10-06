@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.3
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.4.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -112,7 +112,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         @include cx-prop(icon-color, $icon);
     }
     border-color: if($border == null, $icon, $border);
-    background: $background;
+    @include prop-background($background);
 
     @if $includeHeadline {
         > .alert-block__headline {
@@ -204,7 +204,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     border-style: var-style(button-border-style);
     border-radius: var-style(alert-border-radius);
 
-    background: var-style(alert-background);
+    @include prop-background(var-style(alert-background));
 
     transition:
         background var-tr-time(fast) tokens.$transition_function,
@@ -297,8 +297,8 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     );
 
                     border-color: var-theme(heading-#{$num});
-                    background: var-style(
-                        alert-heading-#{$num}-background-color
+                    @include prop-background(
+                        var-style(alert-heading-#{$num}-background-color)
                     );
 
                     @if $multipleContentBlocks {

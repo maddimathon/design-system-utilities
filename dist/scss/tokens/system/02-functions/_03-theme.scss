@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.3
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.4.draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -33,8 +33,6 @@
     $version: null,
     $warnOnFalse: false
 ) {
-    $flat_isValues: breakdown.$themes__nestedFlat_tokenValues != null;
-
     @if meta.type-of($opacity) == number {
         $opacity: math.to-percent($opacity);
 
@@ -60,6 +58,9 @@
 
     $opacityIsPreset: ($opacity != null) and
         (list.index(breakdown.$colour_presetOpacities, $opacity) != null);
+
+    $flat_isValues: (breakdown.$themes__nestedFlat_tokenValues != null) and
+        ($opacity == null or $opacityIsPreset);
 
     $suffixSlug: if(
         $flat_isValues,
@@ -147,7 +148,7 @@
         @return colours.tokens-var-clr-from-theme-token(
             $value,
             $brightness: $brightness,
-            $opacity: $opacity,
+            $warnOnFail: $warnOnFalse,
             $version: $version
         );
     }
@@ -372,7 +373,19 @@
                 $warnOnFalse: $warnOnFalse,
                 $args...
             ),
-            config.config-do-var($themeVarSlug, $args...)
+            if(
+                $opacity,
+                if(
+                    $modernOpacitySyntax,
+                    string.unquote(
+                        '#{$version}a(#{config.config-do-var($themeVarSlug, $args...)} / #{$opacity})'
+                    ),
+                    string.unquote(
+                        '#{$version}a(#{config.config-do-var($themeVarSlug, $args...)}, #{$opacity})'
+                    )
+                ),
+                config.config-do-var($themeVarSlug, $args...)
+            )
         );
     }
 
@@ -529,7 +542,19 @@
         }
     }
 
-    @return config.config-do-var($themeVarSlug, $fallback: $clrSlug, $args...);
+    @return if(
+        $opacity,
+        if(
+            $modernOpacitySyntax,
+            string.unquote(
+                '#{$version}a(#{config.config-do-var(clr-#{$clrSlug}-#{$version}, $args...)} / #{$opacity})'
+            ),
+            string.unquote(
+                '#{$version}a(#{config.config-do-var(clr-#{$clrSlug}-#{$version}, $args...)}, #{$opacity})'
+            )
+        ),
+        config.config-do-var($themeVarSlug, $fallback: $clrSlug, $args...)
+    );
 }
 
 ///

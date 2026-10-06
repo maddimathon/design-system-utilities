@@ -4,13 +4,13 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * @license MIT
  */
 
 import utilityAstro from '@maddimathon/utility-astro/components';
 
-export * from './components/BrandPhotoList_Sample/index.ts';
+import brandPhotoComponents from './components/BrandPhotoList_Sample/index.ts';
 
 import Alert from './components/Alert.astro';
 export type * from './components/Alert.astro';
@@ -103,6 +103,7 @@ export type * from './components/Widget.astro';
 
 const components = {
     ...utilityAstro,
+    ...brandPhotoComponents,
     Alert,
     BrandPhoto,
     BrandPhoto_Caption,

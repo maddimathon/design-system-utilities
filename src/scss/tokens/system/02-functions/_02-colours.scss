@@ -32,6 +32,7 @@
     $opacity: null,
     $version: null,
     $fallbackOnly: false,
+    $warnOnFail: true,
     $args...
 ) {
     $clrVarSlug: clr-#{$slug};
@@ -73,18 +74,60 @@
 
     $slugMap: map.get(breakdown.$colour, $slug);
 
+    // prettier-ignore
+    $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
+        (
+            (not $fallbackOnly) or
+            config.custom-property-prefix-all-exists() or
+            (not config.$fn_var_replaceWithValue_colour)
+        );
+
     // returns
     @if $slugMap == null {
-        @warn "$slug '#{$slug}' was not a key in tokens.$colour";
-        @return config.config-do-var($clrVarSlug, $args...);
+        @if $warnOnFail {
+            @warn "$slug '#{$slug}' was not a key in tokens.$colour";
+        }
+
+        @return if(
+            $opacity,
+            if(
+                $modernOpacitySyntax,
+                string.unquote(
+                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)} / #{$opacity})'
+                ),
+                string.unquote(
+                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)}, #{$opacity})'
+                )
+            ),
+            config.config-do-var($clrVarSlug, $args...)
+        );
     }
 
     $_slugMapType: meta.type-of($slugMap);
 
     // returns
     @if $_slugMapType != map and $_slugMapType != color {
-        @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        @return config.config-do-var($clrVarSlug, $args...);
+        @if $warnOnFail {
+            @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+        }
+
+        @return if(
+            $opacity,
+            if(
+                $modernOpacitySyntax,
+                string.unquote(
+                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)} / #{$opacity})'
+                ),
+                string.unquote(
+                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)}, #{$opacity})'
+                )
+            ),
+            if(
+                $version,
+                config.config-do-var($clrVarSlug, $args...),
+                config.config-do-var($clrVarSlug, $args...)
+            )
+        );
     }
 
     $fallback_clr: null;
@@ -102,7 +145,9 @@
 
         // returns
         @if $fallback_clr == null {
-            @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+            @if $warnOnFail {
+                @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+            }
             @return config.config-do-var($clrVarSlug, $args...);
         }
     }
@@ -143,9 +188,9 @@
             }
         }
     } @else if $version == hsl {
-        $fallback: colour.to-hsl-list($fallback_clr, $round: false);
+        $fallback: string.unquote('#{colour.to-hsl-list($fallback_clr, $round: false)}');
     } @else if $version == rgb {
-        $fallback: colour.to-rgb-list($fallback_clr, $round: true);
+        $fallback: string.unquote('#{colour.to-rgb-list($fallback_clr, $round: true)}');
     } @else {
         $fallback: colour.to-hsl($fallback_clr, $round: false);
     }

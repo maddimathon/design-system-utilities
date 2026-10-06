@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * @license MIT
  */
 import { deleteUndefinedProps, mergeArgs, mergeArgsAsync, } from '@maddimathon/utility-typescript';
@@ -791,7 +791,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             button,
         };
         return {
-            background: 'background-grey',
+            background: partial?.background ?? 'background-grey',
             border: mergeArgs({
                 color: 'ui-grey',
                 radius: 0,

@@ -240,12 +240,12 @@
 
     @if $print_background {
         %background-default {
-            background: var-theme(background) !important;
+            @include prop-background(var-theme(background), $important: true);
         }
 
         @each $variant in map.get(tokens.$themesMeta, keys, background) {
             %background-#{$variant} {
-                background: var-theme(background-#{$variant}) !important;
+                @include prop-background(var-theme(background-#{$variant}), $important: true);
             }
         }
 
@@ -257,7 +257,7 @@
 
     @if $print_color {
         %color-default {
-            background: var-theme(text) !important;
+            @include theme-set-color($important: true);
         }
 
         @each $variant in map.get(tokens.$themesMeta, keys, text) {

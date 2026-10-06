@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.3
+ * @maddimathon/utility-sass@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes
- * @maddimathon/design-system-utilities/template@0.1.0-beta.3
+ * @maddimathon/design-system-utilities/template@0.1.0-beta.4.draft
  * 
  * This is a sample stylesheet with a custom property prefix set in the config
  * (i.e. — $customPropertyPrefix: "prefix-").
@@ -1564,7 +1564,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 34.5%;
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 91.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 91.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
+        );
     }
 }
 @media (prefers-contrast: no-preference) {
@@ -2068,7 +2075,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 34.5%;
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 91.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 91.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
+        );
     }
 }
 @media (prefers-color-scheme: light) {
@@ -2572,7 +2586,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 34.5%;
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 91.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 91.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
+        );
     }
 }
 :root {
@@ -2991,7 +3012,11 @@
     --prefix-theme-link-outline-disabled-hsl: 339.5 0% 34.5%;
     --prefix-icon-color: hsl(339.5, 0%, 13.5%);
     color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
-    background: var(--prefix-theme-background, hsl(339.5, 0%, 91.5%));
+    --prefix-background: var(--prefix-theme-background, hsl(339.5, 0%, 91.5%));
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
+    );
 }
 
 /* #endregion Tokens - Theme - light mode + average contrast */
@@ -3481,7 +3506,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 34.5%;
         --prefix-icon-color: hsl(339.5, 0%, 22.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 22.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 86%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 86%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 86%))
+        );
     }
 }
 @media (prefers-contrast: less) {
@@ -3969,7 +4001,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 34.5%;
         --prefix-icon-color: hsl(339.5, 0%, 22.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 22.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 86%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 86%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 86%))
+        );
     }
 }
 /* #endregion Tokens - Theme - light mode + low contrast */
@@ -4482,7 +4521,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 22.5%;
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 96.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 96.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 96.5%))
+        );
     }
 }
 @media (prefers-contrast: more) {
@@ -4993,7 +5039,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 22.5%;
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 96.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 96.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 96.5%))
+        );
     }
 }
 /* #endregion Tokens - Theme - light mode + high contrast */
@@ -5503,7 +5556,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 61.5%;
         --prefix-icon-color: hsl(339.5, 0%, 86%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 86%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 9.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 9.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 9.5%))
+        );
     }
 }
 @media (prefers-color-scheme: dark) {
@@ -6011,7 +6071,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 61.5%;
         --prefix-icon-color: hsl(339.5, 0%, 86%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 86%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 9.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 9.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 9.5%))
+        );
     }
 }
 /* #endregion Tokens - Theme - dark mode + average contrast */
@@ -6533,7 +6600,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 61.5%;
         --prefix-icon-color: hsl(339.5, 0%, 75.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 75.5%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 13.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 13.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 13.5%))
+        );
     }
 }
 /* #endregion Tokens - Theme - dark mode + low contrast */
@@ -7090,7 +7164,14 @@
         --prefix-theme-link-outline-disabled-hsl: 339.5 0% 75.5%;
         --prefix-icon-color: hsl(339.5, 0%, 86%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 86%));
-        background: var(--prefix-theme-background, hsl(339.5, 0%, 4.5%));
+        --prefix-background: var(
+            --prefix-theme-background,
+            hsl(339.5, 0%, 4.5%)
+        );
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background, hsl(339.5, 0%, 4.5%))
+        );
     }
 }
 /* #endregion Tokens - Theme - dark mode + high contrast */
@@ -7391,7 +7472,8 @@
         --prefix-focus-ring-outline-color: ActiveText;
         --prefix-icon-color: CanvasText;
         color: CanvasText;
-        background: Canvas;
+        --prefix-background: Canvas;
+        background-color: var(--prefix-background, Canvas);
     }
 }
 /* #endregion Tokens - Theme - light/dark mode + forced-colors contrast */
@@ -7548,16 +7630,32 @@ a.skip-link[href]:visited {
         --prefix-theme-button-primary-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-primary-ui, ButtonText);
-    --prefix-theme-link-icon: var(--prefix-theme-button-primary-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-primary-ui,
+        ButtonText
+    ) !important;
+    --prefix-theme-link-icon: var(
+        --prefix-theme-button-primary-ui,
+        ButtonText
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border, ButtonFace);
-    background-color: var(--prefix-theme-button-primary-background, ButtonFace);
+    --prefix-background: var(
+        --prefix-theme-button-primary-background,
+        ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background, ButtonFace)
+    );
     border-color: var(--prefix-theme-button-primary-border, ButtonFace);
     color: var(--prefix-theme-button-primary-text, ButtonText);
 }
 a.skip-link[href] *,
 a.skip-link[href]:visited * {
-    --prefix-icon-color: var(--prefix-theme-button-primary-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-primary-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -7572,15 +7670,19 @@ a.skip-link[href][data-state-focus="true"],
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -7592,7 +7694,7 @@ a.skip-link[href][data-state-focus="true"] *,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 :where(.js__no-focusVisible) a.skip-link[href]:focus {
@@ -7603,15 +7705,19 @@ a.skip-link[href][data-state-focus="true"] *,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -7620,7 +7726,7 @@ a.skip-link[href][data-state-focus="true"] *,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a.skip-link[href]:focus-visible {
@@ -7631,15 +7737,19 @@ a.skip-link[href]:focus-visible {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -7648,7 +7758,7 @@ a.skip-link[href]:focus-visible * {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a.skip-link[href]:has(:is(:focus-visible, [data-state-focus="true"])) {
@@ -7659,15 +7769,19 @@ a.skip-link[href]:has(:is(:focus-visible, [data-state-focus="true"])) {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -7676,7 +7790,7 @@ a.skip-link[href]:has(:is(:focus-visible, [data-state-focus="true"])) * {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a.skip-link[href]:active,
@@ -7688,15 +7802,19 @@ a.skip-link[href][data-state-active="true"] {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
     color: var(--prefix-theme-button-primary-text-active, ButtonText);
@@ -7706,7 +7824,7 @@ a.skip-link[href][data-state-active="true"] * {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
 }
 
 a.skip-link[href]:has(:is(:active, [data-state-active="true"])) {
@@ -7717,15 +7835,19 @@ a.skip-link[href]:has(:is(:active, [data-state-active="true"])) {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
     color: var(--prefix-theme-button-primary-text-active, ButtonText);
@@ -7734,7 +7856,7 @@ a.skip-link[href]:has(:is(:active, [data-state-active="true"])) * {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
 }
 
 a.skip-link[href]:focus,
@@ -8753,7 +8875,11 @@ pre,
 samp {
     position: relative;
     border-radius: 0;
-    background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-grey, Canvas)
+    );
     --prefix-icon-color: var(--prefix-theme-ui-primary, CanvasText);
     color: var(--prefix-theme-text-primary, CanvasText);
     font-family: var(
@@ -10711,7 +10837,11 @@ fieldset {
     border: var(--prefix-border-width-200, 0.125rem) solid currentColor;
     border-radius: 0;
     border-color: var(--prefix-theme-input-border, CanvasText);
-    background-color: var(--prefix-theme-background, Canvas);
+    --prefix-background: var(--prefix-theme-background, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background, Canvas)
+    );
     color: var(--prefix-theme-text, CanvasText);
 }
 fieldset > input:first-child,
@@ -10720,9 +10850,6 @@ fieldset > textarea:first-child {
     margin-block-start: var(--prefix-mrg-half-400, 0.46875rem);
 }
 fieldset > label:first-child {
-    margin-block-start: 0;
-}
-fieldset > legend + * {
     margin-block-start: 0;
 }
 fieldset[data-state-focus="true"],
@@ -10804,6 +10931,45 @@ fieldset legend:first-child {
     margin-block: 0 var(--prefix-flow-margin--small, 0.5rem);
     padding-inline: var(--prefix-flow-margin--small, 0.5rem);
 }
+fieldset legend:first-child + * {
+    margin-block-start: 0 !important;
+}
+fieldset
+    legend:first-child
+    + :is(
+        .icon,
+        svg,
+        .button-span,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-start: var(
+        --prefix-flow-margin-firm-end,
+        0.46875rem
+    ) !important;
+}
 
 /*! END of @maddimathon/design-system-utilities/template */
 textarea,
@@ -10829,7 +10995,11 @@ input {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    background-color: var(--prefix-theme-input-background, Field);
+    --prefix-background: var(--prefix-theme-input-background, Field);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-input-background, Field)
+    );
     border-color: var(--prefix-theme-input-border, CanvasText);
     color: var(--prefix-theme-input-text, FieldText);
     accent-color: var(--prefix-theme-input-accent, CanvasText);
@@ -10917,7 +11087,11 @@ input[readonly] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    background-color: var(--prefix-theme-input-readonly-background, Field);
+    --prefix-background: var(--prefix-theme-input-readonly-background, Field);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-input-readonly-background, Field)
+    );
     border-color: var(--prefix-theme-input-readonly-border, CanvasText);
     color: var(--prefix-theme-input-readonly-text, FieldText);
     accent-color: var(--prefix-theme-input-readonly-accent, CanvasText);
@@ -10941,7 +11115,11 @@ input[readonly][data-state-focus="true"] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    background-color: var(--prefix-theme-input-readonly-background, Field);
+    --prefix-background: var(--prefix-theme-input-readonly-background, Field);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-input-readonly-background, Field)
+    );
     border-color: var(--prefix-theme-input-readonly-border, CanvasText);
     color: var(--prefix-theme-input-readonly-text, FieldText);
     accent-color: var(--prefix-theme-input-readonly-accent, CanvasText);
@@ -10964,7 +11142,11 @@ input[disabled] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    background-color: var(--prefix-theme-input-disabled-background, Field);
+    --prefix-background: var(--prefix-theme-input-disabled-background, Field);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-input-disabled-background, Field)
+    );
     border-color: var(--prefix-theme-input-disabled-border, CanvasText);
     color: var(--prefix-theme-input-disabled-text, FieldText);
     accent-color: var(--prefix-theme-input-disabled-accent, CanvasText);
@@ -11003,7 +11185,11 @@ input[disabled][data-state-focus="true"] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    background-color: var(--prefix-theme-input-disabled-background, Field);
+    --prefix-background: var(--prefix-theme-input-disabled-background, Field);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-input-disabled-background, Field)
+    );
     border-color: var(--prefix-theme-input-disabled-border, CanvasText);
     color: var(--prefix-theme-input-disabled-text, FieldText);
     accent-color: var(--prefix-theme-input-disabled-accent, CanvasText);
@@ -12025,10 +12211,23 @@ a[href].button:is(.display-inline) {
         --prefix-theme-button-grey-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui, ButtonText);
-    --prefix-theme-link-icon: var(--prefix-theme-button-grey-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
+    --prefix-theme-link-icon: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border, ButtonFace);
-    background-color: var(--prefix-theme-button-grey-background, ButtonFace);
+    --prefix-background: var(
+        --prefix-theme-button-grey-background,
+        ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background, ButtonFace)
+    );
     border-color: var(--prefix-theme-button-grey-border, ButtonFace);
     color: var(--prefix-theme-button-grey-text, ButtonText);
 }
@@ -12038,7 +12237,10 @@ input[type="button"]:is(.display-inline) *,
 input[type="reset"]:is(.display-inline) *,
 input[type="submit"]:is(.display-inline) *,
 a[href].button:is(.display-inline) * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -12070,15 +12272,22 @@ a[data-state-focus="true"][href].button:is(.display-inline),
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -12107,7 +12316,10 @@ a[data-state-focus="true"][href].button:is(.display-inline) *,
 .js__no-whereSelector input[type="reset"]:is(.display-inline):focus *,
 .js__no-whereSelector input[type="submit"]:is(.display-inline):focus *,
 .js__no-whereSelector a[href].button:is(.display-inline):focus * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 :where(.js__no-focusVisible) button:is(.display-inline):focus,
@@ -12120,15 +12332,22 @@ a[data-state-focus="true"][href].button:is(.display-inline) *,
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -12139,7 +12358,10 @@ a[data-state-focus="true"][href].button:is(.display-inline) *,
 :where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus *,
 :where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus *,
 :where(.js__no-focusVisible) a[href].button:is(.display-inline):focus * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 button:is(.display-inline):focus-visible,
@@ -12152,15 +12374,22 @@ a[href].button:is(.display-inline):focus-visible {
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -12171,7 +12400,10 @@ input[type="button"]:is(.display-inline):focus-visible *,
 input[type="reset"]:is(.display-inline):focus-visible *,
 input[type="submit"]:is(.display-inline):focus-visible *,
 a[href].button:is(.display-inline):focus-visible * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 button:is(.display-inline):active,
@@ -12190,15 +12422,22 @@ a[data-state-active="true"][href].button:is(.display-inline) {
         --prefix-theme-button-grey-outline-active,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-active, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-active,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
     color: var(--prefix-theme-button-grey-text-active, ButtonText);
@@ -12215,7 +12454,10 @@ input[data-state-active="true"][type="button"]:is(.display-inline) *,
 input[data-state-active="true"][type="reset"]:is(.display-inline) *,
 input[data-state-active="true"][type="submit"]:is(.display-inline) *,
 a[data-state-active="true"][href].button:is(.display-inline) * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-active, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-active,
+        ButtonText
+    ) !important;
 }
 
 a[href].button-primary,
@@ -12238,10 +12480,23 @@ a[href].button:visited {
         --prefix-theme-button-primary-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-primary-ui, ButtonText);
-    --prefix-theme-link-icon: var(--prefix-theme-button-primary-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-primary-ui,
+        ButtonText
+    ) !important;
+    --prefix-theme-link-icon: var(
+        --prefix-theme-button-primary-ui,
+        ButtonText
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border, ButtonFace);
-    background-color: var(--prefix-theme-button-primary-background, ButtonFace);
+    --prefix-background: var(
+        --prefix-theme-button-primary-background,
+        ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background, ButtonFace)
+    );
     border-color: var(--prefix-theme-button-primary-border, ButtonFace);
     color: var(--prefix-theme-button-primary-text, ButtonText);
 }
@@ -12261,7 +12516,10 @@ input[type="submit"] *,
 a[href].button *,
 [role="button"]:visited *,
 a[href].button:visited * {
-    --prefix-icon-color: var(--prefix-theme-button-primary-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-primary-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -12300,15 +12558,19 @@ a[data-state-focus="true"][href].button,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -12344,7 +12606,7 @@ a[data-state-focus="true"][href].button *,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 :where(.js__no-focusVisible) a[href].button-primary:focus,
@@ -12361,15 +12623,19 @@ a[data-state-focus="true"][href].button *,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -12384,7 +12650,7 @@ a[data-state-focus="true"][href].button *,
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a[href].button-primary:focus-visible,
@@ -12401,15 +12667,19 @@ a[href].button:focus-visible {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-primary-text-hover, ButtonText);
@@ -12424,7 +12694,7 @@ a[href].button:focus-visible * {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a[href].button-primary:active,
@@ -12448,15 +12718,19 @@ a[data-state-active="true"][href].button {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-primary-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-primary-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
     color: var(--prefix-theme-button-primary-text-active, ButtonText);
@@ -12478,7 +12752,7 @@ a[data-state-active="true"][href].button * {
     --prefix-icon-color: var(
         --prefix-theme-button-primary-ui-active,
         ButtonText
-    );
+    ) !important;
 }
 
 a[href].button-secondary,
@@ -12495,15 +12769,22 @@ input[type="reset"] {
         --prefix-theme-button-secondary-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-secondary-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-secondary-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-secondary-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-secondary-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-secondary-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-secondary-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border, ButtonFace);
     color: var(--prefix-theme-button-secondary-text, ButtonText);
@@ -12518,7 +12799,10 @@ a[href].button-secondary:visited *,
 [role="button"].button-secondary:visited *,
 button[type="reset"] *,
 input[type="reset"] * {
-    --prefix-icon-color: var(--prefix-theme-button-secondary-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-secondary-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -12557,15 +12841,19 @@ input[data-state-focus="true"][type="reset"],
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-secondary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-secondary-text-hover, ButtonText);
@@ -12601,7 +12889,7 @@ input[data-state-focus="true"][type="reset"] *,
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 :where(.js__no-focusVisible) a[href].button-secondary:focus,
@@ -12618,15 +12906,19 @@ input[data-state-focus="true"][type="reset"] *,
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-secondary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-secondary-text-hover, ButtonText);
@@ -12641,7 +12933,7 @@ input[data-state-focus="true"][type="reset"] *,
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a[href].button-secondary:focus-visible,
@@ -12658,15 +12950,19 @@ input[type="reset"]:focus-visible {
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-secondary-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
     color: var(--prefix-theme-button-secondary-text-hover, ButtonText);
@@ -12681,7 +12977,7 @@ input[type="reset"]:focus-visible * {
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-hover,
         ButtonText
-    );
+    ) !important;
 }
 
 a[href].button-secondary:active,
@@ -12705,18 +13001,22 @@ input[data-state-active="true"][type="reset"] {
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-active,
         ButtonText
-    );
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-secondary-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(
         --prefix-theme-button-secondary-border-active,
         ButtonFace
     );
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-secondary-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-secondary-background-active, ButtonFace)
     );
     border-color: var(
         --prefix-theme-button-secondary-border-active,
@@ -12741,7 +13041,7 @@ input[data-state-active="true"][type="reset"] * {
     --prefix-icon-color: var(
         --prefix-theme-button-secondary-ui-active,
         ButtonText
-    );
+    ) !important;
 }
 
 a[href].button-grey,
@@ -12756,10 +13056,23 @@ a[href].button-grey:visited,
         --prefix-theme-button-grey-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui, ButtonText);
-    --prefix-theme-link-icon: var(--prefix-theme-button-grey-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
+    --prefix-theme-link-icon: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border, ButtonFace);
-    background-color: var(--prefix-theme-button-grey-background, ButtonFace);
+    --prefix-background: var(
+        --prefix-theme-button-grey-background,
+        ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background, ButtonFace)
+    );
     border-color: var(--prefix-theme-button-grey-border, ButtonFace);
     color: var(--prefix-theme-button-grey-text, ButtonText);
 }
@@ -12771,7 +13084,10 @@ input[type="reset"].button-grey *,
 input[type="submit"].button-grey *,
 a[href].button-grey:visited *,
 [role="button"].button-grey:visited * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -12803,15 +13119,22 @@ input[data-state-focus="true"][type="submit"].button-grey,
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -12840,7 +13163,10 @@ input[data-state-focus="true"][type="submit"].button-grey *,
 .js__no-whereSelector input[type="button"].button-grey:focus *,
 .js__no-whereSelector input[type="reset"].button-grey:focus *,
 .js__no-whereSelector input[type="submit"].button-grey:focus * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 :where(.js__no-focusVisible) a[href].button-grey:focus,
@@ -12853,15 +13179,22 @@ input[data-state-focus="true"][type="submit"].button-grey *,
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -12872,7 +13205,10 @@ input[data-state-focus="true"][type="submit"].button-grey *,
 :where(.js__no-focusVisible) input[type="button"].button-grey:focus *,
 :where(.js__no-focusVisible) input[type="reset"].button-grey:focus *,
 :where(.js__no-focusVisible) input[type="submit"].button-grey:focus * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 a[href].button-grey:focus-visible,
@@ -12885,15 +13221,22 @@ input[type="submit"].button-grey:focus-visible {
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -12904,7 +13247,10 @@ button.button-grey:focus-visible *,
 input[type="button"].button-grey:focus-visible *,
 input[type="reset"].button-grey:focus-visible *,
 input[type="submit"].button-grey:focus-visible * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 a[href].button-grey:active,
@@ -12923,15 +13269,22 @@ input[data-state-active="true"][type="submit"].button-grey {
         --prefix-theme-button-grey-outline-active,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-active, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-active,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
     color: var(--prefix-theme-button-grey-text-active, ButtonText);
@@ -12948,7 +13301,10 @@ button[data-state-active="true"].button-grey *,
 input[data-state-active="true"][type="button"].button-grey *,
 input[data-state-active="true"][type="reset"].button-grey *,
 input[data-state-active="true"][type="submit"].button-grey * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-active, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-active,
+        ButtonText
+    ) !important;
 }
 
 a[aria-disabled="true"][href].button-primary,
@@ -12973,15 +13329,22 @@ a[disabled][href].button {
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
@@ -13004,7 +13367,10 @@ input[disabled][type="button"] *,
 input[disabled][type="reset"] *,
 input[disabled][type="submit"] *,
 a[disabled][href].button * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 [role="button"].button-grey[aria-disabled="true"]:visited,
@@ -13135,15 +13501,22 @@ a[disabled][data-state-focus="true"][href].button,
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
@@ -13272,7 +13645,10 @@ a[disabled][data-state-focus="true"][href].button *,
 .js__no-whereSelector input[disabled][type="reset"]:focus *,
 .js__no-whereSelector input[disabled][type="submit"]:focus *,
 .js__no-whereSelector a[disabled][href].button:focus * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -13299,15 +13675,22 @@ a[disabled][data-state-focus="true"][href].button *,
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
@@ -13334,7 +13717,10 @@ a[disabled][data-state-focus="true"][href].button *,
 :where(.js__no-focusVisible) input[disabled][type="reset"]:focus *,
 :where(.js__no-focusVisible) input[disabled][type="submit"]:focus *,
 :where(.js__no-focusVisible) a[disabled][href].button:focus * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -13360,15 +13746,22 @@ a[disabled][href].button:focus-visible {
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
@@ -13391,7 +13784,10 @@ input[disabled][type="button"]:focus-visible *,
 input[disabled][type="reset"]:focus-visible *,
 input[disabled][type="submit"]:focus-visible *,
 a[disabled][href].button:focus-visible * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -13445,15 +13841,31 @@ input::file-selector-button {
         --prefix-theme-button-grey-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui, ButtonText);
-    --prefix-theme-link-icon: var(--prefix-theme-button-grey-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
+    --prefix-theme-link-icon: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border, ButtonFace);
-    background-color: var(--prefix-theme-button-grey-background, ButtonFace);
+    --prefix-background: var(
+        --prefix-theme-button-grey-background,
+        ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background, ButtonFace)
+    );
     border-color: var(--prefix-theme-button-grey-border, ButtonFace);
     color: var(--prefix-theme-button-grey-text, ButtonText);
 }
 input::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 input:hover::file-selector-button {
@@ -13461,21 +13873,31 @@ input:hover::file-selector-button {
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
 }
 input:hover::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 input[data-state-focus="true"]::file-selector-button,
@@ -13485,15 +13907,22 @@ input[data-state-focus="true"]::file-selector-button,
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
@@ -13501,7 +13930,10 @@ input[data-state-focus="true"]::file-selector-button,
 input[data-state-focus="true"]::file-selector-button *,
 .no-js input:focus::file-selector-button *,
 .js__no-whereSelector input:focus::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 :where(.js__no-focusVisible) input:focus::file-selector-button {
@@ -13509,21 +13941,31 @@ input[data-state-focus="true"]::file-selector-button *,
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
 }
 :where(.js__no-focusVisible) input:focus::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 input:focus-visible::file-selector-button {
@@ -13531,21 +13973,31 @@ input:focus-visible::file-selector-button {
         --prefix-theme-button-grey-outline-hover,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-hover,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
     color: var(--prefix-theme-button-grey-text-hover, ButtonText);
 }
 input:focus-visible::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-hover, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-hover,
+        ButtonText
+    ) !important;
 }
 
 input:active::file-selector-button,
@@ -13554,22 +14006,32 @@ input[data-state-active="true"]::file-selector-button {
         --prefix-theme-button-grey-outline-active,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-active, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-active,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-grey-ui-active,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-grey-background-active,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-grey-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
     color: var(--prefix-theme-button-grey-text-active, ButtonText);
 }
 input:active::file-selector-button *,
 input[data-state-active="true"]::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-grey-ui-active, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-grey-ui-active,
+        ButtonText
+    ) !important;
 }
 
 input[aria-disabled="true"]::file-selector-button,
@@ -13585,22 +14047,32 @@ input[disabled]::file-selector-button {
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
 }
 input[aria-disabled="true"]::file-selector-button *,
 input[disabled]::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 input[aria-disabled="true"]:hover::file-selector-button,
@@ -13619,15 +14091,22 @@ input[disabled][data-state-focus="true"]::file-selector-button,
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
@@ -13644,7 +14123,10 @@ input[disabled][data-state-focus="true"]::file-selector-button *,
 .js__no-whereSelector input[aria-disabled="true"]:focus::file-selector-button *,
 .no-js input[disabled]:focus::file-selector-button *,
 .js__no-whereSelector input[disabled]:focus::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -13655,15 +14137,22 @@ input[disabled][data-state-focus="true"]::file-selector-button *,
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
@@ -13672,7 +14161,10 @@ input[disabled][data-state-focus="true"]::file-selector-button *,
     input[aria-disabled="true"]:focus::file-selector-button
     *,
 :where(.js__no-focusVisible) input[disabled]:focus::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -13682,22 +14174,32 @@ input[disabled]:focus-visible::file-selector-button {
         --prefix-theme-button-disabled-outline,
         ButtonFace
     );
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     --prefix-theme-link-icon: var(
         --prefix-theme-button-disabled-ui,
         ButtonText
-    );
+    ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    background-color: var(
+    --prefix-background: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
     color: var(--prefix-theme-button-disabled-text, ButtonText);
 }
 input[aria-disabled="true"]:focus-visible::file-selector-button *,
 input[disabled]:focus-visible::file-selector-button * {
-    --prefix-icon-color: var(--prefix-theme-button-disabled-ui, ButtonText);
+    --prefix-icon-color: var(
+        --prefix-theme-button-disabled-ui,
+        ButtonText
+    ) !important;
     color: inherit !important;
 }
 
@@ -13760,7 +14262,11 @@ td {
         --prefix-flow-margin-firm-start--small,
         var(--prefix-mrg-firm-300, 0.8125rem)
     );
-    background: var(--prefix-theme-background, Canvas);
+    --prefix-background: var(--prefix-theme-background, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background, Canvas)
+    );
     text-align: start;
 }
 th > :first-child,
@@ -13894,12 +14400,20 @@ th samp {
 th {
     --prefix-icon-color: var(--prefix-theme-ui-primary, CanvasText);
     color: var(--prefix-theme-text-primary, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 th[scope="row"] {
     --prefix-icon-color: var(--prefix-theme-ui-secondary, CanvasText);
     color: var(--prefix-theme-text-secondary, CanvasText);
-    background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-secondary, Canvas)
+    );
 }
 @media (prefers-contrast: less),
     (prefers-contrast: no-preference),
@@ -13907,12 +14421,20 @@ th[scope="row"] {
     th {
         --prefix-icon-color: var(--prefix-theme-background, Canvas);
         color: var(--prefix-theme-background, Canvas);
-        background: var(--prefix-theme-ui-primary, CanvasText);
+        --prefix-background: var(--prefix-theme-ui-primary, CanvasText);
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-ui-primary, CanvasText)
+        );
     }
     th[scope="row"] {
         --prefix-icon-color: var(--prefix-theme-ui-secondary, CanvasText);
         color: var(--prefix-theme-text-secondary, CanvasText);
-        background: var(--prefix-theme-background-secondary, Canvas);
+        --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+        background-color: var(
+            --prefix-background,
+            var(--prefix-theme-background-secondary, Canvas)
+        );
     }
 }
 td {
@@ -14290,23 +14812,52 @@ body {
 /* # UTILITIES - THEMES & COLOURS
  * ======================================================================== */
 .background-default {
-    background: var(--prefix-theme-background, Canvas) !important;
+    --prefix-background: var(--prefix-theme-background, Canvas) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background, Canvas)
+    );
 }
 
 .background-bright {
-    background: var(--prefix-theme-background-bright, Canvas) !important;
+    --prefix-background: var(
+        --prefix-theme-background-bright,
+        Canvas
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-bright, Canvas)
+    );
 }
 
 .background-primary {
-    background: var(--prefix-theme-background-primary, Canvas) !important;
+    --prefix-background: var(
+        --prefix-theme-background-primary,
+        Canvas
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 
 .background-secondary {
-    background: var(--prefix-theme-background-secondary, Canvas) !important;
+    --prefix-background: var(
+        --prefix-theme-background-secondary,
+        Canvas
+    ) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-secondary, Canvas)
+    );
 }
 
 .background-grey {
-    background: var(--prefix-theme-background-grey, Canvas) !important;
+    --prefix-background: var(--prefix-theme-background-grey, Canvas) !important;
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-grey, Canvas)
+    );
 }
 
 .background-transparent {
@@ -14314,7 +14865,8 @@ body {
 }
 
 .color-default {
-    background: var(--prefix-theme-text, CanvasText) !important;
+    --prefix-icon-color: var(--prefix-theme-ui, CanvasText) !important;
+    color: var(--prefix-theme-text, CanvasText) !important;
 }
 
 .color-primary {
@@ -15877,7 +16429,11 @@ body {
     border-width: var(--prefix-border-width-200, 0.125rem);
     border-style: solid;
     border-radius: 0;
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
     transition:
         background 250ms ease-out,
         border-color 250ms ease-out,
@@ -15929,7 +16485,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-800, 4rem);
     border-color: var(--prefix-theme-heading-1, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h1,
@@ -15955,7 +16515,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-800, 4rem);
     border-color: var(--prefix-theme-heading-2, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h2,
@@ -15979,7 +16543,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-800, 4rem);
     border-color: var(--prefix-theme-heading-3, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h3,
@@ -16003,7 +16571,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-4, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h4,
@@ -16027,7 +16599,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-5, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h5,
@@ -16051,7 +16627,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-6, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h6,
@@ -16074,7 +16654,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-7, CanvasText);
-    background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-secondary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h7,
@@ -16095,7 +16679,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-8, CanvasText);
-    background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-secondary, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h8,
@@ -16116,7 +16704,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-500, 1.6875rem);
     border-color: var(--prefix-theme-heading-9, CanvasText);
-    background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-grey, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h9,
@@ -16137,7 +16729,11 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-500, 1.6875rem);
     border-color: var(--prefix-theme-heading-10, CanvasText);
-    background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-grey, Canvas)
+    );
 }
 .alert-block--has-heading.alert-block:has(
         .h10,
@@ -16417,7 +17013,11 @@ body {
 }
 .background-bright.alert-block {
     border-color: var(--prefix-theme-ui-primary, CanvasText);
-    background: var(--prefix-theme-background-bright, Canvas);
+    --prefix-background: var(--prefix-theme-background-bright, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-bright, Canvas)
+    );
 }
 .background-bright.alert-block > .alert-block__headline {
     color: var(--prefix-theme-text-primary, CanvasText);
@@ -16428,7 +17028,11 @@ body {
 }
 .background-primary.alert-block {
     border-color: var(--prefix-theme-ui-primary, CanvasText);
-    background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-primary, Canvas)
+    );
 }
 .background-primary.alert-block > .alert-block__headline {
     color: var(--prefix-theme-text-primary, CanvasText);
@@ -16439,7 +17043,11 @@ body {
 }
 .background-secondary.alert-block {
     border-color: var(--prefix-theme-ui-secondary, CanvasText);
-    background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-secondary, Canvas)
+    );
 }
 .background-secondary.alert-block > .alert-block__headline {
     color: var(--prefix-theme-text-secondary, CanvasText);
@@ -16452,7 +17060,11 @@ body {
 }
 .background-grey.alert-block {
     border-color: var(--prefix-theme-ui-grey, CanvasText);
-    background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    background-color: var(
+        --prefix-background,
+        var(--prefix-theme-background-grey, Canvas)
+    );
 }
 .background-grey.alert-block > .alert-block__headline {
     color: var(--prefix-theme-text-grey, CanvasText);

@@ -135,7 +135,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     }
 
     @if $background != false {
-        background: $background;
+        @include prop-background($background);
     }
 
     transition:
@@ -163,7 +163,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
         @each $variationKey in $_backgroundKeys {
             @if $variationKey != '$' {
                 &.background-#{$variationKey} {
-                    background: var-theme(background-#{$variationKey});
+                    @include prop-background(var-theme(background-#{$variationKey}));
 
                     @if $multipleContentBlocks {
                         @content (background-#{$variationKey});
@@ -250,6 +250,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 
         #{selector.nest($selector_sidebar, '>', $selector_widget)} {
             margin-block: $widget_marginBlockEnd 0;
+            width: auto;
 
             @content (widget--in-sidebar);
         }

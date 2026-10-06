@@ -1989,9 +1989,8 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
                 font-family: font-family-system-monospace();
             }
 
-            // UPGRADE - convert to style tokens
             border-radius: $borderRadius;
-            background: $background;
+            @include prop-background($background);
 
             @include theme-set-color($color) {
                 @content (all);

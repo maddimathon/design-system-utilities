@@ -11,13 +11,13 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.3
+ * @maddimathon/utility-sass@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/design-system-utilities
  */
@@ -475,9 +475,13 @@
     );
     --icon-color: var(--clr-base-800, hsl(339.5, 0%, 13.5%));
     color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 13.5%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-150, hsl(339.5, 0%, 91.5%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 91.5%)))
     );
 }
 [data-brightness-mode="light"][data-contrast-mode="average"]:where(
@@ -1046,9 +1050,13 @@
     );
     --icon-color: var(--clr-base-700, hsl(339.5, 0%, 22.5%));
     color: var(--theme-text, var(--clr-base-700, hsl(339.5, 0%, 22.5%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-200, hsl(339.5, 0%, 86%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-200, hsl(339.5, 0%, 86%)))
     );
 }
 [data-brightness-mode="light"][data-contrast-mode="low"]:where(:root, body) {
@@ -1637,9 +1645,13 @@
     );
     --icon-color: var(--clr-base-800, hsl(339.5, 0%, 13.5%));
     color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 13.5%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-100, hsl(339.5, 0%, 96.5%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-100, hsl(339.5, 0%, 96.5%)))
     );
 }
 [data-brightness-mode="light"][data-contrast-mode="high"]:where(:root, body) {
@@ -2249,12 +2261,19 @@
     --theme-ui-active-hsl: var(--clr-yellow-850-hsl, 26.5 95% 9%);
     --theme-ui-disabled: var(--clr-base-850, hsl(339.5, 0%, 9.5%));
     --theme-ui-disabled-hsl: var(--clr-base-850-hsl, 339.5 0% 9.5%);
-    --selection-background: var(--clr-pink-850, hsl(322.75, 68.25%, 11.5%));
+    --selection-background: hsla(
+        var(--clr-pink-850-hsl, 322.75 68.25% 11.5%) /
+            var(--selection-background-opacity-max, 100%)
+    );
     --icon-color: var(--clr-black, hsl(0, 0%, 0%));
     color: var(--theme-text, var(--clr-black, hsl(0, 0%, 0%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-white, hsl(305.25, 100%, 100%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-white, hsl(305.25, 100%, 100%)))
     );
 }
 [data-brightness-mode="light"][data-contrast-mode="max"]:where(:root, body) {
@@ -2895,9 +2914,13 @@
     );
     --icon-color: var(--clr-base-800, hsl(339.5, 0%, 86%));
     color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-150, hsl(339.5, 0%, 9.5%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 9.5%)))
     );
 }
 [data-brightness-mode="dark"][data-contrast-mode="average"]:where(:root, body) {
@@ -3499,9 +3522,13 @@
     );
     --icon-color: var(--clr-base-700, hsl(339.5, 0%, 75.5%));
     color: var(--theme-text, var(--clr-base-700, hsl(339.5, 0%, 75.5%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-200, hsl(339.5, 0%, 13.5%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-200, hsl(339.5, 0%, 13.5%)))
     );
 }
 [data-brightness-mode="dark"][data-contrast-mode="low"]:where(:root, body) {
@@ -4159,9 +4186,13 @@
     );
     --icon-color: var(--clr-base-800, hsl(339.5, 0%, 86%));
     color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-100, hsl(339.5, 0%, 4.5%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-100, hsl(339.5, 0%, 4.5%)))
     );
 }
 [data-brightness-mode="dark"][data-contrast-mode="high"]:where(:root, body) {
@@ -4783,10 +4814,17 @@
     --theme-ui-active-hsl: var(--clr-yellow-850-hsl, 45 82.75% 85.5%);
     --theme-ui-disabled: var(--clr-base-850, hsl(339.5, 0%, 91.5%));
     --theme-ui-disabled-hsl: var(--clr-base-850-hsl, 339.5 0% 91.5%);
-    --selection-background: var(--clr-pink-850, hsl(324.75, 81.5%, 92%));
+    --selection-background: hsla(
+        var(--clr-pink-850-hsl, 324.75 81.5% 92%) /
+            var(--selection-background-opacity-max, 100%)
+    );
     --icon-color: var(--clr-black, hsl(305.25, 100%, 100%));
     color: var(--theme-text, var(--clr-black, hsl(305.25, 100%, 100%)));
-    background: var(--theme-background, var(--clr-white, hsl(0, 0%, 0%)));
+    --background: var(--theme-background, var(--clr-white, hsl(0, 0%, 0%)));
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-white, hsl(0, 0%, 0%)))
+    );
 }
 [data-brightness-mode="dark"][data-contrast-mode="max"]:where(:root, body) {
     --focus-ring-outline-color: var(--clr-pink-850, hsl(324.75, 81.5%, 92%));
@@ -5307,7 +5345,8 @@
         --focus-ring-outline-color: ActiveText;
         --icon-color: CanvasText;
         color: CanvasText;
-        background: Canvas;
+        --background: Canvas;
+        background-color: var(--background, Canvas);
     }
 }
 /* #endregion Tokens - Theme - Selectors - light/dark mode + forced-colors contrast */

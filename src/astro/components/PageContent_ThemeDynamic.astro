@@ -186,7 +186,7 @@ const default_brightnessSet = {
             .map(({ value }) => value)
             .join(',')}
     >
-        <legend>Brightness</legend>
+        <Fragment slot='legend'>Brightness</Fragment>
         <div class='container'>
             {
                 brightnessOptions.map(({ label, value }) => (
@@ -209,7 +209,7 @@ const default_brightnessSet = {
     <Fieldset
         data-tokens-theme-dynamic-preview-theme-options={themeNames.join(',')}
     >
-        <legend>Theme Set</legend>
+        <Fragment slot='legend'>Theme Set</Fragment>
         <div class='container'>
             {
                 themeOptions.map(({ label, value }) => (
@@ -288,7 +288,7 @@ const default_brightnessSet = {
                                                 tokens.icons[backgroundSlug] ??
                                                 tokens.icons.star
                                             }
-                                            style={`background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
+                                            style={`--background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName})); background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}));`}
                                         >
                                             <Fragment slot='headline'>
                                                 Alert Block:{' '}
@@ -571,6 +571,9 @@ const default_brightnessSet = {
                 ] => !!arr[0] && !!arr[1],
             );
 
+            console.log({
+                fieldsetSelector: `fieldset[${ThemeDynamicManager.attrNames.custom}-attr][${ThemeDynamicManager.attrNames.custom}-options]`,
+            });
             console.log({ customOptions });
 
             this.customOptions = objectFromEntries(customOptions);

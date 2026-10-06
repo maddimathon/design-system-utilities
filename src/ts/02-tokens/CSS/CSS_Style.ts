@@ -1113,8 +1113,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         } as const;
 
         return {
-
-            background: 'background-grey',
+            background: partial?.background ?? 'background-grey',
 
             border: mergeArgs( {
                 color: 'ui-grey',
@@ -1492,7 +1491,7 @@ export namespace Tokens_CSS_Style {
             size?: undefined | Partial<Omit<IconStyles_Spacing[ 'size' ], '$' | 'large'>>;
         };
 
-        'letter-spacing': string;
+        'letter-spacing': TokenTypes.Css.LetterSpacing;
         'line-height': TokenTypes.Css.LineHeight;
         'text-transform': TokenTypes.Css.TextTransform;
 
@@ -1626,7 +1625,7 @@ export namespace Tokens_CSS_Style {
          * Used for input fields with the icon font family utility class.
          */
         icons: {
-            'letter-spacing': string;
+            'letter-spacing': TokenTypes.Css.LetterSpacing;
 
             offset: {
                 block: {

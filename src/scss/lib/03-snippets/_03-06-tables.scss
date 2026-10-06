@@ -135,7 +135,7 @@
         padding-inline: $paddingInline;
 
         @if $includeBaseStyles {
-            background: $background;
+            @include prop-background($background);
         }
 
         text-align: start;
@@ -169,7 +169,7 @@
             );
 
             @include theme-set-color($th_variation_primary);
-            background: var-theme(background-#{$th_variation_primary});
+            @include prop-background(var-theme(background-#{$th_variation_primary}));
         }
 
         @content (th);
@@ -177,7 +177,7 @@
         &[scope='row'] {
             @if $includeBaseStyles {
                 @include theme-set-color($th_variation_secondary);
-                background: var-theme(background-#{$th_variation_secondary});
+                @include prop-background(var-theme(background-#{$th_variation_secondary}));
             }
 
             @content (th--scope-row);
@@ -188,7 +188,7 @@
             @if $includeBaseStyles {
                 @include cx-prop(icon-color, $background);
                 color: $background;
-                background: $borderColor;
+                @include prop-background($borderColor);
             }
 
             @content (th--low-average-high-contrast);
@@ -196,7 +196,7 @@
             &[scope='row'] {
                 @if $includeBaseStyles {
                     @include theme-set-color($th_variation_secondary);
-                    background: var-theme(background-#{$th_variation_secondary});
+                    @include prop-background(var-theme(background-#{$th_variation_secondary}));
                 }
 
                 @content (th--low-average-high-contrast--scope-row);

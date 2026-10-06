@@ -1,12 +1,12 @@
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.3
+ * @maddimathon/utility-sass@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/design-system-utilities
  */
@@ -23,6 +23,8 @@
     justify-items: start;
     align-content: center;
     align-items: stretch;
+    background-color: Canvas;
+    background-color: var(--background, var(--theme-background, Canvas));
 }
 .theme-mode-swatch > :first-child,
 .theme-mode-swatch > dl:first-child > dt:first-child,
@@ -115,6 +117,8 @@
     line-height: var(--line-height-200, 1.375);
     font-size: 0.9375rem;
     font-size: var(--fs-smaller-1, 0.9375rem);
+    background-color: Canvas;
+    background-color: var(--background, var(--theme-background, Canvas));
 }
 .theme-mode-swatch .theme-mode-swatch__sample code,
 .theme-mode-swatch .theme-mode-swatch__sample kbd,
@@ -133,8 +137,9 @@
     :global(.table-wrapper):has(> table.theme-mode-swatch__shades-in-use) {
     margin-top: 0.3125rem;
     margin-top: var(--mrg-firm-100, 0.3125rem);
-    background: Canvas;
-    background: var(--theme-background, Canvas);
+    --background: var(--theme-background, Canvas);
+    background-color: Canvas;
+    background-color: var(--background, var(--theme-background, Canvas));
     width: 100%;
 }
 .theme-mode-swatch
@@ -148,8 +153,9 @@
     :global(th) {
     padding-left: 0;
     padding-right: 0;
-    background: Canvas;
-    background: var(--theme-background, Canvas);
+    --background: var(--theme-background, Canvas);
+    background-color: Canvas;
+    background-color: var(--background, var(--theme-background, Canvas));
     --icon-color: var(--theme-ui, CanvasText);
     color: CanvasText;
     color: var(--theme-text, CanvasText);

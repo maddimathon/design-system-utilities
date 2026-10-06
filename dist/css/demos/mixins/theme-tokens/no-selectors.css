@@ -11,13 +11,13 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.3
+ * @maddimathon/utility-sass@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * 
  * https://maddimathon.github.io/design-system-utilities
  */
@@ -539,9 +539,13 @@
     --theme-link-outline-disabled-hsl: var(--clr-base-600-hsl, 339.5 0% 34.5%);
     --icon-color: var(--clr-base-800, hsl(339.5, 0%, 13.5%));
     color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 13.5%)));
-    background: var(
+    --background: var(
         --theme-background,
         var(--clr-base-150, hsl(339.5, 0%, 91.5%))
+    );
+    background-color: var(
+        --background,
+        var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 91.5%)))
     );
 }
 
@@ -1204,9 +1208,13 @@
         );
         --icon-color: var(--clr-base-800, hsl(339.5, 0%, 13.5%));
         color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 13.5%)));
-        background: var(
+        --background: var(
             --theme-background,
             var(--clr-base-150, hsl(339.5, 0%, 91.5%))
+        );
+        background-color: var(
+            --background,
+            var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 91.5%)))
         );
     }
 }
@@ -1837,9 +1845,13 @@
         );
         --icon-color: var(--clr-base-700, hsl(339.5, 0%, 22.5%));
         color: var(--theme-text, var(--clr-base-700, hsl(339.5, 0%, 22.5%)));
-        background: var(
+        --background: var(
             --theme-background,
             var(--clr-base-200, hsl(339.5, 0%, 86%))
+        );
+        background-color: var(
+            --background,
+            var(--theme-background, var(--clr-base-200, hsl(339.5, 0%, 86%)))
         );
     }
 }
@@ -2517,9 +2529,13 @@
         );
         --icon-color: var(--clr-base-800, hsl(339.5, 0%, 13.5%));
         color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 13.5%)));
-        background: var(
+        --background: var(
             --theme-background,
             var(--clr-base-100, hsl(339.5, 0%, 96.5%))
+        );
+        background-color: var(
+            --background,
+            var(--theme-background, var(--clr-base-100, hsl(339.5, 0%, 96.5%)))
         );
     }
 }
@@ -3180,9 +3196,13 @@
         );
         --icon-color: var(--clr-base-800, hsl(339.5, 0%, 86%));
         color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)));
-        background: var(
+        --background: var(
             --theme-background,
             var(--clr-base-150, hsl(339.5, 0%, 9.5%))
+        );
+        background-color: var(
+            --background,
+            var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 9.5%)))
         );
     }
 }
@@ -3857,9 +3877,13 @@
         );
         --icon-color: var(--clr-base-700, hsl(339.5, 0%, 75.5%));
         color: var(--theme-text, var(--clr-base-700, hsl(339.5, 0%, 75.5%)));
-        background: var(
+        --background: var(
             --theme-background,
             var(--clr-base-200, hsl(339.5, 0%, 13.5%))
+        );
+        background-color: var(
+            --background,
+            var(--theme-background, var(--clr-base-200, hsl(339.5, 0%, 13.5%)))
         );
     }
 }
@@ -4608,9 +4632,13 @@
         );
         --icon-color: var(--clr-base-800, hsl(339.5, 0%, 86%));
         color: var(--theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)));
-        background: var(
+        --background: var(
             --theme-background,
             var(--clr-base-100, hsl(339.5, 0%, 4.5%))
+        );
+        background-color: var(
+            --background,
+            var(--theme-background, var(--clr-base-100, hsl(339.5, 0%, 4.5%)))
         );
     }
 }
@@ -4957,7 +4985,8 @@
         --focus-ring-outline-color: ActiveText;
         --icon-color: CanvasText;
         color: CanvasText;
-        background: Canvas;
+        --background: Canvas;
+        background-color: var(--background, Canvas);
     }
 }
 /* #endregion Tokens - Theme - Queries - light/dark mode + forced-colors contrast */

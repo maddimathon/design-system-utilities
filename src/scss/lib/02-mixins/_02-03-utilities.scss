@@ -62,19 +62,25 @@ $_firmFlowMarginChildren: list.join(
 
     @if $includeChildren and $useNotInsteadOfChildren {
         &:not(#{$firmFlowMarginChildren}) {
-            margin-block-#{$marginSide}: $soft #{$importantSuffix};
+            @each $_mrg in $soft {
+                margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+            }
 
             @content;
         }
     } @else if $includeRoot {
-        margin-block-#{$marginSide}: $soft #{$importantSuffix};
+        @each $_mrg in $soft {
+            margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+        }
 
         @content;
     }
 
     @if $includeChildren and not $useNotInsteadOfChildren {
         @at-root #{selector.unify(&, $firmFlowMarginChildren)} {
-            margin-block-#{$marginSide}: $firm #{$importantSuffix};
+            @each $_mrg in $firm {
+                margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+            }
 
             @if not $includeRoot {
                 @content;

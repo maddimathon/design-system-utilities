@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.3
+ * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -362,7 +362,7 @@ export declare namespace Tokens_CSS_Style {
             color?: undefined | string;
             size?: undefined | Partial<Omit<IconStyles_Spacing['size'], '$' | 'large'>>;
         };
-        'letter-spacing': string;
+        'letter-spacing': TokenTypes.Css.LetterSpacing;
         'line-height': TokenTypes.Css.LineHeight;
         'text-transform': TokenTypes.Css.TextTransform;
         margin: {
@@ -472,7 +472,7 @@ export declare namespace Tokens_CSS_Style {
          * Used for input fields with the icon font family utility class.
          */
         icons: {
-            'letter-spacing': string;
+            'letter-spacing': TokenTypes.Css.LetterSpacing;
             offset: {
                 block: {
                     start: TokenTypes.Css.Number.Em;

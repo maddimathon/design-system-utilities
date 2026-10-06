@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0-beta.3
+/// @package @maddimathon/design-system-utilities@0.1.0-beta.4.draft
 /// @since 0.1.0-alpha
 ///
 
@@ -2160,9 +2160,8 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
                 font-family: font-family-system-monospace();
             }
 
-            // UPGRADE - convert to style tokens
             border-radius: $borderRadius;
-            background: $background;
+            @include prop-background($background);
 
             @include theme-set-color($color) {
                 @content (all);

@@ -27,11 +27,13 @@ export type * from './Metadata_Item.astro';
 import BrandPhotoList_Sample_Metadata_License from './Metadata_License.astro';
 export type * from './Metadata_License.astro';
 
-export {
+const brandPhotoComponents = {
     BrandPhotoList_Sample_Metadata,
     BrandPhotoList_Sample_Metadata_Caption,
     BrandPhotoList_Sample_Metadata_Credit,
     BrandPhotoList_Sample_Metadata_Files,
     BrandPhotoList_Sample_Metadata_Item,
     BrandPhotoList_Sample_Metadata_License,
-};
+} as const;
+
+export default brandPhotoComponents;

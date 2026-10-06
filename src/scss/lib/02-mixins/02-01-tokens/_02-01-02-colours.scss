@@ -766,7 +766,9 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     );
 
     @if $background != false {
-        background: if($background, $background, var-theme(background, $themeTokenArgs...));
+        @include utils.prop-background(
+            if($background, $background, var-theme(background, $themeTokenArgs...))
+        );
     }
 
     @if $multipleContentBlocks {
@@ -999,21 +1001,14 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         $extra_tokens: map.set(
             $extra_tokens,
             selection-background,
-            if(
-                style-token-exists(selection-background-opacity-#{$contrast}),
-                theme-token-value(
-                    selection-background,
-                    $opacity: var-style(selection-background-opacity-#{$contrast}),
-                    $_themeTokenValueProps...
-                ),
-                if(
-                    $flat_isValues,
-                    map.get($flattened, selection-background),
-                    var-clr-from-theme-token(
-                        map.get($flattened, selection-background),
-                        $brightness: $brightness
-                    )
-                )
+            theme-token-value(
+                selection-background,
+                $opacity: var-style(
+                        selection-background-opacity-#{$contrast},
+                        $value_failureReturn: 100%,
+                        $value_warnOnFail: false
+                    ),
+                $_themeTokenValueProps...
             )
         );
 

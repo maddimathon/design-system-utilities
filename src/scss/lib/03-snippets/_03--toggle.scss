@@ -82,13 +82,17 @@ $_closing_time: do-var(toggle-closing-time, var-tr-time(toggle));
 ///
 /// @since 0.1.0-beta.0
 ///
-@function snippet-toggle-block-base--transition-list--content--container($bool) {
+@function snippet-toggle-block-base--transition-list--content--container(
+    $bool,
+    $quicker_fade,
+    $transition_delay
+) {
     $_transitionList: (
         string.unquote(
-            'opacity #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
+            'opacity #{if($bool or not $quicker_fade, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} #{$transition_delay}'
         ),
         string.unquote(
-            'visibility #{if($bool, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} 100ms'
+            'visibility #{if($bool or not $quicker_fade, $_closing_time, var-tr-time(normal))} #{tokens.$transition_function} #{$transition_delay}'
         )
     );
 
@@ -96,6 +100,7 @@ $_closing_time: do-var(toggle-closing-time, var-tr-time(toggle));
         $_transitionList: list.join(
             $_transitionList,
             (
+                string.unquote('height #{$_closing_time} #{tokens.$transition_function} 0ms'),
                 string.unquote('margin #{$_closing_time} #{tokens.$transition_function} 0ms'),
                 string.unquote('padding #{$_closing_time} #{tokens.$transition_function} 0ms')
             ),
@@ -167,12 +172,22 @@ $_closing_time: do-var(toggle-closing-time, var-tr-time(toggle));
     @return 0ms, 0ms;
 }
 
-@mixin _toggle-block--base--motion-props($bool, $svg_sel_static, $svg_sel_moving) {
+@mixin _toggle-block--base--motion-props(
+    $bool,
+    $quicker_fade,
+    $svg_sel_static,
+    $svg_sel_moving,
+    $transition_delay
+) {
     [data-toggle-content] {
         transition: snippet-toggle-block-base--transition-list--content($bool);
 
         > .container {
-            transition: snippet-toggle-block-base--transition-list--content--container($bool);
+            transition: snippet-toggle-block-base--transition-list--content--container(
+                $bool: $bool,
+                $quicker_fade: $quicker_fade,
+                $transition_delay: $transition_delay
+            );
         }
     }
 
@@ -308,8 +323,13 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
     $backdrop_opacity_before: $_backdrop_opacity_before,
     $backdrop_opacity_after: $_backdrop_opacity_after,
     //
+    $backdrop_transition: do-var(transition-toggle),
+    //
     $svg_sel_moving: $_toggle_svg_sel_moving,
     $svg_sel_static: $_toggle_svg_sel_static,
+    //
+    $quicker_fade: true,
+    $transition_delay: 100ms,
     //
     $args...
 ) {
@@ -341,7 +361,7 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
             &,
             &::before,
             &::after {
-                transition: do-var(transition-toggle);
+                transition: $backdrop_transition;
 
                 @content (#{$location}--self-before-after);
             }
@@ -428,16 +448,20 @@ $_content_border_style_fallback: var-style(toggle-content-border-style);
         @include motion {
             @include _toggle-block--base--motion-props(
                 true,
+                $quicker_fade: $quicker_fade,
                 $svg_sel_static: $svg_sel_static,
-                $svg_sel_moving: $svg_sel_moving
+                $svg_sel_moving: $svg_sel_moving,
+                $transition_delay: $transition_delay
             );
         }
 
         @include no-motion {
             @include _toggle-block--base--motion-props(
                 false,
+                $quicker_fade: $quicker_fade,
                 $svg_sel_static: $svg_sel_static,
-                $svg_sel_moving: $svg_sel_moving
+                $svg_sel_moving: $svg_sel_moving,
+                $transition_delay: $transition_delay
             );
         }
     }
@@ -776,7 +800,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         @else if $location == js--toggle-content {
             line-height: var-style(toggle-content-line-height);
 
-            background: $content_background;
+            @include prop-background($content_background);
 
             border-width: $content_borderWidth;
             border-block-end-width: 0;
@@ -965,7 +989,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             );
             border-block-end-color: do-var(toggle-border-color, var-theme(link-ui));
 
-            background: var-style(toggle-nav-title-background);
+            @include prop-background(var-style(toggle-nav-title-background));
 
             @content ($location);
 
@@ -981,7 +1005,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             border-block-start: none;
             border-inline-width: $title_borderWidth;
 
-            background: var-style(toggle-nav-content-background);
+            @include prop-background(var-style(toggle-nav-content-background));
 
             @content ($location);
         }
