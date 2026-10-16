@@ -269,7 +269,7 @@ const buttons: {
                     ui: {
                         state,
                         key: `button-${variation}-ui${keySuffix}`,
-                        value: typeof value.text === 'object' ? value.text[key] : value.text,
+                        value: typeof value.ui === 'object' ? value.ui[key] : value.ui,
                     },
                 };
             }
@@ -396,12 +396,17 @@ const inputField = {
         <p
             class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
         ><samp set:text='theme-selection-text' /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: theme.data.selection.text}} /></p>
+        {/* <VariableDump
+            components={components}
+            name='autoTokens'
+            var={autoTokens}
+        /> */}
         {
             autoTokens.map((_tokens) => (
                 <Heading
                     heading={heading + 1}
                     displayHeading={displayHeading + 1}
-                    set:text={`${_tokens.key == 'ui' ? _tokens.key.toUpperCase() : toTitleCase(_tokens.key)} Tokens`}
+                    set:text={_tokens.key == 'ui' ? _tokens.key.toUpperCase() : toTitleCase(_tokens.key)}
                 />
                 <Fragment>{ _tokens.variations ? _tokens.variations.map( ( { key, value } ) => (
                     <p

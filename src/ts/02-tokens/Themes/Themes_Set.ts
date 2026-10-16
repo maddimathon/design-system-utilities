@@ -2029,57 +2029,45 @@ export namespace Tokens_Themes_Set {
                 } = inputParam;
 
                 const dataCompleter = <
-                    T_VariationKey extends "background" | "text",
-                    T_LevelsKey extends "background" | "text" | "ui" = T_VariationKey,
+                    T_LevelsKey extends "background" | "text" | "ui",
                 >(
-                    _variation: T_VariationKey,
-                    _levels: T_LevelsKey | null = null,
-                    _opts: ( "includeUniversal" )[] = [],
-                ): CompleteData[ T_VariationKey ] => {
+                    _levels: T_LevelsKey,
+                ): CompleteData[ T_LevelsKey ] => {
+                    const _overrides = overrides[ _levels ];
 
-                    const _overrides = overrides[ _variation ] ?? {};
-
-                    const _variationKey = _variation in variations
-                        ? _variation as keyof typeof variations & T_VariationKey
-                        : 'universal';
-
-                    const _variationsObj = _opts.includes( 'includeUniversal' )
-                        ? {
-                            ...variations.universal,
-                            ...variations[ _variationKey ],
-                        }
-                        : variations[ _variationKey ];
-
-                    const _levelsKey = _levels && _levels in levels ? _levels : _variation;
+                    const _partialVariations = {
+                        $: variations.base,
+                        ...variations.universal,
+                        ...( _levels === 'ui' ? variations.text : variations[ _levels as Exclude<typeof _levels, 'ui'> ] ),
+                    } as const satisfies {
+                        [ K in '$' | keyof CompleteData[ T_LevelsKey ] ]?: any;
+                    };
 
                     return objectMap(
-                        {
-                            $: variations.base,
-                            ..._variationsObj,
-                        } as typeof _variationsObj,
+                        _partialVariations,
                         ( [ key, clrName ] ): TokenTypes.Theme.ColourOption<T_ColourTypes> => {
                             // returns
-                            if ( _overrides[ key as keyof typeof _overrides ] ) {
-                                return _overrides[ key as keyof typeof _overrides ];
+                            if ( _overrides && key in _overrides && _overrides[ key ] ) {
+                                return _overrides[ key ];
                             }
 
                             let _lvl: undefined | TokenTypes.Colour.AnyLevel<T_ColourTypes> =
-                                levels[ _levelsKey ][ key as "$" ];
+                                levels[ _levels ][ key as "$" ];
 
                             if ( !_lvl && key === 'disabled' ) {
-                                _lvl = ( levels[ _levelsKey ] as Levels.Set.AccentMin<T_ColourTypes> ).min;
+                                _lvl = ( levels[ _levels ] as Levels.Set.AccentMin<T_ColourTypes> ).min;
                             }
 
-                            return clrOpt( clrName, _lvl ?? levels[ _levelsKey ].accent );
+                            return clrOpt( clrName, _lvl ?? levels[ _levels ].accent );
                         },
-                    ) as CompleteData[ T_VariationKey ];
+                    ) as CompleteData[ T_LevelsKey ];
                 };
 
-                const background = dataCompleter( 'background', null, [ 'includeUniversal' ] );
+                const background = dataCompleter( 'background' );
 
-                const text: CompleteData[ 'text' ] = dataCompleter( 'text', null, [ 'includeUniversal' ] );
+                const text = dataCompleter( 'text' );
 
-                const ui: CompleteData[ 'ui' ] = dataCompleter( 'text', 'ui', [ 'includeUniversal' ] );
+                const ui = dataCompleter( 'ui' );
 
                 const heading: CompleteData[ 'heading' ] = objectGenerator(
                     SingleMode.allHeadingLevels,

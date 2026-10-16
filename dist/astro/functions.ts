@@ -8,7 +8,6 @@
  * @license MIT
  */
 
-export * from './functions/astroConfig.js';
 export * from './functions/colourToArray.js';
 export * from './functions/getColourValue.js';
 export * from './functions/makeShadeTargetLevels.js';

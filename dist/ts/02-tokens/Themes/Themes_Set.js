@@ -621,36 +621,28 @@ export class Tokens_Themes_Set extends AbstractTokens {
             async function data(inputParam, overrides = {}) {
                 const clrOpt = colourOption;
                 const { levels, variations, } = inputParam;
-                const dataCompleter = (_variation, _levels = null, _opts = []) => {
-                    const _overrides = overrides[_variation] ?? {};
-                    const _variationKey = _variation in variations
-                        ? _variation
-                        : 'universal';
-                    const _variationsObj = _opts.includes('includeUniversal')
-                        ? {
-                            ...variations.universal,
-                            ...variations[_variationKey],
-                        }
-                        : variations[_variationKey];
-                    const _levelsKey = _levels && _levels in levels ? _levels : _variation;
-                    return objectMap({
+                const dataCompleter = (_levels) => {
+                    const _overrides = overrides[_levels];
+                    const _partialVariations = {
                         $: variations.base,
-                        ..._variationsObj,
-                    }, ([key, clrName]) => {
+                        ...variations.universal,
+                        ...(_levels === 'ui' ? variations.text : variations[_levels]),
+                    };
+                    return objectMap(_partialVariations, ([key, clrName]) => {
                         // returns
-                        if (_overrides[key]) {
+                        if (_overrides && key in _overrides && _overrides[key]) {
                             return _overrides[key];
                         }
-                        let _lvl = levels[_levelsKey][key];
+                        let _lvl = levels[_levels][key];
                         if (!_lvl && key === 'disabled') {
-                            _lvl = levels[_levelsKey].min;
+                            _lvl = levels[_levels].min;
                         }
-                        return clrOpt(clrName, _lvl ?? levels[_levelsKey].accent);
+                        return clrOpt(clrName, _lvl ?? levels[_levels].accent);
                     });
                 };
-                const background = dataCompleter('background', null, ['includeUniversal']);
-                const text = dataCompleter('text', null, ['includeUniversal']);
-                const ui = dataCompleter('text', 'ui', ['includeUniversal']);
+                const background = dataCompleter('background');
+                const text = dataCompleter('text');
+                const ui = dataCompleter('ui');
                 const heading = objectGenerator(SingleMode.allHeadingLevels, (hdgNum) => overrides.heading?.[hdgNum] ?? clrOpt(variations.heading[hdgNum] ?? variations.heading[10], levels.heading[hdgNum]));
                 const linkCompleter = (_subKey, _levelsKey) => {
                     const _overrides = overrides.link?.[_subKey];

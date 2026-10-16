@@ -14141,7 +14141,7 @@ body
             > :where(.main-content__article, aside, .main-sidebar)
             > :is(.main-subgrid)
     )
-    > :where(*) {
+    > * {
     --grid-column: content-start/content-end;
     grid-column: content-start/content-end;
     grid-column: var(--grid-column, content-start/content-end);
@@ -14178,7 +14178,7 @@ body
                 > :is(.main-subgrid)
         )
         > .display-contents
-        > :where(*) {
+        > * {
         grid-column: content-start/content-end;
         grid-column: var(--grid-column, content-start/content-end);
     }
@@ -14309,7 +14309,7 @@ body {
     padding: 0;
     z-index: 1;
 }
-:where(body) > :where(*) + :where(*) {
+:where(body) > * + * {
     margin-top: max(1.625rem, min(5svw, 3.125rem));
     margin-top: max(1.625rem, min(5svw, 3.125rem));
     margin-top: var(--gap-block-layout, 5vw);
@@ -14339,21 +14339,20 @@ body
     margin-right: 0;
 }
 
-:where(body) > :where(nav, header, footer) > :where(*) {
+:where(body) > :where(nav, header, footer) > * {
     --grid-column: content-start/content-end;
     grid-column: content-start/content-end;
     grid-column: var(--grid-column, content-start/content-end);
     width: auto;
 }
 @media (width >= 40.875em) {
-    :where(body) > :where(nav, header, footer) > :where(*) {
+    :where(body) > :where(nav, header, footer) > * {
         --grid-column: page-start/page-end;
         grid-column: page-start/page-end;
         grid-column: var(--grid-column, page-start/page-end);
         width: auto;
     }
 }
-
 body > :where(aside, .main-sidebar),
 body > :where(main) > :where(aside, .main-sidebar) {
     margin-top: max(1.625rem, min(5svw, 3.125rem));
@@ -14362,7 +14361,7 @@ body > :where(main) > :where(aside, .main-sidebar) {
     margin-bottom: 0;
 }
 
-:where(.layout_content-only) > :where(header) > :where(*) {
+:where(.layout_content-only) > :where(header) > * {
     --grid-column: content-start/content-end;
     grid-column: content-start/content-end;
     grid-column: var(--grid-column, content-start/content-end);
@@ -17728,13 +17727,13 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
             [data-toggle-content] > .container,
             [data-toggle-content]
         )
-        > :where(*) {
+        > * {
         width: auto;
     }
-    .toggle-block .toggle-block__title > :where(*),
-    .toggle-block > :where(*),
-    [data-toggle-content] > .container > :where(*),
-    [data-toggle-content] > :where(*) {
+    .toggle-block .toggle-block__title > *,
+    .toggle-block > *,
+    [data-toggle-content] > .container > *,
+    [data-toggle-content] > * {
         grid-column: content-start/content-end;
         grid-column: var(--grid-column, content-start/content-end);
     }

@@ -14,7 +14,7 @@ import type {
     Locales,
 } from 'astro';
 
-import { } from 'astro/config';
+// import { } from 'astro/config';
 
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
 
