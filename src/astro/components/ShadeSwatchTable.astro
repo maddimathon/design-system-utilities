@@ -528,7 +528,7 @@ const TARGET_HSL_CLRS = {
                     aria-hidden="true"
                     data-brightness-mode='light'
                     style={`background: var(--clr-white, ${TARGET_HSL_CLRS.white})`}
-                ><article
+                ><div
                     class:list={['container', 'shade-swatch']}
                     data-brightness-mode='light'
                     data-shade-swatch-has-background={true}
@@ -543,7 +543,7 @@ const TARGET_HSL_CLRS = {
                         typeof goalLevels.base[ColourUtilities.Levels.Any],
                     ][]
                 ).map( ([level, set]) => set && <th> 
-                    <article
+                    <section
                         class:list={['container', 'shade-swatch']}
                         data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
                         data-shade-swatch-has-background={true}
@@ -769,13 +769,13 @@ const TARGET_HSL_CLRS = {
                                 </div>
                             ) }
                         </div>
-                    </article>
+                    </section>
                 </th>  ) }</Fragment>
                 <th 
                     aria-hidden="true"
                     data-brightness-mode='dark'
                     style={`background: var(--clr-white, ${TARGET_HSL_CLRS.black})`}
-                ><article
+                ><div
                     class:list={['container', 'shade-swatch']}
                     data-brightness-mode='dark'
                     data-shade-swatch-has-background={true}
@@ -867,11 +867,11 @@ const TARGET_HSL_CLRS = {
     )
 }
 
+<ShadeSwatchTable_Scripts />
+
 <style lang="scss">
     @forward '../scss/shade-swatch';
 </style>
 <style lang="scss" is:global>
     @forward '../scss/shade-swatch-table';
 </style>
-
-<ShadeSwatchTable_Scripts />

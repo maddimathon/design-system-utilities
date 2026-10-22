@@ -1387,7 +1387,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 $includeEmpty: false,
                 // $includeInline: false,
                 $includeOnlyChild: false,
-                // $includePseudoIcons: false,
+                $includePseudoIcons: false,
                 $multipleContentBlocks: true,
                 //
                 $args...
@@ -2595,6 +2595,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     $includeFileSelector: true,
     $includeInline: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
+    $button_includePseudoIcons: $includePseudoIcons,
     //
     $mixin_addPseudoFileSelectorButton: null,
     $mixin_button: null,
@@ -2631,7 +2632,9 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
     );
 
     %button-span {
-        @include snippet-button-span($gap: false);
+        @include snippet-button-span($gap: false) {
+            @content (button-span);
+        }
     }
 
     %button {
@@ -2640,18 +2643,22 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                 $includeColours: false,
                 $includeDisabled: $includeDisabled,
                 $includeInline: $includeInline,
-                $includePseudoIcons: $includePseudoIcons,
+                $includePseudoIcons: $button_includePseudoIcons,
                 $includePseudoIcons_disabled: false,
                 $multipleContentBlocks: true,
                 $mixin_button_colours: $mixin_button_colours
             )
             using ($location) {
             @if $location == root {
+                @content (button--#{$location});
+
                 @at-root {
                     @if $includePseudoIcons {
                         #{config.selector-button-disabled('%button-basic')},
                         %button-form-reset,
                         %button-form-submit {
+                            @content (button--any-icon);
+
                             &::before {
                                 @include snippet-icon-pseudo-element(
                                     null,
@@ -2660,33 +2667,45 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                                 ) {
                                     align-self: center;
                                     justify-self: center;
+
+                                    @content (button--any-icon--before);
                                 }
                             }
                         }
 
                         %button-form-reset {
+                            @content (button--reset-icon);
+
                             &::before {
                                 @include snippet-icon-pseudo-element(
                                     reset,
                                     before,
                                     $includeBaseProps: false,
                                     $spacing: false
-                                );
+                                ) {
+                                    @content (button--reset-icon--before);
+                                }
                             }
                         }
 
                         %button-form-submit {
+                            @content (button--submit-icon);
+
                             &::before {
                                 @include snippet-icon-pseudo-element(
                                     submit,
                                     before,
                                     $includeBaseProps: false,
                                     $spacing: false
-                                );
+                                ) {
+                                    @content (button--submit-icon--before);
+                                }
                             }
                         }
 
                         #{config.selector-button-disabled('%button-basic')} {
+                            @content (button--disabled-icon);
+
                             &::before {
                                 @include snippet-icon-pseudo-element(
                                     disabled,
@@ -2694,11 +2713,15 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin(
                                     $important: true,
                                     $includeBaseProps: false,
                                     $spacing: false
-                                );
+                                ) {
+                                    @content (button--disabled-icon--before);
+                                }
                             }
                         }
                     }
                 }
+            } @else {
+                @content (button--#{$location});
             }
         }
     }

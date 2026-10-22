@@ -153,20 +153,21 @@ label.shade-swatch-table__display-control__label {
     --shade-swatch-contrast-result-group-single-min-max-column-count: 1 !important;
     grid-column: 5;
 }
-.shade-swatch-table__wrapper > table[data-shade-swatch-table-no-text='true'] {
+.shade-swatch-table__wrapper[data-shade-swatch-table-no-text='true'] > table {
     --shade-swatch-color-override: transparent !important;
     --shade-swatch-display-override: none !important;
 }
-.shade-swatch-table__wrapper
-    > table[data-shade-swatch-table-no-text='true']
-    li
-    .shade-swatch,
-.shade-swatch-table__wrapper
-    > table[data-shade-swatch-table-no-text='true']
-    td
+.shade-swatch-table__wrapper[data-shade-swatch-table-no-text='true']
+    > table
     .shade-swatch {
     min-width: 1rem;
     min-width: var(--shade-swatch-table-swatch-not-text-min-width, 1rem);
+}
+.shade-swatch-table__wrapper[data-shade-swatch-table-no-text='true']
+    > table
+    th
+    > .shade-swatch {
+    display: none !important;
 }
 
 .shade-swatch-table__display-control__label {

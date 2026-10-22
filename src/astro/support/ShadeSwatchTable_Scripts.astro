@@ -25,7 +25,7 @@
         'input[data-shade-swatch-table-display-text-toggle]',
     ) as NodeListOf<HTMLInputElement>;
 
-    controls.forEach((checkbox) => {
+    controls.forEach((checkbox, i) => {
         const tableId = checkbox.getAttribute(
             'data-shade-swatch-table-display-text-toggle',
         );
@@ -44,8 +44,9 @@
 
         const storageKey = `data-shade-swatch-table-no-text#${tableId}`;
 
-        if (localStorage.getItem(storageKey) == 'true') {
+        if (localStorage.getItem(storageKey)) {
             checkbox.checked = true;
+
             tables.forEach((table) =>
                 table.setAttribute('data-shade-swatch-table-no-text', 'true'),
             );

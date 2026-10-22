@@ -146,7 +146,7 @@ $_contrastColWidth: minmax(3.5ch, min-content);
         }
     }
 
-    > table[data-shade-swatch-table-no-text='true'] {
+    &[data-shade-swatch-table-no-text='true'] > table {
         @include lib.cx-prop(
             shade-swatch-color-override,
             transparent,
@@ -158,13 +158,16 @@ $_contrastColWidth: minmax(3.5ch, min-content);
             $important: true
         );
 
-        li,
-        td {
-            .shade-swatch {
-                min-width: lib.do-var(
-                    shade-swatch-table-swatch-not-text-min-width,
-                    1rem
-                );
+        .shade-swatch {
+            min-width: lib.do-var(
+                shade-swatch-table-swatch-not-text-min-width,
+                1rem
+            );
+        }
+
+        th {
+            > .shade-swatch {
+                display: none !important;
             }
         }
     }

@@ -50,6 +50,13 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 
     $_root_additional: (
         #{selector.nest(&, '>', ':first-child')},
+        #{selector.nest(
+                &,
+                '>',
+                selector.unify(':first-child', $selector_header),
+                '>',
+                ':first-child'
+            )},
         #{$_root_sels}
     );
 

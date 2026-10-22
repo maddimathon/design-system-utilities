@@ -443,11 +443,11 @@ const inputField = {
                         class:list={['button-span | theme-mode-swatch__button-span']}
                     >{ Object.values( variation.states ).map( ( state ) => (
                         <Button
-                            aria-disabled={ variation.name === 'disabled' ? true : undefined }
                             class:list={ [
                                 'theme-mode-swatch__sample',
                                 'theme-mode-swatch__sample--button',
                             ] }
+                            disabled={variation.name === 'disabled'}
                             style={ [
                                 state.border?.value && `border-color: ${getCssColourForThemePreview(tokens, brightness, state.border.value)} !important`,
                                 state.background?.value && `--background: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`,
@@ -522,13 +522,12 @@ const inputField = {
         />
         { Object.entries( inputField ).map( ( [variation, fieldSet] ) => Object.values(fieldSet).map( ( state ) => (
             <FormField
-                aria-disabled={ variation === 'disabled' ? 'true' : undefined }
                 class:list={ [
                     'theme-mode-swatch__sample',
                     'theme-mode-swatch__sample--input',
                 ] }
                 components={components}
-                disabled={ variation === 'disabled' ? 'true' : undefined }
+                disabled={variation === 'disabled'}
                 id={`theme-mode-swatch__sample__${variation}__${state.background.state ?? 'base'}`}
                 labelAttrs={{ class: "screen-reader-text" }}
                 placeholder={ variation === '$' ? state.background.label : '' }
@@ -601,13 +600,12 @@ const inputField = {
         >
             { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
                 <FormField
-                    aria-disabled={ variation === 'disabled' ? 'true' : undefined }
                     class:list={ [
                         'theme-mode-swatch__sample',
                         'theme-mode-swatch__sample--input',
                     ] }
                     components={components}
-                    disabled={ variation === 'disabled' ? 'true' : undefined }
+                    disabled={variation === 'disabled'}
                     id={`theme-mode-swatch__sample__${variation}__preview`}
                     labelAttrs={{ class: "screen-reader-text" }}
                     placeholder={ variation === '$' ? 'This is a placeholder value.' : '' }

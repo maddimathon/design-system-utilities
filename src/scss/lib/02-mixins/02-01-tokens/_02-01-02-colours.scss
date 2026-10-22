@@ -571,8 +571,9 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
 ///
 /// @since 0.1.0-beta.0
+/// @since ___PKG_VERSION___ — Made public.
 ///
-@mixin _tokens-theme-individual-selectors--root-body-or-direct-child(
+@mixin tokens-theme-individual-selectors--root-body-or-direct-child(
     $parsedParentSelector: null,
     $noWhereRootOrBody: false
 ) {
@@ -778,7 +779,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     }
 
     @if $focusRing_setChildrenOnly {
-        @include _tokens-theme-individual-selectors--root-body-or-direct-child(
+        @include tokens-theme-individual-selectors--root-body-or-direct-child(
                 $_parentSel,
                 $noWhereRootOrBody: $noWhereRootOrBody
             )
@@ -902,11 +903,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
 ///
 /// @since 0.1.0-beta.0
+/// @since ___PKG_VERSION___ — Made public.
 ///
-@mixin _tokens-theme-individual--extras-printer($tokens, $isImportant) {
+@mixin tokens-theme-individual--extras-printer($tokens, $asImportant) {
     @each $prop, $value in map.ksort($tokens) {
         $prop_args: (
-            important: $isImportant,
+            important: $asImportant,
         );
 
         @if meta.type-of($value) == map {
@@ -1056,9 +1058,9 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
         $_propIsImportant: $contrast == forced-colors;
 
-        @include _tokens-theme-individual--extras-printer(
+        @include tokens-theme-individual--extras-printer(
             $tokens: $extra_tokens,
-            $isImportant: $_propIsImportant
+            $asImportant: $_propIsImportant
         );
 
         @if $multipleContentBlocks {
@@ -1087,9 +1089,9 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         $flattened_raw: $flattened_raw_childrenOnly
                     );
 
-                    @include _tokens-theme-individual--extras-printer(
+                    @include tokens-theme-individual--extras-printer(
                         $tokens: $extra_tokens_children,
-                        $isImportant: $_propIsImportant
+                        $asImportant: $_propIsImportant
                     );
                 }
 
@@ -1104,7 +1106,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                 @content (base--root);
             }
 
-            @include _tokens-theme-individual-selectors--root-body-or-direct-child(
+            @include tokens-theme-individual-selectors--root-body-or-direct-child(
                     $noWhereRootOrBody: $noWhereRootOrBody
                 )
                 using ($location) {
@@ -1130,9 +1132,9 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         $flattened_raw: $flattened_raw_childrenOnly
                     );
 
-                    @include _tokens-theme-individual--extras-printer(
+                    @include tokens-theme-individual--extras-printer(
                         $tokens: $extra_tokens_children,
-                        $isImportant: $_propIsImportant
+                        $asImportant: $_propIsImportant
                     );
                 }
 
@@ -1164,7 +1166,7 @@ $_themes_includeAlternatives: if(
     $includeAlternatives: $_themes_includeAlternatives,
 
     $includeDefault: config.$mx_tokensTheme_includeDefault,
-    $includeDefaultSelectors: config.$mx_tokensTheme_includeDefaultSelectors,
+    $includeDefaultSelectors: $includeDefault and config.$mx_tokensTheme_includeDefaultSelectors,
 
     $includeQuery: config.$mx_colourMode_includeQuery,
     $includeSelectors: config.$mx_colourMode_includeSelectors,

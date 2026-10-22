@@ -8,11 +8,11 @@ import type { ClassList, ElementProps } from '@maddimathon/utility-astro';
  */
 
 /* import - types */
-import type { HTMLAttributes } from 'astro/types';
 import type {
     ButtonComponentType,
     ButtonProps_Button,
     FormFieldComponentType,
+    InputProps,
 } from '@maddimathon/utility-astro/components';
 
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
@@ -52,8 +52,13 @@ export type SearchFormProps = {
     inputLabel?: string;
 
     input?: Omit<
-        HTMLAttributes<'input'>,
-        'aria-label' | 'aria-labelledby' | 'placeholder' | 'style' | 'type'
+        InputProps,
+        | 'aria-label'
+        | 'aria-labelledby'
+        | 'disabled'
+        | 'placeholder'
+        | 'style'
+        | 'type'
     > & {
         style?: string | null | undefined;
     };

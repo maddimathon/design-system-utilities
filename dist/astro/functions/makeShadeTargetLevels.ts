@@ -27,6 +27,9 @@ export async function makeShadeTargetLevels<
 >(
     sampleColourName: TokenTypes.Colour.GenericName<T_Types[ 'colour' ][ 'names' ]>,
     targetShadeMap: undefined | Tokens_Colour_ShadeMap.JsonReturn<T_Types[ 'colour' ]>,
+    { withMatchedPairs }: Partial<{
+        withMatchedPairs: boolean;
+    }> = {}
 ): Promise<LevelTargets<T_Types[ 'colour' ]> | undefined> {
     // returns
     if ( !targetShadeMap ) {
@@ -75,100 +78,103 @@ export async function makeShadeTargetLevels<
         },
     );
 
-    const getMaxLevel = (
-        _lvlA?:
+    if ( withMatchedPairs ) {
+
+        const getMaxLevel = (
+            _lvlA?:
+                | undefined
+                | ColourUtilities.Levels.Required
+                | T_Types[ 'colour' ][ 'extraLevels' ],
+            _lvlB?:
+                | undefined
+                | ColourUtilities.Levels.Required
+                | T_Types[ 'colour' ][ 'extraLevels' ],
+        ):
             | undefined
             | ColourUtilities.Levels.Required
-            | T_Types[ 'colour' ][ 'extraLevels' ],
-        _lvlB?:
-            | undefined
-            | ColourUtilities.Levels.Required
-            | T_Types[ 'colour' ][ 'extraLevels' ],
-    ):
-        | undefined
-        | ColourUtilities.Levels.Required
-        | T_Types[ 'colour' ][ 'extraLevels' ] => {
-        // returns
-        if ( !_lvlA || !_lvlB ) {
-            return undefined;
+            | T_Types[ 'colour' ][ 'extraLevels' ] => {
+            // returns
+            if ( !_lvlA || !_lvlB ) {
+                return undefined;
+            }
+
+            _lvlB = ColourUtilities.Levels.toDark( _lvlB );
+
+            const num_A = Number( _lvlA );
+            const num_B = Number( _lvlB );
+
+            return Math.max( num_A, num_B ).toString() as
+                | ColourUtilities.Levels.Required
+                | T_Types[ 'colour' ][ 'extraLevels' ];
+        };
+
+        for ( const [ _t_level_a, _t_level_b ] of matchedPairs ) {
+
+            const level_a = _t_level_a as
+                | ColourUtilities.Levels.Required
+                | T_Types[ 'colour' ][ 'extraLevels' ];
+
+            const level_b = _t_level_b as
+                | ColourUtilities.Levels.Required
+                | T_Types[ 'colour' ][ 'extraLevels' ];
+
+            // continues
+            if ( !current[ level_a ] || !current[ level_b ] ) {
+                continue;
+            }
+
+            const corrected_a = {
+                min: {
+                    aa: {
+                        ui: getMaxLevel(
+                            current[ level_a ].min.aa.ui,
+                            current[ level_b ].min.aa.ui,
+                        ),
+                        text: getMaxLevel(
+                            current[ level_a ].min.aa.text,
+                            current[ level_b ].min.aa.text,
+                        ),
+                    },
+                    aaa: {
+                        ui: getMaxLevel(
+                            current[ level_a ].min.aaa.ui,
+                            current[ level_b ].min.aaa.ui,
+                        ),
+                        text: getMaxLevel(
+                            current[ level_a ].min.aaa.text,
+                            current[ level_b ].min.aaa.text,
+                        ),
+                    },
+                },
+                max: getMaxLevel( current[ level_a ].max, current[ level_b ].max ),
+            } satisfies LevelTargets[ Exclude<keyof typeof targetShadeMap, 'name'> ];
+
+            current[ level_a ] = corrected_a;
+
+            current[ level_b ] = {
+                min: {
+                    aa: {
+                        ui:
+                            corrected_a.min.aa.ui &&
+                            ColourUtilities.Levels.toDark( corrected_a.min.aa.ui ),
+                        text:
+                            corrected_a.min.aa.text &&
+                            ColourUtilities.Levels.toDark( corrected_a.min.aa.text ),
+                    },
+                    aaa: {
+                        ui:
+                            corrected_a.min.aaa.ui &&
+                            ColourUtilities.Levels.toDark( corrected_a.min.aaa.ui ),
+                        text:
+                            corrected_a.min.aaa.text &&
+                            ColourUtilities.Levels.toDark( corrected_a.min.aaa.text ),
+                    },
+                },
+                max:
+                    corrected_a.max &&
+                    ColourUtilities.Levels.toDark( corrected_a.max ),
+            } satisfies LevelTargets[ Exclude<keyof typeof targetShadeMap, 'name'> ];
         }
-
-        _lvlB = ColourUtilities.Levels.toDark( _lvlB );
-
-        const num_A = Number( _lvlA );
-        const num_B = Number( _lvlB );
-
-        return Math.max( num_A, num_B ).toString() as
-            | ColourUtilities.Levels.Required
-            | T_Types[ 'colour' ][ 'extraLevels' ];
-    };
-
-    for ( const [ _t_level_a, _t_level_b ] of matchedPairs ) {
-
-        const level_a = _t_level_a as
-            | ColourUtilities.Levels.Required
-            | T_Types[ 'colour' ][ 'extraLevels' ];
-
-        const level_b = _t_level_b as
-            | ColourUtilities.Levels.Required
-            | T_Types[ 'colour' ][ 'extraLevels' ];
-
-        // continues
-        if ( !current[ level_a ] || !current[ level_b ] ) {
-            continue;
-        }
-
-        const corrected_a = {
-            min: {
-                aa: {
-                    ui: getMaxLevel(
-                        current[ level_a ].min.aa.ui,
-                        current[ level_b ].min.aa.ui,
-                    ),
-                    text: getMaxLevel(
-                        current[ level_a ].min.aa.text,
-                        current[ level_b ].min.aa.text,
-                    ),
-                },
-                aaa: {
-                    ui: getMaxLevel(
-                        current[ level_a ].min.aaa.ui,
-                        current[ level_b ].min.aaa.ui,
-                    ),
-                    text: getMaxLevel(
-                        current[ level_a ].min.aaa.text,
-                        current[ level_b ].min.aaa.text,
-                    ),
-                },
-            },
-            max: getMaxLevel( current[ level_a ].max, current[ level_b ].max ),
-        } satisfies LevelTargets[ Exclude<keyof typeof targetShadeMap, 'name'> ];
-
-        current[ level_a ] = corrected_a;
-
-        current[ level_b ] = {
-            min: {
-                aa: {
-                    ui:
-                        corrected_a.min.aa.ui &&
-                        ColourUtilities.Levels.toDark( corrected_a.min.aa.ui ),
-                    text:
-                        corrected_a.min.aa.text &&
-                        ColourUtilities.Levels.toDark( corrected_a.min.aa.text ),
-                },
-                aaa: {
-                    ui:
-                        corrected_a.min.aaa.ui &&
-                        ColourUtilities.Levels.toDark( corrected_a.min.aaa.ui ),
-                    text:
-                        corrected_a.min.aaa.text &&
-                        ColourUtilities.Levels.toDark( corrected_a.min.aaa.text ),
-                },
-            },
-            max:
-                corrected_a.max &&
-                ColourUtilities.Levels.toDark( corrected_a.max ),
-        } satisfies LevelTargets[ Exclude<keyof typeof targetShadeMap, 'name'> ];
     }
 
     return current;

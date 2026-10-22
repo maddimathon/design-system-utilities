@@ -52,8 +52,8 @@ type Props_Components = {
 } & PartialExcept<LoremIpsumProps.Components, 'Heading'> &
     Partial<ThemeModeSwatchProps_Components>;
 
-interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
-    tokens: Tokens.JsonReturn<T_Types>;
+interface Props {
+    tokens: Tokens.JsonReturn<TokenTypes.TypeParams>;
 
     /**
      * @since 0.1.0-beta.3
@@ -111,16 +111,31 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
      * @since 0.1.0-alpha.4
      */
     yardstick?:
-        | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>
+        | Tokens_Colour_ShadeMap.JsonReturn<TokenTypes.TypeParams['colour']>
         | {
-              base: Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
+              base: Tokens_Colour_ShadeMap.JsonReturn<
+                  TokenTypes.TypeParams['colour']
+              >;
 
               /**
                * Colour name to use to find target contrast from base shades.
                */
               accent?:
-                  string | Tokens_Colour_ShadeMap.JsonReturn<T_Types['colour']>;
+                  | string
+                  | Tokens_Colour_ShadeMap.JsonReturn<
+                        TokenTypes.TypeParams['colour']
+                    >;
           };
+
+    /**
+     * Options for how yardstick targets are generated.
+     *
+     * @since ___PKG_VERSION___
+     */
+    yardstickOpts?: Parameters<typeof makeShadeTargetLevels>[2] &
+        Partial<{
+            alwaysUseBase: boolean;
+        }>;
 }
 
 const {
@@ -129,6 +144,10 @@ const {
     include: _include,
     tokens,
     yardstick,
+    yardstickOpts: {
+        alwaysUseBase: yardstick_alwaysUseBase = true,
+        ...yardstickOpts
+    } = {},
 }: Props = Astro.props;
 
 const components = {
@@ -178,16 +197,28 @@ const yardsticks = yardstick
 
 const levelTargets = yardsticks?.base
     ? {
-          base: await makeShadeTargetLevels('base', yardsticks.base),
+          base: await makeShadeTargetLevels(
+              'base',
+              yardsticks.base,
+              yardstickOpts,
+          ),
+
           accent: yardsticks?.accent
               ? typeof yardsticks.accent === 'object'
                   ? await makeShadeTargetLevels(
-                        'accent',
+                        yardstick_alwaysUseBase && yardsticks.accent
+                            ? 'base'
+                            : 'accent',
                         yardsticks.accent ?? yardsticks.base,
+                        yardstickOpts,
                     )
                   : await makeShadeTargetLevels(
-                        yardsticks.accent,
+                        yardstick_alwaysUseBase &&
+                            tokens.colour[yardsticks.accent]
+                            ? 'base'
+                            : yardsticks.accent,
                         tokens.colour[yardsticks.accent] ?? yardsticks.base,
+                        yardstickOpts,
                     )
               : undefined,
       }

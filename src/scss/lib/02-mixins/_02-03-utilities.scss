@@ -9,6 +9,8 @@
 @use 'pkg:@maddimathon/utility-sass/selector';
 @use 'pkg:@maddimathon/utility-sass/string';
 
+@use 'pkg:@maddimathon/utility-astro/lib/mixins' as utils;
+
 @use '../../config';
 // @use '../../tokens';
 
@@ -553,4 +555,18 @@ $_firmFlowMarginChildren: list.join(
     ) {
         @content;
     }
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin prop-background-default($args...) {
+    @include utils.prop-background(var-theme(background), $args...);
+}
+
+///
+/// @since ___PKG_VERSION___
+///
+@mixin prop-background-inherit($setCxProp: null, $args...) {
+    @include prop-background-default($setCxProp: false, $args...);
 }

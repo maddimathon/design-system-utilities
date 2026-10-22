@@ -19,7 +19,7 @@
         )
     );
 
-    @include prop-background(var-theme(background), $setCxProp: false);
+    @include prop-background-default;
 
     @include first-child-no-top-margin;
     @include last-child-no-bottom-margin;
@@ -29,7 +29,7 @@
         line-height: var-line-height('200');
         font-size: var-fs(smaller-1);
 
-        @include prop-background(var-theme(background), $setCxProp: false);
+        @include prop-background-inherit;
 
         %code,
         %kbd,
@@ -48,15 +48,16 @@
 
     :global(.table-wrapper):has(> table.theme-mode-swatch__shades-in-use) {
         margin-block-start: var-mrg-firm('100');
-        @include prop-background(var-theme(background));
         width: 100%;
+
+        @include prop-background-default;
 
         > :global(table.theme-mode-swatch__shades-in-use) {
             border-spacing: 0;
 
             :global(th) {
                 padding-inline: 0;
-                @include prop-background(var-theme(background));
+                @include prop-background-default;
                 @include theme-set-color;
             }
         }
