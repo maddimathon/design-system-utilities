@@ -152,6 +152,18 @@ export declare namespace TokenTypes {
              * @since 0.1.0-beta.0
              */
             type Percent = 0 | `${number}%` | `-${number}%`;
+            /**
+             * A number with em units.
+             *
+             * @since 0.1.0-beta.4.draft
+             */
+            type Rem = 0 | `${number}rem` | `-${number}rem`;
+            /**
+             * A number with em or rem units.
+             *
+             * @since 0.1.0-beta.4.draft
+             */
+            type Relative = Em | Rem;
         }
         /**
          * @since 0.1.0-alpha

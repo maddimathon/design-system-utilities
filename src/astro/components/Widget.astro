@@ -75,13 +75,15 @@ const {
 
 const ctaButtonsHTML = (await Astro.slots.render('cta-buttons'))?.trim();
 
+const hgroupHTML = (await Astro.slots.render('hgroup'))?.trim();
+
 const headingHTML = (await Astro.slots.render('heading'))?.trim();
 
 const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
 ---
 
 {
-    (headingHTML || subheadingHTML) && (
+    (hgroupHTML || headingHTML || subheadingHTML) && (
         <DynamicWrapper
             {...attributes}
             class:list={makeClassList('widget-block', classList)}
@@ -89,28 +91,32 @@ const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
         >
             <slot name='prefix' />
 
-            {headingHTML && (
+            {(hgroupHTML || headingHTML) && (
                 <header
                     class:list={[
                         'widget-block__header',
                         hideHeading && 'screen-reader-text',
                     ]}
                 >
-                    <Heading
-                        attrs={{
-                            hgroup: { class: 'widget-block__hgroup' },
-                            subheading: { class: 'widget-block__subtitle' },
-                        }}
-                        class:list='widget-block__title'
-                        displayHeading={displayHeading}
-                        heading={heading}
-                    >
-                        <Fragment set:html={headingHTML} />
-                        <Fragment
-                            slot='subheading'
-                            set:html={subheadingHTML}
-                        />
-                    </Heading>
+                    {hgroupHTML ? (
+                        <Fragment set:html={hgroupHTML} />
+                    ) : (
+                        <Heading
+                            attrs={{
+                                hgroup: { class: 'widget-block__hgroup' },
+                                subheading: { class: 'widget-block__subtitle' },
+                            }}
+                            class:list='widget-block__title'
+                            displayHeading={displayHeading}
+                            heading={heading}
+                        >
+                            <Fragment set:html={headingHTML} />
+                            <Fragment
+                                slot='subheading'
+                                set:html={subheadingHTML}
+                            />
+                        </Heading>
+                    )}
                 </header>
             )}
 

@@ -517,7 +517,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $selector_control: selector.append($selector_container, '__control'),
     // $selector_control_backdrop: '[data-toggle-control-backdrop]',
     // $selector_control_icon: selector.append($selector_control, '__icon'),
-    // $selector_control_inner: selector.append($selector_control, '__inner'),
+    $selector_control_inner: selector.append($selector_control, '__inner'),
     // $selector_title: selector.append($selector_container, '__title'),
     // $selector_title_heading: selector.append($selector_container, '__title__heading'),
     //
@@ -564,7 +564,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             $selector_control: $selector_control,
             // $selector_control_backdrop: $selector_control_backdrop,
             // $selector_control_icon: $selector_control_icon,
-            // $selector_control_inner: $selector_control_inner,
+            $selector_control_inner: $selector_control_inner,
             // $selector_title: $selector_title,
             // $selector_title_heading: $selector_title_heading,
             //
@@ -725,11 +725,14 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--toggle-title--heading {
+            padding-block: 0;
             @content ($location);
 
             // INDIVIDUAL HEADINGS
             @each $slug in token-all-heading-levels() {
                 @at-root #{selector.unify(&, '%h#{$slug}')} {
+                    // padding-block: 0;
+
                     @content (#{$location}--h#{$slug});
 
                     #{$selector_control} {
@@ -744,6 +747,10 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                                 $value_warnOnFail: false
                             );
 
+                        @content (#{$location}--h#{$slug}--control);
+                    }
+
+                    #{$selector_control_inner} {
                         padding-block: var-style(
                                 toggle-control-heading-#{$slug}-padding-block-start,
                                 $value_failureReturn: $control_paddingBlockStart,
@@ -755,20 +762,27 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                                 $value_warnOnFail: false
                             );
 
-                        @content (#{$location}--h#{$slug}--control);
+                        @content (#{$location}--h#{$slug}--control-inner);
                     }
                 }
             }
 
             // UNSTYLED HEADINGS
             @at-root #{selector.unify(&, ('%unstyled-heading', '%unstyled-heading--where'))} {
+                // padding-block: 0;
+
                 @content (#{$location}--unstyled-heading);
 
                 #{$selector_control} {
                     margin-block: 0 $control_marginBlockEnd;
-                    padding-block: $control_paddingBlockStart $control_paddingBlockEnd;
 
                     @content (#{$location}--unstyled-heading--control);
+                }
+
+                #{$selector_control_inner} {
+                    padding-block: $control_paddingBlockStart $control_paddingBlockEnd;
+
+                    @content (#{$location}--unstyled-heading--control-inner);
                 }
             }
         }

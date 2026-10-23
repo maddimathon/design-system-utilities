@@ -6,6 +6,14 @@
  */
 
 /* import - types */
+import type { HTMLTag } from 'astro/types';
+
+import type {
+    ClassList,
+    GenericElementProps,
+} from '@maddimathon/utility-astro';
+import type { DynamicWrapperProps } from '@maddimathon/utility-astro/components';
+
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
@@ -13,16 +21,17 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 /* import - values */
 
 /* import - components */
-import type {
-    ClassList,
-    GenericElementProps,
-} from '@maddimathon/utility-astro';
+import components from '@maddimathon/utility-astro/components';
+const { DynamicWrapper } = components;
 
 /* import - layouts */
 
 /* PROPS ===================================== */
 
-export type LogoProps = {
+export type LogoProps<T_Tag extends HTMLTag = HTMLTag> = Omit<
+    DynamicWrapperProps<T_Tag>,
+    'children'
+> & {
     logo: SvgMaker.JsonReturn;
     class?: ClassList;
 };
@@ -33,13 +42,14 @@ const {
     logo,
     'class': classList = [],
     'aria-hidden': ariaHidden = false,
+    tag = 'div',
     ...attributes
 }: Props = Astro.props?.frontmatter ?? Astro.props;
 
 /* CONSTANTS ===================================== */
 ---
 
-<div
+<DynamicWrapper
     {...attributes}
     aria-hidden={ariaHidden ? true : undefined}
     class:list={[
@@ -48,10 +58,11 @@ const {
         { '||': classList },
         classList,
     ]}
+    tag={tag}
 >
     <Fragment
         set:html={ariaHidden
             ? logo.svgInlineHidden.trim()
             : logo.svgInlineLabelled.trim()}
     />
-</div>
+</DynamicWrapper>

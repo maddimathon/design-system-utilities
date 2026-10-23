@@ -819,7 +819,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);
     }
 
-    @if $includeIconSpacingProps {
+    @if $includeIconSpacingProps and not $includeChildren_link {
         @include props-icon-spacing(if($slug, heading-#{$slug}, null), $includeBase: $includeBase);
     }
 
@@ -1179,6 +1179,16 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeChildren_link {
+        @if $includeIconSpacingProps {
+            @at-root &,
+                #{selector.nest(&, config.$selector_a)} {
+                @include props-icon-spacing(
+                    if($slug, heading-#{$slug}, null),
+                    $includeBase: $includeBase
+                );
+            }
+        }
+
         %a {
             @if $includeBase_children {
                 @include cx-prop(focus-ring-outline-offset, $link_focusOutlineOffset);

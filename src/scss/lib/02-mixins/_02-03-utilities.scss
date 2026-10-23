@@ -570,3 +570,22 @@ $_firmFlowMarginChildren: list.join(
 @mixin prop-background-inherit($setCxProp: null, $args...) {
     @include prop-background-default($setCxProp: false, $args...);
 }
+
+///
+/// Gets the background prop var, if applicable.
+///
+/// @since ___PKG_VERSION___
+///
+@function var-prop-background($fallback: var-theme(background), $args...) {
+    @return if(
+        config.$mx_prop_useCustom_background,
+        do-var(
+            background,
+            $fallback,
+            $allPrefixes: config.$mx_propBackground_allPrefixes,
+            $onlyFallbackPrefix: config.$mx_propBackground_onlyFallbackPrefix,
+            $args...
+        ),
+        $fallback
+    );
+}

@@ -1543,7 +1543,7 @@ export namespace Tokens_CSS_Style {
      */
     export type IconStyles_Spacing = {
         buffer: {
-            $: TokenTypes.Css.Number.Em;
+            $: TokenTypes.Css.Number.Relative;
             start: number;
             end: number;
         };
@@ -1764,8 +1764,8 @@ export namespace Tokens_CSS_Style {
 
         icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
-                start: TokenTypes.Css.Number.Em;
-                end: TokenTypes.Css.Number.Em;
+                start: TokenTypes.Css.Number.Relative;
+                end: TokenTypes.Css.Number.Relative;
             };
 
             size: IconStyles<never>[ 'size' ][ '$' ];

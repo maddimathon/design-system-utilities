@@ -404,7 +404,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type IconStyles_Spacing = {
         buffer: {
-            $: TokenTypes.Css.Number.Em;
+            $: TokenTypes.Css.Number.Relative;
             start: number;
             end: number;
         };
@@ -570,8 +570,8 @@ export declare namespace Tokens_CSS_Style {
         'flow-margin': FlowMargin.WithSelfFirm;
         icon: Pick<IconStyles<never>, 'vertical-align'> & {
             buffer: {
-                start: TokenTypes.Css.Number.Em;
-                end: TokenTypes.Css.Number.Em;
+                start: TokenTypes.Css.Number.Relative;
+                end: TokenTypes.Css.Number.Relative;
             };
             size: IconStyles<never>['size']['$'];
         };

@@ -196,6 +196,20 @@ export namespace TokenTypes {
              * @since 0.1.0-beta.0
              */
             export type Percent = 0 | `${ number }%` | `-${ number }%`;
+
+            /**
+             * A number with em units.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export type Rem = 0 | `${ number }rem` | `-${ number }rem`;
+
+            /**
+             * A number with em or rem units.
+             * 
+             * @since ___PKG_VERSION___
+             */
+            export type Relative = Em | Rem;
         }
 
         /**
