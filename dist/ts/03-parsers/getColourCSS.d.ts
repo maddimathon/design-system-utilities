@@ -20,4 +20,6 @@ import type { Tokens_Themes } from '../02-tokens/Tokens_Themes.js';
 export declare function getColourCSS<T_Types extends TokenTypes.TypeParams>(tokens: Tokens.JsonReturn<T_Types> | {
     themes: Tokens_Themes.ScssVars<T_Types['colour'], T_Types['theme']>;
     colour: undefined | Tokens_Colour.ScssVars<T_Types['colour']>;
-}, brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>, _clrSlug: string | string[], convertToVarFn?: boolean): string;
+}, brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>, _clrSlug: string | string[], convertToVarFn?: boolean | ((slug: string, value: string) => string), opts?: Partial<{
+    modernOpacitySyntax: boolean;
+}>): string;

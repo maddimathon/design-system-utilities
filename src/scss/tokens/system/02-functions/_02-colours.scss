@@ -32,9 +32,24 @@
     $opacity: null,
     $version: null,
     $fallbackOnly: false,
+    $neverReplaceWithValue: null,
     $warnOnFail: true,
     $args...
 ) {
+    @if $neverReplaceWithValue == null {
+        @if config.$fn_var_neverReplaceWithValue_colour_regex {
+            $neverReplaceWithValue: meta.is-truthy(
+                string.match(
+                    $slug,
+                    config.$fn_var_neverReplaceWithValue_colour_regex,
+                    $flags: config.$fn_var_neverReplaceWithValue_colour_regex_flags
+                )
+            );
+        } @else {
+            $neverReplaceWithValue: false;
+        }
+    }
+
     $clrVarSlug: clr-#{$slug};
 
     @if $slug == 'white' or $slug == white or $slug == 'black' or $slug == black {
@@ -74,12 +89,14 @@
 
     $slugMap: map.get(breakdown.$colour, $slug);
 
+    $fallbackOnly: ($fallbackOnly or config.$fn_var_replaceWithValue_colour) and
+        (not $neverReplaceWithValue);
+
     // prettier-ignore
     $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
         (
             (not $fallbackOnly) or
-            config.custom-property-prefix-all-exists() or
-            (not config.$fn_var_replaceWithValue_colour)
+            config.custom-property-prefix-all-exists()
         );
 
     // returns
@@ -122,11 +139,7 @@
                     '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)}, #{$opacity})'
                 )
             ),
-            if(
-                $version,
-                config.config-do-var($clrVarSlug, $args...),
-                config.config-do-var($clrVarSlug, $args...)
-            )
+            config.config-do-var($clrVarSlug, $args...)
         );
     }
 
@@ -154,6 +167,8 @@
 
     $fallback: $fallback_clr;
 
+    $fallbackOnly: $fallbackOnly and meta.type-of($fallback_clr) == color;
+
     // opacity returns if not a preset
     @if $opacity != null {
         @if config.$mx_tokensColour_presetOpacities_include and
@@ -171,7 +186,7 @@
                 $_var: config.config-do-var(
                     $clrVarSlug,
                     $fallback: colour.to-rgb-list($fallback_clr, $round: true),
-                    $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_colour,
+                    $fallbackOnly: $fallbackOnly,
                     $args...
                 );
 
@@ -180,7 +195,7 @@
                 $_var: config.config-do-var(
                     $clrVarSlug,
                     $fallback: colour.to-hsl-list($fallback_clr, $round: false),
-                    $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_colour,
+                    $fallbackOnly: $fallbackOnly,
                     $args...
                 );
 
@@ -195,12 +210,7 @@
         $fallback: colour.to-hsl($fallback_clr, $round: false);
     }
 
-    @return config.config-do-var(
-        $clrVarSlug,
-        $fallback,
-        $fallbackOnly: $fallbackOnly or config.$fn_var_replaceWithValue_colour,
-        $args...
-    );
+    @return config.config-do-var($clrVarSlug, $fallback, $fallbackOnly: $fallbackOnly, $args...);
 }
 
 ///

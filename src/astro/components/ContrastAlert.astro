@@ -55,15 +55,13 @@ const varClr = clr && getColourValue(clr);
 
 <div
     class:list={['contrast-alert', { '||': classList }, classList]}
-    data-brightness-mode='light'
+    data-brightness-mode={brightness ??
+        (Number(level) > 500 ? 'light' : 'dark')}
     style={varClr ? `--contrast-alert-color: ${varClr};` : undefined}
     title={title ?? clrSlug}
 >
     {icons?.[type] ? <Icon icon={icons[type]} /> : <AstroIcon type={type} />}
     <span
-        data-brightness-mode={(brightness ?? Number(level) <= 500)
-            ? 'dark'
-            : 'light'}
         set:text={level}
         style='background: transparent;'
     />

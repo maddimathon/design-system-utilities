@@ -6,12 +6,23 @@
  */
 
 /* import - types */
+import type { ComponentProps } from 'astro/types';
+
 import type { GenericElementProps } from '@maddimathon/utility-astro';
-import type { HeadingComponentType } from '@maddimathon/utility-astro/components';
+import type {
+    ButtonComponentType,
+    DynamicWrapperComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 
-import type { AllPhotos, AllThumbnails } from './BrandPhoto.astro';
+import type { BrandPhotoList_Sample_MetadataProps } from './BrandPhotoList_Sample';
+import type {
+    AllPhotos,
+    AllThumbnails,
+    BrandPhotoComponentType,
+} from './BrandPhoto.astro';
 
 /* import - functions */
 import { getPhotoData } from './BrandPhoto.astro';
@@ -20,13 +31,11 @@ import { getPhotoData } from './BrandPhoto.astro';
 
 /* import - components */
 import {
+    DynamicWrapper,
     Heading as HeadingComponent,
-    // VariableDump,
 } from '@maddimathon/utility-astro/components';
 
 import BrandPhotoList_Sample from './BrandPhotoList_Sample.astro';
-import type { ComponentProps } from 'astro/types';
-import type { BrandPhotoList_Sample_MetadataProps } from './BrandPhotoList_Sample';
 
 /* import - layouts */
 
@@ -38,8 +47,11 @@ export interface BrandPhotoListProps<T_Types extends TokenTypes.TypeParams = Tok
     defineSize?: boolean;
 
     components?: Partial<{
+        BrandPhoto: BrandPhotoComponentType;
+        Button: ButtonComponentType;
         Heading: HeadingComponentType;
-        SampleComponent?: (props: ComponentProps<typeof BrandPhotoList_Sample>) => any;
+        SampleComponent: (props: ComponentProps<typeof BrandPhotoList_Sample>) => any;
+        Wrapper: DynamicWrapperComponentType;
     }>;
 
     heading: number;
@@ -79,8 +91,11 @@ const {
     ...attrs
 }: Props = Astro.props;
 
-const { Heading = HeadingComponent, SampleComponent = BrandPhotoList_Sample } =
-    components;
+const {
+    Heading = HeadingComponent,
+    SampleComponent = BrandPhotoList_Sample,
+    Wrapper = DynamicWrapper,
+} = components;
 
 /* FUNCTIONS ===================================== */
 
@@ -134,7 +149,7 @@ const photosOnly = photosData
             aria-label='Image details, previews, and links'
         >
             {photosOnly.map((data) => (
-                <div class='brand-photo-list__sample-container'>
+                <Wrapper class='brand-photo-list__sample-container'>
                     <Heading
                         class:list={{
                             'screen-reader-text': displayHeading < 0,
@@ -165,7 +180,7 @@ const photosOnly = photosData
                             wrapItems,
                         }}
                     />
-                </div>
+                </Wrapper>
             ))}
         </section>
     )

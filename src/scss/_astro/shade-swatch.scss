@@ -4,8 +4,10 @@
 ///
 
 @use 'lib/config';
+@use '../tokens';
 @use 'lib' as *;
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/selector';
 
 /* # COLOUR SHADE SWATCH ==================================== */
@@ -77,8 +79,14 @@ $_var_contrastResultGroupColumnCount: do-var(
             @include set-font-style(normal, $letterSpacing: normal, $setChildren: true);
 
             :global(.shade-swatch-table__wrapper) & {
-                font-weight: 700;
+                font-weight: tokens.$fontWeight_bold;
                 font-size: var-fs(heading-10);
+
+                @if tokens.$fontWeight_bold_variable {
+                    @include feature-check.supports(variableFonts) {
+                        font-weight: tokens.$fontWeight_bold_variable;
+                    }
+                }
             }
         }
     }

@@ -9,6 +9,11 @@
 import type { HTMLAttributes } from 'astro/types';
 import type { ElementProps } from '@maddimathon/utility-astro';
 
+import type {
+    ButtonComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
+
 /* import - functions */
 
 /* import - values */
@@ -22,11 +27,16 @@ import type { ElementProps } from '@maddimathon/utility-astro';
 /* PROPS ===================================== */
 
 type Props  = ElementProps<{
+    components?: Partial<{
+        Button: ButtonComponentType;
+        Heading: HeadingComponentType;
+    }>;
     label: string;
     wrapItems?: boolean | HTMLAttributes<'div'>;
 }, 'dd'>
 
 const {
+    components,
     label,
     wrapItems = false,
     class: defClassList,

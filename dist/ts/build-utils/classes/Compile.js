@@ -47,21 +47,25 @@ export class Compile extends CompileStage {
      * @category Running
      */
     async buildTokens(tokens, level, paths, args = {}) {
-        await buildTokens(this, tokens, level, paths, args);
+        await this.atry(buildTokens, 0, [this, tokens, level, paths, args]);
     }
     async astro() {
-        await this.customCopySubstage('astro');
+        await this.atry(this.customCopySubstage.bind(this), 0, ['astro']);
     }
     async scss() {
-        await this.customCopySubstage('scss');
+        await this.atry(this.customCopySubstage.bind(this), 0, ['scss']);
     }
     async templates(sassDebugCheckpoints = false, { maxConcurrent, ...args } = {}) {
-        await this.customScssSubstage.dir('template', this.getDistDir(undefined, 'css'), {
-            postCSS: true,
-            ...args,
-            maxConcurrent: maxConcurrent ?? (sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 10),
-            srcDir: 'src/scss',
-        });
+        await this.atry(this.customScssSubstage.dir, 0, [
+            'template',
+            this.getDistDir(undefined, 'css'),
+            {
+                postCSS: true,
+                ...args,
+                maxConcurrent: maxConcurrent ?? (sassDebugCheckpoints && (this.params.debug || this.params.verbose) ? 1 : 10),
+                srcDir: 'src/scss',
+            },
+        ]);
     }
     async tokens() {
         this.console.log('🚨 Compile.tokens substage is not implemented', 1);

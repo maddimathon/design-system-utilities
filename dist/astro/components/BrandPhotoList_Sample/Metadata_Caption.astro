@@ -6,6 +6,11 @@
  */
 
 /* import - types */
+import type {
+    ButtonComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
+
 import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
 
 import type { PhotoData } from '../BrandPhoto.astro';
@@ -27,6 +32,12 @@ import BrandPhoto_Caption from '../BrandPhoto_Caption.astro';
 
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     buttonSpacer: string;
+
+    components: {
+        Button: ButtonComponentType;
+        Heading: HeadingComponentType;
+    };
+
     data: PhotoData<
         T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']
     >;
@@ -34,6 +45,7 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
 
 const {
     buttonSpacer,
+    components,
     data: { meta },
 }: Props = Astro.props;
 
@@ -41,14 +53,16 @@ const {
 ---
 
 <p>
-    <samp><BrandPhoto_Caption meta={meta} /></samp><Fragment
+    <samp><BrandPhoto_Caption {...{ components, meta }} /></samp><Fragment
         set:html={buttonSpacer}
     /><CopyToClipboardButton
+        {...{ components }}
         class:list='display-inline'
         successMessage='copied!'
         toClipboard={captionText({ meta })}
         set:text='copy'
     /><Fragment set:html={buttonSpacer} /><CopyToClipboardButton
+        {...{ components }}
         class:list='display-inline'
         successMessage='copied! (HTML)'
         toClipboard={captionHTML({ meta })}

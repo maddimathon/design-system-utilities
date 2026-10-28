@@ -1365,6 +1365,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $paddingBlock: var-style(widget-padding-block),
     $paddingInline: var-style(widget-padding-inline),
     //
+    $backgroundInheritOnly: false,
     $includeColours: config.$mx_fieldset_includeClrs,
     $includeChildren: true
 ) {
@@ -1385,7 +1386,13 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     @if $includeColours {
         border-color: $borderClr;
-        @include prop-background($background);
+
+        @if $backgroundInheritOnly {
+            @include prop-background-inherit($background);
+        } @else {
+            @include prop-background($background);
+        }
+
         color: $color;
     }
 
@@ -2498,14 +2505,12 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
     }
 
     @if $includeColours {
-        @if tokens.$button_variation_default != tokens.$button_inline_variation_default {
-            %button-basic:is(.display-inline) {
-                @include meta.apply(
-                    $mixin_button_colours,
-                    $variation: tokens.$button_inline_variation_default,
-                    $mixin_button_colour_single_state: $mixin_button_colour_single_state
-                );
-            }
+        %button-basic:is(.display-inline) {
+            @include meta.apply(
+                $mixin_button_colours,
+                $variation: tokens.$button_inline_variation_default,
+                $mixin_button_colour_single_state: $mixin_button_colour_single_state
+            );
         }
 
         @each $variation in tokens.$themesMeta_buttonVariations {

@@ -84,15 +84,27 @@ export class Compile extends CompileStage {
         paths: buildTokens.Paths,
         args: Partial<buildTokens.Args> = {},
     ): Promise<void> {
-        await buildTokens( this, tokens, level, paths, args );
+        await this.atry(
+            buildTokens,
+            0,
+            [ this, tokens, level, paths, args ],
+        );
     }
 
     protected async astro(): Promise<void> {
-        await this.customCopySubstage( 'astro' );
+        await this.atry(
+            this.customCopySubstage.bind( this ),
+            0,
+            [ 'astro' ],
+        );
     }
 
     protected override async scss(): Promise<void> {
-        await this.customCopySubstage( 'scss' );
+        await this.atry(
+            this.customCopySubstage.bind( this ),
+            0,
+            [ 'scss' ],
+        );
     }
 
     protected async templates(
@@ -100,15 +112,19 @@ export class Compile extends CompileStage {
         { maxConcurrent, ...args }: Partial<AbstractStage.customScssSubstage.Opts> = {},
     ): Promise<void> {
 
-        await this.customScssSubstage.dir(
-            'template',
-            this.getDistDir( undefined, 'css' ),
-            {
-                postCSS: true,
-                ...args,
-                maxConcurrent: maxConcurrent ?? ( sassDebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 10 ),
-                srcDir: 'src/scss',
-            },
+        await this.atry(
+            this.customScssSubstage.dir,
+            0,
+            [
+                'template',
+                this.getDistDir( undefined, 'css' ),
+                {
+                    postCSS: true,
+                    ...args,
+                    maxConcurrent: maxConcurrent ?? ( sassDebugCheckpoints && ( this.params.debug || this.params.verbose ) ? 1 : 10 ),
+                    srcDir: 'src/scss',
+                },
+            ],
         );
     }
 

@@ -636,8 +636,17 @@ $_firmFlowMarginChildren: list.join(
 ///
 /// @since 0.1.0-beta.4.draft
 ///
-@mixin prop-background-inherit($setCxProp: null, $args...) {
-    @include prop-background-default($setCxProp: false, $args...);
+@mixin prop-background-inherit(
+    $fallback: var-theme(background),
+    $setCxProp: null,
+    $value: null,
+    $args...
+) {
+    @include utils.prop-background(
+        $value: $fallback,
+        $setCxProp: false,
+        $args...
+    );
 }
 
 ///

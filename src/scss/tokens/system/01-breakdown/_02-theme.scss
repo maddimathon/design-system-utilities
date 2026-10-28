@@ -8,6 +8,7 @@
 @use 'pkg:@maddimathon/utility-sass/list';
 @use 'pkg:@maddimathon/utility-sass/map';
 @use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/string';
 
 // @use '../00-default' as default;
 
@@ -101,6 +102,12 @@ $themes__nestedFlat: ();
     }
 }
 
+$_exists_customPropertyPrefix_fallback: string.length(#{config.$customPropertyPrefix_fallback}) > 0
+    and #{config.$customPropertyPrefix} != #{config.$customPropertyPrefix_fallback};
+
+$_exists_customPropertyPrefix: string.length(#{config.$customPropertyPrefix}) > 0 or
+    $_exists_customPropertyPrefix_fallback;
+
 // UPGRADE - add better fallback than null
 $themes__nestedFlat_tokenValues: meta.call-global-compiler-fn(
     'mmdsu-global-themeFlattenGetValues',
@@ -111,10 +118,22 @@ $themes__nestedFlat_tokenValues: meta.call-global-compiler-fn(
     // fn params
     $themes: basic.$themes,
     $colours: basic.$colour,
-    $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
+    $allowModernOpacitySyntax: config.$colour_allowModernOpacitySyntax,
     $includeHSL: config.$include_colourValues_hsl,
     $includeRGB: config.$include_colourValues_rgb,
+    $neverReplaceWithValue_regex: config.$fn_var_neverReplaceWithValue_colour_regex,
+    $neverReplaceWithValue_regex_flags: config.$fn_var_neverReplaceWithValue_colour_regex_flags,
     $presetOpacities: basic.$colour_presetOpacities,
     $presetOpacities_includeClrs: config.$mx_tokensColour_presetOpacities_include,
-    $allowModernOpacitySyntax: config.$colour_allowModernOpacitySyntax
+    $replaceVarClrWithValue: config.$fn_var_replaceWithValue_colour,
+    $do_var_args: (
+        customPropertyPrefix: if($_exists_customPropertyPrefix, config.$customPropertyPrefix, ''),
+        customPropertyPrefix_fallback: if(
+                $_exists_customPropertyPrefix_fallback,
+                config.$customPropertyPrefix_fallback,
+                ''
+            ),
+        exists_customPropertyPrefix: $_exists_customPropertyPrefix,
+        exists_customPropertyPrefix_fallback: $_exists_customPropertyPrefix_fallback,
+    )
 );

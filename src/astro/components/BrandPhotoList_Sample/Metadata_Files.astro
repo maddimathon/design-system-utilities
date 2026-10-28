@@ -8,6 +8,11 @@
 /* import - types */
 import type { GenericElementProps } from '@maddimathon/utility-astro';
 
+import type {
+    ButtonComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
+
 import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
 
@@ -29,6 +34,10 @@ import type {
 /* PROPS ===================================== */
 
 type Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams>  = GenericElementProps<{
+    components?: Partial<{
+        Button: ButtonComponentType;
+        Heading: HeadingComponentType;
+    }>;
 
     data: PhotoData<T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']>;
 
@@ -37,6 +46,7 @@ type Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams>  = Gen
 
 const {
     class: classList,
+    components,
     data,
     spanColour,
     ...listAttrs

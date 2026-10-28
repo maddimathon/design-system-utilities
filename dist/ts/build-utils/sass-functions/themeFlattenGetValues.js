@@ -21,28 +21,89 @@ import { getColourCSS } from '../../03-parsers/getColourCSS.js';
  */
 export function sassFn_themeFlattenGetValues() {
     return [
-        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $replaceVarClrWithValue, $includeHSL, $includeRGB, $presetOpacities, $presetOpacities_includeClrs, $allowModernOpacitySyntax )',
+        'mmdsu-global-themeFlattenGetValues( $colours, $themes, $allowModernOpacitySyntax, $includeHSL, $includeRGB, $neverReplaceWithValue_regex, $neverReplaceWithValue_regex_flags, $presetOpacities, $presetOpacities_includeClrs, $replaceVarClrWithValue, $do_var_args )',
         async (args) => {
-            const [colourTokens, themeTokens, replaceVarClrWithValue = false, includeHSL = true, includeRGB = false, presetOpacities = [], presetOpacities_includeClrs = false, allowModernOpacitySyntax = true,] = await Promise.all([
+            const [colourTokens, themeTokens, allowModernOpacitySyntax = true, includeHSL = true, includeRGB = false, _neverReplaceWithValue_regex, neverReplaceWithValue_regex_flags = 'gi', presetOpacities = [], presetOpacities_includeClrs = false, replaceVarClrWithValue = false, do_var_args = new Map(),] = await Promise.all([
                 sassAssertValueType('colours', 'map', args[0], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
                 sassAssertValueType('themes', 'map', args[1], true)?.then(map => (map instanceof Map ? mapToObjectAsync(map) : map)),
-                sassAssertValueType('replaceVarClrWithValue', 'bool', args[2], true),
+                sassAssertValueType('allowModernOpacitySyntax', 'bool', args[2], true),
                 sassAssertValueType('includeHSL', 'bool', args[3], true),
                 sassAssertValueType('includeRGB', 'bool', args[4], true),
-                sassAssertValueType('presetOpacities', 'list', args[5], true),
-                sassAssertValueType('presetOpacities_includeClrs', 'bool', args[6], true),
-                sassAssertValueType('colour_allowModernOpacitySyntax', 'bool', args[7], true),
+                sassAssertValueType('neverReplaceWithValue_regex', 'string', args[5], true),
+                sassAssertValueType('neverReplaceWithValue_regex_flags', 'string', args[6], true),
+                sassAssertValueType('presetOpacities', 'list', args[7], true),
+                sassAssertValueType('presetOpacities_includeClrs', 'bool', args[8], true),
+                sassAssertValueType('replaceVarClrWithValue', 'bool', args[9], true),
+                sassAssertValueType('do_var_args', 'map', args[10], true),
             ]);
             if (!themeTokens) {
                 return sass.sassNull;
             }
-            const varMaker = (!replaceVarClrWithValue
-                ? (slug, value) => (slug?.length
-                    ? `var(--clr-${slug}${value ? `, ${value}` : ''})`
-                    : (value ?? slug ?? ''))
-                : (slug, value) => (value ?? slug ?? ''));
+            const neverReplaceWithValue_regex = _neverReplaceWithValue_regex
+                ? new RegExp(_neverReplaceWithValue_regex, neverReplaceWithValue_regex_flags)
+                : null;
+            const _ifReplaceWithValue = neverReplaceWithValue_regex
+                ? (_slug) => {
+                    // returns
+                    if (!_slug) {
+                        return true;
+                    }
+                    // returns
+                    if (_slug.match(neverReplaceWithValue_regex)) {
+                        return false;
+                    }
+                    return !!replaceVarClrWithValue;
+                    ;
+                }
+                : () => !!replaceVarClrWithValue;
+            const _doVar_args = {
+                customPropertyPrefix: do_var_args.get('customPropertyPrefix') ?? '',
+                customPropertyPrefix_fallback: do_var_args.get('customPropertyPrefix_fallback') ?? '',
+                exists_customPropertyPrefix: !!(do_var_args.get('exists_customPropertyPrefix') ?? false),
+                exists_customPropertyPrefix_fallback: !!(do_var_args.get('exists_customPropertyPrefix_fallback') ?? false),
+            };
+            const doVar = (slug, value) => {
+                const _args = (() => {
+                    const allPrefixes = _doVar_args.exists_customPropertyPrefix
+                        && _doVar_args.exists_customPropertyPrefix_fallback;
+                    const fallbackOnly = !value || _ifReplaceWithValue(slug);
+                    const neverFallbackPrefix = false;
+                    const onlyFallbackPrefix = !allPrefixes && !neverFallbackPrefix;
+                    const includeFallbackPrefix = !fallbackOnly && (!neverFallbackPrefix
+                        || (onlyFallbackPrefix && _doVar_args.exists_customPropertyPrefix_fallback));
+                    const _includePrefix_a = !onlyFallbackPrefix && (!fallbackOnly
+                        || (_doVar_args.exists_customPropertyPrefix
+                            && _doVar_args.exists_customPropertyPrefix_fallback));
+                    const _includePrefix_b = !fallbackOnly
+                        && includeFallbackPrefix
+                        && !_doVar_args.exists_customPropertyPrefix_fallback;
+                    return {
+                        customPropertyPrefix: String(_doVar_args.customPropertyPrefix ?? ''),
+                        customPropertyPrefix_fallback: String(_doVar_args.customPropertyPrefix_fallback ?? ''),
+                        exists_customPropertyPrefix: _doVar_args.exists_customPropertyPrefix,
+                        exists_customPropertyPrefix_fallback: _doVar_args.exists_customPropertyPrefix_fallback,
+                        includePrefix: _includePrefix_a || _includePrefix_b,
+                        includeFallbackPrefix,
+                        onlyFallbackPrefix,
+                    };
+                })();
+                let fallback = `${value}`;
+                if (_args.includeFallbackPrefix && _args.exists_customPropertyPrefix_fallback) {
+                    fallback = `var(--${_args.customPropertyPrefix_fallback}${slug}${fallback ? ', ' : ''}${fallback})`;
+                }
+                // returns - as a var
+                if (!fallback || _args.includePrefix) {
+                    return `var(--${_args.customPropertyPrefix}${slug}${fallback ? ', ' : ''}${fallback})`;
+                }
+                return fallback;
+            };
+            const varMaker = (slug, value) => (slug?.length
+                ? doVar(`clr-${slug}`, value ?? '')
+                : (value ?? slug ?? ''));
             const slugTranslator = async (brightness, val) => {
-                const clrVal = getColourCSS({ themes: themeTokens, colour: colourTokens }, brightness, val, !replaceVarClrWithValue);
+                const clrVal = getColourCSS({ themes: themeTokens, colour: colourTokens }, brightness, val, varMaker, {
+                    modernOpacitySyntax: allowModernOpacitySyntax,
+                }) || varMaker(val, '');
                 // returns
                 if (!includeHSL && !includeRGB) {
                     return clrVal;
@@ -89,29 +150,27 @@ export function sassFn_themeFlattenGetValues() {
                     }
                 }
                 const clrObj = await clrValidate;
-                // returns
-                if (!clrObj) {
-                    return clrVal;
-                }
-                clr.$ = varMaker(val, ColourUtilities.toString.hsl(clrObj, 'comma'));
+                clr.$ = varMaker(val, clrObj ? ColourUtilities.toString.hsl(clrObj, 'comma') : '');
                 const listSeparator = allowModernOpacitySyntax ? 'space' : 'comma';
                 if (includeHSL) {
-                    clr.hsl = varMaker(`${val}-hsl`, ColourUtilities.toList.hsl(clrObj, listSeparator));
+                    clr.hsl = varMaker(`${val}-hsl`, clrObj ? ColourUtilities.toList.hsl(clrObj, listSeparator) : '');
                 }
                 if (includeRGB) {
-                    clr.rgb = varMaker(`${val}-rgb`, ColourUtilities.toList.rgb(clrObj, listSeparator));
+                    clr.rgb = varMaker(`${val}-rgb`, clrObj ? ColourUtilities.toList.rgb(clrObj, listSeparator) : '');
                 }
                 if (includeHSL || includeRGB) {
                     const opacitySeparator = allowModernOpacitySyntax ? ' / ' : ', ';
                     for (const opacity of presetOpacities) {
-                        clr[`-${opacity}`] = varMaker(presetOpacities_includeClrs ? `${val}--${opacity}` : undefined, includeHSL
-                            ? `hsla( ${ColourUtilities.toList.hsl(clrObj, listSeparator)}${opacitySeparator}${opacity}% )`
-                            : `rgba( ${ColourUtilities.toList.rgb(clrObj, listSeparator)}${opacitySeparator}${opacity}% )`);
+                        clr[`-${opacity}`] = varMaker(presetOpacities_includeClrs ? `${val}--${opacity}` : undefined, !clrObj
+                            ? ''
+                            : includeHSL
+                                ? `hsla( ${ColourUtilities.toList.hsl(clrObj, listSeparator)}${opacitySeparator}${opacity}% )`
+                                : `rgba( ${ColourUtilities.toList.rgb(clrObj, listSeparator)}${opacitySeparator}${opacity}% )`);
                     }
                 }
                 return clr;
             };
-            const mapped = await objectMapAsync(themeTokens, async ([themeName, themeSetObj]) => {
+            return objectMapAsync(themeTokens, async ([themeName, themeSetObj]) => {
                 if (typeof themeSetObj !== 'object') {
                     return themeSetObj;
                 }
@@ -150,11 +209,10 @@ export function sassFn_themeFlattenGetValues() {
                     'forced-colors': forcedColors,
                     ...brightnessMaps,
                 }));
-            });
-            return jsValueToSass(mapped, {
+            }).then(mapped => jsValueToSass(mapped, {
                 coloursAsStrings: true,
                 quoteStrings: false,
-            });
+            }));
         },
     ];
 }

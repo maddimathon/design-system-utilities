@@ -16,11 +16,13 @@ import { getDataFromClrSlug } from './getDataFromClrSlug.js';
  *
  * @since 0.1.0-beta.0
  */
-export function getColourCSS(tokens, brightness, _clrSlug, convertToVarFn = true) {
+export function getColourCSS(tokens, brightness, _clrSlug, convertToVarFn = true, opts = {}) {
     const clrSlug = Array.isArray(_clrSlug) ? _clrSlug[0] : _clrSlug;
-    const varMaker = convertToVarFn
-        ? (slug, value) => slug?.length ? `var(--clr-${slug}${value ? `, ${value}` : ''})` : String(value ?? slug ?? '')
-        : (slug, value) => String(value ?? slug ?? '');
+    const varMaker = typeof convertToVarFn === 'function'
+        ? (slug, value) => convertToVarFn(slug ?? '', value ?? '')
+        : convertToVarFn
+            ? (slug, value) => slug?.length ? `var(--clr-${slug}${value ? `, ${value}` : ''})` : String(value ?? slug ?? '')
+            : (slug, value) => String(value ?? slug ?? '');
     // returns
     if (!clrSlug) {
         return varMaker(clrSlug, null);

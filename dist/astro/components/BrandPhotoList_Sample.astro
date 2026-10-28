@@ -6,6 +6,11 @@
  */
 
 /* import - types */
+import type {
+    ButtonComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
+
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 
 import type { BrandPhotoList_Sample_MetadataProps } from './BrandPhotoList_Sample/index.js';
@@ -13,6 +18,7 @@ import type { BrandPhotoList_Sample_MetadataProps } from './BrandPhotoList_Sampl
 import type {
     AllPhotos,
     AllThumbnails,
+    BrandPhotoComponentType,
     BrandPhotoProps,
     BrandPhotoProps_Linked,
 } from './BrandPhoto.astro';
@@ -22,7 +28,7 @@ import type {
 /* import - values */
 
 /* import - components */
-import BrandPhoto from './BrandPhoto.astro';
+import BrandPhotoComponent from './BrandPhoto.astro';
 
 import photoListComponents from './BrandPhotoList_Sample/index.js';
 const { BrandPhotoList_Sample_Metadata } = photoListComponents;
@@ -35,8 +41,11 @@ const { BrandPhotoList_Sample_Metadata } = photoListComponents;
 
 // prettier-ignore
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> extends BrandPhotoList_Sample_MetadataProps<T_Types> {
-
-    components?: Partial<{}>;
+    components?: Partial<{
+        BrandPhoto: BrandPhotoComponentType;
+        Button: ButtonComponentType;
+        Heading: HeadingComponentType;
+    }>;
     
     defineSize: undefined | boolean;
     
@@ -47,6 +56,7 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> e
 }
 
 const {
+    components: { BrandPhoto = BrandPhotoComponent, ...components } = {},
     defineSize,
     displayHeading = -1,
     data,
@@ -81,6 +91,7 @@ const linkProps = data.attrs.src
     : {};
 
 const photoProps = {
+    // components,
     defineSize,
     includeCaption,
     photos,
@@ -101,6 +112,7 @@ const photoProps = {
     class:list='brand-photo-list__sample__meta'
     {...{
         ...metadataProps,
+        components,
         displayHeading,
         data,
         includeCaption,

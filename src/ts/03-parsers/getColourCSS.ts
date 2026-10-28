@@ -35,13 +35,18 @@ export function getColourCSS<
     },
     brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>,
     _clrSlug: string | string[],
-    convertToVarFn: boolean = true,
+    convertToVarFn: boolean | ( ( slug: string, value: string ) => string ) = true,
+    opts: Partial<{
+        modernOpacitySyntax: boolean;
+    }> = {}
 ): string {
     const clrSlug = Array.isArray( _clrSlug ) ? _clrSlug[ 0 ] : _clrSlug;
 
-    const varMaker = convertToVarFn
-        ? ( slug: undefined | string, value: null | string ) => slug?.length ? `var(--clr-${ slug }${ value ? `, ${ value }` : '' })` : String( value ?? slug ?? '' )
-        : ( slug: undefined | string, value: null | string ) => String( value ?? slug ?? '' );
+    const varMaker = typeof convertToVarFn === 'function'
+        ? ( slug: undefined | string, value: null | string ) => convertToVarFn( slug ?? '', value ?? '' )
+        : convertToVarFn
+            ? ( slug: undefined | string, value: null | string ) => slug?.length ? `var(--clr-${ slug }${ value ? `, ${ value }` : '' })` : String( value ?? slug ?? '' )
+            : ( slug: undefined | string, value: null | string ) => String( value ?? slug ?? '' );
 
     // returns
     if ( !clrSlug ) {

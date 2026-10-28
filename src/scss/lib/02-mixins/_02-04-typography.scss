@@ -3,13 +3,14 @@
 /// @since 0.1.0-beta.0
 ///
 
+@use 'pkg:@maddimathon/utility-sass/feature-check';
 @use 'pkg:@maddimathon/utility-sass/math';
 @use 'pkg:@maddimathon/utility-sass/meta';
 
 @use 'pkg:@maddimathon/utility-astro/lib/mixins' as utils;
 
 // @use '../../config';
-// @use '../../tokens';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 
@@ -38,7 +39,7 @@
             font-family: font-family-system-ui();
         }
 
-        font-weight: 400;
+        font-weight: tokens.$fontWeight;
         line-height: var-line-height('400');
 
         @if $_body_exists {
@@ -47,6 +48,12 @@
             }
         } @else {
             @content;
+        }
+
+        @if tokens.$fontWeight_variable {
+            @include feature-check.supports(variableFonts) {
+                font-weight: tokens.$fontWeight_variable;
+            }
         }
     }
 }

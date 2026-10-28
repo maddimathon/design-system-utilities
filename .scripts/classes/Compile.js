@@ -47,7 +47,11 @@ export class Compile extends CompileStage {
      * @protected
      */
     async astro() {
-        await this.customCopySubstage( 'astro' );
+        await this.atry(
+            this.customCopySubstage.bind( this ),
+            0,
+            [ 'astro' ],
+        );
     }
 
     /**
@@ -55,7 +59,11 @@ export class Compile extends CompileStage {
      * @override
      */
     async scss() {
-        await this.customCopySubstage( 'scss' );
+        await this.atry(
+            this.customCopySubstage.bind( this ),
+            0,
+            [ 'scss' ],
+        );
 
         await setSassCompilerFns( this.compiler, {
             config: this.config,

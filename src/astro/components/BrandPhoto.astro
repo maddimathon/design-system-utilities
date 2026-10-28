@@ -33,6 +33,8 @@ export type * from './BrandPhoto.d.ts';
 
 type Props = BrandPhotoProps;
 
+export type BrandPhotoComponentType = (props: BrandPhotoProps) => any;
+
 const {
     href,
     linkAttrs = {},
@@ -48,9 +50,9 @@ export async function getPhotoData<T_Types extends TokenTypes.TypeParams, T_Slug
     currentURL: URL,
     {
         defineSize,
-        photos,
+        photos = {},
         slug,
-        thumbnails,
+        thumbnails = {},
         urlMaker,
         ...attrs
     }: Omit<BrandPhotoProps<T_Types, T_Slug>, 'href' | 'includeCaption'>,

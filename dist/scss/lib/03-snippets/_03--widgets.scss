@@ -101,6 +101,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
     $width: fit-content,
     //
+    $backgroundInheritOnly: false,
     $includePadding: true,
     $includeBlocks: true,
     $includeBorder: true,
@@ -156,7 +157,11 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     }
 
     @if $background != false {
-        @include prop-background($background);
+        @if $backgroundInheritOnly {
+            @include prop-background-inherit($background);
+        } @else {
+            @include prop-background($background);
+        }
     }
 
     transition:

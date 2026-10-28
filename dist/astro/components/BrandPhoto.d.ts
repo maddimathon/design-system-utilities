@@ -79,9 +79,9 @@ export type BrandPhotoProps_Base<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     T_Slug extends T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ] = T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ],
 > = {
-    photos: AllPhotos<T_Types>;
+    photos: AllPhotos<T_Types> | undefined;
     slug: T_Slug;
-    thumbnails: AllThumbnails<T_Types>;
+    thumbnails: AllThumbnails<T_Types> | undefined;
     urlMaker: ( currentURL: URL, targetSubpath: string ) => string;
 
     class?: string;

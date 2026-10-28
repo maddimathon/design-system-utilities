@@ -95,7 +95,7 @@ $_allThemeSlugs: map.keys(tokens.$themes);
     @return active-theme-simple-selectors($_allThemeSlugs, $args...);
 }
 
-$_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
+$_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
     $includeAttributeSelector: true,
     $includeExtraSelectors: config.$mx_activeTheme_nestExtraSpecific_includeExtraSelectors,
     $includePseudoSelector: config.$mx_activeTheme_nestExtraSpecific_includePseudoSelector,
@@ -170,7 +170,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     @if $nestExtraSpecific {
         $_extraSpecificNester: if(
             list.length($keys) == list.length($_allThemeSlugs),
-            $_allActiveThemeSimpleSelectors,
+            $_activeTheme_allThemeSimpleSelectors,
             list.join(
                 if(
                     config.$mx_activeTheme_nestExtraSpecific_includeExtraSelectors,
@@ -307,23 +307,24 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
         @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
     } @else {
         @each $slug, $list in $map {
-            // prettier-ignore
             @if $contrast == forced-colors {
-                
                 @each $value in list.unique($list) {
-                    @include utils.cx-prop(sys-clr-#{$slug}, $value , $important: true, $allPrefixes: false);
+                    @include utils.cx-prop(
+                        sys-clr-#{$slug},
+                        $value,
+                        $important: true,
+                        $allPrefixes: false
+                    );
                 }
-                
-            } @else if
-                $brightness !=
-                null and
-                $contrast !=
-                null
-            {
+            } @else if ($brightness != null) and ($contrast != null) {
                 $clrSlug: map.get($activeTheme_flat, $brightness, $contrast, $slug);
 
                 @if $clrSlug == null {
                     $clrSlug: map.get($activeTheme_flat, $brightness, $contrast, 'system-#{$slug}');
+                }
+
+                @if meta.type-of($clrSlug) == map {
+                    $clrSlug: config.config-do-var(map.get($_value, slug), map.get($_value, value));
                 }
 
                 @if $clrSlug != null {
@@ -331,7 +332,15 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     @each $_value in list.unique($clrSlug) {
                         $comment: null;
 
-                        @if config.$fn_var_replaceWithValue_colour {
+                        $_value: if(
+                            $flat_isValues,
+                            $_value,
+                            var-clr-from-theme-token($_value, $brightness: $brightness)
+                        );
+
+                        @if config.$fn_var_replaceWithValue_colour and
+                            (string.index(#{$_value}, 'var(') == null)
+                        {
                             $comment: map.get(
                                 tokens.$themes__nestedFlat,
                                 $themeSlug,
@@ -353,11 +362,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
                         @include utils.cx-prop(
                             sys-clr-#{$slug},
-                            if(
-                                $flat_isValues,
-                                $_value,
-                                var-clr-from-theme-token($_value, $brightness: $brightness)
-                            ),
+                            $_value,
                             $allPrefixes: false,
                             $comment: $comment
                         );
@@ -606,10 +611,10 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
     // use :where(%root, %body)
     @else {
-        $_rootSels: ();
-        $_whereSels: ();
+        $_existingChildSels: ();
+        $_potentialRootOrBodySels: ();
 
-        $_root_aliases: $_rootAliasesWithAllModeOptions;
+        $_whereSels: ();
 
         // if every selector has body but none ARE root or body, then they are
         // all children of root/body --- but if root and body are not present at
@@ -619,29 +624,44 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                 not
                     selector.has-any-root-or-body(
                         $parsedParentSelector,
-                        $root_aliases: $_root_aliases
+                        $root_aliases: $_rootAliasesWithAllModeOptions
                     )
             ) or
             (
-                selector.has-body($parsedParentSelector, $aliases: $_root_aliases) and
+                selector.has-body(
+                        $parsedParentSelector,
+                        $aliases: $_rootAliasesWithAllModeOptions
+                    ) and
                     (
                         not
                             selector.is-any-root-or-body(
                                 $parsedParentSelector,
-                                $root_aliases: $_root_aliases
+                                $root_aliases: $_rootAliasesWithAllModeOptions
                             )
                     )
             )
         {
             // doing nothing
         } @else if selector.exists($parsedParentSelector) {
-            $_hasBody: selector.has-body($parsedParentSelector, $aliases: $_root_aliases);
+            $_hasBody: selector.has-body(
+                $parsedParentSelector,
+                $aliases: $_rootAliasesWithAllModeOptions
+            );
             $_isBody: selector.is-body($parsedParentSelector);
-            $_isAnyBody: selector.is-any-body($parsedParentSelector, $aliases: $_root_aliases);
+            $_isAnyBody: selector.is-any-body(
+                $parsedParentSelector,
+                $aliases: $_rootAliasesWithAllModeOptions
+            );
 
-            $_hasRoot: selector.has-root($parsedParentSelector, $aliases: $_root_aliases);
+            $_hasRoot: selector.has-root(
+                $parsedParentSelector,
+                $aliases: $_rootAliasesWithAllModeOptions
+            );
             $_isRoot: selector.is-root($parsedParentSelector);
-            $_isAnyRoot: selector.is-any-root($parsedParentSelector, $aliases: $_root_aliases);
+            $_isAnyRoot: selector.is-any-root(
+                $parsedParentSelector,
+                $aliases: $_rootAliasesWithAllModeOptions
+            );
 
             // if the selectors are body selectors or all contain root selectors
             // (but aren't root selectors), then :where(%root) would never apply
@@ -652,28 +672,60 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             @if (not $_isRoot) and ((not $_hasBody) or $_isAnyBody) {
                 $_whereSels: list.append($_whereSels, '%body', $separator: comma);
             }
+
+            // now we go through each parse selector to separate out the ones
+            // that are already children
+            @each $__selector
+                in if(
+                    list.separator($parsedParentSelector) == comma,
+                    $parsedParentSelector,
+                    ($parsedParentSelector)
+                )
+            {
+                @if list.length($__selector) > 1 or selector.is-root-or-body($__selector) {
+                    $_existingChildSels: list.append(
+                        $_existingChildSels,
+                        #{$__selector},
+                        $separator: comma
+                    );
+                } @else {
+                    $_potentialRootOrBodySels: list.append(
+                        $_potentialRootOrBodySels,
+                        #{$__selector},
+                        $separator: comma
+                    );
+                }
+            }
         }
 
-        $_togetherSels: list.join(
-            $_rootSels,
-            if(
-                list.length($_whereSels) > 0,
-                selector.unify($parsedParentSelector, ':where(#{$_whereSels})'),
-                ()
-            ),
-            $separator: comma
+        $_togetherSels: if(
+            list.length($_whereSels) > 0 and selector.exists($_potentialRootOrBodySels),
+            selector.unify($_potentialRootOrBodySels, ':where(#{$_whereSels})'),
+            ()
         );
 
-        @if list.length($_togetherSels) > 0 {
+        @if selector.exists($_togetherSels) {
             @at-root #{$_togetherSels} {
                 @content (root-body-or-direct-child);
                 @content (root-body);
             }
         }
 
-        > * {
-            @content (root-body-or-direct-child);
-            @content (direct-child);
+        $_allChildSels: list.join(
+            $_existingChildSels,
+            if(
+                selector.exists($_potentialRootOrBodySels),
+                selector.nest($_potentialRootOrBodySels, '>', '*'),
+                ()
+            ),
+            $separator: comma
+        );
+
+        @if selector.exists($_allChildSels) {
+            @at-root #{$_allChildSels} {
+                @content (root-body-or-direct-child);
+                @content (direct-child);
+            }
         }
     }
 }
@@ -768,7 +820,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
 
     @if $background != false {
         @include utils.prop-background(
-            if($background, $background, var-theme(background, $themeTokenArgs...))
+            if($background, $background, var-theme(background, $themeTokenArgs...)),
+            $setCxProp: false
         );
     }
 
@@ -811,7 +864,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     $includeSystemColours,
     $flat_isValues,
     $flattened,
-    $flattened_raw
+    $flattened_raw,
+    $fn_var_clr_from_theme_token
 ) {
     @if $includeSystemColours {
         @include tokens-sys-colour(
@@ -831,7 +885,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     if(
                             $flat_isValues,
                             $_val,
-                            var-clr-from-theme-token($_val, $brightness: $brightness)
+                            meta.call($fn_var_clr_from_theme_token, $_val, $brightness: $brightness)
                         )
                         #{$importantSuffix},
                     $comment: if(
@@ -857,7 +911,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         @each $_val in $value {
                             @include utils.cx-prop(
                                 theme-#{$prop}-hsl,
-                                var-clr-from-theme-token(
+                                meta.call(
+                                        $fn_var_clr_from_theme_token,
                                         $_val,
                                         $brightness: $brightness,
                                         $version: hsl
@@ -871,7 +926,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         @each $_val in $value {
                             @include utils.cx-prop(
                                 theme-#{$prop}-rgb,
-                                var-clr-from-theme-token(
+                                meta.call(
+                                        $fn_var_clr_from_theme_token,
                                         $_val,
                                         $brightness: $brightness,
                                         $version: rgb
@@ -887,7 +943,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                     @each $_val in $value {
                         @include utils.cx-prop(
                             theme-#{$prop}--#{math.deunit($opacity)},
-                            var-clr-from-theme-token(
+                            meta.call(
+                                    $fn_var_clr_from_theme_token,
                                     $_val,
                                     $brightness: $brightness,
                                     $opacity: $opacity
@@ -924,6 +981,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     }
 }
 
+$_fn_var_clr_from_theme_token: meta.get-function('var-clr-from-theme-token');
+
 ///
 /// Prints a single theme's properties.
 ///
@@ -939,6 +998,7 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     //
     $extra_tokens: (),
     $extra_tokens_children: (),
+    $fn_var_clr_from_theme_token: null,
     $focusRing_setChildrenOnly: null,
     $includeDefault: true,
     $multipleContentBlocks: false,
@@ -952,6 +1012,12 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
     );
 
     $activeTheme_flat_raw: map.get(tokens.$themes__nestedFlat, $slug);
+
+    $fn_var_clr_from_theme_token: config.config-valid-function(
+        $fn_var_clr_from_theme_token,
+        'fn_var_clr_from_theme_token',
+        $default: $_fn_var_clr_from_theme_token
+    );
 
     @if $activeTheme_flat == null {
         @warn "$slug '#{$slug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
@@ -1053,7 +1119,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
             $includeSystemColours: $includeSystemColours,
             $flat_isValues: $flat_isValues,
             $flattened: $flattened_root,
-            $flattened_raw: $flattened_raw_root
+            $flattened_raw: $flattened_raw_root,
+            $fn_var_clr_from_theme_token: $fn_var_clr_from_theme_token
         );
 
         $_propIsImportant: $contrast == forced-colors;
@@ -1086,7 +1153,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         $includeSystemColours: false,
                         $flat_isValues: $flat_isValues,
                         $flattened: $flattened_childrenOnly,
-                        $flattened_raw: $flattened_raw_childrenOnly
+                        $flattened_raw: $flattened_raw_childrenOnly,
+                        $fn_var_clr_from_theme_token: $fn_var_clr_from_theme_token
                     );
 
                     @include tokens-theme-individual--extras-printer(
@@ -1129,7 +1197,8 @@ $_allActiveThemeSimpleSelectors: active-theme-simple-selectors-all(
                         $includeSystemColours: false,
                         $flat_isValues: $flat_isValues,
                         $flattened: $flattened_childrenOnly,
-                        $flattened_raw: $flattened_raw_childrenOnly
+                        $flattened_raw: $flattened_raw_childrenOnly,
+                        $fn_var_clr_from_theme_token: $fn_var_clr_from_theme_token
                     );
 
                     @include tokens-theme-individual--extras-printer(

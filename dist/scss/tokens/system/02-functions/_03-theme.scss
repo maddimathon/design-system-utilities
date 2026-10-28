@@ -83,10 +83,11 @@
 
     @if $activeTheme_flat == null {
         @if $warnOnFalse {
-            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues";
+            @warn "$themeSlug '#{$themeSlug}' was not a key in tokens.$#{if( $flat_isValues, 'themes__nestedFlat_tokenValues', 'themes__nestedFlat' )}";
         }
 
         $themeSlug: default;
+
         $activeTheme_flat: map.get(
             if(
                 $flat_isValues,
@@ -104,7 +105,7 @@
         // returns
         @if $value == null {
             @if $warnOnFalse {
-                @warn "$slug '#{$slug}#{$suffixSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$contrast}";
+                @warn "$slug '#{$slug}#{$suffixSlug}' was not a key in tokens.$#{if( $flat_isValues, 'themes__nestedFlat_tokenValues', 'themes__nestedFlat' )}.#{$themeSlug}.#{$contrast}";
             }
             @return false;
         }
@@ -115,7 +116,7 @@
     // returns
     @if not map.has-key($activeTheme_flat, $brightness) {
         @if $warnOnFalse {
-            @warn "$brightness '#{$brightness}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}";
+            @warn "$brightness '#{$brightness}' was not a key in tokens.$#{if( $flat_isValues, 'themes__nestedFlat_tokenValues', 'themes__nestedFlat' )}.#{$themeSlug}";
         }
         @return false;
     }
@@ -123,7 +124,7 @@
     // returns
     @if not map.has-key($activeTheme_flat, $brightness, $contrast) {
         @if $warnOnFalse {
-            @warn "$contrast '#{$contrast}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}";
+            @warn "$contrast '#{$contrast}' was not a key in tokens.$#{if( $flat_isValues, 'themes__nestedFlat_tokenValues', 'themes__nestedFlat' )}.#{$themeSlug}.#{$brightness}";
         }
         @return false;
     }
@@ -138,7 +139,7 @@
     // returns - no fallback
     @if $value == null {
         @if $warnOnFalse {
-            @warn "$slug '#{$slug}#{$suffixSlug}' was not a key in tokens.$themes__nestedFlat_tokenValues.#{$themeSlug}.#{$brightness}.#{$contrast}";
+            @warn "$slug '#{$slug}#{$suffixSlug}' was not a key in tokens.$#{if( $flat_isValues, 'themes__nestedFlat_tokenValues', 'themes__nestedFlat' )}.#{$themeSlug}.#{$brightness}.#{$contrast}";
         }
         @return false;
     }
@@ -153,7 +154,11 @@
         );
     }
 
-    @return $value;
+    @return if(
+        meta.type-of($value) == 'map',
+        config.config-do-var(map.get($value, slug), map.get($value, value)),
+        $value
+    );
 }
 
 ///
@@ -356,6 +361,15 @@
         $themeVarSlug: #{$themeVarSlug}-#{$version};
     }
 
+    // prettier-ignore
+    $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
+        (
+            $useSystemColorFallback or
+            $returnAsVar or
+            config.custom-property-prefix-all-exists() or
+            (not ($fallbackOnly or config.$fn_var_replaceWithValue_colour))
+        );
+
     // returns
     @if not $clrSlug {
         @return if(
@@ -447,15 +461,6 @@
                     $args...
                 );
             }
-
-            // prettier-ignore
-            $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
-                (
-                    $useSystemColorFallback or
-                    $returnAsVar or
-                    config.custom-property-prefix-all-exists() or
-                    (not ($fallbackOnly or config.$fn_var_replaceWithValue_colour))
-                );
 
             $split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
 

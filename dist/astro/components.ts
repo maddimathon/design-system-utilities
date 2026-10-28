@@ -16,6 +16,8 @@ import Alert from './components/Alert.astro';
 export type * from './components/Alert.astro';
 
 import BrandPhoto from './components/BrandPhoto.astro';
+export * from './components/BrandPhoto.astro';
+
 export type * from './components/BrandPhoto.astro';
 export type * from './components/BrandPhoto.d.ts';
 

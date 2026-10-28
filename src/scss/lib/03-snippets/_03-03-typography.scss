@@ -1725,13 +1725,19 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         white-space: normal;
         text-wrap: auto;
 
-        font-weight: 400;
+        font-weight: tokens.$fontWeight;
         border-radius: 0;
         background: transparent;
         color: inherit;
         user-select: text;
 
         @content (code);
+
+        @if tokens.$fontWeight_variable {
+            @include feature-check.supports(variableFonts) {
+                font-weight: tokens.$fontWeight_variable;
+            }
+        }
     }
 
     &:has(> code),
@@ -1974,6 +1980,7 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
     $paddingBlock: 0,
     $paddingInline: var-stroke-relative('600'),
     //
+    $backgroundInheritOnly: false,
     $includeBase: true,
     $includeInlines: $includeBase,
     $includePre: true,
@@ -2000,7 +2007,12 @@ $_mixin_pre: meta.get-mixin('snippet-pre');
             }
 
             border-radius: $borderRadius;
-            @include prop-background($background);
+
+            @if $backgroundInheritOnly {
+                @include prop-background-inherit($background);
+            } @else {
+                @include prop-background($background);
+            }
 
             @include theme-set-color($color) {
                 @content (all);

@@ -7,7 +7,12 @@
 
 /* import - types */
 import type { HTMLAttributes } from 'astro/types';
+
 import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type {
+    ButtonComponentType,
+    HeadingComponentType,
+} from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
@@ -19,7 +24,13 @@ import type { PhotoData } from '../BrandPhoto.astro';
 /* import - values */
 
 /* import - components */
-import { CopyToClipboardButton } from '@maddimathon/utility-astro/components';
+import {
+    CopyToClipboardButton,
+    Button as ButtonComponent,
+    Heading as HeadingComponent,
+    // VariableDump,
+} from '@maddimathon/utility-astro/components';
+
 import BrandPhotoList_Sample_Metadata_Caption from './Metadata_Caption.astro';
 import BrandPhotoList_Sample_Metadata_Credit from './Metadata_Credit.astro';
 import BrandPhotoList_Sample_Metadata_Files from './Metadata_Files.astro';
@@ -35,6 +46,11 @@ import BrandPhotoList_Sample_Metadata_License from './Metadata_License.astro';
 export interface BrandPhotoList_Sample_MetadataProps<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
 > {
+    components?: Partial<{
+        Button: ButtonComponentType;
+        Heading: HeadingComponentType;
+    }>;
+
     copyCredit: undefined | boolean;
 
     displayHeading: undefined | number;
@@ -60,6 +76,7 @@ type Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> =
 
 const {
     class: classList,
+    components: inputComponents,
     copyCredit = false,
     displayHeading = -1,
     data,
@@ -73,6 +90,11 @@ const {
     wrapItems,
     ...listAttrs
 }: Props = Astro.props;
+
+const components = {
+    Button: inputComponents?.Button ?? ButtonComponent,
+    Heading: inputComponents?.Heading ?? HeadingComponent,
+};
 
 /* CONSTANTS ===================================== */
 
@@ -89,7 +111,7 @@ const { attrs, caption, meta, slug } = data;
     {
         displayHeading < 0 && meta.label ? (
             <BrandPhotoList_Sample_Metadata_Item
-                {...{ wrapItems }}
+                {...{ components, wrapItems }}
                 label='Label'
             >
                 <p set:text={meta.label} />
@@ -97,7 +119,7 @@ const { attrs, caption, meta, slug } = data;
         ) : (
             slug && (
                 <BrandPhotoList_Sample_Metadata_Item
-                    {...{ wrapItems }}
+                    {...{ components, wrapItems }}
                     label='Slug'
                 >
                     <p>
@@ -114,13 +136,14 @@ const { attrs, caption, meta, slug } = data;
     {
         attrs.alt && (
             <BrandPhotoList_Sample_Metadata_Item
-                {...{ wrapItems }}
+                {...{ components, wrapItems }}
                 label='Alt Text'
             >
                 <p>
                     <samp set:text={attrs.alt} />
                     <Fragment set:html={buttonSpacer} />
                     <CopyToClipboardButton
+                        {...{ components }}
                         class:list='display-inline'
                         successMessage='copied!'
                         toClipboard={attrs.alt}
@@ -134,11 +157,11 @@ const { attrs, caption, meta, slug } = data;
     {
         includeCaptionMeta && caption && meta.credit && (
             <BrandPhotoList_Sample_Metadata_Item
-                {...{ wrapItems }}
+                {...{ components, wrapItems }}
                 label='Caption'
             >
                 <BrandPhotoList_Sample_Metadata_Caption
-                    {...{ buttonSpacer, data }}
+                    {...{ buttonSpacer, components, data }}
                 />
             </BrandPhotoList_Sample_Metadata_Item>
         )
@@ -148,11 +171,11 @@ const { attrs, caption, meta, slug } = data;
         includeCredit &&
             (meta.credit || meta.attributionRequired !== false) && (
                 <BrandPhotoList_Sample_Metadata_Item
-                    {...{ wrapItems }}
+                    {...{ components, wrapItems }}
                     label='Credit'
                 >
                     <BrandPhotoList_Sample_Metadata_Credit
-                        {...{ buttonSpacer, copyCredit, data }}
+                        {...{ buttonSpacer, components, copyCredit, data }}
                     />
                 </BrandPhotoList_Sample_Metadata_Item>
             )
@@ -161,7 +184,7 @@ const { attrs, caption, meta, slug } = data;
     {
         includeSource && meta.source && (
             <BrandPhotoList_Sample_Metadata_Item
-                {...{ wrapItems }}
+                {...{ components, wrapItems }}
                 label='Source'
             >
                 <p>
@@ -179,10 +202,12 @@ const { attrs, caption, meta, slug } = data;
     {
         includeLicense && meta.license && (
             <BrandPhotoList_Sample_Metadata_Item
-                {...{ wrapItems }}
+                {...{ components, wrapItems }}
                 label='License'
             >
-                <BrandPhotoList_Sample_Metadata_License {...{ data }} />
+                <BrandPhotoList_Sample_Metadata_License
+                    {...{ components, data }}
+                />
             </BrandPhotoList_Sample_Metadata_Item>
         )
     }
@@ -190,12 +215,12 @@ const { attrs, caption, meta, slug } = data;
     {
         includeFiles && (
             <BrandPhotoList_Sample_Metadata_Item
+                {...{ components, wrapItems }}
                 class='brand-photo-list__sample__links'
                 label='Files'
-                {...{ wrapItems }}
             >
                 <BrandPhotoList_Sample_Metadata_Files
-                    {...{ data, spanColour }}
+                    {...{ components, data, spanColour }}
                 />
             </BrandPhotoList_Sample_Metadata_Item>
         )
