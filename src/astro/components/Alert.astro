@@ -7,6 +7,8 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+
+import type { PartialPick } from '@maddimathon/utility-typescript/types';
 import type { ElementProps } from '@maddimathon/utility-astro';
 
 import type {
@@ -17,13 +19,13 @@ import type {
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 
 /* import - components */
 import { Alert as UtilsAlert } from '@maddimathon/utility-astro/components';
 import Icon from './Icon.astro';
-import type { PartialPick } from '@maddimathon/utility-typescript/types';
 
 /* import - layouts */
 
@@ -50,19 +52,17 @@ const { icon, class: classList = [], ...props } = Astro.props as Props;
 const utilsProps = {
     ...props,
     slug: icon.slug,
-} as unknown as ComponentProps<typeof UtilsAlert> & {};
+} as unknown as ComponentProps<typeof UtilsAlert>;
 ---
 
-{/* @ts-ignore */}
 <UtilsAlert
     {...utilsProps}
-    class:list={[
+    class={makeClassList.flat(
         {
-            'alert-block--has-heading': props.heading,
-            '||': classList,
+            'alert-block--has-heading': !!props.heading,
         },
         classList,
-    ]}
+    )}
 >
     <Icon
         slot='icon'

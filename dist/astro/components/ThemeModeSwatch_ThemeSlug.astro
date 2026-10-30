@@ -6,7 +6,8 @@
  */
 
 /* import - types */
-import type { HTMLAttributes } from 'astro/types';
+import type { ElementProps } from '@maddimathon/utility-astro';
+
 import type { TokenTypes } from '../../ts/index.js';
 
 /* import - functions */
@@ -22,14 +23,14 @@ import { ColourUtilities, getDataFromClrSlug } from '../../ts/index.js';
 
 /* PROPS ===================================== */
 
-interface Props<
+type Props<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-> extends Omit<HTMLAttributes<'samp'>, 'class'> {
+> = ElementProps<{
     brightness:
         undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>;
 
     clrSlug: null | string | string[];
-}
+}, 'samp'>
 
 const { brightness, clrSlug }: Props = Astro.props;
 

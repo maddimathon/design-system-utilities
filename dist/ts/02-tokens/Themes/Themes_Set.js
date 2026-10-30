@@ -79,7 +79,8 @@ export class Tokens_Themes_Set extends AbstractTokens {
         this.colours = colours;
         this.forcedColours = forcedColours;
         this.modes = modes;
-        const allLevelsInUse = new Set();
+        const allBrightnessModes = Object.keys(this.modes);
+        const allLevelsInUse = objectGenerator(allBrightnessModes, () => new Set());
         const allThemeKeys = {
             background: [],
             button: [],
@@ -87,10 +88,10 @@ export class Tokens_Themes_Set extends AbstractTokens {
             textAndBackground: [],
         };
         const keyFilter = (key) => key !== '$' && key !== 'active' && key !== 'disabled';
-        for (const brightness of Object.keys(this.modes)) {
+        for (const brightness of allBrightnessModes) {
             const _contrastEntries = Object.values(this.modes[brightness]);
             for (const singleMode of _contrastEntries) {
-                singleMode.levelsInUse.forEach(key => allLevelsInUse.add(key));
+                singleMode.levelsInUse.forEach(key => allLevelsInUse[brightness].add(key));
                 allThemeKeys.background.push(new Set(Object.keys(singleMode.data.background).filter(keyFilter)));
                 allThemeKeys.button.push(new Set(Object.keys(singleMode.data.button).filter(keyFilter)));
                 allThemeKeys.text.push(new Set([
@@ -106,7 +107,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
         const keys = objectMap(keySets, ([key, set]) => Array.from(set).sort(objectKeySort_Tokens.sorter));
         this.meta = {
             keys,
-            levelsInUse: arrayUnique(Array.from(allLevelsInUse).map((light) => [light, ColourUtilities.Levels.toDark(light)]).flat()).sort(),
+            levelsInUse: objectMap(allLevelsInUse, ([_key, _lvls]) => Array.from(_lvls).sort()),
         };
     }
     toJSON() {
@@ -230,10 +231,6 @@ export class Tokens_Themes_Set extends AbstractTokens {
             this.data = data;
         }
         toJSON() {
-            const levelsInUse = this.levelsInUse.map((light) => ({
-                light,
-                dark: ColourUtilities.Levels.toDark(light),
-            }));
             return {
                 name: this.name,
                 brightness: this.brightness,
@@ -276,7 +273,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         },
                     },
                 }, true),
-                levelsInUse,
+                levelsInUse: this.levelsInUse,
             };
         }
         toScssVars() {

@@ -18,7 +18,7 @@ import type { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
  */
 export function textColorLevel(
     lvl: 'black' | 'white' | ColourUtilities.Levels.Any,
-): 'black' | 'white' | ColourUtilities.Levels.Any {
+): 'black' | 'white' | ColourUtilities.Levels.Required {
 
     switch ( lvl ) {
 
@@ -75,4 +75,12 @@ export function textColorLevel(
         case 'black':
             return '300';
     }
+}
+
+/**
+ * 
+ */
+export namespace textColourLevel {
+
+    export const converter = {} as const;
 }

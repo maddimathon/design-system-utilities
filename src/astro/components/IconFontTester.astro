@@ -10,6 +10,7 @@ import type { ElementProps } from '@maddimathon/utility-astro';
 import type { FormFieldComponentType } from '@maddimathon/utility-astro/components';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 
@@ -45,7 +46,7 @@ const {
 
 <div
     {...props}
-    class:list={['display-contents', { '||': classList }, classList]}
+    class={makeClassList.flat('display-contents', classList)}
 >
     <FormField
         class='icon-font-tester font-family-icons'

@@ -96,7 +96,7 @@ const {
 
 <form
     {...attrs}
-    class:list={makeClassList('search-form', classList)}
+    class={makeClassList.flat('search-form', classList)}
     aria-label='Search Form'
     role='search'
 >
@@ -114,7 +114,7 @@ const {
     <Button
         {...button}
         aria-label={buttonLabel}
-        class:list={makeClassList('button--no-pseudo', buttonClassList)}
+        class={makeClassList('button--no-pseudo', buttonClassList)}
         type='submit'
         ><Icon icon={searchIcon ?? tokens.icons.search} /><slot
             name='button'

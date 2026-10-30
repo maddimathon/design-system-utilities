@@ -10,6 +10,7 @@ import type { ElementProps } from '@maddimathon/utility-astro';
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - shade */
 
@@ -54,12 +55,13 @@ const bgStyle = ! background
 {Object.keys( shade ).length && (
     <samp
         {...attrs}
-        class:list={[
-            'shade-swatch__colour-value',
-            `shade-swatch__colour-value--${version}`,
-            { '||': classList }, 
+        class={makeClassList.flat(
+            [
+                'shade-swatch__colour-value',
+                `shade-swatch__colour-value--${version}`,
+            ],
             classList,
-        ]}
+        )}
         style={bgStyle && `--background: ${bgStyle} !important; background: ${bgStyle} !important;`}
     >
         {

@@ -69,7 +69,10 @@ export class Tokens_Themes extends AbstractTokens {
         this.contrastModes = contrastModes;
         this.colours = colours;
         this.sets = sets;
-        const allLevelsInUse = new Set();
+        const allLevelsInUse = {
+            light: new Set(),
+            dark: new Set(),
+        };
         const allThemeKeys = {
             background: [],
             button: [],
@@ -77,7 +80,8 @@ export class Tokens_Themes extends AbstractTokens {
             textAndBackground: [],
         };
         for (const themeSet of Object.values(this.sets)) {
-            themeSet.meta.levelsInUse.forEach(key => allLevelsInUse.add(key));
+            themeSet.meta.levelsInUse.light.forEach(key => allLevelsInUse.light.add(key));
+            themeSet.meta.levelsInUse.dark.forEach(key => allLevelsInUse.dark.add(key));
             allThemeKeys.background.push(new Set(themeSet.meta.keys.background));
             allThemeKeys.button.push(new Set(themeSet.meta.keys.button));
             allThemeKeys.text.push(new Set(themeSet.meta.keys.text));
@@ -89,7 +93,10 @@ export class Tokens_Themes extends AbstractTokens {
         const keys = objectMap(keySets, ([key, set]) => Array.from(set).sort(objectKeySort_Tokens.sorter));
         this.meta = {
             keys,
-            levelsInUse: Array.from(allLevelsInUse).sort(),
+            levelsInUse: {
+                light: Array.from(allLevelsInUse.light).sort(),
+                dark: Array.from(allLevelsInUse.dark).sort(),
+            },
         };
     }
     toJSON() {

@@ -10,13 +10,16 @@ import type { ComponentProps } from 'astro/types';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
+
+import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
+
 import { getColourValue } from '../functions/getColourValue.js';
 
 /* import - values */
 
 /* import - components */
 import { Icon as AstroIcon } from '@maddimathon/utility-astro/components';
-import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import Icon from './Icon.astro';
 
 /* import - layouts */
@@ -54,7 +57,7 @@ const varClr = clr && getColourValue(clr);
 ---
 
 <div
-    class:list={['contrast-alert', { '||': classList }, classList]}
+    class={makeClassList.flat('contrast-alert', classList)}
     data-brightness-mode={brightness ??
         (Number(level) > 500 ? 'light' : 'dark')}
     style={varClr ? `--contrast-alert-color: ${varClr};` : undefined}

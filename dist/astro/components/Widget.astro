@@ -51,7 +51,7 @@ export type WidgetProps = GenericDynamicWrapperProps<
 
         style?: string;
     },
-    'article' | 'div' | 'section' | false | null
+    'article' | 'div' | 'section'
 >;
 
 export type WidgetComponentType = (props: Omit<WidgetProps, 'wrapper'>) => any;
@@ -86,7 +86,7 @@ const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
     (hgroupHTML || headingHTML || subheadingHTML) && (
         <DynamicWrapper
             {...attributes}
-            class:list={makeClassList('widget-block', classList)}
+            class={makeClassList('widget-block', classList)}
             tag={tag}
         >
             <slot name='prefix' />
@@ -106,7 +106,7 @@ const subheadingHTML = (await Astro.slots.render('subheading'))?.trim();
                                 hgroup: { class: 'widget-block__hgroup' },
                                 subheading: { class: 'widget-block__subtitle' },
                             }}
-                            class:list='widget-block__title'
+                            class='widget-block__title'
                             displayHeading={displayHeading}
                             heading={heading}
                         >

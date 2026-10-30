@@ -27,6 +27,7 @@ import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 /* import - components */
 import ContrastAlert from './ContrastAlert.astro';
 import { Heading } from '@maddimathon/utility-astro/components';
+import { flattenClassList, makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - layouts */
 
@@ -337,7 +338,7 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
 
 <Heading
     {...attributes}
-    class:list={['screen-reader-text', { '||': classList }, classList]}
+    class={makeClassList('screen-reader-text', classList)}
     heading={heading}
     set:text='Contrast Test Results'
 />
@@ -357,10 +358,10 @@ const resultGroupColCount = shadeMapSets?.base?.allShades && Math.max(
                     heading={heading + 1}
                     displayHeading={9}
 
-                    class:list={[
-                        isCondensed && 'screen-reader-text',
+                    class={flattenClassList([
+                        {'screen-reader-text': isCondensed},
                         'shade-swatch__contrast__heading',
-                    ]}
+                    ])}
                     set:text={toTitleCase(shadeMapSet.name)}
                     data-contrast-result-group-has-heading-color={shadeMapSet.cssTextColour && 'true'}
                     style={

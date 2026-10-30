@@ -6,7 +6,7 @@
  */
 
 /* import - types */
-import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { ElementProps } from '@maddimathon/utility-astro';
 import type { FormFieldComponentType, HeadingComponentType, TableComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
@@ -107,7 +107,7 @@ export type ShadeSwatchTableProps<T_Types extends TokenTypes.TypeParams = TokenT
     };
 };
 
-type Props = GenericElementProps<ShadeSwatchTableProps, 'table'>;
+type Props = ElementProps<ShadeSwatchTableProps, 'table'>;
 
 const {
     components: {
@@ -125,7 +125,7 @@ const {
     targetShades,
     tokens,
     ...props
-}: Props = Astro.props.frontmatter ?? Astro.props;
+}: Props = Astro.props;
 
 /* TYPES ===================================== */
 
@@ -529,7 +529,7 @@ const TARGET_HSL_CLRS = {
                     data-brightness-mode='light'
                     style={`background: var(--clr-white, ${TARGET_HSL_CLRS.white})`}
                 ><div
-                    class:list={['container', 'shade-swatch']}
+                    class='container shade-swatch'
                     data-brightness-mode='light'
                     data-shade-swatch-has-background={true}
                     style={ [ 
@@ -544,7 +544,7 @@ const TARGET_HSL_CLRS = {
                     ][]
                 ).map( ([level, set]) => set && <th> 
                     <section
-                        class:list={['container', 'shade-swatch']}
+                        class='container shade-swatch'
                         data-brightness-mode={ Number(set.level) <= 500 ? 'light' : 'dark' }
                         data-shade-swatch-has-background={true}
                         style={ [ 
@@ -553,14 +553,14 @@ const TARGET_HSL_CLRS = {
                             ].join(';') }
                     >
                         <Heading
-                            class:list='shade-swatch__name' 
+                            class='shade-swatch__name' 
                             displayHeading={7}
                             heading={heading}
                             set:text={`target-${set.level}`}
                         />
 
                         <Heading
-                            class:list='screen-reader-text'
+                            class='screen-reader-text'
                             displayHeading={8}
                             heading={heading + 1}
                             set:text='Contrast Test Targets'
@@ -691,7 +691,7 @@ const TARGET_HSL_CLRS = {
                                                 heading={heading + 2}
                                                 displayHeading={10}
 
-                                                class:list={[
+                                                class={[
                                                     'screen-reader-text | ',
                                                     'shade-swatch__contrast__result-group__heading',
                                                     'shade-swatch__contrast__result-group__heading--minimum',
@@ -745,7 +745,7 @@ const TARGET_HSL_CLRS = {
                                             <Heading 
                                                 heading={heading + 2}
                                                 displayHeading={10}
-                                                class:list={[
+                                                class={[
                                                     'screen-reader-text | ',
                                                     'shade-swatch__contrast__result-group__heading',
                                                     'shade-swatch__contrast__result-group__heading--maximum',
@@ -776,7 +776,7 @@ const TARGET_HSL_CLRS = {
                     data-brightness-mode='dark'
                     style={`background: var(--clr-white, ${TARGET_HSL_CLRS.black})`}
                 ><div
-                    class:list={['container', 'shade-swatch']}
+                    class='container shade-swatch'
                     data-brightness-mode='dark'
                     data-shade-swatch-has-background={true}
                     style={ [ 

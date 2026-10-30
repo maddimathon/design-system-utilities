@@ -73,7 +73,7 @@ const linkProps = data.attrs.src
     ? ({
           href: data.attrs.src,
           linkAttrs: {
-              'class:list': [
+              class: [
                   'brand-photo-list__sample__img',
                   `brand-photo-list__sample__img--${data.slug}`,
                   {
@@ -81,7 +81,7 @@ const linkProps = data.attrs.src
                           displayHeading < 0,
                   },
               ],
-              'target': '_blank',
+              target: '_blank',
           },
           linkLabel: 'open image in new tab',
       } satisfies Pick<
@@ -109,7 +109,6 @@ const photoProps = {
 <BrandPhoto {...photoProps} />
 
 <BrandPhotoList_Sample_Metadata
-    class:list='brand-photo-list__sample__meta'
     {...{
         ...metadataProps,
         components,
@@ -117,4 +116,5 @@ const photoProps = {
         data,
         includeCaption,
     }}
+    class='brand-photo-list__sample__meta'
 />

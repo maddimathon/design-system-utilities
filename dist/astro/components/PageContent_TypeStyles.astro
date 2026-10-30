@@ -18,6 +18,7 @@ import { objectMap } from '@maddimathon/utility-typescript';
 
 /* import - components */
 import ToggleComponent from './Toggle.astro';
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - layouts */
 
@@ -135,7 +136,7 @@ const flattenedSizes = objectMap(
 </Toggle>
 
 <Toggle
-    class:list={'site-width'}
+    class='site-width'
     defaultOpen={defaultToggleToOpen}
     heading={3}
     id='compare-dynamic-sizing'
@@ -150,11 +151,11 @@ const flattenedSizes = objectMap(
             />
             <dd class="typography-all-sizes__value-list">
                 <p
-                    class:list={[headingClass, '|', 'typography-compare-dynamic__sample']}
+                    class={makeClassList.flat(headingClass, 'typography-compare-dynamic__sample', { separator: '|' })}
                     style={ `font-size: ${rem}rem !important` }
                 >Static. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel odio at nibh pharetra condimentum. Nam tincidunt dapibus purus, nec tempus mi tempor vitae. Mauris id sapien sodales, dignissim tortor eget, volutpat turpis.</p>
                 <p
-                    class:list={[headingClass, `font-size-${name}`, '|', 'typography-compare-dynamic__sample']}
+                    class={makeClassList.flat([headingClass, `font-size-${name}`], 'typography-compare-dynamic__sample', { separator: '|' })}
                 >Dynamic! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel odio at nibh pharetra condimentum. Nam tincidunt dapibus purus, nec tempus mi tempor vitae. Mauris id sapien sodales, dignissim tortor eget, volutpat turpis.</p>
             </dd>
         ) ) }
@@ -168,14 +169,14 @@ const flattenedSizes = objectMap(
 >
     <Fragment slot='button' set:text='Heading Styles' />
     <p 
-        class:list={`page-title | typography-all-headings__sample`}
+        class=`page-title | typography-all-headings__sample`
         id={`page-title`}
     >Page Title (H1) – Maecenas Facilisis <a href="#">Sollicitudin Nisi</a>, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus</p>
 
     {
         headingSizes.map((num) => ( num > 1 ) && (
             <p 
-                class:list={`h${num} | typography-all-headings__sample`}
+                class={`h${num} | typography-all-headings__sample`}
                 id={`heading-${num}`}
             >Heading {num} – Maecenas Facilisis <a href="#">Sollicitudin Nisi</a>, Eget Pellentesque Dui Rhoncus Condimentum; Aenean Lacinia Urna Sed Lacus Interdum Faucibus; Donec Quam Erat, Sagittis id Diam a, Hendrerit Viverra Ligula; Proin Efficitur Rhoncus ex Auctor Faucibus</p>
         ))

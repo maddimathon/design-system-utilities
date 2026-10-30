@@ -188,9 +188,12 @@ export class Tokens_Themes_Set<
     ) {
         super();
 
-        const allLevelsInUse = new Set<
-            "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]
-        >();
+        const allBrightnessModes = ( Object.keys( this.modes ) as ( keyof typeof this.modes )[] );
+
+        const allLevelsInUse = objectGenerator(
+            allBrightnessModes,
+            () => new Set<"black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]>()
+        );
 
         type SingleMode = Tokens_Themes_Set.SingleMode.Data<T_ColourTypes, T_ThemeTypes>;
 
@@ -209,7 +212,7 @@ export class Tokens_Themes_Set<
 
         const keyFilter = ( key: string ) => key !== '$' && key !== 'active' && key !== 'disabled';
 
-        for ( const brightness of ( Object.keys( this.modes ) as ( keyof typeof this.modes )[] ) ) {
+        for ( const brightness of allBrightnessModes ) {
 
             const _contrastEntries = Object.values( this.modes[ brightness ] ) as (
                 typeof this.modes[ typeof brightness ][ keyof typeof this.modes[ typeof brightness ] ]
@@ -217,7 +220,7 @@ export class Tokens_Themes_Set<
 
             for ( const singleMode of _contrastEntries ) {
 
-                singleMode.levelsInUse.forEach( key => allLevelsInUse.add( key ) );
+                singleMode.levelsInUse.forEach( key => allLevelsInUse[ brightness ].add( key ) );
 
                 allThemeKeys.background.push( new Set(
                     Object.keys( singleMode.data.background ).filter( keyFilter ) as Exclude<keyof SingleMode[ 'background' ], ExcludeKeys>[]
@@ -259,11 +262,10 @@ export class Tokens_Themes_Set<
         this.meta = {
             keys,
 
-            levelsInUse: arrayUnique(
-                Array.from( allLevelsInUse ).map(
-                    ( light ) => [ light, ColourUtilities.Levels.toDark( light ) ]
-                ).flat()
-            ).sort(),
+            levelsInUse: objectMap(
+                allLevelsInUse,
+                ( [ _key, _lvls ] ) => Array.from( _lvls ).sort()
+            ),
         };
     }
 
@@ -359,7 +361,9 @@ export namespace Tokens_Themes_Set {
         /**
          * @since 0.1.0-beta.0 — Moved to be a child of the new meta prop.
          */
-        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+        levelsInUse: {
+            [ K in TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes> ]: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+        };
     };
 
     /**
@@ -712,11 +716,6 @@ export namespace Tokens_Themes_Set {
 
         public toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption> {
 
-            const levelsInUse = this.levelsInUse.map( ( light ) => ( {
-                light,
-                dark: ColourUtilities.Levels.toDark( light ),
-            } ) );
-
             return {
                 name: this.name,
                 brightness: this.brightness,
@@ -776,7 +775,7 @@ export namespace Tokens_Themes_Set {
                     true,
                 ),
 
-                levelsInUse,
+                levelsInUse: this.levelsInUse,
             };
         }
 
@@ -1764,10 +1763,7 @@ export namespace Tokens_Themes_Set {
                 };
             };
 
-            levelsInUse: {
-                light: "black" | "white" | ColourUtilities.Levels.Any;
-                dark: "black" | "white" | ColourUtilities.Levels.Any;
-            }[];
+            levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
         };
 
         /**

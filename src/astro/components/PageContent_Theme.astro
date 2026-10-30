@@ -7,6 +7,8 @@
 
 /* import - types */
 import type { ComponentProps } from 'astro/types';
+
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
 import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
@@ -42,7 +44,6 @@ import LoremIpsumComponent from './LoremIpsum.astro';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import ToggleComponent from './Toggle.astro';
 import WidgetComponent from './Widget.astro';
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
 
 /* import - layouts */
 
@@ -249,9 +250,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                     />
                     { displayOptions.map( ( opt ) => (
                         <div
-                            class:list={ [
-                                'theme-mode-toggle__list', 
-                            ] }
+                            class='theme-mode-toggle__list'
                             data-tokens-theme-preview-display-mode-content={opt.value}
                             style={`--theme-mode-swatch-list-column-count: ${brightnessSet.values.length};`}
                         >
@@ -277,7 +276,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                             { Object.entries(set.theme.data.background).map(
                                                 ([backgroundSlug, backgroundClrName]) => backgroundSlug !== '$' &&(
                                                     <Alert
-                                                        class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
+                                                        class={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
                                                         icon={ tokens.icons[backgroundSlug] ?? tokens.icons.star }
                                                         style={`--background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName})); background: var(--theme-background-${backgroundSlug}, var(--clr-${backgroundClrName}))`}
                                                     >
@@ -304,7 +303,7 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                                         components={components}
                                                         displayHeading={3}
                                                         heading={5} 
-                                                        class:list={'widget-block--alt-theme'}
+                                                        class='widget-block--alt-theme'
                                                         data-active-theme={themeName}
                                                         data-brightness-mode={brightnessSet.name}
                                                         data-contrast-mode={set.contrast}

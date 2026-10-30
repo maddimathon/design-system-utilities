@@ -8,10 +8,7 @@
 /* import - types */
 import type { HTMLTag } from 'astro/types';
 
-import type {
-    ClassList,
-    GenericElementProps,
-} from '@maddimathon/utility-astro';
+import type { ClassList, ElementProps } from '@maddimathon/utility-astro';
 import type { DynamicWrapperProps } from '@maddimathon/utility-astro/components';
 
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
@@ -22,6 +19,7 @@ import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - components */
 import components from '@maddimathon/utility-astro/components';
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 const { DynamicWrapper } = components;
 
 /* import - layouts */
@@ -36,15 +34,15 @@ export type LogoProps<T_Tag extends HTMLTag = HTMLTag> = Omit<
     class?: ClassList;
 };
 
-type Props = GenericElementProps<LogoProps, 'div'>;
+type Props = ElementProps<LogoProps, 'div'>;
 
 const {
-    logo,
-    'class': classList = [],
     'aria-hidden': ariaHidden = false,
+    'class': classList = [],
+    logo,
     tag = 'div',
     ...attributes
-}: Props = Astro.props?.frontmatter ?? Astro.props;
+}: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
 ---
@@ -52,12 +50,7 @@ const {
 <DynamicWrapper
     {...attributes}
     aria-hidden={ariaHidden ? true : undefined}
-    class:list={[
-        'brand-logo',
-        `brand-logo--${logo.slug}`,
-        { '||': classList },
-        classList,
-    ]}
+    class={makeClassList(['brand-logo', `brand-logo--${logo.slug}`], classList)}
     tag={tag}
 >
     <Fragment

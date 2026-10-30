@@ -19,6 +19,7 @@ import {
     objectMap,
     toTitleCase,
 } from '@maddimathon/utility-typescript';
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
  
@@ -213,17 +214,17 @@ if ( ! import.meta.env.DEV && allFontLevels ) {
                 >
                     <div class="font-family-swatch__intro">
                         <h3
-                            class:list={['font-family-swatch__name']}
+                            class='font-family-swatch__name'
                             set:text={font.name}
                         />
                         <dl class='font-family-swatch__details-list'>
                             { detailsMapper(font).map( ( {key, value} ) => (
                                 <dt
-                                    class:list={[ 'h7', '|', 'font-family-swatch__details-dt' ]}
+                                    class={makeClassList.flat('h7', 'font-family-swatch__details-dt', {separator: '|'})}
                                     set:text={key} 
                                 />
                                 <dd
-                                    class:list={[ 'font-family-swatch__details-dd' ]}
+                                    class='font-family-swatch__details-dd'
                                     set:text={value}
                                 />
                             ) ) }
@@ -234,7 +235,7 @@ if ( ! import.meta.env.DEV && allFontLevels ) {
                             heading={4}
                             displayHeading={6}
 
-                            class:list={[
+                            class={[
                                 'font-family-swatch__weight-dt',
                                 `font-family-swatch__weight-dt--${ style == 'italic' ? `${weight}-${style}` : weight }`, 
                             ]}
@@ -248,10 +249,7 @@ if ( ! import.meta.env.DEV && allFontLevels ) {
                             <Fragment set:text={weight} />
                         )}</Heading>
                         <p
-                            class:list={[
-                                'font-family-swatch__weight-dd',
-                                `font-family-swatch__weight-dd--${ style == 'italic' ? `${weight}-${style}` : weight }`,
-                            ]}
+                            class={`font-family-swatch__weight-dd font-family-swatch__weight-dd--${ style == 'italic' ? `${weight}-${style}` : weight }`}
                             style={ [ 
                                 `--line-clamp: ${ import.meta.env.DEV ? 5 : 3 }`,
                                 `font-style: ${style}`,

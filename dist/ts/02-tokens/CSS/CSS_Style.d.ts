@@ -736,7 +736,7 @@ export declare namespace Tokens_CSS_Style {
              */
             color: string;
             'flow-margin': {
-                self: FlowMargin.SelfFirm;
+                self: FlowMargin.Self | FlowMargin.SelfFirm;
             };
         };
         /**

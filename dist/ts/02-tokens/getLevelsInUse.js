@@ -12,6 +12,14 @@
  *
  * @since 0.1.0-alpha.2
  */
-export function getLevelsInUse(themes) {
-    return new Set(themes._meta.levelsInUse);
+export function getLevelsInUse(themes, brightness = 'all') {
+    // returns
+    if (brightness !== 'all') {
+        return new Set(themes._meta.levelsInUse[brightness]);
+    }
+    const all = new Set();
+    themes._meta.brightness.forEach(_brightness => {
+        themes._meta.levelsInUse[_brightness].forEach(lvl => all.add(lvl));
+    });
+    return all;
 }

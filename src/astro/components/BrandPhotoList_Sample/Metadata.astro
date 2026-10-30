@@ -6,9 +6,7 @@
  */
 
 /* import - types */
-import type { HTMLAttributes } from 'astro/types';
-
-import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { ElementProps } from '@maddimathon/utility-astro';
 import type {
     ButtonComponentType,
     HeadingComponentType,
@@ -36,6 +34,7 @@ import BrandPhotoList_Sample_Metadata_Credit from './Metadata_Credit.astro';
 import BrandPhotoList_Sample_Metadata_Files from './Metadata_Files.astro';
 import BrandPhotoList_Sample_Metadata_Item from './Metadata_Item.astro';
 import BrandPhotoList_Sample_Metadata_License from './Metadata_License.astro';
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - layouts */
 
@@ -43,36 +42,39 @@ import BrandPhotoList_Sample_Metadata_License from './Metadata_License.astro';
 
 /* PROPS ===================================== */
 
-export interface BrandPhotoList_Sample_MetadataProps<
+export type BrandPhotoList_Sample_MetadataProps<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
-> {
-    components?: Partial<{
-        Button: ButtonComponentType;
-        Heading: HeadingComponentType;
-    }>;
+> = ElementProps<
+    {
+        components?: Partial<{
+            Button: ButtonComponentType;
+            Heading: HeadingComponentType;
+        }>;
 
-    copyCredit: undefined | boolean;
+        copyCredit: undefined | boolean;
 
-    displayHeading: undefined | number;
+        displayHeading: undefined | number;
 
-    data: PhotoData<
-        T_Types['photos']['photoSlugs'] | T_Types['photos']['thumbnailSlugs']
-    >;
+        data: PhotoData<
+            | T_Types['photos']['photoSlugs']
+            | T_Types['photos']['thumbnailSlugs']
+        >;
 
-    includeCaption: undefined | boolean;
-    includeCaptionMeta: undefined | boolean;
-    includeCredit: undefined | boolean;
-    includeFiles: undefined | boolean;
-    includeLicense: undefined | boolean;
-    includeSource: undefined | boolean;
+        includeCaption: undefined | boolean;
+        includeCaptionMeta: undefined | boolean;
+        includeCredit: undefined | boolean;
+        includeFiles: undefined | boolean;
+        includeLicense: undefined | boolean;
+        includeSource: undefined | boolean;
 
-    spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
+        spanColour: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['text'][number];
 
-    wrapItems: undefined | boolean | HTMLAttributes<'div'>;
-}
+        wrapItems: undefined | boolean | ElementProps<{}, 'div'>;
+    },
+    'dl'
+>;
 
-type Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> =
-    GenericElementProps<BrandPhotoList_Sample_MetadataProps<T_Types>, 'dl'>;
+type Props = BrandPhotoList_Sample_MetadataProps<TokenTypes.TypeParams>;
 
 const {
     class: classList,
@@ -105,8 +107,8 @@ const { attrs, caption, meta, slug } = data;
 ---
 
 <dl
-    class:list={classList}
     {...listAttrs}
+    class={makeClassList.flat(classList ?? [])}
 >
     {
         displayHeading < 0 && meta.label ? (
@@ -144,7 +146,7 @@ const { attrs, caption, meta, slug } = data;
                     <Fragment set:html={buttonSpacer} />
                     <CopyToClipboardButton
                         {...{ components }}
-                        class:list='display-inline'
+                        class='display-inline'
                         successMessage='copied!'
                         toClipboard={attrs.alt}
                         set:text='copy'

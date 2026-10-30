@@ -7,7 +7,6 @@
 
 /* import - types */
 import type {} from 'astro/types';
-import type {} from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -18,7 +17,7 @@ import type { ThemeModeSwatchProps_Components } from './ThemeModeSwatch.astro';
 
 /* import - functions */
 import {
-    objectMap,
+    toTitleCase,
 } from '@maddimathon/utility-typescript';
 
 import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
@@ -36,9 +35,141 @@ import { textColorLevel } from '../functions/textColorLevel.js';
 type _DefClrParams<
     T_ExtraColourLevels extends ColourUtilities.Levels.Optional = never,
 > = {
-    names: string;
     extraLevels: T_ExtraColourLevels;
+    names: string;
 };
+
+/* FUNCTIONS ===================================== */
+
+type LevelsInUseTableValue<T_TokenParams extends TokenTypes.TypeParams> = {
+    [ B in 'light' | 'dark' ]: false | {
+        level: TokenTypes.Colour.AnyLevel<T_TokenParams['colour']>;
+        style: { 
+            [ K in 'background' | 'color' ]: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                _DefClrParams<T_TokenParams['colour']['extraLevels']>
+            >;
+        };
+    }
+};
+
+export function getLevelsInUseTable_brightnesses<T_TokenParams extends TokenTypes.TypeParams>(
+    _theme: Tokens_Themes_Set.SingleMode.JsonReturn<
+        T_TokenParams['colour'],
+        T_TokenParams['theme']
+    >,
+    _lightAndDark: boolean,
+): TokenTypes.Theme.GetBrightnessKeys<T_TokenParams['theme']>[] {
+    return _lightAndDark
+        ? [ 'light', 'dark' ] satisfies TokenTypes.Theme.Mode.BrightnessRequired[]
+        : _theme.brightness
+            ? [ _theme.brightness ]
+            : [];
+}
+
+export function getLevelsInUseTable<T_TokenParams extends TokenTypes.TypeParams>(
+    _tokens: Tokens.JsonReturn<T_TokenParams>,
+    _theme: Tokens_Themes_Set.SingleMode.JsonReturn<
+        T_TokenParams['colour'],
+        T_TokenParams['theme']
+    >,
+    _lightAndDark: boolean,
+): [
+    TokenTypes.Colour.AnyLevel<T_TokenParams['colour']>,
+    LevelsInUseTableValue<T_TokenParams>
+][] {
+    const _levelsInUseTable_brightnesses = getLevelsInUseTable_brightnesses(_theme, _lightAndDark);
+            
+    const levels: {
+        [ K in TokenTypes.Colour.AnyLevel<T_TokenParams['colour']> ]?: LevelsInUseTableValue<T_TokenParams>;
+    } = {};
+
+    _levelsInUseTable_brightnesses.forEach(
+        brightness => {
+            const allLevels = brightness === _theme.brightness
+                ? _theme.levelsInUse
+                : _theme.levelsInUse;
+
+            allLevels.forEach(
+                level => {
+                    const levelKey = brightness === 'dark'
+                        ? ColourUtilities.Levels.toDark(level)
+                        : level;
+
+                    const textColor = textColorLevel(level);
+
+                    let background: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                        _DefClrParams<ColourUtilities.Levels.Optional>
+                    >;
+                    let color: Tokens_Colour_ShadeMap.Shade.JsonReturn<
+                        _DefClrParams<ColourUtilities.Levels.Optional>
+                    >;
+
+                    switch (level) {
+                        case 'black':
+                        case 'white':
+                            background = _tokens.colour.$[level];
+                            break;
+
+                        default:
+                            background = _tokens.colour.base[level];
+                            break;
+                    }
+
+                    switch (textColor) {
+                        case 'black':
+                        case 'white':
+                            color = _tokens.colour.$[textColor];
+                            break;
+
+                        default:
+                            color = _tokens.colour.base[textColor];
+                            break;
+                    }
+
+                    if (typeof levels[levelKey] === 'undefined') {
+                        levels[levelKey] = {
+                            light: false,
+                            dark: false,
+                        }
+                    }
+                    
+                    levels[levelKey][brightness] = {
+                        level,
+                        style: { background, color },
+                    };
+                }
+            );            
+        }
+    )
+
+    const level_entries = Object.entries(levels) as [
+        TokenTypes.Colour.AnyLevel<T_TokenParams['colour']>,
+        LevelsInUseTableValue<T_TokenParams>
+    ][];
+
+    const _sortMaker = (
+        level: TokenTypes.Colour.AnyLevel<T_TokenParams['colour']>
+    ) =>  level === 'white' ? 0 : level === 'black' ? 1000 : Number(level)
+
+    return level_entries.filter(
+        ( [ key, value ] ) => typeof value === 'object' && ( value.light || value.dark )
+    ).sort(
+        (a, b) => {
+            const sort_a = _sortMaker(a[0]);
+            const sort_b = _sortMaker(b[0]);
+
+            if ( sort_a > sort_b ) {
+                return 1;
+            }
+
+            if ( sort_a < sort_b ) {
+                return -1;
+            }
+
+            return 0;
+        }
+    );
+}
 
 /* PROPS ===================================== */
 
@@ -48,6 +179,8 @@ interface Props {
 
     components: ThemeModeSwatchProps_Components;
 
+    lightAndDark?: boolean;
+
     theme: Tokens_Themes_Set.SingleMode.JsonReturn<
         TokenTypes.TypeParams['colour'],
         TokenTypes.TypeParams['theme']
@@ -55,88 +188,51 @@ interface Props {
     tokens: Tokens.JsonReturn;
 }
 
-const { components: { Heading, Table }, heading, displayHeading, theme, tokens }: Props = Astro.props;
+const {
+    components: { Heading, Table },
+    displayHeading,
+    heading,
+    lightAndDark = false,
+    theme,
+    tokens,
+} = Astro.props as Props ;
 
 /* CONSTANTS ===================================== */
 
-const levelsInUseTable = theme.levelsInUse.map((levels) => ({
-    levels,
+const allBrightnesses = getLevelsInUseTable_brightnesses(theme, lightAndDark);
 
-    styles: objectMap(levels, ([key, value]) => {
-        key;
-
-        const textColor = textColorLevel(value);
-
-        let background: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            _DefClrParams<ColourUtilities.Levels.Optional>
-        >;
-        let color: Tokens_Colour_ShadeMap.Shade.JsonReturn<
-            _DefClrParams<ColourUtilities.Levels.Optional>
-        >;
-
-        switch (value) {
-            case 'black':
-            case 'white':
-                background = tokens.colour.$[value];
-                break;
-
-            default:
-                background =
-                    tokens.colour.base[
-                        value as ColourUtilities.Levels.Required
-                    ];
-                break;
-        }
-
-        switch (textColor) {
-            case 'black':
-            case 'white':
-                color = tokens.colour.$[textColor];
-                break;
-
-            default:
-                color =
-                    tokens.colour.base[
-                        textColor as ColourUtilities.Levels.Required
-                    ];
-                break;
-        }
-
-        return { background, color };
-    }),
-}));
+const levelsInUseTable = getLevelsInUseTable(tokens, theme, lightAndDark);
 ---
 
 { levelsInUseTable.length && (
     <Heading
         heading={heading}
-        displayHeading={displayHeading }
+        displayHeading={displayHeading}
         set:text='Shades in Use'
     />
     <Table
-        class:list={['theme-mode-swatch__shades-in-use']}
+        class='theme-mode-swatch__shades-in-use'
     >
-        <tr>
-            <th set:text='Light Mode' />
-            <th set:text='Dark Mode' />
-        </tr>
-        { levelsInUseTable.map( ({ levels, styles }) => <tr>
-            <td 
-                data-brightness-mode="light"
-                set:text={levels.light}
-                style={styles && [
-                    `background: ${getColourValue( styles.light.background ) ?? 'unset'}`,
-                    `color: ${getColourValue( styles.light.color ) ?? 'unset'}`,
-                ].join(';')}
-            />
-            <td 
-                data-brightness-mode="light"
-                set:text={levels.dark}
-                style={styles && [
-                    `background: ${getColourValue( styles.dark.background ) ?? 'unset'}`,
-                    `color: ${getColourValue( styles.dark.color ) ?? 'unset'}`,
-                ].join(';')}
-            />
-        </tr> ) }
+        <tr>{ allBrightnesses.map(
+            brightness => <th set:text={`${toTitleCase(brightness)} Mode`} />
+        ) }</tr>
+        { levelsInUseTable.map( ([ level, items ]) => (
+            <tr>{ allBrightnesses.map(
+                brightness => items[brightness] ? (
+                    <td 
+                        data-brightness-mode={brightness}
+                        set:text={items[brightness].level}
+                        style={items[brightness].style && [
+                            `background: ${getColourValue( items[brightness].style.background ) ?? 'unset'}`,
+                            `color: ${getColourValue( items[brightness].style.color ) ?? 'unset'}`,
+                        ].join(';')}
+                    />
+                ) : (
+                    <td 
+                        data-brightness-mode={brightness}
+                    ><span class='screen-reader-text'>Empty {brightness === 'dark' ? ColourUtilities.Levels.toDark( level ) : level} cell</span></td>
+                )
+            ) }</tr>
+        ) ) }
     </Table>
 )}

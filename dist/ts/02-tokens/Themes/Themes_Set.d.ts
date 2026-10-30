@@ -80,7 +80,9 @@ export declare namespace Tokens_Themes_Set {
         /**
          * @since 0.1.0-beta.0 — Moved to be a child of the new meta prop.
          */
-        levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+        levelsInUse: {
+            [K in TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>]: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
+        };
     };
     /**
      * @since 0.1.0-alpha
@@ -708,10 +710,7 @@ export declare namespace Tokens_Themes_Set {
                     };
                 };
             };
-            levelsInUse: {
-                light: "black" | "white" | ColourUtilities.Levels.Any;
-                dark: "black" | "white" | ColourUtilities.Levels.Any;
-            }[];
+            levelsInUse: TokenTypes.Colour.AnyLevel<T_ColourTypes>[];
         };
         /**
          * @since 0.1.0-beta.0

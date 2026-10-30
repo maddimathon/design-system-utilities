@@ -171,9 +171,10 @@ export class Tokens_Themes<
     ) {
         super();
 
-        const allLevelsInUse = new Set<
-            "black" | "white" | ColourUtilities.Levels.Required | T_ColourTypes[ 'extraLevels' ]
-        >();
+        const allLevelsInUse = {
+            light: new Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>>(),
+            dark: new Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>>(),
+        };
 
         const allThemeKeys: {
             [ K in keyof Tokens_Themes_Set.Metadata<T_ColourTypes, T_ThemeTypes>[ 'keys' ] ]: Set<
@@ -187,7 +188,8 @@ export class Tokens_Themes<
         };
 
         for ( const themeSet of Object.values( this.sets ) ) {
-            themeSet.meta.levelsInUse.forEach( key => allLevelsInUse.add( key ) );
+            themeSet.meta.levelsInUse.light.forEach( key => allLevelsInUse.light.add( key ) );
+            themeSet.meta.levelsInUse.dark.forEach( key => allLevelsInUse.dark.add( key ) );
 
             allThemeKeys.background.push( new Set( themeSet.meta.keys.background ) );
             allThemeKeys.button.push( new Set( themeSet.meta.keys.button ) );
@@ -222,7 +224,10 @@ export class Tokens_Themes<
 
         this.meta = {
             keys,
-            levelsInUse: Array.from( allLevelsInUse ).sort(),
+            levelsInUse: {
+                light: Array.from( allLevelsInUse.light ).sort(),
+                dark: Array.from( allLevelsInUse.dark ).sort(),
+            },
         };
     }
 

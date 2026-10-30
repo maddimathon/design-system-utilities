@@ -9,18 +9,17 @@
  */
 
 import type { ImageMetadata } from 'astro';
-import type { HTMLAttributes } from 'astro/types';
 
 import type {
     RequiredPartially,
 } from '@maddimathon/utility-typescript/types';
 
-import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { ElementProps } from '@maddimathon/utility-astro';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens_Photos } from '../../ts/02-tokens/Tokens_Photos.js';
 
-type ImageComponentProps = HTMLAttributes<'img'>;
+type ImageComponentProps = ElementProps<{}, 'img'>;
 
 type Image_ExcludedProps = 'alt' | 'class' | 'class:list' | 'height' | 'width' | 'src';
 
@@ -89,19 +88,19 @@ export type BrandPhotoProps_Base<
     includeCaption?: null | boolean;
 
     href?: undefined;
-    linkAttrs?: undefined | HTMLAttributes<'a'>;
+    linkAttrs?: undefined | ElementProps<{}, 'a'>;
     linkLabel?: undefined,
 };
 
 export type BrandPhotoProps_Default<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     T_Slug extends T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ] = T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ],
-> = GenericElementProps<BrandPhotoProps_Base<T_Types, T_Slug>, 'img', Image_ExcludedProps>;
+> = ElementProps<BrandPhotoProps_Base<T_Types, T_Slug>, 'img', Image_ExcludedProps>;
 
 export type BrandPhotoProps_Linked<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,
     T_Slug extends T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ] = T_Types[ 'photos' ][ 'photoSlugs' ] | T_Types[ 'photos' ][ 'thumbnailSlugs' ],
-> = GenericElementProps<Omit<BrandPhotoProps_Base<T_Types, T_Slug>, 'href' | 'linkLabel'> & {
+> = ElementProps<Omit<BrandPhotoProps_Base<T_Types, T_Slug>, 'href' | 'linkLabel'> & {
     href: string;
     linkLabel: string,
 }, 'img', Image_ExcludedProps>;

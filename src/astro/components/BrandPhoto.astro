@@ -22,6 +22,7 @@ import type {
 
 /* import - components */
 import BrandPhoto_Caption from './BrandPhoto_Caption.astro';
+import { flattenClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - layouts */
 
@@ -37,7 +38,7 @@ export type BrandPhotoComponentType = (props: BrandPhotoProps) => any;
 
 const {
     href,
-    linkAttrs = {},
+    linkAttrs: { class: linkClassList, ...linkAttrs } = {},
     linkLabel,
     includeCaption,
     ...props
@@ -243,6 +244,7 @@ const inclCap = includeCaption ?? (meta?.credit || meta?.source);
         <a
             {...linkAttrs}
             aria-label={linkLabel ? linkLabel : undefined}
+            class={flattenClassList(linkClassList)}
             href={href}
         >
             <img

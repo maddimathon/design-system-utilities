@@ -10,6 +10,7 @@ import type { GenericElementProps } from '@maddimathon/utility-astro';
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 
@@ -37,7 +38,7 @@ const {
 <span
     {...attributes}
     aria-hidden={ariaHidden ? true : undefined}
-    class:list={['icon', `icon--${icon.slug}`, { '||': classList }, classList]}
+    class={makeClassList.flat(['icon', `icon--${icon.slug}`], classList)}
     set:html={ariaHidden
         ? icon.svgInlineHidden.trim()
         : icon.svgInlineLabelled.trim()}

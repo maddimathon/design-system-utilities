@@ -42,6 +42,7 @@ import ToggleComponent from './Toggle.astro';
 
 import ThemeModeSwatch_ShadesInUse from './ThemeModeSwatch_ShadesInUse.astro';
 import ThemeModeSwatch_ThemeSlug from './ThemeModeSwatch_ThemeSlug.astro';
+import type { ComponentProps } from 'astro/types';
 
 /* import - layouts */
 
@@ -86,7 +87,17 @@ export type ThemeModeSwatchProps<T_Types extends TokenTypes.TypeParams = TokenTy
     /**
      * @since 0.1.0-beta.3
      */
-    levelsInUseTable?: 'prepend'|'append';
+    levelsInUseTable?: 'prepend' | 'append' | Omit<
+        ComponentProps<typeof ThemeModeSwatch_ShadesInUse>,
+        'heading'|'displayHeading'|'components'|'theme'|'tokens'
+    > & {
+        location?: 'prepend' | 'append';
+    };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    shadesInUse?: Omit<ComponentProps<typeof ThemeModeSwatch_ShadesInUse>, 'heading'|'displayHeading'|'components'|'theme'|'tokens'>;
 }, 'div'>;
 
 type Props = ThemeModeSwatchProps
@@ -100,11 +111,21 @@ const {
     displayMode,
     equals = '=',
     heading,
-    levelsInUseTable = 'append',
+    levelsInUseTable,
     tokens,
 
     ...attributes
 }: Props = Astro.props;
+
+const {
+    location: shadesInUse_location,
+    ...shadesInUse
+} = typeof levelsInUseTable === 'object' ? {
+    location: 'append',
+    ...levelsInUseTable,
+} : {
+    location: levelsInUseTable ?? 'append',
+};
 
 const components = {
     ...inputComponents,
@@ -358,9 +379,7 @@ const inputField = {
             <Heading
                 heading={heading - 1}
                 displayHeading={displayHeading - 1}
-                class:list={ [
-                    'theme-mode-swatch__name',
-                ] }
+                class='theme-mode-swatch__name'
                 set:html={headingHTML}
             />
         )
@@ -372,8 +391,8 @@ const inputField = {
     ) }
     
     { displayMode == 'tokens' ? <Fragment>
-        { levelsInUseTable === 'prepend' && (
-            <ThemeModeSwatch_ShadesInUse {...{ components, displayHeading, heading, theme, tokens }} />
+        { shadesInUse_location === 'prepend' && (
+            <ThemeModeSwatch_ShadesInUse {...{ ...shadesInUse, components, displayHeading, heading, theme, tokens }} />
             <hr />
         ) }
         <Heading
@@ -431,7 +450,7 @@ const inputField = {
             <Fragment>
                 <Heading
                     heading={heading + 2}
-                    class:list='screen-reader-text'
+                    class='screen-reader-text'
                     set:text='Button Previews'
                 />
                 { [
@@ -440,10 +459,10 @@ const inputField = {
                 ].map( ( variation ) => (
                     <section
                         aria-label={variation.name + ' button previews'}
-                        class:list={['button-span | theme-mode-swatch__button-span']}
+                        class='button-span | theme-mode-swatch__button-span'
                     >{ Object.values( variation.states ).map( ( state ) => (
                         <Button
-                            class:list={ [
+                            class={ [
                                 'theme-mode-swatch__sample',
                                 'theme-mode-swatch__sample--button',
                             ] }
@@ -463,7 +482,7 @@ const inputField = {
 
         <Heading
             heading={heading + 2}
-            class:list='screen-reader-text'
+            class='screen-reader-text'
             set:text='Button Token Values'
         />
         { Object.values( buttons ).map( ( variation ) => variation.name !== 'disabled' && (
@@ -522,7 +541,7 @@ const inputField = {
         />
         { Object.entries( inputField ).map( ( [variation, fieldSet] ) => Object.values(fieldSet).map( ( state ) => (
             <FormField
-                class:list={ [
+                class={ [
                     'theme-mode-swatch__sample',
                     'theme-mode-swatch__sample--input',
                 ] }
@@ -543,7 +562,7 @@ const inputField = {
         ) ) ) }
         <Heading
             heading={heading + 2}
-            class:list='screen-reader-text'
+            class='screen-reader-text'
             set:text='Input Fields Token Values'
         />
         { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
@@ -572,9 +591,9 @@ const inputField = {
              ) }</Fragment>
         ) ) }
         <slot name="tokens" />
-        { levelsInUseTable === 'append' && (
+        { shadesInUse_location === 'append' && (
             <hr />
-            <ThemeModeSwatch_ShadesInUse {...{ components, displayHeading, heading, theme, tokens }} />
+            <ThemeModeSwatch_ShadesInUse {...{ ...shadesInUse, components, displayHeading, heading, theme, tokens }} />
         ) }
     </Fragment> : (
         <LoremIpsum
@@ -600,7 +619,7 @@ const inputField = {
         >
             { Object.entries( inputField ).map( ( [variation, fieldSet] ) => (
                 <FormField
-                    class:list={ [
+                    class={ [
                         'theme-mode-swatch__sample',
                         'theme-mode-swatch__sample--input',
                     ] }

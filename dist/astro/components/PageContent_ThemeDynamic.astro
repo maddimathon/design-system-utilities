@@ -6,6 +6,8 @@
  */
 
 /* import - types */
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+
 import type {
     HeadingComponentType,
     LoremIpsumComponentType,
@@ -17,7 +19,10 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 import type { AlertComponentType } from './Alert.astro';
 import type { LoremIpsumProps } from './LoremIpsum.astro';
-import type { ThemeModeSwatchProps_Components } from './ThemeModeSwatch.astro';
+import type {
+    ThemeModeSwatchProps,
+    ThemeModeSwatchProps_Components,
+} from './ThemeModeSwatch.astro';
 import type { WidgetComponentType } from './Widget.astro';
 
 /* import - functions */
@@ -40,7 +45,6 @@ import LoremIpsumComponent from './LoremIpsum.astro';
 import ThemeModeSwatch from './ThemeModeSwatch.astro';
 import ToggleComponent from './Toggle.astro';
 import WidgetComponent from './Widget.astro';
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
 
 /* import - layouts */
 
@@ -68,8 +72,8 @@ type Props_Components = {
 } & PartialExcept<LoremIpsumProps.Components, 'Fieldset' | 'FormField'> &
     Partial<ThemeModeSwatchProps_Components>;
 
-interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
-    tokens: Tokens.JsonReturn<T_Types>;
+interface Props {
+    tokens: Tokens.JsonReturn<TokenTypes.TypeParams>;
 
     /**
      * @since 0.1.0-beta.3
@@ -86,7 +90,7 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     /**
      * @since 0.1.0-beta.3
      */
-    levelsInUseTable?: 'prepend' | 'append';
+    levelsInUseTable?: ThemeModeSwatchProps<TokenTypes.TypeParams>['levelsInUseTable'];
 }
 
 const {
@@ -98,7 +102,7 @@ const {
 
     defaultPreviewToOpen = true,
     defaultTokensToOpen = false,
-    levelsInUseTable,
+    levelsInUseTable = { lightAndDark: true },
     tokens,
 }: Props = Astro.props;
 
@@ -249,7 +253,7 @@ const default_brightnessSet = {
         /></Fragment
     >
     <div
-        class:list={['theme-mode-toggle__list']}
+        class='theme-mode-toggle__list'
         style={`--theme-mode-swatch-list-column-count: ${default_brightnessSet.values?.length ?? 4};`}
     >
         {
@@ -283,7 +287,7 @@ const default_brightnessSet = {
                                 ([backgroundSlug, backgroundClrName]) =>
                                     backgroundSlug !== '$' && (
                                         <Alert
-                                            class:list={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
+                                            class={`alert-block--${backgroundSlug} background-${backgroundSlug}`}
                                             icon={
                                                 tokens.icons[backgroundSlug] ??
                                                 tokens.icons.star
@@ -326,10 +330,10 @@ const default_brightnessSet = {
                         >
                             {[null, ...themeNames].map((themeName) => (
                                 <Widget
+                                    class='widget-block--alt-theme'
                                     components={components}
                                     displayHeading={3}
                                     heading={5}
-                                    class:list={'widget-block--alt-theme'}
                                     data-tokens-theme-preview-container
                                     data-tokens-theme-dynamic-preview-preview-container='brightness-only'
                                     data-active-theme={themeName ?? ''}
@@ -412,7 +416,7 @@ const default_brightnessSet = {
                     {parsed.map((parsedTheme) =>
                         parsedTheme.parsed.map((brightnessSet) => (
                             <div
-                                class:list={['theme-mode-toggle__list']}
+                                class='theme-mode-toggle__list'
                                 data-tokens-theme-dynamic-preview-theme-content={
                                     parsedTheme.key
                                 }

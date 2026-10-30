@@ -6,7 +6,6 @@
  */
 
 /* import - types */
-import type { HTMLAttributes } from 'astro/types';
 import type { ElementProps } from '@maddimathon/utility-astro';
 
 import type {
@@ -15,6 +14,7 @@ import type {
 } from '@maddimathon/utility-astro/components';
 
 /* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
 
@@ -32,7 +32,7 @@ type Props  = ElementProps<{
         Heading: HeadingComponentType;
     }>;
     label: string;
-    wrapItems?: boolean | HTMLAttributes<'div'>;
+    wrapItems?: boolean | ElementProps<{}, 'div'>;
 }, 'dd'>
 
 const {
@@ -45,17 +45,20 @@ const {
 
 /* CONSTANTS ===================================== */
 
-const wrapItemAttrs = wrapItems && typeof wrapItems === 'object' ? wrapItems : {};
+const {
+    class: wrapItemClassList = [],
+    ...wrapItemAttrs
+} = wrapItems && typeof wrapItems === 'object' ? wrapItems : {};
 ---
 
 { wrapItems ? (
-    <div {...wrapItemAttrs}>
+    <div {...wrapItemAttrs} class={makeClassList.flat(wrapItemClassList)}>
         <dt set:text={label} />
-        <dd class:list={defClassList} {...defAttrs}><slot /></dd>
+        <dd class={makeClassList.flat(defClassList ?? [])} {...defAttrs}><slot /></dd>
     </div>
 ) : (
     <dt set:text={label} />
-    <dd class:list={defClassList} {...defAttrs}><slot /></dd>
+    <dd class={makeClassList.flat(defClassList ?? [])} {...defAttrs}><slot /></dd>
 ) }
 
 

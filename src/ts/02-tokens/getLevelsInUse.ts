@@ -19,6 +19,22 @@ import type { Tokens_Themes } from './Tokens_Themes.js';
 export function getLevelsInUse<
     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,
     T_ThemeTypes extends TokenTypes.Theme.TypeParams = TokenTypes.Theme.TypeParams,
->( themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes> ): Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>> {
-    return new Set( themes._meta.levelsInUse );
+>(
+    themes: Tokens_Themes.JsonReturn<T_ColourTypes, T_ThemeTypes>,
+    brightness: 'all' | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes> = 'all',
+): Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>> {
+    // returns
+    if ( brightness !== 'all' ) {
+        return new Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>>( themes._meta.levelsInUse[ brightness ] );
+    }
+
+    const all = new Set<TokenTypes.Colour.AnyLevel<T_ColourTypes>>();
+
+    themes._meta.brightness.forEach(
+        _brightness => {
+            themes._meta.levelsInUse[ _brightness ].forEach( lvl => all.add( lvl ) );
+        }
+    );
+
+    return all;
 }

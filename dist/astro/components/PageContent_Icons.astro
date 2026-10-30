@@ -222,7 +222,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         </Alert>
         
         <Toggle
-            class:list={ import.meta.env.DEV ? 'page-width' : '' }
+            class={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -258,7 +258,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         </Toggle>
     
         <Toggle
-            class:list={ import.meta.env.DEV ? 'page-width' : '' }
+            class={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -293,7 +293,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         </Toggle>
     
         <Toggle
-            class:list={ import.meta.env.DEV ? 'page-width' : '' }
+            class={ import.meta.env.DEV ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -354,7 +354,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                     set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                 />&NoBreak;&ensp;<CopyToClipboardButton
-                    class:list={`button-${buttonColour} display-inline`}
+                    class={`button-${buttonColour} display-inline`}
                     components={{Button}}
                     successMessage='copied!'
                     toClipboard={String.fromCharCode(icon.meta.codepoint)}
@@ -384,7 +384,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         />&NoBreak;&ensp;<CopyToClipboardButton
-                            class:list={`button-${buttonColour} display-inline`}
+                            class={`button-${buttonColour} display-inline`}
                             components={{Button}}
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
@@ -416,7 +416,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         { icon.meta?.codepoint && <p class="aside">font glyph: <samp
                             set:text={`U+${icon.meta.codepoint.toString(16).toUpperCase()}`}
                         />&NoBreak;&ensp;<CopyToClipboardButton
-                            class:list={`button-${buttonColour} display-inline`}
+                            class={`button-${buttonColour} display-inline`}
                             components={{Button}}
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
@@ -502,8 +502,8 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
     {
         textAndBackgroundKeys.map((key) => (
             <Alert
+                class={`background-${key}`}
                 icon={tokens.icons[key] ?? defaultIconSvg}
-                class:list={`background-${key}`}
             >
                 <Fragment slot='headline'>
                     Colour Variation: <samp set:text={key} />
