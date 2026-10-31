@@ -103,24 +103,26 @@ export class Document extends DocumentStage {
             ],
         );
 
-        this.console.progress( 'writing .env file...', 1 );
+        if ( !this.isWatchedUpdate ) {
+            this.console.progress( 'writing .env file...', 1 );
 
-        const version = this.version.toString( this.isDraftVersion );
+            const version = this.version.toString( this.isDraftVersion );
 
-        this.try(
-            this.fs.write,
-            2,
-            [
-                '.env',
+            this.try(
+                this.fs.write,
+                2,
                 [
-                    'BRAND_KIT_VERSION="' + version + '"',
-                    'BRAND_KIT_VERSION_STYLESHEET="' + version + ( this.isDraftVersion ? '+' + slugify( timestamp( null, { date: true, time: true } ) ) : '' ) + '"',
-                ].join( '\n' ),
-                {
-                    force: true,
-                },
-            ],
-        );
+                    '.env',
+                    [
+                        'BRAND_KIT_VERSION="' + version + '"',
+                        'BRAND_KIT_VERSION_STYLESHEET="' + version + ( this.isDraftVersion ? '+' + slugify( timestamp( null, { date: true, time: true } ) ) : '' ) + '"',
+                    ].join( '\n' ),
+                    {
+                        force: true,
+                    },
+                ],
+            );
+        }
     }
 
     /**

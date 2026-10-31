@@ -1652,7 +1652,8 @@ html {
 /* #endregion Tokens - Transitions */
 /* #region Tokens - Colour */
 html,
-[data-brightness-mode="light"] {
+[data-brightness-mode="light"],
+html [data-brightness-mode="light"] {
     --clr-black: hsl(0, 0%, 0%);
     --clr-white: hsl(305.25, 100%, 100%);
     --clr-black-hsl: 0 0% 0%;
@@ -1747,7 +1748,8 @@ html,
     --clr-yellow-900-hsl: 19 100% 3%;
 }
 
-[data-brightness-mode="dark"] {
+[data-brightness-mode="dark"],
+html [data-brightness-mode="dark"] {
     --clr-black: hsl(305.25, 100%, 100%);
     --clr-white: hsl(0, 0%, 0%);
     --clr-black-hsl: 305.25 100% 100%;
@@ -1845,11 +1847,7 @@ html,
 /* #endregion Tokens - Colour */
 /* #region Tokens - Theme - Selectors - light mode + average contrast */
 html,
-[data-brightness-mode="light"],
-[data-contrast-mode="average"],
-[data-brightness-mode="light"][data-contrast-mode="average"],
-[data-brightness-mode="light"] [data-contrast-mode="average"],
-[data-contrast-mode="average"] [data-brightness-mode="light"] {
+[data-brightness-mode="light"][data-contrast-mode="average"] {
     --theme-background: var(--clr-base-150, hsl(339.5, 0%, 91.5%));
     --theme-background-hsl: var(--clr-base-150-hsl, 339.5 0% 91.5%);
     --theme-background-bright: var(--clr-base-100, hsl(339.5, 0%, 96.5%));
@@ -2272,8 +2270,7 @@ html,
         var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 91.5%)))
     );
 }
-[data-brightness-mode="light"]:where(html, body),
-[data-contrast-mode="average"]:where(html, body) {
+[data-brightness-mode="light"][data-contrast-mode="average"]:where(html, body) {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(321, 68%, 26%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(321, 68%, 26%));
     --theme-button-primary-outline-hsl: var(--clr-pink-700-hsl, 321 68% 26%);
@@ -2341,10 +2338,6 @@ html,
 }
 
 html,
-[data-brightness-mode="light"] [data-contrast-mode="average"],
-[data-contrast-mode="average"] [data-brightness-mode="light"],
-[data-brightness-mode="light"] > *,
-[data-contrast-mode="average"] > *,
 [data-brightness-mode="light"][data-contrast-mode="average"] > * {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(321, 68%, 26%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(321, 68%, 26%));
@@ -2414,10 +2407,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - light mode + average contrast */
 /* #region Tokens - Theme - Selectors - light mode + low contrast */
-[data-contrast-mode="low"],
-[data-brightness-mode="light"][data-contrast-mode="low"],
-[data-brightness-mode="light"] [data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="light"] {
+[data-brightness-mode="light"][data-contrast-mode="low"] {
     --theme-background: var(--clr-base-200, hsl(339.5, 0%, 86%));
     --theme-background-hsl: var(--clr-base-200-hsl, 339.5 0% 86%);
     --theme-background-bright: var(--clr-base-200, hsl(339.5, 0%, 86%));
@@ -2814,7 +2804,7 @@ html,
         var(--theme-background, var(--clr-base-200, hsl(339.5, 0%, 86%)))
     );
 }
-[data-contrast-mode="low"]:where(html, body) {
+[data-brightness-mode="light"][data-contrast-mode="low"]:where(html, body) {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(321, 68%, 26%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(321, 68%, 26%));
     --theme-button-primary-outline-hsl: var(--clr-pink-700-hsl, 321 68% 26%);
@@ -2881,9 +2871,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-600-hsl, 339.5 0% 34.5%);
 }
 
-[data-brightness-mode="light"] [data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="light"],
-[data-contrast-mode="low"] > *,
 [data-brightness-mode="light"][data-contrast-mode="low"] > * {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(321, 68%, 26%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(321, 68%, 26%));
@@ -2953,10 +2940,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - light mode + low contrast */
 /* #region Tokens - Theme - Selectors - light mode + high contrast */
-[data-contrast-mode="high"],
-[data-brightness-mode="light"][data-contrast-mode="high"],
-[data-brightness-mode="light"] [data-contrast-mode="high"],
-[data-contrast-mode="high"] [data-brightness-mode="light"] {
+[data-brightness-mode="light"][data-contrast-mode="high"] {
     --theme-background: var(--clr-base-100, hsl(339.5, 0%, 96.5%));
     --theme-background-hsl: var(--clr-base-100-hsl, 339.5 0% 96.5%);
     --theme-background-bright: var(--clr-white, hsl(305.25, 100%, 100%));
@@ -3376,7 +3360,7 @@ html,
         var(--theme-background, var(--clr-base-100, hsl(339.5, 0%, 96.5%)))
     );
 }
-[data-contrast-mode="high"]:where(html, body) {
+[data-brightness-mode="light"][data-contrast-mode="high"]:where(html, body) {
     --focus-ring-outline-color: var(--clr-pink-800, hsl(322, 85%, 16.5%));
     --theme-button-primary-outline: var(--clr-pink-800, hsl(322, 85%, 16.5%));
     --theme-button-primary-outline-hsl: var(--clr-pink-800-hsl, 322 85% 16.5%);
@@ -3449,9 +3433,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-700-hsl, 339.5 0% 22.5%);
 }
 
-[data-brightness-mode="light"] [data-contrast-mode="high"],
-[data-contrast-mode="high"] [data-brightness-mode="light"],
-[data-contrast-mode="high"] > *,
 [data-brightness-mode="light"][data-contrast-mode="high"] > * {
     --focus-ring-outline-color: var(--clr-pink-800, hsl(322, 85%, 16.5%));
     --theme-button-primary-outline: var(--clr-pink-800, hsl(322, 85%, 16.5%));
@@ -3527,10 +3508,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - light mode + high contrast */
 /* #region Tokens - Theme - Selectors - light mode + max contrast */
-[data-contrast-mode="max"],
-[data-brightness-mode="light"][data-contrast-mode="max"],
-[data-brightness-mode="light"] [data-contrast-mode="max"],
-[data-contrast-mode="max"] [data-brightness-mode="light"] {
+[data-brightness-mode="light"][data-contrast-mode="max"] {
     --theme-background: var(--clr-white, hsl(305.25, 100%, 100%));
     --theme-background-hsl: var(--clr-white-hsl, 305.25 100% 100%);
     --theme-background-bright: var(--clr-white, hsl(305.25, 100%, 100%));
@@ -3959,7 +3937,7 @@ html,
         var(--theme-background, var(--clr-white, hsl(305.25, 100%, 100%)))
     );
 }
-[data-contrast-mode="max"]:where(html, body) {
+[data-brightness-mode="light"][data-contrast-mode="max"]:where(html, body) {
     --focus-ring-outline-color: var(--clr-pink-850, hsl(322.75, 68.25%, 11.5%));
     --theme-button-primary-outline: var(
         --clr-pink-850,
@@ -4059,9 +4037,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-850-hsl, 339.5 0% 9.5%);
 }
 
-[data-brightness-mode="light"] [data-contrast-mode="max"],
-[data-contrast-mode="max"] [data-brightness-mode="light"],
-[data-contrast-mode="max"] > *,
 [data-brightness-mode="light"][data-contrast-mode="max"] > * {
     --focus-ring-outline-color: var(--clr-pink-850, hsl(322.75, 68.25%, 11.5%));
     --theme-button-primary-outline: var(
@@ -4164,10 +4139,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - light mode + max contrast */
 /* #region Tokens - Theme - Selectors - dark mode + average contrast */
-[data-brightness-mode="dark"],
-[data-brightness-mode="dark"][data-contrast-mode="average"],
-[data-brightness-mode="dark"] [data-contrast-mode="average"],
-[data-contrast-mode="average"] [data-brightness-mode="dark"] {
+[data-brightness-mode="dark"][data-contrast-mode="average"] {
     --theme-background: var(--clr-base-150, hsl(339.5, 0%, 9.5%));
     --theme-background-hsl: var(--clr-base-150-hsl, 339.5 0% 9.5%);
     --theme-background-bright: var(--clr-base-100, hsl(339.5, 0%, 4.5%));
@@ -4575,7 +4547,7 @@ html,
         var(--theme-background, var(--clr-base-150, hsl(339.5, 0%, 9.5%)))
     );
 }
-[data-brightness-mode="dark"]:where(html, body) {
+[data-brightness-mode="dark"][data-contrast-mode="average"]:where(html, body) {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(323.5, 70%, 77%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(323.5, 70%, 77%));
     --theme-button-primary-outline-hsl: var(--clr-pink-700-hsl, 323.5 70% 77%);
@@ -4651,9 +4623,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-600-hsl, 339.5 0% 61.5%);
 }
 
-[data-brightness-mode="dark"] [data-contrast-mode="average"],
-[data-contrast-mode="average"] [data-brightness-mode="dark"],
-[data-brightness-mode="dark"] > *,
 [data-brightness-mode="dark"][data-contrast-mode="average"] > * {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(323.5, 70%, 77%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(323.5, 70%, 77%));
@@ -4732,9 +4701,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - dark mode + average contrast */
 /* #region Tokens - Theme - Selectors - dark mode + low contrast */
-[data-brightness-mode="dark"][data-contrast-mode="low"],
-[data-brightness-mode="dark"] [data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="dark"] {
+[data-brightness-mode="dark"][data-contrast-mode="low"] {
     --theme-background: var(--clr-base-200, hsl(339.5, 0%, 13.5%));
     --theme-background-hsl: var(--clr-base-200-hsl, 339.5 0% 13.5%);
     --theme-background-bright: var(--clr-base-200, hsl(339.5, 0%, 13.5%));
@@ -5227,8 +5194,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-600-hsl, 339.5 0% 61.5%);
 }
 
-[data-brightness-mode="dark"] [data-contrast-mode="low"],
-[data-contrast-mode="low"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"][data-contrast-mode="low"] > * {
     --focus-ring-outline-color: var(--clr-pink-700, hsl(323.5, 70%, 77%));
     --theme-button-primary-outline: var(--clr-pink-700, hsl(323.5, 70%, 77%));
@@ -5307,9 +5272,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - dark mode + low contrast */
 /* #region Tokens - Theme - Selectors - dark mode + high contrast */
-[data-brightness-mode="dark"][data-contrast-mode="high"],
-[data-brightness-mode="dark"] [data-contrast-mode="high"],
-[data-contrast-mode="high"] [data-brightness-mode="dark"] {
+[data-brightness-mode="dark"][data-contrast-mode="high"] {
     --theme-background: var(--clr-base-100, hsl(339.5, 0%, 4.5%));
     --theme-background-hsl: var(--clr-base-100-hsl, 339.5 0% 4.5%);
     --theme-background-bright: var(--clr-white, hsl(0, 0%, 0%));
@@ -5874,8 +5837,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-700-hsl, 339.5 0% 75.5%);
 }
 
-[data-brightness-mode="dark"] [data-contrast-mode="high"],
-[data-contrast-mode="high"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"][data-contrast-mode="high"] > * {
     --focus-ring-outline-color: var(--clr-pink-800, hsl(324.25, 75.75%, 87.5%));
     --theme-button-primary-outline: var(
@@ -5987,9 +5948,7 @@ html,
 
 /* #endregion Tokens - Theme - Selectors - dark mode + high contrast */
 /* #region Tokens - Theme - Selectors - dark mode + max contrast */
-[data-brightness-mode="dark"][data-contrast-mode="max"],
-[data-brightness-mode="dark"] [data-contrast-mode="max"],
-[data-contrast-mode="max"] [data-brightness-mode="dark"] {
+[data-brightness-mode="dark"][data-contrast-mode="max"] {
     --theme-background: var(--clr-white, hsl(0, 0%, 0%));
     --theme-background-hsl: var(--clr-white-hsl, 0 0% 0%);
     --theme-background-bright: var(--clr-white, hsl(0, 0%, 0%));
@@ -6446,8 +6405,6 @@ html,
     --theme-link-outline-disabled-hsl: var(--clr-base-850-hsl, 339.5 0% 91.5%);
 }
 
-[data-brightness-mode="dark"] [data-contrast-mode="max"],
-[data-contrast-mode="max"] [data-brightness-mode="dark"],
 [data-brightness-mode="dark"][data-contrast-mode="max"] > * {
     --focus-ring-outline-color: var(--clr-pink-850, hsl(324.75, 81.5%, 92%));
     --theme-button-primary-outline: var(
@@ -6842,11 +6799,7 @@ html,
 }
 [data-contrast-mode="forced-colors"],
 [data-brightness-mode="light"][data-contrast-mode="forced-colors"],
-[data-brightness-mode="dark"][data-contrast-mode="forced-colors"],
-[data-brightness-mode="light"] [data-contrast-mode="forced-colors"],
-[data-contrast-mode="forced-colors"] [data-brightness-mode="light"],
-[data-brightness-mode="dark"] [data-contrast-mode="forced-colors"],
-[data-contrast-mode="forced-colors"] [data-brightness-mode="dark"] {
+[data-brightness-mode="dark"][data-contrast-mode="forced-colors"] {
     --theme-background: Canvas !important;
     --theme-background-hsl: Canvas !important;
     --theme-background-bright: Canvas !important;

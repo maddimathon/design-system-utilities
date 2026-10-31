@@ -489,7 +489,11 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
         }
 
         @each $mode in tokens.$brightnessMode_all {
-            @include utils.colour-mode($mode, $includeDefault: true) {
+            @include utils.colour-mode(
+                $mode,
+                $includeDefault: true,
+                $selectorsAsChildren: config.$fn_colourMode_selectorsAsChildren
+            ) {
                 @each $slug, $map in tokens.$colour {
                     @include tokens-colour--single-map($slug: $slug, $map: $map, $mode: $mode) {
                         @content (#{$mode}-#{$slug});

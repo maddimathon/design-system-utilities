@@ -40,9 +40,9 @@ export class Document extends DocumentStage {
             return;
         }
         this.console.progress('copying docs assets...', 1);
-        this.try(this.fs.copy, this.params.verbose ? 3 : 2, [
+        this.try(this.fs.copy, 2, [
             this.assetSourceGlobs,
-            this.params.verbose ? 3 : 2,
+            2,
             this.getSrcDir(undefined, this.astroPublicDir),
             this.getSrcDir(undefined),
             {
@@ -51,31 +51,33 @@ export class Document extends DocumentStage {
                 recursive: true,
             },
         ]);
-        this.console.progress('writing .env file...', 1);
-        let currentContents = this.try(this.fs.readFile, 2, ['.env']);
-        const version = this.version.toString(this.isDraftVersion);
-        for (const [name, value] of [
-            ['BRAND_KIT_VERSION', version],
-            [
-                'BRAND_KIT_VERSION_STYLESHEET',
-                version + (this.isDraftVersion ? '+' + slugify(timestamp(null, { date: true, time: true })) : ''),
-            ],
-            ...extraEnvVars,
-        ]) {
-            const versionVar = `${name}="` + value + '"';
-            const versionVar_regex = new RegExp('^' + escRegExp(name) + '=([^\\n]*)$', 'gm');
-            currentContents = currentContents.match(versionVar_regex)
-                ? currentContents.replace(versionVar_regex, escRegExpReplace(versionVar))
-                : currentContents ? (currentContents + '\n' + versionVar) : versionVar;
+        if (!this.isWatchedUpdate) {
+            this.console.progress('writing .env file...', 1);
+            let currentContents = this.try(this.fs.readFile, 2, ['.env']);
+            const version = this.version.toString(this.isDraftVersion);
+            for (const [name, value] of [
+                ['BRAND_KIT_VERSION', version],
+                [
+                    'BRAND_KIT_VERSION_STYLESHEET',
+                    version + (this.isDraftVersion ? '+' + slugify(timestamp(null, { date: true, time: true })) : ''),
+                ],
+                ...extraEnvVars,
+            ]) {
+                const versionVar = `${name}="` + value + '"';
+                const versionVar_regex = new RegExp('^' + escRegExp(name) + '=([^\\n]*)$', 'gm');
+                currentContents = currentContents.match(versionVar_regex)
+                    ? currentContents.replace(versionVar_regex, escRegExpReplace(versionVar))
+                    : currentContents ? (currentContents + '\n' + versionVar) : versionVar;
+            }
+            this.try(this.fs.write, 2, [
+                '.env',
+                currentContents,
+                {
+                    force: true,
+                    rename: false,
+                },
+            ]);
         }
-        this.try(this.fs.write, 2, [
-            '.env',
-            currentContents,
-            {
-                force: true,
-                rename: false,
-            },
-        ]);
     }
     async astro() {
         this.console.progress('building astro docs...', 1);
