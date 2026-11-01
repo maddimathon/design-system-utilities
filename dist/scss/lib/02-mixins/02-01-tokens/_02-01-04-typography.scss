@@ -473,10 +473,12 @@ $_fontOverrideSels_body: ();
             height: font-family-icons--icon-size() !important;
         }
 
-        $_fontSize: var-style(icon-size-font);
+        @if $useIconFont {
+            $_fontSize: var-style(icon-size-font);
 
-        font-size: $_fontSize !important;
-        font-size: font-family-icons--icon-size($_fontSize) !important;
+            font-size: $_fontSize !important;
+            font-size: font-family-icons--icon-size($_fontSize) !important;
+        }
 
         @if $display != inline {
             align-self: center;

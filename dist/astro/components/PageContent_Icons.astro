@@ -7,7 +7,7 @@
 
 /* import - types */
 import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
+import type { CopyToClipboardComponentType, ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { TokenTypes } from '../../ts/02-tokens/@types.d.ts';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
@@ -25,7 +25,7 @@ import { objectKeySort_Tokens } from '../../ts/01-utilities/objectKeySort_Tokens
 /* import - components */
 import {
     Button as ButtonComponent,
-    CopyToClipboardButton,
+    CopyToClipboardButton as CopyToClipboardButtonComponent,
     Heading as HeadingComponent,
 } from '@maddimathon/utility-astro/components';
 
@@ -43,6 +43,11 @@ type Props_Components = {
     Alert: AlertComponentType;
 
     /**
+     * @since 0.1.0-beta.4.draft
+     */
+    CopyToClipboardButton: CopyToClipboardComponentType;
+
+    /**
      * @since 0.1.0-beta.0
      * @since 0.1.0-beta.3 — Moved to a components prop.
      */
@@ -57,18 +62,23 @@ type Props_Components = {
 
 interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     alignmentIcon?: T_Types['iconNames'];
-    defaultIcon?: T_Types['iconNames'];
-    inlinePreviews?: boolean;
-    inlinePreviews_defaultOpen?: boolean;
-    logoAlerts?: boolean;
-    buttonColour?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['button'][number];
-    subheadingDisplayHeading?: number;
-    tokens: Tokens.JsonReturn<T_Types>;
 
     /**
      * @since 0.1.0-beta.3
      */
     components?: Partial<Props_Components>;
+
+    defaultIcon?: T_Types['iconNames'];
+    inlinePreviews?: boolean;
+    inlinePreviews_defaultOpen?: boolean;
+    largeIconPreviews?: boolean;
+    logoAlerts?: boolean;
+    buttonColour?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['button'][number];
+    subheadingDisplayHeading?: number;
+    tokens: Tokens.JsonReturn<T_Types>;
+
+    variationPreviews?: boolean;
+    variationPreviews_defaultOpen?: boolean;
 }
 
 const {
@@ -77,7 +87,10 @@ const {
     defaultIcon,
     inlinePreviews = import.meta.env.DEV,
     inlinePreviews_defaultOpen = import.meta.env.DEV,
+    largeIconPreviews = import.meta.env.DEV,
     logoAlerts = import.meta.env.DEV,
+    variationPreviews = true,
+    variationPreviews_defaultOpen = import.meta.env.DEV,
     subheadingDisplayHeading = 6,
     tokens,
     components: inputComponents = {},
@@ -88,12 +101,13 @@ const components = {
 
     Alert: inputComponents.Alert ?? AlertComponent,
     Button: inputComponents.Button ?? ButtonComponent,
+    CopyToClipboardButton: inputComponents.CopyToClipboardButton ?? CopyToClipboardButtonComponent,
     Heading: inputComponents.Heading ?? HeadingComponent,
     LoremIpsum: inputComponents.LoremIpsum ?? LoremIpsumComponent,
     Toggle: inputComponents.Toggle ?? ToggleComponent,
 } satisfies Props_Components;
 
-const { Alert, Button, Heading, LoremIpsum, Toggle } =
+const { Alert, Button, CopyToClipboardButton, Heading, LoremIpsum, Toggle } =
     components;
 
 /* FUNCTIONS ===================================== */
@@ -135,8 +149,6 @@ const labelSlugSorter = (
 }
 
 /* CONSTANTS ===================================== */
-
-const defaultToggleToOpen = import.meta.env.DEV ? true : undefined;
 
 const alignmentIconSvg = tokens.icons[alignmentIcon ?? 'group'] ?? tokens.icons.group ?? tokens.icons.fail;
 
@@ -222,7 +234,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         </Alert>
         
         <Toggle
-            class={ import.meta.env.DEV ? 'page-width' : '' }
+            class={ largeIconPreviews ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -230,14 +242,14 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         >
             <Fragment slot='button' set:text='Inline Icons Preview' />
             
-            <ul class={'tokens-demo-all-icons-inline' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}>
+            <ul class={'tokens-demo-all-icons-inline' + ( largeIconPreviews ? ' font-size-heading-5' : '' )}>
                 {iconsSortedByLabel.map(([__key,icon]) => (
                     <li>
                         <span
                             class='screen-reader-text'
                             set:text={icon.slug}
                         />
-                        <ul class={'button-span tokens-demo-all-icons-inline--icon-list' + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}>
+                        <ul class={'button-span tokens-demo-all-icons-inline--icon-list' + ( largeIconPreviews ? ' font-size-heading-5' : '' )}>
                             {/* <li
                                 class={`add-${icon.slug}-icon`}
                                 set:text={`${icon.label} Default`}
@@ -258,7 +270,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         </Toggle>
     
         <Toggle
-            class={ import.meta.env.DEV ? 'page-width' : '' }
+            class={ largeIconPreviews ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -275,13 +287,13 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         <ul class='button-span tokens-demo-all-icons-inline--icon-list'>
                             <li>
                                 <Button
-                                    class={`add-${icon.slug}-icon-before` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
+                                    class={`add-${icon.slug}-icon-before` + ( largeIconPreviews ? ' font-size-heading-5' : '' )}
                                     type="button"
                                 >{`${icon.label} Before`}</Button>
                             </li>
                             <li>
                                 <Button
-                                    class={`add-${icon.slug}-icon-after` + ( import.meta.env.DEV ? ' font-size-heading-5' : '' )}
+                                    class={`add-${icon.slug}-icon-after` + ( largeIconPreviews ? ' font-size-heading-5' : '' )}
                                     type="button"
                                 >{`${icon.label} After`}</Button>
                             </li>
@@ -293,7 +305,7 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
         </Toggle>
     
         <Toggle
-            class={ import.meta.env.DEV ? 'page-width' : '' }
+            class={ largeIconPreviews ? 'page-width' : '' }
             defaultOpen={inlinePreviews_defaultOpen}
             displayHeading={subheadingDisplayHeading}
             heading={3}
@@ -311,18 +323,19 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             <li>
                                 <Button
                                     aria-label={icon.label} 
+                                    class={ largeIconPreviews ? 'font-size-heading-5' : undefined }
                                     type="button"
                                 ><Icon icon={icon} /></Button>
                             </li>
                             <li>
                                 <Button
-                                    class={ import.meta.env.DEV ? 'font-size-heading-5' : undefined }
+                                    class={ largeIconPreviews ? 'font-size-heading-5' : undefined }
                                     type="button"
                                 ><Icon icon={icon} />{''}<span set:text={`${icon.label} Before`} /></Button>
                             </li>
                             <li>
                                 <Button
-                                    class={ import.meta.env.DEV ? 'font-size-heading-5' : undefined }
+                                    class={ largeIconPreviews ? 'font-size-heading-5' : undefined }
                                     type="button"
                                 ><span set:text={`${icon.label} After`} />{''}<Icon icon={icon} /></Button>
                             </li>
@@ -356,9 +369,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                 />&NoBreak;&ensp;<CopyToClipboardButton
                     class={`button-${buttonColour} display-inline`}
                     components={{Button}}
+                    set:text='copy'
                     successMessage='copied!'
                     toClipboard={String.fromCharCode(icon.meta.codepoint)}
-                    set:text='copy'
                 /></p> }
             </Alert>
         ))
@@ -386,9 +399,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         />&NoBreak;&ensp;<CopyToClipboardButton
                             class={`button-${buttonColour} display-inline`}
                             components={{Button}}
+                            set:text='copy'
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
-                            set:text='copy'
                         /></p> }
                     </Alert>
                 )
@@ -418,9 +431,9 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                         />&NoBreak;&ensp;<CopyToClipboardButton
                             class={`button-${buttonColour} display-inline`}
                             components={{Button}}
+                            set:text='copy'
                             successMessage='copied!'
                             toClipboard={String.fromCharCode(icon.meta.codepoint)}
-                            set:text='copy'
                         /></p> }
                     </Alert>
                 )
@@ -429,90 +442,92 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
     </div>
 ) : '' }
 
-<Toggle
-    defaultOpen={defaultToggleToOpen}
-    displayHeading={subheadingDisplayHeading}
-    heading={3}
-    id={`tokens-demo-alert-headings`}
->
-    <Fragment
-        set:text='All Alert Heading Levels'
-        slot='button'
-    />
-    {
-        Object.keys(tokens.typography.size.heading)
-            .map(Number)
-            .map((heading) => (
+{ variationPreviews && (
+    <Toggle
+        defaultOpen={variationPreviews_defaultOpen}
+        displayHeading={subheadingDisplayHeading}
+        heading={3}
+        id={`tokens-demo-alert-headings`}
+    >
+        <Fragment
+            set:text='All Alert Heading Levels'
+            slot='button'
+        />
+        {
+            Object.keys(tokens.typography.size.heading)
+                .map(Number)
+                .map((heading) => (
+                    <Alert
+                        heading={heading}
+                        minimumHeading={1}
+                        icon={alignmentIconSvg}
+                    >
+                        <Fragment
+                            slot='headline'
+                            set:text={`Heading Level ${heading}`}
+                        />
+                        <p set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.' />
+                        <p set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.' />
+                    </Alert>
+                ))
+        }
+        <Alert icon={alignmentIconSvg}>
+            <Fragment
+                slot='headline'
+                set:text={`NO Heading Level`}
+            />
+            <p
+                set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.'
+            />
+            <p
+                set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
+            />
+        </Alert>
+        <Alert heading={-1} icon={alignmentIconSvg}>
+            <p
+                set:text='This alert has a hidden headline.'
+            />
+            <p
+                set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.'
+            />
+            <p
+                set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
+            />
+        </Alert>
+    </Toggle>
+
+    <Toggle
+        defaultOpen={variationPreviews_defaultOpen}
+        displayHeading={subheadingDisplayHeading}
+        heading={3}
+        id={`tokens-demo-alert-colours`}
+    >
+        <Fragment
+            set:text='All Colour Variations'
+            slot='button'
+        />
+        <Alert icon={defaultIconSvg}>
+            <Fragment
+                slot='headline'
+                set:text={`Default Colour Variation`}
+            />
+            <LoremIpsum components={components} superAbbreviated={true} />
+        </Alert>
+        {
+            textAndBackgroundKeys.map((key) => (
                 <Alert
-                    heading={heading}
-                    minimumHeading={1}
-                    icon={alignmentIconSvg}
+                    class={`background-${key}`}
+                    icon={tokens.icons[key] ?? defaultIconSvg}
                 >
-                    <Fragment
-                        slot='headline'
-                        set:text={`Heading Level ${heading}`}
-                    />
-                    <p set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.' />
-                    <p set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.' />
+                    <Fragment slot='headline'>
+                        Colour Variation: <samp set:text={key} />
+                    </Fragment>
+                    <LoremIpsum components={components} superAbbreviated={true} />
                 </Alert>
             ))
-    }
-    <Alert icon={alignmentIconSvg}>
-        <Fragment
-            slot='headline'
-            set:text={`NO Heading Level`}
-        />
-        <p
-            set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.'
-        />
-        <p
-            set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
-        />
-    </Alert>
-    <Alert heading={-1} icon={alignmentIconSvg}>
-        <p
-            set:text='This alert has a hidden headline.'
-        />
-        <p
-            set:text='Aenean dictum commodo ex, eleifend malesuada nibh rhoncus at. Vivamus non lectus eu turpis aliquet pretium. Cras metus urna, tincidunt at scelerisque sit amet, tincidunt vitae risus.'
-        />
-        <p
-            set:text='Vivamus sed commodo ligula, nec efficitur elit. Praesent condimentum diam est, sit amet venenatis sapien ullamcorper sit amet.'
-        />
-    </Alert>
-</Toggle>
-
-<Toggle
-    defaultOpen={defaultToggleToOpen}
-    displayHeading={subheadingDisplayHeading}
-    heading={3}
-    id={`tokens-demo-alert-colours`}
->
-    <Fragment
-        set:text='All Colour Variations'
-        slot='button'
-    />
-    <Alert icon={defaultIconSvg}>
-        <Fragment
-            slot='headline'
-            set:text={`Default Colour Variation`}
-        />
-        <LoremIpsum components={components} superAbbreviated={true} />
-    </Alert>
-    {
-        textAndBackgroundKeys.map((key) => (
-            <Alert
-                class={`background-${key}`}
-                icon={tokens.icons[key] ?? defaultIconSvg}
-            >
-                <Fragment slot='headline'>
-                    Colour Variation: <samp set:text={key} />
-                </Fragment>
-                <LoremIpsum components={components} superAbbreviated={true} />
-            </Alert>
-        ))
-    }
-</Toggle>
+        }
+    </Toggle>
+) }
 
 <style lang='scss'>
     @forward '../scss/page-content-icons';

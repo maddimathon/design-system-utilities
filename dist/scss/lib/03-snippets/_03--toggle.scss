@@ -175,6 +175,9 @@ $_closing_time: do-var(toggle-closing-time, var-tr-time(toggle));
                 ),
                 string.unquote(
                     'margin #{$_closing_time} #{tokens.$transition_function} 0ms'
+                ),
+                string.unquote(
+                    'padding #{$_closing_time} #{tokens.$transition_function} 0ms'
                 )
             ),
             $separator: comma
@@ -1080,9 +1083,11 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 /// @since 0.1.0-beta.0
 ///
 @mixin snippet-support-astro-toggle-nav-menu(
+    $control_paddingBlock: min(0.75vh, do-var(flow-margin--small)),
     $title_borderWidth: var-style(toggle-nav-content-border-width),
     //f
     $includeStyles: true,
+    $includeTitleBorder: $includeStyles,
     //
     $mixin_support_base: $_mixin_support_base,
     $args...
@@ -1100,16 +1105,18 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         )
         using ($location) {
         @if $location == js--body-nav-toggle-title {
-            border-block-end-width: $title_borderWidth;
-            border-block-end-style: var-style(
-                toggle-content-border-style-top,
-                $value_failureReturn: $_content_border_style_fallback,
-                $value_warnOnFail: false
-            );
-            border-block-end-color: do-var(
-                toggle-border-color,
-                var-theme(link-ui)
-            );
+            @if $includeTitleBorder {
+                border-block-end-width: $title_borderWidth;
+                border-block-end-style: var-style(
+                    toggle-content-border-style-top,
+                    $value_failureReturn: $_content_border_style_fallback,
+                    $value_warnOnFail: false
+                );
+                border-block-end-color: do-var(
+                    toggle-border-color,
+                    var-theme(link-ui)
+                );
+            }
 
             @include prop-background(var-style(toggle-nav-title-background));
 
@@ -1122,6 +1129,12 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                     margin-block: 0 calc($title_borderWidth * -1);
                 }
             }
+        }
+        //
+        @else if ($location == js--body-nav-toggle-title--control) {
+            padding-block: $control_paddingBlock;
+
+            @content ($location);
         }
         //
         @else if $location == js--nav-toggle-content {

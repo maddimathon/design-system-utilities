@@ -249,7 +249,9 @@ $_mixin_button_colour_single_state: meta.get-mixin(
 
                 @content (icon--not-only-child);
             }
+        }
 
+        &:not(.toggle-block__control__icon) {
             @if $includeBaseProps {
                 &:first-child {
                     @if meta.type-of($icon_marginInlineZero) == calc {
@@ -284,9 +286,9 @@ $_mixin_button_colour_single_state: meta.get-mixin(
 
                     margin: 0;
                     letter-spacing: normal !important;
-                } @else {
-                    @content (icon--is-only-child);
                 }
+
+                @content (icon--is-only-child);
             }
         }
     }
@@ -588,8 +590,12 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
         margin-block-end: $marginBlockEnd;
     }
 
-    padding-block: $paddingBlock;
-    padding-inline: $paddingInline;
+    @if $paddingBlock != false {
+        padding-block: $paddingBlock;
+    }
+    @if $paddingInline != false {
+        padding-inline: $paddingInline;
+    }
 
     border-width: if(
         $borderWidth,
@@ -836,7 +842,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $paddingBlock_hasIconOnlyChild: if(
         $paddingBlock_hasIconOnlyChild != null,
         $paddingBlock_hasIconOnlyChild,
-        var-mrg-firm(style-value(button-padding-block, $raw: true))
+        $paddingBlock
     );
     $paddingInline_hasIconOnlyChild: if(
         $paddingInline_hasIconOnlyChild != null,

@@ -91,6 +91,8 @@ interface Props {
      * @since 0.1.0-beta.3
      */
     levelsInUseTable?: ThemeModeSwatchProps<TokenTypes.TypeParams>['levelsInUseTable'];
+
+    previewAlternateThemes?: boolean;
 }
 
 const {
@@ -103,6 +105,7 @@ const {
     defaultPreviewToOpen = true,
     defaultTokensToOpen = false,
     levelsInUseTable = { lightAndDark: true },
+    previewAlternateThemes: _previewAlternateThemes,
     tokens,
 }: Props = Astro.props;
 
@@ -127,7 +130,7 @@ const themeNames = Object.keys(tokens.themes).filter(
     (key) => key !== '_meta',
 ) as (keyof Omit<typeof tokens.themes, '_meta'>)[];
 
-const hasMultipleThemes = themeNames.length > 1;
+const previewAlternateThemes = _previewAlternateThemes ?? themeNames.length > 1;
 
 const levelsInUse = getLevelsInUse(tokens.themes);
 
@@ -323,7 +326,7 @@ const default_brightnessSet = {
                             )}
                         </div>
                     )}
-                    {hasMultipleThemes && (
+                    {previewAlternateThemes && (
                         <div
                             class='main-sidebar theme-mode-swatch__alt-widgets'
                             slot='preview'

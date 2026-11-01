@@ -35,9 +35,14 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $disclaimer_fontSize: var-fs(smaller-1),
     $disclaimer_fontStyle: italic,
     //
+    $content_background: null,
+    $content_container_paddingBlock: var-style(widget-padding-block),
+    $content_container_paddingInline: var-style(widget-padding-inline),
+    $content_maxWidth: min(var-width(content), 90vw),
     $fieldset_flexContainer_alignment: (),
     $fieldset_flexContainer_direction: row,
-    $fieldset_flexContainer_gap: do-var(flow-margin--small) var-gap-inline(tab),
+    $fieldset_flexContainer_gap: do-var(flow-margin-button-span-block)
+        var-gap-inline(tab),
     $fieldset_marginBlock: do-var(flow-margin-firm-start--small)
         do-var(flow-margin-firm-end--small),
     $fieldset_marginInline: 0,
@@ -58,9 +63,15 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 
     @include utils.snippet-support-site-settings-menu(
             $includeStyles: false,
+            $content_container_paddingBlock: $content_container_paddingBlock,
+            $content_container_paddingInline: $content_container_paddingInline,
             $fieldset_flexContainer_alignment: $fieldset_flexContainer_alignment,
             $fieldset_flexContainer_direction: $fieldset_flexContainer_direction,
             $fieldset_flexContainer_gap: $fieldset_flexContainer_gap,
+            $fieldset_marginBlock: $fieldset_marginBlock,
+            $fieldset_marginInline: $fieldset_marginInline,
+            $fieldset_paddingBlock: $fieldset_paddingBlock,
+            $fieldset_paddingInline: $fieldset_paddingInline,
             $zIndex: $zIndex,
             $zIndex_open: $zIndex_open,
             //
@@ -94,9 +105,13 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
             width: auto;
 
             @if $includeStyles {
-                max-width: min(var-width(content), 90vw);
+                max-width: $content_maxWidth;
 
-                @include prop-background-inherit;
+                @if $content_background == null {
+                    @include prop-background-inherit;
+                } @else if $content_background != false {
+                    @include prop-background($content_background);
+                }
 
                 border-radius: 0;
 
@@ -146,8 +161,8 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                     $wrap: wrap
                 );
 
-                margin: 0;
-                padding: 0;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
             @content ($location);
@@ -187,7 +202,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--settings-menu--content--container {
-            padding-inline: var-style(widget-padding-inline);
+            padding-inline: $content_container_paddingInline;
 
             @content ($location);
         }
@@ -214,7 +229,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--settings-menu--open--content--container {
-            padding-block: var-style(widget-padding-block);
+            padding-block: $content_container_paddingBlock;
 
             @content ($location);
 
@@ -308,7 +323,7 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
             .if-font-family-override-is-#{$override_slug} {
                 display: none !important;
 
-                @content (if-font-family-override-is--root);
+                @content (if-font-family-override-is-#{$override_slug}--root);
             }
 
             #{$selectors} {
@@ -375,19 +390,19 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
                 font-family: $_override_ff_list !important;
 
                 @include font-family-size-tokens($override_slug, $args...) {
-                    @content (root);
+                    @content (#{$override_slug}--root);
                 }
 
                 .if-font-family-override-is-#{$override_slug} {
                     display: do-var(display, block) !important;
 
-                    @content (if-font-family-override-is--display);
+                    @content (if-font-family-override-is-#{$override_slug}--display);
                 }
 
                 .if-font-family-override-is-not-#{$override_slug} {
                     display: none !important;
 
-                    @content (if-font-family-override-is-not);
+                    @content (if-font-family-override-is-not-#{$override_slug});
                 }
 
                 @if $override_slug != icons {
@@ -489,7 +504,7 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
                         $_default_spacing
                     ) !important;
 
-                    @content (class);
+                    @content (#{$override_slug}--class);
                 }
             }
         }

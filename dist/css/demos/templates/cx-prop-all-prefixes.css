@@ -20022,8 +20022,14 @@ a[href].button:empty:not(input) {
     input[type="submit"],
     a[href].button
 ):has(> .icon:only-child, > .brand-logo:only-child) {
-    padding-block: var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem));
-    padding-inline: var(--mrg-firm-200, var(--fallback-mrg-firm-200, 0.5rem));
+    padding-block: var(
+        --button-padding-block,
+        var(--pad-soft-200, var(--fallback-pad-soft-200, 0.3125em))
+    );
+    padding-inline: var(
+        --button-padding-block,
+        var(--pad-soft-200, var(--fallback-pad-soft-200, 0.3125em))
+    );
     line-height: 1 !important;
 }
 :is(
@@ -20290,21 +20296,6 @@ a[disabled][href].button {
                 var(--fallback-icon-size-inline--font-multiplier, 1)
             )
     ) !important;
-    font-size: var(
-        --icon-size-font,
-        var(--fallback-icon-size-font, 1em)
-    ) !important;
-    font-size: calc(
-        var(--icon-size-font, var(--fallback-icon-size-font, 1em)) *
-            var(
-                --icon-size-inline--multiplier,
-                var(--fallback-icon-size-inline--multiplier, 1)
-            ) *
-            var(
-                --icon-size-inline--font-multiplier,
-                var(--fallback-icon-size-inline--font-multiplier, 1)
-            )
-    ) !important;
     align-self: center;
     justify-self: center;
     vertical-align: var(
@@ -20328,9 +20319,7 @@ a[disabled][href].button {
         input[type="submit"],
         a[href].button
     )
-    :is(.icon):not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child {
+    :is(.icon):not(.toggle-block__control__icon):first-child {
     margin-inline-start: 0;
     margin-inline-end: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
@@ -20355,9 +20344,7 @@ a[disabled][href].button {
         input[type="submit"],
         a[href].button
     )
-    :is(.icon):not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):last-child {
+    :is(.icon):not(.toggle-block__control__icon):last-child {
     margin-inline-start: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
             var(
@@ -20382,9 +20369,7 @@ a[disabled][href].button {
         input[type="submit"],
         a[href].button
     )
-    :is(.icon):not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):only-child {
+    :is(.icon):not(.toggle-block__control__icon):only-child {
     --fallback-icon-inline-margin-block-start: 0;
     --fallback-icon-inline-buffer-start: 0;
     --fallback-icon-inline-buffer-end: 0;
@@ -20603,21 +20588,6 @@ a[href].button
                 var(--fallback-icon-size-inline--font-multiplier, 1)
             )
     ) !important;
-    font-size: var(
-        --icon-size-font,
-        var(--fallback-icon-size-font, 1em)
-    ) !important;
-    font-size: calc(
-        var(--icon-size-font, var(--fallback-icon-size-font, 1em)) *
-            var(
-                --icon-size-inline--multiplier,
-                var(--fallback-icon-size-inline--multiplier, 1)
-            ) *
-            var(
-                --icon-size-inline--font-multiplier,
-                var(--fallback-icon-size-inline--font-multiplier, 1)
-            )
-    ) !important;
     align-self: center;
     justify-self: center;
     vertical-align: var(
@@ -20630,42 +20600,15 @@ a[href].button
     );
     bottom: var(--button-icon-embedded-bottom, 0.0625em);
 }
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button-grey
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-button
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-[role="button"]
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="reset"]
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child,
-a[href].button
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):first-child {
+a[href].button-primary .icon:not(.toggle-block__control__icon):first-child,
+a[href].button-secondary .icon:not(.toggle-block__control__icon):first-child,
+a[href].button-grey .icon:not(.toggle-block__control__icon):first-child,
+button .icon:not(.toggle-block__control__icon):first-child,
+[role="button"] .icon:not(.toggle-block__control__icon):first-child,
+input[type="button"] .icon:not(.toggle-block__control__icon):first-child,
+input[type="reset"] .icon:not(.toggle-block__control__icon):first-child,
+input[type="submit"] .icon:not(.toggle-block__control__icon):first-child,
+a[href].button .icon:not(.toggle-block__control__icon):first-child {
     margin-inline-start: 0;
     margin-inline-end: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
@@ -20679,26 +20622,15 @@ a[href].button
             )
     );
 }
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button-grey
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-button
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-[role="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="reset"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):last-child,
-a[href].button
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):last-child {
+a[href].button-primary .icon:not(.toggle-block__control__icon):last-child,
+a[href].button-secondary .icon:not(.toggle-block__control__icon):last-child,
+a[href].button-grey .icon:not(.toggle-block__control__icon):last-child,
+button .icon:not(.toggle-block__control__icon):last-child,
+[role="button"] .icon:not(.toggle-block__control__icon):last-child,
+input[type="button"] .icon:not(.toggle-block__control__icon):last-child,
+input[type="reset"] .icon:not(.toggle-block__control__icon):last-child,
+input[type="submit"] .icon:not(.toggle-block__control__icon):last-child,
+a[href].button .icon:not(.toggle-block__control__icon):last-child {
     margin-inline-start: calc(
         var(--icon-inline-buffer, var(--fallback-icon-inline-buffer, 0.25em)) *
             var(
@@ -20712,26 +20644,15 @@ a[href].button
     );
     margin-inline-end: 0;
 }
-a[href].button-primary
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-secondary
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button-grey
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-button
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-[role="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="button"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="reset"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-input[type="submit"]
-    .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):only-child,
-a[href].button
-    .icon:not(.settings-menu-icon):not(
-        .toggle-block__control__icon
-    ):only-child {
+a[href].button-primary .icon:not(.toggle-block__control__icon):only-child,
+a[href].button-secondary .icon:not(.toggle-block__control__icon):only-child,
+a[href].button-grey .icon:not(.toggle-block__control__icon):only-child,
+button .icon:not(.toggle-block__control__icon):only-child,
+[role="button"] .icon:not(.toggle-block__control__icon):only-child,
+input[type="button"] .icon:not(.toggle-block__control__icon):only-child,
+input[type="reset"] .icon:not(.toggle-block__control__icon):only-child,
+input[type="submit"] .icon:not(.toggle-block__control__icon):only-child,
+a[href].button .icon:not(.toggle-block__control__icon):only-child {
     --fallback-icon-inline-margin-block-start: 0;
     --fallback-icon-inline-buffer-start: 0;
     --fallback-icon-inline-buffer-end: 0;
