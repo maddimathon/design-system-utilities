@@ -459,13 +459,49 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
 }
 
 ///
+/// @since __PKG_VERSION___
+///
+@function _tokens-colour--single-map--var-clr(
+    $slug,
+    $level,
+    $fallback,
+    $allPrefixes: false,
+    $args...
+) {
+    $args: tokens.tokens-var-clr--parse-args(
+        $slug: $slug,
+        $level: $level,
+        $allPrefixes: $allPrefixes,
+        $args...,
+    );
+
+    @return config.config-do-var(
+        map.get($args, clrVarSlug),
+        $fallback: $fallback,
+        $fallbackOnly: map.get($args, fallbackOnly)
+    );
+}
+
+///
 /// @since 0.1.0-beta.3
 ///
-@mixin tokens-colour--single-map($slug, $map, $mode) {
+@mixin tokens-colour--single-map(
+    $slug,
+    $map,
+    $mode,
+    $commentSlug: null,
+    $addLevelToComment: false,
+    $asClrVar: false,
+    $args...
+) {
     @if $slug == white {
         $slug: 'white';
     } @else if $slug == black {
         $slug: 'black';
+    }
+
+    @if $asClrVar {
+        $asClrVar: '#{$asClrVar}';
     }
 
     $_shadeNameSlug: if($slug == '$', 'clr', 'clr-#{$slug}');
@@ -482,8 +518,26 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
 
         @include utils.cx-prop(
             #{$_shadeNameSlug}-#{$level},
-            colour.to-hsl($_clrValue, $round: false),
-            $allPrefixes: false
+            if(
+                $asClrVar,
+                _tokens-colour--single-map--var-clr(
+                    $asClrVar,
+                    $level,
+                    $fallback: $_clrValue,
+                    $args...
+                ),
+                $_clrValue
+            ),
+            $allPrefixes: false,
+            $comment: if(
+                    $commentSlug,
+                    if(
+                        $addLevelToComment,
+                        #{$commentSlug}-#{$level},
+                        $commentSlug
+                    ),
+                    null
+                )
         );
     }
 
@@ -499,17 +553,41 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
             );
 
             @if config.$include_colourValues_hsl {
+                $__hsl: colour.to-hsl-list($_clrValue, $round: false);
+
                 @include utils.cx-prop(
                     #{$_shadeNameSlug}-#{$level}-hsl,
-                    colour.to-hsl-list($_clrValue, $round: false),
+                    if(
+                        $asClrVar,
+                        _tokens-colour--single-map--var-clr(
+                            $asClrVar,
+                            $level,
+                            $fallback: $__hsl,
+                            $version: hsl,
+                            $args...
+                        ),
+                        $__hsl
+                    ),
                     $allPrefixes: false
                 );
             }
 
             @if config.$include_colourValues_rgb {
+                $__rgb: colour.to-rgb-list($_clrValue, $round: true);
+
                 @include utils.cx-prop(
                     #{$_shadeNameSlug}-#{$level}-rgb,
-                    colour.to-rgb-list($_clrValue, $round: true),
+                    if(
+                        $asClrVar,
+                        _tokens-colour--single-map--var-clr(
+                            $asClrVar,
+                            $level,
+                            $fallback: $__rgb,
+                            $version: rgb,
+                            $args...
+                        ),
+                        $__rgb
+                    ),
                     $allPrefixes: false
                 );
             }
@@ -533,7 +611,17 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
 
                     @include utils.cx-prop(
                         #{$_shadeNameSlug}-#{$level}--#{math.deunit($opacity)},
-                        $_opacity_clrValue,
+                        if(
+                            $asClrVar,
+                            _tokens-colour--single-map--var-clr(
+                                $asClrVar,
+                                $level,
+                                $fallback: $_opacity_clrValue,
+                                $opacity: $opacity,
+                                $args...
+                            ),
+                            $_opacity_clrValue
+                        ),
                         $allPrefixes: false
                     );
                 }
@@ -559,8 +647,9 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
         @each $mode in tokens.$brightnessMode_all {
             @include utils.colour-mode(
                 $mode,
-                $includeDefault: true,
+                $includeDefault: config.$selectorType_mode != 'null',
                 $selectorsAsChildren: config.$fn_colourMode_selectorsAsChildren
+                    and (config.$selectorType_mode != 'null')
             ) {
                 @each $slug, $map in tokens.$colour {
                     @include tokens-colour--single-map(

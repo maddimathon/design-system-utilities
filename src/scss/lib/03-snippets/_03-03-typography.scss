@@ -372,12 +372,9 @@ $_flowMarginFirmSiblings: list.join(
 }
 
 ///
-/// Pass values by style token slug. Optionally include only the prefix for the
-/// style tokens (without trailing dash).
+/// @since ___PKG_VERSION___
 ///
-/// @since 0.1.0-beta.0
-///
-@mixin set-flow-margins-by-token(
+@function set-flow-margins-by-token--parse-args(
     $prefix: null,
     $default: if(meta.is-truthy($prefix), #{$prefix}-flow-margin, null),
     $large: if(meta.is-truthy($prefix), #{$prefix}-flow-margin-large, null),
@@ -451,7 +448,7 @@ $_flowMarginFirmSiblings: list.join(
         style-value($buttonGapBlock_touch, $raw: true, $failureReturn: null, $warnOnFail: false)
     );
 
-    @include set-flow-margins(
+    @return meta.arglist(
         $default: if(
                 meta.is-truthy($default),
                 style-value($default, $raw: true, $failureReturn: null),
@@ -486,6 +483,27 @@ $_flowMarginFirmSiblings: list.join(
                     $warnOnFail: false
                 )
             ),
+        $args...
+    );
+}
+
+///
+/// Pass values by style token slug. Optionally include only the prefix for the
+/// style tokens (without trailing dash).
+///
+/// @since 0.1.0-beta.0
+///
+@mixin set-flow-margins-by-token($args...) {
+    $args: meta.keywords(set-flow-margins-by-token--parse-args($args...));
+
+    @include set-flow-margins(
+        $default: map.get($args, default),
+        $large: map.get($args, large),
+        $small: map.get($args, small),
+        $buttonGapBlock: map.get($args, buttonGapBlock),
+        $buttonGapInline: map.get($args, buttonGapInline),
+        $buttonGapBlock_touch: map.get($args, buttonGapBlock_touch),
+        $buttonGapInline_touch: map.get($args, buttonGapInline_touch),
         //
         $args...
     ) {
@@ -1656,7 +1674,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $borderWidth: var-style(alert-border-width),
     $color: var-theme(text),
     $fontSize: var-fs(smaller-1),
-    $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
+    $marginBlock: var-style(flow-margin-firm-start) var-style(flow-margin-firm-end),
     $marginInline: 0,
     $maxWidth: 100%,
     $paddingBlock: var-style(alert-padding-block),

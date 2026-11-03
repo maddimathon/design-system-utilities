@@ -32,7 +32,8 @@
         gap: 0;
 
         .widget-block {
-            margin-block: do-var(flow-margin-firm-start--large) do-var(flow-margin-firm-end--large);
+            margin-block: var-style(flow-margin-firm-start--large)
+                var-style(flow-margin-firm-end--large);
         }
     }
 
@@ -55,8 +56,8 @@
         overflow-inline: auto;
 
         @include _maybe-globalized($useGlobalPseudo, '.theme-mode-swatch') {
-            padding-block: do-var(flow-margin);
-            padding-inline: do-var(flow-margin-firm-start);
+            padding-block: var-style(flow-margin);
+            padding-inline: var-style(flow-margin-firm-start);
 
             min-width: 0;
             max-width: none;

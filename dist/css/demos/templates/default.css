@@ -106,11 +106,6 @@
     inherits: true;
     initial-value: 0.8125rem;
 }
-@property --flow-margin--heading-unstyled {
-    syntax: "*";
-    inherits: true;
-    initial-value: 1.84375rem;
-}
 @property --flow-margin--large {
     syntax: "*";
     inherits: true;
@@ -5924,7 +5919,7 @@ label:has(> input:where([type="checkbox"], [type="radio"]))
 
 label > input[type="checkbox"],
 label > input[type="radio"] {
-    margin: 0;
+    margin-block: 0;
 }
 
 /* ## Forms - Buttons ==================================== */
@@ -12975,7 +12970,7 @@ body > nav.toggle-nav-menu {
     position: relative;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: var(--flow-margin-button-span-block, 0.475em) var(--gap-inline-tab, 5%);
+    gap: var(--flow-margin-button-span-block, 0.5em) var(--gap-inline-tab, 5%);
     justify-content: start;
     align-content: center;
     align-items: stretch;
@@ -13234,13 +13229,6 @@ body > nav.toggle-nav-menu {
         --stroke-relative-800: clamp(0.25rem, 0.4375em, 8px);
     }
 }
-:where(
-    [data-font-family-override="dyslexic"],
-    .website-settings .font-family-override-dyslexic
-) {
-    line-height: 1.6875 !important;
-}
-
 [data-font-family-override="dyslexic"] .if-font-family-override-is-dyslexic,
 .website-settings
     .font-family-override-dyslexic
@@ -13343,10 +13331,6 @@ body > nav.toggle-nav-menu {
     font-optical-sizing: auto !important;
     font-variation-settings: normal !important;
 }
-:where([data-font-family-override="dyslexic-monospace"]) {
-    line-height: 1.6875 !important;
-}
-
 [data-font-family-override="dyslexic-monospace"]
     .if-font-family-override-is-dyslexic-monospace {
     display: var(--display, block) !important;
@@ -13455,13 +13439,6 @@ body > nav.toggle-nav-menu {
         --border-width-400: clamp(0.25rem, 0.25rem, 8px);
     }
 }
-:where(
-    [data-font-family-override="hyperlegible"],
-    .website-settings .font-family-override-hyperlegible
-) {
-    line-height: 1.6875 !important;
-}
-
 [data-font-family-override="hyperlegible"]
     .if-font-family-override-is-hyperlegible,
 .website-settings
@@ -13706,13 +13683,6 @@ body > nav.toggle-nav-menu {
         --stroke-relative-800: clamp(0.25rem, 0.375em, 8px);
     }
 }
-:where(
-    [data-font-family-override="hyperlegible-monospace"],
-    .website-settings .font-family-override-hyperlegible-monospace
-) {
-    line-height: 1.6875 !important;
-}
-
 [data-font-family-override="hyperlegible-monospace"]
     .if-font-family-override-is-hyperlegible-monospace,
 .website-settings
@@ -13827,10 +13797,6 @@ body > nav.toggle-nav-menu {
         --border-width-400: clamp(0.25rem, 0.3125rem, 8px);
     }
 }
-:where([data-font-family-override="monospace"]) {
-    line-height: 1.6875 !important;
-}
-
 [data-font-family-override="monospace"] .if-font-family-override-is-monospace {
     display: var(--display, block) !important;
 }
@@ -13885,10 +13851,6 @@ body > nav.toggle-nav-menu {
     font-optical-sizing: auto !important;
     font-variation-settings: normal !important;
 }
-:where([data-font-family-override="icons"]) {
-    line-height: 1.6875 !important;
-}
-
 [data-font-family-override="icons"] .if-font-family-override-is-icons {
     display: var(--display, block) !important;
 }

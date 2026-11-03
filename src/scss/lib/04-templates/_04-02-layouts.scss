@@ -86,11 +86,11 @@
                     }
 
                     * {
-                        scroll-margin-top: do-var(flow-margin);
-                        scroll-margin-bottom: do-var(flow-margin);
+                        scroll-margin-top: var-style(flow-margin);
+                        scroll-margin-bottom: var-style(flow-margin);
 
-                        scroll-margin-left: do-var(flow-margin-firm-end);
-                        scroll-margin-right: do-var(flow-margin-firm-end);
+                        scroll-margin-left: var-style(flow-margin-firm-end);
+                        scroll-margin-right: var-style(flow-margin-firm-end);
                     }
                 }
             }
@@ -141,10 +141,10 @@
                     scroll-margin-top: 0;
                     scroll-margin-bottom: 0;
 
-                    margin-block: var-gap-block(layout) do-var(flow-margin-firm-end--large);
+                    margin-block: var-gap-block(layout) var-style(flow-margin-firm-end--large);
                     margin-block-end: calc(
-                        var-gap-block(layout) - do-var(flow-margin--large) +
-                            do-var(flow-margin-firm-end--large)
+                        var-gap-block(layout) - var-style(flow-margin--large) +
+                            var-style(flow-margin-firm-end--large)
                     );
 
                     padding-block: var-gap-block(layout);
@@ -217,8 +217,8 @@
                     + * {
                         @include flow-margin-conditional-override(
                             start,
-                            $firm: do-var(flow-margin-firm-start--large),
-                            $soft: do-var(flow-margin--large)
+                            $firm: var-style(flow-margin-firm-start--large),
+                            $soft: var-style(flow-margin--large)
                         );
                     }
                 }

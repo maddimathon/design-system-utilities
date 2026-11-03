@@ -9,8 +9,10 @@
 import type { ArrayItem } from '@maddimathon/utility-typescript/types';
 
 import type { GenericProps } from '@maddimathon/utility-astro';
+import type { SettingsMenuProps } from '@maddimathon/utility-astro/components';
 import type {
     ContentTypeInput,
+    DefaultContentType,
     PageProps as LibPageProps,
 } from '@maddimathon/utility-astro/layouts';
 
@@ -22,8 +24,7 @@ import { absoluteInternalURL } from '@maddimathon/utility-astro/functions';
 /* import - values */
 
 /* import - components */
-import components from '../components.ts';
-const { SettingsMenu, ToggleNavMenu } = components;
+import astroComponents from '../components.ts';
 
 /* import - layouts */
 import { Page as UtilPage } from '@maddimathon/utility-astro/layouts';
@@ -87,16 +88,233 @@ type Copyright_PlainYear = {
     year: number | false;
 };
 
+/* FUNCTIONS ===================================== */
+
+/**
+ * Parses Page layout input props into a more consistent output.
+ *
+ * @since ___PKG_VERSION___
+ */
+export function parsePageProps<
+    T_ContentType extends ContentTypeInput = DefaultContentType,
+>(
+    currentURL: URL,
+    defaultComponents: typeof astroComponents,
+    {
+        components: inputComponents,
+        dir = 'ltr',
+        lang = 'en',
+        primaryMenu,
+        secondaryMenu,
+        settings: inputSettings,
+        stylesheetPreload = true,
+        stylesheetURLs,
+        stylesheetVersion = import.meta.env.BRAND_KIT_VERSION_STYLESHEET,
+        urlMaker = absoluteInternalURL,
+        ...inputs
+    }: PageProps<T_ContentType>,
+) {
+    const parseFooterInput = (
+        _input?: Required<PageProps>['footer']['copyright'],
+    ) => {
+        const _useDefaultFooter =
+            typeof _input === 'undefined' || _input?.html === true;
+
+        type InputFooterType_IfUseDefaultFooter = Exclude<
+            Required<PageProps>['footer']['copyright'],
+            false | Copyright_PlainOwner | Copyright_PlainYear
+        >;
+
+        // prettier-ignore
+        type InputFooterType_NotUseDefaultFooter = Extract<
+            Required<PageProps>['footer']['copyright'],
+            false | Copyright_PlainOwner | Copyright_PlainYear
+        > | (Omit<Copyright_HTML, 'html'> & { html: string });
+
+        // returns
+        if (_useDefaultFooter) {
+            const inputFooter = _input as InputFooterType_IfUseDefaultFooter;
+
+            return {
+                html:
+                    typeof inputFooter?.html !== 'string'
+                        ? '<a href="https://www.maddimathon.com" target="_blank">Maddi Mathon</a>'
+                        : inputFooter?.html,
+
+                year: inputFooter?.year ?? new Date().getFullYear(),
+            };
+        }
+
+        return _input as InputFooterType_NotUseDefaultFooter satisfies NonNullable<
+            LibPageProps['footer']
+        >['copyright'];
+    };
+
+    const convertHrefStringsToAbsolute = false;
+
+    const components = {
+        ...defaultComponents,
+        PrimaryMenu: defaultComponents.ToggleNavMenu,
+        ...inputComponents,
+    } as const satisfies SettingsMenuProps['components'] &
+        PageProps['components'];
+
+    /* Menus ------------------ */
+
+    const _menuMapper = (_obj: ArrayItem<[] & LibPageProps['primaryMenu']>) => {
+        _obj = { ..._obj };
+
+        if (typeof _obj.href === 'string') {
+            _obj.href = urlMaker(currentURL, _obj.href);
+        }
+        if (_obj.child?.length) {
+            _obj.child = [..._obj.child].map(_menuMapper);
+        }
+        return _obj;
+    };
+
+    if (Array.isArray(primaryMenu)) {
+        primaryMenu = [...primaryMenu].map(_menuMapper);
+    }
+
+    if (Array.isArray(secondaryMenu)) {
+        secondaryMenu = [...secondaryMenu].map(_menuMapper);
+    }
+
+    /* Stylesheets ------------------ */
+
+    const stylesheet_versionSuffix = stylesheetVersion
+        ? `?v=${stylesheetVersion}`
+        : '';
+
+    const stylesheets = stylesheetURLs
+        ? [...stylesheetURLs].map(
+              (_str) => urlMaker(currentURL, _str) + stylesheet_versionSuffix,
+          )
+        : [];
+
+    /* Settings ------------------ */
+
+    const settings =
+        inputSettings !== false
+            ? ({
+                  ...inputSettings,
+
+                  components,
+
+                  settings: {
+                      ...inputSettings?.settings,
+
+                      brightness: inputSettings?.settings?.brightness ?? true,
+
+                      contrast:
+                          inputSettings?.settings?.contrast !== false
+                              ? {
+                                    max: true,
+                                    ...(typeof inputSettings?.settings
+                                        ?.contrast === 'object'
+                                        ? inputSettings?.settings?.contrast
+                                        : {}),
+                                }
+                              : inputSettings?.settings?.contrast,
+
+                      motion: inputSettings?.settings?.motion ?? true,
+                  },
+
+                  tokens: inputs.tokens,
+              } satisfies SettingsMenuProps & { tokens: Tokens.JsonReturn })
+            : inputSettings;
+
+    const familyOverrideValues = inputs.tokens.typography.familyOverrides
+        ? Object.values(inputs.tokens.typography.familyOverrides).filter(
+              (v) => !!v,
+          )
+        : [];
+
+    if (familyOverrideValues.length && settings) {
+        const fontOverrideOptions = [
+            {
+                label: 'Default',
+                value: 'default',
+                labelClass: 'font-family-override-default',
+            },
+            ...(familyOverrideValues ?? []),
+        ] as const satisfies NonNullable<
+            typeof settings.settings.custom
+        >[number]['options'];
+
+        settings.settings.custom = [
+            {
+                id: 'font-family-override',
+                label: 'Font Override',
+                default: 'default',
+                options: fontOverrideOptions,
+            },
+            ...(settings.settings.custom ?? []),
+        ];
+    }
+
+    /* Lib Props ------------------ */
+
+    const libProps = {
+        ...inputs,
+
+        components,
+        convertHrefStringsToAbsolute,
+        dir,
+
+        footer: {
+            ...inputs.footer,
+
+            copyright: parseFooterInput(inputs.footer?.copyright),
+
+            designedBy:
+                inputs.footer?.designedBy === true
+                    ? `<p class="designer">Custom design and development by <a
+                            href="https://www.maddimathon.com/web"
+                            target="_blank"
+                        >Maddi Mathon</a>. Human-built without the use of generative AI.</p>`
+                    : inputs.footer?.designedBy
+                      ? inputs.footer?.designedBy
+                      : undefined,
+        },
+
+        lang,
+        layout: (inputs.layout ||
+            ('content-only' satisfies DefaultContentType)) as T_ContentType,
+        settings,
+
+        urlMaker,
+    } satisfies LibPageProps<T_ContentType>;
+
+    return {
+        ...inputs,
+        components,
+        convertHrefStringsToAbsolute,
+        dir,
+        familyOverrideValues,
+        lang,
+        libProps,
+        settings,
+        stylesheetPreload,
+        stylesheetVersion,
+        stylesheets,
+        urlMaker,
+    } as const;
+}
+
 /* PROPS ===================================== */
 
-type Partial_LibProps<T_ContentType extends ContentTypeInput> = Partial<
-    Omit<LibPageProps<T_ContentType>, 'footer' | 'meta' | 'settings' | 'title'>
-> &
-    Pick<LibPageProps<T_ContentType>, 'meta' | 'title'>;
+type RequiredLibProps = 'meta' | 'title';
+type OmittedLibProps =
+    RequiredLibProps | 'convertHrefStringsToAbsolute' | 'footer' | 'settings';
 
 export interface PageProps<
     T_ContentType extends ContentTypeInput = ContentTypeInput,
-> extends Partial_LibProps<T_ContentType> {
+>
+    extends
+        Partial<Omit<LibPageProps<T_ContentType>, OmittedLibProps>>,
+        Pick<LibPageProps<T_ContentType>, RequiredLibProps> {
     tokens: Tokens.JsonReturn;
 
     footer?: Omit<
@@ -107,6 +325,11 @@ export interface PageProps<
         copyright?: undefined | Copyright_HTML | Copyright_PlainOwner | Copyright_PlainYear;
         designedBy?: boolean | string;
     };
+
+    /**
+     * @since ___PKG_VERSION___
+     */
+    settings?: false | Omit<SettingsMenuProps, 'components' | 'id'>;
 
     /**
      * @default true
@@ -121,175 +344,23 @@ export interface PageProps<
     urlMaker?: (currentURL: URL, targetSubpath: string) => string;
 }
 
-export interface Props extends GenericProps<PageProps> {}
+type Props<T_ContentType extends ContentTypeInput = ContentTypeInput> =
+    GenericProps<PageProps<T_ContentType>>;
 
-const { stylesheetPreload = true, ...inputs }: Props =
-    Astro.props?.['frontmatter'] ?? Astro.props;
-
-const stylesheetVersion =
-    inputs.stylesheetVersion ?? import.meta.env.BRAND_KIT_VERSION_STYLESHEET;
-
-const urlMaker = inputs?.urlMaker ?? absoluteInternalURL;
-
-const _settings: LibPageProps['settings'] & {
-    tokens?: Tokens.JsonReturn;
-} = {
-    settings: {
-        brightness: true,
-        contrast: {
-            max: true,
-        },
-        motion: true,
-    },
-    tokens: inputs.tokens,
-};
-
-function parseFooterInput(_input?: Required<PageProps>['footer']['copyright']) {
-    const _useDefaultFooter =
-        typeof _input === 'undefined' || _input?.html === true;
-
-    type InputFooterType_IfUseDefaultFooter = Exclude<
-        Required<PageProps>['footer']['copyright'],
-        false | Copyright_PlainOwner | Copyright_PlainYear
-    >;
-
-    // prettier-ignore
-    type InputFooterType_NotUseDefaultFooter = Extract<
-        Required<PageProps>['footer']['copyright'],
-        false | Copyright_PlainOwner | Copyright_PlainYear
-    > | (Omit<Copyright_HTML, 'html'> & { html: string });
-
-    // returns
-    if (_useDefaultFooter) {
-        const inputFooter = _input as InputFooterType_IfUseDefaultFooter;
-
-        return {
-            html:
-                typeof inputFooter?.html !== 'string'
-                    ? '<a href="https://www.maddimathon.com" target="_blank">Maddi Mathon</a>'
-                    : inputFooter?.html,
-
-            year: inputFooter?.year ?? new Date().getFullYear(),
-        };
-    }
-
-    return _input as InputFooterType_NotUseDefaultFooter satisfies NonNullable<
-        LibPageProps['footer']
-    >['copyright'];
-}
-
-const props = {
-    dir: 'ltr',
-    lang: 'en',
-
-    convertHrefStringsToAbsolute: false,
-
-    ...inputs,
-
-    components: {
-        PrimaryMenu: ToggleNavMenu,
-        SettingsMenu: SettingsMenu,
-        ...inputs.components,
-    },
-
-    footer: {
-        ...inputs.footer,
-
-        copyright: parseFooterInput(inputs.footer?.copyright),
-
-        designedBy:
-            inputs.footer?.designedBy === true
-                ? `<p class="designer">Custom design and development by <a
-                        href="https://www.maddimathon.com/web"
-                        target="_blank"
-                    >Maddi Mathon</a>. Human-built without the use of generative AI.</p>`
-                : inputs.footer?.designedBy
-                  ? inputs.footer?.designedBy
-                  : undefined,
-    },
-
-    settings: _settings,
-    urlMaker,
-} satisfies LibPageProps;
+const { libProps, stylesheetPreload, stylesheets } = parsePageProps(
+    Astro.url,
+    astroComponents,
+    (Astro.props?.['frontmatter'] ?? Astro.props) satisfies Props,
+);
 
 /* CONSTANTS ===================================== */
-
-/* Stylesheets ------------------ */
-
-const versionSuffix = stylesheetVersion ? `?v=${stylesheetVersion}` : '';
-
-const stylesheets = props.stylesheetURLs
-    ? [...props.stylesheetURLs].map(
-          (_str) => urlMaker(Astro.url, _str) + versionSuffix,
-      )
-    : [];
-
-/* Menus ------------------ */
-
-const _menuMapper = (_obj: ArrayItem<[] & LibPageProps['primaryMenu']>) => {
-    _obj = { ..._obj };
-
-    if (typeof _obj.href === 'string') {
-        _obj.href = urlMaker(Astro.url, _obj.href);
-    }
-    if (_obj.child?.length) {
-        _obj.child = [..._obj.child].map(_menuMapper);
-    }
-    return _obj;
-};
-
-if (Array.isArray(props.primaryMenu)) {
-    props.primaryMenu = [...props.primaryMenu].map(_menuMapper);
-}
-
-if (Array.isArray(props.secondaryMenu)) {
-    props.secondaryMenu = [...props.secondaryMenu].map(_menuMapper);
-}
-
-/* Settings ------------------ */
-
-const familyOverrideValues = inputs.tokens.typography.familyOverrides
-    ? Object.values(inputs.tokens.typography.familyOverrides).filter((v) => !!v)
-    : [];
-
-if (familyOverrideValues.length) {
-    if (!props.settings.settings) {
-        props.settings.settings = {};
-    }
-
-    const fontOverrideOptions: NonNullable<
-        typeof props.settings.settings.custom
-    >[number]['options'] = [
-        {
-            label: 'Default',
-            value: 'default',
-            labelClass: 'font-family-override-default',
-        },
-        ...(familyOverrideValues ?? []),
-    ];
-
-    props.settings.settings.custom = [
-        {
-            id: 'font-family-override',
-            label: 'Font Override',
-            default: 'default',
-            options: fontOverrideOptions,
-        },
-        ...(props.settings.settings.custom ?? []),
-    ];
-}
-
-/* Slots ------------------ */
 
 const footerTextHTML =
     Astro.slots.has('footer-text') &&
     (await Astro.slots.render('footer-text'))?.trim();
 ---
 
-<UtilPage
-    {...props as LibPageProps}
-    layout={props.layout || 'content-only'}
->
+<UtilPage {...libProps}>
     <slot
         slot='head-open'
         name='head-open'

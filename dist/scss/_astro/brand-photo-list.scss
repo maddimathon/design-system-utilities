@@ -28,7 +28,7 @@ $_sel_img: (
                 justify-content: start,
             ),
             $direction: row,
-            $gap: 0 lib.do-var(flow-margin-firm-start)
+            $gap: 0 lib.var-style(flow-margin-firm-start)
         );
     }
 }
@@ -85,8 +85,8 @@ $_sel_img: (
 #{$_sel_img} {
     @include lib.prop-display(block);
 
-    margin-block: lib.do-var(flow-margin-firm-start)
-        lib.do-var(flow-margin-firm-end--large);
+    margin-block: lib.var-style(flow-margin-firm-start)
+        lib.var-style(flow-margin-firm-end--large);
 
     width: fit-content;
     max-width: min($_img_maxWidth, 100%);
@@ -105,7 +105,7 @@ $_sel_img: (
 }
 
 #{selector.replace(#{$_sel_img}, '.brand-photo-list__sample__img', '.brand-photo-list__sample__img--hidden-heading')} {
-    margin-block-start: lib.do-var(flow-margin-firm-start--large);
+    margin-block-start: lib.var-style(flow-margin-firm-start--large);
 
     img,
     figure,
@@ -159,7 +159,7 @@ $_img_maxWidth_unitless: math.deunit($_img_maxWidth);
         margin-inline: 0;
 
         padding: 0;
-        gap: 0 lib.do-var(flow-margin-firm-start);
+        gap: 0 lib.var-style(flow-margin-firm-start);
     }
 
     .brand-photo-list__sample-container {

@@ -21,6 +21,105 @@
 @use '05-borders' as borders;
 
 ///
+/// Gets the default flow-margin custom property values.
+///
+/// @since ___PKG_VERSION___
+///
+@function tokens-get-flow-margin-properties($asAtPropertyDefault: false, $asFallbackValue: false) {
+    $style_raw: map.get(breakdown.$style_flat, flow-margin);
+
+    $style_small_raw: map.get(breakdown.$style_flat, flow-margin-small);
+
+    $style_large_raw: map.get(breakdown.$style_flat, flow-margin-large);
+
+    $style_button_raw: map.get(breakdown.$style_flat, flow-margin-button);
+    $style_button_touch_raw: map.get(breakdown.$style_flat, flow-margin-button-touch);
+
+    $var_button: if(
+        $asAtPropertyDefault,
+        spacing.tokens-mrg-value-firm($style_button_raw, $relative: true, $unit: 1em),
+        spacing.tokens-var-pad-firm($style_button_raw)
+    );
+    $var_button_touch: if(
+        $asAtPropertyDefault,
+        spacing.tokens-mrg-value-firm($style_button_touch_raw, $relative: true, $unit: 1em),
+        spacing.tokens-var-pad-firm($style_button_touch_raw)
+    );
+
+    @return (
+        flow-margin: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-soft($style_raw),
+                spacing.tokens-var-mrg-soft($style_raw)
+            ),
+        flow-margin--small: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-soft($style_small_raw),
+                spacing.tokens-var-mrg-soft($style_small_raw)
+            ),
+        flow-margin--large: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-soft($style_large_raw),
+                spacing.tokens-var-mrg-soft($style_large_raw)
+            ),
+        //
+        flow-margin-firm-start: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-firm($style_raw),
+                spacing.tokens-var-mrg-firm($style_raw)
+            ),
+        flow-margin-firm-end: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-half($style_raw),
+                spacing.tokens-var-mrg-half($style_raw)
+            ),
+        //
+        flow-margin-firm-start--small: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-firm($style_small_raw),
+                spacing.tokens-var-mrg-firm($style_small_raw)
+            ),
+        flow-margin-firm-end--small: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-half($style_small_raw),
+                spacing.tokens-var-mrg-half($style_small_raw)
+            ),
+        //
+        flow-margin-firm-start--large: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-firm($style_large_raw),
+                spacing.tokens-var-mrg-firm($style_large_raw)
+            ),
+        flow-margin-firm-end--large: if(
+                $asAtPropertyDefault,
+                spacing.tokens-mrg-value-half($style_large_raw),
+                spacing.tokens-var-mrg-half($style_large_raw)
+            ),
+        //
+        flow-margin-button-span-block: $var_button,
+        flow-margin-button-span-inline: $var_button,
+        //
+        flow-margin-button-span-block--touch: $var_button_touch,
+        flow-margin-button-span-inline--touch: $var_button_touch,
+        //
+         //
+    );
+}
+
+$_flowMargin_initialValues: tokens-get-flow-margin-properties(
+    $asAtPropertyDefault: true,
+);
+
+$_flowMargin_values: tokens-get-flow-margin-properties(
+    $asAtPropertyDefault: false,
+);
+
+$_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
+    $asAtPropertyDefault: false,
+    $asFallbackValue: true,
+);
+
+///
 /// Whether the given style slug is a flow margin token.
 ///
 /// @since 0.1.0-beta.0
@@ -60,6 +159,40 @@
 
     $args: meta.keywords($args);
 
+    @if $asInitialValue {
+        @if map.get($args, fallbackOnly) == null {
+            $args: map.set($args, fallbackOnly, true);
+        }
+
+        @if map.get($args, onlyFallbackPrefix) == null {
+            $args: map.set($args, onlyFallbackPrefix, map.get($args, fallbackOnly));
+        }
+    }
+
+    // returns - flow margins are always dealt with the same way
+    @if tokens-style-is-flow-margin($slug) {
+        // returns
+        @if $raw {
+            @return $value;
+        }
+
+        $new_value: map.get(
+            if(
+                $asInitialValue,
+                $_flowMargin_initialValues,
+                if($asFallbackValue, $_flowMargin_fallbackValues, $_flowMargin_values)
+            ),
+            $slug
+        );
+
+        // returns
+        @if $new_value != null {
+            @return $new_value;
+        }
+
+        @return spacing.tokens-var-mrg-soft($value, $args...);
+    }
+
     // returns
     @if $value == null {
         @if $warnOnFail {
@@ -74,22 +207,7 @@
         @return if(meta.type-of($value) == number, math.add-unit($value, $unit: $rawUnit), $value);
     }
 
-    @if $asInitialValue {
-        @if map.get($args, fallbackOnly) == null {
-            $args: map.set($args, fallbackOnly, true);
-        }
-
-        @if map.get($args, onlyFallbackPrefix) == null {
-            $args: map.set($args, onlyFallbackPrefix, map.get($args, fallbackOnly));
-        }
-    }
-
     $_slugLength: string.length($slug);
-
-    // returns - flow margins are always dealt with the same way
-    @if tokens-style-is-flow-margin($slug) {
-        @return spacing.tokens-var-mrg-soft($value, $args...);
-    }
 
     // returns
     @if $slug == focus-ring-outline-color {
@@ -464,10 +582,8 @@
     $value_warnOnFail: true,
     $args...
 ) {
-    $_default_flow_tokens_match: string.match($slug, '^flow-margin(-(large|small)|$)');
-
     // returns - flow margins are always dealt with the same way
-    @if $_default_flow_tokens_match != null {
+    @if tokens-style-is-flow-margin($slug) {
         @if $fallback == null {
             $fallback: tokens-style-value(
                 $slug,
@@ -477,16 +593,7 @@
             );
         }
 
-        $_suffix: list.nth($_default_flow_tokens_match, 3);
-
-        $_suffix: if($_suffix, '--#{$_suffix}', '');
-
-        @return config.config-do-var(
-            'flow-margin#{$_suffix}',
-            $fallback: $fallback,
-            $fallbackOnly: false,
-            $args...
-        );
+        @return config.config-do-var($slug, $fallback: $fallback, $fallbackOnly: false, $args...);
     }
 
     @if $fallback == null {

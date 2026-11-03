@@ -56,7 +56,7 @@
 /// @since 0.1.0-beta.0
 ///
 @function var-flow-margin-from-class($className, $firmSide: 'start', $args...) {
-    @return utils.do-var(
+    @return tokens.tokens-var-style(
         flow-margin-class-to-style-token($className, $firmSide: $firmSide),
         $args...
     );
@@ -79,7 +79,7 @@
     }
 
     @warn '$tokenSlug was not a known flow margin token slug (was #{meta.var-dump($tokenSlug)})';
-    @return utils.do-var(flow-margin, $args...);
+    @return tokens.tokens-var-style(flow-margin, $args...);
 }
 
 ///

@@ -222,6 +222,8 @@
     @return $value;
 }
 
+$_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
+
 ///
 /// Gets the value for the given token slug.
 ///
@@ -331,20 +333,21 @@
         $themeVarSlug: #{$themeVarSlug}-#{$version};
     }
 
-    // prettier-ignore
-    $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
+    $modernOpacitySyntax: (
+            (config.$colour_channelLists_separator == space) and
+                (not ($fallbackOnly or config.$fn_var_replaceWithValue_colour))
+        )
+        or $useSystemColorFallback or
         (
-            $useSystemColorFallback or
-            $returnAsVar or
-            config.custom-property-prefix-all-exists() or
-            (not ($fallbackOnly or config.$fn_var_replaceWithValue_colour))
+            config.$colour_allowModernOpacitySyntax and
+                ($returnAsVar or config.custom-property-prefix-all-exists())
         );
 
     // returns
     @if not $clrSlug {
-        @return if(
-            $fallbackSlug,
-            tokens-theme-token-value(
+        // returns - usingfallback
+        @if $fallbackSlug {
+            @return tokens-theme-token-value(
                 $fallbackSlug,
                 $brightness: $brightness,
                 $contrast: $contrast,
@@ -356,20 +359,25 @@
                 $returnAsVar: $returnAsVar,
                 $warnOnFalse: $warnOnFalse,
                 $args...
-            ),
+            );
+        }
+
+        $_var: config.config-do-var($themeVarSlug, $args...);
+
+        @if $modernOpacitySyntax {
+            $_var: string.join(' ', string.regex-split($_var, $_opacity_split_regex));
+        } @else {
+            $_var: string.join(', ', string.regex-split($_var, $_opacity_split_regex));
+        }
+
+        @return if(
+            $opacity,
             if(
-                $opacity,
-                if(
-                    $modernOpacitySyntax,
-                    string.unquote(
-                        '#{$version}a(#{config.config-do-var($themeVarSlug, $args...)} / #{$opacity})'
-                    ),
-                    string.unquote(
-                        '#{$version}a(#{config.config-do-var($themeVarSlug, $args...)}, #{$opacity})'
-                    )
-                ),
-                config.config-do-var($themeVarSlug, $args...)
-            )
+                $modernOpacitySyntax,
+                string.unquote('#{$version}a(#{$_var} / #{$opacity})'),
+                string.unquote('#{$version}a(#{$_var}, #{$opacity})')
+            ),
+            $_var
         );
     }
 
@@ -424,15 +432,15 @@
                 @return config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
             }
 
-            $split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
-
             // returns
             @if list.length($_value) > 1 {
                 $_valueList: ();
 
                 @each $_val in $_value {
-                    @if not $modernOpacitySyntax {
-                        $_val: string.join(', ', string.regex-split($_val, $split_regex));
+                    @if $modernOpacitySyntax {
+                        $_val: string.join(' ', string.regex-split($_val, $_opacity_split_regex));
+                    } @else {
+                        $_val: string.join(', ', string.regex-split($_val, $_opacity_split_regex));
                     }
 
                     $_val: config.config-do-var($themeVarSlug, $fallback: $_val, $args...);
@@ -450,8 +458,10 @@
                 @return $_valueList;
             }
 
-            @if not $modernOpacitySyntax {
-                $_value: string.join(', ', string.regex-split($_value, $split_regex));
+            @if $modernOpacitySyntax {
+                $_value: string.join(' ', string.regex-split($_value, $_opacity_split_regex));
+            } @else {
+                $_value: string.join(', ', string.regex-split($_value, $_opacity_split_regex));
             }
 
             $_value: config.config-do-var($themeVarSlug, $fallback: $_value, $args...);

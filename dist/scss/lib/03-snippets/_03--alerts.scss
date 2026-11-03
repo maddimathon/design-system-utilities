@@ -370,13 +370,24 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     }
 }
 
+$_mixin_alert_block: meta.get-mixin('snippet-alert-block');
+
 ///
-/// Adds support for icons, assuming the html matches that in the local astro
-/// Icon component.
+/// Adds support for alert blocks.
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-support-alert-blocks {
+@mixin snippet-support-alert-blocks(
+    $includeBackgrounds: true,
+    $mixin_alert_block: null
+) {
+    $mixin_alert_block: config.config-valid-mixin(
+        $mixin_alert_block,
+        '$mixin_alert_block',
+        $default: $_mixin_alert_block,
+        $prefix: '[snippet-support-alert-blocks] '
+    );
+
     %_alert-grid {
         $_templateCols: [icon] minmax(max-content, auto) [content] 1fr;
 
@@ -404,8 +415,9 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
     %alert {
         @extend %_alert-grid;
-        @include snippet-alert-block($multipleContentBlocks: true) using
-            ($location) {
+
+        @include meta.apply($mixin_alert_block, $multipleContentBlocks: true)
+            using ($location) {
             @content (if($location == root, 'alert-block', 'alert-block--#{$location}'));
         }
 
@@ -413,6 +425,8 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
             @extend %_alert-grid;
             grid-template-columns: subgrid;
             grid-column: 1 / -1;
+
+            @content (alert-block--headline-direct);
         }
 
         &.content-width,
@@ -421,27 +435,37 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
         &.site-width {
             justify-self: stretch;
             width: auto;
+
+            @content (alert-block--has-width);
         }
 
-        @each $variationKey in $_textAndBackgroundKeys {
-            @if $variationKey != active and $variationKey != disabled {
-                $_classSlug: if($variationKey == '$', default, $variationKey);
+        @if $includeBackgrounds {
+            @each $variationKey in $_textAndBackgroundKeys {
+                @if $variationKey != active and $variationKey != disabled {
+                    $_classSlug: if(
+                        $variationKey == '$',
+                        default,
+                        $variationKey
+                    );
 
-                &--icon-#{$_classSlug},
-                &--background-#{$_classSlug},
-                &.background-#{$_classSlug} {
-                    @if $_classSlug == default {
-                        @include snippet-alert-block-colours;
-                    } @else {
-                        @include snippet-alert-block-colours-by-slug(
-                            $variationKey
-                        );
+                    &--icon-#{$_classSlug},
+                    &--background-#{$_classSlug},
+                    &.background-#{$_classSlug} {
+                        @if $_classSlug == default {
+                            @include snippet-alert-block-colours;
+                        } @else {
+                            @include snippet-alert-block-colours-by-slug(
+                                $variationKey
+                            );
+                        }
                     }
                 }
-            }
 
-            @content (alert-block--background-#{$variationKey});
+                @content (alert-block--background-#{$variationKey});
+            }
         }
+
+        @content (alert-block--children);
 
         @include set-flow-margins-by-token(alert);
     }

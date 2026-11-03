@@ -1319,7 +1319,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $fontSize: 1em,
     $marginBlockEnd: 0,
     $marginBlockStart: 0,
-    $marginInline: 0 do-var(flow-margin-firm-start--small),
+    $marginInline: 0 var-style(flow-margin-firm-start--small),
     $width: false,
     //
     $focusWithin: false,
@@ -1506,7 +1506,8 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $color: var-theme(text),
     $display: flex,
     $flex_args: (),
-    $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
+    $marginBlock: var-style(flow-margin-firm-start)
+        var-style(flow-margin-firm-end),
     $marginInline: 0,
     $paddingBlock: var-style(widget-padding-block),
     $paddingInline: var-style(widget-padding-inline),
@@ -2260,7 +2261,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     //
     $fontWeight: var-style(input-label-font-weight),
     $fontWeight_checkradio: 400,
-    $gap_checkradio: do-var(flow-margin--small),
+    $gap_checkradio: var-style(flow-margin--small),
     $lineHeight: var-style(input-label-line-height),
     $lh_checkradio: var-line-height('400'),
     $marginBlock: var-flow-margin-from-token(input-flow-margin-self, start) 0,
@@ -2312,7 +2313,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             + %select,
             + %textarea,
             + %input-base {
-                margin-block-start: do-var(flow-margin-firm-start);
+                margin-block-start: var-style(flow-margin-firm-start);
 
                 @if $multipleContentBlocks {
                     @content (#{$location}--input-base);
@@ -2321,7 +2322,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
             + %input {
                 &:not([type='checkbox'], [type='radio']) {
-                    margin-block-start: do-var(flow-margin-firm-start);
+                    margin-block-start: var-style(flow-margin-firm-start);
 
                     @if $multipleContentBlocks {
                         @content (#{$location}--input-base);
@@ -2356,10 +2357,10 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     }
 
     fieldset &:first-child {
-        margin-inline: calc(do-var(flow-margin--small) * -1);
-        margin-block: 0 do-var(flow-margin--small);
+        margin-inline: calc(var-style(flow-margin--small) * -1);
+        margin-block: 0 var-style(flow-margin--small);
 
-        padding-inline: do-var(flow-margin--small);
+        padding-inline: var-style(flow-margin--small);
 
         + * {
             @include first-child-no-top-margin($setFirstChildSelector: false);
@@ -2532,8 +2533,8 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     $gap: meta.defined-else(
         $gap,
-        do-var(flow-margin-button-span-block--touch)
-            do-var(flow-margin-button-span-inline--touch)
+        var-style(flow-margin-button-span-block--touch)
+            var-style(flow-margin-button-span-inline--touch)
     );
 
     @include prop-display(flex);
@@ -2555,8 +2556,8 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     @if $gap_touch != false {
         gap: meta.defined-else(
             $gap_touch,
-            do-var(flow-margin-button-span-block)
-                do-var(flow-margin-button-span-inline)
+            var-style(flow-margin-button-span-block)
+                var-style(flow-margin-button-span-inline)
         );
     } @else if $gap != false {
         gap: $gap;

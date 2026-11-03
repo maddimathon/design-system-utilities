@@ -16,42 +16,35 @@
 @use '../01-breakdown' as breakdown;
 
 ///
-/// Returns the appropriate var (with fallback).
-///
-/// @param {string} $slug  Colour name.
-/// @param {string} $level  Shade level.
-/// @param {string} $brightness  Optional. Brightness mode for this value (switched in dark mode).
-/// @param {string} $version  Optional. Brightness mode for this value (switched in dark mode). Which list version of the var to fetch, if applicable. Options: null, 'hsl', 'rgb'.
-///
 /// @since __PKG_VERSION___
 ///
-@function tokens-var-clr(
+@function tokens-var-clr--parse-args(
     $slug,
     $level,
-    $brightness: breakdown.$brightnessMode_default,
+    $neverReplaceWithValue: null,
     $opacity: null,
     $version: null,
-    $fallbackOnly: false,
-    $neverReplaceWithValue: null,
     $warnOnFail: true,
-    $args...
+    //
+    $allPrefixes: null,
+    $fallbackOnly: false,
+    $neverFallbackPrefix: null,
+    $onlyFallbackPrefix: null,
+    $quoteString: false
 ) {
-    @if $neverReplaceWithValue == null {
-        @if config.$fn_var_neverReplaceWithValue_colour_regex {
-            $neverReplaceWithValue: meta.is-truthy(
-                string.match(
-                    $slug,
-                    config.$fn_var_neverReplaceWithValue_colour_regex,
-                    $flags:
-                        config.$fn_var_neverReplaceWithValue_colour_regex_flags
-                )
-            );
-        } @else {
-            $neverReplaceWithValue: false;
-        }
+    @if config.$fn_var_neverReplaceWithValue_colour_regex {
+        $neverReplaceWithValue: meta.is-truthy(
+            string.match(
+                $slug,
+                config.$fn_var_neverReplaceWithValue_colour_regex,
+                $flags: config.$fn_var_neverReplaceWithValue_colour_regex_flags
+            )
+        );
+    } @else {
+        $neverReplaceWithValue: false;
     }
 
-    $clrVarSlug: clr-#{$slug};
+    $clrVarSlug: #{$slug};
 
     @if $slug == 'white' or $slug == white or $slug == 'black' or $slug == black
     {
@@ -89,8 +82,6 @@
         $version: null;
     }
 
-    $slugMap: map.get(breakdown.$colour, $slug);
-
     $fallbackOnly: ($fallbackOnly or config.$fn_var_replaceWithValue_colour) and
         (not $neverReplaceWithValue);
 
@@ -101,116 +92,198 @@
             config.custom-property-prefix-all-exists()
         );
 
-    // returns
-    @if $slugMap == null {
-        @if $warnOnFail {
-            @warn "$slug '#{$slug}' was not a key in tokens.$colour";
-        }
-
-        @return if(
-            $opacity,
-            if(
-                $modernOpacitySyntax,
-                string.unquote(
-                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)} / #{$opacity})'
-                ),
-                string.unquote(
-                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)}, #{$opacity})'
-                )
-            ),
-            config.config-do-var($clrVarSlug, $args...)
-        );
+    @if ($opacity != null) and
+        config.$mx_tokensColour_presetOpacities_include and
+        (list.index(breakdown.$colour_presetOpacities, $opacity) != null)
+    {
+        $clrVarSlug: #{$clrVarSlug}--#{math.deunit($opacity)};
     }
 
-    $_slugMapType: meta.type-of($slugMap);
+    @return (
+        slug: $slug,
+        level: $level,
+        //
+        clrVarSlug: $clrVarSlug,
+        fallbackOnly: $fallbackOnly,
+        modernOpacitySyntax: $modernOpacitySyntax,
+        neverReplaceWithValue: $neverReplaceWithValue,
+        opacity: $opacity,
+        warnOnFail: $warnOnFail,
+        version: $version,
+        //
+        doVarArgs: meta.arglist(
+                $allPrefixes: $allPrefixes,
+                $fallbackOnly: $fallbackOnly,
+                $neverFallbackPrefix: $neverFallbackPrefix,
+                $onlyFallbackPrefix: $onlyFallbackPrefix,
+                $quoteString: $quoteString
+            )
+    );
+}
 
-    // returns
-    @if $_slugMapType != map and $_slugMapType != color {
-        @if $warnOnFail {
-            @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
-        }
+///
+/// Returns the appropriate var (with fallback).
+///
+/// @param {string} $slug  Colour name.
+/// @param {string} $level  Shade level.
+/// @param {string} $brightness  Optional. Brightness mode for this value (switched in dark mode).
+/// @param {string} $version  Optional. Brightness mode for this value (switched in dark mode). Which list version of the var to fetch, if applicable. Options: null, 'hsl', 'rgb'.
+///
+/// @since __PKG_VERSION___
+///
+@function tokens-var-clr(
+    $slug,
+    $level,
+    $brightness: breakdown.$brightnessMode_default,
+    $fallback: null,
+    $args...
+) {
+    $args: tokens-var-clr--parse-args(
+        $slug: $slug,
+        $level: $level,
+        $args...,
+    );
 
-        @return if(
-            $opacity,
-            if(
-                $modernOpacitySyntax,
-                string.unquote(
-                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)} / #{$opacity})'
-                ),
-                string.unquote(
-                    '#{$version}a(#{config.config-do-var($clrVarSlug, $args...)}, #{$opacity})'
-                )
-            ),
-            config.config-do-var($clrVarSlug, $args...)
-        );
-    }
+    $slug: map.get($args, slug);
+    $level: map.get($args, level);
+
+    $clrVarSlug: clr-#{map.get($args, clrVarSlug)};
+    $fallbackOnly: map.get($args, fallbackOnly);
+    $level: map.get($args, level);
+    $modernOpacitySyntax: map.get($args, modernOpacitySyntax);
+    $neverReplaceWithValue: map.get($args, neverReplaceWithValue);
+    $opacity: map.get($args, opacity);
+    $slug: map.get($args, slug);
+    $version: map.get($args, version);
+    $warnOnFail: map.get($args, warnOnFail);
+
+    $doVarArgs: map.get($args, doVarArgs);
 
     $fallback_clr: null;
 
-    @if $_slugMapType == color {
-        $fallback_clr: $slugMap;
-    } @else {
-        $level_brightnessAdjusted: $level;
+    // returns on failure
+    @if $fallback == null {
+        $slugMap: map.get(breakdown.$colour, $slug);
 
-        @if $brightness == dark {
-            $level_brightnessAdjusted: colour.shade-map-reverse-key(
-                $level,
-                $slugMap,
-                $sort: true
+        // returns
+        @if $slugMap == null {
+            @if $warnOnFail {
+                @warn "$slug '#{$slug}' was not a key in tokens.$colour";
+            }
+
+            @return if(
+                $opacity,
+                if(
+                    $modernOpacitySyntax,
+                    string.unquote(
+                        '#{$version}a(#{config.config-do-var($clrVarSlug, $doVarArgs...)} / #{$opacity})'
+                    ),
+                    string.unquote(
+                        '#{$version}a(#{config.config-do-var($clrVarSlug, $doVarArgs...)}, #{$opacity})'
+                    )
+                ),
+                config.config-do-var($clrVarSlug, $doVarArgs...)
             );
         }
 
-        $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
+        $_slugMapType: meta.type-of($slugMap);
 
         // returns
-        @if $fallback_clr == null {
+        @if $_slugMapType != map and $_slugMapType != color {
             @if $warnOnFail {
                 @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
             }
-            @return config.config-do-var($clrVarSlug, $args...);
+
+            @return if(
+                $opacity,
+                if(
+                    $modernOpacitySyntax,
+                    string.unquote(
+                        '#{$version}a(#{config.config-do-var($clrVarSlug, $doVarArgs...)} / #{$opacity})'
+                    ),
+                    string.unquote(
+                        '#{$version}a(#{config.config-do-var($clrVarSlug, $doVarArgs...)}, #{$opacity})'
+                    )
+                ),
+                config.config-do-var($clrVarSlug, $doVarArgs...)
+            );
+        }
+
+        @if $_slugMapType == color {
+            $fallback_clr: $slugMap;
+        } @else {
+            $level_brightnessAdjusted: $level;
+
+            @if $brightness == dark {
+                $level_brightnessAdjusted: colour.shade-map-reverse-key(
+                    $level,
+                    $slugMap,
+                    $sort: true
+                );
+            }
+
+            $fallback_clr: map.get($slugMap, $level_brightnessAdjusted);
+
+            // returns
+            @if $fallback_clr == null {
+                @if $warnOnFail {
+                    @warn "$level '#{$level}' was not a key in tokens.$colour.#{$slug}";
+                }
+                @return config.config-do-var($clrVarSlug, $doVarArgs...);
+            }
         }
     }
 
     $fallback: $fallback_clr;
 
-    $fallbackOnly: $fallbackOnly and meta.type-of($fallback_clr) == color;
+    $fallback_is_colour: meta.type-of($fallback_clr) == color;
+
+    $fallbackOnly: $fallbackOnly and $fallback_is_colour;
 
     // opacity returns if not a preset
     @if $opacity != null {
         @if config.$mx_tokensColour_presetOpacities_include and
             (list.index(breakdown.$colour_presetOpacities, $opacity) != null)
         {
-            $clrVarSlug: #{$clrVarSlug}--#{math.deunit($opacity)};
-
-            @if $version == rgb {
-                $fallback: colour.to-rgb(
-                    $fallback_clr,
-                    $round: true,
-                    $opacity: $opacity
-                );
-            } @else {
-                $fallback: colour.to-hsl(
-                    $fallback_clr,
-                    $round: false,
-                    $opacity: $opacity
-                );
+            @if $fallback_is_colour {
+                @if $version == rgb {
+                    $fallback: colour.to-rgb(
+                        $fallback_clr,
+                        $round: true,
+                        $opacity: $opacity
+                    );
+                } @else {
+                    $fallback: colour.to-hsl(
+                        $fallback_clr,
+                        $round: false,
+                        $opacity: $opacity
+                    );
+                }
             }
         } @else {
             @if $version == rgb {
                 $_var: config.config-do-var(
                     $clrVarSlug,
-                    $fallback: colour.to-rgb-list($fallback_clr, $round: true),
+                    $fallback: if(
+                            $fallback_is_colour,
+                            colour.to-rgb-list($fallback, $round: true),
+                            $fallback
+                        ),
                     $fallbackOnly: $fallbackOnly,
-                    $args...
+                    $doVarArgs...
                 );
 
                 @return string.unquote('rgba( #{$_var}, #{$opacity} )');
             } @else {
                 $_var: config.config-do-var(
                     $clrVarSlug,
-                    $fallback: colour.to-hsl-list($fallback_clr, $round: false),
+                    $fallback: if(
+                            $fallback_is_colour,
+                            colour.to-hsl-list($fallback, $round: false),
+                            $fallback
+                        ),
                     $fallbackOnly: $fallbackOnly,
-                    $args...
+                    $doVarArgs...
                 );
 
                 @return string.unquote('hsla( #{$_var}, #{$opacity} )');
@@ -218,21 +291,25 @@
         }
     } @else if $version == hsl {
         $fallback: string.unquote(
-            '#{colour.to-hsl-list($fallback_clr, $round: false)}'
+            '#{if($fallback_is_colour, colour.to-hsl-list($fallback, $round: false), $fallback)}'
         );
     } @else if $version == rgb {
         $fallback: string.unquote(
-            '#{colour.to-rgb-list($fallback_clr, $round: true)}'
+            '#{if($fallback_is_colour, colour.to-rgb-list($fallback, $round: true), $fallback)}'
         );
     } @else {
-        $fallback: colour.to-hsl($fallback_clr, $round: false);
+        $fallback: if(
+            $fallback_is_colour,
+            colour.to-hsl($fallback, $round: false),
+            $fallback
+        );
     }
 
     @return config.config-do-var(
         $clrVarSlug,
         $fallback,
         $fallbackOnly: $fallbackOnly,
-        $args...
+        $doVarArgs...
     );
 }
 

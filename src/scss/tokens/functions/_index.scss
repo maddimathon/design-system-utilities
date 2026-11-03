@@ -151,49 +151,7 @@
     );
     // #endregion - $defaults
 
-    $val_flowMrg_raw: system.tokens-style-value(flow-margin, $raw: true);
-
-    $val_flowMrg_small_raw: system.tokens-style-value(flow-margin-small, $raw: true);
-
-    $val_flowMrg_large_raw: system.tokens-style-value(flow-margin-large, $raw: true);
-    $val_flowMrg_large: system.tokens-mrg-value-soft($val_flowMrg_large_raw);
-
-    $var_flowMrg_button: system.tokens-mrg-value-firm(
-        system.tokens-style-value(flow-margin-button, $raw: true),
-        $unit: 1em
-    );
-    $var_flowMrg_button_touch: system.tokens-mrg-value-firm(
-        system.tokens-style-value(flow-margin-button-touch, $raw: true),
-        $unit: 1em
-    );
-
-    $var_flowMrg_firmStart_small: system.tokens-mrg-value-firm($val_flowMrg_small_raw);
-
-    $_flowMargins: (
-        flow-margin: system.tokens-mrg-value-soft($val_flowMrg_raw),
-        flow-margin--small: system.tokens-mrg-value-soft($val_flowMrg_small_raw),
-        flow-margin--large: $val_flowMrg_large,
-        //
-        flow-margin-firm-start: system.tokens-mrg-value-firm($val_flowMrg_raw),
-        flow-margin-firm-end: system.tokens-mrg-value-half($val_flowMrg_raw),
-        //
-        flow-margin-firm-start--small: $var_flowMrg_firmStart_small,
-        flow-margin-firm-end--small: system.tokens-mrg-value-half($val_flowMrg_small_raw),
-        //
-        flow-margin-firm-start--large: system.tokens-mrg-value-firm($val_flowMrg_large_raw),
-        flow-margin-firm-end--large: system.tokens-mrg-value-half($val_flowMrg_large_raw),
-        //
-        flow-margin-button-span-block: $var_flowMrg_button,
-        flow-margin-button-span-inline: $var_flowMrg_button,
-        //
-        flow-margin-button-span-block--touch: $var_flowMrg_button_touch,
-        flow-margin-button-span-inline--touch: $var_flowMrg_button_touch,
-        //
-        flow-margin--heading-unstyled: $val_flowMrg_large,
-    );
-
-    @each $slug, $initial in $_flowMargins {
-        //
+    @each $slug, $initial in system.tokens-get-flow-margin-properties($asAtPropertyDefault: true) {
         $defaults: map.set(
             $defaults,
             $slug,

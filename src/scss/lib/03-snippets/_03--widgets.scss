@@ -90,7 +90,7 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     $gap: false,
     $paddingBlock: var-style(widget-padding-block),
     $paddingInline: var-style(widget-padding-inline),
-    $marginBlock: do-var(flow-margin-firm-start) do-var(flow-margin-firm-end),
+    $marginBlock: var-style(flow-margin-firm-start) var-style(flow-margin-firm-end),
     $width: fit-content,
     //
     $backgroundInheritOnly: false,
@@ -231,13 +231,13 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 ///
 @mixin snippet-support-sidebar-widgets(
     $flex_alignment: (),
-    $gap: do-var(flow-margin--large) do-var(flow-margin-firm-start--large),
+    $gap: var-style(flow-margin--large) var-style(flow-margin-firm-start--large),
     //
     $includeSidebar: true,
     $includeWidget: true,
     //
-    $widget_marginBlockStart: do-var(flow-margin-firm-start--large),
-    $widget_marginBlockEnd: do-var(flow-margin-firm-end--large),
+    $widget_marginBlockStart: var-style(flow-margin-firm-start--large),
+    $widget_marginBlockEnd: var-style(flow-margin-firm-end--large),
     //
     $selector_sidebar: '%main-sidebar',
     $selector_widget: '%widget-block'

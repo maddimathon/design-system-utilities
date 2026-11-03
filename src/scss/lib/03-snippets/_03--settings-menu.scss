@@ -41,11 +41,12 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
     $content_maxWidth: min(var-width(content), 90vw),
     $fieldset_flexContainer_alignment: (),
     $fieldset_flexContainer_direction: row,
-    $fieldset_flexContainer_gap: do-var(flow-margin-button-span-block) var-gap-inline(tab),
-    $fieldset_marginBlock: do-var(flow-margin-firm-start--small) do-var(flow-margin-firm-end--small),
+    $fieldset_flexContainer_gap: var-style(flow-margin-button-span-block) var-gap-inline(tab),
+    $fieldset_marginBlock: var-style(flow-margin-firm-start--small)
+        var-style(flow-margin-firm-end--small),
     $fieldset_marginInline: 0,
-    $fieldset_paddingBlock: do-var(flow-margin--small),
-    $fieldset_paddingInline: do-var(flow-margin-firm-start--small),
+    $fieldset_paddingBlock: var-style(flow-margin--small),
+    $fieldset_paddingInline: var-style(flow-margin-firm-start--small),
     $zIndex: var-z-index(settings),
     $zIndex_open: var-z-index(popup),
     //
@@ -365,7 +366,7 @@ $_overrides: map.ksort(map.get(tokens.$font, familyOverrides));
 
                 font-family: $_override_ff_list !important;
 
-                @include font-family-size-tokens($override_slug, $args...) {
+                @include font-family-size-tokens($override_slug, $setLineHeight: false, $args...) {
                     @content (#{$override_slug}--root);
                 }
 

@@ -590,7 +590,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
         }
         //
         @else if $location == js--toggle-container {
-            margin-block-end: do-var(flow-margin-firm-end--large);
+            margin-block-end: var-style(flow-margin-firm-end--large);
 
             @content ($location);
 
@@ -605,7 +605,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
                     }
 
                     margin-block-start: max(
-                        do-var(flow-margin--large),
+                        var-style(flow-margin--large),
                         var-style(heading-#{$slug}-margin-block-start)
                     );
 
@@ -976,7 +976,7 @@ $_mixin_support_base: meta.get-mixin('snippet-support-toggle-block-base');
 /// @since 0.1.0-beta.0
 ///
 @mixin snippet-support-astro-toggle-nav-menu(
-    $control_paddingBlock: min(0.75vh, do-var(flow-margin--small)),
+    $control_paddingBlock: min(0.75vh, var-style(flow-margin--small)),
     $title_borderWidth: var-style(toggle-nav-content-border-width),
     //f
     $includeStyles: true,
