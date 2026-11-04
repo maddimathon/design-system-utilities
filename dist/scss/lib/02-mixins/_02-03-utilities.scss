@@ -656,9 +656,9 @@ $_firmFlowMarginChildren: list.join(
 ///
 @function var-prop-background($fallback: var-theme(background), $args...) {
     @return if(
-        config.$mx_prop_useCustom_background,
+        config.$mx_prop_useCustom_backgroundColor,
         do-var(
-            background,
+            background-color,
             $fallback,
             $allPrefixes: config.$mx_propBackground_allPrefixes,
             $onlyFallbackPrefix: config.$mx_propBackground_onlyFallbackPrefix,

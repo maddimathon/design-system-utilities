@@ -404,7 +404,7 @@ const inputField = {
             <p
                 class="theme-mode-swatch__sample"
                 style={ [
-                    `--background: ${getCssColourForThemePreview(tokens, brightness, _bgValue)} !important`,
+                    `--background-color: ${getCssColourForThemePreview(tokens, brightness, _bgValue)} !important`,
                     `color: ${getCssColourForThemePreview(tokens, brightness, theme.data.text.$)} !important`,
                 ].join(';') }
             ><samp set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: _bgValue}} /></p>
@@ -469,7 +469,7 @@ const inputField = {
                             disabled={variation.name === 'disabled'}
                             style={ [
                                 state.border?.value && `border-color: ${getCssColourForThemePreview(tokens, brightness, state.border.value)} !important`,
-                                state.background?.value && `--background: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`,
+                                state.background?.value && `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`,
                                 state.text?.value && `color: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`,
                             ].filter( v => v ).join(';') }
                             type='button'
@@ -498,9 +498,9 @@ const inputField = {
                             class="theme-mode-swatch__sample"
                             style={ [
                                 key === 'background' && state.text
-                                    ? `--background: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`
+                                    ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`
                                     : (key == 'text' || key == 'ui') && state.background
-                                        ? `--background: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`
+                                        ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`
                                         : '',
                                 `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)} !important`,
                             ].filter( v => v ).join(';') }
@@ -523,9 +523,9 @@ const inputField = {
                         class="theme-mode-swatch__sample"
                         style={ [
                             key === 'background' && state.text
-                                ? `--background: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`
+                                ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`
                                 : (key == 'text' || key == 'ui') && state.background
-                                    ? `--background: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`
+                                    ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`
                                     : '',
                             `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)} !important`,
                         ].filter( v => v ).join(';') }
@@ -553,7 +553,7 @@ const inputField = {
                 readonly={ variation === 'readonly' ? 'true' : undefined }
                 style={ [
                     state.border.clrSlug && `border-color: ${getCssColourForThemePreview(tokens, brightness, state.border.clrSlug)} !important`,
-                    state.background.clrSlug && `--background: ${getCssColourForThemePreview(tokens, brightness, state.background.clrSlug)} !important`,
+                    state.background.clrSlug && `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.clrSlug)} !important`,
                     state.text.clrSlug && `color: ${getCssColourForThemePreview(tokens, brightness, state.text.clrSlug)} !important`,
                 ].filter( v => v ).join(';') }
                 type="text"
@@ -578,10 +578,10 @@ const inputField = {
                             class="theme-mode-swatch__sample"
                             style={ [
                                 ( key == 'text') && state.background?.clrSlug 
-                                    ? `--background: ${getCssColourForThemePreview(tokens, brightness, state.background.clrSlug)} !important`
+                                    ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.clrSlug)} !important`
                                     : '',
                                 (key == 'background') && state.text?.clrSlug 
-                                    ? `--background: ${getCssColourForThemePreview(tokens, brightness, state.text.clrSlug)} !important`
+                                    ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.text.clrSlug)} !important`
                                     : '',
                                 state[key].clrSlug && `color: ${getCssColourForThemePreview(tokens, brightness, state[key].clrSlug)} !important`,
                             ].filter( v => v ).join(';') }
@@ -630,11 +630,6 @@ const inputField = {
                     placeholder={ variation === '$' ? 'This is a placeholder value.' : '' }
                     readonly={ variation === 'readonly' ? 'true' : undefined }
                     slot="four"
-                    style={ [
-                      fieldSet.$.border.clrSlug && `border-color: ${getCssColourForThemePreview(tokens, brightness, fieldSet.$.border.clrSlug)} !important`,
-                      fieldSet.$.background.clrSlug && `--background: ${getCssColourForThemePreview(tokens, brightness, fieldSet.$.background.clrSlug)} !important`,
-                      fieldSet.$.text.clrSlug && `color: ${getCssColourForThemePreview(tokens, brightness, fieldSet.$.text.clrSlug)} !important`,
-                    ].filter( v => v ).join(';') }
                     type="text"
                     value={ variation === '$' ? undefined : `This is a ${variation} input.` }
                 ><Fragment slot='label'>{fieldSet.$.background.label}</Fragment></FormField>

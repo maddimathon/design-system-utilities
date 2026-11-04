@@ -561,6 +561,10 @@
     inherits: true;
     initial-value: 62.5%;
 }
+@property --prefix-background-color {
+    syntax: "<color>";
+    inherits: true;
+}
 @property --prefix-display {
     syntax: "*";
     inherits: false;
@@ -1560,7 +1564,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
         );
     }
@@ -2067,7 +2071,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
         );
     }
@@ -2574,7 +2578,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
         );
     }
@@ -2996,7 +3000,7 @@
     --prefix-icon-color: hsl(339.5, 0%, 13.5%);
     color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background, hsl(339.5, 0%, 91.5%))
     );
 }
@@ -3489,7 +3493,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 22.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 22.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 86%))
         );
     }
@@ -3980,7 +3984,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 22.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 22.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 86%))
         );
     }
@@ -4496,7 +4500,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 96.5%))
         );
     }
@@ -5010,7 +5014,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 13.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 13.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 96.5%))
         );
     }
@@ -5523,7 +5527,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 86%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 86%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 9.5%))
         );
     }
@@ -6034,7 +6038,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 86%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 86%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 9.5%))
         );
     }
@@ -6559,7 +6563,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 75.5%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 75.5%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 13.5%))
         );
     }
@@ -7119,7 +7123,7 @@
         --prefix-icon-color: hsl(339.5, 0%, 86%);
         color: var(--prefix-theme-text, hsl(339.5, 0%, 86%));
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background, hsl(339.5, 0%, 4.5%))
         );
     }
@@ -7419,10 +7423,10 @@
         --prefix-theme-ui-disabled: GrayText !important;
         --prefix-theme-ui-disabled-hsl: GrayText !important;
         --prefix-selection-background: Highlight !important;
-        --prefix-focus-ring-outline-color: ActiveText;
-        --prefix-icon-color: CanvasText;
-        color: CanvasText;
-        background-color: var(--prefix-background, Canvas);
+        --prefix-focus-ring-outline-color: ActiveText !important;
+        --prefix-icon-color: CanvasText !important;
+        color: CanvasText !important;
+        background-color: var(--prefix-background-color, Canvas) !important;
     }
 }
 /* #endregion Tokens - Theme - light/dark mode + forced-colors contrast */
@@ -7588,12 +7592,12 @@ a.skip-link[href]:visited {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border, ButtonFace);
@@ -7625,12 +7629,12 @@ a.skip-link[href][data-state-focus="true"],
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -7660,12 +7664,12 @@ a.skip-link[href][data-state-focus="true"] *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -7692,12 +7696,12 @@ a.skip-link[href]:focus-visible {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -7724,12 +7728,12 @@ a.skip-link[href]:has(:is(:focus-visible, [data-state-focus="true"])) {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -7757,12 +7761,12 @@ a.skip-link[href][data-state-active="true"] {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
@@ -7790,12 +7794,12 @@ a.skip-link[href]:has(:is(:active, [data-state-active="true"])) {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
@@ -8830,9 +8834,9 @@ pre,
 samp {
     position: relative;
     border-radius: 0;
-    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-grey, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-grey, Canvas)
     );
     --prefix-icon-color: var(--prefix-theme-ui-primary, CanvasText);
@@ -10994,9 +10998,9 @@ fieldset {
     border: var(--prefix-border-width-200, 0.125rem) solid currentColor;
     border-radius: 0;
     border-color: var(--prefix-theme-input-border, CanvasText);
-    --prefix-background: var(--prefix-theme-background, Canvas);
+    --prefix-background-color: var(--prefix-theme-background, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background, Canvas)
     );
     color: var(--prefix-theme-text, CanvasText);
@@ -11163,9 +11167,9 @@ input {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    --prefix-background: var(--prefix-theme-input-background, Field);
+    --prefix-background-color: var(--prefix-theme-input-background, Field);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-input-background, Field)
     );
     border-color: var(--prefix-theme-input-border, CanvasText);
@@ -11258,9 +11262,12 @@ input[readonly] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    --prefix-background: var(--prefix-theme-input-readonly-background, Field);
+    --prefix-background-color: var(
+        --prefix-theme-input-readonly-background,
+        Field
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-input-readonly-background, Field)
     );
     border-color: var(--prefix-theme-input-readonly-border, CanvasText);
@@ -11286,9 +11293,12 @@ input[readonly][data-state-focus="true"] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    --prefix-background: var(--prefix-theme-input-readonly-background, Field);
+    --prefix-background-color: var(
+        --prefix-theme-input-readonly-background,
+        Field
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-input-readonly-background, Field)
     );
     border-color: var(--prefix-theme-input-readonly-border, CanvasText);
@@ -11313,9 +11323,12 @@ input[disabled] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    --prefix-background: var(--prefix-theme-input-disabled-background, Field);
+    --prefix-background-color: var(
+        --prefix-theme-input-disabled-background,
+        Field
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-input-disabled-background, Field)
     );
     border-color: var(--prefix-theme-input-disabled-border, CanvasText);
@@ -11356,9 +11369,12 @@ input[disabled][data-state-focus="true"] {
         --prefix-theme-input-accent-focus,
         CanvasText
     );
-    --prefix-background: var(--prefix-theme-input-disabled-background, Field);
+    --prefix-background-color: var(
+        --prefix-theme-input-disabled-background,
+        Field
+    );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-input-disabled-background, Field)
     );
     border-color: var(--prefix-theme-input-disabled-border, CanvasText);
@@ -12333,12 +12349,12 @@ a[href].button:is(.display-inline) {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border, ButtonFace);
@@ -12394,12 +12410,12 @@ a[data-state-focus="true"][href].button:is(.display-inline),
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -12454,12 +12470,12 @@ a[data-state-focus="true"][href].button:is(.display-inline) *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -12496,12 +12512,12 @@ a[href].button:is(.display-inline):focus-visible {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -12544,12 +12560,12 @@ a[data-state-active="true"][href].button:is(.display-inline) {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
@@ -12602,12 +12618,12 @@ a[href].button:visited {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border, ButtonFace);
@@ -12677,12 +12693,12 @@ a[data-state-focus="true"][href].button,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -12742,12 +12758,12 @@ a[data-state-focus="true"][href].button *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -12786,12 +12802,12 @@ a[href].button:focus-visible {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-hover, ButtonFace);
@@ -12837,12 +12853,12 @@ a[data-state-active="true"][href].button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-primary-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-primary-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-primary-border-active, ButtonFace);
@@ -12891,12 +12907,12 @@ input[type="reset"] {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-secondary-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-secondary-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-secondary-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border, ButtonFace);
@@ -12960,12 +12976,12 @@ input[data-state-focus="true"][type="reset"],
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-secondary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
@@ -13025,12 +13041,12 @@ input[data-state-focus="true"][type="reset"] *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-secondary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
@@ -13069,12 +13085,12 @@ input[type="reset"]:focus-visible {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-secondary-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-secondary-border-hover, ButtonFace);
@@ -13123,12 +13139,12 @@ input[data-state-active="true"][type="reset"] {
         --prefix-theme-button-secondary-border-active,
         ButtonFace
     );
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-secondary-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-secondary-background-active, ButtonFace)
     );
     border-color: var(
@@ -13178,12 +13194,12 @@ a[href].button-grey:visited,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border, ButtonFace);
@@ -13241,12 +13257,12 @@ input[data-state-focus="true"][type="submit"].button-grey,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -13301,12 +13317,12 @@ input[data-state-focus="true"][type="submit"].button-grey *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -13343,12 +13359,12 @@ input[type="submit"].button-grey:focus-visible {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -13391,12 +13407,12 @@ input[data-state-active="true"][type="submit"].button-grey {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
@@ -13451,12 +13467,12 @@ a[disabled][href].button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -13623,12 +13639,12 @@ a[disabled][data-state-focus="true"][href].button,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -13797,12 +13813,12 @@ a[disabled][data-state-focus="true"][href].button *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -13868,12 +13884,12 @@ a[disabled][href].button:focus-visible {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -13967,12 +13983,12 @@ input::file-selector-button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border, ButtonFace);
@@ -13999,12 +14015,12 @@ input:hover::file-selector-button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -14033,12 +14049,12 @@ input[data-state-focus="true"]::file-selector-button,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -14067,12 +14083,12 @@ input[data-state-focus="true"]::file-selector-button *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -14099,12 +14115,12 @@ input:focus-visible::file-selector-button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-hover, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-hover, ButtonFace);
@@ -14132,12 +14148,12 @@ input[data-state-active="true"]::file-selector-button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-grey-background-active,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-grey-background-active, ButtonFace)
     );
     border-color: var(--prefix-theme-button-grey-border-active, ButtonFace);
@@ -14173,12 +14189,12 @@ input[disabled]::file-selector-button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -14217,12 +14233,12 @@ input[disabled][data-state-focus="true"]::file-selector-button,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -14263,12 +14279,12 @@ input[disabled][data-state-focus="true"]::file-selector-button *,
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -14300,12 +14316,12 @@ input[disabled]:focus-visible::file-selector-button {
         ButtonText
     ) !important;
     accent-color: var(--prefix-theme-button-disabled-border, ButtonFace);
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-button-disabled-background, ButtonFace)
     );
     border-color: var(--prefix-theme-button-disabled-border, ButtonFace);
@@ -14383,7 +14399,7 @@ td {
         var(--prefix-mrg-firm-300, 0.8125rem)
     );
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background, Canvas)
     );
     text-align: start;
@@ -14532,18 +14548,18 @@ th samp {
 th {
     --prefix-icon-color: var(--prefix-theme-ui-primary, CanvasText);
     color: var(--prefix-theme-text-primary, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
 th[scope="row"] {
     --prefix-icon-color: var(--prefix-theme-ui-secondary, CanvasText);
     color: var(--prefix-theme-text-secondary, CanvasText);
-    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-secondary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-secondary, Canvas)
     );
 }
@@ -14553,18 +14569,21 @@ th[scope="row"] {
     th {
         --prefix-icon-color: var(--prefix-theme-background, Canvas);
         color: var(--prefix-theme-background, Canvas);
-        --prefix-background: var(--prefix-theme-ui-primary, CanvasText);
+        --prefix-background-color: var(--prefix-theme-ui-primary, CanvasText);
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-ui-primary, CanvasText)
         );
     }
     th[scope="row"] {
         --prefix-icon-color: var(--prefix-theme-ui-secondary, CanvasText);
         color: var(--prefix-theme-text-secondary, CanvasText);
-        --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+        --prefix-background-color: var(
+            --prefix-theme-background-secondary,
+            Canvas
+        );
         background-color: var(
-            --prefix-background,
+            --prefix-background-color,
             var(--prefix-theme-background-secondary, Canvas)
         );
     }
@@ -14956,50 +14975,56 @@ body {
 /* # UTILITIES - THEMES & COLOURS
  * ======================================================================== */
 .background-default {
-    --prefix-background: var(--prefix-theme-background, Canvas) !important;
+    --prefix-background-color: var(
+        --prefix-theme-background,
+        Canvas
+    ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background, Canvas)
     );
 }
 
 .background-bright {
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-background-bright,
         Canvas
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-bright, Canvas)
     );
 }
 
 .background-primary {
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-background-primary,
         Canvas
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
 
 .background-secondary {
-    --prefix-background: var(
+    --prefix-background-color: var(
         --prefix-theme-background-secondary,
         Canvas
     ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-secondary, Canvas)
     );
 }
 
 .background-grey {
-    --prefix-background: var(--prefix-theme-background-grey, Canvas) !important;
+    --prefix-background-color: var(
+        --prefix-theme-background-grey,
+        Canvas
+    ) !important;
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-grey, Canvas)
     );
 }
@@ -16573,9 +16598,9 @@ body {
     border-width: var(--prefix-border-width-200, 0.125rem);
     border-style: solid;
     border-radius: 0;
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
     transition:
@@ -16629,9 +16654,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-800, 4rem);
     border-color: var(--prefix-theme-heading-1, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -16659,9 +16684,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-800, 4rem);
     border-color: var(--prefix-theme-heading-2, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -16687,9 +16712,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-800, 4rem);
     border-color: var(--prefix-theme-heading-3, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -16715,9 +16740,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-4, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -16743,9 +16768,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-5, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -16771,9 +16796,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-6, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -16798,9 +16823,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-7, CanvasText);
-    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-secondary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-secondary, Canvas)
     );
 }
@@ -16823,9 +16848,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-600, 2.25rem);
     border-color: var(--prefix-theme-heading-8, CanvasText);
-    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-secondary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-secondary, Canvas)
     );
 }
@@ -16848,9 +16873,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-500, 1.6875rem);
     border-color: var(--prefix-theme-heading-9, CanvasText);
-    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-grey, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-grey, Canvas)
     );
 }
@@ -16873,9 +16898,9 @@ body {
     ) {
     margin-block-start: var(--prefix-mrg-firm-500, 1.6875rem);
     border-color: var(--prefix-theme-heading-10, CanvasText);
-    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-grey, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-grey, Canvas)
     );
 }
@@ -17157,9 +17182,9 @@ body {
 }
 .background-bright.alert-block {
     border-color: var(--prefix-theme-ui-primary, CanvasText);
-    --prefix-background: var(--prefix-theme-background-bright, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-bright, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-bright, Canvas)
     );
 }
@@ -17172,9 +17197,9 @@ body {
 }
 .background-primary.alert-block {
     border-color: var(--prefix-theme-ui-primary, CanvasText);
-    --prefix-background: var(--prefix-theme-background-primary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-primary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-primary, Canvas)
     );
 }
@@ -17187,9 +17212,9 @@ body {
 }
 .background-secondary.alert-block {
     border-color: var(--prefix-theme-ui-secondary, CanvasText);
-    --prefix-background: var(--prefix-theme-background-secondary, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-secondary, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-secondary, Canvas)
     );
 }
@@ -17204,9 +17229,9 @@ body {
 }
 .background-grey.alert-block {
     border-color: var(--prefix-theme-ui-grey, CanvasText);
-    --prefix-background: var(--prefix-theme-background-grey, Canvas);
+    --prefix-background-color: var(--prefix-theme-background-grey, Canvas);
     background-color: var(
-        --prefix-background,
+        --prefix-background-color,
         var(--prefix-theme-background-grey, Canvas)
     );
 }

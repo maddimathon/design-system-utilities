@@ -25,7 +25,7 @@
 ///
 /// @since 0.1.0-beta.0 — Made public.
 ///
-@mixin _snippet-button-colour-single-state--inner($stateSlug, $variation) {
+@mixin _snippet-button-colour-single-state--inner($stateSlug, $variation, $backgroundProp: null) {
     $border: var-theme(button-#{$variation}-border#{$stateSlug});
     $ui: var-theme(button-#{$variation}-ui#{$stateSlug});
 
@@ -37,10 +37,24 @@
     @include cx-prop(theme-link-icon, $ui, $important: true);
 
     accent-color: $border;
-    @include prop-background(
-        var-theme(button-#{$variation}-background#{$stateSlug}),
-        $important: true
-    );
+
+    @if $backgroundProp and $backgroundProp != background-color {
+        @include prop-background(
+            var-theme(button-#{$variation}-background#{$stateSlug}),
+            $important: true,
+            $setProp: false
+        );
+
+        #{$backgroundProp}: var-prop-background(
+            var-theme(button-#{$variation}-background#{$stateSlug})
+        );
+    } @else {
+        @include prop-background(
+            var-theme(button-#{$variation}-background#{$stateSlug}),
+            $important: true
+        );
+    }
+
     border-color: $border;
     color: var-theme(button-#{$variation}-text#{$stateSlug});
 

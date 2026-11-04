@@ -43,6 +43,10 @@
     inherits: true;
     initial-value: 62.5%;
 }
+@property --background-color {
+    syntax: "<color>";
+    inherits: true;
+}
 @property --display {
     syntax: "*";
     inherits: false;
@@ -549,7 +553,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 13.5%));
         background-color: hsl(339.5, 0%, 91.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 91.5%))
         );
     }
@@ -769,7 +773,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 13.5%));
         background-color: hsl(339.5, 0%, 91.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 91.5%))
         );
     }
@@ -989,7 +993,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 13.5%));
         background-color: hsl(339.5, 0%, 91.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 91.5%))
         );
     }
@@ -1148,7 +1152,7 @@
     color: var(--theme-text, hsl(339.5, 0%, 13.5%));
     background-color: hsl(339.5, 0%, 91.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-background, hsl(339.5, 0%, 91.5%))
     );
 }
@@ -1358,7 +1362,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 22.5%));
         background-color: hsl(339.5, 0%, 86%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 86%))
         );
     }
@@ -1566,7 +1570,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 22.5%));
         background-color: hsl(339.5, 0%, 86%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 86%))
         );
     }
@@ -1811,7 +1815,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 13.5%));
         background-color: hsl(339.5, 0%, 96.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 96.5%))
         );
     }
@@ -2054,7 +2058,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 13.5%));
         background-color: hsl(339.5, 0%, 96.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 96.5%))
         );
     }
@@ -2284,7 +2288,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 86%));
         background-color: hsl(339.5, 0%, 9.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 9.5%))
         );
     }
@@ -2512,7 +2516,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 86%));
         background-color: hsl(339.5, 0%, 9.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 9.5%))
         );
     }
@@ -2750,7 +2754,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 75.5%));
         background-color: hsl(339.5, 0%, 13.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 13.5%))
         );
     }
@@ -3019,7 +3023,7 @@
         color: var(--theme-text, hsl(339.5, 0%, 86%));
         background-color: hsl(339.5, 0%, 4.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background, hsl(339.5, 0%, 4.5%))
         );
     }
@@ -3174,11 +3178,11 @@
         --theme-ui-active: ActiveText !important;
         --theme-ui-disabled: GrayText !important;
         --selection-background: Highlight !important;
-        --focus-ring-outline-color: ActiveText;
-        --icon-color: CanvasText;
-        color: CanvasText;
-        background-color: Canvas;
-        background-color: var(--background, Canvas);
+        --focus-ring-outline-color: ActiveText !important;
+        --icon-color: CanvasText !important;
+        color: CanvasText !important;
+        background-color: Canvas !important;
+        background-color: var(--background-color, Canvas) !important;
     }
 }
 /* #endregion Tokens - Theme - light/dark mode + forced-colors contrast */
@@ -3892,9 +3896,12 @@ pre,
 samp {
     position: relative;
     border-radius: 0;
-    --background: var(--theme-background-grey, Canvas);
+    --background-color: var(--theme-background-grey, Canvas);
     background-color: hsl(339.5, 0%, 86%);
-    background-color: var(--background, var(--theme-background-grey, Canvas));
+    background-color: var(
+        --background-color,
+        var(--theme-background-grey, Canvas)
+    );
     --icon-color: var(--theme-ui-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
@@ -4984,9 +4991,9 @@ fieldset {
     border-radius: 0;
     border-color: hsl(162, 100%, 15%);
     border-color: var(--theme-input-border, CanvasText);
-    --background: var(--theme-background, Canvas);
+    --background-color: var(--theme-background, Canvas);
     background-color: hsl(339.5, 0%, 91.5%);
-    background-color: var(--background, var(--theme-background, Canvas));
+    background-color: var(--background-color, var(--theme-background, Canvas));
     color: hsl(339.5, 0%, 13.5%);
     color: var(--theme-text, CanvasText);
 }
@@ -5140,9 +5147,12 @@ input {
     border-style: solid;
     border-radius: 0;
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    --background: var(--theme-input-background, Field);
+    --background-color: var(--theme-input-background, Field);
     background-color: hsl(339.5, 0%, 96.5%);
-    background-color: var(--background, var(--theme-input-background, Field));
+    background-color: var(
+        --background-color,
+        var(--theme-input-background, Field)
+    );
     border-color: hsl(162, 100%, 15%);
     border-color: var(--theme-input-border, CanvasText);
     color: hsl(339.5, 0%, 13.5%);
@@ -5253,10 +5263,10 @@ textarea[readonly],
 select[readonly],
 input[readonly] {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    --background: var(--theme-input-readonly-background, Field);
+    --background-color: var(--theme-input-readonly-background, Field);
     background-color: hsl(339.5, 0%, 86%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-input-readonly-background, Field)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -5282,10 +5292,10 @@ textarea[readonly][data-state-focus="true"],
 select[readonly][data-state-focus="true"],
 input[readonly][data-state-focus="true"] {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    --background: var(--theme-input-readonly-background, Field);
+    --background-color: var(--theme-input-readonly-background, Field);
     background-color: hsl(339.5, 0%, 86%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-input-readonly-background, Field)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -5318,10 +5328,10 @@ select[disabled],
 input[disabled] {
     cursor: not-allowed;
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    --background: var(--theme-input-disabled-background, Field);
+    --background-color: var(--theme-input-disabled-background, Field);
     background-color: hsl(339.5, 0%, 86%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-input-disabled-background, Field)
     );
     border-color: hsl(339.5, 0%, 34.5%);
@@ -5362,10 +5372,10 @@ textarea[disabled][data-state-focus="true"],
 select[disabled][data-state-focus="true"],
 input[disabled][data-state-focus="true"] {
     --focus-ring-outline-color: var(--theme-input-accent-focus, CanvasText);
-    --background: var(--theme-input-disabled-background, Field);
+    --background-color: var(--theme-input-disabled-background, Field);
     background-color: hsl(339.5, 0%, 86%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-input-disabled-background, Field)
     );
     border-color: hsl(339.5, 0%, 34.5%);
@@ -5900,10 +5910,13 @@ a[href].button:is(.display-inline) {
     --theme-link-icon: var(--theme-button-grey-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-grey-border, ButtonFace);
-    --background: var(--theme-button-grey-background, ButtonFace) !important;
+    --background-color: var(
+        --theme-button-grey-background,
+        ButtonFace
+    ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -5953,13 +5966,13 @@ a[data-state-focus="true"][href].button:is(.display-inline),
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6008,13 +6021,13 @@ a[data-state-focus="true"][href].button:is(.display-inline) *,
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6045,13 +6058,13 @@ a[href].button:is(.display-inline):focus-visible {
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6091,13 +6104,13 @@ a[data-state-active="true"][href].button:is(.display-inline) {
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-grey-border-active, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-active,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-active, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -6141,10 +6154,13 @@ a[href].button:visited {
     --theme-link-icon: var(--theme-button-primary-ui, ButtonText) !important;
     accent-color: hsl(162, 100%, 15%);
     accent-color: var(--theme-button-primary-border, ButtonFace);
-    --background: var(--theme-button-primary-background, ButtonFace) !important;
+    --background-color: var(
+        --theme-button-primary-background,
+        ButtonFace
+    ) !important;
     background-color: hsl(162, 100%, 15%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-primary-background, ButtonFace)
     );
     border-color: hsl(162, 100%, 15%);
@@ -6211,13 +6227,13 @@ a[data-state-focus="true"][href].button,
     ) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-primary-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-primary-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6274,13 +6290,13 @@ a[data-state-focus="true"][href].button *,
     ) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-primary-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-primary-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6316,13 +6332,13 @@ a[href].button:focus-visible {
     ) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-primary-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-primary-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-primary-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6365,13 +6381,13 @@ a[data-state-active="true"][href].button {
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-primary-border-active, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-primary-background-active,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-primary-background-active, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -6414,13 +6430,13 @@ input[type="reset"] {
     --theme-link-icon: var(--theme-button-secondary-ui, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-secondary-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-secondary-background,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-secondary-background, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6481,13 +6497,13 @@ input[data-state-focus="true"][type="reset"],
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-secondary-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-secondary-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -6544,13 +6560,13 @@ input[data-state-focus="true"][type="reset"] *,
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-secondary-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-secondary-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -6586,13 +6602,13 @@ input[type="reset"]:focus-visible {
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-secondary-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-secondary-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-secondary-background-hover, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -6638,13 +6654,13 @@ input[data-state-active="true"][type="reset"] {
     ) !important;
     accent-color: hsl(162, 100%, 15%);
     accent-color: var(--theme-button-secondary-border-active, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-secondary-background-active,
         ButtonFace
     ) !important;
     background-color: hsl(162, 100%, 15%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-secondary-background-active, ButtonFace)
     );
     border-color: hsl(162, 100%, 15%);
@@ -6685,10 +6701,13 @@ a[href].button-grey:visited,
     --theme-link-icon: var(--theme-button-grey-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-grey-border, ButtonFace);
-    --background: var(--theme-button-grey-background, ButtonFace) !important;
+    --background-color: var(
+        --theme-button-grey-background,
+        ButtonFace
+    ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -6740,13 +6759,13 @@ input[data-state-focus="true"][type="submit"].button-grey,
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6795,13 +6814,13 @@ input[data-state-focus="true"][type="submit"].button-grey *,
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6832,13 +6851,13 @@ input[type="submit"].button-grey:focus-visible {
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -6878,13 +6897,13 @@ input[data-state-active="true"][type="submit"].button-grey {
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-grey-border-active, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-active,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-active, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -6933,13 +6952,13 @@ a[disabled][href].button {
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7100,13 +7119,13 @@ a[disabled][data-state-focus="true"][href].button,
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7269,13 +7288,13 @@ a[disabled][data-state-focus="true"][href].button *,
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7335,13 +7354,13 @@ a[disabled][href].button:focus-visible {
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7438,10 +7457,13 @@ input::file-selector-button {
     --theme-link-icon: var(--theme-button-grey-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-grey-border, ButtonFace);
-    --background: var(--theme-button-grey-background, ButtonFace) !important;
+    --background-color: var(
+        --theme-button-grey-background,
+        ButtonFace
+    ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7462,13 +7484,13 @@ input:hover::file-selector-button {
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -7491,13 +7513,13 @@ input[data-state-focus="true"]::file-selector-button,
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -7520,13 +7542,13 @@ input[data-state-focus="true"]::file-selector-button *,
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -7547,13 +7569,13 @@ input:focus-visible::file-selector-button {
     --theme-link-icon: var(--theme-button-grey-ui-hover, ButtonText) !important;
     accent-color: hsl(321, 68%, 26%);
     accent-color: var(--theme-button-grey-border-hover, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-hover,
         ButtonFace
     ) !important;
     background-color: hsl(321, 68%, 26%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-hover, ButtonFace)
     );
     border-color: hsl(321, 68%, 26%);
@@ -7578,13 +7600,13 @@ input[data-state-active="true"]::file-selector-button {
     ) !important;
     accent-color: hsl(29, 100%, 21%);
     accent-color: var(--theme-button-grey-border-active, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-grey-background-active,
         ButtonFace
     ) !important;
     background-color: hsl(29, 100%, 21%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-grey-background-active, ButtonFace)
     );
     border-color: hsl(29, 100%, 21%);
@@ -7615,13 +7637,13 @@ input[disabled]::file-selector-button {
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7654,13 +7676,13 @@ input[disabled][data-state-focus="true"]::file-selector-button,
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7695,13 +7717,13 @@ input[disabled][data-state-focus="true"]::file-selector-button *,
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7727,13 +7749,13 @@ input[disabled]:focus-visible::file-selector-button {
     --theme-link-icon: var(--theme-button-disabled-ui, ButtonText) !important;
     accent-color: hsl(339.5, 0%, 22.5%);
     accent-color: var(--theme-button-disabled-border, ButtonFace);
-    --background: var(
+    --background-color: var(
         --theme-button-disabled-background,
         ButtonFace
     ) !important;
     background-color: hsl(339.5, 0%, 22.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-button-disabled-background, ButtonFace)
     );
     border-color: hsl(339.5, 0%, 22.5%);
@@ -7795,7 +7817,7 @@ td {
     padding-left: var(--flow-margin-firm-start--small, 0.8125rem);
     padding-right: var(--flow-margin-firm-start--small, 0.8125rem);
     background-color: hsl(339.5, 0%, 91.5%);
-    background-color: var(--background, var(--theme-background, Canvas));
+    background-color: var(--background-color, var(--theme-background, Canvas));
     text-align: left;
 }
 th > :first-child,
@@ -7906,10 +7928,10 @@ th {
     --icon-color: var(--theme-ui-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
-    --background: var(--theme-background-primary, Canvas);
+    --background-color: var(--theme-background-primary, Canvas);
     background-color: hsl(158.25, 45%, 78%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-background-primary, Canvas)
     );
 }
@@ -7917,10 +7939,10 @@ th[scope="row"] {
     --icon-color: var(--theme-ui-secondary, CanvasText);
     color: hsl(321, 68%, 26%);
     color: var(--theme-text-secondary, CanvasText);
-    --background: var(--theme-background-secondary, Canvas);
+    --background-color: var(--theme-background-secondary, Canvas);
     background-color: hsl(324.25, 75.75%, 87.5%);
     background-color: var(
-        --background,
+        --background-color,
         var(--theme-background-secondary, Canvas)
     );
 }
@@ -7931,10 +7953,10 @@ th[scope="row"] {
         --icon-color: var(--theme-background, Canvas);
         color: hsl(339.5, 0%, 91.5%);
         color: var(--theme-background, Canvas);
-        --background: var(--theme-ui-primary, CanvasText);
+        --background-color: var(--theme-ui-primary, CanvasText);
         background-color: hsl(162, 100%, 15%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-ui-primary, CanvasText)
         );
     }
@@ -7942,10 +7964,10 @@ th[scope="row"] {
         --icon-color: var(--theme-ui-secondary, CanvasText);
         color: hsl(321, 68%, 26%);
         color: var(--theme-text-secondary, CanvasText);
-        --background: var(--theme-background-secondary, Canvas);
+        --background-color: var(--theme-background-secondary, Canvas);
         background-color: hsl(324.25, 75.75%, 87.5%);
         background-color: var(
-            --background,
+            --background-color,
             var(--theme-background-secondary, Canvas)
         );
     }

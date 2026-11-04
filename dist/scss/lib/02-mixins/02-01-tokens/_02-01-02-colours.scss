@@ -943,6 +943,7 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
     $asVar: true,
     $focusRing_allPrefixes: null,
     $focusRing_setChildrenOnly: null,
+    $importantCxProps: $contrast == forced-colors,
     $multipleContentBlocks: false,
     $noWhereRootOrBody: false,
     $useSystemColorFallback: false
@@ -990,7 +991,8 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
             @include utils.cx-prop(
                 focus-ring-outline-color,
                 $focusRingOutlineColor,
-                $allPrefixes: $focusRing_allPrefixes
+                $allPrefixes: $focusRing_allPrefixes,
+                $important: $importantCxProps
             );
         }
 
@@ -1012,6 +1014,7 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
                 )
             ),
         $allPrefixes: $asVar,
+        $important: $importantCxProps,
         $onlyFallbackPrefix: not $asVar,
         $returnAsVar: $asVar,
         $themeTokenArgs...
@@ -1024,7 +1027,9 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
                 $background,
                 var-theme(background, $themeTokenArgs...)
             ),
-            $setCxProp: false
+            $setCxProp: false,
+            $important: $importantCxProps,
+            $important_prop: $importantCxProps
         );
     }
 
@@ -1045,7 +1050,8 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
                     @include utils.cx-prop(
                         focus-ring-outline-color,
                         $focusRingOutlineColor,
-                        $allPrefixes: $focusRing_allPrefixes
+                        $allPrefixes: $focusRing_allPrefixes,
+                        $important: $importantCxProps
                     );
                 }
             }

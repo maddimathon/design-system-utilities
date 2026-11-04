@@ -250,6 +250,7 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
     $opacity: null,
     //
     $allPrefixes: null,
+    $debug: false,
     $fallbackOnly: false,
     $fallbackSlug: null,
     $returnAsList: false,
@@ -363,14 +364,36 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
         $themeVarSlug: #{$themeVarSlug}-#{$version};
     }
 
+    $_debug_vars: (
+        '$clrSlug': $clrSlug,
+        '$returnAsVar': $returnAsVar,
+        '$fallbackOnly': $fallbackOnly,
+        'string.match(\#{$clrSlug}, "(^|[\\s,])var\\(")': string.match(
+                #{$clrSlug},
+                '(^|[\\s,])var\\('
+            ),
+    );
+
     $modernOpacitySyntax: (
             (config.$colour_channelLists_separator == space) and
-                (not ($fallbackOnly or config.$fn_var_replaceWithValue_colour))
+                (
+                    $returnAsVar or config.custom-property-prefix-all-exists()
+                        or ($clrSlug == null) or
+                        (string.match(#{$clrSlug}, '(^|[\\s,])var\\(') != null)
+                )
         )
-        or $useSystemColorFallback or
+        or (config.$colour_allowModernOpacitySyntax and $useSystemColorFallback)
+        or
         (
-            config.$colour_allowModernOpacitySyntax and
-                ($returnAsVar or config.custom-property-prefix-all-exists())
+            (
+                    config.$colour_allowModernOpacitySyntax or
+                        (config.$colour_channelLists_separator == space)
+                )
+                and
+                (
+                    (not $fallbackOnly) and
+                        (not config.$fn_var_replaceWithValue_colour)
+                )
         );
 
     // returns
@@ -406,6 +429,24 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
             );
         }
 
+        @if $slug == selection-background and $opacity {
+            $_: meta.js-var-dump(
+                (
+                    '$slug': $slug,
+                    '$brightness': $brightness,
+                    '$contrast': $contrast,
+                    '$themeSlug': $themeSlug,
+                    '$opacity': $opacity,
+                    '$version': $version,
+                    '$_debug_vars': $_debug_vars,
+                    '$clrSlug': $clrSlug,
+                    '$modernOpacitySyntax': $modernOpacitySyntax,
+                    '$_var': $_var,
+                ),
+                'theme-token-value() - A'
+            );
+        }
+
         @return if(
             $opacity,
             if(
@@ -429,6 +470,23 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
 
     // returns
     @if $contrast == forced-colors {
+        @if $slug == selection-background and $opacity {
+            $_: meta.js-var-dump(
+                (
+                    '$slug': $slug,
+                    '$brightness': $brightness,
+                    '$contrast': $contrast,
+                    '$themeSlug': $themeSlug,
+                    '$opacity': $opacity,
+                    '$version': $version,
+                    '$_debug_vars': $_debug_vars,
+                    '$clrSlug': $clrSlug,
+                    '$modernOpacitySyntax': $modernOpacitySyntax,
+                ),
+                'theme-token-value() - B'
+            );
+        }
+
         @return $clrSlug;
     }
 
@@ -466,7 +524,43 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                         );
                     }
 
+                    @if $slug == selection-background and $opacity {
+                        $_: meta.js-var-dump(
+                            (
+                                '$slug': $slug,
+                                '$brightness': $brightness,
+                                '$contrast': $contrast,
+                                '$themeSlug': $themeSlug,
+                                '$opacity': $opacity,
+                                '$version': $version,
+                                '$_debug_vars': $_debug_vars,
+                                '$clrSlug': $clrSlug,
+                                '$modernOpacitySyntax': $modernOpacitySyntax,
+                                '$_valueList': $_valueList,
+                            ),
+                            'theme-token-value() - C'
+                        );
+                    }
+
                     @return $_valueList;
+                }
+
+                @if $slug == selection-background and $opacity {
+                    $_: meta.js-var-dump(
+                        (
+                            '$slug': $slug,
+                            '$brightness': $brightness,
+                            '$contrast': $contrast,
+                            '$themeSlug': $themeSlug,
+                            '$opacity': $opacity,
+                            '$version': $version,
+                            '$_debug_vars': $_debug_vars,
+                            '$clrSlug': $clrSlug,
+                            '$modernOpacitySyntax': $modernOpacitySyntax,
+                            '$_value': $_value,
+                        ),
+                        'theme-token-value() - D'
+                    );
                 }
 
                 @return config.config-do-var(
@@ -513,6 +607,24 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                     );
                 }
 
+                @if $slug == selection-background and $opacity {
+                    $_: meta.js-var-dump(
+                        (
+                            '$slug': $slug,
+                            '$brightness': $brightness,
+                            '$contrast': $contrast,
+                            '$themeSlug': $themeSlug,
+                            '$opacity': $opacity,
+                            '$version': $version,
+                            '$_debug_vars': $_debug_vars,
+                            '$clrSlug': $clrSlug,
+                            '$modernOpacitySyntax': $modernOpacitySyntax,
+                            '$_valueList': $_valueList,
+                        ),
+                        'theme-token-value() - E'
+                    );
+                }
+
                 @return $_valueList;
             }
 
@@ -533,6 +645,24 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                 $fallback: $_value,
                 $args...
             );
+
+            @if $slug == selection-background and $opacity {
+                $_: meta.js-var-dump(
+                    (
+                        '$slug': $slug,
+                        '$brightness': $brightness,
+                        '$contrast': $contrast,
+                        '$themeSlug': $themeSlug,
+                        '$opacity': $opacity,
+                        '$version': $version,
+                        '$_debug_vars': $_debug_vars,
+                        '$clrSlug': $clrSlug,
+                        '$modernOpacitySyntax': $modernOpacitySyntax,
+                        '$_value': $_value,
+                    ),
+                    'theme-token-value() - F'
+                );
+            }
 
             // returns
             @if $modernOpacitySyntax {
@@ -561,12 +691,47 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
         }
 
         @if $_value {
+            @if $slug == selection-background and $opacity {
+                $_: meta.js-var-dump(
+                    (
+                        '$slug': $slug,
+                        '$brightness': $brightness,
+                        '$contrast': $contrast,
+                        '$themeSlug': $themeSlug,
+                        '$opacity': $opacity,
+                        '$version': $version,
+                        '$_debug_vars': $_debug_vars,
+                        '$clrSlug': $clrSlug,
+                        '$modernOpacitySyntax': $modernOpacitySyntax,
+                        '$_value': $_value,
+                    ),
+                    'theme-token-value() - G'
+                );
+            }
+
             @return config.config-do-var(
                 $themeVarSlug,
                 $fallback: $_value,
                 $args...
             );
         }
+    }
+
+    @if $slug == selection-background and $opacity {
+        $_: meta.js-var-dump(
+            (
+                '$slug': $slug,
+                '$brightness': $brightness,
+                '$contrast': $contrast,
+                '$themeSlug': $themeSlug,
+                '$opacity': $opacity,
+                '$version': $version,
+                '$_debug_vars': $_debug_vars,
+                '$clrSlug': $clrSlug,
+                '$modernOpacitySyntax': $modernOpacitySyntax,
+            ),
+            'theme-token-value() - H'
+        );
     }
 
     @return if(

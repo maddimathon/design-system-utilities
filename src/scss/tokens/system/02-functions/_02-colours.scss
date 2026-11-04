@@ -84,12 +84,8 @@
     $fallbackOnly: ($fallbackOnly or config.$fn_var_replaceWithValue_colour) and
         (not $neverReplaceWithValue);
 
-    // prettier-ignore
     $modernOpacitySyntax: (config.$colour_channelLists_separator == space) and
-        (
-            (not $fallbackOnly) or
-            config.custom-property-prefix-all-exists()
-        );
+        ((not $fallbackOnly) or config.custom-property-prefix-all-exists());
 
     @if ($opacity != null) and
         config.$mx_tokensColour_presetOpacities_include and

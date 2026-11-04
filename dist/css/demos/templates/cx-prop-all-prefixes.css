@@ -562,6 +562,10 @@
     inherits: true;
     initial-value: 62.5%;
 }
+@property --fallback-background-color {
+    syntax: "<color>";
+    inherits: true;
+}
 @property --fallback-display {
     syntax: "*";
     inherits: false;
@@ -2160,7 +2164,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -3152,7 +3156,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -4144,7 +4148,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -5069,7 +5073,7 @@
         var(--fallback-theme-text, var(--clr-base-800, hsl(339.5, 0%, 13.5%)))
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background,
             var(
@@ -6063,7 +6067,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -7055,7 +7059,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -8054,7 +8058,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -9051,7 +9055,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -10042,7 +10046,7 @@
             var(--fallback-theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)))
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -11031,7 +11035,7 @@
             var(--fallback-theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)))
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -12031,7 +12035,7 @@
             )
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -13021,7 +13025,7 @@
             var(--fallback-theme-text, var(--clr-base-800, hsl(339.5, 0%, 86%)))
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background,
                 var(
@@ -13327,10 +13331,10 @@
         --fallback-theme-ui-disabled: GrayText !important;
         --fallback-theme-ui-disabled-hsl: GrayText !important;
         --fallback-selection-background: Highlight !important;
-        --fallback-focus-ring-outline-color: ActiveText;
-        --fallback-icon-color: CanvasText;
-        color: CanvasText;
-        background-color: var(--fallback-background, Canvas);
+        --fallback-focus-ring-outline-color: ActiveText !important;
+        --fallback-icon-color: CanvasText !important;
+        color: CanvasText !important;
+        background-color: var(--fallback-background-color, Canvas) !important;
     }
 }
 /* #endregion Tokens - Theme - light/dark mode + forced-colors contrast */
@@ -13609,12 +13613,12 @@ a.skip-link[href]:visited {
         --theme-button-primary-border,
         var(--fallback-theme-button-primary-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background,
         var(--fallback-theme-button-primary-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background,
             var(--fallback-theme-button-primary-background, ButtonFace)
@@ -13670,12 +13674,12 @@ a.skip-link[href][data-state-focus="true"],
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -13729,12 +13733,12 @@ a.skip-link[href][data-state-focus="true"] *,
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -13785,12 +13789,12 @@ a.skip-link[href]:focus-visible {
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -13841,12 +13845,12 @@ a.skip-link[href]:has(:is(:focus-visible, [data-state-focus="true"])) {
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -13898,12 +13902,12 @@ a.skip-link[href][data-state-active="true"] {
         --theme-button-primary-border-active,
         var(--fallback-theme-button-primary-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-active,
         var(--fallback-theme-button-primary-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-active,
             var(--fallback-theme-button-primary-background-active, ButtonFace)
@@ -13955,12 +13959,12 @@ a.skip-link[href]:has(:is(:active, [data-state-active="true"])) {
         --theme-button-primary-border-active,
         var(--fallback-theme-button-primary-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-active,
         var(--fallback-theme-button-primary-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-active,
             var(--fallback-theme-button-primary-background-active, ButtonFace)
@@ -15447,12 +15451,12 @@ pre,
 samp {
     position: relative;
     border-radius: var(--button-border-radius, 0);
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-grey,
         var(--fallback-theme-background-grey, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-grey,
             var(--fallback-theme-background-grey, Canvas)
@@ -18804,12 +18808,12 @@ fieldset {
         --theme-input-border,
         var(--fallback-theme-input-border, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background,
         var(--fallback-theme-background, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(--theme-background, var(--fallback-theme-background, Canvas))
     );
     color: var(--theme-text, var(--fallback-theme-text, CanvasText));
@@ -19099,12 +19103,12 @@ input {
         --theme-input-accent-focus,
         var(--fallback-theme-input-accent-focus, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-input-background,
         var(--fallback-theme-input-background, Field)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-input-background,
             var(--fallback-theme-input-background, Field)
@@ -19279,12 +19283,12 @@ input[readonly] {
         --theme-input-accent-focus,
         var(--fallback-theme-input-accent-focus, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-input-readonly-background,
         var(--fallback-theme-input-readonly-background, Field)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-input-readonly-background,
             var(--fallback-theme-input-readonly-background, Field)
@@ -19326,12 +19330,12 @@ input[readonly][data-state-focus="true"] {
         --theme-input-accent-focus,
         var(--fallback-theme-input-accent-focus, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-input-readonly-background,
         var(--fallback-theme-input-readonly-background, Field)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-input-readonly-background,
             var(--fallback-theme-input-readonly-background, Field)
@@ -19375,12 +19379,12 @@ input[disabled] {
         --theme-input-accent-focus,
         var(--fallback-theme-input-accent-focus, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-input-disabled-background,
         var(--fallback-theme-input-disabled-background, Field)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-input-disabled-background,
             var(--fallback-theme-input-disabled-background, Field)
@@ -19437,12 +19441,12 @@ input[disabled][data-state-focus="true"] {
         --theme-input-accent-focus,
         var(--fallback-theme-input-accent-focus, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-input-disabled-background,
         var(--fallback-theme-input-disabled-background, Field)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-input-disabled-background,
             var(--fallback-theme-input-disabled-background, Field)
@@ -20868,12 +20872,12 @@ a[href].button:is(.display-inline) {
         --theme-button-grey-border,
         var(--fallback-theme-button-grey-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background,
         var(--fallback-theme-button-grey-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background,
             var(--fallback-theme-button-grey-background, ButtonFace)
@@ -20953,12 +20957,12 @@ a[data-state-focus="true"][href].button:is(.display-inline),
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -21037,12 +21041,12 @@ a[data-state-focus="true"][href].button:is(.display-inline) *,
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -21103,12 +21107,12 @@ a[href].button:is(.display-inline):focus-visible {
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -21175,12 +21179,12 @@ a[data-state-active="true"][href].button:is(.display-inline) {
         --theme-button-grey-border-active,
         var(--fallback-theme-button-grey-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-active,
         var(--fallback-theme-button-grey-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-active,
             var(--fallback-theme-button-grey-background-active, ButtonFace)
@@ -21257,12 +21261,12 @@ a[href].button:visited {
         --theme-button-primary-border,
         var(--fallback-theme-button-primary-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background,
         var(--fallback-theme-button-primary-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background,
             var(--fallback-theme-button-primary-background, ButtonFace)
@@ -21356,12 +21360,12 @@ a[data-state-focus="true"][href].button,
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -21445,12 +21449,12 @@ a[data-state-focus="true"][href].button *,
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -21513,12 +21517,12 @@ a[href].button:focus-visible {
         --theme-button-primary-border-hover,
         var(--fallback-theme-button-primary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-hover,
         var(--fallback-theme-button-primary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-hover,
             var(--fallback-theme-button-primary-background-hover, ButtonFace)
@@ -21588,12 +21592,12 @@ a[data-state-active="true"][href].button {
         --theme-button-primary-border-active,
         var(--fallback-theme-button-primary-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-primary-background-active,
         var(--fallback-theme-button-primary-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-primary-background-active,
             var(--fallback-theme-button-primary-background-active, ButtonFace)
@@ -21666,12 +21670,12 @@ input[type="reset"] {
         --theme-button-secondary-border,
         var(--fallback-theme-button-secondary-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-secondary-background,
         var(--fallback-theme-button-secondary-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-secondary-background,
             var(--fallback-theme-button-secondary-background, ButtonFace)
@@ -21759,12 +21763,12 @@ input[data-state-focus="true"][type="reset"],
         --theme-button-secondary-border-hover,
         var(--fallback-theme-button-secondary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-secondary-background-hover,
         var(--fallback-theme-button-secondary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-secondary-background-hover,
             var(--fallback-theme-button-secondary-background-hover, ButtonFace)
@@ -21848,12 +21852,12 @@ input[data-state-focus="true"][type="reset"] *,
         --theme-button-secondary-border-hover,
         var(--fallback-theme-button-secondary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-secondary-background-hover,
         var(--fallback-theme-button-secondary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-secondary-background-hover,
             var(--fallback-theme-button-secondary-background-hover, ButtonFace)
@@ -21916,12 +21920,12 @@ input[type="reset"]:focus-visible {
         --theme-button-secondary-border-hover,
         var(--fallback-theme-button-secondary-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-secondary-background-hover,
         var(--fallback-theme-button-secondary-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-secondary-background-hover,
             var(--fallback-theme-button-secondary-background-hover, ButtonFace)
@@ -21991,12 +21995,12 @@ input[data-state-active="true"][type="reset"] {
         --theme-button-secondary-border-active,
         var(--fallback-theme-button-secondary-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-secondary-background-active,
         var(--fallback-theme-button-secondary-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-secondary-background-active,
             var(--fallback-theme-button-secondary-background-active, ButtonFace)
@@ -22067,12 +22071,12 @@ a[href].button-grey:visited,
         --theme-button-grey-border,
         var(--fallback-theme-button-grey-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background,
         var(--fallback-theme-button-grey-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background,
             var(--fallback-theme-button-grey-background, ButtonFace)
@@ -22154,12 +22158,12 @@ input[data-state-focus="true"][type="submit"].button-grey,
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -22238,12 +22242,12 @@ input[data-state-focus="true"][type="submit"].button-grey *,
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -22304,12 +22308,12 @@ input[type="submit"].button-grey:focus-visible {
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -22376,12 +22380,12 @@ input[data-state-active="true"][type="submit"].button-grey {
         --theme-button-grey-border-active,
         var(--fallback-theme-button-grey-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-active,
         var(--fallback-theme-button-grey-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-active,
             var(--fallback-theme-button-grey-background-active, ButtonFace)
@@ -22460,12 +22464,12 @@ a[disabled][href].button {
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -22656,12 +22660,12 @@ a[disabled][data-state-focus="true"][href].button,
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -22854,12 +22858,12 @@ a[disabled][data-state-focus="true"][href].button *,
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -22949,12 +22953,12 @@ a[disabled][href].button:focus-visible {
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -23111,12 +23115,12 @@ input::file-selector-button {
         --theme-button-grey-border,
         var(--fallback-theme-button-grey-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background,
         var(--fallback-theme-button-grey-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background,
             var(--fallback-theme-button-grey-background, ButtonFace)
@@ -23179,12 +23183,12 @@ input:hover::file-selector-button {
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -23237,12 +23241,12 @@ input[data-state-focus="true"]::file-selector-button,
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -23295,12 +23299,12 @@ input[data-state-focus="true"]::file-selector-button *,
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -23351,12 +23355,12 @@ input:focus-visible::file-selector-button {
         --theme-button-grey-border-hover,
         var(--fallback-theme-button-grey-border-hover, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-hover,
         var(--fallback-theme-button-grey-background-hover, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-hover,
             var(--fallback-theme-button-grey-background-hover, ButtonFace)
@@ -23408,12 +23412,12 @@ input[data-state-active="true"]::file-selector-button {
         --theme-button-grey-border-active,
         var(--fallback-theme-button-grey-border-active, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-grey-background-active,
         var(--fallback-theme-button-grey-background-active, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-grey-background-active,
             var(--fallback-theme-button-grey-background-active, ButtonFace)
@@ -23479,12 +23483,12 @@ input[disabled]::file-selector-button {
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -23547,12 +23551,12 @@ input[disabled][data-state-focus="true"]::file-selector-button,
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -23617,12 +23621,12 @@ input[disabled][data-state-focus="true"]::file-selector-button *,
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -23678,12 +23682,12 @@ input[disabled]:focus-visible::file-selector-button {
         --theme-button-disabled-border,
         var(--fallback-theme-button-disabled-border, ButtonFace)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-button-disabled-background,
         var(--fallback-theme-button-disabled-background, ButtonFace)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-button-disabled-background,
             var(--fallback-theme-button-disabled-background, ButtonFace)
@@ -23812,7 +23816,7 @@ td {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(--theme-background, var(--fallback-theme-background, Canvas))
     );
     text-align: start;
@@ -24015,12 +24019,12 @@ th {
         --theme-text-primary,
         var(--fallback-theme-text-primary, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-primary,
         var(--fallback-theme-background-primary, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-primary,
             var(--fallback-theme-background-primary, Canvas)
@@ -24040,12 +24044,12 @@ th[scope="row"] {
         --theme-text-secondary,
         var(--fallback-theme-text-secondary, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-secondary,
         var(--fallback-theme-background-secondary, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-secondary,
             var(--fallback-theme-background-secondary, Canvas)
@@ -24068,12 +24072,12 @@ th[scope="row"] {
             --theme-background,
             var(--fallback-theme-background, Canvas)
         );
-        --fallback-background: var(
+        --fallback-background-color: var(
             --theme-ui-primary,
             var(--fallback-theme-ui-primary, CanvasText)
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-ui-primary,
                 var(--fallback-theme-ui-primary, CanvasText)
@@ -24093,12 +24097,12 @@ th[scope="row"] {
             --theme-text-secondary,
             var(--fallback-theme-text-secondary, CanvasText)
         );
-        --fallback-background: var(
+        --fallback-background-color: var(
             --theme-background-secondary,
             var(--fallback-theme-background-secondary, Canvas)
         );
         background-color: var(
-            --fallback-background,
+            --fallback-background-color,
             var(
                 --theme-background-secondary,
                 var(--fallback-theme-background-secondary, Canvas)
@@ -24543,23 +24547,23 @@ body {
 /* # UTILITIES - THEMES & COLOURS
  * ======================================================================== */
 .background-default {
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background,
         var(--fallback-theme-background, Canvas)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(--theme-background, var(--fallback-theme-background, Canvas))
     );
 }
 
 .background-bright {
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-bright,
         var(--fallback-theme-background-bright, Canvas)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-bright,
             var(--fallback-theme-background-bright, Canvas)
@@ -24568,12 +24572,12 @@ body {
 }
 
 .background-primary {
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-primary,
         var(--fallback-theme-background-primary, Canvas)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-primary,
             var(--fallback-theme-background-primary, Canvas)
@@ -24582,12 +24586,12 @@ body {
 }
 
 .background-secondary {
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-secondary,
         var(--fallback-theme-background-secondary, Canvas)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-secondary,
             var(--fallback-theme-background-secondary, Canvas)
@@ -24596,12 +24600,12 @@ body {
 }
 
 .background-grey {
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-grey,
         var(--fallback-theme-background-grey, Canvas)
     ) !important;
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-grey,
             var(--fallback-theme-background-grey, Canvas)
@@ -26326,7 +26330,7 @@ body {
     );
     border-style: var(--button-border-style, solid);
     border-radius: var(--alert-border-radius, 0);
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-background,
         var(
             --theme-background-primary,
@@ -26334,7 +26338,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-background,
             var(
@@ -26408,7 +26412,7 @@ body {
         --theme-heading-1,
         var(--fallback-theme-heading-1, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-1-background-color,
         var(
             --theme-background-primary,
@@ -26416,7 +26420,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-1-background-color,
             var(
@@ -26460,7 +26464,7 @@ body {
         --theme-heading-2,
         var(--fallback-theme-heading-2, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-2-background-color,
         var(
             --theme-background-primary,
@@ -26468,7 +26472,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-2-background-color,
             var(
@@ -26510,7 +26514,7 @@ body {
         --theme-heading-3,
         var(--fallback-theme-heading-3, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-3-background-color,
         var(
             --theme-background-primary,
@@ -26518,7 +26522,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-3-background-color,
             var(
@@ -26563,7 +26567,7 @@ body {
         --theme-heading-4,
         var(--fallback-theme-heading-4, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-4-background-color,
         var(
             --theme-background-primary,
@@ -26571,7 +26575,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-4-background-color,
             var(
@@ -26616,7 +26620,7 @@ body {
         --theme-heading-5,
         var(--fallback-theme-heading-5, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-5-background-color,
         var(
             --theme-background-primary,
@@ -26624,7 +26628,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-5-background-color,
             var(
@@ -26669,7 +26673,7 @@ body {
         --theme-heading-6,
         var(--fallback-theme-heading-6, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-6-background-color,
         var(
             --theme-background-primary,
@@ -26677,7 +26681,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-6-background-color,
             var(
@@ -26721,7 +26725,7 @@ body {
         --theme-heading-7,
         var(--fallback-theme-heading-7, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-7-background-color,
         var(
             --theme-background-secondary,
@@ -26729,7 +26733,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-7-background-color,
             var(
@@ -26771,7 +26775,7 @@ body {
         --theme-heading-8,
         var(--fallback-theme-heading-8, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-8-background-color,
         var(
             --theme-background-secondary,
@@ -26779,7 +26783,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-8-background-color,
             var(
@@ -26821,7 +26825,7 @@ body {
         --theme-heading-9,
         var(--fallback-theme-heading-9, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-9-background-color,
         var(
             --theme-background-grey,
@@ -26829,7 +26833,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-9-background-color,
             var(
@@ -26871,7 +26875,7 @@ body {
         --theme-heading-10,
         var(--fallback-theme-heading-10, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --alert-heading-10-background-color,
         var(
             --theme-background-grey,
@@ -26879,7 +26883,7 @@ body {
         )
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --alert-heading-10-background-color,
             var(
@@ -27195,12 +27199,12 @@ body {
         --alert-icon-color,
         var(--theme-ui-primary, var(--fallback-theme-ui-primary, CanvasText))
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-bright,
         var(--fallback-theme-background-bright, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-bright,
             var(--fallback-theme-background-bright, Canvas)
@@ -27232,12 +27236,12 @@ body {
         --theme-ui-primary,
         var(--fallback-theme-ui-primary, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-primary,
         var(--fallback-theme-background-primary, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-primary,
             var(--fallback-theme-background-primary, Canvas)
@@ -27266,12 +27270,12 @@ body {
         --theme-ui-secondary,
         var(--fallback-theme-ui-secondary, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-secondary,
         var(--fallback-theme-background-secondary, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-secondary,
             var(--fallback-theme-background-secondary, Canvas)
@@ -27302,12 +27306,12 @@ body {
         --theme-ui-grey,
         var(--fallback-theme-ui-grey, CanvasText)
     );
-    --fallback-background: var(
+    --fallback-background-color: var(
         --theme-background-grey,
         var(--fallback-theme-background-grey, Canvas)
     );
     background-color: var(
-        --fallback-background,
+        --fallback-background-color,
         var(
             --theme-background-grey,
             var(--fallback-theme-background-grey, Canvas)
