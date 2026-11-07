@@ -28,8 +28,10 @@ import type { WidgetComponentType } from './Widget.astro';
 /* import - functions */
 import { toTitleCase } from '@maddimathon/utility-typescript';
 
-import { getLevelsInUse } from '../../ts/02-tokens/getLevelsInUse.js';
-import { parseThemeSets } from './PageContent_Theme.astro';
+import {
+    parseThemeLevelsInUseList,
+    parseThemeSets,
+} from './PageContent_Theme.astro';
 
 /* import - values */
 
@@ -132,7 +134,7 @@ const themeNames = Object.keys(tokens.themes).filter(
 
 const previewAlternateThemes = _previewAlternateThemes ?? themeNames.length > 1;
 
-const levelsInUse = getLevelsInUse(tokens.themes);
+const levelsInUse = parseThemeLevelsInUseList(tokens);
 
 const light_parsed = parseThemeSets(tokens, ['light']);
 
@@ -175,8 +177,8 @@ const default_brightnessSet = {
 <p>
     The following colour shade levels are in use in at least one of the themes
     below: {
-        Array.from(levelsInUse).map((level, i) =>
-            i < levelsInUse.size - 1 ? (
+        levelsInUse.map((level, i) =>
+            i < levelsInUse.length - 1 ? (
                 <Fragment set:html={`<code>${level}</code>, `} />
             ) : (
                 <Fragment set:html={`and <code>${level}</code>.`} />

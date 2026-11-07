@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
+ * @maddimathon/design-system-utilities@0.1.0
  * @license MIT
  */
 import type { RequiredHeadingLevels, TokenTypes } from '../@types.js';
@@ -138,7 +138,7 @@ export declare namespace Tokens_Themes_Set {
         readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>;
         readonly contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>;
         readonly description: null | string;
-        readonly levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[];
+        readonly levelsInUse: Set<"black" | "white" | TokenTypes.Colour.TypeParams['extraLevels']>;
         readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         static build<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(themeName: "default" | T_ThemeTypes['name'], brightness: null, contrast: "forcedColors", colours: {
             names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
@@ -148,7 +148,7 @@ export declare namespace Tokens_Themes_Set {
             names: TokenTypes.Colour.GenericNameArray<T_ColourTypes['names']>;
             allLevels: Set<ColourUtilities.Levels.Required | T_ColourTypes['extraLevels']>;
         }, input: SingleMode.InputParam<NoInfer<T_ColourTypes>, T_ThemeTypes>, overrides?: SingleMode.Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<SingleMode<T_ColourTypes, T_ThemeTypes>>;
-        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: ("black" | "white" | ColourUtilities.Levels.Any)[], data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
+        protected constructor(name: "default" | T_ThemeTypes['name'], brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>, contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>, description: null | string, levelsInUse: Set<"black" | "white" | TokenTypes.Colour.TypeParams['extraLevels']>, data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>);
         toJSON(): SingleMode.JsonReturn<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
         toScssVars(): SingleMode.ScssVars<T_ColourTypes, T_ThemeTypes, __T_ColourOption>;
     }
@@ -825,7 +825,10 @@ export declare namespace Tokens_Themes_Set {
              *
              * @since 0.1.0-alpha
              */
-            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides?: Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<Data<T_ColourTypes, T_ThemeTypes>>;
+            function data<T_ColourTypes extends TokenTypes.Colour.TypeParams, T_ThemeTypes extends TokenTypes.Theme.TypeParams>(inputParam: Param<T_ColourTypes, T_ThemeTypes>, overrides?: Data.Partial<NoInfer<T_ColourTypes>, NoInfer<T_ThemeTypes>>): Promise<{
+                completedData: Data<T_ColourTypes, T_ThemeTypes>;
+                levelsInUse: Set<"black" | "white" | TokenTypes.Colour.TypeParams['extraLevels']>;
+            }>;
             /**
              * An easy way to generate a complete token set from limited inputs.
              *

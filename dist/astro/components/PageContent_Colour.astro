@@ -130,7 +130,7 @@ interface Props {
     /**
      * Options for how yardstick targets are generated.
      *
-     * @since 0.1.0-beta.4.draft
+     * @since 0.1.0
      */
     yardstickOpts?: Parameters<typeof makeShadeTargetLevels>[2] &
         Partial<{
@@ -179,11 +179,11 @@ const allLevels = Object.keys(tokens.colour.base) as (
     ColourUtilities.Levels.Required | ColourUtilities.Levels.Optional
 )[];
 
-const levelsInUse = getLevelsInUse(tokens.themes);
+const levelsInUse = getLevelsInUse(tokens.themes, 'all');
 
-const excludeLevels = !include.onlyUsedLevels
-    ? []
-    : allLevels.filter((level) => !levelsInUse.has(level));
+const excludeLevels = include.onlyUsedLevels
+    ? allLevels.filter((level) => !levelsInUse.has(level))
+    : [];
 
 const yardsticks = yardstick
     ? 'base' in yardstick

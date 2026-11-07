@@ -200,14 +200,14 @@ export namespace TokenTypes {
             /**
              * A number with em units.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0
              */
             export type Rem = 0 | `${ number }rem` | `-${ number }rem`;
 
             /**
              * A number with em or rem units.
              * 
-             * @since ___PKG_VERSION___
+             * @since 0.1.0
              */
             export type Relative = Em | Rem;
         }

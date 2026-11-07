@@ -31,8 +31,16 @@
 :global(.js) {
     .theme-mode-preview-page__display-mode__wrapper {
         @include prop-display(flex);
+        align-content: center;
+        align-items: baseline;
+        align-items: first baseline;
         justify-content: end;
+
         gap: var-mrg-soft('200') var-gap-inline(tab);
+    }
+
+    .theme-mode-preview-page__display-mode__label {
+        margin-block-start: do-var(flow-margin-firm-end);
     }
 
     @each $_opt in (preview, tokens) {

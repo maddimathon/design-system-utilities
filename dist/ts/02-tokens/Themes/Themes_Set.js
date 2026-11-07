@@ -4,10 +4,10 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
+ * @maddimathon/design-system-utilities@0.1.0
  * @license MIT
  */
-import { arrayUnique, mergeArgs, objectFlatten, objectMap, } from '@maddimathon/utility-typescript';
+import { mergeArgs, objectFlatten, objectMap, toValidNumber, } from '@maddimathon/utility-typescript';
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
 import { objectGeneratorAsync } from '../../01-utilities/objectGenerator.js';
@@ -208,18 +208,27 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     return SingleMode.Build.forcedColors({
                         ...input,
                         variations,
-                    }, inputOverrides).then((completedData) => new SingleMode(themeName, brightness, contrast, 'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', [], completedData));
+                    }, inputOverrides).then((completedData) => new SingleMode(themeName, brightness, contrast, 'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!', new Set(), completedData));
             }
-            const allLevelsInUse = Object.values(objectFlatten(levels)).concat(Object.values(objectFlatten(inputOverrides)).map((val) => {
-                const match = String(val).match(/\-(\d+)$/);
-                // returns
-                if (match && match[1]) {
-                    return match[1];
-                }
-                return false;
-            }).filter(v => v !== false));
-            const levelsInUse = arrayUnique(allLevelsInUse).sort();
-            return SingleMode.Build.data({ levels, variations }, mergeArgs(defaultOverrides, inputOverrides, true)).then((completedData) => new SingleMode(themeName, brightness, contrast, description, levelsInUse, completedData));
+            // type AnyLevel = "black" | "white" | ColourUtilities.Levels.Any;
+            // const allLevelsInUse = (
+            //     Object.values(
+            //         objectFlatten( levels as unknown as RecursiveRecord<string, AnyLevel> )
+            //     ) as AnyLevel[]
+            // ).concat(
+            //     Object.values(
+            //         objectFlatten( inputOverrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_ColourTypes>> )
+            //     ).map( ( val ): AnyLevel | false => {
+            //         const match = String( val ).match( /\-(\d+)$/ );
+            //         // returns
+            //         if ( match && match[ 1 ] ) {
+            //             return match[ 1 ] as AnyLevel;
+            //         }
+            //         return false;
+            //     } ).filter( v => v !== false )
+            // );
+            // const levelsInUse = arrayUnique( allLevelsInUse ).sort();
+            return SingleMode.Build.data({ levels, variations }, mergeArgs(defaultOverrides, inputOverrides, true)).then(({ completedData, levelsInUse }) => new SingleMode(themeName, brightness, contrast, description, levelsInUse, completedData));
         }
         constructor(name, brightness, contrast, description, levelsInUse, data) {
             super();
@@ -273,7 +282,17 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         },
                     },
                 }, true),
-                levelsInUse: this.levelsInUse,
+                levelsInUse: Array.from(this.levelsInUse).sort((a, b) => {
+                    const sort_a = a === 'black' ? '1000000000000000--02' : a === 'white' ? '1000000000000000--01' : (toValidNumber(a) ?? 0).toFixed().padStart(16, '0');
+                    const sort_b = b === 'black' ? '1000000000000000--02' : b === 'white' ? '1000000000000000--01' : (toValidNumber(b) ?? 0).toFixed().padStart(16, '0');
+                    if (sort_a > sort_b) {
+                        return 1;
+                    }
+                    if (sort_a < sort_b) {
+                        return -1;
+                    }
+                    return 0;
+                }),
             };
         }
         toScssVars() {
@@ -782,7 +801,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                     disabled: overrides.input?.disabled ?? singleInputMaker('disabled'),
                     readonly: overrides.input?.readonly ?? singleInputMaker('readonly'),
                 };
-                return {
+                const completedData = {
                     background,
                     button,
                     heading,
@@ -814,6 +833,21 @@ export class Tokens_Themes_Set extends AbstractTokens {
                             text: clrOpt(variations.base, levels.background.$),
                         },
                     },
+                };
+                const _flattenedData = objectFlatten(completedData);
+                const levelsInUse = new Set();
+                for (const key in _flattenedData) {
+                    const value = _flattenedData[key];
+                    if (value) {
+                        const _level = String(value).match(/^(black|white)$|(?<=\-)(\d+)$/);
+                        if (_level && _level[0]) {
+                            levelsInUse.add(_level[0]);
+                        }
+                    }
+                }
+                return {
+                    completedData,
+                    levelsInUse,
                 };
             }
             Build.data = data;

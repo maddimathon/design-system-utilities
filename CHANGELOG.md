@@ -19,6 +19,17 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.1.0** — 2026-11-07
+
+Updated with dependencies and upgraded to release.
+
+### Fixed
+- Fixed bug that wasn't hiding swatch table contents with display control input
+- Fixed headings styles bug
+- Fixed bug in var prefixes in theme token compile function
+- Updated with dependencies
+
+
 ## **0.1.0-beta.3** — 2026-10-03
 
 Updated with dependencies. Added custom display options to dynamic theme preview.

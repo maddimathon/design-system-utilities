@@ -6,10 +6,11 @@
  */
 
 /* import - types */
-import type { ComponentProps } from 'astro/types';
 import type { MenuItem } from '@maddimathon/utility-astro/components';
 
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type { PageProps } from '../../astro/layouts.js';
 
 /* import - functions */
 import {
@@ -34,13 +35,10 @@ const { Page } = layouts;
 /* PROPS ===================================== */
 
 type Partial_UtilProps = Partial<
-    Omit<
-        ComponentProps<typeof Page>,
-        'meta' | 'settings' | 'stylesheetVersion' | 'urlMaker'
-    >
+    Omit<PageProps, 'meta' | 'settings' | 'stylesheetVersion' | 'urlMaker'>
 > &
-    Pick<ComponentProps<typeof Page>, 'title'> & {
-        meta?: Partial<ComponentProps<typeof Page>['meta']>;
+    Pick<PageProps, 'title'> & {
+        meta?: Partial<PageProps['meta']>;
     };
 
 export interface Props extends Partial_UtilProps {}
@@ -49,7 +47,7 @@ const inputs: Props = Astro.props;
 
 const title = Array.isArray(inputs.title) ? inputs.title : [inputs.title];
 
-const props: ComponentProps<typeof Page> = {
+const props = {
     lang: 'en-CA',
 
     ...inputs,
@@ -81,7 +79,7 @@ const props: ComponentProps<typeof Page> = {
     },
 
     tokens: SampleTokens_Json as Tokens.JsonReturn,
-};
+} satisfies PageProps;
 
 /* CONSTANTS ===================================== */
 
@@ -170,6 +168,13 @@ const primaryMenu: MenuItem[] = [
         name='body-open'
     />
 
+    <p
+        slot='settings-menu-open'
+        class='website-settings__disclaimer'
+    >
+        These settings are saved using browser cookies, which may not work as
+        expected in offline copies.
+    </p>
     <slot
         name='settings-menu-open'
         slot='settings-menu-open'

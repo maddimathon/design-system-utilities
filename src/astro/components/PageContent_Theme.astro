@@ -25,6 +25,7 @@ import {
     objectMap,
     objectOmit,
     toTitleCase,
+    toValidNumber,
 } from '@maddimathon/utility-typescript';
 
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
@@ -158,6 +159,27 @@ export function parseThemeSets<T_Types extends TokenTypes.TypeParams>(
     );
 }
 
+export function parseThemeLevelsInUseList<T_Types extends TokenTypes.TypeParams>(
+    tokensJson: Tokens.JsonReturn<T_Types>,
+) {
+    return Array.from(getLevelsInUse(tokensJson.themes, 'all')).sort(
+        (a, b) => {
+            const sort_a = a === 'black' ? '1000000000000000--02' : a === 'white' ? '1000000000000000--01' : (toValidNumber(a) ?? 0).toFixed().padStart(16, '0');
+            const sort_b = b === 'black' ? '1000000000000000--02' : b === 'white' ? '1000000000000000--01' : (toValidNumber(b) ?? 0).toFixed().padStart(16, '0');
+
+            if (sort_a > sort_b) {
+                return 1;
+            }
+
+            if (sort_a < sort_b) {
+                return -1;
+            }
+
+            return 0;
+        }
+    );
+}
+
 /* CONSTANTS ===================================== */
 
 const themeNames = (
@@ -166,9 +188,13 @@ const themeNames = (
 
 const hasMultipleThemes = themeNames.length > 1;
 
-const defaultToggleToOpen = Array.isArray(_defaultToggleToOpen) ? _defaultToggleToOpen : !_defaultToggleToOpen ? null : _defaultToggleToOpen ?? ((!hasMultipleThemes && import.meta.env.DEV) ? true : null);
+const defaultToggleToOpen = Array.isArray(_defaultToggleToOpen)
+    ? _defaultToggleToOpen
+    : !_defaultToggleToOpen
+        ? null
+        : (_defaultToggleToOpen ?? ((!hasMultipleThemes && import.meta.env.DEV) ? true : null));
 
-const levelsInUse = getLevelsInUse(tokens.themes);
+const levelsInUse = parseThemeLevelsInUseList(tokens);
 
 const parsedSets = parseThemeSets(tokens);
 
@@ -196,8 +222,8 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
 <p>
     The following colour shade levels are in use in at least one of the themes
     below: {
-        Array.from( levelsInUse ).map( (level, i) =>
-            i < levelsInUse.size - 1 ? (
+        levelsInUse.map( (level, i) =>
+            i < levelsInUse.length - 1 ? (
                 <Fragment set:html={`<code>${level}</code>, `} />
             ) : (
                 <Fragment set:html={`and <code>${level}</code>.`} />
@@ -262,6 +288,8 @@ const themes_toc: ComponentProps<typeof TableOfContents>['menu'] = parsedSets.ma
                                         tokens,
                                     }}
                                     data-active-theme={key}
+                                    data-brightness-mode={set.brightness}
+                                    data-contrast-mode={set.contrast}
                                     displayHeading={3}
                                     displayMode={opt.value}
                                     heading={4}

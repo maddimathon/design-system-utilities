@@ -37,6 +37,11 @@ const { brightness, clrSlug }: Props = Astro.props;
 /* FUNCTIONS ===================================== */
 
 const toDarkValue = (slug: string) => {
+    // returns
+    if (slug === 'black' || slug === 'white') {
+        return ColourUtilities.Levels.toDark(slug);
+    }
+    
     const data = getDataFromClrSlug(slug);
 
     // returns

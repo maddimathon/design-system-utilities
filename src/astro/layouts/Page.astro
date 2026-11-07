@@ -93,7 +93,7 @@ type Copyright_PlainYear = {
 /**
  * Parses Page layout input props into a more consistent output.
  *
- * @since ___PKG_VERSION___
+ * @since 0.1.0
  */
 export function parsePageProps<
     T_ContentType extends ContentTypeInput = DefaultContentType,
@@ -282,6 +282,10 @@ export function parsePageProps<
         lang,
         layout: (inputs.layout ||
             ('content-only' satisfies DefaultContentType)) as T_ContentType,
+
+        primaryMenu,
+        secondaryMenu,
+
         settings,
 
         urlMaker,
@@ -295,6 +299,8 @@ export function parsePageProps<
         familyOverrideValues,
         lang,
         libProps,
+        primaryMenu,
+        secondaryMenu,
         settings,
         stylesheetPreload,
         stylesheetVersion,
@@ -327,7 +333,7 @@ export interface PageProps<
     };
 
     /**
-     * @since ___PKG_VERSION___
+     * @since 0.1.0
      */
     settings?: false | Omit<SettingsMenuProps, 'components' | 'id'>;
 
@@ -347,11 +353,9 @@ export interface PageProps<
 type Props<T_ContentType extends ContentTypeInput = ContentTypeInput> =
     GenericProps<PageProps<T_ContentType>>;
 
-const { libProps, stylesheetPreload, stylesheets } = parsePageProps(
-    Astro.url,
-    astroComponents,
-    (Astro.props?.['frontmatter'] ?? Astro.props) satisfies Props,
-);
+const { libProps, stylesheetPreload, stylesheets } = parsePageProps<
+    NonNullable<Props['layout']>
+>(Astro.url, astroComponents, Astro.props?.['frontmatter'] ?? Astro.props);
 
 /* CONSTANTS ===================================== */
 
@@ -403,13 +407,6 @@ const footerTextHTML =
         name='body-open'
     />
 
-    <p
-        slot='settings-menu-open'
-        class='website-settings__disclaimer'
-    >
-        These settings are saved using browser cookies, which may not work as
-        expected in offline copies.
-    </p>
     <slot
         slot='settings-menu-open'
         name='settings-menu-open'

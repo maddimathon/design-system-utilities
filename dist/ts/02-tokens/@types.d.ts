@@ -6,7 +6,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
+ * @maddimathon/design-system-utilities@0.1.0
  * @license MIT
  */
 import type { CssColours } from '@maddimathon/utility-sass';
@@ -155,13 +155,13 @@ export declare namespace TokenTypes {
             /**
              * A number with em units.
              *
-             * @since 0.1.0-beta.4.draft
+             * @since 0.1.0
              */
             type Rem = 0 | `${number}rem` | `-${number}rem`;
             /**
              * A number with em or rem units.
              *
-             * @since 0.1.0-beta.4.draft
+             * @since 0.1.0
              */
             type Relative = Em | Rem;
         }

@@ -88,7 +88,22 @@ export function astroConfig<
             publicDir: publicDir ?? ( srcDir + '/public' ),
             srcDir,
         },
-        siteConfig,
+        {
+            ...siteConfig,
+
+
+            build: {
+                ...siteConfig?.build,
+
+                // we add our own relative stylesheet links in Page, but astro
+                // will use absolute URLs
+                inlineStylesheets: 'always',
+                format: 'file',
+            },
+
+            // we need this for offline internal relative paths to work (mostly) reliably
+            trailingSlash: import.meta.env.DEV ? 'ignore' : 'always',
+        },
         envConfig,
     );
 }
@@ -186,18 +201,6 @@ export namespace astroConfig {
             } satisfies AstroUserConfig<T_Locales, T_Driver, T_FontProviders>,
             {
                 ...siteConfig,
-
-                build: {
-                    ...siteConfig?.build,
-
-                    // we add our own relative stylesheet links in Page, but astro
-                    // will use absolute URLs
-                    inlineStylesheets: 'always',
-                    format: 'file',
-                },
-
-                // we need this for offline internal relative paths to work (mostly) reliably
-                trailingSlash: import.meta.env.DEV ? 'ignore' : 'always',
 
                 vite: {
                     ...siteConfig?.vite,

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /**
  * Design System Utilities - Documentation
- * @maddimathon/design-system-utilities@0.1.0-beta.4.draft
+ * @maddimathon/design-system-utilities@0.1.0
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -9,13 +9,13 @@
  */
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0-beta.10.draft
+ * @maddimathon/utility-sass@0.1.0
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template - Docs
- * @maddimathon/design-system-utilities/template/docs@0.1.0-beta.4.draft
+ * @maddimathon/design-system-utilities/template/docs@0.1.0
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -35,7 +35,27 @@ button {
     text-align: start;
 }
 
-::-moz-placeholder {
+::-moz-placeholder,
+a,
+blockquote,
+button,
+cite,
+code,
+dd,
+dl,
+figure,
+input,
+kbd,
+ol,
+optgroup,
+pre,
+samp,
+select,
+small,
+td,
+textarea,
+th,
+ul {
     margin: 0;
     padding: 0;
     font: inherit;
@@ -8008,6 +8028,7 @@ figure svg {
 /* # GLOBALS - TYPOGRAPHY
  * ======================================================================== */
 /*! START of @maddimathon/design-system-utilities/template/docs */
+.theme-mode-swatch__sample--selection,
 ::-moz-selection {
     --icon-color: currentColor !important;
     background-color: hsla(322.25 58.5% 64.5% / 85%) !important;
@@ -8029,6 +8050,7 @@ figure svg {
     color: hsl(0, 0%, 0%) !important;
     color: var(--theme-selection-text, HighlightText) !important;
 }
+.theme-mode-swatch__sample--selection *,
 ::-moz-selection * {
     color: inherit !important;
 }
@@ -10228,8 +10250,6 @@ li {
     margin-right: 0;
     margin-bottom: 0;
     padding: 0;
-    text-wrap: balance;
-    text-wrap: pretty;
 }
 li::marker {
     --icon-color: var(--theme-ui-primary, CanvasText);
@@ -18021,9 +18041,7 @@ form.search-form:not(:focus-within) > [type="submit"]::after {
         width: 100% !important;
         height: auto !important;
         border-radius: 0 !important;
-        -webkit-backdrop-filter: blur(1rem);
         backdrop-filter: blur(1rem);
-        -webkit-backdrop-filter: var(--backdrop-filter, blur(1rem));
         backdrop-filter: var(--backdrop-filter, blur(1rem));
         cursor: pointer;
         z-index: -2;

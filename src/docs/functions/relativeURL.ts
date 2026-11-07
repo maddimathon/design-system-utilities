@@ -14,17 +14,21 @@ import {
 } from 'astro:config/client';
 
 import {
-    makeRelativeURL,
+    makeFileBasedURL,
+    // makeRelativeURL,
 } from '../../ts/01-utilities/makeRelativeURL.js';
 
 export function relativeURL(
     currentURL: URL,
     targetSubpath: string,
 ) {
-    return makeRelativeURL(
+    return makeFileBasedURL(
         config_base,
         config_build,
         currentURL,
         targetSubpath,
+        {
+            relative: true,
+        },
     );
 }

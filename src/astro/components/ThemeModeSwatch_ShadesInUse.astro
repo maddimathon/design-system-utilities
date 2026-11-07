@@ -91,9 +91,11 @@ export function getLevelsInUseTable<T_TokenParams extends TokenTypes.TypeParams>
 
             allLevels.forEach(
                 level => {
-                    const levelKey = brightness === 'dark'
+                    level = brightness === 'dark'
                         ? ColourUtilities.Levels.toDark(level)
                         : level;
+
+                    const levelKey = level;
 
                     const textColor = textColorLevel(level);
 

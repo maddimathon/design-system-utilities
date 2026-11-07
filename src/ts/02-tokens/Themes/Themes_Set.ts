@@ -15,10 +15,10 @@ import type {
 } from '@maddimathon/utility-typescript/types';
 
 import {
-    arrayUnique,
     mergeArgs,
     objectFlatten,
     objectMap,
+    toValidNumber,
 } from '@maddimathon/utility-typescript';
 
 import type {
@@ -26,7 +26,7 @@ import type {
     TokenTypes,
 } from '../@types.js';
 
-import type { RecursiveRecord } from '../../01-utilities/@types.js';
+import type { } from '../../01-utilities/@types.js';
 import { ColourUtilities } from '../../01-utilities/ColourUtilities.js';
 
 import { objectGenerator } from '../../01-utilities/objectGenerator.js';
@@ -656,41 +656,41 @@ export namespace Tokens_Themes_Set {
                             brightness,
                             contrast,
                             'This is the forced colours contrast mode, which is a mode only applied for users with this accessibility featured enabled in their OS settings.  It cannot be manually selected.  This mode uses System Colour keywords, which lets users apply custom colours to websites.  This is very important for accessibility!',
-                            [],
+                            new Set(),
                             completedData,
                         )
                     );
             }
 
-            type AnyLevel = "black" | "white" | ColourUtilities.Levels.Any;
+            // type AnyLevel = "black" | "white" | ColourUtilities.Levels.Any;
 
-            const allLevelsInUse = (
-                Object.values(
-                    objectFlatten( levels as unknown as RecursiveRecord<string, AnyLevel> )
-                ) as AnyLevel[]
-            ).concat(
-                Object.values(
-                    objectFlatten( inputOverrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_ColourTypes>> )
-                ).map( ( val ): AnyLevel | false => {
+            // const allLevelsInUse = (
+            //     Object.values(
+            //         objectFlatten( levels as unknown as RecursiveRecord<string, AnyLevel> )
+            //     ) as AnyLevel[]
+            // ).concat(
+            //     Object.values(
+            //         objectFlatten( inputOverrides as RecursiveRecord<string, TokenTypes.Theme.ColourOption<T_ColourTypes>> )
+            //     ).map( ( val ): AnyLevel | false => {
 
-                    const match = String( val ).match( /\-(\d+)$/ );
+            //         const match = String( val ).match( /\-(\d+)$/ );
 
-                    // returns
-                    if ( match && match[ 1 ] ) {
-                        return match[ 1 ] as AnyLevel;
-                    }
+            //         // returns
+            //         if ( match && match[ 1 ] ) {
+            //             return match[ 1 ] as AnyLevel;
+            //         }
 
-                    return false;
-                } ).filter( v => v !== false )
-            );
+            //         return false;
+            //     } ).filter( v => v !== false )
+            // );
 
-            const levelsInUse = arrayUnique( allLevelsInUse ).sort();
+            // const levelsInUse = arrayUnique( allLevelsInUse ).sort();
 
             return SingleMode.Build.data<T_ColourTypes, T_ThemeTypes>(
                 { levels, variations },
                 mergeArgs( defaultOverrides, inputOverrides, true ),
             ).then(
-                ( completedData ) => new SingleMode<T_ColourTypes, T_ThemeTypes>(
+                ( { completedData, levelsInUse } ) => new SingleMode<T_ColourTypes, T_ThemeTypes>(
                     themeName,
                     brightness,
                     contrast,
@@ -708,7 +708,7 @@ export namespace Tokens_Themes_Set {
             public readonly brightness: null | TokenTypes.Theme.GetBrightnessKeys<T_ThemeTypes>,
             public readonly contrast: "forcedColors" | TokenTypes.Theme.GetContrastKeys<T_ThemeTypes>,
             public readonly description: null | string,
-            public readonly levelsInUse: ( "black" | "white" | ColourUtilities.Levels.Any )[],
+            public readonly levelsInUse: Set<"black" | "white" | TokenTypes.Colour.TypeParams[ 'extraLevels' ]>,
             public readonly data: SingleMode.Data<T_ColourTypes, T_ThemeTypes, __T_ColourOption>,
         ) {
             super();
@@ -775,7 +775,22 @@ export namespace Tokens_Themes_Set {
                     true,
                 ),
 
-                levelsInUse: this.levelsInUse,
+                levelsInUse: Array.from( this.levelsInUse ).sort(
+                    ( a, b ) => {
+                        const sort_a = a === 'black' ? '1000000000000000--02' : a === 'white' ? '1000000000000000--01' : ( toValidNumber( a ) ?? 0 ).toFixed().padStart( 16, '0' );
+                        const sort_b = b === 'black' ? '1000000000000000--02' : b === 'white' ? '1000000000000000--01' : ( toValidNumber( b ) ?? 0 ).toFixed().padStart( 16, '0' );
+
+                        if ( sort_a > sort_b ) {
+                            return 1;
+                        }
+
+                        if ( sort_a < sort_b ) {
+                            return -1;
+                        }
+
+                        return 0;
+                    }
+                ),
             };
         }
 
@@ -2013,7 +2028,10 @@ export namespace Tokens_Themes_Set {
                     NoInfer<T_ColourTypes>,
                     NoInfer<T_ThemeTypes>
                 > = {},
-            ): Promise<Data<T_ColourTypes, T_ThemeTypes>> {
+            ): Promise<{
+                completedData: Data<T_ColourTypes, T_ThemeTypes>;
+                levelsInUse: Set<"black" | "white" | TokenTypes.Colour.TypeParams[ 'extraLevels' ]>;
+            }> {
                 type ColourOption = TokenTypes.Theme.ColourOption<T_ColourTypes>;
                 type CompleteData = Data<T_ColourTypes, T_ThemeTypes, ColourOption>;
 
@@ -2286,7 +2304,7 @@ export namespace Tokens_Themes_Set {
                     readonly: overrides.input?.readonly ?? singleInputMaker( 'readonly' ),
                 };
 
-                return {
+                const completedData = {
                     background,
                     button,
                     heading,
@@ -2323,6 +2341,29 @@ export namespace Tokens_Themes_Set {
                             text: clrOpt( variations.base, levels.background.$ ),
                         },
                     },
+                } as const;
+
+                const _flattenedData = objectFlatten<string, TokenTypes.Theme.ColourOption<T_ColourTypes>>( completedData );
+
+                const levelsInUse = new Set<"black" | "white" | TokenTypes.Colour.TypeParams[ 'extraLevels' ]>();
+
+                for ( const key in _flattenedData ) {
+                    const value = _flattenedData[ key ];
+
+                    if ( value ) {
+                        const _level = String( value ).match( /^(black|white)$|(?<=\-)(\d+)$/ );
+
+                        if ( _level && _level[ 0 ] ) {
+                            levelsInUse.add(
+                                _level[ 0 ] as "black" | "white" | TokenTypes.Colour.TypeParams[ 'extraLevels' ]
+                            );
+                        }
+                    }
+                }
+
+                return {
+                    completedData,
+                    levelsInUse,
                 };
             }
 
