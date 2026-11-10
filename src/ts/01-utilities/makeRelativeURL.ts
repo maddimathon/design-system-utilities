@@ -179,6 +179,8 @@ export function makeFileBasedURL(
  * 
  * @since 0.1.0-alpha
  * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
+ * 
+ * @deprecated ___PKG_VERSION___ — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
  */
 export function makeRelativeURL(
     config_base: string,
@@ -190,92 +192,14 @@ export function makeRelativeURL(
         homeIsIndex: boolean;
     }> = {},
 ): string {
-
-    // throws
-    if ( targetSubpath.match( /^(\.\.?\/|#[^\/|#]+$)/g ) ) {
-        return targetSubpath;
-    }
-
-    const fileExtension = opts.fileExtension?.replace( /^\.*/gi, '.' ) ?? '.html';
-    const homeIsIndex = opts.homeIsIndex;
-
-    const anchorMatches = targetSubpath.match( /#[^\/|#]+$/i );
-    const anchorSuffix = anchorMatches && anchorMatches[ 0 ] ? anchorMatches[ 0 ] : '';
-
-    const pathPrefix = config_base.replace( /(^\.?\/|\/*(#[^\/|#]+)?$)/gi, '' );
-
-    const prefixRegex = new RegExp( `^\\.?\\/?${ escRegExp( pathPrefix ) }(?=\\/|$)`, 'gi' );
-
-    const subpaths = {
-        current: currentURL.pathname.replace( prefixRegex, '' ).replace( /\.html$/gi, '' ),
-        target: targetSubpath.replace( /(^\.?\/?|(\/|\.html)$)/gi, '' ),
-    };
-
-    const fileMaker = ( _subpath: string ) => {
-
-        _subpath = trailingSlash.remove(
-            _subpath.replace( prefixRegex, '' ).replace( /^\.?\//gi, '' )
-        );
-
-        // returns
-        if ( !_subpath ) {
-            return homeIsIndex ? 'index' + fileExtension : '';
-        }
-
-        // returns on match
-        switch ( config_build.format ) {
-
-            case 'file':
-                const appendHtmlExtension = _subpath.match( /\.[a-z]+[a-z|0-9|\-]+$/gi ) === null;
-
-                // returns
-                if ( appendHtmlExtension ) {
-                    return _subpath + fileExtension;
-                }
-
-                return _subpath;
-        }
-
-        return _subpath;
-    };
-
-    const validateReturn = ( _relative: string ) => {
-
-        // returns
-        if ( _relative.match( /^\.?\.?\//i ) === null ) {
-            return './' + _relative;
-        }
-
-        return _relative;
-    };
-
-    // converts home-equivalent current 
-    switch ( subpaths.current ) {
-
-        case '':
-        case '/':
-        case '/index':
-        case 'index':
-            subpaths.current = '';
-            break;
-    }
-
-    const filenames = {
-        current: fileMaker( subpaths.current ),
-        target: fileMaker( subpaths.target ),
-    };
-
-    const relativeMakers = {
-        current: NodePath.relative( NodePath.resolve(), NodePath.resolve( filenames.current, '..' ) ),
-        target: filenames.target,
-    };
-
-    const relative = validateReturn(
-        NodePath.relative(
-            relativeMakers.current,
-            relativeMakers.target,
-        ) || ( homeIsIndex ? 'index' + fileExtension : '' )
-    ) + anchorSuffix;
-
-    return relative;
+    return makeFileBasedURL(
+        config_base,
+        config_build,
+        currentURL,
+        targetSubpath,
+        {
+            ...opts,
+            relative: true,
+        },
+    );
 }

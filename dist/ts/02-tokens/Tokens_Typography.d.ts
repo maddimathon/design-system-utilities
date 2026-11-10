@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0
+ * @maddimathon/design-system-utilities@0.2.0-draft
  * @license MIT
  */
 import type { Classify, RecursivePartial } from '@maddimathon/utility-typescript/types';

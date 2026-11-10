@@ -477,22 +477,26 @@
         //
         @else if $location == end-inlines {
             @if $print_a or $print_abbr or $print_em {
-                @include template-design-system {
-                    @if $print_em {
+                @if $print_em {
+                    @include template-design-system {
                         %em {
                             @include set-font-style(italic, $setChildren: true);
                         }
                     }
-                    @content (em);
+                }
+                @content (em);
 
-                    @if $print_a {
+                @if $print_a {
+                    @include template-design-system {
                         %a {
                             @include snippet-link;
                         }
                     }
-                    @content (a);
+                }
+                @content (a);
 
-                    @if $print_abbr {
+                @if $print_abbr {
+                    @include template-design-system {
                         %abbr {
                             &[title] {
                                 text-decoration: dotted underline var-stroke-relative('400');
@@ -501,8 +505,8 @@
                             }
                         }
                     }
-                    @content (abbr);
                 }
+                @content (abbr);
             } @else {
                 @content (em);
                 @content (a);

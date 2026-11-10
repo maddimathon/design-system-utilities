@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/design-system-utilities/template@0.1.0
+ * @maddimathon/design-system-utilities/template@0.2.0-draft
  * 
  * This is a sample stylesheet with a custom property prefix and a fallback
  * prefix set in the config (i.e. — $customPropertyPrefix: "",
@@ -1039,6 +1039,7 @@
             text-shadow var(--tr-time-fast, 250ms) ease-out,
             visibility var(--tr-time-fast, 250ms) ease-out,
             aspect-ratio var(--tr-time-normal, 500ms) ease-out,
+            background-image var(--tr-time-fast, 250ms) ease-out,
             border-color var(--tr-time-fast, 250ms) ease-out,
             border-radius var(--tr-time-normal, 500ms) ease-out,
             border-width var(--tr-time-normal, 500ms) ease-out,
@@ -1086,6 +1087,9 @@
                 var(--tr-time-toggle, var(--fallback-tr-time-toggle, 1200ms))
                 ease-out,
             aspect-ratio
+                var(--tr-time-toggle, var(--fallback-tr-time-toggle, 1200ms))
+                ease-out,
+            background-image
                 var(--tr-time-toggle, var(--fallback-tr-time-toggle, 1200ms))
                 ease-out,
             border-color
@@ -13494,10 +13498,7 @@ a.skip-link[href] {
     z-index: var(--z-index-skipLink, 99999);
     --fallback-focus-ring-outline-offset: var(
         --button-focus-offset,
-        var(
-            --stroke-relative-400,
-            var(--fallback-stroke-relative-400, 0.1875em)
-        )
+        var(--border-width-400, var(--fallback-border-width-400, 0.25rem))
     );
     --fallback-icon-inline-buffer: var(--button-icon-buffer, 0.25em) !important;
     --fallback-icon-inline-buffer-start: var(
@@ -14708,6 +14709,8 @@ i em em em em {
     font-style: italic;
 }
 
+/*! END of @maddimathon/design-system-utilities/template */
+/*! START of @maddimathon/design-system-utilities/template */
 a[href] {
     --fallback-focus-ring-outline-offset: var(
         --stroke-relative-200,
@@ -15279,6 +15282,8 @@ a[href]:has(> svg:only-child)::after {
     content: none !important;
 }
 
+/*! END of @maddimathon/design-system-utilities/template */
+/*! START of @maddimathon/design-system-utilities/template */
 abbr[title] {
     text-decoration: dotted underline
         var(
@@ -15535,7 +15540,8 @@ pre {
     align-self: center;
     justify-self: center;
     width: auto;
-    max-width: 100%;
+    max-width: 84vw;
+    max-width: min(100%, 84vw);
     margin-inline: 0;
     padding-block: var(
         --alert-padding-block,
@@ -19063,10 +19069,7 @@ select,
 input {
     --fallback-focus-ring-outline-offset: var(
         --input-focus-offset,
-        var(
-            --stroke-relative-400,
-            var(--fallback-stroke-relative-400, 0.1875em)
-        )
+        var(--border-width-400, var(--fallback-border-width-400, 0.25rem))
     );
     --fallback-display: block;
     --display: block;
@@ -19830,6 +19833,14 @@ input[type="file"] {
     );
 }
 
+select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}
+
 label {
     --fallback-display: block;
     --display: block;
@@ -19926,7 +19937,7 @@ label > input[type="radio"] {
     flex-wrap: wrap;
     justify-content: start;
     align-content: start;
-    align-items: start;
+    align-items: center;
     margin-inline: 0;
     padding-inline: 0;
     list-style: none;
@@ -19959,10 +19970,7 @@ input[type="submit"],
 a[href].button {
     --fallback-focus-ring-outline-offset: var(
         --button-focus-offset,
-        var(
-            --stroke-relative-400,
-            var(--fallback-stroke-relative-400, 0.1875em)
-        )
+        var(--border-width-400, var(--fallback-border-width-400, 0.25rem))
     );
     --fallback-icon-inline-buffer: var(--button-icon-buffer, 0.25em) !important;
     --fallback-icon-inline-buffer-start: var(
@@ -20311,10 +20319,7 @@ a[disabled][href].button {
 ) {
     --fallback-focus-ring-outline-offset: var(
         --button-inline-focus-offset,
-        var(
-            --stroke-relative-400,
-            var(--fallback-stroke-relative-400, 0.1875em)
-        )
+        var(--border-width-400, var(--fallback-border-width-400, 0.25rem))
     );
     --fallback-icon-inline-buffer: var(
         --button-inline-icon-buffer,
@@ -20461,11 +20466,12 @@ a[disabled][href].button {
     --display: inline-block;
     display: var(--fallback-display, inline-block);
     position: relative;
-    height: var(
+    height: 1em !important;
+    font-size: var(
         --icon-size-pseudo,
         var(--fallback-icon-size-pseudo, 1em)
     ) !important;
-    height: calc(
+    font-size: calc(
         var(--icon-size-pseudo, var(--fallback-icon-size-pseudo, 1em)) *
             var(
                 --icon-size-inline--multiplier,
@@ -20753,11 +20759,12 @@ a[href].button
     --display: inline-block;
     display: var(--fallback-display, inline-block);
     position: relative;
-    height: var(
+    height: 1em !important;
+    font-size: var(
         --icon-size-pseudo,
         var(--fallback-icon-size-pseudo, 1em)
     ) !important;
-    height: calc(
+    font-size: calc(
         var(--icon-size-pseudo, var(--fallback-icon-size-pseudo, 1em)) *
             var(
                 --icon-size-inline--multiplier,
@@ -23003,10 +23010,7 @@ a[disabled][href].button:focus-visible * {
 input::file-selector-button {
     --fallback-focus-ring-outline-offset: var(
         --button-focus-offset,
-        var(
-            --stroke-relative-400,
-            var(--fallback-stroke-relative-400, 0.1875em)
-        )
+        var(--border-width-400, var(--fallback-border-width-400, 0.25rem))
     );
     --fallback-icon-inline-buffer: var(--button-icon-buffer, 0.25em) !important;
     --fallback-icon-inline-buffer-start: var(
@@ -24678,31 +24682,25 @@ body {
     --fallback-display: inline-block;
     --display: inline-block;
     display: var(--fallback-display, inline-block);
-    height: var(--icon-size, var(--fallback-icon-size, 1.25em));
-    height: calc(
-        var(--icon-size, var(--fallback-icon-size, 1.25em)) *
-            var(
-                --icon-size--font-multiplier,
-                var(--fallback-icon-size--font-multiplier, 1)
-            )
-    );
-    min-width: var(--icon-size, var(--fallback-icon-size, 1.25em));
-    min-width: calc(
-        var(--icon-size, var(--fallback-icon-size, 1.25em)) *
-            var(
-                --icon-size--font-multiplier,
-                var(--fallback-icon-size--font-multiplier, 1)
-            )
-    );
-    vertical-align: var(
-        --icon-vertical-align,
-        var(--fallback-icon-vertical-align, middle)
-    );
     position: relative;
+    height: 1em !important;
+    min-width: 1em !important;
+    font-size: var(--icon-size, var(--fallback-icon-size, 1.25em)) !important;
+    font-size: calc(
+        var(--icon-size, var(--fallback-icon-size, 1.25em)) *
+            var(
+                --icon-size--font-multiplier,
+                var(--fallback-icon-size--font-multiplier, 1)
+            )
+    ) !important;
     line-height: 1;
     color: var(
         --fallback-icon-color,
         var(--theme-ui, var(--fallback-theme-ui, CanvasText))
+    );
+    vertical-align: var(
+        --icon-vertical-align,
+        var(--fallback-icon-vertical-align, middle)
     );
     transition:
         color ease-out var(--tr-time-fast, 250ms),

@@ -46,6 +46,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                 motion: [
                     ...always,
                     'aspect-ratio',
+                    'background-image',
                     // 'border',
                     'border-color',
                     'border-radius',
@@ -86,6 +87,7 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
 
                     'accent-color': 'fast',
                     'background-color': 'fast',
+                    'background-image': 'fast',
                     'border-color': 'fast',
                     border: 'fast',
                     color: 'fast',
@@ -200,6 +202,7 @@ export namespace Tokens_CSS_Transition {
         | 'accent-color'
         | 'aspect-ratio'
         | 'background-color'
+        | 'background-image'
         | 'border'
         | 'border-color'
         | 'border-radius'

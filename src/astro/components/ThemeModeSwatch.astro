@@ -466,6 +466,8 @@ const inputField = {
                                 'theme-mode-swatch__sample',
                                 'theme-mode-swatch__sample--button',
                             ] }
+                            data-state-active={state.background?.state === 'active'}
+                            data-state-focus={state.background?.state === 'hover'}
                             disabled={variation.name === 'disabled'}
                             style={ [
                                 state.border?.value && `border-color: ${getCssColourForThemePreview(tokens, brightness, state.border.value)} !important`,

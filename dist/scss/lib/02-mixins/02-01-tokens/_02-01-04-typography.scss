@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0
+/// @package @maddimathon/design-system-utilities@0.2.0-draft
 /// @since 0.1.0-alpha
 ///
 
@@ -467,18 +467,17 @@ $_fontOverrideSels_body: ();
 
     @if $includeBaseProps {
         @if $height and not $useIconFont {
-            $_size: var-style(icon-size-pseudo);
-
-            height: $_size !important;
-            height: font-family-icons--icon-size() !important;
+            height: 1em !important;
         }
 
-        @if $useIconFont {
-            $_fontSize: var-style(icon-size-font);
+        $_fontSize: if(
+            $useIconFont,
+            var-style(icon-size-font),
+            var-style(icon-size-pseudo)
+        );
 
-            font-size: $_fontSize !important;
-            font-size: font-family-icons--icon-size($_fontSize) !important;
-        }
+        font-size: $_fontSize !important;
+        font-size: font-family-icons--icon-size($_fontSize) !important;
 
         @if $display != inline {
             align-self: center;

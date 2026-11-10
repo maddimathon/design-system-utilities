@@ -167,18 +167,22 @@ if (alertVariations.length > 1) {
     >
         {
             !disclaimerHTML && (
-                <Heading
-                    heading={2}
-                    slot='disclaimer'
-                    class='screen-reader-text'
-                >
-                    The content of this section is likely only useful for users
-                    navigating visually. Most of the text is nonsense (it is a
-                    type of placeholder text called Lorem Ipsum, meant to look
-                    like fake latin) and exits only to demonstrate the visual
-                    styling of the page. None of the visual styles are described
-                    in this section.
-                </Heading>
+                <Fragment slot='disclaimer'>
+                    <Heading
+                        class='screen-reader-text'
+                        heading={2}
+                    >
+                        About this content
+                    </Heading>
+                    <p class='screen-reader-text'>
+                        The content of this section is likely only useful for
+                        users navigating visually. Most of the text is nonsense
+                        (it is a type of placeholder text called Lorem Ipsum,
+                        meant to look like fake latin) and exits only to
+                        demonstrate the visual styling of the page. None of the
+                        visual styles are described in this section.
+                    </p>
+                </Fragment>
             )
         }
         <Fragment

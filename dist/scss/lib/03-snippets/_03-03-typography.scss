@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0
+/// @package @maddimathon/design-system-utilities@0.2.0-draft
 /// @since 0.1.0-alpha
 ///
 
@@ -32,6 +32,8 @@ $_flowMarginFirmSiblings: list.join(
     config.$fn_flowMarginConditionalOverride_additionalFirmChildren,
     $separator: comma
 );
+
+$_maxWidth_vw: 100vw - (gap-inline-value(layout, $returnAsNumber: true) * 2);
 
 ///
 /// @since 0.1.0-beta.0
@@ -1830,7 +1832,6 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $marginBlock: var-style(flow-margin-firm-start)
         var-style(flow-margin-firm-end),
     $marginInline: 0,
-    $maxWidth: 100%,
     $paddingBlock: var-style(alert-padding-block),
     $paddingInline: var-style(alert-padding-inline),
     $width: auto,
@@ -1848,7 +1849,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $includeWidth {
         width: $width;
-        max-width: $maxWidth;
+
+        max-width: $_maxWidth_vw;
+        max-width: min(100%, $_maxWidth_vw);
     }
 
     @if $includeMarginBlock {

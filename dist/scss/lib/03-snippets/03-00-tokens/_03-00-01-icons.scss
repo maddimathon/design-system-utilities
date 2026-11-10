@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0
+/// @package @maddimathon/design-system-utilities@0.2.0-draft
 /// @since 0.1.0-alpha
 ///
 
@@ -41,46 +41,89 @@ $_allUniqueIconAspectRatios: ();
 }
 
 ///
+/// @since 0.2.0-draft
+///
+@mixin snippet-icon-block(
+    $color: var-style(icon-color),
+    $display_svg: block,
+    $display: inline-block,
+    $iconSize: var-style(icon-size),
+    $includeMinWidth: true,
+    $includeMaxWidth: false,
+    $margin_svg: 0,
+    $padding_svg: 0,
+    $verticalAlign: var-style(icon-vertical-align),
+    //
+    $sizeAsImportant: true,
+    $multipleContentBlocks: false
+) {
+    $_sizeImportantSuffix: if($sizeAsImportant, ' !important', '');
+
+    @include prop-display($display);
+    position: relative;
+
+    height: 1em #{$_sizeImportantSuffix};
+
+    @if $includeMinWidth {
+        min-width: 1em #{$_sizeImportantSuffix};
+    }
+
+    @if $includeMaxWidth {
+        max-width: 100%;
+    }
+
+    font-size: $iconSize #{$_sizeImportantSuffix};
+    font-size: calc($iconSize * do-var(icon-size--font-multiplier))
+        #{$_sizeImportantSuffix};
+
+    line-height: 1;
+    color: $color;
+
+    vertical-align: $verticalAlign;
+
+    transition:
+        color tokens.$transition_function var-tr-time(fast),
+        fill tokens.$transition_function var-tr-time(fast);
+
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
+
+    > svg {
+        @include prop-display($display_svg);
+        margin: $margin_svg;
+        padding: $padding_svg;
+
+        fill: currentColor;
+
+        @if $multipleContentBlocks {
+            @content (svg);
+        }
+    }
+}
+
+///
 /// Adds support for icons, assuming the html matches that in the local astro
 /// Icon component.
 ///
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-support-icons(
-    $color: var-style(icon-color),
-    $display: inline-block,
-    $iconSize: var-style(icon-size),
-    $includeMinWidth: true,
-    // $includeWidth: true,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
-    $verticalAlign: var-style(icon-vertical-align),
+    //
+    $multipleContentBlocks: false,
     $args...
 ) {
-    // prettier-ignore
-    @include utils.snippet-support-icons(
-        $display: $display,
-        $iconSize: $iconSize,
-        $includeMinWidth: $includeMinWidth,
-        $verticalAlign: $verticalAlign,
-        $multipleContentBlocks: true,
-        $args...
-    ) using ($location) {
-
-        @if $location == root {
-            position: relative;
-
-            line-height: 1;
-            color: $color;
-
-            transition:
-                color tokens.$transition_function var-tr-time(fast),
-                fill tokens.$transition_function var-tr-time(fast) ;
-
-            @content($location);
-        }
-
-        @else {
-            @content($location);
+    %icon {
+        @include snippet-icon-block($multipleContentBlocks: true, $args...)
+            using ($location) {
+            @if $multipleContentBlocks {
+                @content ($location);
+            } @else if $location == root {
+                @content;
+            }
         }
     }
 

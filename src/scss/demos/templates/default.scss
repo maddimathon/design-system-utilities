@@ -3,7 +3,7 @@
 /// @since 0.1.0-beta.0
 ///
 
-@forward '../../template/default' with (
+@forward '../../template/default/config' with (
     $isTemplate: true !default,
 
     $template_name: 'Default Template' !default,
@@ -22,3 +22,32 @@
 
     $selector_bodyGrid_fullWidthExtender: '.main-subgrid--full-width'
 );
+@forward '../../tokens';
+
+@forward '../../template/_content/_header';
+@forward '../../notice';
+
+@use 'pkg:@maddimathon/utility-sass/demo';
+
+@use '../../config';
+@use '../../lib' as *;
+
+@include template-content-abstracts using ($content_props...) {
+    @include demo.content-args-dump($content_props, $mixinName: 'template-content-abstracts');
+}
+@include template-content-globals using ($content_props...) {
+    @include demo.content-args-dump($content_props, $mixinName: 'template-content-globals');
+}
+@include template-content-layouts using ($content_props...) {
+    @include demo.content-args-dump($content_props, $mixinName: 'template-content-layouts');
+}
+@include template-content-utilities using ($content_props...) {
+    @include demo.content-args-dump($content_props, $mixinName: 'template-content-utilities');
+}
+@include template-content-blocks using ($content_props...) {
+    @include demo.content-args-dump($content_props, $mixinName: 'template-content-blocks');
+}
+
+@if config.$template_extendSelectors {
+    @include extend-selectors;
+}

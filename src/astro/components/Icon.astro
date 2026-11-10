@@ -6,7 +6,7 @@
  */
 
 /* import - types */
-import type { GenericElementProps } from '@maddimathon/utility-astro';
+import type { ElementProps } from '@maddimathon/utility-astro';
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
 
 /* import - functions */
@@ -22,24 +22,26 @@ import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 export type IconProps = {
     icon: SvgMaker.JsonReturn;
+    svgType?: 'hidden' | 'labelled' | undefined;
 };
 
-type Props = GenericElementProps<IconProps, 'span'>;
+type Props = ElementProps<IconProps, 'span'>;
 
 const {
     'aria-hidden': ariaHidden,
     'class': classList,
     icon,
     slot,
+    svgType = ariaHidden ? 'hidden' : 'labelled',
     ...attributes
-}: Props = Astro.props?.frontmatter ?? Astro.props;
+}: Props = Astro.props;
 ---
 
 <span
     {...attributes}
     aria-hidden={ariaHidden ? true : undefined}
     class={makeClassList.flat(['icon', `icon--${icon.slug}`], classList)}
-    set:html={ariaHidden
+    set:html={svgType === 'hidden'
         ? icon.svgInlineHidden.trim()
         : icon.svgInlineLabelled.trim()}
 />

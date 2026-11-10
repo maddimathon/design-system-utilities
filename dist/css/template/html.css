@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template - HTML
- * @maddimathon/design-system-utilities/template/html@0.1.0
+ * @maddimathon/design-system-utilities/template/html@0.2.0-draft
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -1140,15 +1140,15 @@ html {
             font-weight 250ms ease-out, opacity 250ms ease-out,
             text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
             visibility 250ms ease-out, aspect-ratio 500ms ease-out,
-            border-color 250ms ease-out, border-radius 500ms ease-out,
-            border-width 500ms ease-out, bottom 500ms ease-out,
-            font-weight 250ms ease-out, gap 500ms ease-out,
-            height 500ms ease-out, left 500ms ease-out, margin 500ms ease-out,
-            max-height 500ms ease-out, max-width 500ms ease-out,
-            min-height 500ms ease-out, min-width 500ms ease-out,
-            outline-color 250ms ease-out, padding 500ms ease-out,
-            right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
-            width 250ms ease-out;
+            background-image 250ms ease-out, border-color 250ms ease-out,
+            border-radius 500ms ease-out, border-width 500ms ease-out,
+            bottom 500ms ease-out, font-weight 250ms ease-out,
+            gap 500ms ease-out, height 500ms ease-out, left 500ms ease-out,
+            margin 500ms ease-out, max-height 500ms ease-out,
+            max-width 500ms ease-out, min-height 500ms ease-out,
+            min-width 500ms ease-out, outline-color 250ms ease-out,
+            padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
+            transform 500ms ease-out, width 250ms ease-out;
         --transition-toggle:
             accent-color var(--tr-time-toggle, 1200ms) ease-out,
             background-color var(--tr-time-toggle, 1200ms) ease-out,
@@ -1160,6 +1160,7 @@ html {
             text-shadow var(--tr-time-toggle, 1200ms) ease-out,
             visibility var(--tr-time-toggle, 1200ms) ease-out,
             aspect-ratio var(--tr-time-toggle, 1200ms) ease-out,
+            background-image var(--tr-time-toggle, 1200ms) ease-out,
             border-color var(--tr-time-toggle, 1200ms) ease-out,
             border-radius var(--tr-time-toggle, 1200ms) ease-out,
             border-width var(--tr-time-toggle, 1200ms) ease-out,
@@ -5811,7 +5812,7 @@ a.skip-link[href] {
     position: fixed;
     top: -100%;
     z-index: 99999;
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
+    --focus-ring-outline-offset: var(--border-width-400, 0.25rem);
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;
     --icon-inline-buffer-end: 0 !important;
@@ -6722,6 +6723,8 @@ i em em em em {
     font-style: italic;
 }
 
+/*! END of @maddimathon/design-system-utilities/template/html */
+/*! START of @maddimathon/design-system-utilities/template/html */
 a[href] {
     --focus-ring-outline-offset: var(--stroke-relative-200, 0.125em);
     --icon-inline-buffer: 0.25em !important;
@@ -7016,6 +7019,8 @@ a[href]:has(> svg:only-child)::after {
     content: none !important;
 }
 
+/*! END of @maddimathon/design-system-utilities/template/html */
+/*! START of @maddimathon/design-system-utilities/template/html */
 abbr[title] {
     -webkit-text-decoration: dotted underline max(1px, 0.1875em);
     text-decoration: dotted underline max(1px, 0.1875em);
@@ -7194,7 +7199,8 @@ pre {
     align-self: center;
     justify-self: center;
     width: auto;
-    max-width: 100%;
+    max-width: 84vw;
+    max-width: min(100%, 84vw);
     margin-left: 0;
     margin-right: 0;
     padding-top: 0.5rem;
@@ -9672,7 +9678,7 @@ fieldset
 textarea,
 select,
 input {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
+    --focus-ring-outline-offset: var(--border-width-400, 0.25rem);
     --display: block;
     display: block;
     display: var(--display, block);
@@ -10201,6 +10207,14 @@ input[type="file"] {
     padding-right: var(--pad-firm-300, 0.8125em);
 }
 
+select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}
+
 label {
     --display: block;
     display: block;
@@ -10276,7 +10290,7 @@ label > input[type="radio"] {
     flex-wrap: wrap;
     justify-content: start;
     align-content: start;
-    align-items: start;
+    align-items: center;
     margin-left: 0;
     margin-right: 0;
     padding-left: 0;
@@ -10312,7 +10326,7 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 a[href].button {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
+    --focus-ring-outline-offset: var(--border-width-400, 0.25rem);
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;
     --icon-inline-buffer-end: 0 !important;
@@ -10571,7 +10585,7 @@ a[disabled][href].button {
     input[type="submit"],
     a[href].button
 ) {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
+    --focus-ring-outline-offset: var(--border-width-400, 0.25rem);
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;
     --icon-inline-buffer-end: 0 !important;
@@ -10674,9 +10688,10 @@ a[disabled][href].button {
     display: var(--display, inline-block);
     position: relative;
     height: 1em !important;
-    height: var(--icon-size-pseudo, 1em) !important;
-    height: calc(1em * 1 * 1) !important;
-    height: calc(
+    font-size: 1em !important;
+    font-size: var(--icon-size-pseudo, 1em) !important;
+    font-size: calc(1em * 1 * 1) !important;
+    font-size: calc(
         var(--icon-size-pseudo, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
@@ -10915,9 +10930,10 @@ a[href].button
     display: var(--display, inline-block);
     position: relative;
     height: 1em !important;
-    height: var(--icon-size-pseudo, 1em) !important;
-    height: calc(1em * 1 * 1) !important;
-    height: calc(
+    font-size: 1em !important;
+    font-size: var(--icon-size-pseudo, 1em) !important;
+    font-size: calc(1em * 1 * 1) !important;
+    font-size: calc(
         var(--icon-size-pseudo, 1em) * var(--icon-size-inline--multiplier, 1) *
             var(--icon-size-inline--font-multiplier, 1)
     ) !important;
@@ -12469,7 +12485,7 @@ a[disabled][href].button:focus-visible * {
 }
 
 input::file-selector-button {
-    --focus-ring-outline-offset: var(--stroke-relative-400, 0.1875em);
+    --focus-ring-outline-offset: var(--border-width-400, 0.25rem);
     --icon-inline-buffer: 0.25em !important;
     --icon-inline-buffer-start: 2 !important;
     --icon-inline-buffer-end: 0 !important;
@@ -13641,24 +13657,20 @@ body {
     --display: inline-block;
     display: inline-block;
     display: var(--display, inline-block);
-    height: 1.25em;
-    height: var(--icon-size, 1.25em);
-    height: calc(1.25em * 1);
-    height: calc(
-        var(--icon-size, 1.25em) * var(--icon-size--font-multiplier, 1)
-    );
-    min-width: 1.25em;
-    min-width: var(--icon-size, 1.25em);
-    min-width: calc(1.25em * 1);
-    min-width: calc(
-        var(--icon-size, 1.25em) * var(--icon-size--font-multiplier, 1)
-    );
-    vertical-align: middle;
-    vertical-align: var(--icon-vertical-align, middle);
     position: relative;
+    height: 1em !important;
+    min-width: 1em !important;
+    font-size: 1.25em !important;
+    font-size: var(--icon-size, 1.25em) !important;
+    font-size: calc(1.25em * 1) !important;
+    font-size: calc(
+        var(--icon-size, 1.25em) * var(--icon-size--font-multiplier, 1)
+    ) !important;
     line-height: 1;
     color: hsl(339.5, 0%, 13.5%);
     color: var(--icon-color, var(--theme-ui, CanvasText));
+    vertical-align: middle;
+    vertical-align: var(--icon-vertical-align, middle);
     transition:
         color ease-out 250ms,
         fill ease-out 250ms;

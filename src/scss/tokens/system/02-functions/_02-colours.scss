@@ -231,7 +231,7 @@
 
     $fallback: $fallback_clr;
 
-    $fallback_is_colour: meta.type-of($fallback_clr) == color;
+    $fallback_is_colour: (meta.type-of($fallback_clr) == color) and ($fallback_clr != transparent);
 
     $fallbackOnly: $fallbackOnly and $fallback_is_colour;
 

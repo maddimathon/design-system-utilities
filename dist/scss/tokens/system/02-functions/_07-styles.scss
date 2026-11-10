@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0
+/// @package @maddimathon/design-system-utilities@0.2.0-draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -238,7 +238,7 @@ $_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
     // returns
     @if $slug == focus-ring-outline-color {
         @return if(
-            meta.type-of($value) == color or $value == white or $value == black,
+            meta.type-of($value) == color,
             $value,
             theme.tokens-var-theme($value, $args...)
         );
@@ -378,10 +378,14 @@ $_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
             }
         }
 
-        // stroke-relative
+        // focus offset (stroke or border depending on type)
         // prettier-ignore
         @else if string.index($slug, -focus-offset-) or string.index($slug, -focus-offset) == ($_slugLength - 12) {
-            $isStrokeRelative: true;
+            @if $isButtonStyle or $isInputStyle or $isToggleControlStyle {
+                $isBorderWidth: true;
+            } @else {
+                $isStrokeRelative: true;
+            }
         }
     }
 

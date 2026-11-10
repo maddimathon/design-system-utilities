@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.1.0
+ * @maddimathon/design-system-utilities@0.2.0-draft
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript';
@@ -34,6 +34,7 @@ export class Tokens_CSS_Transition extends AbstractTokens {
                 motion: [
                     ...always,
                     'aspect-ratio',
+                    'background-image',
                     // 'border',
                     'border-color',
                     'border-radius',
@@ -72,6 +73,7 @@ export class Tokens_CSS_Transition extends AbstractTokens {
                     $: 'fast',
                     'accent-color': 'fast',
                     'background-color': 'fast',
+                    'background-image': 'fast',
                     'border-color': 'fast',
                     border: 'fast',
                     color: 'fast',

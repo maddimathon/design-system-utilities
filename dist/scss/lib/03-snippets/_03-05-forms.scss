@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.1.0
+/// @package @maddimathon/design-system-utilities@0.2.0-draft
 /// @since 0.1.0-alpha
 ///
 
@@ -23,51 +23,64 @@
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 ///
-/// @since 0.1.0-beta.0 — Made public.
+/// @since 0.1.0-beta.0
+/// @since 0.2.0-draft — Made public.
 ///
-@mixin _snippet-button-colour-single-state--inner(
+@mixin snippet-button-colour-single-state--inner(
     $stateSlug,
     $variation,
-    $backgroundProp: null
+    //
+    $background: var-theme(button-#{$variation}-background#{$stateSlug}),
+    $border: var-theme(button-#{$variation}-border#{$stateSlug}),
+    $color: var-theme(button-#{$variation}-text#{$stateSlug}),
+    $focusRingColor: var-theme(button-#{$variation}-outline#{$stateSlug}),
+    $ui: var-theme(button-#{$variation}-ui#{$stateSlug}),
+    //
+    $backgroundProp: null,
+    $important: false,
+    $inheritColor: true,
+    $inheritIconColor: true
 ) {
-    $border: var-theme(button-#{$variation}-border#{$stateSlug});
-    $ui: var-theme(button-#{$variation}-ui#{$stateSlug});
+    $importantSuffix: if($important, ' !important', '');
 
     @include cx-prop(
         focus-ring-outline-color,
-        var-theme(button-#{$variation}-outline#{$stateSlug})
+        $focusRingColor,
+        $important: $important
     );
     @include cx-prop(icon-color, $ui, $important: true);
     @include cx-prop(theme-link-icon, $ui, $important: true);
 
-    accent-color: $border;
+    accent-color: $border #{$importantSuffix};
 
     @if $backgroundProp and $backgroundProp != background-color {
         @include prop-background(
-            var-theme(button-#{$variation}-background#{$stateSlug}),
+            $background,
             $important: true,
             $setProp: false
         );
 
-        #{$backgroundProp}: var-prop-background(
-            var-theme(button-#{$variation}-background#{$stateSlug})
-        );
+        #{$backgroundProp}: var-prop-background($background)
+            #{$importantSuffix};
     } @else {
         @include prop-background(
-            var-theme(button-#{$variation}-background#{$stateSlug}),
-            $important: true
+            $background,
+            $important: true,
+            $important_prop: $important
         );
     }
 
-    border-color: $border;
-    color: var-theme(button-#{$variation}-text#{$stateSlug});
+    border-color: $border #{$importantSuffix};
+    color: $color #{$importantSuffix};
 
     @content;
 
     * {
-        @include cx-prop(icon-color, $ui, $important: true);
+        @if $inheritIconColor {
+            @include cx-prop(icon-color, $ui, $important: true);
+        }
 
-        @if $stateSlug == '' {
+        @if $inheritColor and $stateSlug == '' {
             color: inherit !important;
         }
     }
@@ -92,7 +105,7 @@
 
     @if $stateSlug == '' and $includeVisited {
         @include visited($appendToSelector: true) {
-            @include _snippet-button-colour-single-state--inner(
+            @include snippet-button-colour-single-state--inner(
                 $stateSlug: $stateSlug,
                 $variation: $variation,
                 $args...
@@ -101,7 +114,7 @@
             }
         }
     } @else {
-        @include _snippet-button-colour-single-state--inner(
+        @include snippet-button-colour-single-state--inner(
             $stateSlug: $stateSlug,
             $variation: $variation,
             $args...
@@ -2564,7 +2577,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         start
     );
     align-content: meta.defined-else(map.get($alignment, align-content), start);
-    align-items: meta.defined-else(map.get($alignment, align-items), start);
+    align-items: meta.defined-else(map.get($alignment, align-items), center);
 
     margin-inline: 0;
     padding-inline: 0;
@@ -2820,6 +2833,7 @@ $_mixin_label: meta.get-mixin('snippet-label');
 
 ///
 /// @since 0.1.0-beta.0
+/// @since 0.2.0-draft — Added content blocks with location param.
 ///
 @mixin snippet-support-form-inputs(
     $mixin_input: null,
@@ -2848,23 +2862,51 @@ $_mixin_label: meta.get-mixin('snippet-label');
     );
 
     %_input-base {
-        @include meta.apply($mixin_input);
+        @include meta.apply($mixin_input) using ($location) {
+            @if $location == root {
+                @content (input-base);
+            } @else {
+                @content (input-base--#{$location});
+            }
+        }
     }
 
     %input {
         @extend %_input-base;
-        @include meta.apply($mixin_inputTypes, $includeBase: false);
+        @include meta.apply($mixin_inputTypes, $includeBase: false) using
+            ($location) {
+            @if $location == root {
+                @content (input);
+            } @else {
+                @content (input--#{$location});
+            }
+        }
     }
 
     %select {
         @extend %_input-base;
+
+        cursor: pointer;
+
+        @content (select);
     }
 
     %textarea {
         @extend %_input-base;
+
+        cursor: text;
+
+        @content (textarea);
     }
 
     %label {
-        @include meta.apply($mixin_label);
+        @include meta.apply($mixin_label, $multipleContentBlocks: true) using
+            ($location) {
+            @if $location == root {
+                @content (label);
+            } @else {
+                @content (label--#{$location});
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes
- * @maddimathon/design-system-utilities/template@0.1.0
+ * @maddimathon/design-system-utilities/template@0.2.0-draft
  * 
  * This is a sample stylesheet with a custom property prefix set in the config
  * (i.e. — $customPropertyPrefix: "prefix-").
@@ -997,15 +997,15 @@
             font-weight 250ms ease-out, opacity 250ms ease-out,
             text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
             visibility 250ms ease-out, aspect-ratio 500ms ease-out,
-            border-color 250ms ease-out, border-radius 500ms ease-out,
-            border-width 500ms ease-out, bottom 500ms ease-out,
-            font-weight 250ms ease-out, gap 500ms ease-out,
-            height 500ms ease-out, left 500ms ease-out, margin 500ms ease-out,
-            max-height 500ms ease-out, max-width 500ms ease-out,
-            min-height 500ms ease-out, min-width 500ms ease-out,
-            outline-color 250ms ease-out, padding 500ms ease-out,
-            right 500ms ease-out, top 500ms ease-out, transform 500ms ease-out,
-            width 250ms ease-out;
+            background-image 250ms ease-out, border-color 250ms ease-out,
+            border-radius 500ms ease-out, border-width 500ms ease-out,
+            bottom 500ms ease-out, font-weight 250ms ease-out,
+            gap 500ms ease-out, height 500ms ease-out, left 500ms ease-out,
+            margin 500ms ease-out, max-height 500ms ease-out,
+            max-width 500ms ease-out, min-height 500ms ease-out,
+            min-width 500ms ease-out, outline-color 250ms ease-out,
+            padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
+            transform 500ms ease-out, width 250ms ease-out;
         --prefix-transition-toggle:
             accent-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
             background-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
@@ -1017,6 +1017,7 @@
             text-shadow var(--prefix-tr-time-toggle, 1200ms) ease-out,
             visibility var(--prefix-tr-time-toggle, 1200ms) ease-out,
             aspect-ratio var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            background-image var(--prefix-tr-time-toggle, 1200ms) ease-out,
             border-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
             border-radius var(--prefix-tr-time-toggle, 1200ms) ease-out,
             border-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
@@ -7530,10 +7531,7 @@ a.skip-link[href] {
     position: fixed;
     top: -100%;
     z-index: 99999;
-    --prefix-focus-ring-outline-offset: var(
-        --prefix-stroke-relative-400,
-        0.1875em
-    );
+    --prefix-focus-ring-outline-offset: var(--prefix-border-width-400, 0.25rem);
     --prefix-icon-inline-buffer: 0.25em !important;
     --prefix-icon-inline-buffer-start: 2 !important;
     --prefix-icon-inline-buffer-end: 0 !important;
@@ -8414,6 +8412,8 @@ i em em em em {
     font-style: italic;
 }
 
+/*! END of @maddimathon/design-system-utilities/template */
+/*! START of @maddimathon/design-system-utilities/template */
 a[href] {
     --prefix-focus-ring-outline-offset: var(
         --prefix-stroke-relative-200,
@@ -8729,6 +8729,8 @@ a[href]:has(> svg:only-child)::after {
     content: none !important;
 }
 
+/*! END of @maddimathon/design-system-utilities/template */
+/*! START of @maddimathon/design-system-utilities/template */
 abbr[title] {
     text-decoration: dotted underline
         var(--prefix-stroke-relative-400, 0.1875em);
@@ -8888,7 +8890,8 @@ pre {
     align-self: center;
     justify-self: center;
     width: auto;
-    max-width: 100%;
+    max-width: 84vw;
+    max-width: min(100%, 84vw);
     margin-inline: 0;
     padding-block: var(--prefix-mrg-soft-300, 0.5rem);
     padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
@@ -11145,10 +11148,7 @@ fieldset
 textarea,
 select,
 input {
-    --prefix-focus-ring-outline-offset: var(
-        --prefix-stroke-relative-400,
-        0.1875em
-    );
+    --prefix-focus-ring-outline-offset: var(--prefix-border-width-400, 0.25rem);
     --prefix-display: block;
     display: var(--prefix-display, block);
     margin-inline: 0;
@@ -11636,6 +11636,14 @@ input[type="file"] {
     padding-inline: var(--prefix-pad-firm-300, 0.8125em);
 }
 
+select {
+    cursor: pointer;
+}
+
+textarea {
+    cursor: text;
+}
+
 label {
     --prefix-display: block;
     display: var(--prefix-display, block);
@@ -11705,7 +11713,7 @@ label > input[type="radio"] {
     flex-wrap: wrap;
     justify-content: start;
     align-content: start;
-    align-items: start;
+    align-items: center;
     margin-inline: 0;
     padding-inline: 0;
     list-style: none;
@@ -11736,10 +11744,7 @@ input[type="button"],
 input[type="reset"],
 input[type="submit"],
 a[href].button {
-    --prefix-focus-ring-outline-offset: var(
-        --prefix-stroke-relative-400,
-        0.1875em
-    );
+    --prefix-focus-ring-outline-offset: var(--prefix-border-width-400, 0.25rem);
     --prefix-icon-inline-buffer: 0.25em !important;
     --prefix-icon-inline-buffer-start: 2 !important;
     --prefix-icon-inline-buffer-end: 0 !important;
@@ -11954,10 +11959,7 @@ a[disabled][href].button {
     input[type="submit"],
     a[href].button
 ) {
-    --prefix-focus-ring-outline-offset: var(
-        --prefix-stroke-relative-400,
-        0.1875em
-    );
+    --prefix-focus-ring-outline-offset: var(--prefix-border-width-400, 0.25rem);
     --prefix-icon-inline-buffer: 0.25em !important;
     --prefix-icon-inline-buffer-start: 2 !important;
     --prefix-icon-inline-buffer-end: 0 !important;
@@ -12039,8 +12041,9 @@ a[disabled][href].button {
     --prefix-display: inline-block;
     display: var(--prefix-display, inline-block);
     position: relative;
-    height: var(--prefix-icon-size-pseudo, 1em) !important;
-    height: calc(
+    height: 1em !important;
+    font-size: var(--prefix-icon-size-pseudo, 1em) !important;
+    font-size: calc(
         var(--prefix-icon-size-pseudo, 1em) *
             var(--prefix-icon-size-inline--multiplier, 1) *
             var(--prefix-icon-size-inline--font-multiplier, 1)
@@ -12268,8 +12271,9 @@ a[href].button
     --prefix-display: inline-block;
     display: var(--prefix-display, inline-block);
     position: relative;
-    height: var(--prefix-icon-size-pseudo, 1em) !important;
-    height: calc(
+    height: 1em !important;
+    font-size: var(--prefix-icon-size-pseudo, 1em) !important;
+    font-size: calc(
         var(--prefix-icon-size-pseudo, 1em) *
             var(--prefix-icon-size-inline--multiplier, 1) *
             var(--prefix-icon-size-inline--font-multiplier, 1)
@@ -13919,10 +13923,7 @@ a[disabled][href].button:focus-visible * {
 }
 
 input::file-selector-button {
-    --prefix-focus-ring-outline-offset: var(
-        --prefix-stroke-relative-400,
-        0.1875em
-    );
+    --prefix-focus-ring-outline-offset: var(--prefix-border-width-400, 0.25rem);
     --prefix-icon-inline-buffer: 0.25em !important;
     --prefix-icon-inline-buffer-start: 2 !important;
     --prefix-icon-inline-buffer-end: 0 !important;
@@ -15059,20 +15060,17 @@ body {
 .icon {
     --prefix-display: inline-block;
     display: var(--prefix-display, inline-block);
-    height: var(--prefix-icon-size, 1.25em);
-    height: calc(
-        var(--prefix-icon-size, 1.25em) *
-            var(--prefix-icon-size--font-multiplier, 1)
-    );
-    min-width: var(--prefix-icon-size, 1.25em);
-    min-width: calc(
-        var(--prefix-icon-size, 1.25em) *
-            var(--prefix-icon-size--font-multiplier, 1)
-    );
-    vertical-align: var(--prefix-icon-vertical-align, middle);
     position: relative;
+    height: 1em !important;
+    min-width: 1em !important;
+    font-size: var(--prefix-icon-size, 1.25em) !important;
+    font-size: calc(
+        var(--prefix-icon-size, 1.25em) *
+            var(--prefix-icon-size--font-multiplier, 1)
+    ) !important;
     line-height: 1;
     color: var(--prefix-icon-color, var(--prefix-theme-ui, CanvasText));
+    vertical-align: var(--prefix-icon-vertical-align, middle);
     transition:
         color ease-out 250ms,
         fill ease-out 250ms;

@@ -211,11 +211,7 @@ $_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
 
     // returns
     @if $slug == focus-ring-outline-color {
-        @return if(
-            meta.type-of($value) == color or $value == white or $value == black,
-            $value,
-            theme.tokens-var-theme($value, $args...)
-        );
+        @return if(meta.type-of($value) == color, $value, theme.tokens-var-theme($value, $args...));
     }
 
     // returns
@@ -346,10 +342,14 @@ $_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
             }
         }
 
-        // stroke-relative
+        // focus offset (stroke or border depending on type)
         // prettier-ignore
         @else if string.index($slug, -focus-offset-) or string.index($slug, -focus-offset) == ($_slugLength - 12) {
-            $isStrokeRelative: true;
+            @if $isButtonStyle or $isInputStyle or $isToggleControlStyle {
+                $isBorderWidth: true;
+            } @else {
+                $isStrokeRelative: true;
+            }
         }
     }
 

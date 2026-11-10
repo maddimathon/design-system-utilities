@@ -681,7 +681,7 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
 
     $parsedParentSelector: selector.except($parsedParentSelector, config.$selector_null);
 
-    // less than one selector should display nothing
+    // no parent selector should display nothing
     @if not selector.exists($parsedParentSelector) {
         #{config.$selector_null} {
             @content (root-body-or-direct-child);
@@ -709,26 +709,27 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
         // all children of root/body --- but if root and body are not present at
         // all, then we also treat them as simple children of root/body
         @if $noWhereRootOrBody or
-            (
-                not
-                    selector.has-any-root-or-body(
-                        $parsedParentSelector,
-                        $root_aliases: $_rootAliasesWithAllModeOptions
-                    )
-            ) or
-            (
-                selector.has-body(
-                        $parsedParentSelector,
-                        $aliases: $_rootAliasesWithAllModeOptions
-                    ) and
-                    (
-                        not
-                            selector.is-any-root-or-body(
-                                $parsedParentSelector,
-                                $root_aliases: $_rootAliasesWithAllModeOptions
-                            )
-                    )
-            )
+            (not selector.exists($parsedParentSelector))
+            // or (
+            //     not
+            //         selector.has-any-root-or-body(
+            //             $parsedParentSelector,
+            //             $root_aliases: $_rootAliasesWithAllModeOptions
+            //         )
+            // )
+            // or (
+            //     selector.has-body(
+            //             $parsedParentSelector,
+            //             $aliases: $_rootAliasesWithAllModeOptions
+            //         ) and
+            //         (
+            //             not
+            //                 selector.is-any-root-or-body(
+            //                     $parsedParentSelector,
+            //                     $root_aliases: $_rootAliasesWithAllModeOptions
+            //                 )
+            //         )
+             // )
         {
             // doing nothing
         } @else if selector.exists($parsedParentSelector) {
@@ -742,7 +743,8 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
                 $aliases: $_rootAliasesWithAllModeOptions
             );
 
-            $_hasRoot: selector.has-root(
+            $_hasRoot: selector.has-root($parsedParentSelector);
+            $_hasAnyRoot: selector.has-root(
                 $parsedParentSelector,
                 $aliases: $_rootAliasesWithAllModeOptions
             );
@@ -754,7 +756,7 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
 
             // if the selectors are body selectors or all contain root selectors
             // (but aren't root selectors), then :where(%root) would never apply
-            @if (not $_isBody) and ((not $_hasRoot) or $_isAnyRoot) {
+            @if (not $_isBody) and ((not $_hasAnyRoot) or ($_isAnyRoot and not $_hasRoot)) {
                 $_whereSels: list.append($_whereSels, '%root', $separator: comma);
             }
 
@@ -771,7 +773,7 @@ $_activeTheme_allThemeSimpleSelectors: active-theme-simple-selectors-all(
                     ($parsedParentSelector)
                 )
             {
-                @if list.length($__selector) > 1 or selector.is-root-or-body($__selector) {
+                @if selector.is-root-or-body($__selector) {
                     $_existingChildSels: list.append(
                         $_existingChildSels,
                         #{$__selector},
