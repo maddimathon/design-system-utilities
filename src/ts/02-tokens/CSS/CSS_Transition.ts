@@ -154,12 +154,19 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
 
         const _defaults = Tokens_CSS_Transition.default;
 
-        this.data = mergeArgs(
-            Tokens_CSS_Transition.default,
-            {
-                ...input,
+        this.data = {
 
-                time: {
+            properties: {
+                ..._defaults.properties,
+                ...input.properties,
+
+                always: ( input.properties?.always ?? _defaults.properties.always ).sort(),
+                motion: ( input.properties?.motion ?? _defaults.properties.motion ).sort(),
+            },
+
+            time: mergeArgs(
+                _defaults.time,
+                {
                     ...input.time,
 
                     toggle: typeof input.time?.toggle === 'object'
@@ -171,10 +178,10 @@ export class Tokens_CSS_Transition extends AbstractTokens<{
                             $: input.time?.normal ?? _defaults.time.toggle.$,
                             motion: input.time?.toggle ?? _defaults.time.toggle.motion,
                         } satisfies Tokens_CSS_Transition.Data[ 'time' ][ 'toggle' ],
-                }
-            },
-            true,
-        );
+                },
+                true,
+            ),
+        };
     }
 
     public toJSON(): Tokens_CSS_Transition.JsonReturn {

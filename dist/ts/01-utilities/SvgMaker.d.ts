@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0-draft
+ * @maddimathon/design-system-utilities@0.2.0
  * @license MIT
  */
 import type { Classify } from '@maddimathon/utility-typescript/types';

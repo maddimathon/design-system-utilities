@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0-draft
+ * @maddimathon/design-system-utilities@0.2.0
  * @license MIT
  */
 import NodePath from 'node:path';
@@ -113,7 +113,7 @@ export function makeFileBasedURL(config_base, config_build, currentURL, targetSu
  * @since 0.1.0-alpha
  * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
  *
- * @deprecated 0.2.0-draft — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
+ * @deprecated 0.2.0 — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
  */
 export function makeRelativeURL(config_base, config_build, currentURL, targetSubpath, opts = {}) {
     return makeFileBasedURL(config_base, config_build, currentURL, targetSubpath, {

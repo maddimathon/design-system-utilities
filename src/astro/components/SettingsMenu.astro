@@ -25,14 +25,15 @@ type Props = SettingsMenuProps & {
     tokens?: Tokens.JsonReturn;
 };
 
-const { tokens = SampleTokens_Json, ...props }: Props = Astro.props;
+const {
+    tokens = SampleTokens_Json,
+    iconSVG = '<span class="icon icon--settings | settings-menu-icon toggle-block__control__icon website-settings__control__icon">' +
+        tokens.icons.settings.svgInlineHidden.trim() +
+        '</span>',
+    ...props
+}: Props = Astro.props;
 
 /* CONSTANTS ===================================== */
-
-const iconSVG =
-    '<span class="icon icon--settings | settings-menu-icon">' +
-    tokens.icons.settings.svgInlineLabelled.trim() +
-    '</span>';
 ---
 
 <UtilsSettingsMenu

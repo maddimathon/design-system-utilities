@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0-draft
+ * @maddimathon/design-system-utilities@0.2.0
  * @license MIT
  */
 import { mergeArgs } from '@maddimathon/utility-typescript';
@@ -131,9 +131,14 @@ export class Tokens_CSS_Transition extends AbstractTokens {
     constructor(input) {
         super();
         const _defaults = Tokens_CSS_Transition.default;
-        this.data = mergeArgs(Tokens_CSS_Transition.default, {
-            ...input,
-            time: {
+        this.data = {
+            properties: {
+                ..._defaults.properties,
+                ...input.properties,
+                always: (input.properties?.always ?? _defaults.properties.always).sort(),
+                motion: (input.properties?.motion ?? _defaults.properties.motion).sort(),
+            },
+            time: mergeArgs(_defaults.time, {
                 ...input.time,
                 toggle: typeof input.time?.toggle === 'object'
                     ? {
@@ -144,8 +149,8 @@ export class Tokens_CSS_Transition extends AbstractTokens {
                         $: input.time?.normal ?? _defaults.time.toggle.$,
                         motion: input.time?.toggle ?? _defaults.time.toggle.motion,
                     },
-            }
-        }, true);
+            }, true),
+        };
     }
     toJSON() {
         return this.data;

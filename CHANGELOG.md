@@ -19,6 +19,34 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.2.0** — 2026-11-11
+
+### Removed
+- 
+
+### Moved & Renamed
+- 
+
+### Misc. Breaking
+- Updated to utility-astro@0.2.0
+
+### Added
+- New local mixin (overriding utility-astro):
+    - snippet-icon-block
+
+### Changed
+- Made mixin public
+    - snippet-button-base--icon-child
+    - snippet-button-base--children
+    - snippet-button-colour-single-state--inner
+
+### Deprecated
+- Function: makeRelativeURL (replaced by makeFileBasedURL with `{ relative: true }`)
+
+### Fixed
+-
+
+
 ## **0.1.0** — 2026-11-07
 
 Updated with dependencies and upgraded to release.

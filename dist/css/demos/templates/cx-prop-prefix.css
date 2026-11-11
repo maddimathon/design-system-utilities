@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0
+ * @maddimathon/utility-sass@0.2.0
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes
- * @maddimathon/design-system-utilities/template@0.2.0-draft
+ * @maddimathon/design-system-utilities/template@0.2.0
  * 
  * This is a sample stylesheet with a custom property prefix set in the config
  * (i.e. — $customPropertyPrefix: "prefix-").
@@ -992,36 +992,33 @@
     :root {
         --prefix-tr-time-toggle: 1200ms;
         --prefix-transition:
-            accent-color 250ms ease-out, background-color 250ms ease-out,
-            border-color 250ms ease-out, color 250ms ease-out,
-            font-weight 250ms ease-out, opacity 250ms ease-out,
-            text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
-            visibility 250ms ease-out, aspect-ratio 500ms ease-out,
-            background-image 250ms ease-out, border-color 250ms ease-out,
+            accent-color 250ms ease-out, aspect-ratio 500ms ease-out,
+            background-color 250ms ease-out, background-image 250ms ease-out,
+            border-color 250ms ease-out, border-color 250ms ease-out,
             border-radius 500ms ease-out, border-width 500ms ease-out,
-            bottom 500ms ease-out, font-weight 250ms ease-out,
+            bottom 500ms ease-out, color 250ms ease-out,
+            font-weight 250ms ease-out, font-weight 250ms ease-out,
             gap 500ms ease-out, height 500ms ease-out, left 500ms ease-out,
             margin 500ms ease-out, max-height 500ms ease-out,
             max-width 500ms ease-out, min-height 500ms ease-out,
-            min-width 500ms ease-out, outline-color 250ms ease-out,
-            padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
-            transform 500ms ease-out, width 250ms ease-out;
+            min-width 500ms ease-out, opacity 250ms ease-out,
+            outline-color 250ms ease-out, padding 500ms ease-out,
+            right 500ms ease-out, text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out, top 500ms ease-out,
+            transform 500ms ease-out, visibility 250ms ease-out,
+            width 250ms ease-out;
         --prefix-transition-toggle:
             accent-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            background-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            border-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            color var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            font-weight var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            opacity var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            text-decoration-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            text-shadow var(--prefix-tr-time-toggle, 1200ms) ease-out,
-            visibility var(--prefix-tr-time-toggle, 1200ms) ease-out,
             aspect-ratio var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            background-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
             background-image var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            border-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
             border-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
             border-radius var(--prefix-tr-time-toggle, 1200ms) ease-out,
             border-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
             bottom var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            font-weight var(--prefix-tr-time-toggle, 1200ms) ease-out,
             font-weight var(--prefix-tr-time-toggle, 1200ms) ease-out,
             gap var(--prefix-tr-time-toggle, 1200ms) ease-out,
             height var(--prefix-tr-time-toggle, 1200ms) ease-out,
@@ -1031,11 +1028,15 @@
             max-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
             min-height var(--prefix-tr-time-toggle, 1200ms) ease-out,
             min-width var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            opacity var(--prefix-tr-time-toggle, 1200ms) ease-out,
             outline-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
             padding var(--prefix-tr-time-toggle, 1200ms) ease-out,
             right var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            text-decoration-color var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            text-shadow var(--prefix-tr-time-toggle, 1200ms) ease-out,
             top var(--prefix-tr-time-toggle, 1200ms) ease-out,
             transform var(--prefix-tr-time-toggle, 1200ms) ease-out,
+            visibility var(--prefix-tr-time-toggle, 1200ms) ease-out,
             width var(--prefix-tr-time-toggle, 1200ms) ease-out;
     }
 }
@@ -11192,7 +11193,7 @@ input::placeholder {
     color: var(--prefix-theme-input-placeholder, FieldText);
     letter-spacing: var(--prefix-font-override-letter-spacing-italic, inherit);
     font-style: italic;
-    opacity: var(--prefix-input-placeholder-opacity, 1);
+    opacity: 1;
 }
 textarea:hover,
 select:hover,
@@ -12032,11 +12033,6 @@ a[disabled][href].button {
     :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
-    --prefix-icon-size: 1em;
-    --prefix-icon-size: calc(
-        1em * var(--prefix-icon-size-inline--multiplier, 1) *
-            var(--prefix-icon-size-inline--font-multiplier, 1)
-    );
     --prefix-icon-inline-margin-block-start: 0;
     --prefix-display: inline-block;
     display: var(--prefix-display, inline-block);
@@ -12054,6 +12050,7 @@ a[disabled][href].button {
     color: var(--prefix-icon-color, var(--prefix-theme-ui, CanvasText));
     bottom: 0.0625em;
 }
+
 .display-inline:is(
         a[href].button-primary,
         a[href].button-secondary,
@@ -12103,10 +12100,12 @@ a[disabled][href].button {
         input[type="submit"],
         a[href].button
     )
-    :is(.icon):not(.toggle-block__control__icon):only-child {
+    > :only-child:is(.icon):not(.toggle-block__control__icon) {
     --prefix-icon-inline-margin-block-start: 0;
     --prefix-icon-inline-buffer-start: 0;
     --prefix-icon-inline-buffer-end: 0;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     margin: 0;
     letter-spacing: normal !important;
 }
@@ -12262,11 +12261,6 @@ a[href].button
     .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
-    --prefix-icon-size: 1em;
-    --prefix-icon-size: calc(
-        1em * var(--prefix-icon-size-inline--multiplier, 1) *
-            var(--prefix-icon-size-inline--font-multiplier, 1)
-    );
     --prefix-icon-inline-margin-block-start: 0;
     --prefix-display: inline-block;
     display: var(--prefix-display, inline-block);
@@ -12284,6 +12278,7 @@ a[href].button
     color: var(--prefix-icon-color, var(--prefix-theme-ui, CanvasText));
     bottom: 0.0625em;
 }
+
 a[href].button-primary .icon:not(.toggle-block__control__icon):first-child,
 a[href].button-secondary .icon:not(.toggle-block__control__icon):first-child,
 a[href].button-grey .icon:not(.toggle-block__control__icon):first-child,
@@ -12316,18 +12311,20 @@ a[href].button .icon:not(.toggle-block__control__icon):last-child {
     );
     margin-inline-end: 0;
 }
-a[href].button-primary .icon:not(.toggle-block__control__icon):only-child,
-a[href].button-secondary .icon:not(.toggle-block__control__icon):only-child,
-a[href].button-grey .icon:not(.toggle-block__control__icon):only-child,
-button .icon:not(.toggle-block__control__icon):only-child,
-[role="button"] .icon:not(.toggle-block__control__icon):only-child,
-input[type="button"] .icon:not(.toggle-block__control__icon):only-child,
-input[type="reset"] .icon:not(.toggle-block__control__icon):only-child,
-input[type="submit"] .icon:not(.toggle-block__control__icon):only-child,
-a[href].button .icon:not(.toggle-block__control__icon):only-child {
+a[href].button-primary > .icon:only-child:not(.toggle-block__control__icon),
+a[href].button-secondary > .icon:only-child:not(.toggle-block__control__icon),
+a[href].button-grey > .icon:only-child:not(.toggle-block__control__icon),
+button > .icon:only-child:not(.toggle-block__control__icon),
+[role="button"] > .icon:only-child:not(.toggle-block__control__icon),
+input[type="button"] > .icon:only-child:not(.toggle-block__control__icon),
+input[type="reset"] > .icon:only-child:not(.toggle-block__control__icon),
+input[type="submit"] > .icon:only-child:not(.toggle-block__control__icon),
+a[href].button > .icon:only-child:not(.toggle-block__control__icon) {
     --prefix-icon-inline-margin-block-start: 0;
     --prefix-icon-inline-buffer-start: 0;
     --prefix-icon-inline-buffer-end: 0;
+    --prefix-display: block;
+    display: var(--prefix-display, block);
     margin: 0;
     letter-spacing: normal !important;
 }
@@ -14830,63 +14827,63 @@ body {
 /* # UTILITIES - TYPOGRAPHY
  * ======================================================================== */
 .font-size-heading-1 {
-    font-size: var(--prefix-fs-heading-1, 2.9375rem);
+    font-size: var(--prefix-fs-heading-1, 2.9375rem) !important;
 }
 
 .font-size-heading-2 {
-    font-size: var(--prefix-fs-heading-2, 2.1875rem);
+    font-size: var(--prefix-fs-heading-2, 2.1875rem) !important;
 }
 
 .font-size-heading-3 {
-    font-size: var(--prefix-fs-heading-3, 1.875rem);
+    font-size: var(--prefix-fs-heading-3, 1.875rem) !important;
 }
 
 .font-size-heading-4 {
-    font-size: var(--prefix-fs-heading-4, 1.625rem);
+    font-size: var(--prefix-fs-heading-4, 1.625rem) !important;
 }
 
 .font-size-heading-5 {
-    font-size: var(--prefix-fs-heading-5, 1.4375rem);
+    font-size: var(--prefix-fs-heading-5, 1.4375rem) !important;
 }
 
 .font-size-heading-6 {
-    font-size: var(--prefix-fs-heading-6, 1.25rem);
+    font-size: var(--prefix-fs-heading-6, 1.25rem) !important;
 }
 
 .font-size-heading-7 {
-    font-size: var(--prefix-fs-heading-7, 1rem);
+    font-size: var(--prefix-fs-heading-7, 1rem) !important;
 }
 
 .font-size-heading-8 {
-    font-size: var(--prefix-fs-heading-8, 0.9375rem);
+    font-size: var(--prefix-fs-heading-8, 0.9375rem) !important;
 }
 
 .font-size-heading-9 {
-    font-size: var(--prefix-fs-heading-9, 0.875rem);
+    font-size: var(--prefix-fs-heading-9, 0.875rem) !important;
 }
 
 .font-size-heading-10 {
-    font-size: var(--prefix-fs-heading-10, 0.8125rem);
+    font-size: var(--prefix-fs-heading-10, 0.8125rem) !important;
 }
 
 .font-size-normal {
-    font-size: var(--prefix-fs-normal, 1.0625rem);
+    font-size: var(--prefix-fs-normal, 1.0625rem) !important;
 }
 
 .font-size-smaller-3 {
-    font-size: var(--prefix-fs-smaller-3, 0.8125rem);
+    font-size: var(--prefix-fs-smaller-3, 0.8125rem) !important;
 }
 
 .font-size-smaller-2 {
-    font-size: var(--prefix-fs-smaller-2, 0.875rem);
+    font-size: var(--prefix-fs-smaller-2, 0.875rem) !important;
 }
 
 .font-size-smaller-1 {
-    font-size: var(--prefix-fs-smaller-1, 0.9375rem);
+    font-size: var(--prefix-fs-smaller-1, 0.9375rem) !important;
 }
 
 .font-size-unstyled-heading {
-    font-size: var(--prefix-fs-normal, 1.0625rem);
+    font-size: var(--prefix-fs-normal, 1.0625rem) !important;
 }
 
 .text-transform-lowercase {

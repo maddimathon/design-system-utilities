@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0-draft
+ * @maddimathon/design-system-utilities@0.2.0
  * @license MIT
  */
 /**
@@ -35,7 +35,7 @@ export declare function makeFileBasedURL(config_base: string, config_build: {
  * @since 0.1.0-alpha
  * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
  *
- * @deprecated 0.2.0-draft — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
+ * @deprecated 0.2.0 — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
  */
 export declare function makeRelativeURL(config_base: string, config_build: {
     format: "preserve" | "file" | "directory";

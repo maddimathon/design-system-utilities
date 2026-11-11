@@ -288,14 +288,16 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                             <li>
                                 <Button
                                     class={`add-${icon.slug}-icon-before` + ( largeIconPreviews ? ' font-size-heading-5' : '' )}
+                                    set:text={`${icon.label} Before`}
                                     type="button"
-                                >{`${icon.label} Before`}</Button>
+                                />
                             </li>
                             <li>
                                 <Button
                                     class={`add-${icon.slug}-icon-after` + ( largeIconPreviews ? ' font-size-heading-5' : '' )}
-                                    type="button"
-                                >{`${icon.label} After`}</Button>
+                                    href="#"
+                                    set:text={`${icon.label} After`}
+                                />
                             </li>
                         </ul>
                     </li>
@@ -331,13 +333,13 @@ const logoIcons = _logoIcons.sort(labelSlugSorter);
                                 <Button
                                     class={ largeIconPreviews ? 'font-size-heading-5' : undefined }
                                     type="button"
-                                ><Icon icon={icon} />{''}<span set:text={`${icon.label} Before`} /></Button>
+                                ><Icon icon={icon} /><span set:text={`${icon.label} Before`} /></Button>
                             </li>
                             <li>
                                 <Button
                                     class={ largeIconPreviews ? 'font-size-heading-5' : undefined }
                                     type="button"
-                                ><span set:text={`${icon.label} After`} />{''}<Icon icon={icon} /></Button>
+                                ><span set:text={`${icon.label} After`} /><Icon icon={icon} /></Button>
                             </li>
                         </ul>
                     </li>

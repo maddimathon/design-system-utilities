@@ -249,6 +249,31 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
 ) {
     $clrIsSystemColor: false;
 
+    $_debug_vars: ();
+
+    @if $debug {
+        $_debug_vars: map.set(
+            $_debug_vars,
+            inputs,
+            (
+                '$slug': $slug,
+                '$brightness': $brightness,
+                '$contrast': $contrast,
+                '$themeSlug': $themeSlug,
+                '$version': $version,
+                '$opacity': $opacity,
+                '$allPrefixes': $allPrefixes,
+                '$fallbackOnly': $fallbackOnly,
+                '$fallbackSlug': $fallbackSlug,
+                '$returnAsList': $returnAsList,
+                '$returnAsVar': $returnAsVar,
+                '$useSystemColorFallback': $useSystemColorFallback,
+                '$warnOnFalse': $warnOnFalse,
+                '$args': $args,
+            )
+        );
+    }
+
     // $fallbackOnly: $fallbackOnly or not $returnAsVar;
     $args: map.merge(
         meta.keywords($args),
@@ -334,16 +359,6 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
         $themeVarSlug: #{$themeVarSlug}-#{$version};
     }
 
-    $_debug_vars: (
-        '$clrSlug': $clrSlug,
-        '$returnAsVar': $returnAsVar,
-        '$fallbackOnly': $fallbackOnly,
-        'string.match(\#{$clrSlug}, "(^|[\\s,])var\\(")': string.match(
-                #{$clrSlug},
-                '(^|[\\s,])var\\('
-            ),
-    );
-
     $modernOpacitySyntax: (
             (config.$colour_channelLists_separator == space) and
                 (
@@ -360,6 +375,27 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                 and ((not $fallbackOnly) and (not config.$fn_var_replaceWithValue_colour))
         );
 
+    @if $debug {
+        $_debug_vars: map.set(
+            $_debug_vars,
+            checkpoint-1,
+            (
+                '$opacity': $opacity,
+                '$version': $version,
+                '$themeVarSlug': $themeVarSlug,
+                '$clrSlug': $clrSlug,
+                '$returnAsVar': $returnAsVar,
+                '$fallbackOnly': $fallbackOnly,
+                'string.match(\#{$clrSlug}, "(^|[\\s,])var\\(")': string.match(
+                        #{$clrSlug},
+                        '(^|[\\s,])var\\('
+                    ),
+                '$modernOpacitySyntax': $modernOpacitySyntax,
+                '$args': $args,
+            )
+        );
+    }
+
     // returns
     @if not $clrSlug {
         // returns - usingfallback
@@ -372,6 +408,7 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                 $useSystemColorFallback: $useSystemColorFallback,
                 $version: $version,
                 $opacity: $opacity,
+                $debug: $debug,
                 $returnAsList: $returnAsList,
                 $returnAsVar: $returnAsVar,
                 $warnOnFalse: $warnOnFalse,
@@ -385,6 +422,24 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
             $_var: string.join(' ', string.regex-split($_var, $_opacity_split_regex));
         } @else {
             $_var: string.join(', ', string.regex-split($_var, $_opacity_split_regex));
+        }
+
+        @if $debug {
+            $_debug_vars: map.set(
+                $_debug_vars,
+                'RETURN',
+                if(
+                    $opacity,
+                    if(
+                        $modernOpacitySyntax,
+                        string.unquote('#{$version}a(#{$_var} / #{$opacity})'),
+                        string.unquote('#{$version}a(#{$_var}, #{$opacity})')
+                    ),
+                    $_var
+                )
+            );
+
+            $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
         }
 
         @return if(
@@ -410,8 +465,39 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
 
     // returns
     @if $contrast == forced-colors {
+        @if $debug {
+            $_debug_vars: map.set(
+                $_debug_vars,
+                checkpoint-2,
+                (
+                    '$returnAsList': $returnAsList,
+                    '$clrHasMoreThanOneValue': $clrHasMoreThanOneValue,
+                    '$clrSlug': $clrSlug,
+                )
+            );
+
+            $_debug_vars: map.set($_debug_vars, 'RETURN', $clrSlug);
+
+            $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
+        }
+
         @return $clrSlug;
     }
+
+    $_debug_vars: map.set(
+        $_debug_vars,
+        checkpoint-2-b,
+        (
+            '$opacity': $opacity,
+            '$version': $version,
+            '$themeVarSlug': $themeVarSlug,
+            '$clrSlug': $clrSlug,
+            // '$returnAsVar': $returnAsVar,
+            // '$fallbackOnly': $fallbackOnly,
+            // '$modernOpacitySyntax': $modernOpacitySyntax,
+            '$args': $args,
+        )
+    );
 
     // returns on success
     @if $opacity != null {
@@ -425,6 +511,7 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
             $warnOnFalse: $warnOnFalse
         );
 
+        // returns
         @if $_value {
             @if not $returnAsList and list.length($_value) > 1 {
                 $_value: list.nth($_value, 1);
@@ -443,7 +530,42 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                         );
                     }
 
+                    @if $debug {
+                        $_debug_vars: map.set(
+                            $_debug_vars,
+                            checkpoint-3-a,
+                            (
+                                '$opacityIsPreset': $opacityIsPreset,
+                                '$_value': $_value,
+                                '$_valueList': $_valueList,
+                            )
+                        );
+
+                        $_debug_vars: map.set($_debug_vars, 'RETURN', $_valueList);
+
+                        $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
+                    }
+
                     @return $_valueList;
+                }
+
+                @if $debug {
+                    $_debug_vars: map.set(
+                        $_debug_vars,
+                        checkpoint-3-b,
+                        (
+                            '$opacityIsPreset': $opacityIsPreset,
+                            '$_value': $_value,
+                        )
+                    );
+
+                    $_debug_vars: map.set(
+                        $_debug_vars,
+                        'RETURN',
+                        config.config-do-var($themeVarSlug, $fallback: $_value, $args...)
+                    );
+
+                    $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
                 }
 
                 @return config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
@@ -472,6 +594,22 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
                     );
                 }
 
+                @if $debug {
+                    $_debug_vars: map.set(
+                        $_debug_vars,
+                        checkpoint-4,
+                        (
+                            '$opacityIsPreset': $opacityIsPreset,
+                            '$_value': $_value,
+                            '$_valueList': $_valueList,
+                        )
+                    );
+
+                    $_debug_vars: map.set($_debug_vars, 'RETURN', $_valueList);
+
+                    $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
+                }
+
                 @return $_valueList;
             }
 
@@ -482,6 +620,30 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
             }
 
             $_value: config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
+
+            @if $debug {
+                $_debug_vars: map.set(
+                    $_debug_vars,
+                    checkpoint-5,
+                    (
+                        '$opacityIsPreset': $opacityIsPreset,
+                        '$modernOpacitySyntax': $modernOpacitySyntax,
+                        '$_value': $_value,
+                    )
+                );
+
+                $_debug_vars: map.set(
+                    $_debug_vars,
+                    'RETURN',
+                    if(
+                        $modernOpacitySyntax,
+                        string.unquote('#{$version}a(#{$_value} / #{$opacity})'),
+                        string.unquote('#{$version}a(#{$_value}, #{$opacity})')
+                    )
+                );
+
+                $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
+            }
 
             // returns
             @if $modernOpacitySyntax {
@@ -508,7 +670,37 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
         }
 
         @if $_value {
-            @return config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
+            @if $debug {
+                $_debug_vars: map.set(
+                    $_debug_vars,
+                    checkpoint-6,
+                    (
+                        '$opacityIsPreset': $opacityIsPreset,
+                        '$modernOpacitySyntax': $modernOpacitySyntax,
+                        '$_value': $_value,
+                    )
+                );
+
+                $_debug_vars: map.set(
+                    $_debug_vars,
+                    'RETURN',
+                    config.config-do-var($themeVarSlug, $fallback: $_value, $args...)
+                );
+
+                $_: meta.js-var-dump($_debug_vars, 'tokens-theme-token-value');
+            }
+
+            $_var: config.config-do-var($themeVarSlug, $fallback: $_value, $args...);
+
+            @return if(
+                $opacity,
+                if(
+                    $modernOpacitySyntax,
+                    string.unquote('#{$version}a(#{$_var} / #{$opacity})'),
+                    string.unquote('#{$version}a(#{$_var}, #{$opacity})')
+                ),
+                $_var
+            );
         }
     }
 

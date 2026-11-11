@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.2.0-draft
+/// @package @maddimathon/design-system-utilities@0.2.0
 /// @since 0.1.0-alpha
 ///
 
@@ -31,10 +31,10 @@
     }
 }
 
-@mixin _snippet-alert-headline-heading($slug: false) {
+@mixin _snippet-alert-headline-heading($slug, $includeHeadingColours) {
     margin-block: 0;
 
-    @if $slug != false {
+    @if $slug != false and $includeHeadingColours {
         $slugAsNumber: if(meta.type-of($slug) == number, $slug, null);
         $slug: #{$slug};
 
@@ -172,6 +172,7 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
     $display: false,
     $includeIcon: true,
     $includeHeadline: true,
+    $includeHeadingColours: true,
     $multipleContentBlocks: false
 ) {
     @if $display != false {
@@ -297,19 +298,24 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     );
 
                     border-color: var-theme(heading-#{$num});
-                    @include prop-background(
-                        var-style(alert-heading-#{$num}-background-color)
-                    );
+
+                    @if $includeHeadingColours {
+                        @include prop-background(
+                            var-style(alert-heading-#{$num}-background-color)
+                        );
+                    }
 
                     @if $multipleContentBlocks {
                         @content (has-heading--#{$num});
                     }
 
                     @include _snippet-alert-block-icon {
-                        @include cx-prop(
-                            icon-color,
-                            var-theme(heading-#{$num})
-                        );
+                        @if $includeHeadingColours {
+                            @include cx-prop(
+                                icon-color,
+                                var-theme(heading-#{$num})
+                            );
+                        }
 
                         @if $multipleContentBlocks {
                             @content (has-heading--#{$num}--icon);
@@ -348,7 +354,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
                     in (#{$_headingSelector}, #{$_headingSelector_where})
                 {
                     @at-root #{selector.unify(&, $_sel)} {
-                        @include _snippet-alert-headline-heading($num);
+                        @include _snippet-alert-headline-heading(
+                            $num,
+                            $includeHeadingColours: $includeHeadingColours
+                        );
 
                         @if $multipleContentBlocks {
                             @content (headline--h#{$num});
@@ -359,7 +368,10 @@ $_textAndBackgroundKeys: map.get(tokens.$themesMeta, keys, textOrBackground);
 
             @each $_sel in ('%unstyled-heading', '%unstyled-heading--where') {
                 @at-root #{selector.unify(&, $_sel)} {
-                    @include _snippet-alert-headline-heading;
+                    @include _snippet-alert-headline-heading(
+                        false,
+                        $includeHeadingColours: $includeHeadingColours
+                    );
 
                     @if $multipleContentBlocks {
                         @content (headline--unstyled);
@@ -378,6 +390,7 @@ $_mixin_alert_block: meta.get-mixin('snippet-alert-block');
 /// @since 0.1.0-alpha
 ///
 @mixin snippet-support-alert-blocks(
+    $child_gridColumn: 'content',
     $includeBackgrounds: true,
     $mixin_alert_block: null
 ) {
@@ -406,11 +419,13 @@ $_mixin_alert_block: meta.get-mixin('snippet-alert-block');
             $gap: var-style(alert-gap-block) var-style(alert-gap-inline)
         );
 
-        > * {
-            @include prop-grid-column(content);
-        }
-
         @content (alert-grid);
+
+        > * {
+            @include prop-grid-column($child_gridColumn);
+
+            @content (alert-grid--direct-child);
+        }
     }
 
     %alert {

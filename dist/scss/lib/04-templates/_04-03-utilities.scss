@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.2.0-draft
+/// @package @maddimathon/design-system-utilities@0.2.0
 /// @since 0.1.0-beta.0
 ///
 
@@ -157,12 +157,12 @@
     @if $print_fontSize {
         @each $slug, $_value in tokens.$font_size {
             %font-size-#{$slug} {
-                font-size: var-fs($slug);
+                font-size: var-fs($slug) !important;
             }
         }
 
         %font-size-unstyled-heading {
-            font-size: var-style(heading-unstyled-font-size);
+            font-size: var-style(heading-unstyled-font-size) !important;
         }
     }
     @content (fontSize);

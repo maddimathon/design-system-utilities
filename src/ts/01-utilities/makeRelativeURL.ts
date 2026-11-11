@@ -180,7 +180,7 @@ export function makeFileBasedURL(
  * @since 0.1.0-alpha
  * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
  * 
- * @deprecated ___PKG_VERSION___ — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
+ * @deprecated 0.2.0 — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
  */
 export function makeRelativeURL(
     config_base: string,

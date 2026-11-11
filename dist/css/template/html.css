@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.1.0
+ * @maddimathon/utility-sass@0.2.0
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template - HTML
- * @maddimathon/design-system-utilities/template/html@0.2.0-draft
+ * @maddimathon/design-system-utilities/template/html@0.2.0
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -1135,36 +1135,33 @@ html {
     html {
         --tr-time-toggle: 1200ms;
         --transition:
-            accent-color 250ms ease-out, background-color 250ms ease-out,
-            border-color 250ms ease-out, color 250ms ease-out,
-            font-weight 250ms ease-out, opacity 250ms ease-out,
-            text-decoration-color 250ms ease-out, text-shadow 250ms ease-out,
-            visibility 250ms ease-out, aspect-ratio 500ms ease-out,
-            background-image 250ms ease-out, border-color 250ms ease-out,
+            accent-color 250ms ease-out, aspect-ratio 500ms ease-out,
+            background-color 250ms ease-out, background-image 250ms ease-out,
+            border-color 250ms ease-out, border-color 250ms ease-out,
             border-radius 500ms ease-out, border-width 500ms ease-out,
-            bottom 500ms ease-out, font-weight 250ms ease-out,
+            bottom 500ms ease-out, color 250ms ease-out,
+            font-weight 250ms ease-out, font-weight 250ms ease-out,
             gap 500ms ease-out, height 500ms ease-out, left 500ms ease-out,
             margin 500ms ease-out, max-height 500ms ease-out,
             max-width 500ms ease-out, min-height 500ms ease-out,
-            min-width 500ms ease-out, outline-color 250ms ease-out,
-            padding 500ms ease-out, right 500ms ease-out, top 500ms ease-out,
-            transform 500ms ease-out, width 250ms ease-out;
+            min-width 500ms ease-out, opacity 250ms ease-out,
+            outline-color 250ms ease-out, padding 500ms ease-out,
+            right 500ms ease-out, text-decoration-color 250ms ease-out,
+            text-shadow 250ms ease-out, top 500ms ease-out,
+            transform 500ms ease-out, visibility 250ms ease-out,
+            width 250ms ease-out;
         --transition-toggle:
             accent-color var(--tr-time-toggle, 1200ms) ease-out,
-            background-color var(--tr-time-toggle, 1200ms) ease-out,
-            border-color var(--tr-time-toggle, 1200ms) ease-out,
-            color var(--tr-time-toggle, 1200ms) ease-out,
-            font-weight var(--tr-time-toggle, 1200ms) ease-out,
-            opacity var(--tr-time-toggle, 1200ms) ease-out,
-            text-decoration-color var(--tr-time-toggle, 1200ms) ease-out,
-            text-shadow var(--tr-time-toggle, 1200ms) ease-out,
-            visibility var(--tr-time-toggle, 1200ms) ease-out,
             aspect-ratio var(--tr-time-toggle, 1200ms) ease-out,
+            background-color var(--tr-time-toggle, 1200ms) ease-out,
             background-image var(--tr-time-toggle, 1200ms) ease-out,
+            border-color var(--tr-time-toggle, 1200ms) ease-out,
             border-color var(--tr-time-toggle, 1200ms) ease-out,
             border-radius var(--tr-time-toggle, 1200ms) ease-out,
             border-width var(--tr-time-toggle, 1200ms) ease-out,
             bottom var(--tr-time-toggle, 1200ms) ease-out,
+            color var(--tr-time-toggle, 1200ms) ease-out,
+            font-weight var(--tr-time-toggle, 1200ms) ease-out,
             font-weight var(--tr-time-toggle, 1200ms) ease-out,
             gap var(--tr-time-toggle, 1200ms) ease-out,
             height var(--tr-time-toggle, 1200ms) ease-out,
@@ -1174,11 +1171,15 @@ html {
             max-width var(--tr-time-toggle, 1200ms) ease-out,
             min-height var(--tr-time-toggle, 1200ms) ease-out,
             min-width var(--tr-time-toggle, 1200ms) ease-out,
+            opacity var(--tr-time-toggle, 1200ms) ease-out,
             outline-color var(--tr-time-toggle, 1200ms) ease-out,
             padding var(--tr-time-toggle, 1200ms) ease-out,
             right var(--tr-time-toggle, 1200ms) ease-out,
+            text-decoration-color var(--tr-time-toggle, 1200ms) ease-out,
+            text-shadow var(--tr-time-toggle, 1200ms) ease-out,
             top var(--tr-time-toggle, 1200ms) ease-out,
             transform var(--tr-time-toggle, 1200ms) ease-out,
+            visibility var(--tr-time-toggle, 1200ms) ease-out,
             width var(--tr-time-toggle, 1200ms) ease-out;
     }
 }
@@ -9745,8 +9746,7 @@ input::-moz-placeholder {
     letter-spacing: inherit;
     letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
-    opacity: 0.75;
-    opacity: var(--input-placeholder-opacity, 1);
+    opacity: 1;
 }
 textarea::placeholder,
 select::placeholder,
@@ -9756,8 +9756,7 @@ input::placeholder {
     letter-spacing: inherit;
     letter-spacing: var(--font-override-letter-spacing-italic, inherit);
     font-style: italic;
-    opacity: 0.75;
-    opacity: var(--input-placeholder-opacity, 1);
+    opacity: 1;
 }
 textarea:hover,
 select:hover,
@@ -10677,11 +10676,6 @@ a[disabled][href].button {
     :is(.icon):not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
-    --icon-size: 1em;
-    --icon-size: calc(
-        1em * var(--icon-size-inline--multiplier, 1) *
-            var(--icon-size-inline--font-multiplier, 1)
-    );
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -10703,6 +10697,7 @@ a[disabled][href].button {
     color: var(--icon-color, var(--theme-ui, CanvasText));
     bottom: 0.0625em;
 }
+
 .display-inline:is(
         a[href].button-primary,
         a[href].button-secondary,
@@ -10752,10 +10747,13 @@ a[disabled][href].button {
         input[type="submit"],
         a[href].button
     )
-    :is(.icon):not(.toggle-block__control__icon):only-child {
+    > :only-child:is(.icon):not(.toggle-block__control__icon) {
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
+    --display: block;
+    display: block;
+    display: var(--display, block);
     margin: 0;
     letter-spacing: normal !important;
 }
@@ -10919,11 +10917,6 @@ a[href].button
     .icon:not(.settings-menu-icon):not(.toggle-block__control__icon):not(
         :only-child
     ) {
-    --icon-size: 1em;
-    --icon-size: calc(
-        1em * var(--icon-size-inline--multiplier, 1) *
-            var(--icon-size-inline--font-multiplier, 1)
-    );
     --icon-inline-margin-block-start: 0;
     --display: inline-block;
     display: inline-block;
@@ -10945,6 +10938,7 @@ a[href].button
     color: var(--icon-color, var(--theme-ui, CanvasText));
     bottom: 0.0625em;
 }
+
 a[href].button-primary .icon:not(.toggle-block__control__icon):first-child,
 a[href].button-secondary .icon:not(.toggle-block__control__icon):first-child,
 a[href].button-grey .icon:not(.toggle-block__control__icon):first-child,
@@ -10977,18 +10971,21 @@ a[href].button .icon:not(.toggle-block__control__icon):last-child {
     );
     margin-right: 0;
 }
-a[href].button-primary .icon:not(.toggle-block__control__icon):only-child,
-a[href].button-secondary .icon:not(.toggle-block__control__icon):only-child,
-a[href].button-grey .icon:not(.toggle-block__control__icon):only-child,
-button .icon:not(.toggle-block__control__icon):only-child,
-[role="button"] .icon:not(.toggle-block__control__icon):only-child,
-input[type="button"] .icon:not(.toggle-block__control__icon):only-child,
-input[type="reset"] .icon:not(.toggle-block__control__icon):only-child,
-input[type="submit"] .icon:not(.toggle-block__control__icon):only-child,
-a[href].button .icon:not(.toggle-block__control__icon):only-child {
+a[href].button-primary > .icon:only-child:not(.toggle-block__control__icon),
+a[href].button-secondary > .icon:only-child:not(.toggle-block__control__icon),
+a[href].button-grey > .icon:only-child:not(.toggle-block__control__icon),
+button > .icon:only-child:not(.toggle-block__control__icon),
+[role="button"] > .icon:only-child:not(.toggle-block__control__icon),
+input[type="button"] > .icon:only-child:not(.toggle-block__control__icon),
+input[type="reset"] > .icon:only-child:not(.toggle-block__control__icon),
+input[type="submit"] > .icon:only-child:not(.toggle-block__control__icon),
+a[href].button > .icon:only-child:not(.toggle-block__control__icon) {
     --icon-inline-margin-block-start: 0;
     --icon-inline-buffer-start: 0;
     --icon-inline-buffer-end: 0;
+    --display: block;
+    display: block;
+    display: var(--display, block);
     margin: 0;
     letter-spacing: normal !important;
 }
@@ -13417,78 +13414,78 @@ body {
 /* # UTILITIES - TYPOGRAPHY
  * ======================================================================== */
 .font-size-heading-1 {
-    font-size: clamp(2.25rem, 1.6875svw + 1.8125rem, 3.875rem);
-    font-size: var(--fs-heading-1, 2.9375rem);
+    font-size: clamp(2.25rem, 1.6875svw + 1.8125rem, 3.875rem) !important;
+    font-size: var(--fs-heading-1, 2.9375rem) !important;
 }
 
 .font-size-heading-2 {
-    font-size: clamp(1.75rem, 1.09375svw + 1.5rem, 2.8125rem);
-    font-size: var(--fs-heading-2, 2.1875rem);
+    font-size: clamp(1.75rem, 1.09375svw + 1.5rem, 2.8125rem) !important;
+    font-size: var(--fs-heading-2, 2.1875rem) !important;
 }
 
 .font-size-heading-3 {
-    font-size: clamp(1.5625rem, 0.90625svw + 1.3125rem, 2.375rem);
-    font-size: var(--fs-heading-3, 1.875rem);
+    font-size: clamp(1.5625rem, 0.90625svw + 1.3125rem, 2.375rem) !important;
+    font-size: var(--fs-heading-3, 1.875rem) !important;
 }
 
 .font-size-heading-4 {
-    font-size: clamp(1.375rem, 0.71875svw + 1.1875rem, 2.0625rem);
-    font-size: var(--fs-heading-4, 1.625rem);
+    font-size: clamp(1.375rem, 0.71875svw + 1.1875rem, 2.0625rem) !important;
+    font-size: var(--fs-heading-4, 1.625rem) !important;
 }
 
 .font-size-heading-5 {
-    font-size: clamp(1.1875rem, 0.5625svw + 1.0625rem, 1.75rem);
-    font-size: var(--fs-heading-5, 1.4375rem);
+    font-size: clamp(1.1875rem, 0.5625svw + 1.0625rem, 1.75rem) !important;
+    font-size: var(--fs-heading-5, 1.4375rem) !important;
 }
 
 .font-size-heading-6 {
-    font-size: clamp(1.0625rem, 0.46875svw + 0.9375rem, 1.5rem);
-    font-size: var(--fs-heading-6, 1.25rem);
+    font-size: clamp(1.0625rem, 0.46875svw + 0.9375rem, 1.5rem) !important;
+    font-size: var(--fs-heading-6, 1.25rem) !important;
 }
 
 .font-size-heading-7 {
-    font-size: clamp(1rem, 0.1875svw + 0.9375rem, 1.1875rem);
-    font-size: var(--fs-heading-7, 1rem);
+    font-size: clamp(1rem, 0.1875svw + 0.9375rem, 1.1875rem) !important;
+    font-size: var(--fs-heading-7, 1rem) !important;
 }
 
 .font-size-heading-8 {
-    font-size: clamp(0.9375rem, 0.1875svw + 0.875rem, 1.0625rem);
-    font-size: var(--fs-heading-8, 0.9375rem);
+    font-size: clamp(0.9375rem, 0.1875svw + 0.875rem, 1.0625rem) !important;
+    font-size: var(--fs-heading-8, 0.9375rem) !important;
 }
 
 .font-size-heading-9 {
-    font-size: clamp(0.875rem, 0.15625svw + 0.8125rem, 1rem);
-    font-size: var(--fs-heading-9, 0.875rem);
+    font-size: clamp(0.875rem, 0.15625svw + 0.8125rem, 1rem) !important;
+    font-size: var(--fs-heading-9, 0.875rem) !important;
 }
 
 .font-size-heading-10 {
-    font-size: clamp(0.8125rem, 0.15625svw + 0.75rem, 0.9375rem);
-    font-size: var(--fs-heading-10, 0.8125rem);
+    font-size: clamp(0.8125rem, 0.15625svw + 0.75rem, 0.9375rem) !important;
+    font-size: var(--fs-heading-10, 0.8125rem) !important;
 }
 
 .font-size-normal {
-    font-size: 1.0625rem;
-    font-size: var(--fs-normal, 1.0625rem);
+    font-size: 1.0625rem !important;
+    font-size: var(--fs-normal, 1.0625rem) !important;
 }
 
 .font-size-smaller-3 {
-    font-size: 0.8125rem;
-    font-size: var(--fs-smaller-3, 0.8125rem);
+    font-size: 0.8125rem !important;
+    font-size: var(--fs-smaller-3, 0.8125rem) !important;
 }
 
 .font-size-smaller-2 {
-    font-size: 0.875rem;
-    font-size: var(--fs-smaller-2, 0.875rem);
+    font-size: 0.875rem !important;
+    font-size: var(--fs-smaller-2, 0.875rem) !important;
 }
 
 .font-size-smaller-1 {
-    font-size: 0.9375rem;
-    font-size: var(--fs-smaller-1, 0.9375rem);
+    font-size: 0.9375rem !important;
+    font-size: var(--fs-smaller-1, 0.9375rem) !important;
 }
 
 .font-size-unstyled-heading {
-    font-size: 1.0625rem;
-    font-size: var(--fs-normal, 1.0625rem);
+    font-size: 1.0625rem !important;
+    font-size: var(--fs-normal, 1.0625rem) !important;
 }
 
 .text-transform-lowercase {
