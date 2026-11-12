@@ -21,12 +21,6 @@ and this project adheres to
 
 ## **0.2.0** — 2026-11-11
 
-### Removed
-- 
-
-### Moved & Renamed
-- 
-
 ### Misc. Breaking
 - Updated to utility-astro@0.2.0
 
@@ -42,9 +36,6 @@ and this project adheres to
 
 ### Deprecated
 - Function: makeRelativeURL (replaced by makeFileBasedURL with `{ relative: true }`)
-
-### Fixed
--
 
 
 ## **0.1.0** — 2026-11-07

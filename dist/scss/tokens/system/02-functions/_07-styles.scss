@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.2.0
+/// @package @maddimathon/design-system-utilities@0.3.0-draft
 /// @since 0.1.0-beta.0
 ///
 
@@ -278,6 +278,7 @@ $_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
     $isHr: string.index($slug, hr-) == 1;
     $isIconStyle: string.match($slug, '^(button-(inline-)?)?icon-') != null;
     $isInputStyle: string.index($slug, input-) == 1;
+    $isLinkCardStyle: string.index($slug, link-card-) == 1;
     $isLogoStyle: string.index($slug, logo-) == 1;
     $isSubheadingStyle: string.index($slug, subheading-) == 1;
     $isToggleStyle: string.index($slug, toggle-) == 1;
@@ -305,6 +306,7 @@ $_flowMargin_fallbackValues: tokens-get-flow-margin-properties(
         $isInputStyle or
         $isHeadingStyle or
         $isHr or
+        $isLinkCardStyle or
         $isLogoStyle or
         $isSubheadingStyle or
         $isToggleStyle or

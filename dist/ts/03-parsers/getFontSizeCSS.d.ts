@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0
+ * @maddimathon/design-system-utilities@0.3.0-draft
  * @license MIT
  */
 import type { TokenTypes } from '../02-tokens/@types.js';

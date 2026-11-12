@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0
+ * @maddimathon/design-system-utilities@0.3.0-draft
  * @license MIT
  */
 import { deleteUndefinedProps, mergeArgs, mergeArgsAsync, } from '@maddimathon/utility-typescript';
@@ -36,15 +36,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
             blockquote: {
                 'flow-margin': {
                     self: 'margins-flow-firm-large',
-                },
-            },
-            'flow-margin': {
-                $: '400',
-                large: '600',
-                small: '300',
-                button: {
-                    $: '300',
-                    touch: '400',
                 },
             },
             form: {
@@ -95,50 +86,46 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
         };
         return Promise.all([
-            Tokens_CSS_Style.iconStyle(partial.icon),
+            Tokens_CSS_Style.iconStyle(partial.icon).then(async (icon) => [
+                await Tokens_CSS_Style.alertStyle(icon, partial.alert),
+                icon,
+            ]),
             objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], async (hdg) => Tokens_CSS_Style.headingStyle(hdg, partial.heading?.[hdg])).then(async (hdgs) => ({
                 ...hdgs,
                 unstyled: await Tokens_CSS_Style.headingStyle('unstyled', partial.heading?.unstyled),
             })),
             Tokens_CSS_Style.widgetStyle(partial.widget),
-        ]).then(async ([icon, heading, widget]) => {
-            const [alert, button, input, subheading, toggle, backdrop,] = await Promise.all([
-                Tokens_CSS_Style.alertStyle(icon, partial.alert),
+        ]).then(async ([[alert, icon], heading, widget]) => {
+            const [button, flowMargin, input, linkCard, subheading, toggle, backdrop,] = await Promise.all([
                 Tokens_CSS_Style.buttonStyle(icon, partial.button),
+                Tokens_CSS_Style.flowMargins({
+                    $: '400',
+                    large: '600',
+                    small: '300',
+                    button: {
+                        $: '300',
+                        touch: '400',
+                    },
+                }, partial?.['flow-margin']),
                 Tokens_CSS_Style.inputStyle(partial.input),
+                Tokens_CSS_Style.linkCardStyle(alert, partial['link-card']),
                 objectGeneratorAsync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled'], async (hdg) => Tokens_CSS_Style.subheadingStyle(hdg, heading, partial.subheading?.[hdg])),
                 Tokens_CSS_Style.toggleStyle(heading, icon, widget, partial.toggle),
                 Tokens_CSS_Style.backdropStyle(partial.backdrop),
             ]);
-            const flowMargin_button_default = partial?.['flow-margin']?.small ?? '200';
-            const flowMargin_button_touch = partial?.['flow-margin']?.$ ?? '300';
-            if (typeof partial['flow-margin'] !== 'object') {
-                partial['flow-margin'] = {};
-            }
-            const partial_flowMargin_button = typeof partial?.['flow-margin']?.button === 'object'
-                ? deleteUndefinedProps({
-                    $: partial?.['flow-margin']?.button?.$ ?? flowMargin_button_default,
-                    touch: partial?.['flow-margin']?.button?.touch ?? flowMargin_button_touch,
-                })
-                : {
-                    $: partial?.['flow-margin']?.button ?? flowMargin_button_default,
-                    touch: flowMargin_button_touch,
-                };
             return {
                 alert,
                 backdrop,
                 blockquote: mergeArgs(defaults.blockquote, partial.blockquote, true),
                 button,
-                'flow-margin': mergeArgs(defaults['flow-margin'], {
-                    ...partial?.['flow-margin'],
-                    button: partial_flowMargin_button,
-                }, true),
+                'flow-margin': flowMargin,
                 form: mergeArgs(defaults.form, partial.form, true),
                 heading,
                 hr: mergeArgs(defaults.hr, partial.hr, true),
                 icon,
                 input,
                 label: mergeArgs(defaults.label, partial.label, true),
+                'link-card': linkCard,
                 logo: mergeArgs(defaults.logo, partial.logo, true),
                 selection: mergeArgs(defaults.selection, partial.selection, true),
                 subheading,
@@ -224,6 +211,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '200',
             },
             color: 'text-primary',
+            'flow-margin': {},
+            gap: {
+                block: 0,
+                inline: '300',
+            },
             heading,
             headline: {
                 font: {
@@ -239,7 +231,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     },
                 },
             },
-            'line-height': '300',
             icon: {
                 color: 'ui-primary',
                 size: {
@@ -247,23 +238,23 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     large: iconStyles.size.large,
                 },
             },
-            gap: {
-                block: 0,
-                inline: '300',
-            },
-            'flow-margin': {
-                $: '300',
-                large: '400',
-                small: '200',
-                button: '200',
-                self: 'margins-flow-firm',
-            },
+            'line-height': '300',
             padding: {
                 block: '300',
                 inline: '300',
             },
         }, {
             ...partial,
+            'flow-margin': await this.flowMargins({
+                $: '300',
+                large: '400',
+                small: '200',
+                button: {
+                    $: '200',
+                    touch: '300',
+                },
+                self: 'margins-flow-firm',
+            }, partial['flow-margin']),
             heading,
         }, true);
     }
@@ -451,6 +442,28 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     /**
+     * @since 0.3.0-draft
+     */
+    static async flowMargins(defaults, partial) {
+        const default_button = typeof defaults.button === 'object'
+            ? defaults.button
+            : {
+                $: defaults.button,
+            };
+        const partial_button = typeof partial?.button === 'object'
+            ? partial?.button
+            : {
+                $: partial?.button,
+            };
+        return mergeArgs(defaults, {
+            ...partial,
+            button: {
+                $: partial_button.$ ?? default_button.$ ?? '200',
+                touch: partial_button.touch ?? default_button.touch ?? partial?.$ ?? defaults.$ ?? '400',
+            },
+        }, true);
+    }
+    /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0 — Added partial param.
      */
@@ -484,7 +497,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 font: {
                     ...style.font,
                     family: 'body',
-                    size: 'normal',
+                    size: 'bigger-1',
                 },
                 'flow-margin': {
                     self: 'margins-flow-large',
@@ -676,30 +689,120 @@ export class Tokens_CSS_Style extends AbstractTokens {
         };
     }
     /**
+     * @since 0.3.0-draft
+     */
+    static async linkCardStyle(alertStyles, partial) {
+        const inputColours = {
+            background: partial?.background ?? {},
+            border: partial?.border?.color ?? {},
+            heading: partial?.heading?.color ?? {},
+            subheading: partial?.subheading?.color ?? {},
+        };
+        const allColours_default = (inputColours.background.$
+            && inputColours.border.$
+            && inputColours.heading.$
+            && inputColours.subheading.$)
+            ? {
+                background: inputColours.background.$,
+                border: inputColours.border.$,
+                heading: inputColours.heading.$,
+                subheading: inputColours.subheading.$,
+            }
+            : {
+                background: 'background-bright',
+                border: 'ui-grey',
+                heading: 'link',
+                subheading: 'text-grey',
+            };
+        const allColours_hover = (inputColours.background.hover
+            && inputColours.border.hover
+            && inputColours.heading.hover
+            && inputColours.subheading.hover)
+            ? {
+                background: inputColours.background.hover,
+                border: inputColours.border.hover,
+                heading: inputColours.heading.hover,
+                subheading: inputColours.subheading.hover,
+            }
+            : {
+                background: 'background-alt',
+                border: 'link-ui-hover',
+                heading: 'link-hover',
+                subheading: 'link-hover',
+            };
+        const allColours_active = (inputColours.background.active
+            && inputColours.border.active
+            && inputColours.heading.active
+            && inputColours.subheading.active)
+            ? {
+                background: inputColours.background.active,
+                border: inputColours.border.active,
+                heading: inputColours.heading.active,
+                subheading: inputColours.subheading.active,
+            }
+            : {
+                background: 'background-alt',
+                border: 'link-ui-active',
+                heading: 'link-active',
+                subheading: 'link-active',
+            };
+        const flowMargin = await Tokens_CSS_Style.flowMargins({
+            $: alertStyles['flow-margin'].$,
+            button: alertStyles['flow-margin'].button,
+            large: alertStyles['flow-margin'].large,
+            small: alertStyles['flow-margin'].small,
+            self: 'margins-flow-large',
+        }, partial?.['flow-margin'] ?? {});
+        return {
+            background: {
+                $: allColours_default.background,
+                hover: allColours_hover.background,
+                active: allColours_active.background,
+            },
+            border: {
+                color: {
+                    $: allColours_default.border,
+                    hover: allColours_hover.border,
+                    active: allColours_active.border,
+                },
+                radius: partial?.border?.radius ?? alertStyles.border.radius,
+                style: partial?.border?.style ?? alertStyles.border.style,
+                width: partial?.border?.width ?? alertStyles.border.width,
+            },
+            heading: {
+                ...partial?.heading,
+                color: {
+                    $: allColours_default.heading,
+                    hover: allColours_hover.heading,
+                    active: allColours_active.heading,
+                },
+            },
+            'flow-margin': flowMargin,
+            'line-height': partial?.['line-height'] ?? alertStyles['line-height'],
+            padding: mergeArgs({
+                block: flowMargin.$,
+                inline: flowMargin.$,
+            }, partial?.padding ?? {}, true),
+            subheading: {
+                ...partial?.subheading,
+                color: {
+                    $: allColours_default.subheading,
+                    hover: allColours_hover.subheading,
+                    active: allColours_active.subheading,
+                },
+            },
+        };
+    }
+    /**
      * @since 0.1.0-beta.0
      */
     static async toggleStyle(headingStyles, iconStyles, widgetStyles, partial = {}) {
-        const flowMargins_widget_button = typeof widgetStyles['flow-margin'].button === 'object'
-            ? widgetStyles['flow-margin'].button
-            : {
-                $: widgetStyles['flow-margin'].button
-            };
-        const button = typeof partial?.['flow-margin']?.button === 'object'
-            ? deleteUndefinedProps({
-                $: partial?.['flow-margin']?.button?.$ ?? flowMargins_widget_button.$,
-                touch: partial?.['flow-margin']?.button?.touch ?? flowMargins_widget_button.touch,
-            })
-            : {
-                $: partial?.['flow-margin']?.button ?? flowMargins_widget_button.$,
-            };
-        const flowMargin = {
+        const flowMargin = await this.flowMargins({
             $: widgetStyles['flow-margin'].$,
-            large: widgetStyles['flow-margin'].large,
             small: widgetStyles['flow-margin'].small,
-            ...partial?.['flow-margin'] ?? {},
-            button,
-            self: 'margins-flow-firm',
-        };
+            large: widgetStyles['flow-margin'].large,
+            button: widgetStyles['flow-margin'].button,
+        }, partial?.['flow-margin']);
         const content = {
             background: partial.content?.background ?? widgetStyles.background,
             border: {
@@ -748,7 +851,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
         return {
             content,
             control,
-            'flow-margin': flowMargin,
+            'flow-margin': {
+                ...flowMargin,
+                self: partial?.['flow-margin']?.self ?? 'margins-flow-firm',
+            },
             icon: {
                 buffer: {
                     start: 0,
@@ -774,22 +880,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
      * @since 0.1.0-beta.0
      */
     static async widgetStyle(partial) {
-        const flowMargin_button_default = '200';
-        const button = typeof partial?.['flow-margin']?.button === 'object'
-            ? deleteUndefinedProps({
-                $: partial?.['flow-margin']?.button?.$ ?? flowMargin_button_default,
-                touch: partial?.['flow-margin']?.button?.touch,
-            })
-            : {
-                $: partial?.['flow-margin']?.button ?? flowMargin_button_default,
-            };
-        const flowMargin = {
-            $: '300',
-            large: '500',
-            small: '200',
-            ...partial?.['flow-margin'] ?? {},
-            button,
-        };
         return {
             background: partial?.background ?? 'background-grey',
             border: mergeArgs({
@@ -799,7 +889,11 @@ export class Tokens_CSS_Style extends AbstractTokens {
                 width: '200',
             }, partial?.border ?? {}, true),
             'line-height': partial?.['line-height'] ?? '300',
-            'flow-margin': flowMargin,
+            'flow-margin': await this.flowMargins({
+                $: '300',
+                large: '500',
+                small: '200',
+            }, partial?.['flow-margin']),
             padding: mergeArgs({
                 block: '400',
                 inline: '400',

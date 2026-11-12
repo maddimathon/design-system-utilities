@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template - Global
- * @maddimathon/design-system-utilities/template/global@0.2.0
+ * @maddimathon/design-system-utilities/template/global@0.3.0-draft
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -59,22 +59,22 @@
 @property --flow-margin-button-span-block {
     syntax: "*";
     inherits: true;
-    initial-value: 0.475em;
+    initial-value: 0.775em;
 }
 @property --flow-margin-button-span-block--touch {
     syntax: "*";
     inherits: true;
-    initial-value: 0.775em;
+    initial-value: 1.1875em;
 }
 @property --flow-margin-button-span-inline {
     syntax: "*";
     inherits: true;
-    initial-value: 0.475em;
+    initial-value: 0.775em;
 }
 @property --flow-margin-button-span-inline--touch {
     syntax: "*";
     inherits: true;
-    initial-value: 0.775em;
+    initial-value: 1.1875em;
 }
 @property --flow-margin-firm-end {
     syntax: "*";
@@ -3376,8 +3376,8 @@ hr {
         input[type="submit"],
         a[href].button
     ) {
-    margin-top: 0.8125em;
-    margin-top: var(--flow-margin-button-span-block--touch, 0.8125em);
+    margin-top: 1.25em;
+    margin-top: var(--flow-margin-button-span-block--touch, 1.25em);
 }
 :where(.js__no-touch)
     :is(
@@ -3402,8 +3402,8 @@ hr {
         input[type="submit"],
         a[href].button
     ) {
-    margin-top: 0.5em;
-    margin-top: var(--flow-margin-button-span-block, 0.5em);
+    margin-top: 0.8125em;
+    margin-top: var(--flow-margin-button-span-block, 0.8125em);
 }
 
 :is(
@@ -3855,15 +3855,15 @@ blockquote > * {
     --flow-margin-firm-end--small: 0.1875rem;
     --flow-margin-firm-start--large: 1.6875rem;
     --flow-margin-firm-end--large: 0.34375rem;
-    --flow-margin-button-span-block--touch: 0.8125rem;
-    --flow-margin-button-span-inline--touch: 0.8125rem;
+    --flow-margin-button-span-block--touch: 0.8125em;
+    --flow-margin-button-span-inline--touch: 0.8125em;
     --flow-margin-button-span-block: var(
         --flow-margin-button-span-block--touch,
-        0.8125rem
+        0.8125em
     );
     --flow-margin-button-span-inline: var(
         --flow-margin-button-span-inline--touch,
-        0.8125rem
+        0.8125em
     );
 }
 :where(.js__no-touch) blockquote > * {
@@ -3974,8 +3974,10 @@ pre {
     padding-bottom: 0.5rem;
     padding-left: 0.8125rem;
     padding-right: 0.8125rem;
-    border: 0.125rem solid hsl(162, 100%, 15%);
-    border: 0.125rem solid var(--theme-ui-primary, CanvasText);
+    border-width: 0.125rem;
+    border-style: solid;
+    border-color: hsl(162, 100%, 15%);
+    border-color: var(--theme-ui-primary, CanvasText);
     border-radius: 0;
     color: hsl(339.5, 0%, 13.5%);
     color: var(--theme-text, CanvasText);
@@ -4992,7 +4994,9 @@ fieldset {
     padding-bottom: 0.78125rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    border: 0.125rem solid currentColor;
+    border-width: 0.125rem;
+    border-style: solid;
+    border-color: currentColor;
     border-radius: 0;
     border-color: hsl(162, 100%, 15%);
     border-color: var(--theme-input-border, CanvasText);
@@ -5043,7 +5047,7 @@ fieldset legend {
     --focus-ring-outline-offset: 0;
     font-family: inherit;
     font-weight: 600;
-    font-size: 1em;
+    font-size: 1.1875em;
     line-height: 1.6875;
     text-transform: none;
     text-wrap: balance;

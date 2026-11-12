@@ -275,7 +275,9 @@ export class Compile extends CompileStage {
                     '../../src/ts/**/*',
                     './src/ts/**/*',
                 ],
-                exclude: [],
+                exclude: [
+                    './browser/**/*',
+                ],
 
                 compilerOptions: {
                     declaration: true,
@@ -288,5 +290,28 @@ export class Compile extends CompileStage {
                 },
             },
         ] );
+
+        // await this.atry( this.writeTsConfig, 2, [
+        //     '@maddimathon/utility-typescript/tsconfig',
+        //     2,
+        //     {
+        //         extends: '../../../tsconfig.base.json',
+
+        //         include: [
+        //             '../../../src/ts/browser/**/*',
+        //             './src/ts/browser/**/*',
+        //         ],
+        //         exclude: [],
+
+        //         compilerOptions: {
+        //             declaration: true,
+        //             declarationMap: false,
+        //             module: 'ES2015',
+        //             noUnusedParameters: false,
+        //             outDir: '../../dist/ts/browser/',
+        //             types: undefined,
+        //         },
+        //     },
+        // ] );
     }
 }

@@ -1,0 +1,586 @@
+///
+/// @package @maddimathon/design-system-utilities@0.3.0-draft
+/// @since 0.3.0-draft
+///
+
+@use 'pkg:@maddimathon/utility-sass/list';
+@use 'pkg:@maddimathon/utility-sass/map';
+@use 'pkg:@maddimathon/utility-sass/math';
+@use 'pkg:@maddimathon/utility-sass/meta';
+@use 'pkg:@maddimathon/utility-sass/selector';
+
+@use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
+
+@use '../../config';
+// @use '../../tokens';
+
+@use '../01-functions' as *;
+@use '../02-mixins' as *;
+
+@use '03-03-typography' as *;
+@use '03--widgets' as *;
+
+///
+/// @since 0.3.0-draft
+///
+@mixin _snippet-link-card--is-state(
+    $selector_link,
+    $selector_states_config,
+    $selector_states_config_separate,
+    $selector_states_pseudo
+) {
+    $selector_states: list.join(
+        $selector_states_pseudo,
+        $selector_states_config,
+        $separator: comma
+    );
+
+    $_sels_to_unify: if(
+        $selector_states_config_separate,
+        (),
+        $selector_states_config
+    );
+
+    @if selector.exists($_sels_to_unify) {
+        @include selector.unify($_sels_to_unify) {
+            @content;
+        }
+    }
+
+    @if $selector_states_config_separate and
+        selector.exists($selector_states_config)
+    {
+        @include selector.unify($selector_states_config) {
+            @content;
+        }
+    }
+
+    $_link_is_multi: selector.is-multi($selector_link);
+    $_states_is_multi: selector.is-multi($selector_states);
+
+    @include selector.has(
+        if(
+            $_link_is_multi and $_states_is_multi,
+            selector.unify(
+                selector.is-list($selector_link, $split: false),
+                selector.is-list($selector_states, $split: false)
+            ),
+            if(
+                $_link_is_multi,
+                selector.unify(
+                    selector.is-list($selector_link, $split: false),
+                    $selector_states
+                ),
+                if(
+                    $_states_is_multi,
+                    selector.unify(
+                        $selector_link,
+                        selector.is-list($selector_states, $split: false)
+                    ),
+                    selector.unify($selector_link, $selector_states)
+                )
+            )
+        ),
+        $split: false,
+        $unify: true
+    ) {
+        @content;
+    }
+}
+
+///
+/// @since 0.3.0-draft
+///
+@mixin snippet-link-card--is-hover-focus($selector_link) {
+    @include _snippet-link-card--is-state(
+            $selector_link: $selector_link,
+            $selector_states_config: config.$selector_interactiveState_focus,
+            $selector_states_config_separate:
+                config.$mx_interactive_isolateSelector_focus,
+            $selector_states_pseudo: (
+                ':hover',
+                ':focus-visible',
+            )
+        )
+        using ($vars...) {
+        @content ($vars...);
+    }
+}
+
+///
+/// @since 0.3.0-draft
+///
+@mixin snippet-link-card--is-active($selector_link) {
+    @include _snippet-link-card--is-state(
+            $selector_link: $selector_link,
+            $selector_states_config: config.$selector_interactiveState_active,
+            $selector_states_config_separate:
+                config.$mx_interactive_isolateSelector_active,
+            $selector_states_pseudo: (':active')
+        )
+        using ($vars...) {
+        @content ($vars...);
+    }
+}
+
+///
+/// @since 0.3.0-draft
+///
+@mixin _snippet-link-card--flow-margins--inner {
+    @include set-flow-margins-by-token(link-card);
+
+    // $args: meta.keywords(
+    //     set-flow-margins-by-token--parse-args(
+    //         $prefix: link-card,
+    //         $default: link-card-flow-margin-inner,
+    //         $large: link-card-flow-margin-inner-large,
+    //         $small: link-card-flow-margin-inner-small,
+    //         //
+    //         $buttonGapBlock: link-card-flow-margin-inner-button,
+    //         $buttonGapBlock_touch: link-card-flow-margin-inner-button-touch,
+    //     )
+    // );
+
+    // @include set-flow-margins(
+    //     $default: map.get($args, default),
+    //     $large: map.get($args, large),
+    //     $small: map.get($args, small),
+    //     $buttonGapBlock: map.get($args, buttonGapBlock),
+    //     $buttonGapInline: map.get($args, buttonGapInline),
+    //     $buttonGapBlock_touch: map.get($args, buttonGapBlock_touch),
+    //     $buttonGapInline_touch: map.get($args, buttonGapInline_touch),
+    //     //
+    //     $args...
+    // ) {
+    //     @content;
+    // }
+}
+
+///
+/// @since 0.3.0-draft
+///
+@mixin snippet-link-card(
+    $background: var-style(link-card-background),
+    $background_hover: var-style(link-card-background-hover),
+    $background_active: var-style(link-card-background-active),
+    //
+    $borderColor: var-style(link-card-border-color),
+    $borderColor_hover: var-style(link-card-border-color-hover),
+    $borderColor_active: var-style(link-card-border-color-active),
+    //
+    $borderRadius: var-style(link-card-border-radius),
+    $borderStyle: var-style(link-card-border-style),
+    $borderWidth: var-style(link-card-border-width),
+    $marginBlock: var-style(flow-margin-firm-start)
+        var-style(flow-margin-firm-end),
+    $width: 100%,
+    //
+    $heading_color: var-style(link-card-heading-color),
+    $heading_color_hover: var-style(link-card-heading-color-hover),
+    $heading_color_active: var-style(link-card-heading-color-active),
+    //
+    $subheading_color: var-style(link-card-subheading-color),
+    $subheading_color_hover: var-style(link-card-subheading-color-hover),
+    $subheading_color_active: var-style(link-card-subheading-color-active),
+    //
+    $selector_card: if(selector.parent-exists(), selector.pop(&), '%link-card'),
+    //
+    $selector_body: selector.append($selector_card, '__body'),
+    $selector_date: selector.append($selector_card, '__date'),
+    $selector_description: selector.append($selector_card, '__description'),
+    $selector_footer: selector.append($selector_card, '__footer'),
+    $selector_heading: selector.append($selector_card, '__heading'),
+    $selector_hgroup: selector.append($selector_card, '__hgroup'),
+    $selector_link: selector.append($selector_card, '__link'),
+    $selector_linkIcon: selector.append($selector_card, '__link--icon'),
+    $selector_subheading: selector.append($selector_card, '__subheading'),
+    $selector_tag: selector.append($selector_card, '__tag'),
+    $selector_tag__flag: selector.append($selector_card, '__tag__text_flag'),
+    $selector_tagList: selector.append($selector_card, '__tag-list'),
+    $selector_wrapper: selector.append($selector_card, '__wrapper'),
+    //
+    $multipleContentBlocks: false
+) {
+    @include snippet-widget-block(
+            $background: $background,
+            $borderColor: $borderColor,
+            $borderRadius: $borderRadius,
+            $borderStyle: $borderStyle,
+            $borderWidth: $borderWidth,
+            $display: false,
+            $gap: 0,
+            $marginBlock: $marginBlock,
+            $width: $width,
+            //
+            // $includeBlocks: true,
+            // $includeBorder: false,
+            $includeColours: false,
+            $includeFirstChildNoTopMargin: false,
+            $includeFlowMargins: false,
+            // $includePadding: false,
+            $includeSidebar: false,
+            //
+            $selector_content: $selector_body,
+            $selector_header: config.$selector_null,
+            $selector_hgroup: $selector_hgroup,
+            $selector_sidebar: config.$selector_null,
+            $selector_subtitle: $selector_subheading,
+            $selector_title: $selector_heading,
+            //
+            $multipleContentBlocks: true
+        )
+        using ($location) {
+        @if $location == root {
+            @include utils.snippet-body-grid--base(
+                $autoRows: false,
+                $gap: false
+            );
+            grid-template-columns: 1fr fit-content(0);
+            grid-template-columns: 1fr min-content;
+
+            grid-auto-rows: auto;
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
+        }
+        //
+        @else if $location == blocks--subtitle {
+            color: $subheading_color;
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
+        }
+        //
+        @else if $location == blocks--title {
+            color: $heading_color;
+
+            @if $multipleContentBlocks {
+                @content ($location);
+            }
+        }
+        //
+        @else if $multipleContentBlocks {
+            @content ($location);
+        } @else if $location == root {
+            @content;
+        }
+    }
+
+    /// CHILDREN ///
+
+    @if $multipleContentBlocks {
+        @content (children-start);
+    }
+
+    @include selector.popped($fallback_selector: ()) {
+        #{$selector_wrapper},
+        #{$selector_description} {
+            @include prop-display(flex);
+            @include utils.snippet-body-grid--flex-container;
+
+            @if $multipleContentBlocks {
+                @content (wrapper-or-description);
+            }
+        }
+
+        #{$selector_wrapper} {
+            @if $multipleContentBlocks {
+                @content (wrapper);
+            }
+        }
+
+        #{$selector_description} {
+            @if $multipleContentBlocks {
+                @content (description);
+            }
+
+            @include _snippet-link-card--flow-margins--inner;
+
+            @include first-child-no-top-margin;
+            @include last-child-no-bottom-margin;
+
+            #{selector.nest('+', $selector_card)} {
+                margin-block-start: var-style(flow-margin-firm-start--small);
+
+                @if $multipleContentBlocks {
+                    @content (card--after-description);
+                }
+            }
+        }
+    }
+
+    $gridRow_max: 7;
+
+    // direct heading or hgroup
+    #{selector.nest('>', $selector_heading)},
+    #{selector.nest('>', $selector_hgroup)} {
+        grid-column: 1;
+        grid-row: 1;
+        margin-block-start: 0 !important;
+
+        @if $multipleContentBlocks {
+            @content (direct-heading-or-hgroup);
+        }
+
+        &:has(
+            #{selector.nest('+', selector.unify($selector_linkIcon, ':last-child'))}
+        ) {
+            grid-row: list.slash(1, $gridRow_max);
+            align-self: center;
+            margin-block-end: 0 !important;
+            padding-block-end: 0 !important;
+
+            @if $multipleContentBlocks {
+                @content (direct-heading-or-hgroup--has-direct-sibling-last-child-icon-link);
+            }
+        }
+    }
+
+    #{$selector_tagList} {
+        grid-column: 1;
+
+        margin-block: var-style(flow-margin-firm-start--small)
+            var-style(flow-margin-firm-end--small);
+
+        @if $multipleContentBlocks {
+            @content (tagList);
+        }
+
+        #{selector.nest('+', $selector_date)},
+        #{selector.nest('+', $selector_footer)} {
+            @include _snippet-link-card--flow-margins--inner;
+
+            @if $multipleContentBlocks {
+                @content (date-or-footer--after-tagList);
+            }
+        }
+    }
+
+    #{$selector_tag},
+    #{$selector_tag__flag} {
+        @if $multipleContentBlocks {
+            @content (tag-or-tag-flag);
+        }
+    }
+    #{$selector_tag} {
+        @if $multipleContentBlocks {
+            @content (tag);
+        }
+    }
+    #{$selector_tag__flag} {
+        @if $multipleContentBlocks {
+            @content (tag-flag);
+        }
+    }
+
+    #{$selector_date},
+    #{$selector_footer} {
+        grid-column: 1;
+
+        @if $multipleContentBlocks {
+            @content (date-or-footer);
+        }
+    }
+
+    #{$selector_footer} {
+        @if $multipleContentBlocks {
+            @content (footer);
+        }
+    }
+
+    #{$selector_date} {
+        @if $multipleContentBlocks {
+            @content (date);
+        }
+    }
+
+    #{$selector_link} {
+        @include cx-prop(
+            theme-link-decoration,
+            currentColor,
+            $allPrefixes: true
+        );
+        @include cx-prop(theme-link-ui, currentColor, $allPrefixes: true);
+
+        color: currentColor;
+
+        @if $multipleContentBlocks {
+            @content (link);
+        }
+    }
+    #{$selector_linkIcon} {
+        grid-column: 2;
+        grid-row: list.slash(1, $gridRow_max);
+
+        @include prop-display(flex);
+        @include utils.snippet-body-grid--flex-container(
+            $alignment: (
+                justify-content: center,
+                justify-items: center,
+                align-content: center,
+                align-items: center,
+            )
+        );
+
+        padding-inline-start: var-style(flow-margin-firm-start);
+
+        height: 100%;
+        width: auto;
+
+        @if $multipleContentBlocks {
+            @content (linkIcon);
+        }
+
+        %icon {
+            color: currentColor !important;
+
+            @if $multipleContentBlocks {
+                @content (linkIcon--icon);
+            }
+        }
+    }
+
+    @if $multipleContentBlocks {
+        @content (children-end);
+    }
+
+    /// STATES ///
+
+    @include snippet-link-card--is-hover-focus($selector_link) {
+        /* is-hover-focus */
+        @include prop-background($background_hover);
+        border-color: $borderColor_hover;
+
+        cursor: pointer;
+
+        @if $multipleContentBlocks {
+            @content (is-hover-focus);
+        }
+
+        #{$selector_heading},
+        #{$selector_link} {
+            color: $heading_color_hover;
+
+            @if $multipleContentBlocks {
+                @content (is-hover-focus--heading);
+            }
+        }
+
+        #{$selector_subheading} {
+            color: $subheading_color_hover;
+
+            @if $multipleContentBlocks {
+                @content (is-hover-focus--subheading);
+            }
+        }
+    }
+
+    @include snippet-link-card--is-active($selector_link) {
+        /* is-active */
+        @include prop-background($background_active);
+        border-color: $borderColor_active;
+
+        cursor: pointer;
+
+        @if $multipleContentBlocks {
+            @content (is-active);
+        }
+
+        #{$selector_heading},
+        #{$selector_link} {
+            color: $heading_color_active;
+
+            @if $multipleContentBlocks {
+                @content (is-active--heading);
+            }
+        }
+
+        #{$selector_subheading} {
+            color: $subheading_color_active;
+
+            @if $multipleContentBlocks {
+                @content (is-active--subheading);
+            }
+        }
+    }
+}
+
+///
+/// @since 0.3.0-draft
+///
+@mixin snippet-link-cards-container(
+    $gridColumnsValues: null,
+    //
+    $selector_card: '%link-card',
+    //
+    $selector_date: selector.append($selector_card, '__date'),
+    $selector_description: selector.append($selector_card, '__description'),
+    $selector_footer: selector.append($selector_card, '__footer'),
+    $selector_heading: selector.append($selector_card, '__heading'),
+    $selector_hgroup: selector.append($selector_card, '__hgroup'),
+    $selector_linkIcon: selector.append($selector_card, '__link--icon'),
+    $selector_subheading: selector.append($selector_card, '__subheading'),
+    $selector_tagList: selector.append($selector_card, '__tag-list'),
+    //
+    $multipleContentBlocks: false
+) {
+    @include utils.snippet-body-grid--base(
+        $gap: var-style(flow-margin) var-style(flow-margin-firm-start)
+    );
+
+    @if $gridColumnsValues == null {
+        $gridColumnsValues: (
+            repeat(
+                auto-fit,
+                minmax(
+                    math.round-to-pixel(
+                        math.div(math.add-unit(width-value(content), 1em), 2.25)
+                    ),
+                    1fr
+                )
+            ),
+            repeat(auto-fit, minmax(calc(do-var(width-content) / 2.25), 1fr))
+        );
+    }
+
+    @each $cols in $gridColumnsValues {
+        @include cx-prop(grid-template-columns--page, $cols);
+        grid-template-columns: $cols;
+    }
+
+    grid-auto-rows: auto;
+
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
+    }
+
+    > * {
+        @include prop-grid-column(auto);
+        margin-block: 0 !important;
+
+        @if $multipleContentBlocks {
+            @content (direct-child);
+        }
+
+        @include first-child-no-top-margin;
+        @include last-child-no-bottom-margin;
+    }
+
+    @if $multipleContentBlocks {
+        @content (children-start);
+    }
+
+    #{$selector_card} {
+        @if $multipleContentBlocks {
+            @content (link-card);
+        }
+    }
+
+    @if $multipleContentBlocks {
+        @content (children-end);
+    }
+}

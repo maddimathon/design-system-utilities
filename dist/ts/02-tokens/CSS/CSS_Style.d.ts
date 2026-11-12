@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0
+ * @maddimathon/design-system-utilities@0.3.0-draft
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -51,6 +51,12 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
         inline: Tokens_CSS_Style.ButtonStyles_Inline;
     }>;
     /**
+     * @since 0.3.0-draft
+     */
+    static flowMargins<T_Defaults extends Partial<Tokens_CSS_Style.FlowMargin>, T_Partial extends RecursivePartial<Tokens_CSS_Style.FlowMargin>>(defaults: T_Defaults, partial?: T_Partial): Promise<Omit<T_Defaults, 'button'> & {
+        button: Extract<T_Defaults['button'], object>;
+    }>;
+    /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0 — Added partial param.
      */
@@ -67,6 +73,10 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
      * @since 0.1.0-beta.0
      */
     static inputStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['input']): Promise<Tokens_CSS_Style.Data<T_Params>['input']>;
+    /**
+     * @since 0.3.0-draft
+     */
+    static linkCardStyle<T_Params extends TokenTypes.Style.TypeParams>(alertStyles: Tokens_CSS_Style.AlertStyles, partial?: Tokens_CSS_Style.InputParam<T_Params>['link-card']): Promise<Tokens_CSS_Style.Data<T_Params>['link-card']>;
     /**
      * @since 0.1.0-beta.0
      */
@@ -511,6 +521,61 @@ export declare namespace Tokens_CSS_Style {
         border: Omit<InputStyles['border'], 'width'>;
     };
     /**
+     * @since 0.3.0-draft
+     */
+    type LinkCardStyles = {
+        /**
+         * These should be theme slugs.
+         */
+        background: {
+            $: string;
+            hover: string;
+            active: string;
+        };
+        border: {
+            /**
+             * These should be theme slugs.
+             */
+            color: {
+                $: string;
+                hover: string;
+                active: string;
+            };
+            radius: TokenTypes.Css.BorderRadius;
+            style: string;
+            width: TokenTypes.Css.BorderWidth;
+        };
+        heading: {
+            /**
+             * These should be theme slugs.
+             */
+            color: {
+                $: string;
+                hover: string;
+                active: string;
+            };
+        };
+        'line-height': TokenTypes.Css.LineHeight;
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': FlowMargin.WithSelf;
+        padding: {
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
+        };
+        subheading: {
+            /**
+             * These should be theme slugs.
+             */
+            color: {
+                $: string;
+                hover: string;
+                active: string;
+            };
+        };
+    };
+    /**
      * @since 0.1.0-beta.0
      */
     type SubheadingStyles = Omit<HeadingStyles_Unstyled, 'font' | 'subheading'> & {
@@ -728,6 +793,10 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
+         * @since 0.3.0-draft
+         */
+        'link-card': LinkCardStyles;
+        /**
          * @since 0.1.0-beta.0
          */
         logo: {
@@ -840,6 +909,10 @@ export declare namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0
          */
         label?: RecursivePartial<Data<T_Params>['label']>;
+        /**
+         * @since 0.3.0-draft
+         */
+        'link-card'?: RecursivePartial<LinkCardStyles>;
         /**
          * @since 0.1.0-beta.0
          */

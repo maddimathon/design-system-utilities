@@ -85,6 +85,9 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
 @mixin snippet-widget-block(
     $background: null,
     $borderColor: var-style(widget-border-color),
+    $borderRadius: var-style(widget-border-radius),
+    $borderStyle: var-style(widget-border-style),
+    $borderWidth: var-style(widget-border-width),
     $display: flex,
     $lineHeight: var-style(widget-line-height),
     $gap: false,
@@ -142,8 +145,10 @@ $_backgroundKeys: map.get(tokens.$themesMeta, keys, background);
     line-height: $lineHeight;
 
     @if $includeBorder {
-        border: var-style(widget-border-width) var-style(widget-border-style) $borderColor;
-        border-radius: var-style(widget-border-radius);
+        border-width: $borderWidth;
+        border-style: $borderStyle;
+        border-color: $borderColor;
+        border-radius: $borderRadius;
     }
 
     @if $background != false {

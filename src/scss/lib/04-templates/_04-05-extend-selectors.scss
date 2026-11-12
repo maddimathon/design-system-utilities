@@ -201,6 +201,7 @@
 @mixin extend-selectors-utils(
     $additional: (),
     $allHeadingLevels: token-all-heading-levels(),
+    $includeLinkCards: map.get(config.$template_styles, linkCard),
     $args...
 ) {
     //
@@ -246,6 +247,10 @@
     $additional: list.join($additional, get-extend-selectors-icon-utils());
     $additional: list.join($additional, get-extend-selectors-layout-utils());
     $additional: list.join($additional, get-extend-selectors-width-utils());
+
+    @if $includeLinkCards {
+        $additional: list.join($additional, get-extend-selectors-link-card('.link-card'));
+    }
 
     $additional: list.append($additional, ('.alert-block', alert));
 

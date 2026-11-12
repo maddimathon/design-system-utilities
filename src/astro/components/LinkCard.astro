@@ -1,0 +1,247 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { ElementProps } from '@maddimathon/utility-astro';
+import type {
+    DynamicWrapperComponentType,
+    HeadingComponentType,
+    HeadingProps,
+} from '@maddimathon/utility-astro/components';
+
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
+
+import type { IconComponentType } from './Icon.astro';
+
+/* import - functions */
+import { makeClassList } from '@maddimathon/utility-astro/functions';
+
+/* import - values */
+
+/* import - components */
+import {
+    DynamicWrapper,
+    Heading as HeadingComponent,
+} from '@maddimathon/utility-astro/components';
+
+import IconComponent from './Icon.astro';
+
+/* import - layouts */
+// import {} from '@maddimathon/utility-astro/layouts';
+
+/* TYPES ===================================== */
+
+/* FUNCTIONS ===================================== */
+
+export function getLinkCardIds<T extends string>(id: T) {
+    return {
+        container: id,
+        heading: `${id}-heading`,
+    } as const;
+}
+
+/* PROPS ===================================== */
+
+export type LinkCardProps<T_Types extends TokenTypes.TypeParams> = ElementProps<
+    {
+        tokens: Tokens.JsonReturn<T_Types>;
+
+        href: string;
+        id: string;
+
+        activeTheme?: Exclude<
+            keyof Tokens.JsonReturn<T_Types>['themes'],
+            '_meta'
+        >;
+        background?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['background'][number];
+
+        components?: Partial<{
+            CardContainer: DynamicWrapperComponentType;
+            Container: DynamicWrapperComponentType;
+            Heading: HeadingComponentType;
+            Icon: IconComponentType;
+        }>;
+
+        displayHeading?: HeadingProps['displayHeading'];
+        heading?: HeadingProps['heading'];
+
+        /**
+         * Number of tag slots to check for.
+         */
+        maxTags?: number;
+
+        readMoreText?: string;
+    },
+    'div'
+>;
+
+export type LinkCardComponentType = (
+    props: LinkCardProps<TokenTypes.TypeParams>,
+) => any;
+
+type Props = LinkCardProps<TokenTypes.TypeParams>;
+
+const {
+    activeTheme,
+    background,
+    class: classList,
+    components: {
+        Container = DynamicWrapper,
+        CardContainer = DynamicWrapper,
+        Heading = HeadingComponent,
+        Icon = IconComponent,
+    } = {},
+    displayHeading,
+    heading = 0,
+    href,
+    id,
+    maxTags = 10,
+    readMoreText = 'Read More',
+    tokens,
+    ...attrs
+} = Astro.props as Props;
+
+/* CONSTANTS ===================================== */
+
+const html = {
+    date: (await Astro.slots.render('date'))?.trim(),
+    description: (await Astro.slots.render('description'))?.trim(),
+    content: (await Astro.slots.render('default'))?.trim(),
+    heading: (await Astro.slots.render('heading'))?.trim(),
+    subheading: (await Astro.slots.render('subheading'))?.trim(),
+
+    tags: (
+        await Promise.all(
+            Array.from({ length: maxTags }, (_, i) =>
+                Astro.slots.render(`tag-${i + 1}`).then((str) => str?.trim()),
+            ),
+        )
+    ).filter((str) => !!str),
+};
+
+const ids = getLinkCardIds(id);
+
+const elements = {
+    description:
+        html.description &&
+        ({
+            class: 'link-card__description',
+        } as const),
+
+    heading:
+        html.heading &&
+        ({
+            attrs: {
+                hgroup: {
+                    class: 'link-card__hgroup',
+                },
+                subheading: {
+                    class: 'link-card__subheading',
+                },
+            },
+
+            class: 'link-card__heading',
+            displayHeading,
+            heading,
+            id: ids.heading,
+        } as const satisfies HeadingProps),
+};
+---
+
+<Container
+    aria-labelledby={html.heading && ids.heading}
+    class='link-card__wrapper'
+    id={ids.container}
+    tag='article'
+>
+    {
+        elements.description && (
+            <div
+                {...elements.description}
+                set:html={html.description}
+            />
+        )
+    }
+
+    <CardContainer
+        {...attrs}
+        class={makeClassList(
+            [
+                'link-card',
+                {
+                    [`background-${background}`]:
+                        !!background &&
+                        (!activeTheme || activeTheme === 'default'),
+                },
+            ],
+            classList,
+        )}
+        data-active-theme={activeTheme}
+        data-link-card={href}
+        tag='div'
+    >
+        {
+            elements.heading && (
+                <Heading {...elements.heading}>
+                    <a
+                        class='link-card__link'
+                        href={href}
+                        set:html={html.heading}
+                    />
+                    <Fragment
+                        slot='subheading'
+                        set:html={html.subheading}
+                    />
+                </Heading>
+            )
+        }
+        {
+            html.content && (
+                <div
+                    class='link-card__body'
+                    set:html={html.content}
+                />
+            )
+        }
+        {
+            html.tags.length ? (
+                <ul class='link-card__tag-list'>
+                    {html.tags.map((_htmlTag) => (
+                        <li class='link-card__tag'>
+                            <span
+                                class='link-card__tag__text_flag'
+                                set:html={_htmlTag}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                ''
+            )
+        }
+        {
+            html.date && (
+                <div
+                    class='link-card__date'
+                    set:html={html.date}
+                />
+            )
+        }
+        <a
+            class={'link-card__link link-card__link--icon'}
+            href={href}
+            aria-label={readMoreText}
+            title={readMoreText}
+            ><Icon
+                aria-hidden='true'
+                icon='continue'
+                tokens={tokens}
+            /></a
+        >
+    </CardContainer>
+</Container>

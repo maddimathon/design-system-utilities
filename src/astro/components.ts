@@ -39,6 +39,9 @@ export type * from './components/Icon.astro';
 import IconFontTester from './components/IconFontTester.astro';
 export type * from './components/IconFontTester.astro';
 
+import LinkCard from './components/LinkCard.astro';
+export type * from './components/LinkCard.astro';
+
 import Logo from './components/Logo.astro';
 export type * from './components/Logo.astro';
 
@@ -53,6 +56,9 @@ export type * from './components/PageContent_FontFamilies.astro';
 
 import PageContent_Icons from './components/PageContent_Icons.astro';
 export type * from './components/PageContent_Icons.astro';
+
+import PageContent_LinkCards from './components/PageContent_LinkCards.astro';
+export type * from './components/PageContent_LinkCards.astro';
 
 import PageContent_Theme from './components/PageContent_Theme.astro';
 export type * from './components/PageContent_Theme.astro';
@@ -114,11 +120,13 @@ const components = {
     ContrastAlert,
     Icon,
     IconFontTester,
+    LinkCard,
     Logo,
     LoremIpsum,
     PageContent_Colour,
     PageContent_FontFamilies,
     PageContent_Icons,
+    PageContent_LinkCards,
     PageContent_Theme,
     PageContent_ThemeDynamic,
     PageContent_Toggles,

@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes
- * @maddimathon/design-system-utilities/template@0.2.0
+ * @maddimathon/design-system-utilities/template@0.3.0-draft
  * 
  * This is a sample stylesheet with a custom property prefix set in the config
  * (i.e. — $customPropertyPrefix: "prefix-").
@@ -577,22 +577,22 @@
 @property --prefix-flow-margin-button-span-block {
     syntax: "*";
     inherits: true;
-    initial-value: 0.475em;
+    initial-value: 0.775em;
 }
 @property --prefix-flow-margin-button-span-block--touch {
     syntax: "*";
     inherits: true;
-    initial-value: 0.775em;
+    initial-value: 1.1875em;
 }
 @property --prefix-flow-margin-button-span-inline {
     syntax: "*";
     inherits: true;
-    initial-value: 0.475em;
+    initial-value: 0.775em;
 }
 @property --prefix-flow-margin-button-span-inline--touch {
     syntax: "*";
     inherits: true;
-    initial-value: 0.775em;
+    initial-value: 1.1875em;
 }
 @property --prefix-flow-margin-firm-end {
     syntax: "*";
@@ -881,6 +881,12 @@
     --prefix-fs-smaller-3: 0.8125rem;
     --prefix-fs-smaller-2: 0.875rem;
     --prefix-fs-smaller-1: 0.9375rem;
+    --prefix-fs-bigger-1: 1.25rem;
+    --prefix-fs-bigger-1: clamp(1.0625rem, 0.46875svw + 0.9375rem, 1.5rem);
+    --prefix-fs-bigger-2: 1.4375rem;
+    --prefix-fs-bigger-2: clamp(1.1875rem, 0.5625svw + 1.0625rem, 1.75rem);
+    --prefix-fs-bigger-3: 1.625rem;
+    --prefix-fs-bigger-3: clamp(1.375rem, 0.71875svw + 1.1875rem, 2.0625rem);
     --prefix-fs-rel-heading-1: 2.75em;
     --prefix-fs-rel-heading-1: clamp(2.125em, 1.5625svw + 1.75em, 3.625em);
     --prefix-fs-rel-heading-2: 2.0625em;
@@ -909,6 +915,16 @@
     --prefix-fs-rel-smaller-3: 0.75em;
     --prefix-fs-rel-smaller-2: 0.8125em;
     --prefix-fs-rel-smaller-1: 0.875em;
+    --prefix-fs-rel-bigger-1: 1.15625em;
+    --prefix-fs-rel-bigger-1: clamp(1em, 0.4375svw + 0.875em, 1.40625em);
+    --prefix-fs-rel-bigger-2: 1.34375em;
+    --prefix-fs-rel-bigger-2: clamp(1.125em, 0.53125svw + 1em, 1.625em);
+    --prefix-fs-rel-bigger-3: 1.53125em;
+    --prefix-fs-rel-bigger-3: clamp(
+        1.28125em,
+        0.6875svw + 1.09375em,
+        1.90625em
+    );
 }
 /* #endregion Tokens - Font Size */
 
@@ -7879,6 +7895,8 @@ li {
         0;
 }
 
+.link-card__wrapper,
+.link-cards-container,
 .margins-flow-large,
 form,
 dt {
@@ -7892,21 +7910,33 @@ dt {
         )
         0;
 }
+.link-card__wrapper + .margins-flow,
+.link-cards-container + .margins-flow,
 .margins-flow-large + .margins-flow,
+.link-card__wrapper + label,
+.link-cards-container + label,
 .margins-flow-large + label,
 form + .margins-flow,
 form + label,
 dt + .margins-flow,
 dt + label,
+.link-card__wrapper + cite,
+.link-cards-container + cite,
 .margins-flow-large + cite,
 form + cite,
 dt + cite,
+.link-card__wrapper + p,
+.link-cards-container + p,
 .margins-flow-large + p,
 form + p,
 dt + p,
+.link-card__wrapper + .margins-flow-small,
+.link-cards-container + .margins-flow-small,
 .margins-flow-large + .margins-flow-small,
 form + .margins-flow-small,
 dt + .margins-flow-small,
+.link-card__wrapper + li,
+.link-cards-container + li,
 .margins-flow-large + li,
 form + li,
 dt + li {
@@ -7915,9 +7945,30 @@ dt + li {
         var(--prefix-mrg-soft-600, 1.84375rem)
     );
 }
+.link-card__wrapper + .button-span,
+.link-cards-container + .button-span,
 .margins-flow-large + .button-span,
 form + .button-span,
 dt + .button-span,
+.link-card__wrapper + .link-card,
+.link-cards-container + .link-card,
+.link-card__wrapper + a[href].button-grey,
+.link-cards-container + a[href].button-grey,
+.link-card__wrapper + a[href].button-secondary,
+.link-cards-container + a[href].button-secondary,
+.link-card__wrapper + a[href].button-primary,
+.link-cards-container + a[href].button-primary,
+.link-card__wrapper + a[href].button,
+.link-cards-container + a[href].button,
+.link-card__wrapper + .brand-logo,
+.link-cards-container + .brand-logo,
+.link-card__wrapper + .alert-block,
+.link-cards-container + .alert-block,
+.link-card__wrapper + .margins-flow-firm,
+.link-cards-container + .margins-flow-firm,
+.link-card__wrapper + [data-toggle-container],
+.link-cards-container + [data-toggle-container],
+.margins-flow-large + .link-card,
 .margins-flow-large + a[href].button-grey,
 .margins-flow-large + a[href].button-secondary,
 .margins-flow-large + a[href].button-primary,
@@ -7926,18 +7977,43 @@ dt + .button-span,
 .margins-flow-large + .alert-block,
 .margins-flow-large + .margins-flow-firm,
 .margins-flow-large + [data-toggle-container],
+.link-card__wrapper + button,
+.link-cards-container + button,
 .margins-flow-large + button,
+.link-card__wrapper + [role="button"],
+.link-cards-container + [role="button"],
 .margins-flow-large + [role="button"],
+.link-card__wrapper + details,
+.link-cards-container + details,
 .margins-flow-large + details,
+.link-card__wrapper + pre,
+.link-cards-container + pre,
 .margins-flow-large + pre,
+.link-card__wrapper + .table-wrapper,
+.link-cards-container + .table-wrapper,
 .margins-flow-large + .table-wrapper,
+.link-card__wrapper + img,
+.link-cards-container + img,
 .margins-flow-large + img,
+.link-card__wrapper + figure,
+.link-cards-container + figure,
 .margins-flow-large + figure,
+.link-card__wrapper + input,
+.link-cards-container + input,
 .margins-flow-large + input,
+.link-card__wrapper + select,
+.link-cards-container + select,
 .margins-flow-large + select,
+.link-card__wrapper + textarea,
+.link-cards-container + textarea,
 .margins-flow-large + textarea,
+.link-card__wrapper + hr,
+.link-cards-container + hr,
 .margins-flow-large + hr,
+.link-card__wrapper + form.search-form,
+.link-cards-container + form.search-form,
 .margins-flow-large + form.search-form,
+form + .link-card,
 form + a[href].button-grey,
 form + a[href].button-secondary,
 form + a[href].button-primary,
@@ -7958,6 +8034,7 @@ form + select,
 form + textarea,
 form + hr,
 form + form.search-form,
+dt + .link-card,
 dt + a[href].button-grey,
 dt + a[href].button-secondary,
 dt + a[href].button-primary,
@@ -7978,6 +8055,8 @@ dt + select,
 dt + textarea,
 dt + hr,
 dt + form.search-form,
+.link-card__wrapper + .margins-flow-firm-small,
+.link-cards-container + .margins-flow-firm-small,
 .margins-flow-large + .margins-flow-firm-small,
 form + .margins-flow-firm-small,
 dt + .margins-flow-firm-small {
@@ -7988,6 +8067,7 @@ dt + .margins-flow-firm-small {
 }
 
 .button-span,
+.link-card,
 a[href].button-grey,
 a[href].button-secondary,
 a[href].button-primary,
@@ -8046,7 +8126,7 @@ form.search-form {
     ) {
     margin-block-start: var(
         --prefix-flow-margin-button-span-block--touch,
-        var(--prefix-pad-firm-300, 0.8125em)
+        var(--prefix-pad-firm-400, 1.25em)
     );
 }
 :where(.js__no-touch)
@@ -8074,7 +8154,7 @@ form.search-form {
     ) {
     margin-block-start: var(
         --prefix-flow-margin-button-span-block,
-        var(--prefix-pad-firm-200, 0.5em)
+        var(--prefix-pad-firm-300, 0.8125em)
     );
 }
 
@@ -8159,6 +8239,7 @@ table + li {
 .margins-flow-firm-large + .button-span,
 blockquote + .button-span,
 table + .button-span,
+.margins-flow-firm-large + .link-card,
 .margins-flow-firm-large + a[href].button-grey,
 .margins-flow-firm-large + a[href].button-secondary,
 .margins-flow-firm-large + a[href].button-primary,
@@ -8167,6 +8248,7 @@ table + .button-span,
 .margins-flow-firm-large + .alert-block,
 .margins-flow-firm-large + .margins-flow-firm,
 .margins-flow-firm-large + [data-toggle-container],
+blockquote + .link-card,
 blockquote + a[href].button-grey,
 blockquote + a[href].button-secondary,
 blockquote + a[href].button-primary,
@@ -8189,6 +8271,7 @@ blockquote + .table-wrapper,
 blockquote + img,
 .margins-flow-firm-large + figure,
 blockquote + figure,
+table + .link-card,
 table + a[href].button-grey,
 table + a[href].button-secondary,
 table + a[href].button-primary,
@@ -8231,21 +8314,21 @@ table + .margins-flow-firm-small {
 .button-span {
     gap: var(
             --prefix-flow-margin-button-span-block--touch,
-            var(--prefix-pad-firm-300, 0.8125em)
+            var(--prefix-pad-firm-400, 1.25em)
         )
         var(
             --prefix-flow-margin-button-span-inline--touch,
-            var(--prefix-pad-firm-300, 0.8125em)
+            var(--prefix-pad-firm-400, 1.25em)
         );
 }
 :where(.js__no-touch) .button-span {
     gap: var(
             --prefix-flow-margin-button-span-block,
-            var(--prefix-pad-firm-200, 0.5em)
+            var(--prefix-pad-firm-300, 0.8125em)
         )
         var(
             --prefix-flow-margin-button-span-inline,
-            var(--prefix-pad-firm-200, 0.5em)
+            var(--prefix-pad-firm-300, 0.8125em)
         );
 }
 
@@ -8785,20 +8868,20 @@ blockquote > * {
         0.34375rem
     );
     --prefix-flow-margin-button-span-block--touch: var(
-        --prefix-mrg-firm-300,
-        0.8125rem
+        --prefix-pad-firm-300,
+        0.8125em
     );
     --prefix-flow-margin-button-span-inline--touch: var(
-        --prefix-mrg-firm-300,
-        0.8125rem
+        --prefix-pad-firm-300,
+        0.8125em
     );
     --prefix-flow-margin-button-span-block: var(
         --prefix-flow-margin-button-span-block--touch,
-        var(--prefix-mrg-firm-300, 0.8125rem)
+        var(--prefix-pad-firm-300, 0.8125em)
     );
     --prefix-flow-margin-button-span-inline: var(
         --prefix-flow-margin-button-span-inline--touch,
-        var(--prefix-mrg-firm-300, 0.8125rem)
+        var(--prefix-pad-firm-300, 0.8125em)
     );
 }
 :where(.js__no-touch) blockquote > * {
@@ -8896,8 +8979,9 @@ pre {
     margin-inline: 0;
     padding-block: var(--prefix-mrg-soft-300, 0.5rem);
     padding-inline: var(--prefix-mrg-firm-300, 0.8125rem);
-    border: var(--prefix-border-width-200, 0.125rem) solid
-        var(--prefix-theme-ui-primary, CanvasText);
+    border-width: var(--prefix-border-width-200, 0.125rem);
+    border-style: solid;
+    border-color: var(--prefix-theme-ui-primary, CanvasText);
     border-radius: 0;
     color: var(--prefix-theme-text, CanvasText);
     font-size: var(--prefix-fs-smaller-1, 0.9375rem);
@@ -9273,6 +9357,7 @@ hgroup .h10 {
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -9355,6 +9440,7 @@ hgroup .h10 {
 ):has(
     + :is(
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -10735,7 +10821,7 @@ h6.unstyled-heading,
     padding-block-end: 0;
     font-family: inherit;
     font-weight: 600;
-    font-size: var(--prefix-fs-normal, 1.0625rem);
+    font-size: var(--prefix-fs-bigger-1, 1.25rem);
     line-height: var(--prefix-line-height-400, 1.6875);
     text-transform: none;
     letter-spacing: var(--prefix-font-override-letter-spacing, normal);
@@ -10811,7 +10897,7 @@ h6.unstyled-heading,
     padding-block-end: 0;
     font-family: inherit;
     font-weight: 600;
-    font-size: var(--prefix-fs-normal, 1.0625rem);
+    font-size: var(--prefix-fs-bigger-1, 1.25rem);
     line-height: var(--prefix-line-height-400, 1.6875);
     text-transform: none;
     letter-spacing: var(--prefix-font-override-letter-spacing, normal);
@@ -10997,7 +11083,9 @@ fieldset {
     margin-inline: 0;
     padding-block: var(--prefix-mrg-soft-400, 0.78125rem);
     padding-inline: var(--prefix-mrg-firm-400, 1.25rem);
-    border: var(--prefix-border-width-200, 0.125rem) solid currentColor;
+    border-width: var(--prefix-border-width-200, 0.125rem);
+    border-style: solid;
+    border-color: currentColor;
     border-radius: 0;
     border-color: var(--prefix-theme-input-border, CanvasText);
     --prefix-background-color: var(--prefix-theme-background, Canvas);
@@ -11044,7 +11132,7 @@ fieldset legend {
     --prefix-focus-ring-outline-offset: 0;
     font-family: inherit;
     font-weight: 600;
-    font-size: 1em;
+    font-size: var(--prefix-fs-rel-bigger-1, 1.1875em);
     line-height: var(--prefix-line-height-400, 1.6875);
     text-transform: none;
     text-wrap: balance;
@@ -11114,6 +11202,7 @@ fieldset
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -14421,6 +14510,7 @@ td > ul:first-child > li:first-child {
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -14462,6 +14552,7 @@ td > :last-child {
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -14882,8 +14973,20 @@ body {
     font-size: var(--prefix-fs-smaller-1, 0.9375rem) !important;
 }
 
+.font-size-bigger-1 {
+    font-size: var(--prefix-fs-bigger-1, 1.25rem) !important;
+}
+
+.font-size-bigger-2 {
+    font-size: var(--prefix-fs-bigger-2, 1.4375rem) !important;
+}
+
+.font-size-bigger-3 {
+    font-size: var(--prefix-fs-bigger-3, 1.625rem) !important;
+}
+
 .font-size-unstyled-heading {
-    font-size: var(--prefix-fs-normal, 1.0625rem) !important;
+    font-size: var(--prefix-fs-bigger-1, 1.25rem) !important;
 }
 
 .text-transform-lowercase {
@@ -17249,20 +17352,20 @@ body {
         0.46875rem
     );
     --prefix-flow-margin-button-span-block--touch: var(
-        --prefix-mrg-firm-300,
-        0.8125rem
+        --prefix-pad-firm-300,
+        0.8125em
     );
     --prefix-flow-margin-button-span-inline--touch: var(
-        --prefix-mrg-firm-300,
-        0.8125rem
+        --prefix-pad-firm-300,
+        0.8125em
     );
     --prefix-flow-margin-button-span-block: var(
         --prefix-flow-margin-button-span-block--touch,
-        var(--prefix-mrg-firm-300, 0.8125rem)
+        var(--prefix-pad-firm-300, 0.8125em)
     );
     --prefix-flow-margin-button-span-inline: var(
         --prefix-flow-margin-button-span-inline--touch,
-        var(--prefix-mrg-firm-300, 0.8125rem)
+        var(--prefix-pad-firm-300, 0.8125em)
     );
 }
 :where(.js__no-touch) .alert-block > * {
@@ -17276,6 +17379,539 @@ body {
         --prefix-flow-margin-button-span-inline,
         var(--prefix-pad-firm-200, 0.5em)
     );
+}
+
+/* # BLOCKS - LINK CARDS
+ * ======================================================================== */
+.link-card {
+    margin-block: var(
+            --prefix-flow-margin-firm-start,
+            var(--prefix-mrg-firm-400, 1.25rem)
+        )
+        var(
+            --prefix-flow-margin-firm-end,
+            var(--prefix-mrg-half-400, 0.46875rem)
+        );
+    padding-block: var(--prefix-mrg-soft-400, 0.78125rem);
+    padding-inline: var(--prefix-mrg-firm-400, 1.25rem);
+    gap: 0;
+    width: 100%;
+    line-height: var(--prefix-line-height-300, 1.5);
+    border-width: var(--prefix-border-width-200, 0.125rem);
+    border-style: solid;
+    border-color: var(--prefix-theme-ui-grey, CanvasText);
+    border-radius: 0;
+    --prefix-background-color: var(--prefix-theme-background-bright, Canvas);
+    background-color: var(
+        --prefix-background-color,
+        var(--prefix-theme-background-bright, Canvas)
+    );
+    transition:
+        background 250ms ease-out,
+        border-color 250ms ease-out,
+        color 250ms ease-out;
+    --prefix-display: grid;
+    display: var(--prefix-display, grid);
+    position: relative;
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+    grid-auto-flow: row;
+    grid-auto-flow: row dense;
+    grid-template-columns: 1fr fit-content(0);
+    grid-template-columns: 1fr min-content;
+    grid-auto-rows: auto;
+}
+.link-card > .link-card__body,
+.link-card > .link-card__hgroup,
+.link-card > .link-card__heading {
+    margin-block-start: 0;
+}
+.link-card > .link-card__body {
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+.link-card__wrapper,
+.link-card__description {
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+
+.link-card__description > * {
+    --prefix-flow-margin: var(--prefix-mrg-soft-300, 0.5rem);
+    --prefix-flow-margin--small: var(--prefix-mrg-soft-200, 0.3125rem);
+    --prefix-flow-margin--large: var(--prefix-mrg-soft-400, 0.78125rem);
+    --prefix-flow-margin-firm-start: var(--prefix-mrg-firm-300, 0.8125rem);
+    --prefix-flow-margin-firm-end: var(--prefix-mrg-half-300, 0.3125rem);
+    --prefix-flow-margin-firm-start--small: var(--prefix-mrg-firm-200, 0.5rem);
+    --prefix-flow-margin-firm-end--small: var(--prefix-mrg-half-200, 0.1875rem);
+    --prefix-flow-margin-firm-start--large: var(--prefix-mrg-firm-400, 1.25rem);
+    --prefix-flow-margin-firm-end--large: var(
+        --prefix-mrg-half-400,
+        0.46875rem
+    );
+    --prefix-flow-margin-button-span-block--touch: var(
+        --prefix-pad-firm-300,
+        0.8125em
+    );
+    --prefix-flow-margin-button-span-inline--touch: var(
+        --prefix-pad-firm-300,
+        0.8125em
+    );
+    --prefix-flow-margin-button-span-block: var(
+        --prefix-flow-margin-button-span-block--touch,
+        var(--prefix-pad-firm-300, 0.8125em)
+    );
+    --prefix-flow-margin-button-span-inline: var(
+        --prefix-flow-margin-button-span-inline--touch,
+        var(--prefix-pad-firm-300, 0.8125em)
+    );
+}
+:where(.js__no-touch) .link-card__description > * {
+    --prefix-flow-margin-button-span-block: var(--prefix-pad-firm-200, 0.5em);
+    --prefix-flow-margin-button-span-inline: var(--prefix-pad-firm-200, 0.5em);
+    --prefix-flow-margin-button-span-block--touch: var(
+        --prefix-flow-margin-button-span-block,
+        var(--prefix-pad-firm-200, 0.5em)
+    );
+    --prefix-flow-margin-button-span-inline--touch: var(
+        --prefix-flow-margin-button-span-inline,
+        var(--prefix-pad-firm-200, 0.5em)
+    );
+}
+
+.link-card__description > :first-child,
+.link-card__description > dl:first-child > dt:first-child,
+.link-card__description > ol:first-child > li:first-child,
+.link-card__description > ul:first-child > li:first-child {
+    margin-block-start: 0 !important;
+}
+
+:is(.link-card__description)
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-start: var(
+        --prefix-flow-margin-firm-end,
+        var(--prefix-mrg-half-400, 0.46875rem)
+    ) !important;
+}
+
+.link-card__description > :last-child {
+    margin-block-end: 0 !important;
+}
+
+:is(.link-card__description)
+    > :last-child:is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-end: var(
+        --prefix-flow-margin-firm-end,
+        var(--prefix-mrg-half-400, 0.46875rem)
+    ) !important;
+}
+
+.link-card__description + .link-card {
+    margin-block-start: var(
+        --prefix-flow-margin-firm-start--small,
+        var(--prefix-mrg-firm-300, 0.8125rem)
+    );
+}
+
+.link-card > .link-card__heading,
+.link-card > .link-card__hgroup {
+    grid-column: 1;
+    grid-row: 1;
+    margin-block-start: 0 !important;
+}
+.link-card > .link-card__heading:has(+ .link-card__link--icon:last-child),
+.link-card > .link-card__hgroup:has(+ .link-card__link--icon:last-child) {
+    grid-row: 1 / 7;
+    align-self: center;
+    margin-block-end: 0 !important;
+    padding-block-end: 0 !important;
+}
+.link-card .link-card__tag-list {
+    grid-column: 1;
+    margin-block: var(
+            --prefix-flow-margin-firm-start--small,
+            var(--prefix-mrg-firm-300, 0.8125rem)
+        )
+        var(
+            --prefix-flow-margin-firm-end--small,
+            var(--prefix-mrg-half-300, 0.3125rem)
+        );
+}
+.link-card .link-card__tag-list + .link-card__date > *,
+.link-card .link-card__tag-list + .link-card__footer > * {
+    --prefix-flow-margin: var(--prefix-mrg-soft-300, 0.5rem);
+    --prefix-flow-margin--small: var(--prefix-mrg-soft-200, 0.3125rem);
+    --prefix-flow-margin--large: var(--prefix-mrg-soft-400, 0.78125rem);
+    --prefix-flow-margin-firm-start: var(--prefix-mrg-firm-300, 0.8125rem);
+    --prefix-flow-margin-firm-end: var(--prefix-mrg-half-300, 0.3125rem);
+    --prefix-flow-margin-firm-start--small: var(--prefix-mrg-firm-200, 0.5rem);
+    --prefix-flow-margin-firm-end--small: var(--prefix-mrg-half-200, 0.1875rem);
+    --prefix-flow-margin-firm-start--large: var(--prefix-mrg-firm-400, 1.25rem);
+    --prefix-flow-margin-firm-end--large: var(
+        --prefix-mrg-half-400,
+        0.46875rem
+    );
+    --prefix-flow-margin-button-span-block--touch: var(
+        --prefix-pad-firm-300,
+        0.8125em
+    );
+    --prefix-flow-margin-button-span-inline--touch: var(
+        --prefix-pad-firm-300,
+        0.8125em
+    );
+    --prefix-flow-margin-button-span-block: var(
+        --prefix-flow-margin-button-span-block--touch,
+        var(--prefix-pad-firm-300, 0.8125em)
+    );
+    --prefix-flow-margin-button-span-inline: var(
+        --prefix-flow-margin-button-span-inline--touch,
+        var(--prefix-pad-firm-300, 0.8125em)
+    );
+}
+:where(.js__no-touch) .link-card .link-card__tag-list + .link-card__date > *,
+:where(.js__no-touch) .link-card .link-card__tag-list + .link-card__footer > * {
+    --prefix-flow-margin-button-span-block: var(--prefix-pad-firm-200, 0.5em);
+    --prefix-flow-margin-button-span-inline: var(--prefix-pad-firm-200, 0.5em);
+    --prefix-flow-margin-button-span-block--touch: var(
+        --prefix-flow-margin-button-span-block,
+        var(--prefix-pad-firm-200, 0.5em)
+    );
+    --prefix-flow-margin-button-span-inline--touch: var(
+        --prefix-flow-margin-button-span-inline,
+        var(--prefix-pad-firm-200, 0.5em)
+    );
+}
+
+.link-card .link-card__date,
+.link-card .link-card__footer {
+    grid-column: 1;
+}
+.link-card .link-card__link {
+    --prefix-theme-link-decoration: currentColor;
+    --prefix-theme-link-ui: currentColor;
+    color: currentColor;
+}
+.link-card .link-card__link--icon {
+    grid-column: 2;
+    grid-row: 1 / 7;
+    --prefix-display: flex;
+    display: var(--prefix-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    padding-inline-start: var(
+        --prefix-flow-margin-firm-start,
+        var(--prefix-mrg-firm-400, 1.25rem)
+    );
+    height: 100%;
+    width: auto;
+}
+.link-card .link-card__link--icon .icon {
+    color: currentColor !important;
+}
+[data-state-focus="true"].link-card {
+    /* is-hover-focus */
+    --prefix-background-color: var(--prefix-theme-background-alt);
+    background-color: var(
+        --prefix-background-color,
+        var(--prefix-theme-background-alt)
+    );
+    border-color: var(--prefix-theme-link-ui-hover, ActiveText);
+    cursor: pointer;
+}
+[data-state-focus="true"].link-card .link-card__heading,
+[data-state-focus="true"].link-card .link-card__link {
+    color: var(--prefix-theme-link-hover, ActiveText);
+}
+[data-state-focus="true"].link-card .link-card__subheading {
+    color: var(--prefix-theme-link-hover, ActiveText);
+}
+
+.link-card:has(
+    :is(.link-card__link):is(:hover, :focus-visible, [data-state-focus="true"])
+) {
+    /* is-hover-focus */
+    --prefix-background-color: var(--prefix-theme-background-alt);
+    background-color: var(
+        --prefix-background-color,
+        var(--prefix-theme-background-alt)
+    );
+    border-color: var(--prefix-theme-link-ui-hover, ActiveText);
+    cursor: pointer;
+}
+.link-card:has(
+        :is(.link-card__link):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__heading,
+.link-card:has(
+        :is(.link-card__link):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__link {
+    color: var(--prefix-theme-link-hover, ActiveText);
+}
+.link-card:has(
+        :is(.link-card__link):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__subheading {
+    color: var(--prefix-theme-link-hover, ActiveText);
+}
+
+[data-state-active="true"].link-card {
+    /* is-active */
+    --prefix-background-color: var(--prefix-theme-background-alt);
+    background-color: var(
+        --prefix-background-color,
+        var(--prefix-theme-background-alt)
+    );
+    border-color: var(--prefix-theme-link-ui-active, ActiveText);
+    cursor: pointer;
+}
+[data-state-active="true"].link-card .link-card__heading,
+[data-state-active="true"].link-card .link-card__link {
+    color: var(--prefix-theme-link-active, ActiveText);
+}
+[data-state-active="true"].link-card .link-card__subheading {
+    color: var(--prefix-theme-link-active, ActiveText);
+}
+
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"])) {
+    /* is-active */
+    --prefix-background-color: var(--prefix-theme-background-alt);
+    background-color: var(
+        --prefix-background-color,
+        var(--prefix-theme-background-alt)
+    );
+    border-color: var(--prefix-theme-link-ui-active, ActiveText);
+    cursor: pointer;
+}
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+    .link-card__heading,
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+    .link-card__link {
+    color: var(--prefix-theme-link-active, ActiveText);
+}
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+    .link-card__subheading {
+    color: var(--prefix-theme-link-active, ActiveText);
+}
+
+.link-cards-container {
+    --prefix-display: grid;
+    display: var(--prefix-display, grid);
+    position: relative;
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    grid-auto-flow: row dense;
+    gap: var(--prefix-flow-margin, var(--prefix-mrg-soft-400, 0.78125rem))
+        var(
+            --prefix-flow-margin-firm-start,
+            var(--prefix-mrg-firm-400, 1.25rem)
+        );
+    --prefix-grid-template-columns--page: repeat(auto-fit, minmax(16em, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16em, 1fr));
+    --prefix-grid-template-columns--page: repeat(
+        auto-fit,
+        minmax(calc(var(--prefix-width-content) / 2.25), 1fr)
+    );
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(calc(var(--prefix-width-content) / 2.25), 1fr)
+    );
+    grid-auto-rows: auto;
+}
+.link-cards-container > * {
+    --prefix-grid-column: auto;
+    grid-column: var(--prefix-grid-column, auto);
+    margin-block: 0 !important;
+}
+.link-cards-container > * > :first-child,
+.link-cards-container > * > dl:first-child > dt:first-child,
+.link-cards-container > * > ol:first-child > li:first-child,
+.link-cards-container > * > ul:first-child > li:first-child {
+    margin-block-start: 0 !important;
+}
+
+:is(.link-cards-container > *)
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-start: var(
+        --prefix-flow-margin-firm-end,
+        var(--prefix-mrg-half-400, 0.46875rem)
+    ) !important;
+}
+
+.link-cards-container > * > :last-child {
+    margin-block-end: 0 !important;
+}
+
+:is(.link-cards-container > *)
+    > :last-child:is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-end: var(
+        --prefix-flow-margin-firm-end,
+        var(--prefix-mrg-half-400, 0.46875rem)
+    ) !important;
 }
 
 /* # BLOCKS - SEARCH FORM

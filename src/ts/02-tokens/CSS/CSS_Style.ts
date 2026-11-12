@@ -8,7 +8,7 @@
  * @license MIT
  */
 
-import type { PartialExcept, RecursivePartial } from '@maddimathon/utility-typescript/types';
+import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
 
 import {
     deleteUndefinedProps, mergeArgs, mergeArgsAsync,
@@ -60,16 +60,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             blockquote: {
                 'flow-margin': {
                     self: 'margins-flow-firm-large',
-                },
-            },
-
-            'flow-margin': {
-                $: '400',
-                large: '600',
-                small: '300',
-                button: {
-                    $: '300',
-                    touch: '400',
                 },
             },
 
@@ -127,10 +117,15 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     self: 'margins-flow-firm-large',
                 },
             },
-        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'blockquote' | 'flow-margin' | 'form' | 'hr' | 'label' | 'logo' | 'selection' | 'table'>;
+        } satisfies Pick<Tokens_CSS_Style.Data<T_Params>, 'blockquote' | 'form' | 'hr' | 'label' | 'logo' | 'selection' | 'table'>;
 
         return Promise.all( [
-            Tokens_CSS_Style.iconStyle<T_Params>( partial.icon ),
+            Tokens_CSS_Style.iconStyle<T_Params>( partial.icon ).then(
+                async ( icon ) => [
+                    await Tokens_CSS_Style.alertStyle<T_Params>( icon, partial.alert ),
+                    icon,
+                ] as const
+            ),
 
             objectGeneratorAsync(
                 [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] as const,
@@ -142,19 +137,35 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
             Tokens_CSS_Style.widgetStyle<T_Params>( partial.widget ),
         ] ).then(
-            async ( [ icon, heading, widget ] ) => {
+            async ( [ [ alert, icon ], heading, widget ] ) => {
 
                 const [
-                    alert,
                     button,
+                    flowMargin,
                     input,
+                    linkCard,
                     subheading,
                     toggle,
                     backdrop,
                 ] = await Promise.all( [
-                    Tokens_CSS_Style.alertStyle<T_Params>( icon, partial.alert ),
                     Tokens_CSS_Style.buttonStyle<T_Params>( icon, partial.button ),
+
+                    Tokens_CSS_Style.flowMargins(
+                        {
+                            $: '400',
+                            large: '600',
+                            small: '300',
+                            button: {
+                                $: '300',
+                                touch: '400',
+                            },
+                        },
+                        partial?.[ 'flow-margin' ],
+                    ),
+
                     Tokens_CSS_Style.inputStyle<T_Params>( partial.input ),
+
+                    Tokens_CSS_Style.linkCardStyle<T_Params>( alert, partial[ 'link-card' ] ),
 
                     objectGeneratorAsync(
                         [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 'unstyled' ] as const,
@@ -165,42 +176,19 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     Tokens_CSS_Style.backdropStyle<T_Params>( partial.backdrop ),
                 ] );
 
-                const flowMargin_button_default = partial?.[ 'flow-margin' ]?.small ?? '200' satisfies AnyTokenLevel;
-                const flowMargin_button_touch = partial?.[ 'flow-margin' ]?.$ ?? '300' satisfies AnyTokenLevel;
-
-                if ( typeof partial[ 'flow-margin' ] !== 'object' ) {
-                    partial[ 'flow-margin' ] = {};
-                }
-
-                const partial_flowMargin_button = typeof partial?.[ 'flow-margin' ]?.button === 'object'
-                    ? deleteUndefinedProps( {
-                        $: partial?.[ 'flow-margin' ]?.button?.$ ?? flowMargin_button_default,
-                        touch: partial?.[ 'flow-margin' ]?.button?.touch ?? flowMargin_button_touch,
-                    } )
-                    : {
-                        $: partial?.[ 'flow-margin' ]?.button ?? flowMargin_button_default,
-                        touch: flowMargin_button_touch,
-                    };
-
                 return {
                     alert,
                     backdrop,
                     blockquote: mergeArgs( defaults.blockquote, partial.blockquote, true ),
                     button,
-                    'flow-margin': mergeArgs(
-                        defaults[ 'flow-margin' ],
-                        {
-                            ...partial?.[ 'flow-margin' ],
-                            button: partial_flowMargin_button,
-                        },
-                        true,
-                    ),
+                    'flow-margin': flowMargin,
                     form: mergeArgs( defaults.form, partial.form, true ),
                     heading,
                     hr: mergeArgs( defaults.hr, partial.hr, true ),
                     icon,
                     input,
                     label: mergeArgs( defaults.label, partial.label, true ),
+                    'link-card': linkCard,
                     logo: mergeArgs( defaults.logo, partial.logo, true ),
                     selection: mergeArgs( defaults.selection, partial.selection, true ),
                     subheading,
@@ -321,6 +309,13 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
                 color: 'text-primary',
 
+                'flow-margin': {} as Tokens_CSS_Style.AlertStyles[ 'flow-margin' ],
+
+                gap: {
+                    block: 0,
+                    inline: '300',
+                },
+
                 heading,
 
                 headline: {
@@ -340,8 +335,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     },
                 },
 
-                'line-height': '300',
-
                 icon: {
                     color: 'ui-primary',
                     size: {
@@ -350,18 +343,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     },
                 },
 
-                gap: {
-                    block: 0,
-                    inline: '300',
-                },
-
-                'flow-margin': {
-                    $: '300',
-                    large: '400',
-                    small: '200',
-                    button: '200',
-                    self: 'margins-flow-firm',
-                },
+                'line-height': '300',
 
                 padding: {
                     block: '300',
@@ -370,6 +352,19 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             } satisfies Tokens_CSS_Style.AlertStyles,
             {
                 ...partial,
+                'flow-margin': await this.flowMargins(
+                    {
+                        $: '300',
+                        large: '400',
+                        small: '200',
+                        button: {
+                            $: '200',
+                            touch: '300',
+                        },
+                        self: 'margins-flow-firm',
+                    },
+                    partial[ 'flow-margin' ],
+                ),
                 heading,
             },
             true,
@@ -630,6 +625,49 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    public static async flowMargins<
+        T_Defaults extends Partial<Tokens_CSS_Style.FlowMargin>,
+        T_Partial extends RecursivePartial<Tokens_CSS_Style.FlowMargin>,
+    >(
+        defaults: T_Defaults,
+        partial?: T_Partial,
+    ): Promise<Omit<T_Defaults, 'button'> & { button: Extract<T_Defaults[ 'button' ], object>; }> {
+
+        const default_button: {
+            $: undefined | AnyTokenLevel;
+            touch?: undefined | AnyTokenLevel;
+        } = typeof defaults.button === 'object'
+                ? defaults.button
+                : {
+                    $: defaults.button,
+                };
+
+        const partial_button: {
+            $?: undefined | AnyTokenLevel;
+            touch?: undefined | AnyTokenLevel;
+        } = typeof partial?.button === 'object'
+                ? partial?.button
+                : {
+                    $: partial?.button,
+                };
+
+        return mergeArgs(
+            defaults as Omit<T_Defaults, 'button'>,
+            {
+                ...partial,
+
+                button: {
+                    $: partial_button.$ ?? default_button.$ ?? '200',
+                    touch: partial_button.touch ?? default_button.touch ?? partial?.$ ?? defaults.$ ?? '400',
+                },
+            } as Omit<T_Partial, 'button'> & { button: Extract<T_Partial[ 'button' ], object>; },
+            true,
+        ) as Omit<T_Defaults, 'button'> & { button: Extract<T_Defaults[ 'button' ], object>; };
+    }
+
+    /**
      * @since 0.1.0-alpha
      * @since 0.1.0-beta.0 — Added partial param.
      */
@@ -678,7 +716,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     font: {
                         ...style.font,
                         family: 'body',
-                        size: 'normal',
+                        size: 'bigger-1',
                     },
 
                     'flow-margin': {
@@ -944,6 +982,139 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
     }
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    public static async linkCardStyle<T_Params extends TokenTypes.Style.TypeParams>(
+        alertStyles: Tokens_CSS_Style.AlertStyles,
+        partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'link-card' ],
+    ): Promise<Tokens_CSS_Style.Data<T_Params>[ 'link-card' ]> {
+
+        const inputColours = {
+            background: partial?.background ?? {},
+            border: partial?.border?.color ?? {},
+            heading: partial?.heading?.color ?? {},
+            subheading: partial?.subheading?.color ?? {},
+        } as const;
+
+        const allColours_default = (
+            inputColours.background.$
+            && inputColours.border.$
+            && inputColours.heading.$
+            && inputColours.subheading.$
+        )
+            ? {
+                background: inputColours.background.$,
+                border: inputColours.border.$,
+                heading: inputColours.heading.$,
+                subheading: inputColours.subheading.$,
+            } as const
+            : {
+                background: 'background-bright',
+                border: 'ui-grey',
+                heading: 'link',
+                subheading: 'text-grey',
+            } as const;
+
+        const allColours_hover = (
+            inputColours.background.hover
+            && inputColours.border.hover
+            && inputColours.heading.hover
+            && inputColours.subheading.hover
+        )
+            ? {
+                background: inputColours.background.hover,
+                border: inputColours.border.hover,
+                heading: inputColours.heading.hover,
+                subheading: inputColours.subheading.hover,
+            } as const
+            : {
+                background: 'background-alt',
+                border: 'link-ui-hover',
+                heading: 'link-hover',
+                subheading: 'link-hover',
+            } as const;
+
+        const allColours_active = (
+            inputColours.background.active
+            && inputColours.border.active
+            && inputColours.heading.active
+            && inputColours.subheading.active
+        )
+            ? {
+                background: inputColours.background.active,
+                border: inputColours.border.active,
+                heading: inputColours.heading.active,
+                subheading: inputColours.subheading.active,
+            } as const
+            : {
+                background: 'background-alt',
+                border: 'link-ui-active',
+                heading: 'link-active',
+                subheading: 'link-active',
+            } as const;
+
+        const flowMargin = await Tokens_CSS_Style.flowMargins(
+            {
+                $: alertStyles[ 'flow-margin' ].$,
+                button: alertStyles[ 'flow-margin' ].button,
+                large: alertStyles[ 'flow-margin' ].large,
+                small: alertStyles[ 'flow-margin' ].small,
+
+                self: 'margins-flow-large',
+            } satisfies Tokens_CSS_Style.Data<T_Params>[ 'link-card' ][ 'flow-margin' ],
+            partial?.[ 'flow-margin' ] ?? {},
+        );
+
+        return {
+            background: {
+                $: allColours_default.background,
+                hover: allColours_hover.background,
+                active: allColours_active.background,
+            },
+
+            border: {
+                color: {
+                    $: allColours_default.border,
+                    hover: allColours_hover.border,
+                    active: allColours_active.border,
+                },
+                radius: partial?.border?.radius ?? alertStyles.border.radius,
+                style: partial?.border?.style ?? alertStyles.border.style,
+                width: partial?.border?.width ?? alertStyles.border.width,
+            },
+
+            heading: {
+                ...partial?.heading,
+
+                color: {
+                    $: allColours_default.heading,
+                    hover: allColours_hover.heading,
+                    active: allColours_active.heading,
+                },
+            },
+
+            'flow-margin': flowMargin,
+
+            'line-height': partial?.[ 'line-height' ] ?? alertStyles[ 'line-height' ],
+
+            padding: mergeArgs( {
+                block: flowMargin.$,
+                inline: flowMargin.$,
+            }, partial?.padding ?? {}, true ),
+
+            subheading: {
+                ...partial?.subheading,
+
+                color: {
+                    $: allColours_default.subheading,
+                    hover: allColours_hover.subheading,
+                    active: allColours_active.subheading,
+                },
+            },
+        } satisfies Tokens_CSS_Style.Data<T_Params>[ 'link-card' ];
+    }
+
+    /**
      * @since 0.1.0-beta.0
      */
     public static async toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(
@@ -953,34 +1124,15 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         partial: Tokens_CSS_Style.InputParam<T_Params>[ 'toggle' ] = {},
     ): Promise<Tokens_CSS_Style.ToggleStyles> {
 
-        type FlowMargin_Button = PartialExcept<Extract<Tokens_CSS_Style.WidgetStyles[ 'flow-margin' ][ 'button' ], object>, '$'>;
-
-        const flowMargins_widget_button: FlowMargin_Button =
-            typeof widgetStyles[ 'flow-margin' ].button === 'object'
-                ? widgetStyles[ 'flow-margin' ].button
-                : {
-                    $: widgetStyles[ 'flow-margin' ].button
-                };
-
-        const button: FlowMargin_Button = typeof partial?.[ 'flow-margin' ]?.button === 'object'
-            ? deleteUndefinedProps( {
-                $: partial?.[ 'flow-margin' ]?.button?.$ ?? flowMargins_widget_button.$,
-                touch: partial?.[ 'flow-margin' ]?.button?.touch ?? flowMargins_widget_button.touch,
-            } )
-            : {
-                $: partial?.[ 'flow-margin' ]?.button ?? flowMargins_widget_button.$,
-            };
-
-        const flowMargin = {
-            $: widgetStyles[ 'flow-margin' ].$,
-            large: widgetStyles[ 'flow-margin' ].large,
-            small: widgetStyles[ 'flow-margin' ].small,
-
-            ...partial?.[ 'flow-margin' ] ?? {},
-
-            button,
-            self: 'margins-flow-firm',
-        } as const satisfies Tokens_CSS_Style.ToggleStyles[ 'flow-margin' ];
+        const flowMargin = await this.flowMargins(
+            {
+                $: widgetStyles[ 'flow-margin' ].$,
+                small: widgetStyles[ 'flow-margin' ].small,
+                large: widgetStyles[ 'flow-margin' ].large,
+                button: widgetStyles[ 'flow-margin' ].button,
+            } satisfies Tokens_CSS_Style.WidgetStyles[ 'flow-margin' ],
+            partial?.[ 'flow-margin' ],
+        );
 
         const content = {
 
@@ -1053,7 +1205,10 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             content,
             control,
 
-            'flow-margin': flowMargin,
+            'flow-margin': {
+                ...flowMargin,
+                self: partial?.[ 'flow-margin' ]?.self ?? 'margins-flow-firm',
+            },
 
             icon: {
                 buffer: {
@@ -1089,29 +1244,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
         partial?: Tokens_CSS_Style.InputParam<T_Params>[ 'widget' ],
     ): Promise<Tokens_CSS_Style.WidgetStyles> {
 
-        type FlowMargin_Button = PartialExcept<Extract<Tokens_CSS_Style.WidgetStyles[ 'flow-margin' ][ 'button' ], object>, '$'>;
-
-        const flowMargin_button_default = '200' satisfies AnyTokenLevel;
-
-        const button: FlowMargin_Button = typeof partial?.[ 'flow-margin' ]?.button === 'object'
-            ? deleteUndefinedProps( {
-                $: partial?.[ 'flow-margin' ]?.button?.$ ?? flowMargin_button_default,
-                touch: partial?.[ 'flow-margin' ]?.button?.touch,
-            } )
-            : {
-                $: partial?.[ 'flow-margin' ]?.button ?? flowMargin_button_default,
-            };
-
-        const flowMargin = {
-            $: '300' satisfies AnyTokenLevel,
-            large: '500' satisfies AnyTokenLevel,
-            small: '200' satisfies AnyTokenLevel,
-
-            ...partial?.[ 'flow-margin' ] ?? {},
-
-            button,
-        } as const;
-
         return {
             background: partial?.background ?? 'background-grey',
 
@@ -1124,7 +1256,14 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
             'line-height': partial?.[ 'line-height' ] ?? '300',
 
-            'flow-margin': flowMargin,
+            'flow-margin': await this.flowMargins(
+                {
+                    $: '300',
+                    large: '500',
+                    small: '200',
+                } satisfies Partial<Tokens_CSS_Style.WidgetStyles[ 'flow-margin' ]>,
+                partial?.[ 'flow-margin' ],
+            ),
 
             padding: mergeArgs( {
                 block: '400',
@@ -1692,6 +1831,69 @@ export namespace Tokens_CSS_Style {
     };
 
     /**
+     * @since ___PKG_VERSION___
+     */
+    export type LinkCardStyles = {
+        /**
+         * These should be theme slugs.
+         */
+        background: {
+            $: string;
+            hover: string;
+            active: string;
+        };
+
+        border: {
+            /**
+             * These should be theme slugs.
+             */
+            color: {
+                $: string;
+                hover: string;
+                active: string;
+            };
+
+            radius: TokenTypes.Css.BorderRadius;
+            style: string;
+            width: TokenTypes.Css.BorderWidth;
+        };
+
+        heading: {
+            /**
+             * These should be theme slugs.
+             */
+            color: {
+                $: string;
+                hover: string;
+                active: string;
+            };
+        };
+
+        'line-height': TokenTypes.Css.LineHeight;
+
+        /**
+         * Values for the set-flow-margins mixin.
+         */
+        'flow-margin': FlowMargin.WithSelf;
+
+        padding: {
+            block: AnyTokenLevel;
+            inline: AnyTokenLevel;
+        };
+
+        subheading: {
+            /**
+             * These should be theme slugs.
+             */
+            color: {
+                $: string;
+                hover: string;
+                active: string;
+            };
+        };
+    };
+
+    /**
      * @since 0.1.0-beta.0
      */
     export type SubheadingStyles = Omit<HeadingStyles_Unstyled, 'font' | 'subheading'> & {
@@ -1950,6 +2152,11 @@ export namespace Tokens_CSS_Style {
         };
 
         /**
+         * @since ___PKG_VERSION___
+         */
+        'link-card': LinkCardStyles;
+
+        /**
          * @since 0.1.0-beta.0
          */
         logo: {
@@ -2083,6 +2290,11 @@ export namespace Tokens_CSS_Style {
          * @since 0.1.0-beta.0
          */
         label?: RecursivePartial<Data<T_Params>[ 'label' ]>;
+
+        /**
+         * @since ___PKG_VERSION___
+         */
+        'link-card'?: RecursivePartial<LinkCardStyles>;
 
         /**
          * @since 0.1.0-beta.0

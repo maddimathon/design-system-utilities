@@ -37,7 +37,11 @@ $designSystem: parser.tokens-parse-design-system( (
                 '2': -1.5,
                 '3': -2
             ),
-            'bigger': ()
+            'bigger': (
+                '1': 1,
+                '2': 2,
+                '3': 3
+            )
         ),
         'size_base': 1.0625,
         'size_multiplier': 1.15625,
@@ -1660,7 +1664,10 @@ $designSystem: parser.tokens-parse-design-system( (
             'color': text-primary,
             'flow-margin': (
                 '$': string.unquote( '300' ),
-                'button': string.unquote( '200' ),
+                'button': (
+                    '$': string.unquote( '200' ),
+                    'touch': string.unquote( '300' )
+                ),
                 'large': string.unquote( '400' ),
                 'self': margins-flow-firm,
                 'small': string.unquote( '200' )
@@ -1927,8 +1934,8 @@ $designSystem: parser.tokens-parse-design-system( (
         'flow-margin': (
             '$': string.unquote( '400' ),
             'button': (
-                '$': string.unquote( '200' ),
-                'touch': string.unquote( '300' )
+                '$': string.unquote( '300' ),
+                'touch': string.unquote( '400' )
             ),
             'large': string.unquote( '600' ),
             'small': string.unquote( '300' )
@@ -2163,7 +2170,7 @@ $designSystem: parser.tokens-parse-design-system( (
                 ),
                 'font': (
                     'family': body,
-                    'size': normal,
+                    'size': bigger-1,
                     'style': normal,
                     'weight': string.unquote( '600' )
                 ),
@@ -2277,6 +2284,52 @@ $designSystem: parser.tokens-parse-design-system( (
         'label': (
             'flow-margin': (
                 'self': margins-flow
+            )
+        ),
+        'link-card': (
+            'background': (
+                '$': background-bright,
+                'active': background-alt,
+                'hover': background-alt
+            ),
+            'border': (
+                'color': (
+                    '$': ui-grey,
+                    'active': link-ui-active,
+                    'hover': link-ui-hover
+                ),
+                'radius': 0,
+                'style': solid,
+                'width': string.unquote( '200' )
+            ),
+            'flow-margin': (
+                '$': string.unquote( '300' ),
+                'button': (
+                    '$': string.unquote( '200' ),
+                    'touch': string.unquote( '300' )
+                ),
+                'large': string.unquote( '400' ),
+                'self': margins-flow-large,
+                'small': string.unquote( '200' )
+            ),
+            'heading': (
+                'color': (
+                    '$': link,
+                    'active': link-active,
+                    'hover': link-hover
+                )
+            ),
+            'line-height': string.unquote( '300' ),
+            'padding': (
+                'block': string.unquote( '300' ),
+                'inline': string.unquote( '300' )
+            ),
+            'subheading': (
+                'color': (
+                    '$': text-grey,
+                    'active': link-active,
+                    'hover': link-hover
+                )
             )
         ),
         'logo': (
@@ -2561,7 +2614,8 @@ $designSystem: parser.tokens-parse-design-system( (
             'flow-margin': (
                 '$': string.unquote( '300' ),
                 'button': (
-                    '$': string.unquote( '200' )
+                    '$': string.unquote( '200' ),
+                    'touch': string.unquote( '300' )
                 ),
                 'large': string.unquote( '500' ),
                 'self': margins-flow-firm,
@@ -2598,7 +2652,8 @@ $designSystem: parser.tokens-parse-design-system( (
             'flow-margin': (
                 '$': string.unquote( '300' ),
                 'button': (
-                    '$': string.unquote( '200' )
+                    '$': string.unquote( '200' ),
+                    'touch': string.unquote( '300' )
                 ),
                 'large': string.unquote( '500' ),
                 'small': string.unquote( '200' )

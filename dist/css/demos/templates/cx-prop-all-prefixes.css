@@ -7,7 +7,7 @@
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/design-system-utilities/template@0.2.0
+ * @maddimathon/design-system-utilities/template@0.3.0-draft
  * 
  * This is a sample stylesheet with a custom property prefix and a fallback
  * prefix set in the config (i.e. — $customPropertyPrefix: "",
@@ -578,22 +578,22 @@
 @property --fallback-flow-margin-button-span-block {
     syntax: "*";
     inherits: true;
-    initial-value: 0.475em;
+    initial-value: 0.775em;
 }
 @property --fallback-flow-margin-button-span-block--touch {
     syntax: "*";
     inherits: true;
-    initial-value: 0.775em;
+    initial-value: 1.1875em;
 }
 @property --fallback-flow-margin-button-span-inline {
     syntax: "*";
     inherits: true;
-    initial-value: 0.475em;
+    initial-value: 0.775em;
 }
 @property --fallback-flow-margin-button-span-inline--touch {
     syntax: "*";
     inherits: true;
-    initial-value: 0.775em;
+    initial-value: 1.1875em;
 }
 @property --fallback-flow-margin-firm-end {
     syntax: "*";
@@ -906,6 +906,12 @@
     --fallback-fs-smaller-3: 0.8125rem;
     --fallback-fs-smaller-2: 0.875rem;
     --fallback-fs-smaller-1: 0.9375rem;
+    --fallback-fs-bigger-1: 1.25rem;
+    --fallback-fs-bigger-1: clamp(1.0625rem, 0.46875svw + 0.9375rem, 1.5rem);
+    --fallback-fs-bigger-2: 1.4375rem;
+    --fallback-fs-bigger-2: clamp(1.1875rem, 0.5625svw + 1.0625rem, 1.75rem);
+    --fallback-fs-bigger-3: 1.625rem;
+    --fallback-fs-bigger-3: clamp(1.375rem, 0.71875svw + 1.1875rem, 2.0625rem);
     --fallback-fs-rel-heading-1: 2.75em;
     --fallback-fs-rel-heading-1: clamp(2.125em, 1.5625svw + 1.75em, 3.625em);
     --fallback-fs-rel-heading-2: 2.0625em;
@@ -946,6 +952,16 @@
     --fallback-fs-rel-smaller-3: 0.75em;
     --fallback-fs-rel-smaller-2: 0.8125em;
     --fallback-fs-rel-smaller-1: 0.875em;
+    --fallback-fs-rel-bigger-1: 1.15625em;
+    --fallback-fs-rel-bigger-1: clamp(1em, 0.4375svw + 0.875em, 1.40625em);
+    --fallback-fs-rel-bigger-2: 1.34375em;
+    --fallback-fs-rel-bigger-2: clamp(1.125em, 0.53125svw + 1em, 1.625em);
+    --fallback-fs-rel-bigger-3: 1.53125em;
+    --fallback-fs-rel-bigger-3: clamp(
+        1.28125em,
+        0.6875svw + 1.09375em,
+        1.90625em
+    );
 }
 /* #endregion Tokens - Font Size */
 
@@ -14071,6 +14087,8 @@ li {
         0;
 }
 
+.link-card__wrapper,
+.link-cards-container,
 .margins-flow-large,
 form,
 dt {
@@ -14090,21 +14108,33 @@ dt {
         )
         0;
 }
+.link-card__wrapper + .margins-flow,
+.link-cards-container + .margins-flow,
 .margins-flow-large + .margins-flow,
+.link-card__wrapper + label,
+.link-cards-container + label,
 .margins-flow-large + label,
 form + .margins-flow,
 form + label,
 dt + .margins-flow,
 dt + label,
+.link-card__wrapper + cite,
+.link-cards-container + cite,
 .margins-flow-large + cite,
 form + cite,
 dt + cite,
+.link-card__wrapper + p,
+.link-cards-container + p,
 .margins-flow-large + p,
 form + p,
 dt + p,
+.link-card__wrapper + .margins-flow-small,
+.link-cards-container + .margins-flow-small,
 .margins-flow-large + .margins-flow-small,
 form + .margins-flow-small,
 dt + .margins-flow-small,
+.link-card__wrapper + li,
+.link-cards-container + li,
 .margins-flow-large + li,
 form + li,
 dt + li {
@@ -14116,9 +14146,30 @@ dt + li {
         )
     );
 }
+.link-card__wrapper + .button-span,
+.link-cards-container + .button-span,
 .margins-flow-large + .button-span,
 form + .button-span,
 dt + .button-span,
+.link-card__wrapper + .link-card,
+.link-cards-container + .link-card,
+.link-card__wrapper + a[href].button-grey,
+.link-cards-container + a[href].button-grey,
+.link-card__wrapper + a[href].button-secondary,
+.link-cards-container + a[href].button-secondary,
+.link-card__wrapper + a[href].button-primary,
+.link-cards-container + a[href].button-primary,
+.link-card__wrapper + a[href].button,
+.link-cards-container + a[href].button,
+.link-card__wrapper + .brand-logo,
+.link-cards-container + .brand-logo,
+.link-card__wrapper + .alert-block,
+.link-cards-container + .alert-block,
+.link-card__wrapper + .margins-flow-firm,
+.link-cards-container + .margins-flow-firm,
+.link-card__wrapper + [data-toggle-container],
+.link-cards-container + [data-toggle-container],
+.margins-flow-large + .link-card,
 .margins-flow-large + a[href].button-grey,
 .margins-flow-large + a[href].button-secondary,
 .margins-flow-large + a[href].button-primary,
@@ -14127,18 +14178,43 @@ dt + .button-span,
 .margins-flow-large + .alert-block,
 .margins-flow-large + .margins-flow-firm,
 .margins-flow-large + [data-toggle-container],
+.link-card__wrapper + button,
+.link-cards-container + button,
 .margins-flow-large + button,
+.link-card__wrapper + [role="button"],
+.link-cards-container + [role="button"],
 .margins-flow-large + [role="button"],
+.link-card__wrapper + details,
+.link-cards-container + details,
 .margins-flow-large + details,
+.link-card__wrapper + pre,
+.link-cards-container + pre,
 .margins-flow-large + pre,
+.link-card__wrapper + .table-wrapper,
+.link-cards-container + .table-wrapper,
 .margins-flow-large + .table-wrapper,
+.link-card__wrapper + img,
+.link-cards-container + img,
 .margins-flow-large + img,
+.link-card__wrapper + figure,
+.link-cards-container + figure,
 .margins-flow-large + figure,
+.link-card__wrapper + input,
+.link-cards-container + input,
 .margins-flow-large + input,
+.link-card__wrapper + select,
+.link-cards-container + select,
 .margins-flow-large + select,
+.link-card__wrapper + textarea,
+.link-cards-container + textarea,
 .margins-flow-large + textarea,
+.link-card__wrapper + hr,
+.link-cards-container + hr,
 .margins-flow-large + hr,
+.link-card__wrapper + form.search-form,
+.link-cards-container + form.search-form,
 .margins-flow-large + form.search-form,
+form + .link-card,
 form + a[href].button-grey,
 form + a[href].button-secondary,
 form + a[href].button-primary,
@@ -14159,6 +14235,7 @@ form + select,
 form + textarea,
 form + hr,
 form + form.search-form,
+dt + .link-card,
 dt + a[href].button-grey,
 dt + a[href].button-secondary,
 dt + a[href].button-primary,
@@ -14179,6 +14256,8 @@ dt + select,
 dt + textarea,
 dt + hr,
 dt + form.search-form,
+.link-card__wrapper + .margins-flow-firm-small,
+.link-cards-container + .margins-flow-firm-small,
 .margins-flow-large + .margins-flow-firm-small,
 form + .margins-flow-firm-small,
 dt + .margins-flow-firm-small {
@@ -14192,6 +14271,7 @@ dt + .margins-flow-firm-small {
 }
 
 .button-span,
+.link-card,
 a[href].button-grey,
 a[href].button-secondary,
 a[href].button-primary,
@@ -14261,7 +14341,7 @@ form.search-form {
         --flow-margin-button-span-block--touch,
         var(
             --fallback-flow-margin-button-span-block--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+            var(--pad-firm-400, var(--fallback-pad-firm-400, 1.25em))
         )
     );
 }
@@ -14292,7 +14372,7 @@ form.search-form {
         --flow-margin-button-span-block,
         var(
             --fallback-flow-margin-button-span-block,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
         )
     );
 }
@@ -14399,6 +14479,7 @@ table + li {
 .margins-flow-firm-large + .button-span,
 blockquote + .button-span,
 table + .button-span,
+.margins-flow-firm-large + .link-card,
 .margins-flow-firm-large + a[href].button-grey,
 .margins-flow-firm-large + a[href].button-secondary,
 .margins-flow-firm-large + a[href].button-primary,
@@ -14407,6 +14488,7 @@ table + .button-span,
 .margins-flow-firm-large + .alert-block,
 .margins-flow-firm-large + .margins-flow-firm,
 .margins-flow-firm-large + [data-toggle-container],
+blockquote + .link-card,
 blockquote + a[href].button-grey,
 blockquote + a[href].button-secondary,
 blockquote + a[href].button-primary,
@@ -14429,6 +14511,7 @@ blockquote + .table-wrapper,
 blockquote + img,
 .margins-flow-firm-large + figure,
 blockquote + figure,
+table + .link-card,
 table + a[href].button-grey,
 table + a[href].button-secondary,
 table + a[href].button-primary,
@@ -14476,14 +14559,14 @@ table + .margins-flow-firm-small {
             --flow-margin-button-span-block--touch,
             var(
                 --fallback-flow-margin-button-span-block--touch,
-                var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+                var(--pad-firm-400, var(--fallback-pad-firm-400, 1.25em))
             )
         )
         var(
             --flow-margin-button-span-inline--touch,
             var(
                 --fallback-flow-margin-button-span-inline--touch,
-                var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+                var(--pad-firm-400, var(--fallback-pad-firm-400, 1.25em))
             )
         );
 }
@@ -14492,14 +14575,14 @@ table + .margins-flow-firm-small {
             --flow-margin-button-span-block,
             var(
                 --fallback-flow-margin-button-span-block,
-                var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+                var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
             )
         )
         var(
             --flow-margin-button-span-inline,
             var(
                 --fallback-flow-margin-button-span-inline,
-                var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+                var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
             )
         );
 }
@@ -15375,25 +15458,25 @@ blockquote > * {
         var(--fallback-mrg-half-500, 0.34375rem)
     );
     --fallback-flow-margin-button-span-block--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
     );
     --fallback-flow-margin-button-span-inline--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
     );
     --fallback-flow-margin-button-span-block: var(
         --flow-margin-button-span-block--touch,
         var(
             --fallback-flow-margin-button-span-block--touch,
-            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
         )
     );
     --fallback-flow-margin-button-span-inline: var(
         --flow-margin-button-span-inline--touch,
         var(
             --fallback-flow-margin-button-span-inline--touch,
-            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
         )
     );
 }
@@ -15551,12 +15634,15 @@ pre {
         --alert-padding-inline,
         var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
     );
-    border: var(
-            --alert-border-width,
-            var(--border-width-200, var(--fallback-border-width-200, 0.125rem))
-        )
-        solid
-        var(--theme-ui-primary, var(--fallback-theme-ui-primary, CanvasText));
+    border-width: var(
+        --alert-border-width,
+        var(--border-width-200, var(--fallback-border-width-200, 0.125rem))
+    );
+    border-style: solid;
+    border-color: var(
+        --theme-ui-primary,
+        var(--fallback-theme-ui-primary, CanvasText)
+    );
     border-radius: var(--alert-border-radius, 0);
     color: var(--theme-text, var(--fallback-theme-text, CanvasText));
     font-size: var(--fs-smaller-1, var(--fallback-fs-smaller-1, 0.9375rem));
@@ -16039,6 +16125,7 @@ hgroup .h10 {
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -16127,6 +16214,7 @@ hgroup .h10 {
 ):has(
     + :is(
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -18362,7 +18450,7 @@ h6.unstyled-heading,
     padding-block-end: var(--heading-unstyled-padding-block-end, 0);
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
-    font-size: var(--fs-normal, var(--fallback-fs-normal, 1.0625rem));
+    font-size: var(--fs-bigger-1, var(--fallback-fs-bigger-1, 1.25rem));
     line-height: var(
         --heading-unstyled-line-height,
         var(--line-height-400, var(--fallback-line-height-400, 1.6875))
@@ -18524,7 +18612,7 @@ h6.unstyled-heading,
     padding-block-end: var(--heading-unstyled-padding-block-end, 0);
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
-    font-size: var(--fs-normal, var(--fallback-fs-normal, 1.0625rem));
+    font-size: var(--fs-bigger-1, var(--fallback-fs-bigger-1, 1.25rem));
     line-height: var(
         --heading-unstyled-line-height,
         var(--line-height-400, var(--fallback-line-height-400, 1.6875))
@@ -18802,11 +18890,12 @@ fieldset {
         --widget-padding-inline,
         var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
     );
-    border: var(
-            --widget-border-width,
-            var(--border-width-200, var(--fallback-border-width-200, 0.125rem))
-        )
-        solid currentColor;
+    border-width: var(
+        --widget-border-width,
+        var(--border-width-200, var(--fallback-border-width-200, 0.125rem))
+    );
+    border-style: solid;
+    border-color: currentColor;
     border-radius: var(--widget-border-radius, 0);
     border-color: var(
         --theme-input-border,
@@ -18878,7 +18967,10 @@ fieldset legend {
     --fallback-focus-ring-outline-offset: 0;
     font-family: inherit;
     font-weight: var(--heading-unstyled-font-weight, 600);
-    font-size: var(--fs-rel-normal, 1em);
+    font-size: var(
+        --fs-rel-bigger-1,
+        var(--fallback-fs-rel-bigger-1, 1.1875em)
+    );
     line-height: var(
         --heading-unstyled-line-height,
         var(--line-height-400, var(--fallback-line-height-400, 1.6875))
@@ -19029,6 +19121,7 @@ fieldset
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -23801,6 +23894,7 @@ td > ul:first-child > li:first-child {
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -23845,6 +23939,7 @@ td > :last-child {
         .icon,
         svg,
         .button-span,
+        .link-card,
         a[href].button-grey,
         a[href].button-secondary,
         a[href].button-primary,
@@ -24435,10 +24530,31 @@ body {
     ) !important;
 }
 
+.font-size-bigger-1 {
+    font-size: var(
+        --fs-bigger-1,
+        var(--fallback-fs-bigger-1, 1.25rem)
+    ) !important;
+}
+
+.font-size-bigger-2 {
+    font-size: var(
+        --fs-bigger-2,
+        var(--fallback-fs-bigger-2, 1.4375rem)
+    ) !important;
+}
+
+.font-size-bigger-3 {
+    font-size: var(
+        --fs-bigger-3,
+        var(--fallback-fs-bigger-3, 1.625rem)
+    ) !important;
+}
+
 .font-size-unstyled-heading {
     font-size: var(
         --heading-unstyled-font-size,
-        var(--fs-normal, var(--fallback-fs-normal, 1.0625rem))
+        var(--fs-bigger-1, var(--fallback-fs-bigger-1, 1.25rem))
     ) !important;
 }
 
@@ -27365,25 +27481,25 @@ body {
         var(--fallback-mrg-half-400, 0.46875rem)
     );
     --fallback-flow-margin-button-span-block--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
     );
     --fallback-flow-margin-button-span-inline--touch: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
     );
     --fallback-flow-margin-button-span-block: var(
         --flow-margin-button-span-block--touch,
         var(
             --fallback-flow-margin-button-span-block--touch,
-            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
         )
     );
     --fallback-flow-margin-button-span-inline: var(
         --flow-margin-button-span-inline--touch,
         var(
             --fallback-flow-margin-button-span-inline--touch,
-            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
         )
     );
 }
@@ -27410,6 +27526,773 @@ body {
             var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
         )
     );
+}
+
+/* # BLOCKS - LINK CARDS
+ * ======================================================================== */
+.link-card {
+    margin-block: var(
+            --flow-margin-firm-start,
+            var(
+                --fallback-flow-margin-firm-start,
+                var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
+            )
+        )
+        var(
+            --flow-margin-firm-end,
+            var(
+                --fallback-flow-margin-firm-end,
+                var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
+            )
+        );
+    padding-block: var(
+        --widget-padding-block,
+        var(--mrg-soft-400, var(--fallback-mrg-soft-400, 0.78125rem))
+    );
+    padding-inline: var(
+        --widget-padding-inline,
+        var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
+    );
+    gap: 0;
+    width: 100%;
+    line-height: var(
+        --widget-line-height,
+        var(--line-height-300, var(--fallback-line-height-300, 1.5))
+    );
+    border-width: var(
+        --link-card-border-width,
+        var(--border-width-200, var(--fallback-border-width-200, 0.125rem))
+    );
+    border-style: var(--link-card-border-style, solid);
+    border-color: var(
+        --link-card-border-color,
+        var(--theme-ui-grey, var(--fallback-theme-ui-grey, CanvasText))
+    );
+    border-radius: var(--link-card-border-radius, 0);
+    --fallback-background-color: var(
+        --link-card-background,
+        var(
+            --theme-background-bright,
+            var(--fallback-theme-background-bright, Canvas)
+        )
+    );
+    background-color: var(
+        --fallback-background-color,
+        var(
+            --link-card-background,
+            var(
+                --theme-background-bright,
+                var(--fallback-theme-background-bright, Canvas)
+            )
+        )
+    );
+    transition:
+        background var(--tr-time-fast, 250ms) ease-out,
+        border-color var(--tr-time-fast, 250ms) ease-out,
+        color var(--tr-time-fast, 250ms) ease-out;
+    --fallback-display: grid;
+    --display: grid;
+    display: var(--fallback-display, grid);
+    position: relative;
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+    grid-auto-flow: row;
+    grid-auto-flow: row dense;
+    grid-template-columns: 1fr fit-content(0);
+    grid-template-columns: 1fr min-content;
+    grid-auto-rows: auto;
+}
+.link-card > .link-card__body,
+.link-card > .link-card__hgroup,
+.link-card > .link-card__heading {
+    margin-block-start: 0;
+}
+.link-card > .link-card__body {
+    --fallback-display: flex;
+    --display: flex;
+    display: var(--fallback-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+.link-card__wrapper,
+.link-card__description {
+    --fallback-display: flex;
+    --display: flex;
+    display: var(--fallback-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+}
+
+.link-card__description > * {
+    --fallback-flow-margin: var(
+        --mrg-soft-300,
+        var(--fallback-mrg-soft-300, 0.5rem)
+    );
+    --fallback-flow-margin--small: var(
+        --mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.3125rem)
+    );
+    --fallback-flow-margin--large: var(
+        --mrg-soft-400,
+        var(--fallback-mrg-soft-400, 0.78125rem)
+    );
+    --fallback-flow-margin-firm-start: var(
+        --mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    --fallback-flow-margin-firm-end: var(
+        --mrg-half-300,
+        var(--fallback-mrg-half-300, 0.3125rem)
+    );
+    --fallback-flow-margin-firm-start--small: var(
+        --mrg-firm-200,
+        var(--fallback-mrg-firm-200, 0.5rem)
+    );
+    --fallback-flow-margin-firm-end--small: var(
+        --mrg-half-200,
+        var(--fallback-mrg-half-200, 0.1875rem)
+    );
+    --fallback-flow-margin-firm-start--large: var(
+        --mrg-firm-400,
+        var(--fallback-mrg-firm-400, 1.25rem)
+    );
+    --fallback-flow-margin-firm-end--large: var(
+        --mrg-half-400,
+        var(--fallback-mrg-half-400, 0.46875rem)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(
+            --fallback-flow-margin-button-span-block--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+}
+:where(.js__no-touch) .link-card__description > * {
+    --fallback-flow-margin-button-span-block: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+}
+
+.link-card__description > :first-child,
+.link-card__description > dl:first-child > dt:first-child,
+.link-card__description > ol:first-child > li:first-child,
+.link-card__description > ul:first-child > li:first-child {
+    margin-block-start: 0 !important;
+}
+
+:is(.link-card__description)
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-start: var(
+        --flow-margin-firm-end,
+        var(
+            --fallback-flow-margin-firm-end,
+            var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
+        )
+    ) !important;
+}
+
+.link-card__description > :last-child {
+    margin-block-end: 0 !important;
+}
+
+:is(.link-card__description)
+    > :last-child:is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-end: var(
+        --flow-margin-firm-end,
+        var(
+            --fallback-flow-margin-firm-end,
+            var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
+        )
+    ) !important;
+}
+
+.link-card__description + .link-card {
+    margin-block-start: var(
+        --flow-margin-firm-start--small,
+        var(
+            --fallback-flow-margin-firm-start--small,
+            var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+        )
+    );
+}
+
+.link-card > .link-card__heading,
+.link-card > .link-card__hgroup {
+    grid-column: 1;
+    grid-row: 1;
+    margin-block-start: 0 !important;
+}
+.link-card > .link-card__heading:has(+ .link-card__link--icon:last-child),
+.link-card > .link-card__hgroup:has(+ .link-card__link--icon:last-child) {
+    grid-row: 1 / 7;
+    align-self: center;
+    margin-block-end: 0 !important;
+    padding-block-end: 0 !important;
+}
+.link-card .link-card__tag-list {
+    grid-column: 1;
+    margin-block: var(
+            --flow-margin-firm-start--small,
+            var(
+                --fallback-flow-margin-firm-start--small,
+                var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+            )
+        )
+        var(
+            --flow-margin-firm-end--small,
+            var(
+                --fallback-flow-margin-firm-end--small,
+                var(--mrg-half-300, var(--fallback-mrg-half-300, 0.3125rem))
+            )
+        );
+}
+.link-card .link-card__tag-list + .link-card__date > *,
+.link-card .link-card__tag-list + .link-card__footer > * {
+    --fallback-flow-margin: var(
+        --mrg-soft-300,
+        var(--fallback-mrg-soft-300, 0.5rem)
+    );
+    --fallback-flow-margin--small: var(
+        --mrg-soft-200,
+        var(--fallback-mrg-soft-200, 0.3125rem)
+    );
+    --fallback-flow-margin--large: var(
+        --mrg-soft-400,
+        var(--fallback-mrg-soft-400, 0.78125rem)
+    );
+    --fallback-flow-margin-firm-start: var(
+        --mrg-firm-300,
+        var(--fallback-mrg-firm-300, 0.8125rem)
+    );
+    --fallback-flow-margin-firm-end: var(
+        --mrg-half-300,
+        var(--fallback-mrg-half-300, 0.3125rem)
+    );
+    --fallback-flow-margin-firm-start--small: var(
+        --mrg-firm-200,
+        var(--fallback-mrg-firm-200, 0.5rem)
+    );
+    --fallback-flow-margin-firm-end--small: var(
+        --mrg-half-200,
+        var(--fallback-mrg-half-200, 0.1875rem)
+    );
+    --fallback-flow-margin-firm-start--large: var(
+        --mrg-firm-400,
+        var(--fallback-mrg-firm-400, 1.25rem)
+    );
+    --fallback-flow-margin-firm-end--large: var(
+        --mrg-half-400,
+        var(--fallback-mrg-half-400, 0.46875rem)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(
+            --fallback-flow-margin-button-span-block--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+}
+:where(.js__no-touch) .link-card .link-card__tag-list + .link-card__date > *,
+:where(.js__no-touch) .link-card .link-card__tag-list + .link-card__footer > * {
+    --fallback-flow-margin-button-span-block: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+}
+
+.link-card .link-card__date,
+.link-card .link-card__footer {
+    grid-column: 1;
+}
+.link-card .link-card__link {
+    --fallback-theme-link-decoration: currentColor;
+    --fallback-theme-link-ui: currentColor;
+    color: currentColor;
+}
+.link-card .link-card__link--icon {
+    grid-column: 2;
+    grid-row: 1 / 7;
+    --fallback-display: flex;
+    --display: flex;
+    display: var(--fallback-display, flex);
+    position: relative;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    padding-inline-start: var(
+        --flow-margin-firm-start,
+        var(
+            --fallback-flow-margin-firm-start,
+            var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
+        )
+    );
+    height: 100%;
+    width: auto;
+}
+.link-card .link-card__link--icon .icon {
+    color: currentColor !important;
+}
+[data-state-focus="true"].link-card {
+    /* is-hover-focus */
+    --fallback-background-color: var(
+        --link-card-background-hover,
+        var(--theme-background-alt, var(--fallback-theme-background-alt))
+    );
+    background-color: var(
+        --fallback-background-color,
+        var(
+            --link-card-background-hover,
+            var(--theme-background-alt, var(--fallback-theme-background-alt))
+        )
+    );
+    border-color: var(
+        --link-card-border-color-hover,
+        var(
+            --theme-link-ui-hover,
+            var(--fallback-theme-link-ui-hover, ActiveText)
+        )
+    );
+    cursor: pointer;
+}
+[data-state-focus="true"].link-card .link-card__heading,
+[data-state-focus="true"].link-card .link-card__link {
+    color: var(
+        --link-card-heading-color-hover,
+        var(--theme-link-hover, var(--fallback-theme-link-hover, ActiveText))
+    );
+}
+[data-state-focus="true"].link-card .link-card__subheading {
+    color: var(
+        --link-card-subheading-color-hover,
+        var(--theme-link-hover, var(--fallback-theme-link-hover, ActiveText))
+    );
+}
+
+.link-card:has(
+    :is(.link-card__link):is(:hover, :focus-visible, [data-state-focus="true"])
+) {
+    /* is-hover-focus */
+    --fallback-background-color: var(
+        --link-card-background-hover,
+        var(--theme-background-alt, var(--fallback-theme-background-alt))
+    );
+    background-color: var(
+        --fallback-background-color,
+        var(
+            --link-card-background-hover,
+            var(--theme-background-alt, var(--fallback-theme-background-alt))
+        )
+    );
+    border-color: var(
+        --link-card-border-color-hover,
+        var(
+            --theme-link-ui-hover,
+            var(--fallback-theme-link-ui-hover, ActiveText)
+        )
+    );
+    cursor: pointer;
+}
+.link-card:has(
+        :is(.link-card__link):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__heading,
+.link-card:has(
+        :is(.link-card__link):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__link {
+    color: var(
+        --link-card-heading-color-hover,
+        var(--theme-link-hover, var(--fallback-theme-link-hover, ActiveText))
+    );
+}
+.link-card:has(
+        :is(.link-card__link):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__subheading {
+    color: var(
+        --link-card-subheading-color-hover,
+        var(--theme-link-hover, var(--fallback-theme-link-hover, ActiveText))
+    );
+}
+
+[data-state-active="true"].link-card {
+    /* is-active */
+    --fallback-background-color: var(
+        --link-card-background-active,
+        var(--theme-background-alt, var(--fallback-theme-background-alt))
+    );
+    background-color: var(
+        --fallback-background-color,
+        var(
+            --link-card-background-active,
+            var(--theme-background-alt, var(--fallback-theme-background-alt))
+        )
+    );
+    border-color: var(
+        --link-card-border-color-active,
+        var(
+            --theme-link-ui-active,
+            var(--fallback-theme-link-ui-active, ActiveText)
+        )
+    );
+    cursor: pointer;
+}
+[data-state-active="true"].link-card .link-card__heading,
+[data-state-active="true"].link-card .link-card__link {
+    color: var(
+        --link-card-heading-color-active,
+        var(--theme-link-active, var(--fallback-theme-link-active, ActiveText))
+    );
+}
+[data-state-active="true"].link-card .link-card__subheading {
+    color: var(
+        --link-card-subheading-color-active,
+        var(--theme-link-active, var(--fallback-theme-link-active, ActiveText))
+    );
+}
+
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"])) {
+    /* is-active */
+    --fallback-background-color: var(
+        --link-card-background-active,
+        var(--theme-background-alt, var(--fallback-theme-background-alt))
+    );
+    background-color: var(
+        --fallback-background-color,
+        var(
+            --link-card-background-active,
+            var(--theme-background-alt, var(--fallback-theme-background-alt))
+        )
+    );
+    border-color: var(
+        --link-card-border-color-active,
+        var(
+            --theme-link-ui-active,
+            var(--fallback-theme-link-ui-active, ActiveText)
+        )
+    );
+    cursor: pointer;
+}
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+    .link-card__heading,
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+    .link-card__link {
+    color: var(
+        --link-card-heading-color-active,
+        var(--theme-link-active, var(--fallback-theme-link-active, ActiveText))
+    );
+}
+.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+    .link-card__subheading {
+    color: var(
+        --link-card-subheading-color-active,
+        var(--theme-link-active, var(--fallback-theme-link-active, ActiveText))
+    );
+}
+
+.link-cards-container {
+    --fallback-display: grid;
+    --display: grid;
+    display: var(--fallback-display, grid);
+    position: relative;
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    grid-auto-flow: row dense;
+    gap: var(
+            --flow-margin,
+            var(
+                --fallback-flow-margin,
+                var(--mrg-soft-400, var(--fallback-mrg-soft-400, 0.78125rem))
+            )
+        )
+        var(
+            --flow-margin-firm-start,
+            var(
+                --fallback-flow-margin-firm-start,
+                var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
+            )
+        );
+    --fallback-grid-template-columns--page: repeat(auto-fit, minmax(16em, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16em, 1fr));
+    --fallback-grid-template-columns--page: repeat(
+        auto-fit,
+        minmax(
+            calc(var(--width-content, var(--fallback-width-content)) / 2.25),
+            1fr
+        )
+    );
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            calc(var(--width-content, var(--fallback-width-content)) / 2.25),
+            1fr
+        )
+    );
+    grid-auto-rows: auto;
+}
+.link-cards-container > * {
+    --fallback-grid-column: auto;
+    --grid-column: auto;
+    grid-column: var(--fallback-grid-column, auto);
+    margin-block: 0 !important;
+}
+.link-cards-container > * > :first-child,
+.link-cards-container > * > dl:first-child > dt:first-child,
+.link-cards-container > * > ol:first-child > li:first-child,
+.link-cards-container > * > ul:first-child > li:first-child {
+    margin-block-start: 0 !important;
+}
+
+:is(.link-cards-container > *)
+    > :is(
+        :first-child,
+        dl:first-child > dt:first-child,
+        ol:first-child > li:first-child,
+        ul:first-child > li:first-child
+    ):is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-start: var(
+        --flow-margin-firm-end,
+        var(
+            --fallback-flow-margin-firm-end,
+            var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
+        )
+    ) !important;
+}
+
+.link-cards-container > * > :last-child {
+    margin-block-end: 0 !important;
+}
+
+:is(.link-cards-container > *)
+    > :last-child:is(
+        .icon,
+        svg,
+        .button-span,
+        .link-card,
+        a[href].button-grey,
+        a[href].button-secondary,
+        a[href].button-primary,
+        a[href].button,
+        .brand-logo,
+        .alert-block,
+        .margins-flow-firm,
+        [data-toggle-container],
+        button,
+        [role="button"],
+        details,
+        pre,
+        .table-wrapper,
+        img,
+        figure,
+        input,
+        select,
+        textarea,
+        hr,
+        form.search-form,
+        .margins-flow-firm-small,
+        .margins-flow-firm-large,
+        blockquote,
+        table
+    ) {
+    margin-block-end: var(
+        --flow-margin-firm-end,
+        var(
+            --fallback-flow-margin-firm-end,
+            var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
+        )
+    ) !important;
 }
 
 /* # BLOCKS - SEARCH FORM

@@ -7,7 +7,11 @@
 
 /* import - types */
 import type { ElementProps } from '@maddimathon/utility-astro';
+
 import type { SvgMaker } from '../../ts/01-utilities/SvgMaker.js';
+
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 /* import - functions */
 import { makeClassList } from '@maddimathon/utility-astro/functions';
@@ -20,12 +24,27 @@ import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* PROPS ===================================== */
 
-export type IconProps = {
-    icon: SvgMaker.JsonReturn;
+/**
+ * @since ___PKG_VERSION___ — Added option to pass tokens with a slug.
+ */
+export type IconProps<T_Types extends TokenTypes.TypeParams> = {
     svgType?: 'hidden' | 'labelled' | undefined;
-};
+} & (
+    | {
+          tokens?: Tokens.JsonReturn<T_Types>;
+          icon: SvgMaker.JsonReturn<T_Types['iconNames']>;
+      }
+    | {
+          tokens: Tokens.JsonReturn<T_Types>;
+          icon: T_Types['iconNames'];
+      }
+);
 
-type Props = ElementProps<IconProps, 'span'>;
+export type IconComponentType = (
+    props: ElementProps<IconProps<TokenTypes.TypeParams>, 'span'>,
+) => any;
+
+type Props = ElementProps<IconProps<TokenTypes.TypeParams>, 'span'>;
 
 const {
     'aria-hidden': ariaHidden,
@@ -33,15 +52,29 @@ const {
     icon,
     slot,
     svgType = ariaHidden ? 'hidden' : 'labelled',
+    tokens,
     ...attributes
 }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const iconData = typeof icon === 'object' ? icon : tokens?.icons[icon];
 ---
 
-<span
-    {...attributes}
-    aria-hidden={ariaHidden ? true : undefined}
-    class={makeClassList.flat(['icon', `icon--${icon.slug}`], classList)}
-    set:html={svgType === 'hidden'
-        ? icon.svgInlineHidden.trim()
-        : icon.svgInlineLabelled.trim()}
-/>
+{
+    iconData && (
+        <span
+            {...attributes}
+            aria-hidden={ariaHidden ? true : undefined}
+            class={makeClassList.flat(
+                ['icon', `icon--${iconData.slug}`],
+                classList,
+            )}
+            set:html={
+                svgType === 'hidden'
+                    ? iconData.svgInlineHidden.trim()
+                    : iconData.svgInlineLabelled.trim()
+            }
+        />
+    )
+}

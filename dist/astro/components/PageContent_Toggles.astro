@@ -9,6 +9,7 @@
 import type { ComponentProps } from 'astro/types';
 import type {
     ButtonComponentType,
+    HeadingComponentType,
     LoremIpsumComponentType,
     ToggleComponentType,
 } from '@maddimathon/utility-astro/components';
@@ -20,7 +21,10 @@ import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 /* import - values */
 
 /* import - components */
-import { TableOfContents } from '@maddimathon/utility-astro/components';
+import {
+    Heading as HeadingComponent,
+    TableOfContents,
+} from '@maddimathon/utility-astro/components';
 
 import LoremIpsumComponent from './LoremIpsum.astro';
 import ToggleComponent from './Toggle.astro';
@@ -39,6 +43,7 @@ interface Props {
      */
     components?: Partial<{
         Button: ButtonComponentType;
+        Heading: HeadingComponentType;
         LoremIpsum: LoremIpsumComponentType;
         Toggle: ToggleComponentType;
     }>;
@@ -51,8 +56,11 @@ const {
     tokens,
 }: Props = Astro.props as Props;
 
-const { LoremIpsum = LoremIpsumComponent, Toggle = ToggleComponent } =
-    components;
+const {
+    Heading = HeadingComponent,
+    LoremIpsum = LoremIpsumComponent,
+    Toggle = ToggleComponent,
+} = components;
 
 /* CONSTANTS ===================================== */
 
@@ -123,7 +131,7 @@ const tocMenu: ComponentProps<typeof TableOfContents>['menu'] = [
     toggleProps={{ tokens }}
 />
 
-<h2>Toggle Demos</h2>
+<Heading heading={2}>Toggle Demos</Heading>
 
 <Toggle id={exampleMenuIds.one.id}>
     <p>Boo!</p>

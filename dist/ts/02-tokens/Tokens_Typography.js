@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.2.0
+ * @maddimathon/design-system-utilities@0.3.0-draft
  * @license MIT
  */
 import NodeFS from 'node:fs';
@@ -53,7 +53,11 @@ export class Tokens_Typography extends AbstractTokens {
                     // 4: -2.375,
                     // 5: -2.625,
                 },
-                bigger: {},
+                bigger: {
+                    1: 1,
+                    2: 2,
+                    3: 3,
+                },
             },
             sizeBase: 1.0625,
         };
