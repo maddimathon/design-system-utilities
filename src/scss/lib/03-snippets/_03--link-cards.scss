@@ -12,7 +12,7 @@
 @use 'pkg:@maddimathon/utility-astro/03-snippets' as utils;
 
 @use '../../config';
-// @use '../../tokens';
+@use '../../tokens';
 
 @use '../01-functions' as *;
 @use '../02-mixins' as *;
@@ -24,7 +24,7 @@
 /// @since ___PKG_VERSION___
 ///
 @mixin _snippet-link-card--is-state(
-    $selector_link,
+    $selector_link_attr,
     $selector_states_config,
     $selector_states_config_separate,
     $selector_states_pseudo
@@ -49,26 +49,29 @@
         }
     }
 
-    $_link_is_multi: selector.is-multi($selector_link);
+    $_link_is_multi: selector.is-multi($selector_link_attr);
     $_states_is_multi: selector.is-multi($selector_states);
 
     @include selector.has(
         if(
             $_link_is_multi and $_states_is_multi,
             selector.unify(
-                selector.is-list($selector_link, $split: false),
+                selector.is-list($selector_link_attr, $split: false),
                 selector.is-list($selector_states, $split: false)
             ),
             if(
                 $_link_is_multi,
-                selector.unify(selector.is-list($selector_link, $split: false), $selector_states),
+                selector.unify(
+                    selector.is-list($selector_link_attr, $split: false),
+                    $selector_states
+                ),
                 if(
                     $_states_is_multi,
                     selector.unify(
-                        $selector_link,
+                        $selector_link_attr,
                         selector.is-list($selector_states, $split: false)
                     ),
-                    selector.unify($selector_link, $selector_states)
+                    selector.unify($selector_link_attr, $selector_states)
                 )
             )
         ),
@@ -82,9 +85,9 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link-card--is-hover-focus($selector_link) {
+@mixin snippet-link-card--is-hover-focus($selector_link_attr) {
     @include _snippet-link-card--is-state(
-            $selector_link: $selector_link,
+            $selector_link_attr: $selector_link_attr,
             $selector_states_config: config.$selector_interactiveState_focus,
             $selector_states_config_separate: config.$mx_interactive_isolateSelector_focus,
             $selector_states_pseudo: (
@@ -100,9 +103,9 @@
 ///
 /// @since ___PKG_VERSION___
 ///
-@mixin snippet-link-card--is-active($selector_link) {
+@mixin snippet-link-card--is-active($selector_link_attr) {
     @include _snippet-link-card--is-state(
-            $selector_link: $selector_link,
+            $selector_link_attr: $selector_link_attr,
             $selector_states_config: config.$selector_interactiveState_active,
             $selector_states_config_separate: config.$mx_interactive_isolateSelector_active,
             $selector_states_pseudo: (':active')
@@ -110,39 +113,6 @@
         using ($vars...) {
         @content ($vars...);
     }
-}
-
-///
-/// @since ___PKG_VERSION___
-///
-@mixin _snippet-link-card--flow-margins--inner {
-    @include set-flow-margins-by-token(link-card);
-
-    // $args: meta.keywords(
-    //     set-flow-margins-by-token--parse-args(
-    //         $prefix: link-card,
-    //         $default: link-card-flow-margin-inner,
-    //         $large: link-card-flow-margin-inner-large,
-    //         $small: link-card-flow-margin-inner-small,
-    //         //
-    //         $buttonGapBlock: link-card-flow-margin-inner-button,
-    //         $buttonGapBlock_touch: link-card-flow-margin-inner-button-touch,
-    //     )
-    // );
-
-    // @include set-flow-margins(
-    //     $default: map.get($args, default),
-    //     $large: map.get($args, large),
-    //     $small: map.get($args, small),
-    //     $buttonGapBlock: map.get($args, buttonGapBlock),
-    //     $buttonGapInline: map.get($args, buttonGapInline),
-    //     $buttonGapBlock_touch: map.get($args, buttonGapBlock_touch),
-    //     $buttonGapInline_touch: map.get($args, buttonGapInline_touch),
-    //     //
-    //     $args...
-    // ) {
-    //     @content;
-    // }
 }
 
 ///
@@ -160,7 +130,10 @@
     $borderRadius: var-style(link-card-border-radius),
     $borderStyle: var-style(link-card-border-style),
     $borderWidth: var-style(link-card-border-width),
+    $lineHeight: var-style(link-card-line-height),
     $marginBlock: var-style(flow-margin-firm-start) var-style(flow-margin-firm-end),
+    $paddingBlock: var-style(link-card-padding-block),
+    $paddingInline: var-style(link-card-padding-inline),
     $width: 100%,
     //
     $heading_color: var-style(link-card-heading-color),
@@ -171,6 +144,8 @@
     $subheading_color_hover: var-style(link-card-subheading-color-hover),
     $subheading_color_active: var-style(link-card-subheading-color-active),
     //
+    $includeLinkColours: true,
+    //
     $selector_card: if(selector.parent-exists(), selector.pop(&), '%link-card'),
     //
     $selector_body: selector.append($selector_card, '__body'),
@@ -180,77 +155,66 @@
     $selector_heading: selector.append($selector_card, '__heading'),
     $selector_hgroup: selector.append($selector_card, '__hgroup'),
     $selector_link: selector.append($selector_card, '__link'),
-    $selector_linkIcon: selector.append($selector_card, '__link--icon'),
+    $selector_link_attr: selector.append($selector_card, '__link_attr'),
+    $selector_linkBackdrop: selector.append($selector_link, '--backdrop'),
+    $selector_linkIcon: selector.append($selector_link, '--icon'),
     $selector_subheading: selector.append($selector_card, '__subheading'),
     $selector_tag: selector.append($selector_card, '__tag'),
-    $selector_tag__flag: selector.append($selector_card, '__tag__text_flag'),
+    $selector_tag__flag: selector.append($selector_tag, '__text_flag'),
     $selector_tagList: selector.append($selector_card, '__tag-list'),
     $selector_wrapper: selector.append($selector_card, '__wrapper'),
     //
     $multipleContentBlocks: false
 ) {
-    @include snippet-widget-block(
-            $background: $background,
-            $borderColor: $borderColor,
-            $borderRadius: $borderRadius,
-            $borderStyle: $borderStyle,
-            $borderWidth: $borderWidth,
-            $display: false,
-            $gap: 0,
-            $marginBlock: $marginBlock,
-            $width: $width,
-            //
-            // $includeBlocks: true,
-            // $includeBorder: false,
-            $includeColours: false,
-            $includeFirstChildNoTopMargin: false,
-            $includeFlowMargins: false,
-            // $includePadding: false,
-            $includeSidebar: false,
-            //
-            $selector_content: $selector_body,
-            $selector_header: config.$selector_null,
-            $selector_hgroup: $selector_hgroup,
-            $selector_sidebar: config.$selector_null,
-            $selector_subtitle: $selector_subheading,
-            $selector_title: $selector_heading,
-            //
-            $multipleContentBlocks: true
-        )
-        using ($location) {
-        @if $location == root {
-            @include utils.snippet-body-grid--base($autoRows: false, $gap: false);
-            grid-template-columns: 1fr fit-content(0);
-            grid-template-columns: 1fr min-content;
+    @include utils.snippet-body-grid--base(
+        $alignment: (
+            justify-content: start,
+            justify-items: start,
+            align-content: start,
+            align-items: start,
+        ),
+        $autoRows: false,
+        $gap: false
+    );
 
-            grid-auto-rows: auto;
+    grid-template-columns: 1fr fit-content(0);
+    grid-template-columns: 1fr min-content;
 
-            @if $multipleContentBlocks {
-                @content ($location);
-            }
-        }
-        //
-        @else if $location == blocks--subtitle {
-            color: $subheading_color;
+    grid-auto-rows: auto;
 
-            @if $multipleContentBlocks {
-                @content ($location);
-            }
-        }
-        //
-        @else if $location == blocks--title {
-            color: $heading_color;
+    @if $marginBlock != false {
+        margin-block: $marginBlock;
+    }
 
-            @if $multipleContentBlocks {
-                @content ($location);
-            }
-        }
-        //
-        @else if $multipleContentBlocks {
-            @content ($location);
-        } @else if $location == root {
-            @content;
-        }
+    padding-block: $paddingBlock;
+    padding-inline: $paddingInline;
+
+    gap: 0;
+
+    width: $width;
+
+    line-height: $lineHeight;
+
+    border-width: $borderWidth;
+    border-style: $borderStyle;
+    border-color: $borderColor;
+    border-radius: $borderRadius;
+
+    @include prop-background($background);
+
+    transition:
+        background var-tr-time(fast) tokens.$transition_function,
+        border-color var-tr-time(fast) tokens.$transition_function,
+        color var-tr-time(fast) tokens.$transition_function;
+
+    cursor: text;
+
+    z-index: 1;
+
+    @if $multipleContentBlocks {
+        @content (root);
+    } @else {
+        @content;
     }
 
     /// CHILDREN ///
@@ -260,31 +224,68 @@
     }
 
     @include selector.popped($fallback_selector: ()) {
-        #{$selector_wrapper},
-        #{$selector_description} {
+        // all flow containers
+        #{$selector_body},
+        #{$selector_description},
+        #{$selector_date},
+        #{$selector_footer},
+        #{$selector_tagList},
+        #{$selector_wrapper} {
             @include prop-display(flex);
-            @include utils.snippet-body-grid--flex-container;
+            @include utils.snippet-body-grid--flex-container(
+                $alignment: (
+                    justify-content: start,
+                    justify-items: start,
+                    align-content: start,
+                    align-items: start,
+                )
+            );
 
+            @if $multipleContentBlocks {
+                @content (inner-flow-containers);
+            }
+        }
+        #{$selector_body},
+        #{$selector_date},
+        #{$selector_footer},
+        #{$selector_tagList} {
+            margin-block-start: var-style(flow-margin);
+
+            @if $multipleContentBlocks {
+                @content (inner-flow-containers-with-margins);
+            }
+        }
+        #{$selector_body},
+        #{$selector_description},
+        #{$selector_date},
+        #{$selector_footer} {
+            @include first-child-no-top-margin;
+            @include last-child-no-bottom-margin;
+        }
+
+        #{$selector_description},
+        #{$selector_wrapper} {
             @if $multipleContentBlocks {
                 @content (wrapper-or-description);
             }
         }
 
         #{$selector_wrapper} {
+            @include utils.snippet-body-grid--grid-alignment;
+
             @if $multipleContentBlocks {
                 @content (wrapper);
             }
         }
 
         #{$selector_description} {
+            margin-block-start: 0;
+
+            line-height: $lineHeight;
+
             @if $multipleContentBlocks {
                 @content (description);
             }
-
-            @include _snippet-link-card--flow-margins--inner;
-
-            @include first-child-no-top-margin;
-            @include last-child-no-bottom-margin;
 
             #{selector.nest('+', $selector_card)} {
                 margin-block-start: var-style(flow-margin-firm-start--small);
@@ -294,14 +295,72 @@
                 }
             }
         }
+
+        // flow containers with smaller flow margins
+        #{$selector_body},
+        #{$selector_description},
+        #{$selector_date},
+        #{$selector_footer},
+        #{$selector_tagList} {
+            @include set-flow-margins-by-token(link-card) {
+                @if $multipleContentBlocks {
+                    @content (inner-flow-containers--set-flow-margins);
+                }
+            }
+        }
+    }
+
+    // all column 1 children
+    #{selector.nest('>', (#{$selector_body}, #{$selector_date}, #{$selector_footer}, #{$selector_heading}, #{$selector_hgroup}, #{$selector_tagList}))} {
+        grid-column: 1;
+
+        @if $multipleContentBlocks {
+            @content (column-1-children);
+        }
     }
 
     $gridRow_max: 7;
 
+    #{$selector_hgroup} {
+        align-content: start;
+        align-items: start;
+        justify-content: start;
+        justify-items: start;
+
+        @if $multipleContentBlocks {
+            @content (hgroup);
+        }
+    }
+
+    #{$selector_heading} {
+        color: $heading_color;
+
+        @if $multipleContentBlocks {
+            @content (heading);
+        }
+    }
+
+    #{$selector_subheading} {
+        color: $subheading_color;
+
+        @if $multipleContentBlocks {
+            @content (subheading);
+        }
+
+        #{selector.nest('>', (#{$selector_linkBackdrop}, #{selector.unify($selector_linkBackdrop, ':empty')}))} {
+            background: transparent;
+            opacity: 0;
+            z-index: 1;
+
+            @if $multipleContentBlocks {
+                @content (subheading--link-backdrop);
+            }
+        }
+    }
+
     // direct heading or hgroup
     #{selector.nest('>', $selector_heading)},
     #{selector.nest('>', $selector_hgroup)} {
-        grid-column: 1;
         grid-row: 1;
         margin-block-start: 0 !important;
 
@@ -321,11 +380,23 @@
         }
     }
 
-    #{$selector_tagList} {
-        grid-column: 1;
+    #{$selector_body} {
+        @if $multipleContentBlocks {
+            @content (body);
+        }
+    }
 
+    #{$selector_tagList} {
         margin-block: var-style(flow-margin-firm-start--small)
             var-style(flow-margin-firm-end--small);
+        margin-inline: 0;
+
+        padding-block: 0;
+        padding-inline: 0;
+
+        gap: do-var(flow-margin-button-span-block) do-var(flow-margin-button-span-inline);
+
+        list-style: none;
 
         @if $multipleContentBlocks {
             @content (tagList);
@@ -333,8 +404,6 @@
 
         #{selector.nest('+', $selector_date)},
         #{selector.nest('+', $selector_footer)} {
-            @include _snippet-link-card--flow-margins--inner;
-
             @if $multipleContentBlocks {
                 @content (date-or-footer--after-tagList);
             }
@@ -360,8 +429,6 @@
 
     #{$selector_date},
     #{$selector_footer} {
-        grid-column: 1;
-
         @if $multipleContentBlocks {
             @content (date-or-footer);
         }
@@ -379,11 +446,18 @@
         }
     }
 
-    #{$selector_link} {
-        @include cx-prop(theme-link-decoration, currentColor, $allPrefixes: true);
-        @include cx-prop(theme-link-ui, currentColor, $allPrefixes: true);
+    #{$selector_link_attr} {
+        @include prop-display(inline-block);
 
-        color: currentColor;
+        cursor: pointer;
+
+        @if $multipleContentBlocks {
+            @content (link-attr);
+        }
+    }
+
+    #{$selector_link} {
+        cursor: pointer;
 
         @if $multipleContentBlocks {
             @content (link);
@@ -400,13 +474,16 @@
                 justify-items: center,
                 align-content: center,
                 align-items: center,
-            )
+            ),
+            $position: static #{'!important'}
         );
 
         padding-inline-start: var-style(flow-margin-firm-start);
 
         height: 100%;
         width: auto;
+
+        cursor: pointer;
 
         @if $multipleContentBlocks {
             @content (linkIcon);
@@ -419,6 +496,77 @@
                 @content (linkIcon--icon);
             }
         }
+
+        &::before {
+            content: '' !important;
+            content: ''/ '' !important;
+
+            @include prop-display(block);
+            position: absolute;
+
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            z-index: -1;
+        }
+    }
+
+    #{selector.nest($selector_heading, $selector_link)} {
+        @if $includeLinkColours {
+            @include cx-prop(theme-link-decoration, currentColor, $allPrefixes: true);
+            @include cx-prop(theme-link-ui, currentColor, $allPrefixes: true);
+
+            color: currentColor;
+        }
+
+        @if $multipleContentBlocks {
+            @content (heading--link);
+        }
+    }
+
+    @include selector.popped($fallback_selector: ()) {
+        // backdrop links
+        #{$selector_body},
+        #{$selector_card},
+        #{$selector_date},
+        #{$selector_footer},
+        #{selector.nest($selector_card, '>', $selector_heading)},
+        #{selector.nest($selector_card, '>', $selector_hgroup)},
+        #{$selector_subheading},
+        #{$selector_tagList} {
+            position: relative;
+            z-index: 1;
+
+            @if $multipleContentBlocks {
+                @content (link-backdrop-containers);
+            }
+        }
+        #{$selector_body},
+        #{$selector_card},
+        #{$selector_date},
+        #{$selector_footer},
+        #{selector.nest($selector_card, '>', $selector_heading)},
+        #{selector.nest($selector_card, '>', $selector_hgroup, '>', $selector_heading)},
+        #{$selector_subheading},
+        #{$selector_tagList} {
+            #{selector.nest('>', (#{$selector_linkBackdrop}, #{selector.unify($selector_linkBackdrop, ':empty')}))} {
+                @include prop-display(block, $important_prop: true);
+                position: absolute;
+
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+
+                z-index: -1;
+
+                @if $multipleContentBlocks {
+                    @content (link-backdrop);
+                }
+            }
+        }
     }
 
     @if $multipleContentBlocks {
@@ -427,19 +575,25 @@
 
     /// STATES ///
 
-    @include snippet-link-card--is-hover-focus($selector_link) {
+    @include snippet-link-card--is-hover-focus($selector_link_attr) {
         /* is-hover-focus */
         @include prop-background($background_hover);
         border-color: $borderColor_hover;
-
-        cursor: pointer;
 
         @if $multipleContentBlocks {
             @content (is-hover-focus);
         }
 
-        #{$selector_heading},
         #{$selector_link} {
+            @include snippet-link-colour-single('-hover') {
+                @if $multipleContentBlocks {
+                    @content (is-hover-focus--link);
+                }
+            }
+        }
+
+        #{$selector_heading},
+        #{selector.nest($selector_heading, $selector_link)} {
             color: $heading_color_hover;
 
             @if $multipleContentBlocks {
@@ -456,19 +610,25 @@
         }
     }
 
-    @include snippet-link-card--is-active($selector_link) {
+    @include snippet-link-card--is-active($selector_link_attr) {
         /* is-active */
         @include prop-background($background_active);
         border-color: $borderColor_active;
-
-        cursor: pointer;
 
         @if $multipleContentBlocks {
             @content (is-active);
         }
 
-        #{$selector_heading},
         #{$selector_link} {
+            @include snippet-link-colour-single('-active') {
+                @if $multipleContentBlocks {
+                    @content (is-active--link);
+                }
+            }
+        }
+
+        #{$selector_heading},
+        #{selector.nest($selector_heading, $selector_link)} {
             color: $heading_color_active;
 
             @if $multipleContentBlocks {
@@ -554,6 +714,15 @@
     #{$selector_card} {
         @if $multipleContentBlocks {
             @content (link-card);
+        }
+
+        #{$selector_heading},
+        #{$selector_subheading} {
+            hyphens: auto;
+
+            @if $multipleContentBlocks {
+                @content (link-card--heading-or-subheading);
+            }
         }
     }
 

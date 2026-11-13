@@ -246,6 +246,33 @@ $_maxWidth_vw: 100vw - (gap-inline-value(layout, $returnAsNumber: true) * 2);
     );
 
     // CUSTOM PROPS
+    @if $defineCustomProps {
+        @include cx-prop(flow-margin-button-span-block--touch, $val_buttonSpan_block_touch);
+        @include cx-prop(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch);
+
+        @include cx-prop(
+            flow-margin-button-span-block,
+            do-var(flow-margin-button-span-block--touch, $val_buttonSpan_block_touch)
+        );
+        @include cx-prop(
+            flow-margin-button-span-inline,
+            do-var(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch)
+        );
+
+        @include feature-check.supports-not(touch) {
+            @include cx-prop(flow-margin-button-span-block, $val_buttonSpan_block);
+            @include cx-prop(flow-margin-button-span-inline, $val_buttonSpan_inline);
+
+            @include cx-prop(
+                flow-margin-button-span-block--touch,
+                do-var(flow-margin-button-span-block, $val_buttonSpan_block)
+            );
+            @include cx-prop(
+                flow-margin-button-span-inline--touch,
+                do-var(flow-margin-button-span-inline, $val_buttonSpan_inline)
+            );
+        }
+    }
     @include _set-flow-margins--selector-custom-props($selector_customProps) {
         @if $defineCustomProps {
             @include cx-prop(flow-margin, $val_default);
@@ -261,33 +288,7 @@ $_maxWidth_vw: 100vw - (gap-inline-value(layout, $returnAsNumber: true) * 2);
             @include cx-prop(flow-margin-firm-start--large, $val_firm_start_large);
             @include cx-prop(flow-margin-firm-end--large, $val_firm_end_large);
 
-            @include cx-prop(flow-margin-button-span-block--touch, $val_buttonSpan_block_touch);
-            @include cx-prop(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch);
-
-            @include cx-prop(
-                flow-margin-button-span-block,
-                do-var(flow-margin-button-span-block--touch, $val_buttonSpan_block_touch)
-            );
-            @include cx-prop(
-                flow-margin-button-span-inline,
-                do-var(flow-margin-button-span-inline--touch, $val_buttonSpan_inline_touch)
-            );
-
             @content;
-
-            @include feature-check.supports-not(touch) {
-                @include cx-prop(flow-margin-button-span-block, $val_buttonSpan_block);
-                @include cx-prop(flow-margin-button-span-inline, $val_buttonSpan_inline);
-
-                @include cx-prop(
-                    flow-margin-button-span-block--touch,
-                    do-var(flow-margin-button-span-block, $val_buttonSpan_block)
-                );
-                @include cx-prop(
-                    flow-margin-button-span-inline--touch,
-                    do-var(flow-margin-button-span-inline, $val_buttonSpan_inline)
-                );
-            }
         } @else {
             @content;
         }
@@ -625,6 +626,7 @@ $_maxWidth_vw: 100vw - (gap-inline-value(layout, $returnAsNumber: true) * 2);
     $includeBase: true,
     $includeChildren: true,
     $includeChildren_strong: $includeChildren,
+    $includeMobileHyphens: true,
     $useRelativeFontSize: config.$subheading_fontSize_useRelative
 ) {
     $color: if($color != null, $color, _snippet-subheading--var-style($slug, color));
@@ -749,6 +751,12 @@ $_maxWidth_vw: 100vw - (gap-inline-value(layout, $returnAsNumber: true) * 2);
         @content;
     }
 
+    @if $includeMobileHyphens {
+        @include max-width(mobile) {
+            hyphens: auto;
+        }
+    }
+
     @if $includeChildren_strong and $fontWeight_strong {
         %strong {
             font-weight: $fontWeight_strong;
@@ -804,6 +812,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $includeMargin_lastChild: null,
     $includeMarginSiblings: $includeMargin,
     $includeMarginSiblings_inIs: null,
+    $includeMobileHyphens: true,
     $includePadding: true,
     $includeSubheading: $includeHGroup,
     $multipleContentBlocks: false,
@@ -1028,6 +1037,16 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         }
     }
 
+    @if $includeMobileHyphens {
+        @include max-width(mobile) {
+            hyphens: auto;
+
+            @if $multipleContentBlocks {
+                @content (mobile-hyphens);
+            }
+        }
+    }
+
     @if $multipleContentBlocks {
         @content (children);
     }
@@ -1163,6 +1182,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $includeBase: $includeBase_subheading,
                 $includeChildren: $includeChildren,
                 $includeChildren_strong: $includeChildren_strong,
+                $includeMobileHyphens: $includeMobileHyphens,
                 $subheading_args...
             ) {
                 @if $multipleContentBlocks {
@@ -1285,6 +1305,8 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     @include cx-prop(icon-color, $iconColor, $important: $important);
     text-decoration-color: $textDecorationColor#{$_importantSuffix};
     color: $color#{$_importantSuffix};
+
+    @content;
 }
 
 ///
@@ -1312,7 +1334,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $iconColor: $iconColor,
                 $important: $important,
                 $textDecorationColor: $textDecorationColor
-            );
+            ) {
+                @content;
+            }
         }
     } @else if meta.is-truthy($selector_except) {
         @include selector.except-superselector($selector_except) {
@@ -1323,7 +1347,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $iconColor: $iconColor,
                 $important: $important,
                 $textDecorationColor: $textDecorationColor
-            );
+            ) {
+                @content;
+            }
         }
     } @else if meta.is-truthy($selector_only) {
         @include selector.only-superselector($selector_only) {
@@ -1334,7 +1360,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $iconColor: $iconColor,
                 $important: $important,
                 $textDecorationColor: $textDecorationColor
-            );
+            ) {
+                @content;
+            }
         }
     } @else {
         @include _snippet-link-colour-single(
@@ -1344,7 +1372,9 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
             $iconColor: $iconColor,
             $important: $important,
             $textDecorationColor: $textDecorationColor
-        );
+        ) {
+            @content;
+        }
     }
 }
 
@@ -1517,6 +1547,8 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     text-decoration-thickness: $textDecorationThickness;
     text-underline-offset: $textUnderlineOffset;
 
+    hyphens: inherit;
+
     @content (root);
 
     @if $includeColours {
@@ -1537,7 +1569,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
     @if $includeEmpty {
         &:empty {
-            display: none !important;
+            display: none;
 
             @content (empty);
         }
@@ -1651,7 +1683,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
 
             &::before,
             &::after {
-                content: none !important;
+                content: none;
 
                 @content (icon-or-image-or-logo-link--before-and-after);
             }
@@ -1912,6 +1944,7 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
                 $mixin_heading,
                 $slug: null,
                 $includeHGroup: true,
+                $includeMobileHyphens: true,
                 $multipleContentBlocks: true,
                 $args...
             )
@@ -1925,6 +1958,7 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
                 $mixin_heading,
                 $slug: null,
                 $includeHGroup_child: true,
+                $includeMobileHyphens: true,
                 $multipleContentBlocks: true,
                 $args...
             )
@@ -1941,6 +1975,7 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
                     $includeBase: false,
                     $includeHGroup: true,
                     $includeMarginSiblings_inIs: $num <= 6,
+                    $includeMobileHyphens: false,
                     $multipleContentBlocks: true,
                     $args...
                 )
@@ -1954,6 +1989,7 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
                         $slug: #{$num},
                         $includeBase: false,
                         $includeHGroup_child: true,
+                        $includeMobileHyphens: false,
                         $multipleContentBlocks: true,
                         $args...
                     )
@@ -1970,7 +2006,8 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
             $mixin_heading: $mixin_heading,
             $includeBase: false,
             $includeHGroup: true,
-            $includeMarginSiblings_inIs: true
+            $includeMarginSiblings_inIs: true,
+            $includeMobileHyphens: false
         ) {
             @content (unstyled);
         }
@@ -1981,7 +2018,8 @@ $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');
             $mixin_unstyled_heading,
             $mixin_heading: $mixin_heading,
             $includeBase: false,
-            $includeHGroup_child: true
+            $includeHGroup_child: true,
+            $includeMobileHyphens: false
         ) {
             @content (unstyled);
         }

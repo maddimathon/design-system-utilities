@@ -1,0 +1,105 @@
+---
+/**
+ * @since 0.3.0-draft
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type { TokenTypes } from '../../ts/02-tokens/@types.js';
+import type { LinkCardPropsPartial } from './LinkCard.astro';
+
+/* import - functions */
+
+/* import - values */
+
+/* import - components */
+// import {} from '@maddimathon/utility-astro/components';
+import LinkCardComponent from './LinkCard.astro';
+
+/* import - layouts */
+// import {} from '@maddimathon/utility-astro/layouts';
+
+/* TYPES ===================================== */
+
+/* PROPS ===================================== */
+
+export type SampleLinkCardProps<
+    T_LinkCardProps extends LinkCardPropsPartial<TokenTypes.TypeParams>,
+> = T_LinkCardProps & {
+    component?: (props: T_LinkCardProps) => any;
+
+    body?: boolean;
+    date?: boolean;
+    description?: boolean;
+    footer?: boolean;
+    subheading?: boolean;
+    tags?: boolean;
+};
+
+type Props = SampleLinkCardProps<LinkCardPropsPartial<TokenTypes.TypeParams>>;
+
+export type SampleLinkCardComponentType = (props: SampleLinkCardProps<LinkCardPropsPartial<TokenTypes.TypeParams>>) => any
+
+const {
+    body = true,
+    component: LinkCard = LinkCardComponent,
+    date = true,
+    description = true,
+    footer = true,
+    heading = true,
+    subheading = true,
+    tags = true,
+    ...props
+} = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+const tagTexts = [
+    'Maecenas Fermentum',
+    'Ultrices Dui',
+    'Mi Tempus',
+    'Consectetur Eget Cras Pulvinar',
+    'Ut Tincidunt Purus',
+    'Tortor id',
+    'Massa Porttitor',
+    'In Semper',
+] as const;
+---
+
+<LinkCard {...props}>
+    { description && <Fragment slot='description'>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id gravida nunc, nec porttitor ipsum. Cras molestie porta blandit.</p>
+        <p>Donec varius augue nec lectus ornare viverra. Morbi in efficitur ex.</p>
+    </Fragment> }
+
+    { heading && <Fragment
+        slot='heading'
+        set:text='Heading — Nulla consectetur est at neque consequat tincidunt'
+    /> }
+    { subheading && <Fragment
+        slot='subheading'
+        set:text='Subheading — Nulla et mattis diam, in ullamcorper magna'
+    /> }
+
+    { body && (
+        <p>Phasellus rhoncus venenatis aliquam. Phasellus congue rutrum augue, sed dapibus tortor tristique quis.</p>
+        <p>Vivamus maximus sem tellus, sed condimentum diam eleifend sit amet.</p>
+    ) }
+
+    {
+        tags && Array.from({ length: 5 }).map((_, i) => (
+            <Fragment
+                slot={`tag-${i + 1}`}
+                set:text={tagTexts[i] ?? `tag #${i + 1}`}
+            />
+        ))
+    }
+
+    { footer && <Fragment slot='footer'>
+        <p>Donec feugiat turpis elit. Sit amet pellentesque neque egestas nec. Pellentesque blandit mollis gravida.</p>
+        <p>In vel vehicula ex, vitae porta nulla.</p>
+    </Fragment> }
+
+    { date && <Fragment slot='date'><p>Monursday, Febarch 34, 5067</p></Fragment> }
+</LinkCard>

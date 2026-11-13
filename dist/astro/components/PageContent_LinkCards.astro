@@ -16,8 +16,10 @@ import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 
 import type { LinkCardComponentType } from './LinkCard.astro';
+import type { SampleLinkCardComponentType } from './SampleLinkCard.astro';
 
 /* import - functions */
+import { toValidNumber } from '@maddimathon/utility-typescript';
 
 /* import - values */
 
@@ -25,7 +27,7 @@ import type { LinkCardComponentType } from './LinkCard.astro';
 import { Heading as HeadingComponent } from '@maddimathon/utility-astro/components';
 
 import LinkCardComponent from './LinkCard.astro';
-import { toValidNumber } from '@maddimathon/utility-typescript';
+import SampleLinkCardComponent from './SampleLinkCard.astro';
 
 /* import - layouts */
 // import {} from '@maddimathon/utility-astro/layouts';
@@ -40,6 +42,7 @@ type Props = {
     components?: Partial<{
         Heading: HeadingComponentType;
         LinkCard: LinkCardComponentType;
+        SampleLinkCard: SampleLinkCardComponentType;
     }>;
 
     displayHeading?: HeadingProps['displayHeading'];
@@ -50,6 +53,7 @@ const {
     components: {
         Heading = HeadingComponent,
         LinkCard = LinkCardComponent,
+        SampleLinkCard = SampleLinkCardComponent,
     } = {},
     displayHeading,
     heading = 2,
@@ -63,39 +67,21 @@ const headingLevels = Object.keys(tokens.css.style.heading)
     .filter((num): num is NonNullable<typeof num> => num !== null && num > 1);
 ---
 
-<LinkCard
+<SampleLinkCard
+    component={LinkCard}
     href='#'
     id='demo-card'
     tokens={tokens}
->
-    <Fragment slot='description'>
-        <p>DESCRIPTION</p>
-        <p>DESCRIPTION 2</p>
-    </Fragment>
+/>
 
-    <Fragment
-        slot='heading'
-        set:text='Heading'
-    />
-    <Fragment
-        slot='subheading'
-        set:text='Subheading'
-    />
-
-    <p>MAIN CONTENT</p>
-    <p>MAIN CONTENT PART 2</p>
-
-    {
-        Array.from({ length: 5 }).map((_, i) => (
-            <Fragment
-                slot={`tag-${i + 1}`}
-                set:text={`TAG #${i + 1}`}
-            />
-        ))
-    }
-
-    <Fragment slot='date'><p>DATE</p></Fragment>
-</LinkCard>
+<SampleLinkCard
+    component={LinkCard}
+    footer={false}
+    href='#'
+    id='demo-card-no-subheading'
+    subheading={false}
+    tokens={tokens}
+/>
 
 <Heading
     displayHeading={displayHeading}
@@ -105,39 +91,12 @@ const headingLevels = Object.keys(tokens.css.style.heading)
 <div class='link-cards-container'>
     {
         Array.from({ length: import.meta.env.DEV ? 5 : 3 }).map((_, i) => (
-            <LinkCard
+            <SampleLinkCard
+                component={LinkCard}
                 href='#'
                 id={`demo-card-container-${i}`}
                 tokens={tokens}
-            >
-                <Fragment slot='description'>
-                    <p>DESCRIPTION</p>
-                    <p>DESCRIPTION 2</p>
-                </Fragment>
-
-                <Fragment
-                    slot='heading'
-                    set:text='Heading'
-                />
-                <Fragment
-                    slot='subheading'
-                    set:text='Subheading'
-                />
-
-                <p>MAIN CONTENT</p>
-                <p>MAIN CONTENT PART 2</p>
-
-                {Array.from({ length: 5 }).map((_, i) => (
-                    <Fragment
-                        slot={`tag-${i + 1}`}
-                        set:text={`TAG #${i + 1}`}
-                    />
-                ))}
-
-                <Fragment slot='date'>
-                    <p>DATE</p>
-                </Fragment>
-            </LinkCard>
+            />
         ))
     }
 </div>
@@ -154,41 +113,13 @@ const headingLevels = Object.keys(tokens.css.style.heading)
 <div class='page-width | link-cards-container'>
     {
         headingLevels.map((heading) => (
-            <LinkCard
+            <SampleLinkCard
+                component={LinkCard}
                 displayHeading={heading}
-                heading={0}
                 href='#'
                 id={`demo-card-heading-${heading}`}
                 tokens={tokens}
-            >
-                <Fragment slot='description'>
-                    <p>DESCRIPTION</p>
-                    <p>DESCRIPTION 2</p>
-                </Fragment>
-
-                <Fragment
-                    slot='heading'
-                    set:text={`Heading ${heading}`}
-                />
-                <Fragment
-                    slot='subheading'
-                    set:text='Subheading'
-                />
-
-                <p>MAIN CONTENT</p>
-                <p>MAIN CONTENT PART 2</p>
-
-                {Array.from({ length: 5 }).map((_, i) => (
-                    <Fragment
-                        slot={`tag-${i + 1}`}
-                        set:text={`TAG #${i + 1}`}
-                    />
-                ))}
-
-                <Fragment slot='date'>
-                    <p>DATE</p>
-                </Fragment>
-            </LinkCard>
+            />
         ))
     }
 </div>

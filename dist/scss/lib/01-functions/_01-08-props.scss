@@ -213,51 +213,57 @@
 /// @since 0.3.0-draft
 ///
 @function get-extend-selectors-link-card(
-    $baseSel,
+    $extender,
     $container: '.link-cards-container',
-    $body: selector.append($baseSel, '__body'),
-    $date: selector.append($baseSel, '__date'),
-    $description: selector.append($baseSel, '__description'),
-    $footer: selector.append($baseSel, '__footer'),
-    $heading: selector.append($baseSel, '__heading'),
-    $hgroup: selector.append($baseSel, '__hgroup'),
-    $link: selector.append($baseSel, '__link'),
-    $linkIcon: selector.append($baseSel, '__link--icon'),
-    $subheading: selector.append($baseSel, '__subheading'),
-    $tag: selector.append($baseSel, '__tag'),
-    $tag__flag: selector.append($baseSel, '__tag__text_flag'),
-    $tagList: selector.append($baseSel, '__tag-list'),
-    $wrapper: selector.append($baseSel, '__wrapper')
+    $pseudoClass: 'link-card',
+    $pseudoClass_container: 'link-cards-container',
+    $body: selector.append($extender, '__body'),
+    $date: selector.append($extender, '__date'),
+    $description: selector.append($extender, '__description'),
+    $footer: selector.append($extender, '__footer'),
+    $heading: selector.append($extender, '__heading'),
+    $hgroup: selector.append($extender, '__hgroup'),
+    $link: selector.append($extender, '__link'),
+    $link_attr: '[data-link-card-link]',
+    $linkBackdrop: selector.append($extender, '__link--backdrop'),
+    $linkIcon: selector.append($extender, '__link--icon'),
+    $subheading: selector.append($extender, '__subheading'),
+    $tag: selector.append($extender, '__tag'),
+    $tag__flag: selector.append($extender, '__tag__text_flag'),
+    $tagList: selector.append($extender, '__tag-list'),
+    $wrapper: selector.append($extender, '__wrapper')
 ) {
     @return (
-        ($container, link-cards-container),
+        ($container, $pseudoClass_container),
         ($container, style-value(link-card-flow-margin-self, $raw: true)),
-        ($baseSel, margins-flow-firm),
-        ($baseSel, link-card),
-        ($body, link-card__body),
-        ($date, link-card__date),
-        ($description, link-card__description),
-        ($footer, link-card__footer),
-        ($heading, link-card__heading),
-        ($hgroup, link-card__hgroup),
-        ($link, link-card__link),
-        ($linkIcon, link-card__link--icon),
-        ($subheading, link-card__subheading),
+        ($extender, margins-flow-firm),
+        ($extender, $pseudoClass),
+        ($body, selector.append($pseudoClass, '__body')),
+        ($date, selector.append($pseudoClass, '__date')),
+        ($description, selector.append($pseudoClass, '__description')),
+        ($footer, selector.append($pseudoClass, '__footer')),
+        ($heading, selector.append($pseudoClass, '__heading')),
+        ($hgroup, selector.append($pseudoClass, '__hgroup')),
+        ($link, selector.append($pseudoClass, '__link')),
+        ($link_attr, selector.append($pseudoClass, '__link_attr')),
+        ($linkBackdrop, selector.append($pseudoClass, '__link--backdrop')),
+        ($linkIcon, selector.append($pseudoClass, '__link--icon')),
+        ($subheading, selector.append($pseudoClass, '__subheading')),
         ($tag__flag, text-flag-tag),
         (selector.unify($tag__flag, config.$selector_a), text-flag-tag--link),
-        ($tag, link-card__tag),
+        ($tag, selector.append($pseudoClass, '__tag')),
         (
             list.join(
                 $tag__flag,
                 selector.nest($tagList, '%text-flag-tag'),
                 $separator: comma
             ),
-            link-card__tag__text_flag
+            selector.append($pseudoClass, '__tag__text_flag')
         ),
-        ($tagList, link-card__tag-list),
+        ($tagList, selector.append($pseudoClass, '__tag-list')),
         ($tagList, text-flag-list),
         ($wrapper, style-value(link-card-flow-margin-self, $raw: true)),
-        ($wrapper, link-card__wrapper)
+        ($wrapper, selector.append($pseudoClass, '__wrapper'))
     );
 }
 

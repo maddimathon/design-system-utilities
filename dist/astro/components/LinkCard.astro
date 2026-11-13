@@ -6,9 +6,13 @@
  */
 
 /* import - types */
+import type { HTMLAttributes } from 'astro/types';
+import type { PartialPick } from '@maddimathon/utility-typescript/types';
+
 import type { ElementProps } from '@maddimathon/utility-astro';
 import type {
     DynamicWrapperComponentType,
+    DynamicWrapperProps,
     HeadingComponentType,
     HeadingProps,
 } from '@maddimathon/utility-astro/components';
@@ -22,6 +26,7 @@ import type { IconComponentType } from './Icon.astro';
 import { makeClassList } from '@maddimathon/utility-astro/functions';
 
 /* import - values */
+import { SampleTokens_Json } from '../functions.js';
 
 /* import - components */
 import {
@@ -49,7 +54,7 @@ export function getLinkCardIds<T extends string>(id: T) {
 
 export type LinkCardProps<T_Types extends TokenTypes.TypeParams> = ElementProps<
     {
-        tokens: Tokens.JsonReturn<T_Types>;
+        tokens?: undefined | Tokens.JsonReturn<T_Types>;
 
         href: string;
         id: string;
@@ -59,6 +64,11 @@ export type LinkCardProps<T_Types extends TokenTypes.TypeParams> = ElementProps<
             '_meta'
         >;
         background?: Tokens.JsonReturn<T_Types>['themes']['_meta']['keys']['background'][number];
+
+        /**
+         * The base for class names.
+         */
+        classBase?: string;
 
         components?: Partial<{
             CardContainer: DynamicWrapperComponentType;
@@ -80,8 +90,14 @@ export type LinkCardProps<T_Types extends TokenTypes.TypeParams> = ElementProps<
     'div'
 >;
 
+export type LinkCardPropsPartial<T_Types extends TokenTypes.TypeParams> =
+    PartialPick<
+        LinkCardProps<T_Types>,
+        'classBase' | 'components' | 'readMoreText' | 'tokens'
+    >;
+
 export type LinkCardComponentType = (
-    props: LinkCardProps<TokenTypes.TypeParams>,
+    props: LinkCardPropsPartial<TokenTypes.TypeParams>,
 ) => any;
 
 type Props = LinkCardProps<TokenTypes.TypeParams>;
@@ -90,6 +106,7 @@ const {
     activeTheme,
     background,
     class: classList,
+    classBase = 'link-card',
     components: {
         Container = DynamicWrapper,
         CardContainer = DynamicWrapper,
@@ -102,16 +119,17 @@ const {
     id,
     maxTags = 10,
     readMoreText = 'Read More',
-    tokens,
+    tokens = SampleTokens_Json,
     ...attrs
 } = Astro.props as Props;
 
 /* CONSTANTS ===================================== */
 
 const html = {
+    content: (await Astro.slots.render('default'))?.trim(),
     date: (await Astro.slots.render('date'))?.trim(),
     description: (await Astro.slots.render('description'))?.trim(),
-    content: (await Astro.slots.render('default'))?.trim(),
+    footer: (await Astro.slots.render('footer'))?.trim(),
     heading: (await Astro.slots.render('heading'))?.trim(),
     subheading: (await Astro.slots.render('subheading'))?.trim(),
 
@@ -127,38 +145,108 @@ const html = {
 const ids = getLinkCardIds(id);
 
 const elements = {
+    card: {
+        ...attrs,
+        'class': makeClassList(
+            [
+                classBase,
+                {
+                    [`background-${background}`]: !!background,
+                },
+            ],
+            classList,
+        ),
+        'data-active-theme': activeTheme,
+        'data-link-card': href,
+        'tag': 'div',
+    } satisfies DynamicWrapperProps<'div'>,
+
+    container: {
+        'aria-labelledby': html.heading ? ids.heading : null,
+        'class': `${classBase}__wrapper`,
+        'id': ids.container,
+        'tag': 'article',
+    } satisfies DynamicWrapperProps<'article'>,
+
+    content:
+        html.content &&
+        ({
+            class: `${classBase}__body`,
+        } satisfies HTMLAttributes<'div'>),
+
+    date:
+        html.date &&
+        ({
+            class: `${classBase}__date`,
+        } satisfies HTMLAttributes<'div'>),
+
     description:
         html.description &&
         ({
-            class: 'link-card__description',
-        } as const),
+            class: `${classBase}__description`,
+        } satisfies HTMLAttributes<'div'>),
+
+    footer:
+        html.footer &&
+        ({
+            class: `${classBase}__footer`,
+        } satisfies HTMLAttributes<'div'>),
 
     heading:
         html.heading &&
         ({
             attrs: {
                 hgroup: {
-                    class: 'link-card__hgroup',
+                    class: `${classBase}__hgroup`,
                 },
                 subheading: {
-                    class: 'link-card__subheading',
+                    class: `${classBase}__subheading`,
                 },
             },
 
-            class: 'link-card__heading',
+            class: `${classBase}__heading`,
             displayHeading,
             heading,
             id: ids.heading,
-        } as const satisfies HeadingProps),
-};
+        } satisfies HeadingProps),
+
+    link: {
+        'class': `${classBase}__link`,
+        'data-link-card-link': id,
+        href,
+    } satisfies HTMLAttributes<'a'>,
+
+    tags: html.tags.length
+        ? {
+              class: `${classBase}__tag-list`,
+          }
+        : '',
+} as const;
+
+const elements_linkUnstyled = {
+    ...elements.link,
+
+    class: 'unstyled-link',
+} as const satisfies HTMLAttributes<'a'>;
+
+const elements_linkIcon = {
+    ...elements.link,
+
+    'aria-label': readMoreText,
+    'class': `${classBase}__link ${classBase}__link--icon`,
+    'title': readMoreText,
+} as const satisfies HTMLAttributes<'a'>;
+
+const elements_linkHiddenBackdrop = {
+    ...elements_linkUnstyled,
+
+    'aria-hidden': 'true',
+    'class': `unstyled-link | ${classBase}__link ${classBase}__link--backdrop`,
+    'title': readMoreText,
+} as const satisfies HTMLAttributes<'a'>;
 ---
 
-<Container
-    aria-labelledby={html.heading && ids.heading}
-    class='link-card__wrapper'
-    id={ids.container}
-    tag='article'
->
+<Container {...elements.container}>
     {
         elements.description && (
             <div
@@ -168,75 +256,64 @@ const elements = {
         )
     }
 
-    <CardContainer
-        {...attrs}
-        class={makeClassList(
-            [
-                'link-card',
-                {
-                    [`background-${background}`]:
-                        !!background &&
-                        (!activeTheme || activeTheme === 'default'),
-                },
-            ],
-            classList,
-        )}
-        data-active-theme={activeTheme}
-        data-link-card={href}
-        tag='div'
-    >
+    <CardContainer {...elements.card}>
         {
             elements.heading && (
                 <Heading {...elements.heading}>
                     <a
-                        class='link-card__link'
-                        href={href}
+                        {...elements.link}
                         set:html={html.heading}
                     />
-                    <Fragment
-                        slot='subheading'
-                        set:html={html.subheading}
-                    />
+                    {html.subheading && (
+                        <Fragment slot='subheading'>
+                            <Fragment set:html={html.subheading} />
+                            <a {...elements_linkHiddenBackdrop} />
+                        </Fragment>
+                    )}
+                    <a {...elements_linkHiddenBackdrop} />
                 </Heading>
             )
         }
         {
-            html.content && (
-                <div
-                    class='link-card__body'
-                    set:html={html.content}
-                />
+            elements.content && (
+                <div {...elements.content}>
+                    <Fragment set:html={html.content} />
+                    <a {...elements_linkHiddenBackdrop} />
+                </div>
             )
         }
         {
-            html.tags.length ? (
-                <ul class='link-card__tag-list'>
+            elements.tags && (
+                <ul {...elements.tags}>
                     {html.tags.map((_htmlTag) => (
-                        <li class='link-card__tag'>
+                        <li class={`${classBase}__tag`}>
                             <span
-                                class='link-card__tag__text_flag'
+                                class={`${classBase}__tag__text_flag`}
                                 set:html={_htmlTag}
                             />
                         </li>
                     ))}
+                    <a {...elements_linkHiddenBackdrop} />
                 </ul>
-            ) : (
-                ''
             )
         }
         {
-            html.date && (
-                <div
-                    class='link-card__date'
-                    set:html={html.date}
-                />
+            elements.footer && (
+                <div {...elements.footer}>
+                    <Fragment set:html={html.footer} />
+                    <a {...elements_linkHiddenBackdrop} />
+                </div>
             )
         }
-        <a
-            class={'link-card__link link-card__link--icon'}
-            href={href}
-            aria-label={readMoreText}
-            title={readMoreText}
+        {
+            elements.date && (
+                <div {...elements.date}>
+                    <Fragment set:html={html.date} />
+                    <a {...elements_linkHiddenBackdrop} />
+                </div>
+            )
+        }
+        <a {...elements_linkIcon}
             ><Icon
                 aria-hidden='true'
                 icon='continue'

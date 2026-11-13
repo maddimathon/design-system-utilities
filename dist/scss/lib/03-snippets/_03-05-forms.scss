@@ -2606,6 +2606,30 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 }
             }
         }
+
+        &:not(:focus-within) {
+            @if $display == grid or $display == inline-grid {
+                grid-template-columns: 1fr 0;
+            }
+
+            > [type='submit'] {
+                margin-inline-start: 0;
+                padding-inline: 0 !important;
+                max-width: 0;
+
+                border-inline-start-width: 0;
+                border-inline-end-width: 0;
+
+                *,
+                &::before,
+                &::after {
+                    opacity: 0;
+                }
+            }
+        }
+
+        &:focus-within {
+        }
     }
 
     @if $supportSubmitButtonIcon {
@@ -2625,32 +2649,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             }
         }
     }
-
-    @if $includeFocusWithinTransition {
-        &:not(:focus-within) {
-            @if $display == grid or $display == inline-grid {
-                grid-template-columns: 1fr 0;
-            }
-
-            > [type='submit'] {
-                margin-inline-start: 0;
-                padding-inline: 0;
-                max-width: 0;
-
-                border-inline-start-width: 0;
-                border-inline-end-width: 0;
-
-                *,
-                &::before,
-                &::after {
-                    opacity: 0;
-                }
-            }
-        }
-
-        &:focus-within {
-        }
-    }
 }
 
 ///
@@ -2664,6 +2662,9 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $gap_touch: null,
     $selector_button: '%button',
     $selector_li: '%li',
+    //
+    $includeChildren: true,
+    //
     $multipleContentBlocks: false
 ) {
     @if $gap_touch == null {
@@ -2714,21 +2715,23 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
         }
     }
 
-    #{$selector_button},
-    #{$selector_li} {
-        margin-block: 0 !important;
-        margin-inline: 0 !important;
+    @if $includeChildren {
+        #{$selector_button},
+        #{$selector_li} {
+            margin-block: 0 !important;
+            margin-inline: 0 !important;
 
-        @if $multipleContentBlocks {
-            @content (button);
+            @if $multipleContentBlocks {
+                @content (button);
+            }
         }
-    }
 
-    #{$selector_li} {
-        padding-inline: 0 !important;
+        #{$selector_li} {
+            padding-inline: 0 !important;
 
-        @if $multipleContentBlocks {
-            @content (li);
+            @if $multipleContentBlocks {
+                @content (li);
+            }
         }
     }
 }

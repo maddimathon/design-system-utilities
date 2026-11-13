@@ -3640,6 +3640,7 @@ a[href] {
     text-decoration: underline;
     text-decoration-thickness: 0.0625em;
     text-underline-offset: 0.25em;
+    hyphens: inherit;
     --focus-ring-outline-color: var(--theme-link-outline-hover, ActiveText);
     --icon-color: var(--theme-link-icon, LinkText);
     text-decoration-color: hsl(162, 100%, 15%);
@@ -3785,7 +3786,7 @@ a[href]::after {
     );
 }
 a[href]:empty {
-    display: none !important;
+    display: none;
 }
 a.display-block[href] {
     display: inline-block;
@@ -3812,7 +3813,7 @@ a[href]:has(> img:only-child)::before,
 a[href]:has(> img:only-child)::after,
 a[href]:has(> svg:only-child)::before,
 a[href]:has(> svg:only-child)::after {
-    content: none !important;
+    content: none;
 }
 
 /*! END of @maddimathon/design-system-utilities/template/global */
@@ -3844,17 +3845,6 @@ blockquote {
     max-width: 26.25rem;
     border-left: 0.125rem solid hsl(162, 100%, 15%);
     border-left: 0.125rem solid var(--theme-ui-primary, CanvasText);
-}
-blockquote > * {
-    --flow-margin: 0.5rem;
-    --flow-margin--small: 0.3125rem;
-    --flow-margin--large: 1.34375rem;
-    --flow-margin-firm-start: 0.8125rem;
-    --flow-margin-firm-end: 0.3125rem;
-    --flow-margin-firm-start--small: 0.5rem;
-    --flow-margin-firm-end--small: 0.1875rem;
-    --flow-margin-firm-start--large: 1.6875rem;
-    --flow-margin-firm-end--large: 0.34375rem;
     --flow-margin-button-span-block--touch: 0.8125em;
     --flow-margin-button-span-inline--touch: 0.8125em;
     --flow-margin-button-span-block: var(
@@ -3866,7 +3856,7 @@ blockquote > * {
         0.8125em
     );
 }
-:where(.js__no-touch) blockquote > * {
+:where(.js__no-touch) blockquote {
     --flow-margin-button-span-block: 0.5em;
     --flow-margin-button-span-inline: 0.5em;
     --flow-margin-button-span-block--touch: var(
@@ -3879,6 +3869,17 @@ blockquote > * {
     );
 }
 
+blockquote > * {
+    --flow-margin: 0.5rem;
+    --flow-margin--small: 0.3125rem;
+    --flow-margin--large: 1.34375rem;
+    --flow-margin-firm-start: 0.8125rem;
+    --flow-margin-firm-end: 0.3125rem;
+    --flow-margin-firm-start--small: 0.5rem;
+    --flow-margin-firm-end--small: 0.1875rem;
+    --flow-margin-firm-start--large: 1.6875rem;
+    --flow-margin-firm-end--large: 0.34375rem;
+}
 blockquote > :first-child {
     margin-top: 0;
 }
@@ -4125,6 +4126,16 @@ h6 {
     letter-spacing: inherit;
     letter-spacing: var(--font-override-letter-spacing, inherit);
 }
+@media (width < 25em) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        hyphens: auto;
+    }
+}
 hgroup h1,
 hgroup h2,
 hgroup h3,
@@ -4239,6 +4250,20 @@ h6 samp {
     letter-spacing: inherit;
     letter-spacing: var(--font-override-letter-spacing, inherit);
 }
+@media (width < 25em) {
+    :where([role="heading"][aria-level="1"]),
+    :where([role="heading"][aria-level="2"]),
+    :where([role="heading"][aria-level="3"]),
+    :where([role="heading"][aria-level="4"]),
+    :where([role="heading"][aria-level="5"]),
+    :where([role="heading"][aria-level="6"]),
+    :where([role="heading"][aria-level="7"]),
+    :where([role="heading"][aria-level="8"]),
+    :where([role="heading"][aria-level="9"]),
+    :where([role="heading"][aria-level="10"]) {
+        hyphens: auto;
+    }
+}
 hgroup :where([role="heading"][aria-level="1"]),
 hgroup :where([role="heading"][aria-level="2"]),
 hgroup :where([role="heading"][aria-level="3"]),
@@ -4334,10 +4359,10 @@ hgroup :where([role="heading"][aria-level="10"]) {
 
 h1 {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 900;
     font-size: 2.9375rem;
-    line-height: 1.1875;
+    line-height: 1.1;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4364,10 +4389,10 @@ h1 {
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 900;
     font-size: 2.9375rem;
-    line-height: 1.1875;
+    line-height: 1.1;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4379,10 +4404,10 @@ h1 {
 }
 h2 {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 800;
     font-size: 2.1875rem;
-    line-height: 1.375;
+    line-height: 1.1875;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4409,10 +4434,10 @@ h2 {
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 800;
     font-size: 2.1875rem;
-    line-height: 1.375;
+    line-height: 1.1875;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4424,7 +4449,7 @@ h2 {
 }
 h3 {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 700;
     font-size: 1.875rem;
     line-height: 1.375;
@@ -4454,7 +4479,7 @@ h3 {
     margin-top: max(1.84375rem, 3.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 3.34375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 700;
     font-size: 1.875rem;
     line-height: 1.375;
@@ -4469,7 +4494,7 @@ h3 {
 }
 h4 {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 700;
     font-size: 1.625rem;
     line-height: 1.375;
@@ -4519,7 +4544,7 @@ h4 {
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 700;
     font-size: 1.625rem;
     line-height: 1.375;
@@ -4554,7 +4579,7 @@ h4 {
 }
 h5 {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 600;
     font-size: 1.4375rem;
     line-height: 1.375;
@@ -4604,7 +4629,7 @@ h5 {
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 600;
     font-size: 1.4375rem;
     line-height: 1.375;
@@ -4639,10 +4664,10 @@ h5 {
 }
 h6 {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 500;
     font-size: 1.25rem;
-    line-height: 1.5;
+    line-height: 1.375;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4689,10 +4714,10 @@ h6 {
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 500;
     font-size: 1.25rem;
-    line-height: 1.5;
+    line-height: 1.375;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4730,7 +4755,7 @@ h6 {
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 500;
     font-size: 1rem;
     line-height: 1.6875;
@@ -4751,7 +4776,7 @@ h6 {
     margin-top: max(1.84375rem, 1.84375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.84375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 500;
     font-size: 0.9375rem;
     line-height: 1.6875;
@@ -4792,10 +4817,10 @@ h6 {
     margin-top: max(1.84375rem, 1.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.34375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 500;
     font-size: 0.875rem;
-    line-height: 1.875;
+    line-height: 1.6875;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -4833,10 +4858,10 @@ h6 {
     margin-top: max(1.84375rem, 1.34375rem);
     margin-top: max(var(--flow-margin--large, 1.84375rem), 1.34375rem);
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0.0625em;
     font-weight: 500;
     font-size: 0.8125rem;
-    line-height: 1.875;
+    line-height: 1.6875;
     text-transform: none;
     font-family: inherit;
     letter-spacing: normal;
@@ -5048,7 +5073,7 @@ fieldset legend {
     font-family: inherit;
     font-weight: 600;
     font-size: 1.1875em;
-    line-height: 1.6875;
+    line-height: 1.5;
     text-transform: none;
     text-wrap: balance;
     text-wrap: pretty;
@@ -5058,6 +5083,11 @@ fieldset legend {
     --icon-color: var(--theme-text-primary, CanvasText);
     color: hsl(162, 100%, 15%);
     color: var(--theme-text-primary, CanvasText);
+}
+@media (width < 25em) {
+    fieldset legend {
+        hyphens: auto;
+    }
 }
 fieldset legend em {
     letter-spacing: inherit;
@@ -7906,13 +7936,18 @@ th {
     font-family: inherit;
     font-weight: 600;
     font-size: 1em;
-    line-height: 1.6875;
+    line-height: 1.5;
     text-transform: none;
     text-wrap: balance;
     text-wrap: pretty;
     letter-spacing: normal;
     letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
+}
+@media (width < 25em) {
+    th {
+        hyphens: auto;
+    }
 }
 th,
 th a[href] {

@@ -486,7 +486,7 @@ export class Tokens_CSS_Style extends AbstractTokens {
             padding: {
                 block: {
                     start: 0,
-                    end: 0,
+                    end: '0.0625em',
                 },
             },
         };
@@ -503,22 +503,23 @@ export class Tokens_CSS_Style extends AbstractTokens {
                     self: 'margins-flow-large',
                 },
                 'letter-spacing': style['letter-spacing'],
-                'line-height': style['line-height'],
+                'line-height': '300',
                 'text-transform': style['text-transform'],
                 padding: style.padding,
             }, partial, true);
         }
         if (headingAsNum >= 1) {
             style.font.weight = '900';
-            style['line-height'] = '100';
+            style['line-height'] = 1.1;
             style.margin.block.start = '800';
         }
         if (headingAsNum >= 2) {
             style.font.weight = '800';
-            style['line-height'] = '200';
+            style['line-height'] = '100';
         }
         if (headingAsNum >= 3) {
             style.font.weight = '700';
+            style['line-height'] = '200';
         }
         if (headingAsNum >= 4) {
             style.font.style = 'italic';
@@ -530,7 +531,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }
         if (headingAsNum >= 6) {
             style.font.weight = '500';
-            style['line-height'] = '300';
         }
         if (headingAsNum >= 7) {
             style.font.weight = '500';
@@ -542,7 +542,6 @@ export class Tokens_CSS_Style extends AbstractTokens {
         }
         if (headingAsNum >= 9) {
             style.margin.block.start = '500';
-            style['line-height'] = '500';
         }
         return mergeArgs(style, partial, true);
     }
@@ -779,10 +778,10 @@ export class Tokens_CSS_Style extends AbstractTokens {
             },
             'flow-margin': flowMargin,
             'line-height': partial?.['line-height'] ?? alertStyles['line-height'],
-            padding: mergeArgs({
-                block: flowMargin.$,
-                inline: flowMargin.$,
-            }, partial?.padding ?? {}, true),
+            padding: {
+                block: partial?.padding?.block ?? '400',
+                inline: partial?.padding?.inline ?? partial?.padding?.block ?? '400',
+            },
             subheading: {
                 ...partial?.subheading,
                 color: {

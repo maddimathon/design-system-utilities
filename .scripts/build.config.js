@@ -107,6 +107,11 @@ const config = {
                         'assets',
                     ],
                 },
+
+                ts: [
+                    'src/ts/tsconfig.json',
+                    'src/ts/browser/tsconfig.json',
+                ],
             },
         ],
 

@@ -702,7 +702,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
             padding: {
                 block: {
                     start: 0,
-                    end: 0,
+                    end: '0.0625em',
                 },
             },
         };
@@ -724,7 +724,7 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
                     },
 
                     'letter-spacing': style[ 'letter-spacing' ],
-                    'line-height': style[ 'line-height' ],
+                    'line-height': '300',
                     'text-transform': style[ 'text-transform' ],
 
                     padding: style.padding,
@@ -736,17 +736,18 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
         if ( headingAsNum >= 1 ) {
             style.font.weight = '900';
-            style[ 'line-height' ] = '100';
+            style[ 'line-height' ] = 1.1;
             style.margin.block.start = '800';
         }
 
         if ( headingAsNum >= 2 ) {
             style.font.weight = '800';
-            style[ 'line-height' ] = '200';
+            style[ 'line-height' ] = '100';
         }
 
         if ( headingAsNum >= 3 ) {
             style.font.weight = '700';
+            style[ 'line-height' ] = '200';
         }
 
         if ( headingAsNum >= 4 ) {
@@ -761,7 +762,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
         if ( headingAsNum >= 6 ) {
             style.font.weight = '500';
-            style[ 'line-height' ] = '300';
         }
 
         if ( headingAsNum >= 7 ) {
@@ -777,7 +777,6 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
         if ( headingAsNum >= 9 ) {
             style.margin.block.start = '500';
-            style[ 'line-height' ] = '500';
         }
 
         return mergeArgs( style, partial, true ) satisfies Tokens_CSS_Style.HeadingStyles as Tokens_CSS_Style.HeadingStyles_Generic<T_Key>;
@@ -1097,10 +1096,10 @@ export class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypeParams> exte
 
             'line-height': partial?.[ 'line-height' ] ?? alertStyles[ 'line-height' ],
 
-            padding: mergeArgs( {
-                block: flowMargin.$,
-                inline: flowMargin.$,
-            }, partial?.padding ?? {}, true ),
+            padding: {
+                block: partial?.padding?.block ?? '400',
+                inline: partial?.padding?.inline ?? partial?.padding?.block ?? '400',
+            },
 
             subheading: {
                 ...partial?.subheading,

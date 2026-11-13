@@ -72,6 +72,9 @@ export type * from './components/PageContent_Toggles.astro';
 import PageContent_TypeStyles from './components/PageContent_TypeStyles.astro';
 export type * from './components/PageContent_TypeStyles.astro';
 
+import SampleLinkCard from './components/SampleLinkCard.astro';
+export type * from './components/SampleLinkCard.astro';
+
 import SearchForm from './components/SearchForm.astro';
 export type * from './components/SearchForm.astro';
 
@@ -131,6 +134,7 @@ const components = {
     PageContent_ThemeDynamic,
     PageContent_Toggles,
     PageContent_TypeStyles,
+    SampleLinkCard,
     SearchForm,
     SettingsMenu,
     ShadeSwatch_ColourValue,

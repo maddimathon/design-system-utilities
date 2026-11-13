@@ -291,27 +291,27 @@ export class Compile extends CompileStage {
             },
         ] );
 
-        // await this.atry( this.writeTsConfig, 2, [
-        //     '@maddimathon/utility-typescript/tsconfig',
-        //     2,
-        //     {
-        //         extends: '../../../tsconfig.base.json',
+        await this.atry( this.writeTsConfig, 2, [
+            'src/ts/browser/tsconfig.json',
+            2,
+            {
+                extends: '@maddimathon/utility-typescript/tsconfig',
 
-        //         include: [
-        //             '../../../src/ts/browser/**/*',
-        //             './src/ts/browser/**/*',
-        //         ],
-        //         exclude: [],
+                include: [
+                    '../../../src/ts/browser/**/*',
+                    './src/ts/browser/**/*',
+                ],
+                exclude: [],
 
-        //         compilerOptions: {
-        //             declaration: true,
-        //             declarationMap: false,
-        //             module: 'ES2015',
-        //             noUnusedParameters: false,
-        //             outDir: '../../dist/ts/browser/',
-        //             types: undefined,
-        //         },
-        //     },
-        // ] );
+                compilerOptions: {
+                    declaration: true,
+                    declarationMap: false,
+                    module: 'ES2015',
+                    noUnusedParameters: false,
+                    outDir: '../../../dist/ts/browser/',
+                    types: undefined,
+                },
+            },
+        ] );
     }
 }

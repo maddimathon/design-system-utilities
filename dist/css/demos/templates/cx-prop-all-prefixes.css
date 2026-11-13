@@ -14832,6 +14832,7 @@ a[href] {
         --stroke-relative-600,
         var(--fallback-stroke-relative-600, 0.25em)
     );
+    hyphens: inherit;
     --fallback-focus-ring-outline-color: var(
         --theme-link-outline-hover,
         var(--fallback-theme-link-outline-hover, ActiveText)
@@ -15183,7 +15184,7 @@ a[href]::after {
     );
 }
 a[href]:empty {
-    display: none !important;
+    display: none;
 }
 a.display-block[href] {
     --fallback-display: inline-block;
@@ -15362,7 +15363,7 @@ a[href]:has(> img:only-child)::before,
 a[href]:has(> img:only-child)::after,
 a[href]:has(> svg:only-child)::before,
 a[href]:has(> svg:only-child)::after {
-    content: none !important;
+    content: none;
 }
 
 /*! END of @maddimathon/design-system-utilities/template */
@@ -15419,7 +15420,54 @@ blockquote {
         )
         solid
         var(--theme-ui-primary, var(--fallback-theme-ui-primary, CanvasText));
+    --fallback-flow-margin-button-span-block--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(
+            --fallback-flow-margin-button-span-block--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
 }
+:where(.js__no-touch) blockquote {
+    --fallback-flow-margin-button-span-block: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+}
+
 blockquote > * {
     --fallback-flow-margin: var(
         --mrg-soft-300,
@@ -15457,54 +15505,7 @@ blockquote > * {
         --mrg-half-500,
         var(--fallback-mrg-half-500, 0.34375rem)
     );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-block: var(
-        --flow-margin-button-span-block--touch,
-        var(
-            --fallback-flow-margin-button-span-block--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --flow-margin-button-span-inline--touch,
-        var(
-            --fallback-flow-margin-button-span-inline--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
 }
-:where(.js__no-touch) blockquote > * {
-    --fallback-flow-margin-button-span-block: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --flow-margin-button-span-block,
-        var(
-            --fallback-flow-margin-button-span-block,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --flow-margin-button-span-inline,
-        var(
-            --fallback-flow-margin-button-span-inline,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
-}
-
 blockquote > :first-child {
     margin-block-start: 0;
 }
@@ -16002,6 +16003,28 @@ h6,
         var(--fallback-font-override-letter-spacing, inherit)
     );
 }
+@media (width < 25em) {
+    .unstyled-heading,
+    .page-title,
+    .h1,
+    h1,
+    .h2,
+    h2,
+    .h3,
+    h3,
+    .h4,
+    h4,
+    .h5,
+    h5,
+    .h6,
+    h6,
+    .h7,
+    .h8,
+    .h9,
+    .h10 {
+        hyphens: auto;
+    }
+}
 hgroup .unstyled-heading,
 hgroup .h1,
 hgroup h1,
@@ -16190,6 +16213,22 @@ hgroup .h10 {
         var(--fallback-font-override-letter-spacing, inherit)
     );
     font-style: normal;
+}
+@media (width < 25em) {
+    .unstyled-heading__subheading,
+    .page-title__subheading,
+    .h1__subheading,
+    .h2__subheading,
+    .h3__subheading,
+    .h4__subheading,
+    .h5__subheading,
+    .h6__subheading,
+    .h7__subheading,
+    .h8__subheading,
+    .h9__subheading,
+    .h10__subheading {
+        hyphens: auto;
+    }
 }
 
 :is(
@@ -16394,6 +16433,20 @@ h6 samp,
         var(--fallback-font-override-letter-spacing, inherit)
     );
 }
+@media (width < 25em) {
+    :where([role="heading"][aria-level="1"]),
+    :where([role="heading"][aria-level="2"]),
+    :where([role="heading"][aria-level="3"]),
+    :where([role="heading"][aria-level="4"]),
+    :where([role="heading"][aria-level="5"]),
+    :where([role="heading"][aria-level="6"]),
+    :where([role="heading"][aria-level="7"]),
+    :where([role="heading"][aria-level="8"]),
+    :where([role="heading"][aria-level="9"]),
+    :where([role="heading"][aria-level="10"]) {
+        hyphens: auto;
+    }
+}
 hgroup :where([role="heading"][aria-level="1"]),
 hgroup :where([role="heading"][aria-level="2"]),
 hgroup :where([role="heading"][aria-level="3"]),
@@ -16493,13 +16546,10 @@ hgroup :where([role="heading"][aria-level="10"]) {
 h1,
 .page-title {
     padding-block-start: var(--heading-1-padding-block-start, 0);
-    padding-block-end: var(--heading-1-padding-block-end, 0);
+    padding-block-end: var(--heading-1-padding-block-end, 0.0625em);
     font-weight: var(--heading-1-font-weight, 900);
     font-size: var(--fs-heading-1, var(--fallback-fs-heading-1, 2.9375rem));
-    line-height: var(
-        --heading-1-line-height,
-        var(--line-height-100, var(--fallback-line-height-100, 1.1875))
-    );
+    line-height: var(--heading-1-line-height, 1.1);
     text-transform: var(--heading-1-text-transform, none);
     font-family: var(--heading-1-font-family, inherit);
     letter-spacing: var(
@@ -16588,7 +16638,7 @@ h1,
         var(--mrg-soft-200, var(--fallback-mrg-soft-200, 0.3125rem))
     );
     padding-block-start: var(--subheading-1-padding-block-start, 0);
-    padding-block-end: var(--subheading-1-padding-block-end, 0);
+    padding-block-end: var(--subheading-1-padding-block-end, 0.0625em);
     font-weight: var(--subheading-1-font-weight, 600);
     font-size: var(
         --subheading-1-font-size,
@@ -16596,7 +16646,7 @@ h1,
     );
     line-height: var(
         --subheading-1-line-height,
-        var(--line-height-300, var(--fallback-line-height-300, 1.5))
+        var(--line-height-200, var(--fallback-line-height-200, 1.375))
     );
     text-transform: var(--subheading-1-text-transform, none);
     letter-spacing: var(
@@ -16661,13 +16711,10 @@ h1,
         )
     );
     padding-block-start: var(--heading-1-padding-block-start, 0);
-    padding-block-end: var(--heading-1-padding-block-end, 0);
+    padding-block-end: var(--heading-1-padding-block-end, 0.0625em);
     font-weight: var(--heading-1-font-weight, 900);
     font-size: var(--fs-heading-1, var(--fallback-fs-heading-1, 2.9375rem));
-    line-height: var(
-        --heading-1-line-height,
-        var(--line-height-100, var(--fallback-line-height-100, 1.1875))
-    );
+    line-height: var(--heading-1-line-height, 1.1);
     text-transform: var(--heading-1-text-transform, none);
     font-family: var(--heading-1-font-family, inherit);
     letter-spacing: var(
@@ -16702,12 +16749,12 @@ h1,
 .h2,
 h2 {
     padding-block-start: var(--heading-2-padding-block-start, 0);
-    padding-block-end: var(--heading-2-padding-block-end, 0);
+    padding-block-end: var(--heading-2-padding-block-end, 0.0625em);
     font-weight: var(--heading-2-font-weight, 800);
     font-size: var(--fs-heading-2, var(--fallback-fs-heading-2, 2.1875rem));
     line-height: var(
         --heading-2-line-height,
-        var(--line-height-200, var(--fallback-line-height-200, 1.375))
+        var(--line-height-100, var(--fallback-line-height-100, 1.1875))
     );
     text-transform: var(--heading-2-text-transform, none);
     font-family: var(--heading-2-font-family, inherit);
@@ -16855,12 +16902,12 @@ h2,
         )
     );
     padding-block-start: var(--heading-2-padding-block-start, 0);
-    padding-block-end: var(--heading-2-padding-block-end, 0);
+    padding-block-end: var(--heading-2-padding-block-end, 0.0625em);
     font-weight: var(--heading-2-font-weight, 800);
     font-size: var(--fs-heading-2, var(--fallback-fs-heading-2, 2.1875rem));
     line-height: var(
         --heading-2-line-height,
-        var(--line-height-200, var(--fallback-line-height-200, 1.375))
+        var(--line-height-100, var(--fallback-line-height-100, 1.1875))
     );
     text-transform: var(--heading-2-text-transform, none);
     font-family: var(--heading-2-font-family, inherit);
@@ -16896,7 +16943,7 @@ h2,
 .h3,
 h3 {
     padding-block-start: var(--heading-3-padding-block-start, 0);
-    padding-block-end: var(--heading-3-padding-block-end, 0);
+    padding-block-end: var(--heading-3-padding-block-end, 0.0625em);
     font-weight: var(--heading-3-font-weight, 700);
     font-size: var(--fs-heading-3, var(--fallback-fs-heading-3, 1.875rem));
     line-height: var(
@@ -17049,7 +17096,7 @@ h3,
         )
     );
     padding-block-start: var(--heading-3-padding-block-start, 0);
-    padding-block-end: var(--heading-3-padding-block-end, 0);
+    padding-block-end: var(--heading-3-padding-block-end, 0.0625em);
     font-weight: var(--heading-3-font-weight, 700);
     font-size: var(--fs-heading-3, var(--fallback-fs-heading-3, 1.875rem));
     line-height: var(
@@ -17090,7 +17137,7 @@ h3,
 .h4,
 h4 {
     padding-block-start: var(--heading-4-padding-block-start, 0);
-    padding-block-end: var(--heading-4-padding-block-end, 0);
+    padding-block-end: var(--heading-4-padding-block-end, 0.0625em);
     font-weight: var(--heading-4-font-weight, 700);
     font-size: var(--fs-heading-4, var(--fallback-fs-heading-4, 1.625rem));
     line-height: var(
@@ -17243,7 +17290,7 @@ h4,
         )
     );
     padding-block-start: var(--heading-4-padding-block-start, 0);
-    padding-block-end: var(--heading-4-padding-block-end, 0);
+    padding-block-end: var(--heading-4-padding-block-end, 0.0625em);
     font-weight: var(--heading-4-font-weight, 700);
     font-size: var(--fs-heading-4, var(--fallback-fs-heading-4, 1.625rem));
     line-height: var(
@@ -17284,7 +17331,7 @@ h4,
 .h5,
 h5 {
     padding-block-start: var(--heading-5-padding-block-start, 0);
-    padding-block-end: var(--heading-5-padding-block-end, 0);
+    padding-block-end: var(--heading-5-padding-block-end, 0.0625em);
     font-weight: var(--heading-5-font-weight, 600);
     font-size: var(--fs-heading-5, var(--fallback-fs-heading-5, 1.4375rem));
     line-height: var(
@@ -17437,7 +17484,7 @@ h5,
         )
     );
     padding-block-start: var(--heading-5-padding-block-start, 0);
-    padding-block-end: var(--heading-5-padding-block-end, 0);
+    padding-block-end: var(--heading-5-padding-block-end, 0.0625em);
     font-weight: var(--heading-5-font-weight, 600);
     font-size: var(--fs-heading-5, var(--fallback-fs-heading-5, 1.4375rem));
     line-height: var(
@@ -17478,12 +17525,12 @@ h5,
 .h6,
 h6 {
     padding-block-start: var(--heading-6-padding-block-start, 0);
-    padding-block-end: var(--heading-6-padding-block-end, 0);
+    padding-block-end: var(--heading-6-padding-block-end, 0.0625em);
     font-weight: var(--heading-6-font-weight, 500);
     font-size: var(--fs-heading-6, var(--fallback-fs-heading-6, 1.25rem));
     line-height: var(
         --heading-6-line-height,
-        var(--line-height-300, var(--fallback-line-height-300, 1.5))
+        var(--line-height-200, var(--fallback-line-height-200, 1.375))
     );
     text-transform: var(--heading-6-text-transform, none);
     font-family: var(--heading-6-font-family, inherit);
@@ -17631,12 +17678,12 @@ h6,
         )
     );
     padding-block-start: var(--heading-6-padding-block-start, 0);
-    padding-block-end: var(--heading-6-padding-block-end, 0);
+    padding-block-end: var(--heading-6-padding-block-end, 0.0625em);
     font-weight: var(--heading-6-font-weight, 500);
     font-size: var(--fs-heading-6, var(--fallback-fs-heading-6, 1.25rem));
     line-height: var(
         --heading-6-line-height,
-        var(--line-height-300, var(--fallback-line-height-300, 1.5))
+        var(--line-height-200, var(--fallback-line-height-200, 1.375))
     );
     text-transform: var(--heading-6-text-transform, none);
     font-family: var(--heading-6-font-family, inherit);
@@ -17671,7 +17718,7 @@ h6,
 }
 .h7 {
     padding-block-start: var(--heading-7-padding-block-start, 0);
-    padding-block-end: var(--heading-7-padding-block-end, 0);
+    padding-block-end: var(--heading-7-padding-block-end, 0.0625em);
     font-weight: var(--heading-7-font-weight, 500);
     font-size: var(--fs-heading-7, var(--fallback-fs-heading-7, 1rem));
     line-height: var(
@@ -17822,7 +17869,7 @@ h6,
         )
     );
     padding-block-start: var(--heading-7-padding-block-start, 0);
-    padding-block-end: var(--heading-7-padding-block-end, 0);
+    padding-block-end: var(--heading-7-padding-block-end, 0.0625em);
     font-weight: var(--heading-7-font-weight, 500);
     font-size: var(--fs-heading-7, var(--fallback-fs-heading-7, 1rem));
     line-height: var(
@@ -17862,7 +17909,7 @@ h6,
 }
 .h8 {
     padding-block-start: var(--heading-8-padding-block-start, 0);
-    padding-block-end: var(--heading-8-padding-block-end, 0);
+    padding-block-end: var(--heading-8-padding-block-end, 0.0625em);
     font-weight: var(--heading-8-font-weight, 500);
     font-size: var(--fs-heading-8, var(--fallback-fs-heading-8, 0.9375rem));
     line-height: var(
@@ -18013,7 +18060,7 @@ h6,
         )
     );
     padding-block-start: var(--heading-8-padding-block-start, 0);
-    padding-block-end: var(--heading-8-padding-block-end, 0);
+    padding-block-end: var(--heading-8-padding-block-end, 0.0625em);
     font-weight: var(--heading-8-font-weight, 500);
     font-size: var(--fs-heading-8, var(--fallback-fs-heading-8, 0.9375rem));
     line-height: var(
@@ -18053,12 +18100,12 @@ h6,
 }
 .h9 {
     padding-block-start: var(--heading-9-padding-block-start, 0);
-    padding-block-end: var(--heading-9-padding-block-end, 0);
+    padding-block-end: var(--heading-9-padding-block-end, 0.0625em);
     font-weight: var(--heading-9-font-weight, 500);
     font-size: var(--fs-heading-9, var(--fallback-fs-heading-9, 0.875rem));
     line-height: var(
         --heading-9-line-height,
-        var(--line-height-500, var(--fallback-line-height-500, 1.875))
+        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
     );
     text-transform: var(--heading-9-text-transform, none);
     font-family: var(--heading-9-font-family, inherit);
@@ -18204,12 +18251,12 @@ h6,
         )
     );
     padding-block-start: var(--heading-9-padding-block-start, 0);
-    padding-block-end: var(--heading-9-padding-block-end, 0);
+    padding-block-end: var(--heading-9-padding-block-end, 0.0625em);
     font-weight: var(--heading-9-font-weight, 500);
     font-size: var(--fs-heading-9, var(--fallback-fs-heading-9, 0.875rem));
     line-height: var(
         --heading-9-line-height,
-        var(--line-height-500, var(--fallback-line-height-500, 1.875))
+        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
     );
     text-transform: var(--heading-9-text-transform, none);
     font-family: var(--heading-9-font-family, inherit);
@@ -18244,12 +18291,12 @@ h6,
 }
 .h10 {
     padding-block-start: var(--heading-10-padding-block-start, 0);
-    padding-block-end: var(--heading-10-padding-block-end, 0);
+    padding-block-end: var(--heading-10-padding-block-end, 0.0625em);
     font-weight: var(--heading-10-font-weight, 500);
     font-size: var(--fs-heading-10, var(--fallback-fs-heading-10, 0.8125rem));
     line-height: var(
         --heading-10-line-height,
-        var(--line-height-500, var(--fallback-line-height-500, 1.875))
+        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
     );
     text-transform: var(--heading-10-text-transform, none);
     font-family: var(--heading-10-font-family, inherit);
@@ -18398,12 +18445,12 @@ h6,
         )
     );
     padding-block-start: var(--heading-10-padding-block-start, 0);
-    padding-block-end: var(--heading-10-padding-block-end, 0);
+    padding-block-end: var(--heading-10-padding-block-end, 0.0625em);
     font-weight: var(--heading-10-font-weight, 500);
     font-size: var(--fs-heading-10, var(--fallback-fs-heading-10, 0.8125rem));
     line-height: var(
         --heading-10-line-height,
-        var(--line-height-500, var(--fallback-line-height-500, 1.875))
+        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
     );
     text-transform: var(--heading-10-text-transform, none);
     font-family: var(--heading-10-font-family, inherit);
@@ -18447,13 +18494,13 @@ h5.unstyled-heading,
 h6.unstyled-heading,
 .unstyled-heading {
     padding-block-start: var(--heading-unstyled-padding-block-start, 0);
-    padding-block-end: var(--heading-unstyled-padding-block-end, 0);
+    padding-block-end: var(--heading-unstyled-padding-block-end, 0.0625em);
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-bigger-1, var(--fallback-fs-bigger-1, 1.25rem));
     line-height: var(
         --heading-unstyled-line-height,
-        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
+        var(--line-height-300, var(--fallback-line-height-300, 1.5))
     );
     text-transform: var(--heading-unstyled-text-transform, none);
     letter-spacing: var(
@@ -18609,13 +18656,13 @@ h6.unstyled-heading,
         )
     );
     padding-block-start: var(--heading-unstyled-padding-block-start, 0);
-    padding-block-end: var(--heading-unstyled-padding-block-end, 0);
+    padding-block-end: var(--heading-unstyled-padding-block-end, 0.0625em);
     font-family: var(--heading-unstyled-font-family, inherit);
     font-weight: var(--heading-unstyled-font-weight, 600);
     font-size: var(--fs-bigger-1, var(--fallback-fs-bigger-1, 1.25rem));
     line-height: var(
         --heading-unstyled-line-height,
-        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
+        var(--line-height-300, var(--fallback-line-height-300, 1.5))
     );
     text-transform: var(--heading-unstyled-text-transform, none);
     letter-spacing: var(
@@ -18973,7 +19020,7 @@ fieldset legend {
     );
     line-height: var(
         --heading-unstyled-line-height,
-        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
+        var(--line-height-300, var(--fallback-line-height-300, 1.5))
     );
     text-transform: var(--heading-unstyled-text-transform, none);
     text-wrap: balance;
@@ -19023,6 +19070,11 @@ fieldset legend {
                     var(--fallback-font-override-letter-spacing)
                 )
         );
+    }
+}
+@media (width < 25em) {
+    fieldset legend {
+        hyphens: auto;
     }
 }
 fieldset legend em {
@@ -23996,7 +24048,7 @@ th {
     font-size: var(--fs-rel-normal, 1em);
     line-height: var(
         --heading-unstyled-line-height,
-        var(--line-height-400, var(--fallback-line-height-400, 1.6875))
+        var(--line-height-300, var(--fallback-line-height-300, 1.5))
     );
     text-transform: var(--heading-unstyled-text-transform, none);
     text-wrap: balance;
@@ -24019,6 +24071,11 @@ th {
                     var(--fallback-font-override-letter-spacing)
                 )
         );
+    }
+}
+@media (width < 25em) {
+    th {
+        hyphens: auto;
     }
 }
 th,
@@ -27443,6 +27500,55 @@ body {
         var(--fallback-theme-ui-grey, CanvasText)
     );
 }
+.alert-block {
+    --fallback-flow-margin-button-span-block--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
+        var(
+            --fallback-flow-margin-button-span-block--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+}
+:where(.js__no-touch) .alert-block {
+    --fallback-flow-margin-button-span-block: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+}
+
 .alert-block > * {
     --fallback-flow-margin: var(
         --mrg-soft-300,
@@ -27480,57 +27586,24 @@ body {
         --mrg-half-400,
         var(--fallback-mrg-half-400, 0.46875rem)
     );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-block: var(
-        --flow-margin-button-span-block--touch,
-        var(
-            --fallback-flow-margin-button-span-block--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --flow-margin-button-span-inline--touch,
-        var(
-            --fallback-flow-margin-button-span-inline--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-}
-:where(.js__no-touch) .alert-block > * {
-    --fallback-flow-margin-button-span-block: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --flow-margin-button-span-block,
-        var(
-            --fallback-flow-margin-button-span-block,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --flow-margin-button-span-inline,
-        var(
-            --fallback-flow-margin-button-span-inline,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
 }
 
 /* # BLOCKS - LINK CARDS
  * ======================================================================== */
 .link-card {
+    --fallback-display: grid;
+    --display: grid;
+    display: var(--fallback-display, grid);
+    position: relative;
+    justify-content: start;
+    justify-items: start;
+    align-content: start;
+    align-items: start;
+    grid-auto-flow: row;
+    grid-auto-flow: row dense;
+    grid-template-columns: 1fr fit-content(0);
+    grid-template-columns: 1fr min-content;
+    grid-auto-rows: auto;
     margin-block: var(
             --flow-margin-firm-start,
             var(
@@ -27546,17 +27619,17 @@ body {
             )
         );
     padding-block: var(
-        --widget-padding-block,
-        var(--mrg-soft-400, var(--fallback-mrg-soft-400, 0.78125rem))
+        --link-card-padding-block,
+        var(--pad-soft-400, var(--fallback-pad-soft-400, 0.78125em))
     );
     padding-inline: var(
-        --widget-padding-inline,
-        var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
+        --link-card-padding-inline,
+        var(--pad-firm-400, var(--fallback-pad-firm-400, 1.25em))
     );
     gap: 0;
     width: 100%;
     line-height: var(
-        --widget-line-height,
+        --link-card-line-height,
         var(--line-height-300, var(--fallback-line-height-300, 1.5))
     );
     border-width: var(
@@ -27590,144 +27663,66 @@ body {
         background var(--tr-time-fast, 250ms) ease-out,
         border-color var(--tr-time-fast, 250ms) ease-out,
         color var(--tr-time-fast, 250ms) ease-out;
-    --fallback-display: grid;
-    --display: grid;
-    display: var(--fallback-display, grid);
+    cursor: text;
+    z-index: 1;
+}
+.link-card__body,
+.link-card__description,
+.link-card__date,
+.link-card__footer,
+.link-card__tag-list,
+.link-card__wrapper {
+    --fallback-display: flex;
+    --display: flex;
+    display: var(--fallback-display, flex);
     position: relative;
-    justify-content: center;
-    justify-items: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: start;
+    justify-items: start;
     align-content: start;
     align-items: start;
-    grid-auto-flow: row;
-    grid-auto-flow: row dense;
-    grid-template-columns: 1fr fit-content(0);
-    grid-template-columns: 1fr min-content;
-    grid-auto-rows: auto;
-}
-.link-card > .link-card__body,
-.link-card > .link-card__hgroup,
-.link-card > .link-card__heading {
-    margin-block-start: 0;
-}
-.link-card > .link-card__body {
-    --fallback-display: flex;
-    --display: flex;
-    display: var(--fallback-display, flex);
-    position: relative;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    justify-content: start;
-    align-content: center;
-    align-items: stretch;
-}
-.link-card__wrapper,
-.link-card__description {
-    --fallback-display: flex;
-    --display: flex;
-    display: var(--fallback-display, flex);
-    position: relative;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
-    justify-content: start;
-    align-content: center;
-    align-items: stretch;
 }
 
-.link-card__description > * {
-    --fallback-flow-margin: var(
-        --mrg-soft-300,
-        var(--fallback-mrg-soft-300, 0.5rem)
-    );
-    --fallback-flow-margin--small: var(
-        --mrg-soft-200,
-        var(--fallback-mrg-soft-200, 0.3125rem)
-    );
-    --fallback-flow-margin--large: var(
-        --mrg-soft-400,
-        var(--fallback-mrg-soft-400, 0.78125rem)
-    );
-    --fallback-flow-margin-firm-start: var(
-        --mrg-firm-300,
-        var(--fallback-mrg-firm-300, 0.8125rem)
-    );
-    --fallback-flow-margin-firm-end: var(
-        --mrg-half-300,
-        var(--fallback-mrg-half-300, 0.3125rem)
-    );
-    --fallback-flow-margin-firm-start--small: var(
-        --mrg-firm-200,
-        var(--fallback-mrg-firm-200, 0.5rem)
-    );
-    --fallback-flow-margin-firm-end--small: var(
-        --mrg-half-200,
-        var(--fallback-mrg-half-200, 0.1875rem)
-    );
-    --fallback-flow-margin-firm-start--large: var(
-        --mrg-firm-400,
-        var(--fallback-mrg-firm-400, 1.25rem)
-    );
-    --fallback-flow-margin-firm-end--large: var(
-        --mrg-half-400,
-        var(--fallback-mrg-half-400, 0.46875rem)
-    );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-block: var(
-        --flow-margin-button-span-block--touch,
+.link-card__body,
+.link-card__date,
+.link-card__footer,
+.link-card__tag-list {
+    margin-block-start: var(
+        --flow-margin,
         var(
-            --fallback-flow-margin-button-span-block--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --flow-margin-button-span-inline--touch,
-        var(
-            --fallback-flow-margin-button-span-inline--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-}
-:where(.js__no-touch) .link-card__description > * {
-    --fallback-flow-margin-button-span-block: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --flow-margin-button-span-block,
-        var(
-            --fallback-flow-margin-button-span-block,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --flow-margin-button-span-inline,
-        var(
-            --fallback-flow-margin-button-span-inline,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+            --fallback-flow-margin,
+            var(--mrg-soft-400, var(--fallback-mrg-soft-400, 0.78125rem))
         )
     );
 }
 
+.link-card__body > :first-child,
+.link-card__body > dl:first-child > dt:first-child,
+.link-card__body > ol:first-child > li:first-child,
+.link-card__body > ul:first-child > li:first-child,
 .link-card__description > :first-child,
 .link-card__description > dl:first-child > dt:first-child,
 .link-card__description > ol:first-child > li:first-child,
-.link-card__description > ul:first-child > li:first-child {
+.link-card__description > ul:first-child > li:first-child,
+.link-card__date > :first-child,
+.link-card__date > dl:first-child > dt:first-child,
+.link-card__date > ol:first-child > li:first-child,
+.link-card__date > ul:first-child > li:first-child,
+.link-card__footer > :first-child,
+.link-card__footer > dl:first-child > dt:first-child,
+.link-card__footer > ol:first-child > li:first-child,
+.link-card__footer > ul:first-child > li:first-child {
     margin-block-start: 0 !important;
 }
 
-:is(.link-card__description)
+:is(
+        .link-card__body,
+        .link-card__description,
+        .link-card__date,
+        .link-card__footer
+    )
     > :is(
         :first-child,
         dl:first-child > dt:first-child,
@@ -27772,11 +27767,19 @@ body {
     ) !important;
 }
 
-.link-card__description > :last-child {
+.link-card__body > :last-child,
+.link-card__description > :last-child,
+.link-card__date > :last-child,
+.link-card__footer > :last-child {
     margin-block-end: 0 !important;
 }
 
-:is(.link-card__description)
+:is(
+        .link-card__body,
+        .link-card__description,
+        .link-card__date,
+        .link-card__footer
+    )
     > :last-child:is(
         .icon,
         svg,
@@ -27816,6 +27819,20 @@ body {
     ) !important;
 }
 
+.link-card__wrapper {
+    justify-content: center;
+    justify-items: stretch;
+    align-content: start;
+    align-items: start;
+}
+
+.link-card__description {
+    margin-block-start: 0;
+    line-height: var(
+        --link-card-line-height,
+        var(--line-height-300, var(--fallback-line-height-300, 1.5))
+    );
+}
 .link-card__description + .link-card {
     margin-block-start: var(
         --flow-margin-firm-start--small,
@@ -27826,38 +27843,68 @@ body {
     );
 }
 
-.link-card > .link-card__heading,
-.link-card > .link-card__hgroup {
-    grid-column: 1;
-    grid-row: 1;
-    margin-block-start: 0 !important;
-}
-.link-card > .link-card__heading:has(+ .link-card__link--icon:last-child),
-.link-card > .link-card__hgroup:has(+ .link-card__link--icon:last-child) {
-    grid-row: 1 / 7;
-    align-self: center;
-    margin-block-end: 0 !important;
-    padding-block-end: 0 !important;
-}
-.link-card .link-card__tag-list {
-    grid-column: 1;
-    margin-block: var(
-            --flow-margin-firm-start--small,
-            var(
-                --fallback-flow-margin-firm-start--small,
-                var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
-            )
-        )
+.link-card__body,
+.link-card__description,
+.link-card__date,
+.link-card__footer,
+.link-card__tag-list {
+    --fallback-flow-margin-button-span-block--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --pad-firm-300,
+        var(--fallback-pad-firm-300, 0.8125em)
+    );
+    --fallback-flow-margin-button-span-block: var(
+        --flow-margin-button-span-block--touch,
         var(
-            --flow-margin-firm-end--small,
-            var(
-                --fallback-flow-margin-firm-end--small,
-                var(--mrg-half-300, var(--fallback-mrg-half-300, 0.3125rem))
-            )
-        );
+            --fallback-flow-margin-button-span-block--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --flow-margin-button-span-inline--touch,
+        var(
+            --fallback-flow-margin-button-span-inline--touch,
+            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
+        )
+    );
 }
-.link-card .link-card__tag-list + .link-card__date > *,
-.link-card .link-card__tag-list + .link-card__footer > * {
+:where(.js__no-touch) .link-card__body,
+:where(.js__no-touch) .link-card__description,
+:where(.js__no-touch) .link-card__date,
+:where(.js__no-touch) .link-card__footer,
+:where(.js__no-touch) .link-card__tag-list {
+    --fallback-flow-margin-button-span-block: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-inline: var(
+        --pad-firm-200,
+        var(--fallback-pad-firm-200, 0.5em)
+    );
+    --fallback-flow-margin-button-span-block--touch: var(
+        --flow-margin-button-span-block,
+        var(
+            --fallback-flow-margin-button-span-block,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+    --fallback-flow-margin-button-span-inline--touch: var(
+        --flow-margin-button-span-inline,
+        var(
+            --fallback-flow-margin-button-span-inline,
+            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
+        )
+    );
+}
+
+.link-card__body > *,
+.link-card__description > *,
+.link-card__date > *,
+.link-card__footer > *,
+.link-card__tag-list > * {
     --fallback-flow-margin: var(
         --mrg-soft-300,
         var(--fallback-mrg-soft-300, 0.5rem)
@@ -27894,63 +27941,87 @@ body {
         --mrg-half-400,
         var(--fallback-mrg-half-400, 0.46875rem)
     );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --pad-firm-300,
-        var(--fallback-pad-firm-300, 0.8125em)
-    );
-    --fallback-flow-margin-button-span-block: var(
-        --flow-margin-button-span-block--touch,
-        var(
-            --fallback-flow-margin-button-span-block--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --flow-margin-button-span-inline--touch,
-        var(
-            --fallback-flow-margin-button-span-inline--touch,
-            var(--pad-firm-300, var(--fallback-pad-firm-300, 0.8125em))
-        )
-    );
-}
-:where(.js__no-touch) .link-card .link-card__tag-list + .link-card__date > *,
-:where(.js__no-touch) .link-card .link-card__tag-list + .link-card__footer > * {
-    --fallback-flow-margin-button-span-block: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-inline: var(
-        --pad-firm-200,
-        var(--fallback-pad-firm-200, 0.5em)
-    );
-    --fallback-flow-margin-button-span-block--touch: var(
-        --flow-margin-button-span-block,
-        var(
-            --fallback-flow-margin-button-span-block,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
-    --fallback-flow-margin-button-span-inline--touch: var(
-        --flow-margin-button-span-inline,
-        var(
-            --fallback-flow-margin-button-span-inline,
-            var(--pad-firm-200, var(--fallback-pad-firm-200, 0.5em))
-        )
-    );
 }
 
-.link-card .link-card__date,
-.link-card .link-card__footer {
+.link-card > .link-card__body,
+.link-card > .link-card__date,
+.link-card > .link-card__footer,
+.link-card > .link-card__heading,
+.link-card > .link-card__hgroup,
+.link-card > .link-card__tag-list {
     grid-column: 1;
 }
+.link-card .link-card__hgroup {
+    align-content: start;
+    align-items: start;
+    justify-content: start;
+    justify-items: start;
+}
+.link-card .link-card__heading {
+    color: var(
+        --link-card-heading-color,
+        var(--theme-link, var(--fallback-theme-link, LinkText))
+    );
+}
+.link-card .link-card__subheading {
+    color: var(
+        --link-card-subheading-color,
+        var(--theme-text-grey, var(--fallback-theme-text-grey, CanvasText))
+    );
+}
+.link-card .link-card__subheading > .link-card__link--backdrop {
+    background: transparent;
+    opacity: 0;
+    z-index: 1;
+}
+.link-card > .link-card__heading,
+.link-card > .link-card__hgroup {
+    grid-row: 1;
+    margin-block-start: 0 !important;
+}
+.link-card > .link-card__heading:has(+ .link-card__link--icon:last-child),
+.link-card > .link-card__hgroup:has(+ .link-card__link--icon:last-child) {
+    grid-row: 1 / 7;
+    align-self: center;
+    margin-block-end: 0 !important;
+    padding-block-end: 0 !important;
+}
+.link-card .link-card__tag-list {
+    margin-block: var(
+            --flow-margin-firm-start--small,
+            var(
+                --fallback-flow-margin-firm-start--small,
+                var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+            )
+        )
+        var(
+            --flow-margin-firm-end--small,
+            var(
+                --fallback-flow-margin-firm-end--small,
+                var(--mrg-half-300, var(--fallback-mrg-half-300, 0.3125rem))
+            )
+        );
+    margin-inline: 0;
+    padding-block: 0;
+    padding-inline: 0;
+    gap: var(
+            --flow-margin-button-span-block,
+            var(--fallback-flow-margin-button-span-block, 0.775em)
+        )
+        var(
+            --flow-margin-button-span-inline,
+            var(--fallback-flow-margin-button-span-inline, 0.775em)
+        );
+    list-style: none;
+}
+.link-card [data-link-card-link] {
+    --fallback-display: inline-block;
+    --display: inline-block;
+    display: var(--fallback-display, inline-block);
+    cursor: pointer;
+}
 .link-card .link-card__link {
-    --fallback-theme-link-decoration: currentColor;
-    --fallback-theme-link-ui: currentColor;
-    color: currentColor;
+    cursor: pointer;
 }
 .link-card .link-card__link--icon {
     grid-column: 2;
@@ -27958,7 +28029,7 @@ body {
     --fallback-display: flex;
     --display: flex;
     display: var(--fallback-display, flex);
-    position: relative;
+    position: static !important;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 0;
@@ -27975,10 +28046,63 @@ body {
     );
     height: 100%;
     width: auto;
+    cursor: pointer;
 }
 .link-card .link-card__link--icon .icon {
     color: currentColor !important;
 }
+.link-card .link-card__link--icon::before {
+    content: "" !important;
+    content: ""/"" !important;
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+.link-card .link-card__heading .link-card__link {
+    --fallback-theme-link-decoration: currentColor;
+    --fallback-theme-link-ui: currentColor;
+    color: currentColor;
+}
+.link-card__body,
+.link-card,
+.link-card__date,
+.link-card__footer,
+.link-card > .link-card__heading,
+.link-card > .link-card__hgroup,
+.link-card__subheading,
+.link-card__tag-list {
+    position: relative;
+    z-index: 1;
+}
+
+.link-card__body > .link-card__link--backdrop,
+.link-card > .link-card__link--backdrop,
+.link-card__date > .link-card__link--backdrop,
+.link-card__footer > .link-card__link--backdrop,
+.link-card > .link-card__heading > .link-card__link--backdrop,
+.link-card
+    > .link-card__hgroup
+    > .link-card__heading
+    > .link-card__link--backdrop,
+.link-card__subheading > .link-card__link--backdrop,
+.link-card__tag-list > .link-card__link--backdrop {
+    --fallback-display: block;
+    --display: block;
+    display: var(--fallback-display, block) !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
 [data-state-focus="true"].link-card {
     /* is-hover-focus */
     --fallback-background-color: var(
@@ -27999,10 +28123,35 @@ body {
             var(--fallback-theme-link-ui-hover, ActiveText)
         )
     );
-    cursor: pointer;
+}
+[data-state-focus="true"].link-card .link-card__link {
+    --fallback-focus-ring-outline-color: var(
+        --theme-link-outline-hover,
+        var(--fallback-theme-link-outline-hover, ActiveText)
+    );
+    --focus-ring-outline-color: var(
+        --theme-link-outline-hover,
+        var(--fallback-theme-link-outline-hover, ActiveText)
+    );
+    --fallback-icon-color: var(
+        --theme-link-icon-hover,
+        var(--fallback-theme-link-icon-hover, ActiveText)
+    );
+    --icon-color: var(
+        --theme-link-icon-hover,
+        var(--fallback-theme-link-icon-hover, ActiveText)
+    );
+    text-decoration-color: var(
+        --theme-link-decoration-hover,
+        var(--fallback-theme-link-decoration-hover, ActiveText)
+    );
+    color: var(
+        --theme-link-hover,
+        var(--fallback-theme-link-hover, ActiveText)
+    );
 }
 [data-state-focus="true"].link-card .link-card__heading,
-[data-state-focus="true"].link-card .link-card__link {
+[data-state-focus="true"].link-card .link-card__heading .link-card__link {
     color: var(
         --link-card-heading-color-hover,
         var(--theme-link-hover, var(--fallback-theme-link-hover, ActiveText))
@@ -28016,7 +28165,11 @@ body {
 }
 
 .link-card:has(
-    :is(.link-card__link):is(:hover, :focus-visible, [data-state-focus="true"])
+    :is([data-link-card-link]):is(
+        :hover,
+        :focus-visible,
+        [data-state-focus="true"]
+    )
 ) {
     /* is-hover-focus */
     --fallback-background-color: var(
@@ -28037,10 +28190,42 @@ body {
             var(--fallback-theme-link-ui-hover, ActiveText)
         )
     );
-    cursor: pointer;
 }
 .link-card:has(
-        :is(.link-card__link):is(
+        :is([data-link-card-link]):is(
+            :hover,
+            :focus-visible,
+            [data-state-focus="true"]
+        )
+    )
+    .link-card__link {
+    --fallback-focus-ring-outline-color: var(
+        --theme-link-outline-hover,
+        var(--fallback-theme-link-outline-hover, ActiveText)
+    );
+    --focus-ring-outline-color: var(
+        --theme-link-outline-hover,
+        var(--fallback-theme-link-outline-hover, ActiveText)
+    );
+    --fallback-icon-color: var(
+        --theme-link-icon-hover,
+        var(--fallback-theme-link-icon-hover, ActiveText)
+    );
+    --icon-color: var(
+        --theme-link-icon-hover,
+        var(--fallback-theme-link-icon-hover, ActiveText)
+    );
+    text-decoration-color: var(
+        --theme-link-decoration-hover,
+        var(--fallback-theme-link-decoration-hover, ActiveText)
+    );
+    color: var(
+        --theme-link-hover,
+        var(--fallback-theme-link-hover, ActiveText)
+    );
+}
+.link-card:has(
+        :is([data-link-card-link]):is(
             :hover,
             :focus-visible,
             [data-state-focus="true"]
@@ -28048,12 +28233,13 @@ body {
     )
     .link-card__heading,
 .link-card:has(
-        :is(.link-card__link):is(
+        :is([data-link-card-link]):is(
             :hover,
             :focus-visible,
             [data-state-focus="true"]
         )
     )
+    .link-card__heading
     .link-card__link {
     color: var(
         --link-card-heading-color-hover,
@@ -28061,7 +28247,7 @@ body {
     );
 }
 .link-card:has(
-        :is(.link-card__link):is(
+        :is([data-link-card-link]):is(
             :hover,
             :focus-visible,
             [data-state-focus="true"]
@@ -28094,10 +28280,35 @@ body {
             var(--fallback-theme-link-ui-active, ActiveText)
         )
     );
-    cursor: pointer;
+}
+[data-state-active="true"].link-card .link-card__link {
+    --fallback-focus-ring-outline-color: var(
+        --theme-link-outline-active,
+        var(--fallback-theme-link-outline-active, ActiveText)
+    );
+    --focus-ring-outline-color: var(
+        --theme-link-outline-active,
+        var(--fallback-theme-link-outline-active, ActiveText)
+    );
+    --fallback-icon-color: var(
+        --theme-link-icon-active,
+        var(--fallback-theme-link-icon-active, ActiveText)
+    );
+    --icon-color: var(
+        --theme-link-icon-active,
+        var(--fallback-theme-link-icon-active, ActiveText)
+    );
+    text-decoration-color: var(
+        --theme-link-decoration-active,
+        var(--fallback-theme-link-decoration-active, ActiveText)
+    );
+    color: var(
+        --theme-link-active,
+        var(--fallback-theme-link-active, ActiveText)
+    );
 }
 [data-state-active="true"].link-card .link-card__heading,
-[data-state-active="true"].link-card .link-card__link {
+[data-state-active="true"].link-card .link-card__heading .link-card__link {
     color: var(
         --link-card-heading-color-active,
         var(--theme-link-active, var(--fallback-theme-link-active, ActiveText))
@@ -28110,7 +28321,9 @@ body {
     );
 }
 
-.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"])) {
+.link-card:has(
+    :is([data-link-card-link]):is(:active, [data-state-active="true"])
+) {
     /* is-active */
     --fallback-background-color: var(
         --link-card-background-active,
@@ -28130,18 +28343,53 @@ body {
             var(--fallback-theme-link-ui-active, ActiveText)
         )
     );
-    cursor: pointer;
 }
-.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+.link-card:has(
+        :is([data-link-card-link]):is(:active, [data-state-active="true"])
+    )
+    .link-card__link {
+    --fallback-focus-ring-outline-color: var(
+        --theme-link-outline-active,
+        var(--fallback-theme-link-outline-active, ActiveText)
+    );
+    --focus-ring-outline-color: var(
+        --theme-link-outline-active,
+        var(--fallback-theme-link-outline-active, ActiveText)
+    );
+    --fallback-icon-color: var(
+        --theme-link-icon-active,
+        var(--fallback-theme-link-icon-active, ActiveText)
+    );
+    --icon-color: var(
+        --theme-link-icon-active,
+        var(--fallback-theme-link-icon-active, ActiveText)
+    );
+    text-decoration-color: var(
+        --theme-link-decoration-active,
+        var(--fallback-theme-link-decoration-active, ActiveText)
+    );
+    color: var(
+        --theme-link-active,
+        var(--fallback-theme-link-active, ActiveText)
+    );
+}
+.link-card:has(
+        :is([data-link-card-link]):is(:active, [data-state-active="true"])
+    )
     .link-card__heading,
-.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+.link-card:has(
+        :is([data-link-card-link]):is(:active, [data-state-active="true"])
+    )
+    .link-card__heading
     .link-card__link {
     color: var(
         --link-card-heading-color-active,
         var(--theme-link-active, var(--fallback-theme-link-active, ActiveText))
     );
 }
-.link-card:has(:is(.link-card__link):is(:active, [data-state-active="true"]))
+.link-card:has(
+        :is([data-link-card-link]):is(:active, [data-state-active="true"])
+    )
     .link-card__subheading {
     color: var(
         --link-card-subheading-color-active,
@@ -28295,6 +28543,11 @@ body {
     ) !important;
 }
 
+.link-cards-container .link-card .link-card__heading,
+.link-cards-container .link-card .link-card__subheading {
+    hyphens: auto;
+}
+
 /* # BLOCKS - SEARCH FORM
  * ======================================================================== */
 form.search-form {
@@ -28379,17 +28632,9 @@ form.search-form [type="submit"] {
         transition-duration: var(--tr-time-normal, 500ms);
     }
 }
-form.search-form > [type="submit"]:has(> .icon:only-child)::before,
-form.search-form > [type="submit"]:has(> .icon:only-child)::after {
-    content: none !important;
-}
-form.search-form > [type="submit"]:has(> .icon:only-child) {
-    aspect-ratio: 1;
-}
-
 form.search-form:not(:focus-within) > [type="submit"] {
     margin-inline-start: 0;
-    padding-inline: 0;
+    padding-inline: 0 !important;
     max-width: 0;
     border-inline-start-width: 0;
     border-inline-end-width: 0;
@@ -28398,4 +28643,11 @@ form.search-form:not(:focus-within) > [type="submit"] *,
 form.search-form:not(:focus-within) > [type="submit"]::before,
 form.search-form:not(:focus-within) > [type="submit"]::after {
     opacity: 0;
+}
+form.search-form > [type="submit"]:has(> .icon:only-child)::before,
+form.search-form > [type="submit"]:has(> .icon:only-child)::after {
+    content: none !important;
+}
+form.search-form > [type="submit"]:has(> .icon:only-child) {
+    aspect-ratio: 1;
 }
