@@ -45,8 +45,7 @@ import ToggleComponent from './Toggle.astro';
 
 type Props_Components = {
     /**
-     * @since 0.1.0-beta.0
-     * @since 0.1.0-beta.3 — Moved to a components prop.
+     * @since 0.1.0-beta
      */
     Toggle: ToggleComponentType;
 } & PartialExcept<LoremIpsumProps.Components, 'Heading'> &
@@ -56,26 +55,26 @@ interface Props {
     tokens: Tokens.JsonReturn<TokenTypes.TypeParams>;
 
     /**
-     * @since 0.1.0-beta.3
+     * @since 0.1.0-beta
      */
     components?: Partial<Props_Components>;
 
     /**
      * Colours to exclude from the output.
      *
-     * @since 0.1.0-beta.2
+     * @since 0.1.0-beta
      */
     exclude?: TokenTypes.TypeParams['colour']['names'][];
 
     /**
-     * @since 0.1.0-beta.0 - Combined include.colourFormats, includeOnlyUsedLevels, and includeTargetLevels into this prop.
+     * @since 0.1.0-beta - Combined include.colourFormats, includeOnlyUsedLevels, and includeTargetLevels into this prop.
      */
     include?: {
         /**
          * Whether to include the given colour formats in the the shade swatch table.
          *
-         * @since 0.1.0-alpha.4
-         * @since 0.1.0-beta.0 — Moved into include.
+         * @since 0.1.0-alpha
+         * @since 0.1.0-beta — Moved into include.
          */
         colourFormats?:
             | undefined
@@ -93,14 +92,14 @@ interface Props {
         tableOfContents?: boolean | null;
 
         /**
-         * @since 0.1.0-alpha.4
-         * @since 0.1.0-beta.0 — Moved into include. Added undefined option.
+         * @since 0.1.0-alpha
+         * @since 0.1.0-beta — Moved into include. Added undefined option.
          */
         targetLevels?: undefined | boolean;
 
         /**
-         * @since 0.1.0-alpha.4
-         * @since 0.1.0-beta.0 — Moved into include.
+         * @since 0.1.0-alpha
+         * @since 0.1.0-beta — Moved into include.
          */
         onlyUsedLevels?: boolean;
     };
@@ -108,7 +107,7 @@ interface Props {
     /**
      * Used to pass custom targets to the shade swatch table.
      *
-     * @since 0.1.0-alpha.4
+     * @since 0.1.0-alpha
      */
     yardstick?:
         | Tokens_Colour_ShadeMap.JsonReturn<TokenTypes.TypeParams['colour']>

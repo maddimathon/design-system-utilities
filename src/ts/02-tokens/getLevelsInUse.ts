@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-alpha.2
+ * @since 0.1.0-alpha
  * 
  * @packageDocumentation
  */
@@ -65,7 +65,7 @@ export function getLevelsInUse<
 /**
  * Returns a set of the unique levels in use for the given theme tokens.
  * 
- * @since 0.1.0-alpha.2
+ * @since 0.1.0-alpha
  */
 export function getLevelsInUse<
     T_ColourTypes extends TokenTypes.Colour.TypeParams = TokenTypes.Colour.TypeParams,

@@ -1,17 +1,17 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import { CssColours } from '@maddimathon/utility-sass';
 /**
  * Gets the shade name and level of the given colour token, if applicable.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function getDataFromClrSlug(clrSlug) {
     // returns

@@ -138,7 +138,7 @@ $_familiesList: list.sort(list.except(map.keys(map.get(tokens.$font, family)), i
 /// Prints out the font face declarations based on tokens.
 ///
 /// @since 0.1.0-alpha
-/// @since 0.1.0-beta.0 — Added $includeRegion param.
+/// @since 0.1.0-beta — Added $includeRegion param.
 ///
 @mixin tokens-font-family($includeRegion: true) {
     @if $_designSystemHasFontFamilies and list.length($_familiesList) > 0 {
@@ -167,7 +167,7 @@ $_familiesList: list.sort(list.except(map.keys(map.get(tokens.$font, family)), i
 ///
 /// Prints out the font size custom property tokens based on config.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin tokens-font-size(
     $multiplier: 1,
@@ -241,7 +241,7 @@ $_familiesList: list.sort(list.except(map.keys(map.get(tokens.$font, family)), i
 ///
 /// Prints out the line height custom property tokens based on config.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin tokens-line-height($multiplier: 1, $includeRegion: true) {
     $_sel: selector.parent-or-root();
@@ -266,7 +266,7 @@ $_familiesList: list.sort(list.except(map.keys(map.get(tokens.$font, family)), i
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function font-family-icons--icon-size($size: var-style(icon-size-pseudo)) {
     @return calc(
@@ -276,7 +276,7 @@ $_familiesList: list.sort(list.except(map.keys(map.get(tokens.$font, family)), i
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function font-family-icons--margin-inline($dir: start) {
     @return calc(
@@ -367,7 +367,7 @@ $_fontOverrideSels_body: ();
 ///
 /// Adds base properties for displaying an icon inside a ::before or ::after selector.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin font-family-icons-base-properties(
     $slug: null,
@@ -482,7 +482,7 @@ $_fontOverrideSels_body: ();
 ///
 /// Sets properties for using the icon font.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin font-family-icons(
     $display: false,
@@ -521,7 +521,7 @@ $_fontOverrideSels_body: ();
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin _set-font-family-shared-props(
     $slug,
@@ -754,7 +754,7 @@ $_fontOverrideSels_body: ();
 ///
 /// Changes varies size-related tokens to the values for the given family.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin font-family-size-tokens($slug, $asOverride: true, $args...) {
     @include _set-font-family-shared-props($slug: $slug, $asOverride: true, $args...) {
@@ -765,7 +765,7 @@ $_fontOverrideSels_body: ();
 ///
 /// Sets the font family via token variable, along with related props as applicable.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin set-font-family($slug, $args...) {
     @include _set-font-family-shared-props($slug: $slug, $args...) {
@@ -792,7 +792,7 @@ $_fontOverrideSels_body: ();
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin set-letter-spacing(
     $spacing,
@@ -830,7 +830,7 @@ $_fontOverrideSels_body: ();
 ///
 /// Sets the font style via token variable, along with related props as applicable.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin set-font-style(
     $style,
@@ -989,7 +989,7 @@ $_fontOverrideSels_body: ();
 ///
 /// Sets various font properties (mostly via token) convieniently together.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @mixin set-font(
     $family: null,

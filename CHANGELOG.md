@@ -19,6 +19,17 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.3.0** — 2026-11-13
+
+New LinkCard component, tokens, styles.
+
+Condensed/rewrote changelogs and comments for 0.1.0-alpha and 0.1.0-beta releases.
+
+### Removed
+- Function: makeRelativeURL (was deprecated in 0.2.0); use makeFileBasedURL with
+  `{ relative: true }` instead
+
+
 ## **0.2.0** — 2026-11-11
 
 ### Misc. Breaking
@@ -49,38 +60,7 @@ Updated with dependencies and upgraded to release.
 - Updated with dependencies
 
 
-## **0.1.0-beta.3** — 2026-10-03
-
-Updated with dependencies. Added custom display options to dynamic theme preview.
-
-
-## **0.1.0-beta.2** — 2026-10-01
-
-Minor styles improvements. Dependency updates.
-
-### Added
-- New pseudo-selector: %hide-if-empty
-- New config vars:
-    - $button_selector_icon
-    - $button_selector_logo
-
-### Changed
-- Made default heading styles less opinionated
-
-### Fixed
-- Updated with utility-sass and utility-astro
-
-
-## **0.1.0-beta.1** — 2026-09-23
-
-### Added
-- New pseudo-selector: %hide-if-empty
-- New config vars:
-    - $button_selector_icon
-    - $button_selector_logo
-
-
-## **0.1.0-beta.0** — 2026-09-20
+## All **0.1.0-beta** Releases — 2026-09-20 to 2026-10-03
 
 Streamlined token types, thome theme & css style tokens, improved scss config &
 token vars, more scss output configuration, more ts utilities for using tokens,
@@ -187,11 +167,14 @@ and dependency updates.
     - PageContent_ThemeDynamic
     - ShadeSwatchAllLists
 - New footer-text slot in Page layout to add to a text container div
+- Added custom display options to dynamic theme preview
 
-#### Added to Scss
+#### Added to Sass
 - Debug checkpoints added from utility-sass update
 - New scss config function: config-get-template-styles()
 - New scss config vars:
+    - $button_selector_icon
+    - $button_selector_logo
     - $fn_clampHighContrastBorderWidth_max
     - $fn_clampHighContrastBorderWidth_min
     - $fn_marginSoftValue_roundToPixelFactor
@@ -273,6 +256,7 @@ and dependency updates.
     - theme-set-color
 - Utility/pseudo classes:
     - background-[…] (for background theme tokens)
+    - hide-if-empty
     - if-viewport-max-width-[…] (for breakpoints)
     - if-viewport-min-width-[…] (for breakpoints)
     - margins-flow
@@ -334,6 +318,10 @@ and dependency updates.
 - Added $raw param to scss function - style-value()
 - Updated scss config & templates with utility-sass 0.1.0-beta.0 & utility-astro 0.1.0-beta.0
 - Improved internal errors classes
+- Made default heading styles less opinionated
+
+### Deprecated
+- 
 
 ### Fixed
 - Fixed bug in writing logo files during included compile stage
@@ -352,160 +340,9 @@ and dependency updates.
 - Updated Atkinson Hyperlegible font to Atkinson Hyperlegible Next (with variable)
 - Added monospace fonts to accessible overrides (dyslexic & hyperlegible)
 - Fixed letter spacing for the open dyslexic font override
+- Updated with utility-sass and utility-astro
 
 
 ## All **0.1.0-alpha** Releases — 2025-10-30 to 2026-01-20
 
-
-### **0.1.0-alpha.12** — 2026-01-20
-
-Minor scss updates.
-
-
-### **0.1.0-alpha.11** — 2026-01-20
-
-Minor scss fixes. Updated utility-sass.
-
-
-### **0.1.0-alpha.10** — 2026-01-20
-
-Minor fix to $designTokens !default overrides now merge recursively.
-
-
-### **0.1.0-alpha.9** — 2026-01-20
-
-Have to make many test releases so it's the same instance of sass-embedded as
-its dependents.
-
-### Added
-- Made scss mixin public - tokens-theme-individual-base-properties
-
-### Fixed
-- $designTokens !default overrides now merge recursively
-
-
-### **0.1.0-alpha.8** — 2026-01-20
-
-Updated utility-sass for more var-printing config.
-
-
-### **0.1.0-alpha.7** — 2026-01-20
-
-Mini scss fixes.
-
-
-### **0.1.0-alpha.6** — 2026-01-20
-
-### Added
-- Config var - $mx_tokensAll_includeFontFace
-- Testing $customPropertyPrefix config var from utility-sass
-
-### Fixed
-- Updated dependencies
-
-
-### **0.1.0-alpha.5** — 2025-12-28
-
-Updated build-utilities and utility-sass.
-
-
-### **0.1.0-alpha.4** — 2025-12-27
-
-Display and component improvements, plus a couple shade map generation fixes.
-
-### Misc. Breaking
-- Changed file structure in src/scss/_astro
-
-### Added
-
-#### Astro
-- Added option to ShadeSwatchTable to generate colour target levels by using a
-  colour map's JSON return (can separate base and accent targets)
-- More options for the PageContent_Colour and ShadeSwatchTable components
-- Added table of contents to colour & theme page content components
-
-#### Scss
-- New mixin - tokens-theme-iterator
-- Added support for img, figure, and svg element selectors in styles & selectors
-
-
-### Changed
-
-#### Astro
-- Misc. ShadeSwatchTable improvements
-
-#### JS & Tokens
-- Changed which colour names are automatically treated as base shades when
-  completing colour maps
-- Switched objectMap to tested version from scss-templater; added objectMapAsync
-
-#### Scss
-- Misc. style updates for preview pages
-
-
-### Fixed
-
-#### Astro
-- Improved ShadeSwatchTable options & code
-- Improved LoremIpsum and theme swatch display
-
-#### JS & Tokens
-- Fixed bug that didn't overwrite optional shade levels in input colour maps
-- Fixed JSON output for contrast tests in colour objects
-- Reviewed all files and tidied up
-
-#### Scss
-- Swatch style updates
-- Fix to link button utilities that were broken by switch to `a[href]` selectors
-
-#### Scripts & Build
-- Updated dependencies
-- Updated with utility-astro
-
-
-### **0.1.0-alpha.3** — 2025-11-15
-
-Improved theme swatches, logos.
-
-### Added
-- Added widget previews of alternate themes to default theme swatches
-- Added option to override theme descriptions
-- Added generic types so that logo & icon object slugs are recognized as their keys
-- Added logo support mixin (with aspect-ratio setting like icons)
-- Added scss aspect-ratio-string-to-list() function for icon & logo aspect ratio strings
-- Added $mx_aspectRatio_includeFallback config var
-- Added local aspect-ratio fallback mixin
-
-### Changed
-- Switched colour token toScss() to output the hsl value (was causing 
-  inconsistency to convert from lch in the scss)
-
-### Fixed
-- Fixed theme swatch token inheritance
-- Fixed missing 'link-icon' and 'link-ui' keys in 
-  Tokens_Themes_Set.SingleMode.Data_RecursivePartial type
-
-
-### **0.1.0-alpha.2** — 2025-11-03
-
-Small astro component & style fixes.
-
-### Removed
-- $mx_tokensTheme_nestModeSelectors config var
-
-### Added
-- getLevelsInUse() function for themes
-
-### Changed
-- Updated dependencies
-
-
-### **0.1.0-alpha.1** — 2025-10-30
-
-Forgot to include the tsconfig file.
-
-
-### **0.1.0-alpha** — 2025-10-30
-
-A quick pre-release converting templates to scss-templater.  Version 0.1.0 won't
-progress beyond alpha.
+First release. Everything is new, but structure will likely change.

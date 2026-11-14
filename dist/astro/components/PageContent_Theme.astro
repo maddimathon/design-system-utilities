@@ -54,14 +54,12 @@ type Props_Components = {
     Alert: AlertComponentType;
 
     /**
-     * @since 0.1.0-beta.0
-     * @since 0.1.0-beta.3 — Moved to a components prop.
+     * @since 0.1.0-beta
      */
     LoremIpsum: LoremIpsumComponentType;
 
     /**
-     * @since 0.1.0-beta.0
-     * @since 0.1.0-beta.3 — Moved to a components prop.
+     * @since 0.1.0-beta
      */
     Toggle: ToggleComponentType;
 
@@ -74,7 +72,7 @@ interface Props<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
     defaultToggleToOpen?: boolean | `${"default"|T_Types['theme']['name']}-${TokenTypes.Theme.GetBrightnessKeys<T_Types['theme']>}`[];
 
     /**
-     * @since 0.1.0-beta.3
+     * @since 0.1.0-beta
      */
     components?: Partial<Props_Components>;
 }
@@ -113,7 +111,7 @@ export function getButtonVariations<T_Types extends TokenTypes.TypeParams>(
 /**
  * Parses them for easier iteration in previews.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function parseThemeSets<T_Types extends TokenTypes.TypeParams>(
     tokensJson: Tokens.JsonReturn<T_Types>,

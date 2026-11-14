@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-alpha.2
+ * @since 0.1.0-alpha
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import type { TokenTypes } from './@types.js';

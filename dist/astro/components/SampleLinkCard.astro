@@ -1,6 +1,6 @@
 ---
 /**
- * @since 0.3.0-draft
+ * @since 0.3.0
  *
  * @packageDocumentation
  */
@@ -34,7 +34,8 @@ export type SampleLinkCardProps<
     description?: boolean;
     footer?: boolean;
     subheading?: boolean;
-    tags?: boolean;
+    tags?: boolean|number;
+    textLong?: boolean;
 };
 
 type Props = SampleLinkCardProps<LinkCardPropsPartial<TokenTypes.TypeParams>>;
@@ -46,10 +47,12 @@ const {
     component: LinkCard = LinkCardComponent,
     date = true,
     description = true,
+    displayHeading,
     footer = true,
-    heading = true,
+    heading,
     subheading = true,
     tags = true,
+    textLong = true,
     ...props
 } = Astro.props;
 
@@ -65,30 +68,34 @@ const tagTexts = [
     'Massa Porttitor',
     'In Semper',
 ] as const;
+
+const guaranteedHeading = typeof displayHeading === 'undefined' || displayHeading < 0 ? heading : displayHeading
+
+const headingText = guaranteedHeading ? `display heading level ${guaranteedHeading}` : 'unstyled display heading'
 ---
 
-<LinkCard {...props}>
+<LinkCard {...props} displayHeading={displayHeading} heading={heading}>
     { description && <Fragment slot='description'>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id gravida nunc, nec porttitor ipsum. Cras molestie porta blandit.</p>
-        <p>Donec varius augue nec lectus ornare viverra. Morbi in efficitur ex.</p>
+        {textLong && <p>Donec varius augue nec lectus ornare viverra. Morbi in efficitur ex.</p>}
     </Fragment> }
 
-    { heading && <Fragment
+    <Fragment
         slot='heading'
-        set:text='Heading — Nulla consectetur est at neque consequat tincidunt'
-    /> }
+        set:text={`Sample link card with ${headingText}; est at neque consequat tincidunt`}
+    />
     { subheading && <Fragment
         slot='subheading'
-        set:text='Subheading — Nulla et mattis diam, in ullamcorper magna'
+        set:text='Sample subheading — nulla et mattis diam, in ullamcorper magna'
     /> }
 
     { body && (
-        <p>Phasellus rhoncus venenatis aliquam. Phasellus congue rutrum augue, sed dapibus tortor tristique quis.</p>
-        <p>Vivamus maximus sem tellus, sed condimentum diam eleifend sit amet.</p>
+        <p>Phasellus rhoncus venenatis aliquam. Phasellus congue rutrum augue{ textLong ? ', sed dapibus tortor tristique quis.' : '.' }</p>
+        <p>Vivamus maximus sem tellus{ textLong ? ', sed condimentum diam eleifend sit amet.' : '.' }</p>
     ) }
 
     {
-        tags && Array.from({ length: 5 }).map((_, i) => (
+        tags && Array.from({ length: typeof tags === 'number' ? tags : import.meta.env.DEV ? 6 : 3 }).map((_, i) => (
             <Fragment
                 slot={`tag-${i + 1}`}
                 set:text={tagTexts[i] ?? `tag #${i + 1}`}
@@ -97,8 +104,8 @@ const tagTexts = [
     }
 
     { footer && <Fragment slot='footer'>
-        <p>Donec feugiat turpis elit. Sit amet pellentesque neque egestas nec. Pellentesque blandit mollis gravida.</p>
-        <p>In vel vehicula ex, vitae porta nulla.</p>
+        <p>Donec feugiat turpis elit. Sit amet pellentesque neque egestas nec.{ textLong ? ' Pellentesque blandit mollis gravida.' : '' }</p>
+        <p>In vel vehicula ex{ textLong ? ', vitae porta nulla.' : '.' }</p>
     </Fragment> }
 
     { date && <Fragment slot='date'><p>Monursday, Febarch 34, 5067</p></Fragment> }

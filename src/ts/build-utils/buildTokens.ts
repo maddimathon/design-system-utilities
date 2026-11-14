@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  * 
  * @packageDocumentation
  */
@@ -23,7 +23,7 @@ import type { RequiredPartially } from '@maddimathon/utility-typescript/types';
 /**
  * Take a token object and write its relevant files and assets to their output directories.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export async function buildTokens(
     stage: AbstractStage<any, any>,
@@ -141,19 +141,19 @@ export async function buildTokens(
 /**
  * Utilities for the {@link buildTokens} function.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export namespace buildTokens {
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type Args = {
         iconFont: Partial<RunnerOptions>;
     };
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type Paths = {
 
@@ -210,7 +210,7 @@ export namespace buildTokens {
     };
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export async function writeIcons(
         stage: AbstractStage<any, any>,
@@ -245,7 +245,7 @@ export namespace buildTokens {
     }
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export async function buildIconFontArgs(
         stage: AbstractStage<any, any>,
@@ -306,7 +306,7 @@ export namespace buildTokens {
     }
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export async function writeJson(
         stage: AbstractStage<any, any>,
@@ -335,7 +335,7 @@ export namespace buildTokens {
     }
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export async function writeLogos(
         stage: AbstractStage<any, any>,
@@ -370,7 +370,7 @@ export namespace buildTokens {
     }
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export async function writeScss(
         stage: AbstractStage<any, any>,

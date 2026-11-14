@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  * 
  * @packageDocumentation
  */
@@ -18,7 +18,7 @@ import { objectFlatten } from '@maddimathon/utility-typescript';
 /**
  * Takes a font size slug and returns a css-friendly variable with fallback value.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function getFontSizeCSS<
     T_Types extends TokenTypes.TypeParams,

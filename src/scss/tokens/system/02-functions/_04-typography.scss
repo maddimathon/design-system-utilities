@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -15,14 +15,14 @@
 @use '../01-breakdown' as breakdown;
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-font-family-exists($slug) {
     @return map.has-key(breakdown.$font, family, $slug);
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-font-family-list($slug) {
     $fontMap: map.get(breakdown.$font, family, $slug, weights, '400', normal);
@@ -58,7 +58,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ///
 /// @return {list<number|calc>}
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-fs-value(
     $slug,
@@ -171,7 +171,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 ///
 /// @return {number}
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-line-height-value($level, $multiplier: 1) {
     $value: map.get(breakdown.$line_height, '400');
@@ -193,7 +193,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 }
 
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-var-font-family($slug, $fallbackOnly: false, $args...) {
     @return config.config-do-var(
@@ -208,7 +208,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 /// Uses the font size config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-var-fs($slug, $fallback: null, $relative: null, $fallbackOnly: false, $args...) {
     //
@@ -251,7 +251,7 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 /// Uses the line height config tokens to print the appropriate var(...) with a
 /// fallback.
 ///
-/// @since 0.1.0-beta.0
+/// @since 0.1.0-beta
 ///
 @function tokens-var-line-height($slug, $fallbackOnly: false, $args...) {
     $fallback: tokens-line-height-value($slug);

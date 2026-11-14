@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';
@@ -24,26 +24,26 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
     /**
      * Builds style tokens faster.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static build<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>): Promise<Tokens_CSS_Style<T_Params>>;
     /**
      * Builds style tokens data faster.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static buildData<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>): Promise<Tokens_CSS_Style.Data<T_Params>>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static alertStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, partial?: Tokens_CSS_Style.InputParam<T_Params>['alert']): Promise<Tokens_CSS_Style.AlertStyles>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static backdropStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['backdrop']): Promise<Tokens_CSS_Style.BackdropStyles.Parsed>;
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0 — Added partial param.
+     * @since 0.1.0-beta — Added partial param.
      */
     static buttonStyle<T_Params extends TokenTypes.Style.TypeParams>(iconStyles: Tokens_CSS_Style.IconStyles<never>, partial?: Tokens_CSS_Style.InputParam<T_Params>['button']): Promise<{
         $: Tokens_CSS_Style.ButtonStyles;
@@ -51,38 +51,38 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
         inline: Tokens_CSS_Style.ButtonStyles_Inline;
     }>;
     /**
-     * @since 0.3.0-draft
+     * @since 0.3.0
      */
     static flowMargins<T_Defaults extends Partial<Tokens_CSS_Style.FlowMargin>, T_Partial extends RecursivePartial<Tokens_CSS_Style.FlowMargin>>(defaults: T_Defaults, partial?: T_Partial): Promise<Omit<T_Defaults, 'button'> & {
         button: Extract<T_Defaults['button'], object>;
     }>;
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0 — Added partial param.
+     * @since 0.1.0-beta — Added partial param.
      */
     static headingStyle<T_Params extends TokenTypes.Style.TypeParams, T_Key extends keyof Tokens_CSS_Style.Data<T_Params>['heading']>(heading: T_Key, partial?: RecursivePartial<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>): Promise<Tokens_CSS_Style.HeadingStyles_Generic<T_Key>>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static subheadingStyle<T_Params extends TokenTypes.Style.TypeParams, T_Key extends keyof Tokens_CSS_Style.Data<T_Params>['subheading']>(subheading: T_Key, headingStyles: Tokens_CSS_Style.Data<T_Params>['heading'], partial?: RecursivePartial<Tokens_CSS_Style.SubheadingStyles>): Promise<RecursivePartial<Tokens_CSS_Style.SubheadingStyles>>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static iconStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['icon']): Promise<Tokens_CSS_Style.IconStyles<T_Params>>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static inputStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['input']): Promise<Tokens_CSS_Style.Data<T_Params>['input']>;
     /**
-     * @since 0.3.0-draft
+     * @since 0.3.0
      */
     static linkCardStyle<T_Params extends TokenTypes.Style.TypeParams>(alertStyles: Tokens_CSS_Style.AlertStyles, partial?: Tokens_CSS_Style.InputParam<T_Params>['link-card']): Promise<Tokens_CSS_Style.Data<T_Params>['link-card']>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static toggleStyle<T_Params extends TokenTypes.Style.TypeParams>(headingStyles: Tokens_CSS_Style.Data<T_Params>['heading'], iconStyles: Tokens_CSS_Style.IconStyles<never>, widgetStyles: Tokens_CSS_Style.WidgetStyles, partial?: Tokens_CSS_Style.InputParam<T_Params>['toggle']): Promise<Tokens_CSS_Style.ToggleStyles>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static widgetStyle<T_Params extends TokenTypes.Style.TypeParams>(partial?: Tokens_CSS_Style.InputParam<T_Params>['widget']): Promise<Tokens_CSS_Style.WidgetStyles>;
     static get default(): Promise<Tokens_CSS_Style.Data<{
@@ -99,7 +99,7 @@ export declare class Tokens_CSS_Style<T_Params extends TokenTypes.Style.TypePara
  */
 export declare namespace Tokens_CSS_Style {
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type AlertStyles = {
         /**
@@ -167,7 +167,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type AlertStyles_Heading = {
         /**
@@ -187,7 +187,7 @@ export declare namespace Tokens_CSS_Style {
     /**
      * Styles for modal-type backdrops (that block the screen and can be clicked to exit the modal).
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type BackdropStyles = {
         /**
@@ -215,11 +215,11 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     namespace BackdropStyles {
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Parsed = Omit<BackdropStyles, 'background' | 'opacity'> & {
             /**
@@ -244,7 +244,7 @@ export declare namespace Tokens_CSS_Style {
         };
     }
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type ButtonStyles = {
         border: {
@@ -287,7 +287,7 @@ export declare namespace Tokens_CSS_Style {
         width: string;
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type ButtonStyles_Disabled = Omit<ButtonStyles, 'border' | 'display' | 'flow-margin' | 'focus' | 'font' | 'gap' | 'icon' | 'line-height' | 'margin' | 'padding' | 'width'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
@@ -297,7 +297,7 @@ export declare namespace Tokens_CSS_Style {
      * Inline buttons are buttons meant to be inline with text (rather than in
      * its own line(s)).
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type ButtonStyles_Inline = Omit<ButtonStyles, 'border' | 'display' | 'flow-margin' | 'margin'> & {
         border: Omit<ButtonStyles['border'], 'width'>;
@@ -323,38 +323,38 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     namespace FlowMargin {
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Parsed = Omit<FlowMargin, 'button'> & {
             button: Extract<FlowMargin['button'], object>;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Self = 'margins-flow' | 'margins-flow-small' | 'margins-flow-large';
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type SelfFirm = 'margins-flow-firm' | 'margins-flow-firm-small' | 'margins-flow-firm-large';
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type WithSelf = FlowMargin & {
             self: Self;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type WithSelfFirm = FlowMargin & {
             self: SelfFirm;
         };
     }
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type HeadingStyles = {
         font: {
@@ -388,11 +388,11 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type HeadingStyles_Generic<T_Key extends keyof Tokens_CSS_Style.Data<TokenTypes.Style.TypeParams>['heading']> = "unstyled" extends T_Key ? HeadingStyles_Unstyled : HeadingStyles;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type HeadingStyles_Unstyled = Omit<HeadingStyles, 'margin'> & {
         /**
@@ -410,7 +410,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type IconStyles_Spacing = {
         buffer: {
@@ -431,7 +431,7 @@ export declare namespace Tokens_CSS_Style {
         'vertical-align': IconStyles<never>['vertical-align'];
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type IconStyles<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
@@ -461,7 +461,7 @@ export declare namespace Tokens_CSS_Style {
         'vertical-align': string;
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type InputStyles = {
         border: {
@@ -503,7 +503,7 @@ export declare namespace Tokens_CSS_Style {
             inline: AnyTokenLevel;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         placeholder: {
             font: {
@@ -515,13 +515,13 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type InputStyles_Variation = Omit<InputStyles, 'border' | 'flow-margin' | 'focus' | 'icons' | 'label' | 'line-height' | 'margin' | 'padding' | 'placeholder'> & {
         border: Omit<InputStyles['border'], 'width'>;
     };
     /**
-     * @since 0.3.0-draft
+     * @since 0.3.0
      */
     type LinkCardStyles = {
         /**
@@ -576,7 +576,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type SubheadingStyles = Omit<HeadingStyles_Unstyled, 'font' | 'subheading'> & {
         /**
@@ -587,7 +587,7 @@ export declare namespace Tokens_CSS_Style {
         margin: HeadingStyles['margin'];
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type ToggleStyles = {
         /**
@@ -666,7 +666,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type ToggleStyles_ControlHeading = {
         margin: {
@@ -677,7 +677,7 @@ export declare namespace Tokens_CSS_Style {
         };
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type WidgetStyles = {
         /**
@@ -708,15 +708,15 @@ export declare namespace Tokens_CSS_Style {
      */
     type Data<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         alert: AlertStyles;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         backdrop: BackdropStyles.Parsed;
         /**
-         * @since 0.1.0-beta.1
+         * @since 0.1.0-beta
          */
         blockquote: {
             'flow-margin': {
@@ -731,11 +731,11 @@ export declare namespace Tokens_CSS_Style {
         /**
          * Default values for the set-flow-margins mixin.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         'flow-margin': FlowMargin.Parsed;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         form: {
             $: {
@@ -757,7 +757,7 @@ export declare namespace Tokens_CSS_Style {
             [key: number]: HeadingStyles;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         hr: {
             border: {
@@ -772,11 +772,11 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         icon: IconStyles<T_Params>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         input: {
             $: InputStyles;
@@ -785,7 +785,7 @@ export declare namespace Tokens_CSS_Style {
             readonly: InputStyles_Variation;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         label: {
             'flow-margin': {
@@ -793,11 +793,11 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.3.0-draft
+         * @since 0.3.0
          */
         'link-card': LinkCardStyles;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         logo: {
             /**
@@ -809,7 +809,7 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.0-beta.0 — Restructured object nesting.
+         * @since 0.1.0-beta — Restructured object nesting.
          */
         selection: {
             background: {
@@ -819,7 +819,7 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         subheading: {
             [L in RequiredHeadingLevels | 'unstyled']?: undefined | RecursivePartial<SubheadingStyles>;
@@ -827,7 +827,7 @@ export declare namespace Tokens_CSS_Style {
             [key: number]: RecursivePartial<SubheadingStyles>;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         table: {
             'flow-margin': {
@@ -837,11 +837,11 @@ export declare namespace Tokens_CSS_Style {
         /**
          * Toggle block styles.
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         toggle: ToggleStyles;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         widget: WidgetStyles;
     };
@@ -850,7 +850,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type InputParam<T_Params extends TokenTypes.Style.TypeParams> = {
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         alert?: Omit<RecursivePartial<AlertStyles>, 'heading'> & {
             heading?: undefined | ({
@@ -860,11 +860,11 @@ export declare namespace Tokens_CSS_Style {
             });
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         backdrop?: RecursivePartial<BackdropStyles>;
         /**
-         * @since 0.1.0-beta.1
+         * @since 0.1.0-beta
          */
         blockquote?: RecursivePartial<Data<T_Params>['blockquote']>;
         button?: {
@@ -873,11 +873,11 @@ export declare namespace Tokens_CSS_Style {
             inline?: RecursivePartial<ButtonStyles_Inline>;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         'flow-margin'?: RecursivePartial<Data<T_Params>['flow-margin']>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         form?: RecursivePartial<Data<T_Params>['form']>;
         heading?: {
@@ -888,11 +888,11 @@ export declare namespace Tokens_CSS_Style {
             [key: number]: RecursivePartial<HeadingStyles>;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         hr?: RecursivePartial<Data<T_Params>['hr']>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         icon?: RecursivePartial<Omit<IconStyles<T_Params>, 'size'>> & {
             size: Partial<IconStyles<T_Params>['size']> & {
@@ -906,19 +906,19 @@ export declare namespace Tokens_CSS_Style {
             readonly?: RecursivePartial<InputStyles_Variation>;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         label?: RecursivePartial<Data<T_Params>['label']>;
         /**
-         * @since 0.3.0-draft
+         * @since 0.3.0
          */
         'link-card'?: RecursivePartial<LinkCardStyles>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         logo?: RecursivePartial<Data<T_Params>['logo']>;
         /**
-         * @since 0.1.0-beta.0 — Restructured object nesting.
+         * @since 0.1.0-beta — Restructured object nesting.
          */
         selection?: {
             background?: {
@@ -928,7 +928,7 @@ export declare namespace Tokens_CSS_Style {
             };
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         subheading?: {
             [L in RequiredHeadingLevels | 'unstyled']?: undefined | RecursivePartial<SubheadingStyles>;
@@ -936,15 +936,15 @@ export declare namespace Tokens_CSS_Style {
             [key: number]: RecursivePartial<SubheadingStyles>;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         table?: RecursivePartial<Data<T_Params>['table']>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         toggle?: RecursivePartial<ToggleStyles>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         widget?: RecursivePartial<WidgetStyles>;
     };
@@ -953,7 +953,7 @@ export declare namespace Tokens_CSS_Style {
      */
     type JsonReturn<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     type ScssVars<T_Params extends TokenTypes.Style.TypeParams> = Data<T_Params> & {
         /**

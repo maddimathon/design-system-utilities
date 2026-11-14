@@ -47,7 +47,7 @@ import {
  * @param envConfig             Optional environment variable config.
  * 
  * @since 0.1.0-alpha
- * @since 0.1.0-beta.0 — Started using the astroConfig() from utility-astro as well. Improved typing. Added optional envConfig param.
+ * @since 0.1.0-beta — Started using the astroConfig() from utility-astro as well. Improved typing. Added optional envConfig param.
  */
 export function astroConfig<
     T_Locales extends Locales = never,
@@ -111,7 +111,7 @@ export function astroConfig<
 /**
  * Utilities for the {@link astroConfig} function.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export namespace astroConfig {
 
@@ -126,7 +126,7 @@ export namespace astroConfig {
     /**
      * The astro config object to pass to helper functions.
      * 
-     * @since 0.1.0-beta.2
+     * @since 0.1.0-beta
      */
     export interface AstroConfig<
         T_Locales extends Locales = never,
@@ -145,7 +145,7 @@ export namespace astroConfig {
      * @param siteConfig   Optional config overrides.
      * @param envConfig    Optional environment variable config.
      * 
-     * @since 0.1.0-beta.2
+     * @since 0.1.0-beta
      */
     export function universal<
         T_Locales extends Locales = never,

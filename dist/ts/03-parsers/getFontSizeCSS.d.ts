@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import type { TokenTypes } from '../02-tokens/@types.js';
@@ -12,6 +12,6 @@ import type { Tokens } from '../02-tokens/Tokens.js';
 /**
  * Takes a font size slug and returns a css-friendly variable with fallback value.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export declare function getFontSizeCSS<T_Types extends TokenTypes.TypeParams>(tokens: Tokens.JsonReturn<T_Types>, fontSize: string): string;

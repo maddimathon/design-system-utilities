@@ -1,17 +1,17 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import { objectKeySort } from '@maddimathon/utility-typescript';
 /**
  * Sorts a record according to its keys and returns a sorted copy.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function objectKeySort_Tokens(obj, recursive = false) {
     return objectKeySort(obj, recursive, objectKeySort_Tokens.sortMaker);

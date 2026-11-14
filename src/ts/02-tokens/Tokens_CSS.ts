@@ -31,7 +31,7 @@ export class Tokens_CSS<T_StyleParams extends TokenTypes.Style.TypeParams> exten
     /**
      * Builds tokens faster.
      * 
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     public static async build<T_StyleParams extends TokenTypes.Style.TypeParams>( input: Tokens_CSS.InputParam<T_StyleParams> ): Promise<Tokens_CSS<T_StyleParams>> {
 
@@ -142,7 +142,7 @@ export namespace Tokens_CSS {
         };
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type ScssVars<T_StyleParams extends TokenTypes.Style.TypeParams> = {
         border: Tokens_CSS_Border.ScssVars;

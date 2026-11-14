@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import type { RunnerOptions } from 'fantasticon';
@@ -25,7 +25,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
     readonly fontName: string;
     readonly data: Tokens_Icons.Data<T_ExtraIconNames>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static get defaultCodepoints(): {
         alarm: 0xf148;
@@ -113,44 +113,41 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         [I in Tokens_Icons.DefaultIcon]: Tokens_Icons.Local_SvgMaker.Data<I, never>;
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected static getCodepointCounter<T_ExtraIconNames extends string>(input: Tokens_Icons.InputParam<T_ExtraIconNames> | Tokens_Icons.Data<T_ExtraIconNames>): {
         newCodepoint: () => number;
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     private static build_entryMapper;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static build<T_ExtraIconNames extends string>(fontName: string, input: Tokens_Icons.InputParam<T_ExtraIconNames>): Tokens_Icons<T_ExtraIconNames>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     static buildAsync<T_ExtraIconNames extends string>(fontName: string, input: Tokens_Icons.InputParam<T_ExtraIconNames>): Promise<Tokens_Icons<T_ExtraIconNames>>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     protected _font: undefined | Awaited<ReturnType<typeof this.toIconFont>>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     get font(): undefined | Awaited<ReturnType<typeof this.toIconFont>>;
     /**
-     * @since 0.1.0-beta.0 — Made protected. Added fontName param as first.
-     *                            Replaced input param with data. See
-     *                            {@link Tokens_Icons.build} and
-     *                            {@link Tokens_Icons.buildAsync}.
+     * @since 0.1.0-beta — Made protected. Added fontName param as first. Replaced input param with data. See {@link Tokens_Icons.build} and {@link Tokens_Icons.buildAsync}.
      */
     protected constructor(fontName: string, data: Tokens_Icons.Data<T_ExtraIconNames>);
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     getCodepoints(): Tokens_Icons.Codepoints<T_ExtraIconNames>;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     toIconFont({ formatOptionsDefault, ...args }: Omit<RunnerOptions, 'name'> & {
         formatOptionsDefault?: NonNullable<RunnerOptions['formatOptions']>[keyof NonNullable<RunnerOptions['formatOptions']>];
@@ -184,39 +181,39 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
  */
 export declare namespace Tokens_Icons {
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     const optionalIconNames: readonly ["alarm", "alert", "attachment", "barricade", "biography", "book", "celebration", "clock", "code", "compass", "compass", "computer", "confetti", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "hidden", "hub", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "signpost", "singlecolumn", "star", "stopwatch", "success", "timer", "toolbox", "traffic-cone", "twocolumns", "unlock", "up", "warning", "wrench"];
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type OptionalIcon = typeof optionalIconNames[number];
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export function isOptionalIcon(name: string): name is OptionalIcon;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     const requiredIconNames: readonly ["caution", "check", "close", "continue", "disabled", "double-check", "download", "external", "fail", "maximum", "minimum", "reset", "search", "settings", "star", "submit", "toggle", "ui-check", "ui-minimum", "ui"];
     /**
      * The types are required to enable core functionality. Any others can be
      * removed or replaced in your configuration by setting them to `undefined`.
      *
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type RequiredIcon = typeof requiredIconNames[number];
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export function isRequiredIcon(name: string): name is RequiredIcon;
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0 Renamed from DefaultIconNames to DefaultIcon.
+     * @since 0.1.0-beta Renamed from DefaultIconNames to DefaultIcon.
      */
     export type DefaultIcon = RequiredIcon | OptionalIcon;
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type Codepoints<T_ExtraIconNames extends string> = {
         [I in DefaultIcon]: number;
@@ -225,7 +222,7 @@ export declare namespace Tokens_Icons {
     };
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0 — Switched to T_IconTypes type param.
+     * @since 0.1.0-beta — Switched to T_IconTypes type param.
      */
     export type Data<T_ExtraIconNames extends string> = {
         [I in RequiredIcon]: Local_SvgMaker.Instance<I, T_ExtraIconNames>;
@@ -236,7 +233,7 @@ export declare namespace Tokens_Icons {
     };
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0 — Removed undefined as an option and replaced with false for more explicit excludion of default icons. Switched to T_IconTypes type param.
+     * @since 0.1.0-beta — Removed undefined as an option and replaced with false for more explicit excludion of default icons. Switched to T_IconTypes type param.
      */
     export type InputParam<T_ExtraIconNames extends string> = Partial<{
         [I in RequiredIcon]?: Partial<Local_SvgMaker.Data<I, T_ExtraIconNames>> | Local_SvgMaker.Instance<I, T_ExtraIconNames>;
@@ -247,7 +244,7 @@ export declare namespace Tokens_Icons {
     };
     /**
      * @since 0.1.0-alpha
-     * @since 0.1.0-beta.0 — Switched to T_IconTypes type param.
+     * @since 0.1.0-beta — Switched to T_IconTypes type param.
      */
     export type JsonReturn<T_ExtraIconNames extends string> = {
         [I in RequiredIcon]: Local_SvgMaker.JsonReturn<I, T_ExtraIconNames>;
@@ -257,7 +254,7 @@ export declare namespace Tokens_Icons {
         [I in T_ExtraIconNames]: Local_SvgMaker.JsonReturn<I, T_ExtraIconNames>;
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type ScssVars<T_ExtraIconNames extends string> = {
         [I in RequiredIcon]: Local_SvgMaker.ScssVars<I, T_ExtraIconNames>;
@@ -267,23 +264,23 @@ export declare namespace Tokens_Icons {
         [I in T_ExtraIconNames]: Local_SvgMaker.ScssVars<I, T_ExtraIconNames>;
     };
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export namespace Local_SvgMaker {
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Data<T_IconName extends string, T_ExtraIcons extends string> = SvgMaker.Data<T_IconName, Meta<T_ExtraIcons>>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Instance<T_IconName extends string, T_ExtraIcons extends string> = SvgMaker<T_IconName, Meta<T_ExtraIcons>>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type JsonReturn<T_IconName extends string, T_ExtraIcons extends string> = SvgMaker.JsonReturn<T_IconName, Meta<T_ExtraIcons>>;
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type Meta<T_ExtraIcons extends string> = {
             aliasOf?: undefined | DefaultIcon | T_ExtraIcons | (DefaultIcon | T_ExtraIcons)[];
@@ -292,7 +289,7 @@ export declare namespace Tokens_Icons {
             replaceFontGlyph?: undefined | DefaultIcon | T_ExtraIcons;
         };
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         type ScssVars<T_IconName extends string, T_ExtraIcons extends string> = Omit<SvgMaker.ScssVars<T_IconName, Meta<T_ExtraIcons>>, 'meta'> & {
             fontGlyph?: undefined | string;

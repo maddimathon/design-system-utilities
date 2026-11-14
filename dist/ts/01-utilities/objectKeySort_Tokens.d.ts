@@ -1,16 +1,16 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 /**
  * Sorts a record according to its keys and returns a sorted copy.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export declare function objectKeySort_Tokens<T_Obj extends Record<number | string, any>>(obj: T_Obj, recursive?: boolean): T_Obj;
 export declare namespace objectKeySort_Tokens {

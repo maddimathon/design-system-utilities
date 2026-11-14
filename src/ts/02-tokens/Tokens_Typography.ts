@@ -388,7 +388,7 @@ export class Tokens_Typography<
 export namespace Tokens_Typography {
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type DefaultFontFamilies = "icons";
 
@@ -439,14 +439,14 @@ export namespace Tokens_Typography {
         };
 
         /**
-         * @since 0.1.0-beta.0 — Renamed from sizeScale to sizeBase.
+         * @since 0.1.0-beta — Renamed from sizeScale to sizeBase.
          */
         sizeBase: number;
 
         /**
          * To overrule the value in spacing tokens, optionally.
          * 
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         sizeMultiplier: number;
     };
@@ -487,7 +487,7 @@ export namespace Tokens_Typography {
     };
 
     /**
-     * @since 0.1.0-beta.0
+     * @since 0.1.0-beta
      */
     export type ScssVars<
         T_FontFamilySlug extends string,
@@ -610,7 +610,7 @@ export namespace Tokens_Typography {
          * Used to alter various size and alignment tokens in css, typically
          * when a font override is active (e.g., from the settings menu).
          *
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         export type FamilyOverride = {
             label: string;
@@ -633,7 +633,7 @@ export namespace Tokens_Typography {
         };
 
         /**
-         * @since 0.1.0-beta.0
+         * @since 0.1.0-beta
          */
         export type SingleFamilyScss = {
             family: string;

@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template Demo - Default Template
- * @maddimathon/design-system-utilities/template@0.3.0-draft
+ * @maddimathon/design-system-utilities/template@0.3.0
  * 
  * This is a sample stylesheet using the template with no changes to the default
  * configuration (except $template_globals: true, $template_tokens: true, and
@@ -11852,8 +11852,13 @@ body
     /* [template-content-blocks] @content( <S> link-cards--body ); */
 }
 .link-card .link-card__tag-list {
-    margin-block: var(--flow-margin-firm-start--small, 0.8125rem)
-        var(--flow-margin-firm-end--small, 0.3125rem);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+    margin-block: var(--flow-margin-firm-start, 1.25rem)
+        var(--flow-margin-firm-end, 0.46875rem);
     margin-inline: 0;
     padding-block: 0;
     padding-inline: 0;
@@ -11973,7 +11978,7 @@ body
 }
 [data-state-focus="true"].link-card {
     /* is-hover-focus */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: var(--theme-link-ui-hover, ActiveText);
     /* [template-content-blocks] @content( <S> link-cards--is-hover-focus ); */
@@ -12003,7 +12008,7 @@ body
     )
 ) {
     /* is-hover-focus */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: var(--theme-link-ui-hover, ActiveText);
     /* [template-content-blocks] @content( <S> link-cards--is-hover-focus ); */
@@ -12056,7 +12061,7 @@ body
 
 [data-state-active="true"].link-card {
     /* is-active */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: var(--theme-link-ui-active, ActiveText);
     /* [template-content-blocks] @content( <S> link-cards--is-active ); */
@@ -12082,7 +12087,7 @@ body
     :is([data-link-card-link]):is(:active, [data-state-active="true"])
 ) {
     /* is-active */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: var(--theme-link-ui-active, ActiveText);
     /* [template-content-blocks] @content( <S> link-cards--is-active ); */

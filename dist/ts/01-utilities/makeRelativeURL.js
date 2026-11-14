@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import NodePath from 'node:path';
@@ -101,23 +101,4 @@ export function makeFileBasedURL(config_base, config_build, currentURL, targetSu
         target: filenames.target,
     };
     return validateReturn(NodePath.relative(relativeMakers.current, relativeMakers.target) || _homeSubpath);
-}
-/**
- * Makes a filenames-based relative url for offline-friendly exports.
- *
- * @param config_base    Value of `base` as imported from 'astro:config/client' in the build env.
- * @param config_build   Value of `build` as imported from 'astro:config/client' in the build env.
- * @param currentURL     Value of `Astro.url` in the build env.
- * @param targetSubpath  Path to used to construct the URL - relative to the site root (ignoring the base path).
- *
- * @since 0.1.0-alpha
- * @since 0.1.0-alpha.4 — Added a check for existing file extensions before adding '.html'.
- *
- * @deprecated 0.2.0 — Will be removed in 0.2.0. Please use {@link makeFileBasedURL} with `{ relative: true }` instead.
- */
-export function makeRelativeURL(config_base, config_build, currentURL, targetSubpath, opts = {}) {
-    return makeFileBasedURL(config_base, config_build, currentURL, targetSubpath, {
-        ...opts,
-        relative: true,
-    });
 }

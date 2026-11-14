@@ -50,14 +50,12 @@ import type { ComponentProps } from 'astro/types';
 
 export type ThemeModeSwatchProps_Components = {
     /**
-     * @since 0.1.0-beta.0
-     * @since 0.1.0-beta.3 — Moved to a components prop.
+     * @since 0.1.0-beta
      */
     LoremIpsum: LoremIpsumComponentType;
 
     /**
-     * @since 0.1.0-beta.0
-     * @since 0.1.0-beta.3 — Moved to a components prop.
+     * @since 0.1.0-beta
      */
     Toggle: ToggleComponentType;
 } & PartialExcept<LoremIpsumProps.Components, 'Button'|'Heading'|'FormField'|'Table'>;
@@ -73,7 +71,7 @@ export type ThemeModeSwatchProps<T_Types extends TokenTypes.TypeParams = TokenTy
     contrast?: TokenTypes.Theme.GetContrastKeys<T_Types[ 'theme' ]>;
 
     /**
-     * @since 0.1.0-beta.3
+     * @since 0.1.0-beta
      */
     components?: Partial<ThemeModeSwatchProps_Components>;
 
@@ -85,7 +83,7 @@ export type ThemeModeSwatchProps<T_Types extends TokenTypes.TypeParams = TokenTy
     equals?: string;
 
     /**
-     * @since 0.1.0-beta.3
+     * @since 0.1.0-beta
      */
     levelsInUseTable?: 'prepend' | 'append' | Omit<
         ComponentProps<typeof ThemeModeSwatch_ShadesInUse>,

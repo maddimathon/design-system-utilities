@@ -1,10 +1,10 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  * 
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 
@@ -20,7 +20,7 @@ import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
  * Takes a shade map and uses it to define target contrast levels using the
  * map's contrast levels with the given sampleColourName.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export async function makeShadeTargetLevels<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,

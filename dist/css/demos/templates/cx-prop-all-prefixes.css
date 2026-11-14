@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes (with fallback)
- * @maddimathon/design-system-utilities/template@0.3.0-draft
+ * @maddimathon/design-system-utilities/template@0.3.0
  * 
  * This is a sample stylesheet with a custom property prefix and a fallback
  * prefix set in the config (i.e. — $customPropertyPrefix: "",
@@ -27987,18 +27987,23 @@ body {
     padding-block-end: 0 !important;
 }
 .link-card .link-card__tag-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
     margin-block: var(
-            --flow-margin-firm-start--small,
+            --flow-margin-firm-start,
             var(
-                --fallback-flow-margin-firm-start--small,
-                var(--mrg-firm-300, var(--fallback-mrg-firm-300, 0.8125rem))
+                --fallback-flow-margin-firm-start,
+                var(--mrg-firm-400, var(--fallback-mrg-firm-400, 1.25rem))
             )
         )
         var(
-            --flow-margin-firm-end--small,
+            --flow-margin-firm-end,
             var(
-                --fallback-flow-margin-firm-end--small,
-                var(--mrg-half-300, var(--fallback-mrg-half-300, 0.3125rem))
+                --fallback-flow-margin-firm-end,
+                var(--mrg-half-400, var(--fallback-mrg-half-400, 0.46875rem))
             )
         );
     margin-inline: 0;
@@ -28108,7 +28113,7 @@ body {
     --fallback-background-color: var(
         --link-card-background-hover,
         var(--theme-background-alt, var(--fallback-theme-background-alt))
-    );
+    ) !important;
     background-color: var(
         --fallback-background-color,
         var(
@@ -28175,7 +28180,7 @@ body {
     --fallback-background-color: var(
         --link-card-background-hover,
         var(--theme-background-alt, var(--fallback-theme-background-alt))
-    );
+    ) !important;
     background-color: var(
         --fallback-background-color,
         var(
@@ -28265,7 +28270,7 @@ body {
     --fallback-background-color: var(
         --link-card-background-active,
         var(--theme-background-alt, var(--fallback-theme-background-alt))
-    );
+    ) !important;
     background-color: var(
         --fallback-background-color,
         var(
@@ -28328,7 +28333,7 @@ body {
     --fallback-background-color: var(
         --link-card-background-active,
         var(--theme-background-alt, var(--fallback-theme-background-alt))
-    );
+    ) !important;
     background-color: var(
         --fallback-background-color,
         var(

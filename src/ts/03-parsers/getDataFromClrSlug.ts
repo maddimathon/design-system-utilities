@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  * 
  * @packageDocumentation
  */
@@ -17,7 +17,7 @@ import type { TokenTypes } from '../02-tokens/@types.js';
 /**
  * Gets the shade name and level of the given colour token, if applicable.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function getDataFromClrSlug<
     T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams,

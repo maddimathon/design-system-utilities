@@ -1,5 +1,5 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  * 
  * @packageDocumentation
  */
@@ -21,7 +21,7 @@ import { sassFn_themeFlattenGetValues } from './sass-functions/themeFlattenGetVa
 /**
  * Defines on the sass compiler options part of the build-utilities config.
  * 
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function defineSassCompilerOpts(
     stage: Stage,

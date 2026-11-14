@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template Demo - Custom Property Prefixes
- * @maddimathon/design-system-utilities/template@0.3.0-draft
+ * @maddimathon/design-system-utilities/template@0.3.0
  * 
  * This is a sample stylesheet with a custom property prefix set in the config
  * (i.e. — $customPropertyPrefix: "prefix-").
@@ -17748,13 +17748,18 @@ body {
     padding-block-end: 0 !important;
 }
 .link-card .link-card__tag-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
     margin-block: var(
-            --prefix-flow-margin-firm-start--small,
-            var(--prefix-mrg-firm-300, 0.8125rem)
+            --prefix-flow-margin-firm-start,
+            var(--prefix-mrg-firm-400, 1.25rem)
         )
         var(
-            --prefix-flow-margin-firm-end--small,
-            var(--prefix-mrg-half-300, 0.3125rem)
+            --prefix-flow-margin-firm-end,
+            var(--prefix-mrg-half-400, 0.46875rem)
         );
     margin-inline: 0;
     padding-block: 0;
@@ -17847,7 +17852,7 @@ body {
 
 [data-state-focus="true"].link-card {
     /* is-hover-focus */
-    --prefix-background-color: var(--prefix-theme-background-alt);
+    --prefix-background-color: var(--prefix-theme-background-alt) !important;
     background-color: var(
         --prefix-background-color,
         var(--prefix-theme-background-alt)
@@ -17882,7 +17887,7 @@ body {
     )
 ) {
     /* is-hover-focus */
-    --prefix-background-color: var(--prefix-theme-background-alt);
+    --prefix-background-color: var(--prefix-theme-background-alt) !important;
     background-color: var(
         --prefix-background-color,
         var(--prefix-theme-background-alt)
@@ -17940,7 +17945,7 @@ body {
 
 [data-state-active="true"].link-card {
     /* is-active */
-    --prefix-background-color: var(--prefix-theme-background-alt);
+    --prefix-background-color: var(--prefix-theme-background-alt) !important;
     background-color: var(
         --prefix-background-color,
         var(--prefix-theme-background-alt)
@@ -17971,7 +17976,7 @@ body {
     :is([data-link-card-link]):is(:active, [data-state-active="true"])
 ) {
     /* is-active */
-    --prefix-background-color: var(--prefix-theme-background-alt);
+    --prefix-background-color: var(--prefix-theme-background-alt) !important;
     background-color: var(
         --prefix-background-color,
         var(--prefix-theme-background-alt)

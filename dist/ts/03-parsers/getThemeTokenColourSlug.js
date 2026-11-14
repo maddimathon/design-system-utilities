@@ -1,17 +1,17 @@
 /**
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  *
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.3.0-draft
+ * @maddimathon/design-system-utilities@0.3.0
  * @license MIT
  */
 import { objectFlatten } from '@maddimathon/utility-typescript';
 /**
  * Gets the colour slug value of the given theme slug.
  *
- * @since 0.1.0-beta.0
+ * @since 0.1.0-beta
  */
 export function getThemeTokenColourSlug(themeValueSlug, themeName, brightness, contrast, tokens) {
     if (!tokens.themes[themeName]) {

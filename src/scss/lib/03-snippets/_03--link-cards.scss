@@ -1,6 +1,6 @@
 ///
 /// @package @maddimathon/design-system-utilities@___CURRENT_VERSION___
-/// @since ___PKG_VERSION___
+/// @since 0.3.0
 ///
 
 @use 'pkg:@maddimathon/utility-sass/list';
@@ -21,7 +21,7 @@
 @use '03--widgets' as *;
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.3.0
 ///
 @mixin _snippet-link-card--is-state(
     $selector_link_attr,
@@ -83,7 +83,7 @@
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.3.0
 ///
 @mixin snippet-link-card--is-hover-focus($selector_link_attr) {
     @include _snippet-link-card--is-state(
@@ -101,7 +101,7 @@
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.3.0
 ///
 @mixin snippet-link-card--is-active($selector_link_attr) {
     @include _snippet-link-card--is-state(
@@ -116,7 +116,7 @@
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.3.0
 ///
 @mixin snippet-link-card(
     $background: var-style(link-card-background),
@@ -387,8 +387,11 @@
     }
 
     #{$selector_tagList} {
-        margin-block: var-style(flow-margin-firm-start--small)
-            var-style(flow-margin-firm-end--small);
+        flex-direction: row;
+        flex-wrap: wrap;
+        @include utils.snippet-body-grid--flex-alignment($direction: row);
+
+        margin-block: var-style(flow-margin-firm-start) var-style(flow-margin-firm-end);
         margin-inline: 0;
 
         padding-block: 0;
@@ -577,7 +580,7 @@
 
     @include snippet-link-card--is-hover-focus($selector_link_attr) {
         /* is-hover-focus */
-        @include prop-background($background_hover);
+        @include prop-background($background_hover, $important: true);
         border-color: $borderColor_hover;
 
         @if $multipleContentBlocks {
@@ -612,7 +615,7 @@
 
     @include snippet-link-card--is-active($selector_link_attr) {
         /* is-active */
-        @include prop-background($background_active);
+        @include prop-background($background_active, $important: true);
         border-color: $borderColor_active;
 
         @if $multipleContentBlocks {
@@ -647,7 +650,7 @@
 }
 
 ///
-/// @since ___PKG_VERSION___
+/// @since 0.3.0
 ///
 @mixin snippet-link-cards-container(
     $gridColumnsValues: null,

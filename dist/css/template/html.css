@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /*!
  * This stylesheet includes css generated using 
- * @maddimathon/utility-sass@0.2.0
+ * @maddimathon/utility-sass@0.2.1
  * 
  * https://maddimathon.github.io/utility-sass
  */
 /**
  * Design System Utilities - Template - HTML
- * @maddimathon/design-system-utilities/template/html@0.3.0-draft
+ * @maddimathon/design-system-utilities/template/html@0.3.0
  * 
  * https://maddimathon.github.io/design-system-utilities
  * 
@@ -16475,16 +16475,15 @@ body {
     padding-bottom: 0 !important;
 }
 .link-card .link-card__tag-list {
-    margin-top: 0.8125rem;
-    margin-bottom: 0.3125rem;
-    margin-top: var(
-        --flow-margin-firm-start--small,
-        var(--mrg-firm-300, 0.8125rem)
-    );
-    margin-bottom: var(
-        --flow-margin-firm-end--small,
-        var(--mrg-half-300, 0.3125rem)
-    );
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-content: center;
+    align-items: stretch;
+    margin-top: 1.25rem;
+    margin-bottom: 0.46875rem;
+    margin-top: var(--flow-margin-firm-start, var(--mrg-firm-400, 1.25rem));
+    margin-bottom: var(--flow-margin-firm-end, var(--mrg-half-400, 0.46875rem));
     margin-left: 0;
     margin-right: 0;
     padding-top: 0;
@@ -16582,7 +16581,7 @@ body {
 
 [data-state-focus="true"].link-card {
     /* is-hover-focus */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: hsl(321, 68%, 26%);
     border-color: var(--theme-link-ui-hover, ActiveText);
@@ -16613,7 +16612,7 @@ body {
     )
 ) {
     /* is-hover-focus */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: hsl(321, 68%, 26%);
     border-color: var(--theme-link-ui-hover, ActiveText);
@@ -16667,7 +16666,7 @@ body {
 
 [data-state-active="true"].link-card {
     /* is-active */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: hsl(29, 100%, 21%);
     border-color: var(--theme-link-ui-active, ActiveText);
@@ -16694,7 +16693,7 @@ body {
     :is([data-link-card-link]):is(:active, [data-state-active="true"])
 ) {
     /* is-active */
-    --background-color: var(--theme-background-alt);
+    --background-color: var(--theme-background-alt) !important;
     background-color: var(--background-color, var(--theme-background-alt));
     border-color: hsl(29, 100%, 21%);
     border-color: var(--theme-link-ui-active, ActiveText);
