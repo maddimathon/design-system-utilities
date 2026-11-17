@@ -816,6 +816,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $includeSubheading: $includeHGroup,
     $multipleContentBlocks: false,
     //
+    $iconSpacing_overrides: (),
     $subheading_args: (),
     $selector_hgroup: if($includeHGroup, selector.append(&, '__hgroup'), config.$selector_null),
     $selector_hgroupHeading: if(
@@ -848,7 +849,11 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeIconSpacingProps and not $includeChildren_link {
-        @include props-icon-spacing(if($slug, heading-#{$slug}, null), $includeBase: $includeBase);
+        @include props-icon-spacing(
+            if($slug, heading-#{$slug}, null),
+            $includeBase: $includeBase,
+            $overrides: $iconSpacing_overrides
+        );
     }
 
     $_marginBlock_unstyled: null;
@@ -1223,7 +1228,8 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 #{selector.nest(&, config.$selector_a)} {
                 @include props-icon-spacing(
                     if($slug, heading-#{$slug}, null),
-                    $includeBase: $includeBase
+                    $includeBase: $includeBase,
+                    $overrides: $iconSpacing_overrides
                 );
             }
         }

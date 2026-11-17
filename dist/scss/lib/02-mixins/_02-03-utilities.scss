@@ -43,7 +43,8 @@ $_firmFlowMarginChildren: list.join(
     $includeChildren: true,
     $includeRoot: true,
     $useNotInsteadOfChildren:
-        config.$fn_flowMarginConditionalOverride_useNotInsteadOfChildren
+        config.$fn_flowMarginConditionalOverride_useNotInsteadOfChildren,
+    $useWhere: false
 ) {
     $importantSuffix: if($asImportant, ' !important', '');
 
@@ -59,7 +60,7 @@ $_firmFlowMarginChildren: list.join(
 
     $firmFlowMarginChildren: if(
         $childrenInIs,
-        ':is( #{$firmFlowMarginChildren} )',
+        ':#{if($useWhere, where, is)}( #{$firmFlowMarginChildren} )',
         $firmFlowMarginChildren
     );
 
@@ -109,6 +110,7 @@ $_firmFlowMarginChildren: list.join(
     $setFirstChildSelector: null,
     $useNotInsteadOfChildren:
         config.$fn_flowMarginConditionalOverride_useNotInsteadOfChildren,
+    $useWhere: false,
     $args...
 ) {
     $args: meta.keywords($args);
@@ -147,7 +149,7 @@ $_firmFlowMarginChildren: list.join(
             ':last-child',
             if(
                 $useIs_firstChild,
-                ':is( :first-child, :last-child )',
+                ':#{if($useWhere, where, is)}( :first-child, :last-child )',
                 (':first-child', ':last-child')
             )
         )
@@ -235,7 +237,7 @@ $_firmFlowMarginChildren: list.join(
                             selector.unify(
                                 if(
                                     $useIs_firstChild,
-                                    ':is( #{$__lists} )',
+                                    ':#{if($useWhere, where, is)}( #{$__lists} )',
                                     $__lists
                                 ),
                                 $_childSelector
@@ -253,7 +255,7 @@ $_firmFlowMarginChildren: list.join(
                 $__is_universal_selector: if(
                     $useIs_firstChild and
                         selector.is-multi($_universal_selector),
-                    ':is( #{$_universal_selector} )',
+                    ':#{if($useWhere, where, is)}( #{$_universal_selector} )',
                     $_universal_selector
                 );
 
@@ -274,7 +276,7 @@ $_firmFlowMarginChildren: list.join(
                                 '+',
                                 if(
                                     $useIs_firstChild,
-                                    ':is( script, style )',
+                                    ':#{if($useWhere, where, is)}( script, style )',
                                     ('script', 'style')
                                 )
                             ),
@@ -409,7 +411,7 @@ $_firmFlowMarginChildren: list.join(
                                         $useIs_firstChild and
                                             list.length($__unifier) >
                                             1,
-                                        ':is( #{$__unifier} )',
+                                        ':#{if($useWhere, where, is)}( #{$__unifier} )',
                                         $__unifier
                                     )
                                 ),
@@ -475,7 +477,7 @@ $_firmFlowMarginChildren: list.join(
                             $useIs_root and
                                 selector.is-multi($_to_nest) and
                                 selector.is-multi($_parentSelector),
-                            ':is( #{$_parentSelector} )',
+                            ':#{if($useWhere, where, is)}( #{$_parentSelector} )',
                             $_parentSelector
                         ),
                         '>',
@@ -495,6 +497,7 @@ $_firmFlowMarginChildren: list.join(
                         $asImportant: $asImportant,
                         $childrenInIs: $childrenInIs,
                         $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+                        $useWhere: $useWhere,
                         $args...
                     ) {
                         @content;
@@ -517,14 +520,14 @@ $_firmFlowMarginChildren: list.join(
                 selector.nest(
                     if(
                         $__parentInIs,
-                        ':is( #{$_parentSelector} )',
+                        ':#{if($useWhere, where, is)}( #{$_parentSelector} )',
                         $_parentSelector
                     ),
                     '>',
                     if(
                         $childrenInIs and
                             selector.is-multi($_universal_selector_withChild),
-                        ':is( #{$_universal_selector_withChild} )',
+                        ':#{if($useWhere, where, is)}( #{$_universal_selector_withChild} )',
                         $_universal_selector_withChild
                     )
                 ),
@@ -539,6 +542,7 @@ $_firmFlowMarginChildren: list.join(
                     $asImportant: $asImportant,
                     $childrenInIs: $childrenInIs,
                     $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+                    $useWhere: $useWhere,
                     $args...
                 ) {
                     @if not $includeRoot or $useNotInsteadOfChildren {
@@ -557,6 +561,7 @@ $_firmFlowMarginChildren: list.join(
                 $asImportant: $asImportant,
                 $childrenInIs: $childrenInIs,
                 $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+                $useWhere: $useWhere,
                 $args...
             ) {
                 @content;
@@ -570,6 +575,7 @@ $_firmFlowMarginChildren: list.join(
             $asImportant: $asImportant,
             $childrenInIs: $childrenInIs,
             $useNotInsteadOfChildren: $useNotInsteadOfChildren,
+            $useWhere: $useWhere,
             $args...
         ) {
             @content;
