@@ -15248,9 +15248,9 @@ body
     grid-template-columns: 1fr fit-content(0);
     grid-template-columns: 1fr min-content;
     grid-auto-rows: auto;
-    margin-top: 1.25rem;
+    margin-top: 0.46875rem;
     margin-bottom: 0.46875rem;
-    margin-top: var(--flow-margin-firm-start, var(--mrg-firm-400, 1.25rem));
+    margin-top: var(--flow-margin-firm-end, var(--mrg-half-400, 0.46875rem));
     margin-bottom: var(--flow-margin-firm-end, var(--mrg-half-400, 0.46875rem));
     padding-top: 0.75em;
     padding-bottom: 0.75em;
@@ -15519,11 +15519,6 @@ body
     color: hsl(339.5, 0%, 22.5%);
     color: var(--theme-text-grey, CanvasText);
 }
-.link-card .link-card__subheading > .link-card__link--backdrop {
-    background: transparent;
-    opacity: 0;
-    z-index: 1;
-}
 .link-card > .link-card__heading,
 .link-card > .link-card__hgroup {
     grid-row: 1;
@@ -15603,6 +15598,9 @@ body
     z-index: -1;
 }
 .link-card .link-card__heading .link-card__link {
+    --display: inline;
+    display: inline;
+    display: var(--display, inline);
     --theme-link-decoration: currentColor;
     --theme-link-ui: currentColor;
     color: currentColor;
@@ -15611,8 +15609,8 @@ body
 .link-card,
 .link-card__date,
 .link-card__footer,
-.link-card > .link-card__heading,
-.link-card > .link-card__hgroup,
+.link-card__heading,
+.link-card__hgroup,
 .link-card__subheading,
 .link-card__tag-list {
     position: relative;
@@ -15623,11 +15621,8 @@ body
 .link-card > .link-card__link--backdrop,
 .link-card__date > .link-card__link--backdrop,
 .link-card__footer > .link-card__link--backdrop,
-.link-card > .link-card__heading > .link-card__link--backdrop,
-.link-card
-    > .link-card__hgroup
-    > .link-card__heading
-    > .link-card__link--backdrop,
+.link-card__heading > .link-card__link--backdrop,
+.link-card__hgroup > .link-card__link--backdrop,
 .link-card__subheading > .link-card__link--backdrop,
 .link-card__tag-list > .link-card__link--backdrop {
     --display: block;
@@ -15641,6 +15636,88 @@ body
     z-index: -1;
 }
 
+.link-card .link-card__heading > a[href],
+.link-card .link-card__heading > button,
+.link-card .link-card__heading > [role="button"],
+.link-card .link-card__heading > input[type="button"],
+.link-card .link-card__heading > input[type="reset"],
+.link-card .link-card__heading > input[type="submit"],
+.link-card .link-card__subheading > a[href],
+.link-card .link-card__subheading > button,
+.link-card .link-card__subheading > [role="button"],
+.link-card .link-card__subheading > input[type="button"],
+.link-card .link-card__subheading > input[type="reset"],
+.link-card .link-card__subheading > input[type="submit"] {
+    z-index: 10 !important;
+}
+.link-card
+    .link-card__heading
+    > :has(
+        a[href],
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button,
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey
+    ),
+.link-card
+    .link-card__subheading
+    > :has(
+        a[href],
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button,
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey
+    ) {
+    z-index: 10 !important;
+}
+.link-card .link-card__heading > .link-card__link--backdrop,
+.link-card .link-card__subheading > .link-card__link--backdrop {
+    background: transparent !important;
+    opacity: 0 !important;
+    z-index: 1 !important;
+}
+.link-card
+    .link-card__heading
+    > .link-card__link--backdrop:is(
+        :empty,
+        a[href],
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button,
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey
+    ),
+.link-card
+    .link-card__subheading
+    > .link-card__link--backdrop:is(
+        :empty,
+        a[href],
+        button,
+        [role="button"],
+        input[type="button"],
+        input[type="reset"],
+        input[type="submit"],
+        a[href].button,
+        a[href].button-primary,
+        a[href].button-secondary,
+        a[href].button-grey
+    ) {
+    z-index: 1 !important;
+}
 [data-state-focus="true"].link-card {
     /* is-hover-focus */
     --background-color: var(--theme-background-alt) !important;

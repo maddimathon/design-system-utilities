@@ -131,7 +131,7 @@
     $borderStyle: var-style(link-card-border-style),
     $borderWidth: var-style(link-card-border-width),
     $lineHeight: var-style(link-card-line-height),
-    $marginBlock: var-style(flow-margin-firm-start) var-style(flow-margin-firm-end),
+    $marginBlock: var-style(flow-margin-firm-end) var-style(flow-margin-firm-end),
     $paddingBlock: var-style(link-card-padding-block),
     $paddingInline: var-style(link-card-padding-inline),
     $width: 100%,
@@ -346,16 +346,6 @@
         @if $multipleContentBlocks {
             @content (subheading);
         }
-
-        #{selector.nest('>', (#{$selector_linkBackdrop}, #{selector.unify($selector_linkBackdrop, ':empty')}))} {
-            background: transparent;
-            opacity: 0;
-            z-index: 1;
-
-            @if $multipleContentBlocks {
-                @content (subheading--link-backdrop);
-            }
-        }
     }
 
     // direct heading or hgroup
@@ -517,6 +507,8 @@
     }
 
     #{selector.nest($selector_heading, $selector_link)} {
+        @include prop-display(inline);
+
         @if $includeLinkColours {
             @include cx-prop(theme-link-decoration, currentColor, $allPrefixes: true);
             @include cx-prop(theme-link-ui, currentColor, $allPrefixes: true);
@@ -535,8 +527,8 @@
         #{$selector_card},
         #{$selector_date},
         #{$selector_footer},
-        #{selector.nest($selector_card, '>', $selector_heading)},
-        #{selector.nest($selector_card, '>', $selector_hgroup)},
+        #{$selector_heading},
+        #{$selector_hgroup},
         #{$selector_subheading},
         #{$selector_tagList} {
             position: relative;
@@ -550,8 +542,8 @@
         #{$selector_card},
         #{$selector_date},
         #{$selector_footer},
-        #{selector.nest($selector_card, '>', $selector_heading)},
-        #{selector.nest($selector_card, '>', $selector_hgroup, '>', $selector_heading)},
+        #{$selector_heading},
+        #{$selector_hgroup},
         #{$selector_subheading},
         #{$selector_tagList} {
             #{selector.nest('>', (#{$selector_linkBackdrop}, #{selector.unify($selector_linkBackdrop, ':empty')}))} {
@@ -567,6 +559,44 @@
 
                 @if $multipleContentBlocks {
                     @content (link-backdrop);
+                }
+            }
+        }
+    }
+
+    #{$selector_heading},
+    #{$selector_subheading} {
+        > %a,
+        > %button {
+            z-index: 10 !important;
+
+            @if $multipleContentBlocks {
+                @content (heading-or-subheading--link-backdrop-in-foreground--clickables-within);
+            }
+        }
+
+        > :has(%a, %button) {
+            z-index: 10 !important;
+
+            @if $multipleContentBlocks {
+                @content (heading-or-subheading--link-backdrop-in-foreground--clickables-within);
+            }
+        }
+
+        #{selector.nest('>', #{$selector_linkBackdrop})} {
+            background: transparent !important;
+            opacity: 0 !important;
+            z-index: 1 !important;
+
+            @if $multipleContentBlocks {
+                @content (heading-or-subheading--link-backdrop-in-foreground);
+            }
+
+            &:is(:empty, %a, %button) {
+                z-index: 1 !important;
+
+                @if $multipleContentBlocks {
+                    @content (heading-or-subheading--link-backdrop-in-foreground);
                 }
             }
         }
