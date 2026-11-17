@@ -1,0 +1,87 @@
+///
+/// @package @maddimathon/design-system-utilities@0.4.0-draft
+/// @since 0.4.0-draft
+///
+
+@forward '../demo-config';
+@forward '../../tokens';
+
+@forward '../header';
+
+@use 'pkg:@maddimathon/utility-sass/demo';
+@use 'pkg:@maddimathon/utility-sass/meta';
+
+@use '../../lib' as *;
+
+/* # FUNCTIONS - EXTENDING SELECTORS
+ * ======================================================================== */
+
+$_allFunctions: (
+    'get-extend-selectors-brand-logo-utils',
+    'get-extend-selectors-colour-utils',
+    'get-extend-selectors-font-size-utils',
+    'get-extend-selectors-icon-utils',
+    'get-extend-selectors-layout-utils',
+    'get-extend-selectors-width-utils'
+);
+
+@each $fnName in $_allFunctions {
+    /* #{$fnName}() ==================================== */
+
+    @include demo.function(
+        $fnName,
+        meta.get-function($fnName),
+        $outputMultiline: true
+    );
+}
+
+/* get-extend-selectors-button-variations() ==================================== */
+$_fn_getSels_buttonVariations: meta.get-function(
+    get-extend-selectors-button-variations
+);
+@include demo.function(
+    get-extend-selectors-button-variations,
+    $_fn_getSels_buttonVariations,
+    meta.arglist('button'),
+    $outputMultiline: true
+);
+// @include demo.function( get-extend-selectors-button-variations, $_fn_getSels_buttonVariations, meta.arglist('button.primary', 'primary'), $outputMultiline: true );
+
+/* get-extend-selectors-all-buttons() ==================================== */
+$_fn_getSels_allButtons: meta.get-function(get-extend-selectors-all-buttons);
+@include demo.function(
+    get-extend-selectors-all-buttons,
+    $_fn_getSels_allButtons,
+    $outputMultiline: true
+);
+
+/* get-extend-selectors-layout-globals() ==================================== */
+$_fn_getSels_layoutGlobals: meta.get-function(
+    get-extend-selectors-layout-globals
+);
+@include demo.function(
+    get-extend-selectors-layout-globals,
+    $_fn_getSels_layoutGlobals,
+    $outputMultiline: true
+);
+// @include demo.function(get-extend-selectors-layout-globals, $_fn_getSels_layoutGlobals, meta.arglist($fullWidthExtender: '.full-width-extender'), $outputMultiline: true);
+
+/* get-extend-selectors-link-card() ==================================== */
+$_fn_getSels_linkCard: meta.get-function(get-extend-selectors-link-card);
+@include demo.function(
+    get-extend-selectors-link-card,
+    $_fn_getSels_linkCard,
+    meta.arglist('.link-card'),
+    $outputMultiline: true
+);
+
+/* selector-button-variations() ==================================== */
+$_fn_selsbuttonVariations: meta.get-function(selector-button-variations);
+@include demo.function(
+    selector-button-variations,
+    $_fn_selsbuttonVariations,
+    $outputMultiline: true
+);
+// @include demo.function(selector-button-variations, $_fn_selsbuttonVariations, meta.arglist($withDefault: true), $outputMultiline: true);
+// @include demo.function(selector-button-variations, $_fn_selsbuttonVariations, meta.arglist($asPseudo: true), $outputMultiline: true);
+// @include demo.function(selector-button-variations, $_fn_selsbuttonVariations, meta.arglist($asPseudo: true, $withDefault: true), $outputMultiline: true);

@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.3.0
+/// @package @maddimathon/design-system-utilities@0.4.0-draft
 /// @since 0.1.0-beta
 ///
 
@@ -213,6 +213,15 @@ $themeOptions: list.except(
     map.keys(map.get(default.$designSystem, themes)),
     '_meta'
 );
+
+$selector_button_variants: ();
+@each $_button_variant in map.get($themesMeta, keys, button) {
+    $selector_button_variants: map.set(
+        $selector_button_variants,
+        $_button_variant,
+        '.button-#{$_button_variant}'
+    );
+}
 
 $activeTheme: null !default;
 $activeTheme: config.config-valid-string(

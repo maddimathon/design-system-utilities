@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.3.0
+/// @package @maddimathon/design-system-utilities@0.4.0-draft
 /// @since 0.1.0-alpha
 ///
 
@@ -18,11 +18,11 @@
     // returns
     @if list.length($splitList) < 2 {
         $num: math.num-val($str);
-        @return ($num, $num);
+        @return ($num $num);
     }
 
     $width: math.num-val(list.nth($splitList, 1));
     $height: math.num-val(list.nth($splitList, 2));
 
-    @return ($width, $height);
+    @return ($width $height);
 }

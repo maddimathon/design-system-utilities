@@ -18,11 +18,11 @@
     // returns
     @if list.length($splitList) < 2 {
         $num: math.num-val($str);
-        @return ($num, $num);
+        @return ($num $num);
     }
 
     $width: math.num-val(list.nth($splitList, 1));
     $height: math.num-val(list.nth($splitList, 2));
 
-    @return ($width, $height);
+    @return ($width $height);
 }

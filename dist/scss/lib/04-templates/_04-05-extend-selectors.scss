@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.3.0
+/// @package @maddimathon/design-system-utilities@0.4.0-draft
 /// @since 0.1.0-beta
 ///
 
@@ -18,79 +18,76 @@
 @use '../02-mixins' as *;
 @use '../03-snippets' as *;
 
-///
-/// @since 0.1.0-beta
-///
-@function _get-extend-selectors-all-buttons--additions() {
-    $all: utils.get-extend-selectors-button(selector-buttons-basic());
+// ///
+// /// @since 0.1.0-beta
+// ///
+// @function _get-extend-selectors-all-buttons--additions() {
+//     $all: utils.get-extend-selectors-button(selector-buttons-basic());
 
-    @if config.$mx_extendSelectors_extendDefaultButtonVariation {
-        $all: list.join(
-            $all,
-            utils.get-extend-selectors-button(
-                selector-buttons-basic(),
-                tokens.$button_variation_default
-            )
-        );
-    }
+//     @if config.$mx_extendSelectors_extendDefaultButtonVariation {
+//         $all: list.join(
+//             $all,
+//             utils.get-extend-selectors-button(
+//                 selector-buttons-basic(),
+//                 tokens.$button_variation_default
+//             )
+//         );
+//     }
 
-    $all: list.append($all, (selector-buttons-basic(), button-basic));
+//     $all: list.append($all, (selector-buttons-basic(), button-basic));
 
-    $all: list.join(
-        $all,
-        utils.get-extend-selectors-button(
-            selector.unify(config.$selector_a, selector-button-variations())
-        )
-    );
+//     $all: list.join(
+//         $all,
+//         utils.get-extend-selectors-button(
+//             selector.unify(config.$selector_a, selector-button-variations())
+//         )
+//     );
 
-    $all: list.join(
-        $all,
-        utils.get-extend-selectors-button(
-            selector.unify(
-                config.$selector_a,
-                selector-button-variations(
-                    $withDefault: true,
-                )
-            ),
-            $pseudo_base: 'button-link',
-            $pseudo_disabled: 'button-link-disabled',
-            $pseudo_disabled_visited: 'button-link-disabled-visited',
-            $pseudo_visited: 'button-link-visited'
-        )
-    );
+//     $all: list.join(
+//         $all,
+//         utils.get-extend-selectors-button(
+//             selector.unify(
+//                 config.$selector_a,
+//                 selector-button-variations(
+//                     $withDefault: true,
+//                 )
+//             ),
+//             $pseudo_base: 'button-link',
+//             $pseudo_disabled: 'button-link-disabled',
+//             $pseudo_disabled_visited: 'button-link-disabled-visited',
+//             $pseudo_visited: 'button-link-visited'
+//         )
+//     );
 
-    $_buttonSelectorsBase: list.join(
-        config.$selector_a,
-        list.except(
-            selector-buttons-basic(),
-            #{selector.unify(config.$selector_a, '.button')}
-        ),
-        $separator: comma
-    );
+//     $_buttonSelectorsBase: list.join(
+//         config.$selector_a,
+//         selector.except-superselector(selector-buttons-basic(), config.$selector_a),
+//         $separator: comma
+//     );
 
-    @each $variant in tokens.$themesMeta_buttonVariations {
-        $all: list.join(
-            $all,
-            utils.get-extend-selectors-button(
-                selector.unify($_buttonSelectorsBase, '.button-#{$variant}'),
-                $variant: $variant
-            )
-        );
+//     @each $variant in tokens.$themesMeta_buttonVariations {
+//         $all: list.join(
+//             $all,
+//             utils.get-extend-selectors-button(
+//                 selector.unify($_buttonSelectorsBase, '.button-#{$variant}'),
+//                 $variant: $variant
+//             )
+//         );
 
-        $all: list.join(
-            $all,
-            utils.get-extend-selectors-button(
-                selector.unify(config.$selector_a, '.button-#{$variant}'),
-                $pseudo_base: 'button-link-#{$variant}',
-                $pseudo_disabled: 'button-link-disabled',
-                $pseudo_disabled_visited: 'button-link-disabled-visited',
-                $pseudo_visited: 'button-link-visited'
-            )
-        );
-    }
+//         $all: list.join(
+//             $all,
+//             utils.get-extend-selectors-button(
+//                 selector.unify(config.$selector_a, '.button-#{$variant}'),
+//                 $pseudo_base: 'button-link-#{$variant}',
+//                 $pseudo_disabled: 'button-link-disabled',
+//                 $pseudo_disabled_visited: 'button-link-disabled-visited',
+//                 $pseudo_visited: 'button-link-visited'
+//             )
+//         );
+//     }
 
-    @return $all;
-}
+//     @return $all;
+// }
 
 ///
 /// @since 0.1.0-beta
@@ -121,16 +118,6 @@
 ///
 /// @since 0.1.0-beta
 ///
-@function get-extend-selectors-all-buttons() {
-    @return list.join(
-        utils.get-extend-selectors-all-buttons(),
-        _get-extend-selectors-all-buttons--additions()
-    );
-}
-
-///
-/// @since 0.1.0-beta
-///
 @mixin extend-selectors-globals(
     $additional: (),
     $allHeadingLevels: token-all-heading-levels(),
@@ -151,10 +138,7 @@
         )
     );
 
-    $additional: list.join(
-        $additional,
-        _get-extend-selectors-all-buttons--additions()
-    );
+    // $additional: list.join($additional, _get-extend-selectors-all-buttons--additions());
     $additional: list.join($additional, get-extend-selectors-layout-globals());
 
     $additional: list.append(
@@ -229,10 +213,6 @@
             ('.uppercase-emphasis', uppercase-emphasis)
         )
     );
-
-    // @if config.$template_docs {
-    //     $additional: list.append($additional, ('.site-content .button-span', button-span));
-    // }
 
     $additional: list.append(
         $additional,

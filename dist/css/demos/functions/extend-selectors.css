@@ -1,0 +1,1797 @@
+/*!
+ * Design System Utilities - Demo
+ *
+ * This stylesheet demonstrates the output of functions and mixins included in
+ * this library.
+ *
+ * https://maddimathon.github.io/design-system-utilities
+ *
+ * Author: Maddi Mathon (https://www.maddimathon.com/web)
+ * License: MIT
+ */
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/utility-sass@0.3.0-draft
+ * 
+ * https://maddimathon.github.io/utility-sass
+ */
+/*!
+ * This stylesheet includes css generated using 
+ * @maddimathon/design-system-utilities@0.4.0-draft
+ * 
+ * https://maddimathon.github.io/design-system-utilities
+ */
+/* # FUNCTIONS - EXTENDING SELECTORS
+ * ======================================================================== */
+/* get-extend-selectors-brand-logo-utils() ==================================== */
+/*
+    get-extend-selectors-brand-logo-utils() is a space-separated list:
+    <()> (
+        1: <()> (
+            1: <S> ".brand-logo",
+            2: <S> brand-logo,
+        )
+    )
+ */
+/* get-extend-selectors-colour-utils() ==================================== */
+/*
+    get-extend-selectors-colour-utils() is a comma-separated list:
+    <()> (
+        1: <()> (
+            1: <S> ".background-default",
+            2: <S> background-default,
+        ),
+        2: <()> (
+            1: <S> ".background-transparent",
+            2: <S> background-transparent,
+        ),
+        3: <()> (
+            1: <S> ".background-bright",
+            2: <S> background-bright,
+        ),
+        4: <()> (
+            1: <S> ".background-primary",
+            2: <S> background-primary,
+        ),
+        5: <()> (
+            1: <S> ".background-secondary",
+            2: <S> background-secondary,
+        ),
+        6: <()> (
+            1: <S> ".background-grey",
+            2: <S> background-grey,
+        ),
+        7: <()> (
+            1: <S> ".color-default",
+            2: <S> color-default,
+        ),
+        8: <()> (
+            1: <S> ".color-primary",
+            2: <S> color-primary,
+        ),
+        9: <()> (
+            1: <S> ".color-secondary",
+            2: <S> color-secondary,
+        ),
+        10: <()> (
+            1: <S> ".color-grey",
+            2: <S> color-grey,
+        ),
+    )
+ */
+/* get-extend-selectors-font-size-utils() ==================================== */
+/*
+    get-extend-selectors-font-size-utils() is a space-separated list:
+    <()> (
+        1: <()> (
+            1: <S> ".font-size-unstyled-heading",
+            2: <S> font-size-unstyled-heading,
+        )
+        2: <()> (
+            1: <S> ".font-size-heading-1",
+            2: <S> font-size-heading-1,
+        )
+        3: <()> (
+            1: <S> ".font-size-heading-2",
+            2: <S> font-size-heading-2,
+        )
+        4: <()> (
+            1: <S> ".font-size-heading-3",
+            2: <S> font-size-heading-3,
+        )
+        5: <()> (
+            1: <S> ".font-size-heading-4",
+            2: <S> font-size-heading-4,
+        )
+        6: <()> (
+            1: <S> ".font-size-heading-5",
+            2: <S> font-size-heading-5,
+        )
+        7: <()> (
+            1: <S> ".font-size-heading-6",
+            2: <S> font-size-heading-6,
+        )
+        8: <()> (
+            1: <S> ".font-size-heading-7",
+            2: <S> font-size-heading-7,
+        )
+        9: <()> (
+            1: <S> ".font-size-heading-8",
+            2: <S> font-size-heading-8,
+        )
+        10: <()> (
+            1: <S> ".font-size-heading-9",
+            2: <S> font-size-heading-9,
+        )
+        11: <()> (
+            1: <S> ".font-size-heading-10",
+            2: <S> font-size-heading-10,
+        )
+        12: <()> (
+            1: <S> ".font-size-normal",
+            2: <S> font-size-normal,
+        )
+        13: <()> (
+            1: <S> ".font-size-smaller-3",
+            2: <S> font-size-smaller-3,
+        )
+        14: <()> (
+            1: <S> ".font-size-smaller-2",
+            2: <S> font-size-smaller-2,
+        )
+        15: <()> (
+            1: <S> ".font-size-smaller-1",
+            2: <S> font-size-smaller-1,
+        )
+        16: <()> (
+            1: <S> ".font-size-bigger-1",
+            2: <S> font-size-bigger-1,
+        )
+        17: <()> (
+            1: <S> ".font-size-bigger-2",
+            2: <S> font-size-bigger-2,
+        )
+        18: <()> (
+            1: <S> ".font-size-bigger-3",
+            2: <S> font-size-bigger-3,
+        )
+    )
+ */
+/* get-extend-selectors-icon-utils() ==================================== */
+/* 
+    get-extend-selectors-icon-utils() is a comma-separated list:
+ */
+/* <()> ( */
+/*   1: <()> ( */
+/*     1: <S> ".icon--alarm", */
+/*     2: <S> icon--alarm, */
+/*   ), */
+/*   2: <()> ( */
+/*     1: <S> ".add-alarm-icon-after", */
+/*     2: <S> add-alarm-icon-after, */
+/*   ), */
+/*   3: <()> ( */
+/*     1: <S> ".add-alarm-icon-before", */
+/*     2: <S> add-alarm-icon-before, */
+/*   ), */
+/*   4: <()> ( */
+/*     1: <S> ".icon--alert", */
+/*     2: <S> icon--alert, */
+/*   ), */
+/*   5: <()> ( */
+/*     1: <S> ".add-alert-icon-after", */
+/*     2: <S> add-alert-icon-after, */
+/*   ), */
+/*   6: <()> ( */
+/*     1: <S> ".add-alert-icon-before", */
+/*     2: <S> add-alert-icon-before, */
+/*   ), */
+/*   7: <()> ( */
+/*     1: <S> ".icon--attachment", */
+/*     2: <S> icon--attachment, */
+/*   ), */
+/*   8: <()> ( */
+/*     1: <S> ".add-attachment-icon-after", */
+/*     2: <S> add-attachment-icon-after, */
+/*   ), */
+/*   9: <()> ( */
+/*     1: <S> ".add-attachment-icon-before", */
+/*     2: <S> add-attachment-icon-before, */
+/*   ), */
+/*   10: <()> ( */
+/*     1: <S> ".icon--barricade", */
+/*     2: <S> icon--barricade, */
+/*   ), */
+/*   11: <()> ( */
+/*     1: <S> ".add-barricade-icon-after", */
+/*     2: <S> add-barricade-icon-after, */
+/*   ), */
+/*   12: <()> ( */
+/*     1: <S> ".add-barricade-icon-before", */
+/*     2: <S> add-barricade-icon-before, */
+/*   ), */
+/*   13: <()> ( */
+/*     1: <S> ".icon--biography", */
+/*     2: <S> icon--biography, */
+/*   ), */
+/*   14: <()> ( */
+/*     1: <S> ".add-biography-icon-after", */
+/*     2: <S> add-biography-icon-after, */
+/*   ), */
+/*   15: <()> ( */
+/*     1: <S> ".add-biography-icon-before", */
+/*     2: <S> add-biography-icon-before, */
+/*   ), */
+/*   16: <()> ( */
+/*     1: <S> ".icon--book", */
+/*     2: <S> icon--book, */
+/*   ), */
+/*   17: <()> ( */
+/*     1: <S> ".add-book-icon-after", */
+/*     2: <S> add-book-icon-after, */
+/*   ), */
+/*   18: <()> ( */
+/*     1: <S> ".add-book-icon-before", */
+/*     2: <S> add-book-icon-before, */
+/*   ), */
+/*   19: <()> ( */
+/*     1: <S> ".icon--caution", */
+/*     2: <S> icon--caution, */
+/*   ), */
+/*   20: <()> ( */
+/*     1: <S> ".add-caution-icon-after", */
+/*     2: <S> add-caution-icon-after, */
+/*   ), */
+/*   21: <()> ( */
+/*     1: <S> ".add-caution-icon-before", */
+/*     2: <S> add-caution-icon-before, */
+/*   ), */
+/*   22: <()> ( */
+/*     1: <S> ".icon--celebration", */
+/*     2: <S> icon--celebration, */
+/*   ), */
+/*   23: <()> ( */
+/*     1: <S> ".add-celebration-icon-after", */
+/*     2: <S> add-celebration-icon-after, */
+/*   ), */
+/*   24: <()> ( */
+/*     1: <S> ".add-celebration-icon-before", */
+/*     2: <S> add-celebration-icon-before, */
+/*   ), */
+/*   25: <()> ( */
+/*     1: <S> ".icon--check", */
+/*     2: <S> icon--check, */
+/*   ), */
+/*   26: <()> ( */
+/*     1: <S> ".add-check-icon-after", */
+/*     2: <S> add-check-icon-after, */
+/*   ), */
+/*   27: <()> ( */
+/*     1: <S> ".add-check-icon-before", */
+/*     2: <S> add-check-icon-before, */
+/*   ), */
+/*   28: <()> ( */
+/*     1: <S> ".icon--clock", */
+/*     2: <S> icon--clock, */
+/*   ), */
+/*   29: <()> ( */
+/*     1: <S> ".add-clock-icon-after", */
+/*     2: <S> add-clock-icon-after, */
+/*   ), */
+/*   30: <()> ( */
+/*     1: <S> ".add-clock-icon-before", */
+/*     2: <S> add-clock-icon-before, */
+/*   ), */
+/*   31: <()> ( */
+/*     1: <S> ".icon--close", */
+/*     2: <S> icon--close, */
+/*   ), */
+/*   32: <()> ( */
+/*     1: <S> ".add-close-icon-after", */
+/*     2: <S> add-close-icon-after, */
+/*   ), */
+/*   33: <()> ( */
+/*     1: <S> ".add-close-icon-before", */
+/*     2: <S> add-close-icon-before, */
+/*   ), */
+/*   34: <()> ( */
+/*     1: <S> ".icon--code", */
+/*     2: <S> icon--code, */
+/*   ), */
+/*   35: <()> ( */
+/*     1: <S> ".add-code-icon-after", */
+/*     2: <S> add-code-icon-after, */
+/*   ), */
+/*   36: <()> ( */
+/*     1: <S> ".add-code-icon-before", */
+/*     2: <S> add-code-icon-before, */
+/*   ), */
+/*   37: <()> ( */
+/*     1: <S> ".icon--compass", */
+/*     2: <S> icon--compass, */
+/*   ), */
+/*   38: <()> ( */
+/*     1: <S> ".add-compass-icon-after", */
+/*     2: <S> add-compass-icon-after, */
+/*   ), */
+/*   39: <()> ( */
+/*     1: <S> ".add-compass-icon-before", */
+/*     2: <S> add-compass-icon-before, */
+/*   ), */
+/*   40: <()> ( */
+/*     1: <S> ".icon--computer", */
+/*     2: <S> icon--computer, */
+/*   ), */
+/*   41: <()> ( */
+/*     1: <S> ".add-computer-icon-after", */
+/*     2: <S> add-computer-icon-after, */
+/*   ), */
+/*   42: <()> ( */
+/*     1: <S> ".add-computer-icon-before", */
+/*     2: <S> add-computer-icon-before, */
+/*   ), */
+/*   43: <()> ( */
+/*     1: <S> ".icon--confetti", */
+/*     2: <S> icon--confetti, */
+/*   ), */
+/*   44: <()> ( */
+/*     1: <S> ".add-confetti-icon-after", */
+/*     2: <S> add-confetti-icon-after, */
+/*   ), */
+/*   45: <()> ( */
+/*     1: <S> ".add-confetti-icon-before", */
+/*     2: <S> add-confetti-icon-before, */
+/*   ), */
+/*   46: <()> ( */
+/*     1: <S> ".icon--contact", */
+/*     2: <S> icon--contact, */
+/*   ), */
+/*   47: <()> ( */
+/*     1: <S> ".add-contact-icon-after", */
+/*     2: <S> add-contact-icon-after, */
+/*   ), */
+/*   48: <()> ( */
+/*     1: <S> ".add-contact-icon-before", */
+/*     2: <S> add-contact-icon-before, */
+/*   ), */
+/*   49: <()> ( */
+/*     1: <S> ".icon--continue", */
+/*     2: <S> icon--continue, */
+/*   ), */
+/*   50: <()> ( */
+/*     1: <S> ".add-continue-icon-after", */
+/*     2: <S> add-continue-icon-after, */
+/*   ), */
+/*   51: <()> ( */
+/*     1: <S> ".add-continue-icon-before", */
+/*     2: <S> add-continue-icon-before, */
+/*   ), */
+/*   52: <()> ( */
+/*     1: <S> ".icon--dash", */
+/*     2: <S> icon--dash, */
+/*   ), */
+/*   53: <()> ( */
+/*     1: <S> ".add-dash-icon-after", */
+/*     2: <S> add-dash-icon-after, */
+/*   ), */
+/*   54: <()> ( */
+/*     1: <S> ".add-dash-icon-before", */
+/*     2: <S> add-dash-icon-before, */
+/*   ), */
+/*   55: <()> ( */
+/*     1: <S> ".icon--disabled", */
+/*     2: <S> icon--disabled, */
+/*   ), */
+/*   56: <()> ( */
+/*     1: <S> ".add-disabled-icon-after", */
+/*     2: <S> add-disabled-icon-after, */
+/*   ), */
+/*   57: <()> ( */
+/*     1: <S> ".add-disabled-icon-before", */
+/*     2: <S> add-disabled-icon-before, */
+/*   ), */
+/*   58: <()> ( */
+/*     1: <S> ".icon--discussion", */
+/*     2: <S> icon--discussion, */
+/*   ), */
+/*   59: <()> ( */
+/*     1: <S> ".add-discussion-icon-after", */
+/*     2: <S> add-discussion-icon-after, */
+/*   ), */
+/*   60: <()> ( */
+/*     1: <S> ".add-discussion-icon-before", */
+/*     2: <S> add-discussion-icon-before, */
+/*   ), */
+/*   61: <()> ( */
+/*     1: <S> ".icon--double-check", */
+/*     2: <S> icon--double-check, */
+/*   ), */
+/*   62: <()> ( */
+/*     1: <S> ".add-double-check-icon-after", */
+/*     2: <S> add-double-check-icon-after, */
+/*   ), */
+/*   63: <()> ( */
+/*     1: <S> ".add-double-check-icon-before", */
+/*     2: <S> add-double-check-icon-before, */
+/*   ), */
+/*   64: <()> ( */
+/*     1: <S> ".icon--down", */
+/*     2: <S> icon--down, */
+/*   ), */
+/*   65: <()> ( */
+/*     1: <S> ".add-down-icon-after", */
+/*     2: <S> add-down-icon-after, */
+/*   ), */
+/*   66: <()> ( */
+/*     1: <S> ".add-down-icon-before", */
+/*     2: <S> add-down-icon-before, */
+/*   ), */
+/*   67: <()> ( */
+/*     1: <S> ".icon--download", */
+/*     2: <S> icon--download, */
+/*   ), */
+/*   68: <()> ( */
+/*     1: <S> ".add-download-icon-after", */
+/*     2: <S> add-download-icon-after, */
+/*   ), */
+/*   69: <()> ( */
+/*     1: <S> ".add-download-icon-before", */
+/*     2: <S> add-download-icon-before, */
+/*   ), */
+/*   70: <()> ( */
+/*     1: <S> ".icon--draft", */
+/*     2: <S> icon--draft, */
+/*   ), */
+/*   71: <()> ( */
+/*     1: <S> ".add-draft-icon-after", */
+/*     2: <S> add-draft-icon-after, */
+/*   ), */
+/*   72: <()> ( */
+/*     1: <S> ".add-draft-icon-before", */
+/*     2: <S> add-draft-icon-before, */
+/*   ), */
+/*   73: <()> ( */
+/*     1: <S> ".icon--error", */
+/*     2: <S> icon--error, */
+/*   ), */
+/*   74: <()> ( */
+/*     1: <S> ".add-error-icon-after", */
+/*     2: <S> add-error-icon-after, */
+/*   ), */
+/*   75: <()> ( */
+/*     1: <S> ".add-error-icon-before", */
+/*     2: <S> add-error-icon-before, */
+/*   ), */
+/*   76: <()> ( */
+/*     1: <S> ".icon--external", */
+/*     2: <S> icon--external, */
+/*   ), */
+/*   77: <()> ( */
+/*     1: <S> ".add-external-icon-after", */
+/*     2: <S> add-external-icon-after, */
+/*   ), */
+/*   78: <()> ( */
+/*     1: <S> ".add-external-icon-before", */
+/*     2: <S> add-external-icon-before, */
+/*   ), */
+/*   79: <()> ( */
+/*     1: <S> ".icon--fail", */
+/*     2: <S> icon--fail, */
+/*   ), */
+/*   80: <()> ( */
+/*     1: <S> ".add-fail-icon-after", */
+/*     2: <S> add-fail-icon-after, */
+/*   ), */
+/*   81: <()> ( */
+/*     1: <S> ".add-fail-icon-before", */
+/*     2: <S> add-fail-icon-before, */
+/*   ), */
+/*   82: <()> ( */
+/*     1: <S> ".icon--forbidden", */
+/*     2: <S> icon--forbidden, */
+/*   ), */
+/*   83: <()> ( */
+/*     1: <S> ".add-forbidden-icon-after", */
+/*     2: <S> add-forbidden-icon-after, */
+/*   ), */
+/*   84: <()> ( */
+/*     1: <S> ".add-forbidden-icon-before", */
+/*     2: <S> add-forbidden-icon-before, */
+/*   ), */
+/*   85: <()> ( */
+/*     1: <S> ".icon--group", */
+/*     2: <S> icon--group, */
+/*   ), */
+/*   86: <()> ( */
+/*     1: <S> ".add-group-icon-after", */
+/*     2: <S> add-group-icon-after, */
+/*   ), */
+/*   87: <()> ( */
+/*     1: <S> ".add-group-icon-before", */
+/*     2: <S> add-group-icon-before, */
+/*   ), */
+/*   88: <()> ( */
+/*     1: <S> ".icon--hidden", */
+/*     2: <S> icon--hidden, */
+/*   ), */
+/*   89: <()> ( */
+/*     1: <S> ".add-hidden-icon-after", */
+/*     2: <S> add-hidden-icon-after, */
+/*   ), */
+/*   90: <()> ( */
+/*     1: <S> ".add-hidden-icon-before", */
+/*     2: <S> add-hidden-icon-before, */
+/*   ), */
+/*   91: <()> ( */
+/*     1: <S> ".icon--hub", */
+/*     2: <S> icon--hub, */
+/*   ), */
+/*   92: <()> ( */
+/*     1: <S> ".add-hub-icon-after", */
+/*     2: <S> add-hub-icon-after, */
+/*   ), */
+/*   93: <()> ( */
+/*     1: <S> ".add-hub-icon-before", */
+/*     2: <S> add-hub-icon-before, */
+/*   ), */
+/*   94: <()> ( */
+/*     1: <S> ".icon--info", */
+/*     2: <S> icon--info, */
+/*   ), */
+/*   95: <()> ( */
+/*     1: <S> ".add-info-icon-after", */
+/*     2: <S> add-info-icon-after, */
+/*   ), */
+/*   96: <()> ( */
+/*     1: <S> ".add-info-icon-before", */
+/*     2: <S> add-info-icon-before, */
+/*   ), */
+/*   97: <()> ( */
+/*     1: <S> ".icon--left", */
+/*     2: <S> icon--left, */
+/*   ), */
+/*   98: <()> ( */
+/*     1: <S> ".add-left-icon-after", */
+/*     2: <S> add-left-icon-after, */
+/*   ), */
+/*   99: <()> ( */
+/*     1: <S> ".add-left-icon-before", */
+/*     2: <S> add-left-icon-before, */
+/*   ), */
+/*   100: <()> ( */
+/*     1: <S> ".icon--lightbulb", */
+/*     2: <S> icon--lightbulb, */
+/*   ), */
+/*   101: <()> ( */
+/*     1: <S> ".add-lightbulb-icon-after", */
+/*     2: <S> add-lightbulb-icon-after, */
+/*   ), */
+/*   102: <()> ( */
+/*     1: <S> ".add-lightbulb-icon-before", */
+/*     2: <S> add-lightbulb-icon-before, */
+/*   ), */
+/*   103: <()> ( */
+/*     1: <S> ".icon--lightning", */
+/*     2: <S> icon--lightning, */
+/*   ), */
+/*   104: <()> ( */
+/*     1: <S> ".add-lightning-icon-after", */
+/*     2: <S> add-lightning-icon-after, */
+/*   ), */
+/*   105: <()> ( */
+/*     1: <S> ".add-lightning-icon-before", */
+/*     2: <S> add-lightning-icon-before, */
+/*   ), */
+/*   106: <()> ( */
+/*     1: <S> ".icon--link", */
+/*     2: <S> icon--link, */
+/*   ), */
+/*   107: <()> ( */
+/*     1: <S> ".add-link-icon-after", */
+/*     2: <S> add-link-icon-after, */
+/*   ), */
+/*   108: <()> ( */
+/*     1: <S> ".add-link-icon-before", */
+/*     2: <S> add-link-icon-before, */
+/*   ), */
+/*   109: <()> ( */
+/*     1: <S> ".icon--location", */
+/*     2: <S> icon--location, */
+/*   ), */
+/*   110: <()> ( */
+/*     1: <S> ".add-location-icon-after", */
+/*     2: <S> add-location-icon-after, */
+/*   ), */
+/*   111: <()> ( */
+/*     1: <S> ".add-location-icon-before", */
+/*     2: <S> add-location-icon-before, */
+/*   ), */
+/*   112: <()> ( */
+/*     1: <S> ".icon--lock", */
+/*     2: <S> icon--lock, */
+/*   ), */
+/*   113: <()> ( */
+/*     1: <S> ".add-lock-icon-after", */
+/*     2: <S> add-lock-icon-after, */
+/*   ), */
+/*   114: <()> ( */
+/*     1: <S> ".add-lock-icon-before", */
+/*     2: <S> add-lock-icon-before, */
+/*   ), */
+/*   115: <()> ( */
+/*     1: <S> ".icon--logo-circle-facebook", */
+/*     2: <S> icon--logo-circle-facebook, */
+/*   ), */
+/*   116: <()> ( */
+/*     1: <S> ".add-logo-circle-facebook-icon-after", */
+/*     2: <S> add-logo-circle-facebook-icon-after, */
+/*   ), */
+/*   117: <()> ( */
+/*     1: <S> ".add-logo-circle-facebook-icon-before", */
+/*     2: <S> add-logo-circle-facebook-icon-before, */
+/*   ), */
+/*   118: <()> ( */
+/*     1: <S> ".icon--logo-circle-instagram", */
+/*     2: <S> icon--logo-circle-instagram, */
+/*   ), */
+/*   119: <()> ( */
+/*     1: <S> ".add-logo-circle-instagram-icon-after", */
+/*     2: <S> add-logo-circle-instagram-icon-after, */
+/*   ), */
+/*   120: <()> ( */
+/*     1: <S> ".add-logo-circle-instagram-icon-before", */
+/*     2: <S> add-logo-circle-instagram-icon-before, */
+/*   ), */
+/*   121: <()> ( */
+/*     1: <S> ".icon--logo-circle-linkedin", */
+/*     2: <S> icon--logo-circle-linkedin, */
+/*   ), */
+/*   122: <()> ( */
+/*     1: <S> ".add-logo-circle-linkedin-icon-after", */
+/*     2: <S> add-logo-circle-linkedin-icon-after, */
+/*   ), */
+/*   123: <()> ( */
+/*     1: <S> ".add-logo-circle-linkedin-icon-before", */
+/*     2: <S> add-logo-circle-linkedin-icon-before, */
+/*   ), */
+/*   124: <()> ( */
+/*     1: <S> ".icon--logo-facebook", */
+/*     2: <S> icon--logo-facebook, */
+/*   ), */
+/*   125: <()> ( */
+/*     1: <S> ".add-logo-facebook-icon-after", */
+/*     2: <S> add-logo-facebook-icon-after, */
+/*   ), */
+/*   126: <()> ( */
+/*     1: <S> ".add-logo-facebook-icon-before", */
+/*     2: <S> add-logo-facebook-icon-before, */
+/*   ), */
+/*   127: <()> ( */
+/*     1: <S> ".icon--logo-instagram", */
+/*     2: <S> icon--logo-instagram, */
+/*   ), */
+/*   128: <()> ( */
+/*     1: <S> ".add-logo-instagram-icon-after", */
+/*     2: <S> add-logo-instagram-icon-after, */
+/*   ), */
+/*   129: <()> ( */
+/*     1: <S> ".add-logo-instagram-icon-before", */
+/*     2: <S> add-logo-instagram-icon-before, */
+/*   ), */
+/*   130: <()> ( */
+/*     1: <S> ".icon--logo-linkedin", */
+/*     2: <S> icon--logo-linkedin, */
+/*   ), */
+/*   131: <()> ( */
+/*     1: <S> ".add-logo-linkedin-icon-after", */
+/*     2: <S> add-logo-linkedin-icon-after, */
+/*   ), */
+/*   132: <()> ( */
+/*     1: <S> ".add-logo-linkedin-icon-before", */
+/*     2: <S> add-logo-linkedin-icon-before, */
+/*   ), */
+/*   133: <()> ( */
+/*     1: <S> ".icon--maximum", */
+/*     2: <S> icon--maximum, */
+/*   ), */
+/*   134: <()> ( */
+/*     1: <S> ".add-maximum-icon-after", */
+/*     2: <S> add-maximum-icon-after, */
+/*   ), */
+/*   135: <()> ( */
+/*     1: <S> ".add-maximum-icon-before", */
+/*     2: <S> add-maximum-icon-before, */
+/*   ), */
+/*   136: <()> ( */
+/*     1: <S> ".icon--minimum", */
+/*     2: <S> icon--minimum, */
+/*   ), */
+/*   137: <()> ( */
+/*     1: <S> ".add-minimum-icon-after", */
+/*     2: <S> add-minimum-icon-after, */
+/*   ), */
+/*   138: <()> ( */
+/*     1: <S> ".add-minimum-icon-before", */
+/*     2: <S> add-minimum-icon-before, */
+/*   ), */
+/*   139: <()> ( */
+/*     1: <S> ".icon--minus", */
+/*     2: <S> icon--minus, */
+/*   ), */
+/*   140: <()> ( */
+/*     1: <S> ".add-minus-icon-after", */
+/*     2: <S> add-minus-icon-after, */
+/*   ), */
+/*   141: <()> ( */
+/*     1: <S> ".add-minus-icon-before", */
+/*     2: <S> add-minus-icon-before, */
+/*   ), */
+/*   142: <()> ( */
+/*     1: <S> ".icon--no", */
+/*     2: <S> icon--no, */
+/*   ), */
+/*   143: <()> ( */
+/*     1: <S> ".add-no-icon-after", */
+/*     2: <S> add-no-icon-after, */
+/*   ), */
+/*   144: <()> ( */
+/*     1: <S> ".add-no-icon-before", */
+/*     2: <S> add-no-icon-before, */
+/*   ), */
+/*   145: <()> ( */
+/*     1: <S> ".icon--note", */
+/*     2: <S> icon--note, */
+/*   ), */
+/*   146: <()> ( */
+/*     1: <S> ".add-note-icon-after", */
+/*     2: <S> add-note-icon-after, */
+/*   ), */
+/*   147: <()> ( */
+/*     1: <S> ".add-note-icon-before", */
+/*     2: <S> add-note-icon-before, */
+/*   ), */
+/*   148: <()> ( */
+/*     1: <S> ".icon--paperclip", */
+/*     2: <S> icon--paperclip, */
+/*   ), */
+/*   149: <()> ( */
+/*     1: <S> ".add-paperclip-icon-after", */
+/*     2: <S> add-paperclip-icon-after, */
+/*   ), */
+/*   150: <()> ( */
+/*     1: <S> ".add-paperclip-icon-before", */
+/*     2: <S> add-paperclip-icon-before, */
+/*   ), */
+/*   151: <()> ( */
+/*     1: <S> ".icon--person", */
+/*     2: <S> icon--person, */
+/*   ), */
+/*   152: <()> ( */
+/*     1: <S> ".add-person-icon-after", */
+/*     2: <S> add-person-icon-after, */
+/*   ), */
+/*   153: <()> ( */
+/*     1: <S> ".add-person-icon-before", */
+/*     2: <S> add-person-icon-before, */
+/*   ), */
+/*   154: <()> ( */
+/*     1: <S> ".icon--pinned", */
+/*     2: <S> icon--pinned, */
+/*   ), */
+/*   155: <()> ( */
+/*     1: <S> ".add-pinned-icon-after", */
+/*     2: <S> add-pinned-icon-after, */
+/*   ), */
+/*   156: <()> ( */
+/*     1: <S> ".add-pinned-icon-before", */
+/*     2: <S> add-pinned-icon-before, */
+/*   ), */
+/*   157: <()> ( */
+/*     1: <S> ".icon--plus", */
+/*     2: <S> icon--plus, */
+/*   ), */
+/*   158: <()> ( */
+/*     1: <S> ".add-plus-icon-after", */
+/*     2: <S> add-plus-icon-after, */
+/*   ), */
+/*   159: <()> ( */
+/*     1: <S> ".add-plus-icon-before", */
+/*     2: <S> add-plus-icon-before, */
+/*   ), */
+/*   160: <()> ( */
+/*     1: <S> ".icon--private", */
+/*     2: <S> icon--private, */
+/*   ), */
+/*   161: <()> ( */
+/*     1: <S> ".add-private-icon-after", */
+/*     2: <S> add-private-icon-after, */
+/*   ), */
+/*   162: <()> ( */
+/*     1: <S> ".add-private-icon-before", */
+/*     2: <S> add-private-icon-before, */
+/*   ), */
+/*   163: <()> ( */
+/*     1: <S> ".icon--question", */
+/*     2: <S> icon--question, */
+/*   ), */
+/*   164: <()> ( */
+/*     1: <S> ".add-question-icon-after", */
+/*     2: <S> add-question-icon-after, */
+/*   ), */
+/*   165: <()> ( */
+/*     1: <S> ".add-question-icon-before", */
+/*     2: <S> add-question-icon-before, */
+/*   ), */
+/*   166: <()> ( */
+/*     1: <S> ".icon--quote", */
+/*     2: <S> icon--quote, */
+/*   ), */
+/*   167: <()> ( */
+/*     1: <S> ".add-quote-icon-after", */
+/*     2: <S> add-quote-icon-after, */
+/*   ), */
+/*   168: <()> ( */
+/*     1: <S> ".add-quote-icon-before", */
+/*     2: <S> add-quote-icon-before, */
+/*   ), */
+/*   169: <()> ( */
+/*     1: <S> ".icon--reading", */
+/*     2: <S> icon--reading, */
+/*   ), */
+/*   170: <()> ( */
+/*     1: <S> ".add-reading-icon-after", */
+/*     2: <S> add-reading-icon-after, */
+/*   ), */
+/*   171: <()> ( */
+/*     1: <S> ".add-reading-icon-before", */
+/*     2: <S> add-reading-icon-before, */
+/*   ), */
+/*   172: <()> ( */
+/*     1: <S> ".icon--refresh", */
+/*     2: <S> icon--refresh, */
+/*   ), */
+/*   173: <()> ( */
+/*     1: <S> ".add-refresh-icon-after", */
+/*     2: <S> add-refresh-icon-after, */
+/*   ), */
+/*   174: <()> ( */
+/*     1: <S> ".add-refresh-icon-before", */
+/*     2: <S> add-refresh-icon-before, */
+/*   ), */
+/*   175: <()> ( */
+/*     1: <S> ".icon--reset", */
+/*     2: <S> icon--reset, */
+/*   ), */
+/*   176: <()> ( */
+/*     1: <S> ".add-reset-icon-after", */
+/*     2: <S> add-reset-icon-after, */
+/*   ), */
+/*   177: <()> ( */
+/*     1: <S> ".add-reset-icon-before", */
+/*     2: <S> add-reset-icon-before, */
+/*   ), */
+/*   178: <()> ( */
+/*     1: <S> ".icon--right", */
+/*     2: <S> icon--right, */
+/*   ), */
+/*   179: <()> ( */
+/*     1: <S> ".add-right-icon-after", */
+/*     2: <S> add-right-icon-after, */
+/*   ), */
+/*   180: <()> ( */
+/*     1: <S> ".add-right-icon-before", */
+/*     2: <S> add-right-icon-before, */
+/*   ), */
+/*   181: <()> ( */
+/*     1: <S> ".icon--search", */
+/*     2: <S> icon--search, */
+/*   ), */
+/*   182: <()> ( */
+/*     1: <S> ".add-search-icon-after", */
+/*     2: <S> add-search-icon-after, */
+/*   ), */
+/*   183: <()> ( */
+/*     1: <S> ".add-search-icon-before", */
+/*     2: <S> add-search-icon-before, */
+/*   ), */
+/*   184: <()> ( */
+/*     1: <S> ".icon--settings", */
+/*     2: <S> icon--settings, */
+/*   ), */
+/*   185: <()> ( */
+/*     1: <S> ".add-settings-icon-after", */
+/*     2: <S> add-settings-icon-after, */
+/*   ), */
+/*   186: <()> ( */
+/*     1: <S> ".add-settings-icon-before", */
+/*     2: <S> add-settings-icon-before, */
+/*   ), */
+/*   187: <()> ( */
+/*     1: <S> ".icon--signpost", */
+/*     2: <S> icon--signpost, */
+/*   ), */
+/*   188: <()> ( */
+/*     1: <S> ".add-signpost-icon-after", */
+/*     2: <S> add-signpost-icon-after, */
+/*   ), */
+/*   189: <()> ( */
+/*     1: <S> ".add-signpost-icon-before", */
+/*     2: <S> add-signpost-icon-before, */
+/*   ), */
+/*   190: <()> ( */
+/*     1: <S> ".icon--singlecolumn", */
+/*     2: <S> icon--singlecolumn, */
+/*   ), */
+/*   191: <()> ( */
+/*     1: <S> ".add-singlecolumn-icon-after", */
+/*     2: <S> add-singlecolumn-icon-after, */
+/*   ), */
+/*   192: <()> ( */
+/*     1: <S> ".add-singlecolumn-icon-before", */
+/*     2: <S> add-singlecolumn-icon-before, */
+/*   ), */
+/*   193: <()> ( */
+/*     1: <S> ".icon--star", */
+/*     2: <S> icon--star, */
+/*   ), */
+/*   194: <()> ( */
+/*     1: <S> ".add-star-icon-after", */
+/*     2: <S> add-star-icon-after, */
+/*   ), */
+/*   195: <()> ( */
+/*     1: <S> ".add-star-icon-before", */
+/*     2: <S> add-star-icon-before, */
+/*   ), */
+/*   196: <()> ( */
+/*     1: <S> ".icon--stopwatch", */
+/*     2: <S> icon--stopwatch, */
+/*   ), */
+/*   197: <()> ( */
+/*     1: <S> ".add-stopwatch-icon-after", */
+/*     2: <S> add-stopwatch-icon-after, */
+/*   ), */
+/*   198: <()> ( */
+/*     1: <S> ".add-stopwatch-icon-before", */
+/*     2: <S> add-stopwatch-icon-before, */
+/*   ), */
+/*   199: <()> ( */
+/*     1: <S> ".icon--submit", */
+/*     2: <S> icon--submit, */
+/*   ), */
+/*   200: <()> ( */
+/*     1: <S> ".add-submit-icon-after", */
+/*     2: <S> add-submit-icon-after, */
+/*   ), */
+/*   201: <()> ( */
+/*     1: <S> ".add-submit-icon-before", */
+/*     2: <S> add-submit-icon-before, */
+/*   ), */
+/*   202: <()> ( */
+/*     1: <S> ".icon--success", */
+/*     2: <S> icon--success, */
+/*   ), */
+/*   203: <()> ( */
+/*     1: <S> ".add-success-icon-after", */
+/*     2: <S> add-success-icon-after, */
+/*   ), */
+/*   204: <()> ( */
+/*     1: <S> ".add-success-icon-before", */
+/*     2: <S> add-success-icon-before, */
+/*   ), */
+/*   205: <()> ( */
+/*     1: <S> ".icon--timer", */
+/*     2: <S> icon--timer, */
+/*   ), */
+/*   206: <()> ( */
+/*     1: <S> ".add-timer-icon-after", */
+/*     2: <S> add-timer-icon-after, */
+/*   ), */
+/*   207: <()> ( */
+/*     1: <S> ".add-timer-icon-before", */
+/*     2: <S> add-timer-icon-before, */
+/*   ), */
+/*   208: <()> ( */
+/*     1: <S> ".icon--toggle", */
+/*     2: <S> icon--toggle, */
+/*   ), */
+/*   209: <()> ( */
+/*     1: <S> ".add-toggle-icon-after", */
+/*     2: <S> add-toggle-icon-after, */
+/*   ), */
+/*   210: <()> ( */
+/*     1: <S> ".add-toggle-icon-before", */
+/*     2: <S> add-toggle-icon-before, */
+/*   ), */
+/*   211: <()> ( */
+/*     1: <S> ".icon--toolbox", */
+/*     2: <S> icon--toolbox, */
+/*   ), */
+/*   212: <()> ( */
+/*     1: <S> ".add-toolbox-icon-after", */
+/*     2: <S> add-toolbox-icon-after, */
+/*   ), */
+/*   213: <()> ( */
+/*     1: <S> ".add-toolbox-icon-before", */
+/*     2: <S> add-toolbox-icon-before, */
+/*   ), */
+/*   214: <()> ( */
+/*     1: <S> ".icon--traffic-cone", */
+/*     2: <S> icon--traffic-cone, */
+/*   ), */
+/*   215: <()> ( */
+/*     1: <S> ".add-traffic-cone-icon-after", */
+/*     2: <S> add-traffic-cone-icon-after, */
+/*   ), */
+/*   216: <()> ( */
+/*     1: <S> ".add-traffic-cone-icon-before", */
+/*     2: <S> add-traffic-cone-icon-before, */
+/*   ), */
+/*   217: <()> ( */
+/*     1: <S> ".icon--twocolumns", */
+/*     2: <S> icon--twocolumns, */
+/*   ), */
+/*   218: <()> ( */
+/*     1: <S> ".add-twocolumns-icon-after", */
+/*     2: <S> add-twocolumns-icon-after, */
+/*   ), */
+/*   219: <()> ( */
+/*     1: <S> ".add-twocolumns-icon-before", */
+/*     2: <S> add-twocolumns-icon-before, */
+/*   ), */
+/*   220: <()> ( */
+/*     1: <S> ".icon--ui", */
+/*     2: <S> icon--ui, */
+/*   ), */
+/*   221: <()> ( */
+/*     1: <S> ".add-ui-icon-after", */
+/*     2: <S> add-ui-icon-after, */
+/*   ), */
+/*   222: <()> ( */
+/*     1: <S> ".add-ui-icon-before", */
+/*     2: <S> add-ui-icon-before, */
+/*   ), */
+/*   223: <()> ( */
+/*     1: <S> ".icon--ui-check", */
+/*     2: <S> icon--ui-check, */
+/*   ), */
+/*   224: <()> ( */
+/*     1: <S> ".add-ui-check-icon-after", */
+/*     2: <S> add-ui-check-icon-after, */
+/*   ), */
+/*   225: <()> ( */
+/*     1: <S> ".add-ui-check-icon-before", */
+/*     2: <S> add-ui-check-icon-before, */
+/*   ), */
+/*   226: <()> ( */
+/*     1: <S> ".icon--ui-minimum", */
+/*     2: <S> icon--ui-minimum, */
+/*   ), */
+/*   227: <()> ( */
+/*     1: <S> ".add-ui-minimum-icon-after", */
+/*     2: <S> add-ui-minimum-icon-after, */
+/*   ), */
+/*   228: <()> ( */
+/*     1: <S> ".add-ui-minimum-icon-before", */
+/*     2: <S> add-ui-minimum-icon-before, */
+/*   ), */
+/*   229: <()> ( */
+/*     1: <S> ".icon--unlock", */
+/*     2: <S> icon--unlock, */
+/*   ), */
+/*   230: <()> ( */
+/*     1: <S> ".add-unlock-icon-after", */
+/*     2: <S> add-unlock-icon-after, */
+/*   ), */
+/*   231: <()> ( */
+/*     1: <S> ".add-unlock-icon-before", */
+/*     2: <S> add-unlock-icon-before, */
+/*   ), */
+/*   232: <()> ( */
+/*     1: <S> ".icon--up", */
+/*     2: <S> icon--up, */
+/*   ), */
+/*   233: <()> ( */
+/*     1: <S> ".add-up-icon-after", */
+/*     2: <S> add-up-icon-after, */
+/*   ), */
+/*   234: <()> ( */
+/*     1: <S> ".add-up-icon-before", */
+/*     2: <S> add-up-icon-before, */
+/*   ), */
+/*   235: <()> ( */
+/*     1: <S> ".icon--warning", */
+/*     2: <S> icon--warning, */
+/*   ), */
+/*   236: <()> ( */
+/*     1: <S> ".add-warning-icon-after", */
+/*     2: <S> add-warning-icon-after, */
+/*   ), */
+/*   237: <()> ( */
+/*     1: <S> ".add-warning-icon-before", */
+/*     2: <S> add-warning-icon-before, */
+/*   ), */
+/*   238: <()> ( */
+/*     1: <S> ".icon--wrench", */
+/*     2: <S> icon--wrench, */
+/*   ), */
+/*   239: <()> ( */
+/*     1: <S> ".add-wrench-icon-after", */
+/*     2: <S> add-wrench-icon-after, */
+/*   ), */
+/*   240: <()> ( */
+/*     1: <S> ".add-wrench-icon-before", */
+/*     2: <S> add-wrench-icon-before, */
+/*   ), */
+/* ) */
+/* get-extend-selectors-layout-utils() ==================================== */
+/*
+    get-extend-selectors-layout-utils() is a comma-separated list:
+    <()> (
+        1: <()> (
+            1: <S> ".button-span",
+            2: <S> button-span,
+        ),
+        2: <()> (
+            1: <S> ".overflow-block-auto",
+            2: <S> overflow-block-auto,
+        ),
+        3: <()> (
+            1: <S> ".overflow-inline-auto",
+            2: <S> overflow-inline-auto,
+        ),
+        4: <()> (
+            1: <S> ".margins-flow",
+            2: <S> margins-flow,
+        ),
+        5: <()> (
+            1: <S> ".margins-flow-small",
+            2: <S> margins-flow-small,
+        ),
+        6: <()> (
+            1: <S> ".margins-flow-large",
+            2: <S> margins-flow-large,
+        ),
+        7: <()> (
+            1: <S> "[data-toggle-container]",
+            2: <S> margins-flow-firm,
+        ),
+        8: <()> (
+            1: <S> ".margins-flow-firm",
+            2: <S> margins-flow-firm,
+        ),
+        9: <()> (
+            1: <S> ".margins-flow-firm-small",
+            2: <S> margins-flow-firm-small,
+        ),
+        10: <()> (
+            1: <S> ".margins-flow-firm-large",
+            2: <S> margins-flow-firm-large,
+        ),
+        11: <()> (
+            1: <S> "%alert",
+            2: <S> margins-flow-firm,
+        ),
+        12: <()> (
+            1: <S> "%brand-logo",
+            2: <S> margins-flow-firm,
+        ),
+        13: <()> (
+            1: <()> ( <()> ( <S> a[href].button ), ),
+            2: <S> margins-flow-firm,
+        ),
+        14: <()> (
+            1: <()> ( <()> ( <S> a[href].button-primary ), ),
+            2: <S> margins-flow-firm,
+        ),
+        15: <()> (
+            1: <()> ( <()> ( <S> a[href].button-secondary ), ),
+            2: <S> margins-flow-firm,
+        ),
+        16: <()> (
+            1: <()> ( <()> ( <S> a[href].button-grey ), ),
+            2: <S> margins-flow-firm,
+        ),
+    )
+ */
+/* get-extend-selectors-width-utils() ==================================== */
+/*
+    get-extend-selectors-width-utils() is a space-separated list:
+    <()> (
+        1: <()> (
+            1: <S> ".if-viewport-max-width-mobile",
+            2: <S> if-viewport-max-width-mobile,
+        )
+        2: <()> (
+            1: <S> ".if-viewport-min-width-mobile",
+            2: <S> if-viewport-min-width-mobile,
+        )
+        3: <()> (
+            1: <S> ".if-viewport-max-width-tablet",
+            2: <S> if-viewport-max-width-tablet,
+        )
+        4: <()> (
+            1: <S> ".if-viewport-min-width-tablet",
+            2: <S> if-viewport-min-width-tablet,
+        )
+        5: <()> (
+            1: <S> ".if-viewport-max-width-content",
+            2: <S> if-viewport-max-width-content,
+        )
+        6: <()> (
+            1: <S> ".if-viewport-min-width-content",
+            2: <S> if-viewport-min-width-content,
+        )
+        7: <()> (
+            1: <S> ".if-viewport-max-width-page",
+            2: <S> if-viewport-max-width-page,
+        )
+        8: <()> (
+            1: <S> ".if-viewport-min-width-page",
+            2: <S> if-viewport-min-width-page,
+        )
+        9: <()> (
+            1: <S> ".if-viewport-max-width-sidebar",
+            2: <S> if-viewport-max-width-sidebar,
+        )
+        10: <()> (
+            1: <S> ".if-viewport-min-width-sidebar",
+            2: <S> if-viewport-min-width-sidebar,
+        )
+        11: <()> (
+            1: <S> ".if-viewport-max-width-indent",
+            2: <S> if-viewport-max-width-indent,
+        )
+        12: <()> (
+            1: <S> ".if-viewport-min-width-indent",
+            2: <S> if-viewport-min-width-indent,
+        )
+        13: <()> (
+            1: <S> ".if-viewport-max-width-nav",
+            2: <S> if-viewport-max-width-nav,
+        )
+        14: <()> (
+            1: <S> ".if-viewport-min-width-nav",
+            2: <S> if-viewport-min-width-nav,
+        )
+        15: <()> (
+            1: <S> ".max-width-content",
+            2: <S> max-width-content,
+        )
+        16: <()> (
+            1: <S> ".min-width-content",
+            2: <S> min-width-content,
+        )
+        17: <()> (
+            1: <S> ".max-width-sidebar",
+            2: <S> max-width-sidebar,
+        )
+        18: <()> (
+            1: <S> ".min-width-sidebar",
+            2: <S> min-width-sidebar,
+        )
+        19: <()> (
+            1: <S> ".max-width-callout",
+            2: <S> max-width-callout,
+        )
+        20: <()> (
+            1: <S> ".min-width-callout",
+            2: <S> min-width-callout,
+        )
+        21: <()> (
+            1: <S> ".max-width-page",
+            2: <S> max-width-page,
+        )
+        22: <()> (
+            1: <S> ".min-width-page",
+            2: <S> min-width-page,
+        )
+        23: <()> (
+            1: <S> ".max-width-auto",
+            2: <S> max-width-auto,
+        )
+        24: <()> (
+            1: <S> ".min-width-auto",
+            2: <S> min-width-auto,
+        )
+        25: <()> (
+            1: <S> ".max-width-fit-content",
+            2: <S> max-width-fit-content,
+        )
+        26: <()> (
+            1: <S> ".min-width-fit-content",
+            2: <S> min-width-fit-content,
+        )
+        27: <()> (
+            1: <S> ".max-width-none",
+            2: <S> max-width-none,
+        )
+        28: <()> (
+            1: <S> ".min-width-none",
+            2: <S> min-width-none,
+        )
+    )
+ */
+/* get-extend-selectors-button-variations() ==================================== */
+/*
+    get-extend-selectors-button-variations( "button" ) is a space-separated list:
+    <()> (
+        1: <()> (
+            1: <S> "button",
+            2: <S> "button",
+        )
+        2: <()> (
+            1: <()> (
+                1: <()> ( <S> button[aria-disabled=true] ),
+                2: <()> ( <S> button[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        )
+        3: <()> (
+            1: <()> ( <()> ( <S> %null:visited ), ),
+            2: <S> "button-visited",
+        )
+        4: <()> (
+            1: <()> (
+                1: <()> ( <S> %null[aria-disabled=true]:visited ),
+                2: <()> ( <S> %null[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        )
+        5: <()> (
+            1: <()> ( 1: <S> "button", 2: <()> ( <S> %null:visited ), ),
+            2: <S> "button-primary",
+        )
+        6: <()> (
+            1: <()> (
+                1: <()> ( <S> button[aria-disabled=true] ),
+                2: <()> ( <S> button[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        )
+        7: <()> (
+            1: <()> ( <()> ( <S> %null:visited ), ),
+            2: <S> "button-visited",
+        )
+        8: <()> (
+            1: <()> (
+                1: <()> ( <S> %null[aria-disabled=true]:visited ),
+                2: <()> ( <S> %null[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        )
+        9: <()> (
+            1: <()> (
+                1: <()> ( <S> button.button-primary ),
+                2: <()> ( <S> %null:visited ),
+            ),
+            2: <S> "button-primary",
+        )
+        10: <()> (
+            1: <()> (
+                1: <()> ( <S> button.button-primary[aria-disabled=true] ),
+                2: <()> ( <S> button.button-primary[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        )
+        11: <()> (
+            1: <()> ( <()> ( <S> %null:visited ), ),
+            2: <S> "button-visited",
+        )
+        12: <()> (
+            1: <()> (
+                1: <()> ( <S> %null[aria-disabled=true]:visited ),
+                2: <()> ( <S> %null[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        )
+        13: <()> (
+            1: <()> (
+                1: <()> ( <S> button.button-secondary ),
+                2: <()> ( <S> %null:visited ),
+            ),
+            2: <S> "button-secondary",
+        )
+        14: <()> (
+            1: <()> (
+                1: <()> ( <S> button.button-secondary[aria-disabled=true] ),
+                2: <()> ( <S> button.button-secondary[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        )
+        15: <()> (
+            1: <()> ( <()> ( <S> %null:visited ), ),
+            2: <S> "button-visited",
+        )
+        16: <()> (
+            1: <()> (
+                1: <()> ( <S> %null[aria-disabled=true]:visited ),
+                2: <()> ( <S> %null[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        )
+        17: <()> (
+            1: <()> (
+                1: <()> ( <S> button.button-grey ),
+                2: <()> ( <S> %null:visited ),
+            ),
+            2: <S> "button-grey",
+        )
+        18: <()> (
+            1: <()> (
+                1: <()> ( <S> button.button-grey[aria-disabled=true] ),
+                2: <()> ( <S> button.button-grey[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        )
+        19: <()> (
+            1: <()> ( <()> ( <S> %null:visited ), ),
+            2: <S> "button-visited",
+        )
+        20: <()> (
+            1: <()> (
+                1: <()> ( <S> %null[aria-disabled=true]:visited ),
+                2: <()> ( <S> %null[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        )
+    )
+ */
+/* get-extend-selectors-all-buttons() ==================================== */
+/*
+    get-extend-selectors-all-buttons() is a comma-separated list:
+    <()> (
+        1: <()> (
+            1: <()> (
+                1: <()> ( <S> button ),
+                2: <()> ( <S> [role=button] ),
+                3: <()> ( <S> input[type=button] ),
+                4: <()> ( <S> input[type=reset] ),
+                5: <()> ( <S> input[type=submit] ),
+                6: <()> ( <S> a[href].button ),
+                7: <()> ( <S> a[href].button-primary ),
+                8: <()> ( <S> a[href].button-secondary ),
+                9: <()> ( <S> a[href].button-grey ),
+            ),
+            2: <S> "button",
+        ),
+        2: <()> (
+            1: <()> (
+                1: <()> ( <S> button[aria-disabled=true] ),
+                2: <()> ( <S> button[disabled] ),
+                3: <()> ( <S> [role=button][aria-disabled=true] ),
+                4: <()> ( <S> [role=button][disabled] ),
+                5: <()> ( <S> input[type=button][aria-disabled=true] ),
+                6: <()> ( <S> input[type=button][disabled] ),
+                7: <()> ( <S> input[type=reset][aria-disabled=true] ),
+                8: <()> ( <S> input[type=reset][disabled] ),
+                9: <()> ( <S> input[type=submit][aria-disabled=true] ),
+                10: <()> ( <S> input[type=submit][disabled] ),
+                11: <()> ( <S> a[href].button[aria-disabled=true] ),
+                12: <()> ( <S> a[href].button[disabled] ),
+                13: <()> ( <S> a[href].button-primary[aria-disabled=true] ),
+                14: <()> ( <S> a[href].button-primary[disabled] ),
+                15: <()> ( <S> a[href].button-secondary[aria-disabled=true] ),
+                16: <()> ( <S> a[href].button-secondary[disabled] ),
+                17: <()> ( <S> a[href].button-grey[aria-disabled=true] ),
+                18: <()> ( <S> a[href].button-grey[disabled] ),
+                19: <()> ( <S> button.button-primary[aria-disabled=true] ),
+                20: <()> ( <S> button.button-primary[disabled] ),
+                21: <()> ( <S> [role=button].button-primary[aria-disabled=true] ),
+                22: <()> ( <S> [role=button].button-primary[disabled] ),
+                23: <()> (
+                    1: <S> input[type=button].button-primary[aria-disabled=true]
+                ),
+                24: <()> ( <S> input[type=button].button-primary[disabled] ),
+                25: <()> (
+                    1: <S> input[type=reset].button-primary[aria-disabled=true]
+                ),
+                26: <()> ( <S> input[type=reset].button-primary[disabled] ),
+                27: <()> (
+                    1: <S> input[type=submit].button-primary[aria-disabled=true]
+                ),
+                28: <()> ( <S> input[type=submit].button-primary[disabled] ),
+                29: <()> ( <S> button.button-secondary[aria-disabled=true] ),
+                30: <()> ( <S> button.button-secondary[disabled] ),
+                31: <()> ( <S> [role=button].button-secondary[aria-disabled=true] ),
+                32: <()> ( <S> [role=button].button-secondary[disabled] ),
+                33: <()> (
+                    1: <S> input[type=button].button-secondary[aria-disabled=true]
+                ),
+                34: <()> ( <S> input[type=button].button-secondary[disabled] ),
+                35: <()> (
+                    1: <S> input[type=reset].button-secondary[aria-disabled=true]
+                ),
+                36: <()> ( <S> input[type=reset].button-secondary[disabled] ),
+                37: <()> (
+                    1: <S> input[type=submit].button-secondary[aria-disabled=true]
+                ),
+                38: <()> ( <S> input[type=submit].button-secondary[disabled] ),
+                39: <()> ( <S> button.button-grey[aria-disabled=true] ),
+                40: <()> ( <S> button.button-grey[disabled] ),
+                41: <()> ( <S> [role=button].button-grey[aria-disabled=true] ),
+                42: <()> ( <S> [role=button].button-grey[disabled] ),
+                43: <()> ( <S> input[type=button].button-grey[aria-disabled=true] ),
+                44: <()> ( <S> input[type=button].button-grey[disabled] ),
+                45: <()> ( <S> input[type=reset].button-grey[aria-disabled=true] ),
+                46: <()> ( <S> input[type=reset].button-grey[disabled] ),
+                47: <()> ( <S> input[type=submit].button-grey[aria-disabled=true] ),
+                48: <()> ( <S> input[type=submit].button-grey[disabled] ),
+            ),
+            2: <S> "button-disabled",
+        ),
+        3: <()> (
+            1: <()> (
+                1: <()> ( <S> [role=button]:visited ),
+                2: <()> ( <S> a[href].button:visited ),
+                3: <()> ( <S> a[href].button-primary:visited ),
+                4: <()> ( <S> a[href].button-secondary:visited ),
+                5: <()> ( <S> a[href].button-grey:visited ),
+                6: <()> ( <S> [role=button].button-primary:visited ),
+                7: <()> ( <S> [role=button].button-secondary:visited ),
+                8: <()> ( <S> [role=button].button-grey:visited ),
+            ),
+            2: <S> "button-visited",
+        ),
+        4: <()> (
+            1: <()> (
+                1: <()> ( <S> [role=button][aria-disabled=true]:visited ),
+                2: <()> ( <S> [role=button][disabled]:visited ),
+                3: <()> ( <S> a[href].button[aria-disabled=true]:visited ),
+                4: <()> ( <S> a[href].button[disabled]:visited ),
+                5: <()> ( <S> a[href].button-primary[aria-disabled=true]:visited ),
+                6: <()> ( <S> a[href].button-primary[disabled]:visited ),
+                7: <()> (
+                    1: <S> a[href].button-secondary[aria-disabled=true]:visited
+                ),
+                8: <()> ( <S> a[href].button-secondary[disabled]:visited ),
+                9: <()> ( <S> a[href].button-grey[aria-disabled=true]:visited ),
+                10: <()> ( <S> a[href].button-grey[disabled]:visited ),
+                11: <()> (
+                    1: <S> [role=button].button-primary[aria-disabled=true]:visited
+                ),
+                12: <()> ( <S> [role=button].button-primary[disabled]:visited ),
+                13: <()> (
+                    1: <S> [role=button].button-secondary[aria-disabled=true]:visited
+                ),
+                14: <()> ( <S> [role=button].button-secondary[disabled]:visited ),
+                15: <()> (
+                    1: <S> [role=button].button-grey[aria-disabled=true]:visited
+                ),
+                16: <()> ( <S> [role=button].button-grey[disabled]:visited ),
+            ),
+            2: <S> "button-disabled-visited",
+        ),
+        5: <()> (
+            1: <()> (
+                1: <()> ( <S> button ),
+                2: <()> ( <S> [role=button] ),
+                3: <()> ( <S> input[type=button] ),
+                4: <()> ( <S> input[type=reset] ),
+                5: <()> ( <S> input[type=submit] ),
+                6: <()> ( <S> a[href].button ),
+                7: <()> ( <S> [role=button]:visited ),
+                8: <()> ( <S> a[href].button:visited ),
+                9: <()> ( <S> a[href].button-primary ),
+                10: <()> ( <S> a[href].button-primary:visited ),
+                11: <()> ( <S> button.button-primary ),
+                12: <()> ( <S> [role=button].button-primary ),
+                13: <()> ( <S> input[type=button].button-primary ),
+                14: <()> ( <S> input[type=reset].button-primary ),
+                15: <()> ( <S> input[type=submit].button-primary ),
+                16: <()> ( <S> [role=button].button-primary:visited ),
+            ),
+            2: <S> "button-primary",
+        ),
+        6: <()> (
+            1: <()> (
+                1: <()> ( <S> button ),
+                2: <()> ( <S> [role=button] ),
+                3: <()> ( <S> input[type=button] ),
+                4: <()> ( <S> input[type=reset] ),
+                5: <()> ( <S> input[type=submit] ),
+                6: <()> ( <S> a[href].button ),
+                7: <()> ( <S> a[href].button-primary ),
+                8: <()> ( <S> a[href].button-secondary ),
+                9: <()> ( <S> a[href].button-grey ),
+            ),
+            2: <S> button-basic,
+        ),
+        7: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-secondary ),
+                2: <()> ( <S> a[href].button-secondary:visited ),
+                3: <()> ( <S> button.button-secondary ),
+                4: <()> ( <S> [role=button].button-secondary ),
+                5: <()> ( <S> input[type=button].button-secondary ),
+                6: <()> ( <S> input[type=reset].button-secondary ),
+                7: <()> ( <S> input[type=submit].button-secondary ),
+                8: <()> ( <S> [role=button].button-secondary:visited ),
+            ),
+            2: <S> "button-secondary",
+        ),
+        8: <()> (
+            1: <()> (
+                1: <()> ( <S> a[href].button-grey ),
+                2: <()> ( <S> a[href].button-grey:visited ),
+                3: <()> ( <S> button.button-grey ),
+                4: <()> ( <S> [role=button].button-grey ),
+                5: <()> ( <S> input[type=button].button-grey ),
+                6: <()> ( <S> input[type=reset].button-grey ),
+                7: <()> ( <S> input[type=submit].button-grey ),
+                8: <()> ( <S> [role=button].button-grey:visited ),
+            ),
+            2: <S> "button-grey",
+        ),
+    )
+ */
+/* get-extend-selectors-layout-globals() ==================================== */
+/*
+    get-extend-selectors-layout-globals() is a comma-separated list:
+    <()> (
+        1: <()> (
+            1: <()> ( 1: <S> cite, 2: <S> p, ),
+            2: <S> margins-flow,
+        ),
+        2: <()> (
+            1: <S> li,
+            2: <S> margins-flow-small,
+        ),
+        3: <()> (
+            1: <S> dt,
+            2: <S> margins-flow-large,
+        ),
+        4: <()> (
+            1: <S> form,
+            2: <S> margins-flow-large,
+        ),
+        5: <()> (
+            1: <S> "%search-form",
+            2: <S> margins-flow-firm,
+        ),
+        6: <()> (
+            1: <S> hr,
+            2: <S> margins-flow-firm,
+        ),
+        7: <()> (
+            1: <S> label,
+            2: <S> margins-flow,
+        ),
+        8: <()> (
+            1: <()> ( 1: <S> input, 2: <S> select, 3: <S> textarea, ),
+            2: <S> margins-flow-firm,
+        ),
+        9: <()> (
+            1: <S> table,
+            2: <S> margins-flow-firm-large,
+        ),
+        10: <()> (
+            1: <()> (
+                1: <S> button,
+                2: <S> "[role=button]",
+                3: <S> details,
+                4: <S> pre,
+                5: <S> "%table-wrapper",
+                6: <S> "%image",
+            ),
+            2: <S> margins-flow-firm,
+        ),
+        11: <()> (
+            1: <S> blockquote,
+            2: <S> margins-flow-firm-large,
+        ),
+        12: <()> (
+            1: <()> ( <()> ( <S> .main-subgrid--full-width ), ),
+            2: <S> full-width-subgrid-block,
+        ),
+    )
+ */
+/* get-extend-selectors-link-card() ==================================== */
+/*
+    get-extend-selectors-link-card( ".link-card" ) is a comma-separated list:
+    <()> (
+        1: <()> (
+            1: <S> ".link-cards-container",
+            2: <S> "link-cards-container",
+        ),
+        2: <()> (
+            1: <S> ".link-cards-container",
+            2: <S> margins-flow-large,
+        ),
+        3: <()> (
+            1: <S> ".link-card",
+            2: <S> margins-flow-firm,
+        ),
+        4: <()> (
+            1: <S> ".link-card",
+            2: <S> "link-card",
+        ),
+        5: <()> (
+            1: <()> ( <()> ( <S> .link-card__body ), ),
+            2: <()> ( <()> ( <S> link-card__body ), ),
+        ),
+        6: <()> (
+            1: <()> ( <()> ( <S> .link-card__date ), ),
+            2: <()> ( <()> ( <S> link-card__date ), ),
+        ),
+        7: <()> (
+            1: <()> ( <()> ( <S> .link-card__description ), ),
+            2: <()> ( <()> ( <S> link-card__description ), ),
+        ),
+        8: <()> (
+            1: <()> ( <()> ( <S> .link-card__footer ), ),
+            2: <()> ( <()> ( <S> link-card__footer ), ),
+        ),
+        9: <()> (
+            1: <()> ( <()> ( <S> .link-card__heading ), ),
+            2: <()> ( <()> ( <S> link-card__heading ), ),
+        ),
+        10: <()> (
+            1: <()> ( <()> ( <S> .link-card__hgroup ), ),
+            2: <()> ( <()> ( <S> link-card__hgroup ), ),
+        ),
+        11: <()> (
+            1: <()> ( <()> ( <S> .link-card__link ), ),
+            2: <()> ( <()> ( <S> link-card__link ), ),
+        ),
+        12: <()> (
+            1: <S> "[data-link-card-link]",
+            2: <()> ( <()> ( <S> link-card__link_attr ), ),
+        ),
+        13: <()> (
+            1: <()> ( <()> ( <S> .link-card__link--backdrop ), ),
+            2: <()> ( <()> ( <S> link-card__link--backdrop ), ),
+        ),
+        14: <()> (
+            1: <()> ( <()> ( <S> .link-card__link--icon ), ),
+            2: <()> ( <()> ( <S> link-card__link--icon ), ),
+        ),
+        15: <()> (
+            1: <()> ( <()> ( <S> .link-card__subheading ), ),
+            2: <()> ( <()> ( <S> link-card__subheading ), ),
+        ),
+        16: <()> (
+            1: <()> ( <()> ( <S> .link-card__tag__text_flag ), ),
+            2: <S> text-flag-tag,
+        ),
+        17: <()> (
+            1: <()> ( <()> ( <S> a.link-card__tag__text_flag[href] ), ),
+            2: <S> text-flag-tag--link,
+        ),
+        18: <()> (
+            1: <()> ( <()> ( <S> .link-card__tag ), ),
+            2: <()> ( <()> ( <S> link-card__tag ), ),
+        ),
+        19: <()> (
+            1: <()> (
+                1: <()> ( <S> .link-card__tag__text_flag ),
+                2: <()> ( <S> .link-card__tag-list <S> %text-flag-tag ),
+            ),
+            2: <()> ( <()> ( <S> link-card__tag__text_flag ), ),
+        ),
+        20: <()> (
+            1: <()> ( <()> ( <S> .link-card__tag-list ), ),
+            2: <()> ( <()> ( <S> link-card__tag-list ), ),
+        ),
+        21: <()> (
+            1: <()> ( <()> ( <S> .link-card__tag-list ), ),
+            2: <S> text-flag-list,
+        ),
+        22: <()> (
+            1: <()> ( <()> ( <S> .link-card__wrapper ), ),
+            2: <S> margins-flow-large,
+        ),
+        23: <()> (
+            1: <()> ( <()> ( <S> .link-card__wrapper ), ),
+            2: <()> ( <()> ( <S> link-card__wrapper ), ),
+        ),
+    )
+ */
+/* selector-button-variations() ==================================== */
+/*
+    selector-button-variations() is a comma-separated list:
+    <()> (
+        1: <S> ".button-primary",
+        2: <S> ".button-secondary",
+        3: <S> ".button-grey",
+    )
+ */
