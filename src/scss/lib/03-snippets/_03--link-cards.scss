@@ -146,7 +146,11 @@
     //
     $includeLinkColours: true,
     //
-    $selector_card: if(selector.parent-exists(), selector.pop(&), '%link-card'),
+    $selector_card: if(
+            selector.parent-exists(),
+            selector.pop(&, $withCombinators: false),
+            '%link-card'
+        ),
     //
     $selector_body: selector.append($selector_card, '__body'),
     $selector_date: selector.append($selector_card, '__date'),

@@ -111,6 +111,21 @@
     inherits: true;
     initial-value: 1.84375rem;
 }
+@property --flow-margin-override-firm-end {
+    syntax: "<length-percentage> | <number>";
+    inherits: false;
+    initial-value: 0.46875rem;
+}
+@property --flow-margin-override-firm-start {
+    syntax: "<length-percentage> | <number>";
+    inherits: false;
+    initial-value: 0.46875rem;
+}
+@property --flow-margin-override-soft {
+    syntax: "<length-percentage> | <number>";
+    inherits: false;
+    initial-value: 0;
+}
 @property --flow-margin--small {
     syntax: "*";
     inherits: true;
@@ -3801,18 +3816,12 @@ a[aria-disabled="true"][href] {
     cursor: not-allowed;
 }
 
-a[href]:has(> figure:only-child),
-a[href]:has(> img:only-child),
-a[href]:has(> svg:only-child) {
+a[href]:has(> figure:only-child, > img:only-child, > svg:only-child) {
     display: block;
     position: relative;
 }
-a[href]:has(> figure:only-child)::before,
-a[href]:has(> figure:only-child)::after,
-a[href]:has(> img:only-child)::before,
-a[href]:has(> img:only-child)::after,
-a[href]:has(> svg:only-child)::before,
-a[href]:has(> svg:only-child)::after {
+a[href]:has(> figure:only-child, > img:only-child, > svg:only-child)::before,
+a[href]:has(> figure:only-child, > img:only-child, > svg:only-child)::after {
     content: none;
 }
 
@@ -5144,6 +5153,7 @@ fieldset legend:first-child {
 }
 fieldset legend:first-child + * {
     margin-top: 0 !important;
+    margin-top: var(--flow-margin-override-soft, 0) !important;
 }
 fieldset
     legend:first-child
@@ -5163,7 +5173,10 @@ fieldset
         table
     ) {
     margin-top: 0.46875rem !important;
-    margin-top: var(--flow-margin-firm-end, 0.46875rem) !important;
+    margin-top: var(
+        --flow-margin-override-firm-start,
+        var(--flow-margin-firm-end, 0.46875rem)
+    ) !important;
 }
 
 /*! END of @maddimathon/design-system-utilities/template/global */
@@ -5949,10 +5962,7 @@ button:is(.display-inline),
 input[type="button"]:is(.display-inline),
 input[type="reset"]:is(.display-inline),
 input[type="submit"]:is(.display-inline),
-a[href].button:is(.display-inline),
-a[href].button-primary:is(.display-inline),
-a[href].button-secondary:is(.display-inline),
-a[href].button-grey:is(.display-inline) {
+a[href].button:is(.display-inline) {
     --focus-ring-outline-color: var(--theme-button-grey-outline, ButtonFace);
     --icon-color: var(--theme-button-grey-ui, ButtonText) !important;
     --theme-link-icon: var(--theme-button-grey-ui, ButtonText) !important;
@@ -5977,10 +5987,7 @@ button:is(.display-inline) *,
 input[type="button"]:is(.display-inline) *,
 input[type="reset"]:is(.display-inline) *,
 input[type="submit"]:is(.display-inline) *,
-a[href].button:is(.display-inline) *,
-a[href].button-primary:is(.display-inline) *,
-a[href].button-secondary:is(.display-inline) *,
-a[href].button-grey:is(.display-inline) * {
+a[href].button:is(.display-inline) * {
     --icon-color: var(--theme-button-grey-ui, ButtonText) !important;
     color: inherit !important;
 }
@@ -5991,36 +5998,24 @@ input[type="button"]:is(.display-inline):hover,
 input[type="reset"]:is(.display-inline):hover,
 input[type="submit"]:is(.display-inline):hover,
 a[href].button:is(.display-inline):hover,
-a[href].button-primary:is(.display-inline):hover,
-a[href].button-secondary:is(.display-inline):hover,
-a[href].button-grey:is(.display-inline):hover,
 button[data-state-focus="true"]:is(.display-inline),
 [data-state-focus="true"][role="button"]:is(.display-inline),
 input[data-state-focus="true"][type="button"]:is(.display-inline),
 input[data-state-focus="true"][type="reset"]:is(.display-inline),
 input[data-state-focus="true"][type="submit"]:is(.display-inline),
 a[data-state-focus="true"][href].button:is(.display-inline),
-a[data-state-focus="true"][href].button-primary:is(.display-inline),
-a[data-state-focus="true"][href].button-secondary:is(.display-inline),
-a[data-state-focus="true"][href].button-grey:is(.display-inline),
 .no-js button:is(.display-inline):focus,
 .no-js [role="button"]:is(.display-inline):focus,
 .no-js input[type="button"]:is(.display-inline):focus,
 .no-js input[type="reset"]:is(.display-inline):focus,
 .no-js input[type="submit"]:is(.display-inline):focus,
 .no-js a[href].button:is(.display-inline):focus,
-.no-js a[href].button-primary:is(.display-inline):focus,
-.no-js a[href].button-secondary:is(.display-inline):focus,
-.no-js a[href].button-grey:is(.display-inline):focus,
 .js__no-whereSelector button:is(.display-inline):focus,
 .js__no-whereSelector [role="button"]:is(.display-inline):focus,
 .js__no-whereSelector input[type="button"]:is(.display-inline):focus,
 .js__no-whereSelector input[type="reset"]:is(.display-inline):focus,
 .js__no-whereSelector input[type="submit"]:is(.display-inline):focus,
-.js__no-whereSelector a[href].button:is(.display-inline):focus,
-.js__no-whereSelector a[href].button-primary:is(.display-inline):focus,
-.js__no-whereSelector a[href].button-secondary:is(.display-inline):focus,
-.js__no-whereSelector a[href].button-grey:is(.display-inline):focus {
+.js__no-whereSelector a[href].button:is(.display-inline):focus {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         ButtonFace
@@ -6049,36 +6044,24 @@ input[type="button"]:is(.display-inline):hover *,
 input[type="reset"]:is(.display-inline):hover *,
 input[type="submit"]:is(.display-inline):hover *,
 a[href].button:is(.display-inline):hover *,
-a[href].button-primary:is(.display-inline):hover *,
-a[href].button-secondary:is(.display-inline):hover *,
-a[href].button-grey:is(.display-inline):hover *,
 button[data-state-focus="true"]:is(.display-inline) *,
 [data-state-focus="true"][role="button"]:is(.display-inline) *,
 input[data-state-focus="true"][type="button"]:is(.display-inline) *,
 input[data-state-focus="true"][type="reset"]:is(.display-inline) *,
 input[data-state-focus="true"][type="submit"]:is(.display-inline) *,
 a[data-state-focus="true"][href].button:is(.display-inline) *,
-a[data-state-focus="true"][href].button-primary:is(.display-inline) *,
-a[data-state-focus="true"][href].button-secondary:is(.display-inline) *,
-a[data-state-focus="true"][href].button-grey:is(.display-inline) *,
 .no-js button:is(.display-inline):focus *,
 .no-js [role="button"]:is(.display-inline):focus *,
 .no-js input[type="button"]:is(.display-inline):focus *,
 .no-js input[type="reset"]:is(.display-inline):focus *,
 .no-js input[type="submit"]:is(.display-inline):focus *,
 .no-js a[href].button:is(.display-inline):focus *,
-.no-js a[href].button-primary:is(.display-inline):focus *,
-.no-js a[href].button-secondary:is(.display-inline):focus *,
-.no-js a[href].button-grey:is(.display-inline):focus *,
 .js__no-whereSelector button:is(.display-inline):focus *,
 .js__no-whereSelector [role="button"]:is(.display-inline):focus *,
 .js__no-whereSelector input[type="button"]:is(.display-inline):focus *,
 .js__no-whereSelector input[type="reset"]:is(.display-inline):focus *,
 .js__no-whereSelector input[type="submit"]:is(.display-inline):focus *,
-.js__no-whereSelector a[href].button:is(.display-inline):focus *,
-.js__no-whereSelector a[href].button-primary:is(.display-inline):focus *,
-.js__no-whereSelector a[href].button-secondary:is(.display-inline):focus *,
-.js__no-whereSelector a[href].button-grey:is(.display-inline):focus * {
+.js__no-whereSelector a[href].button:is(.display-inline):focus * {
     --icon-color: var(--theme-button-grey-ui-hover, ButtonText) !important;
 }
 
@@ -6087,10 +6070,7 @@ a[data-state-focus="true"][href].button-grey:is(.display-inline) *,
 :where(.js__no-focusVisible) input[type="button"]:is(.display-inline):focus,
 :where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus,
 :where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus,
-:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus,
-:where(.js__no-focusVisible) a[href].button-primary:is(.display-inline):focus,
-:where(.js__no-focusVisible) a[href].button-secondary:is(.display-inline):focus,
-:where(.js__no-focusVisible) a[href].button-grey:is(.display-inline):focus {
+:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         ButtonFace
@@ -6118,12 +6098,7 @@ a[data-state-focus="true"][href].button-grey:is(.display-inline) *,
 :where(.js__no-focusVisible) input[type="button"]:is(.display-inline):focus *,
 :where(.js__no-focusVisible) input[type="reset"]:is(.display-inline):focus *,
 :where(.js__no-focusVisible) input[type="submit"]:is(.display-inline):focus *,
-:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus *,
-:where(.js__no-focusVisible) a[href].button-primary:is(.display-inline):focus *,
-:where(.js__no-focusVisible)
-    a[href].button-secondary:is(.display-inline):focus
-    *,
-:where(.js__no-focusVisible) a[href].button-grey:is(.display-inline):focus * {
+:where(.js__no-focusVisible) a[href].button:is(.display-inline):focus * {
     --icon-color: var(--theme-button-grey-ui-hover, ButtonText) !important;
 }
 
@@ -6132,10 +6107,7 @@ button:is(.display-inline):focus-visible,
 input[type="button"]:is(.display-inline):focus-visible,
 input[type="reset"]:is(.display-inline):focus-visible,
 input[type="submit"]:is(.display-inline):focus-visible,
-a[href].button:is(.display-inline):focus-visible,
-a[href].button-primary:is(.display-inline):focus-visible,
-a[href].button-secondary:is(.display-inline):focus-visible,
-a[href].button-grey:is(.display-inline):focus-visible {
+a[href].button:is(.display-inline):focus-visible {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-hover,
         ButtonFace
@@ -6163,10 +6135,7 @@ button:is(.display-inline):focus-visible *,
 input[type="button"]:is(.display-inline):focus-visible *,
 input[type="reset"]:is(.display-inline):focus-visible *,
 input[type="submit"]:is(.display-inline):focus-visible *,
-a[href].button:is(.display-inline):focus-visible *,
-a[href].button-primary:is(.display-inline):focus-visible *,
-a[href].button-secondary:is(.display-inline):focus-visible *,
-a[href].button-grey:is(.display-inline):focus-visible * {
+a[href].button:is(.display-inline):focus-visible * {
     --icon-color: var(--theme-button-grey-ui-hover, ButtonText) !important;
 }
 
@@ -6176,18 +6145,12 @@ input[type="button"]:is(.display-inline):active,
 input[type="reset"]:is(.display-inline):active,
 input[type="submit"]:is(.display-inline):active,
 a[href].button:is(.display-inline):active,
-a[href].button-primary:is(.display-inline):active,
-a[href].button-secondary:is(.display-inline):active,
-a[href].button-grey:is(.display-inline):active,
 button[data-state-active="true"]:is(.display-inline),
 [data-state-active="true"][role="button"]:is(.display-inline),
 input[data-state-active="true"][type="button"]:is(.display-inline),
 input[data-state-active="true"][type="reset"]:is(.display-inline),
 input[data-state-active="true"][type="submit"]:is(.display-inline),
-a[data-state-active="true"][href].button:is(.display-inline),
-a[data-state-active="true"][href].button-primary:is(.display-inline),
-a[data-state-active="true"][href].button-secondary:is(.display-inline),
-a[data-state-active="true"][href].button-grey:is(.display-inline) {
+a[data-state-active="true"][href].button:is(.display-inline) {
     --focus-ring-outline-color: var(
         --theme-button-grey-outline-active,
         ButtonFace
@@ -6219,18 +6182,12 @@ input[type="button"]:is(.display-inline):active *,
 input[type="reset"]:is(.display-inline):active *,
 input[type="submit"]:is(.display-inline):active *,
 a[href].button:is(.display-inline):active *,
-a[href].button-primary:is(.display-inline):active *,
-a[href].button-secondary:is(.display-inline):active *,
-a[href].button-grey:is(.display-inline):active *,
 button[data-state-active="true"]:is(.display-inline) *,
 [data-state-active="true"][role="button"]:is(.display-inline) *,
 input[data-state-active="true"][type="button"]:is(.display-inline) *,
 input[data-state-active="true"][type="reset"]:is(.display-inline) *,
 input[data-state-active="true"][type="submit"]:is(.display-inline) *,
-a[data-state-active="true"][href].button:is(.display-inline) *,
-a[data-state-active="true"][href].button-primary:is(.display-inline) *,
-a[data-state-active="true"][href].button-secondary:is(.display-inline) *,
-a[data-state-active="true"][href].button-grey:is(.display-inline) * {
+a[data-state-active="true"][href].button:is(.display-inline) * {
     --icon-color: var(--theme-button-grey-ui-active, ButtonText) !important;
 }
 
@@ -6578,13 +6535,13 @@ input[data-state-focus="true"][type="reset"],
 .no-js [role="button"].button-secondary:focus,
 .no-js input[type="button"].button-secondary:focus,
 .no-js input[type="submit"].button-secondary:focus,
-.no-js button[type="reset"]:focus,
-.no-js input[type="reset"]:focus,
 .js__no-whereSelector a[href].button-secondary:focus,
 .js__no-whereSelector button.button-secondary:focus,
 .js__no-whereSelector [role="button"].button-secondary:focus,
 .js__no-whereSelector input[type="button"].button-secondary:focus,
 .js__no-whereSelector input[type="submit"].button-secondary:focus,
+.no-js button[type="reset"]:focus,
+.no-js input[type="reset"]:focus,
 .js__no-whereSelector button[type="reset"]:focus,
 .js__no-whereSelector input[type="reset"]:focus {
     --focus-ring-outline-color: var(
@@ -6631,13 +6588,13 @@ input[data-state-focus="true"][type="reset"] *,
 .no-js [role="button"].button-secondary:focus *,
 .no-js input[type="button"].button-secondary:focus *,
 .no-js input[type="submit"].button-secondary:focus *,
-.no-js button[type="reset"]:focus *,
-.no-js input[type="reset"]:focus *,
 .js__no-whereSelector a[href].button-secondary:focus *,
 .js__no-whereSelector button.button-secondary:focus *,
 .js__no-whereSelector [role="button"].button-secondary:focus *,
 .js__no-whereSelector input[type="button"].button-secondary:focus *,
 .js__no-whereSelector input[type="submit"].button-secondary:focus *,
+.no-js button[type="reset"]:focus *,
+.no-js input[type="reset"]:focus *,
 .js__no-whereSelector button[type="reset"]:focus *,
 .js__no-whereSelector input[type="reset"]:focus * {
     --icon-color: var(--theme-button-secondary-ui-hover, ButtonText) !important;
@@ -7930,6 +7887,7 @@ td > dl:first-child > dt:first-child,
 td > ol:first-child > li:first-child,
 td > ul:first-child > li:first-child {
     margin-top: 0 !important;
+    margin-top: var(--flow-margin-override-soft, 0) !important;
 }
 
 :is(th, td)
@@ -7954,12 +7912,16 @@ td > ul:first-child > li:first-child {
         table
     ) {
     margin-top: 0.46875rem !important;
-    margin-top: var(--flow-margin-firm-end, 0.46875rem) !important;
+    margin-top: var(
+        --flow-margin-override-firm-start,
+        var(--flow-margin-firm-end, 0.46875rem)
+    ) !important;
 }
 
 th > :last-child,
 td > :last-child {
     margin-bottom: 0 !important;
+    margin-bottom: var(--flow-margin-override-soft, 0) !important;
 }
 
 :is(th, td)
@@ -7979,7 +7941,10 @@ td > :last-child {
         table
     ) {
     margin-bottom: 0.46875rem !important;
-    margin-bottom: var(--flow-margin-firm-end, 0.46875rem) !important;
+    margin-bottom: var(
+        --flow-margin-override-firm-end,
+        var(--flow-margin-firm-end, 0.46875rem)
+    ) !important;
 }
 
 th {

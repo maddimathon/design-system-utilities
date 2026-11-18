@@ -67,14 +67,22 @@ $_firmFlowMarginChildren: list.join(
     @if $includeChildren and $useNotInsteadOfChildren {
         &:not(#{$firmFlowMarginChildren}) {
             @each $_mrg in $soft {
-                margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+                margin-block-#{$marginSide}: do-var(
+                        flow-margin-override-soft,
+                        $_mrg
+                    )
+                    #{$importantSuffix};
             }
 
             @content;
         }
     } @else if $includeRoot {
         @each $_mrg in $soft {
-            margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+            margin-block-#{$marginSide}: do-var(
+                    flow-margin-override-soft,
+                    $_mrg
+                )
+                #{$importantSuffix};
         }
 
         @content;
@@ -83,7 +91,11 @@ $_firmFlowMarginChildren: list.join(
     @if $includeChildren and not $useNotInsteadOfChildren {
         @at-root #{selector.unify(&, $firmFlowMarginChildren)} {
             @each $_mrg in $firm {
-                margin-block-#{$marginSide}: $_mrg #{$importantSuffix};
+                margin-block-#{$marginSide}: do-var(
+                        flow-margin-override-firm-#{$marginSide},
+                        $_mrg
+                    )
+                    #{$importantSuffix};
             }
 
             @if not $includeRoot {

@@ -32,6 +32,7 @@
 .theme-mode-swatch > ol:first-child > li:first-child,
 .theme-mode-swatch > ul:first-child > li:first-child {
     margin-top: 0 !important;
+    margin-top: var(--flow-margin-override-soft, 0) !important;
 }
 
 .theme-mode-swatch
@@ -72,13 +73,14 @@
     ) {
     margin-top: 0.46875rem !important;
     margin-top: var(
-        --flow-margin-firm-end,
-        var(--mrg-half-400, 0.46875rem)
+        --flow-margin-override-firm-start,
+        var(--flow-margin-firm-end, var(--mrg-half-400, 0.46875rem))
     ) !important;
 }
 
 .theme-mode-swatch > :last-child {
     margin-bottom: 0 !important;
+    margin-bottom: var(--flow-margin-override-soft, 0) !important;
 }
 
 .theme-mode-swatch
@@ -114,8 +116,8 @@
     ) {
     margin-bottom: 0.46875rem !important;
     margin-bottom: var(
-        --flow-margin-firm-end,
-        var(--mrg-half-400, 0.46875rem)
+        --flow-margin-override-firm-end,
+        var(--flow-margin-firm-end, var(--mrg-half-400, 0.46875rem))
     ) !important;
 }
 

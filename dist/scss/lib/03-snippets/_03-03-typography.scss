@@ -1465,7 +1465,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $selector_only: ()
 ) {
     @if meta.is-truthy($selector_where) {
-        @include selector.has($selector_where, $unifyParent: true) {
+        @include selector.has($selector_where, $unify: true) {
             @include _snippet-link-colour-single(
                 $suffix: $suffix,
                 $color: $color,
@@ -1826,7 +1826,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
                 $separator: comma
             ),
             $direct: true,
-            $unifyParent: true
+            $unify: true
         ) {
             @include prop-display(block);
             position: relative;
@@ -1844,7 +1844,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
         @include selector.has(
             ('figure:only-child', 'img:only-child'),
             $direct: true,
-            $unifyParent: true
+            $unify: true
         ) {
             @content (image-link);
         }

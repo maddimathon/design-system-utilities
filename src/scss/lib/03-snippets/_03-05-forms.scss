@@ -842,17 +842,18 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
 
     $_parentSelector_hasIs: string.match(#{&}, ':(has|is|where)\\(') != null;
 
-    $_is_unpoppedParent: &;
+    $_is_unpoppedParent: if(selector.is-multi(&), selector.unpopped-is(&), &);
+    // $_is_unpoppedParent: &;
 
-    @if selector.is-multi(&) {
-        $_poppedParent: selector.popped(&);
+    // @if selector.is-multi(&) {
+    //     $_poppedParent: selector.popped(&);
 
-        @if selector.exists($_poppedParent) {
-            $_is_unpoppedParent: selector.nest($_poppedParent, ':is( #{selector.pop(&)} )');
-        } @else {
-            $_is_unpoppedParent: ':is(#{&})';
-        }
-    }
+    //     @if selector.exists($_poppedParent) {
+    //         $_is_unpoppedParent: selector.nest($_poppedParent, ':is( #{selector.pop(&)} )');
+    //     } @else {
+    //         $_is_unpoppedParent: ':is(#{&})';
+    //     }
+    // }
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
@@ -1048,7 +1049,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $direct: true,
             $parentSelector: $_is_unpoppedParent,
             $split: false,
-            $unifyParent: true
+            $unify: true
         ) {
             padding-block: $paddingBlock_hasIconOnlyChild;
             padding-inline: $paddingInline_hasIconOnlyChild;
@@ -1073,7 +1074,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $direct: true,
             $parentSelector: $_is_unpoppedParent,
             $split: false,
-            $unifyParent: true
+            $unify: true
         ) {
             @if $multipleContentBlocks {
                 @content (has-icon-only-child);
@@ -1085,7 +1086,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
             $direct: true,
             $parentSelector: $_is_unpoppedParent,
             $split: false,
-            $unifyParent: true
+            $unify: true
         ) {
             @if $multipleContentBlocks {
                 @content (has-logo-only-child);
@@ -2395,7 +2396,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 selector.unify('%icon', ':only-child'),
                 $direct: true,
                 $split: false,
-                $unifyParent: true
+                $unify: true
             ) {
                 &::before,
                 &::after {
@@ -2504,6 +2505,14 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
     $includePseudoIcons: config.$include_button_inlineIcons,
     $button_includePseudoIcons: $includePseudoIcons,
     //
+    $selector_button: '%button',
+    $selector_buttonBasic: '%button-basic',
+    $selector_buttonReset: '%button-form-reset',
+    $selector_buttonSubmit: '%button-form-submit',
+    $selector_buttonSpan: '%button-span',
+    $selector_li: '%li',
+    $selector_variationPrefix: '%button-',
+    //
     $mixin_addPseudoFileSelectorButton: null,
     $mixin_button: null,
     $mixin_button_colours: null,
@@ -2538,13 +2547,17 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
         $prefix: '[snippet-support-all-buttons] '
     );
 
-    %button-span {
-        @include snippet-button-span($gap: false) {
+    #{$selector_buttonSpan} {
+        @include snippet-button-span(
+            $gap: false,
+            $selector_button: $selector_button,
+            $selector_li: $selector_li
+        ) {
             @content (button-span);
         }
     }
 
-    %button {
+    #{$selector_button} {
         @include meta.apply(
                 $mixin_button,
                 $includeColours: false,
@@ -2561,9 +2574,9 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
 
                 @at-root {
                     @if $includePseudoIcons {
-                        #{config.selector-button-disabled('%button')},
-                        %button-form-reset,
-                        %button-form-submit {
+                        #{config.selector-button-disabled($selector_button)},
+                        #{$selector_buttonReset},
+                        #{$selector_buttonSubmit} {
                             @content (button--any-icon);
 
                             &::before {
@@ -2580,7 +2593,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
                             }
                         }
 
-                        %button-form-reset {
+                        #{$selector_buttonReset} {
                             @content (button--reset-icon);
 
                             &::before {
@@ -2595,7 +2608,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
                             }
                         }
 
-                        %button-form-submit {
+                        #{$selector_buttonSubmit} {
                             @content (button--submit-icon);
 
                             &::before {
@@ -2610,7 +2623,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
                             }
                         }
 
-                        #{config.selector-button-disabled('%button')} {
+                        #{config.selector-button-disabled($selector_button)} {
                             @content (button--disabled-icon);
 
                             &::before {
@@ -2634,7 +2647,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
     }
 
     @if $includeColours {
-        %button-basic:is(.display-inline) {
+        #{selector.unify($selector_buttonBasic, ':is(.display-inline)')} {
             @include meta.apply(
                 $mixin_button_colours,
                 $variation: tokens.$button_inline_variation_default,
@@ -2643,7 +2656,17 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
         }
 
         @each $variation in tokens.$themesMeta_buttonVariations {
-            %button-#{$variation} {
+            $_sels: selector.append($selector_variationPrefix, $variation);
+
+            @if tokens.$button_variation_default !=
+                tokens.$button_variation_reset and
+                $variation ==
+                tokens.$button_variation_reset
+            {
+                $_sels: list.append($_sels, $selector_buttonReset, $separator: comma);
+            }
+
+            #{$_sels} {
                 @include meta.apply(
                     $mixin_button_colours,
                     $variation: $variation,
@@ -2652,14 +2675,8 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
             }
         }
 
-        @if tokens.$button_variation_default != tokens.$button_variation_reset {
-            %button-form-reset {
-                @extend %button-#{tokens.$button_variation_reset};
-            }
-        }
-
         @if $includeDisabled {
-            %button {
+            #{$selector_button} {
                 @include config.selector-input-disabled {
                     @include meta.apply(
                         $mixin_button_colours,
