@@ -30,8 +30,6 @@
     $important: false,
     $overrides: ()
 ) {
-    $importantSuffix: if($important, ' !important', '');
-
     $allProperties: (
         (icon-inline-buffer, icon-buffer, true),
         (icon-inline-buffer-start, icon-buffer-start, true),
@@ -68,18 +66,22 @@
                     $_fallback: style-value($prop);
                 }
 
-                $_fallback: if(
-                    $_hasOverride,
-                    $_fallback,
-                    var-style(
-                        $_styleKey,
-                        $fallback: $_fallback,
-                        $fallbackOnly: if(not $_prefixExists, true, null),
-                        $neverReplaceWithValue: false
-                    )
-                );
+                @include utils.cx-prop(
+                    $prop,
+                    if(
+                        not $_hasOverride and $_prefixExists,
+                        var-style($_styleKey, $fallback: $_fallback, $neverReplaceWithValue: false),
+                        #{$_fallback}
+                    ),
+                    $allPrefixes: true,
+                    $important: $important,
 
-                @include utils.cx-prop($prop, #{$_fallback}#{$importantSuffix}, $allPrefixes: true);
+                    $prefix_value: if(
+                            not $_hasOverride and $_prefixExists,
+                            var-style($_styleKey, $fallback: $_fallback, $fallbackOnly: false),
+                            #{$_fallback}
+                        )
+                );
             }
         }
     }

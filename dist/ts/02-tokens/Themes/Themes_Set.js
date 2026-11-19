@@ -735,6 +735,18 @@ export class Tokens_Themes_Set extends AbstractTokens {
                             hover: clrOpt(_hoverClr_outline, levels.text.accent),
                             active: clrOpt(_activeClr_outline, levels.text.accent),
                         },
+                        selection: {
+                            background: {
+                                $: clrOpt(_hoverClr === variations.base ? variations.interactive.hover : _hoverClr, levels.background.accent),
+                                hover: clrOpt(_primaryClr === variations.base ? variations.interactive.hover : _primaryClr, levels.background.accent),
+                                active: clrOpt(_hoverClr === variations.base ? variations.interactive.hover : _primaryClr, levels.background.accent),
+                            },
+                            text: {
+                                $: clrOpt(variations.base, levels.text.$),
+                                hover: clrOpt(variations.base, levels.text.$),
+                                active: clrOpt(variations.base, levels.text.$),
+                            },
+                        },
                         text: textOrBg,
                         ui: textOrBg,
                     };
@@ -757,6 +769,10 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         background: clrOpt(_primaryClr, levels.text.accent),
                         border: clrOpt(_primaryClr, levels.text.accent),
                         outline: clrOpt(_hoverClr_outline, levels.text.accent),
+                        selection: {
+                            background: clrOpt(variations.interactive.hover, levels.background.$),
+                            text: clrOpt(_primaryClr, levels.text.$),
+                        },
                         text: textOrBg_clr,
                         ui: textOrBg_clr,
                     };
@@ -893,6 +909,10 @@ export class Tokens_Themes_Set extends AbstractTokens {
                 const linkIcon = mergeArgs(link, overrides.link?.icon);
                 const linkUI = mergeArgs(link, overrides.link?.ui);
                 const heading = objectGenerator(SingleMode.allHeadingLevels, (num) => overrides.heading?.[num] ?? text.primary);
+                const selection = overrides.selection ?? {
+                    background: 'Highlight',
+                    text: 'HighlightText',
+                };
                 const singleButton = {
                     background: {
                         $: 'ButtonFace',
@@ -922,6 +942,18 @@ export class Tokens_Themes_Set extends AbstractTokens {
                             'ButtonFace',
                             'ButtonBorder',
                         ],
+                    },
+                    selection: {
+                        background: {
+                            $: selection.background,
+                            hover: selection.background,
+                            active: selection.background,
+                        },
+                        text: {
+                            $: selection.text,
+                            hover: selection.text,
+                            active: selection.text,
+                        },
                     },
                     text: {
                         $: 'ButtonText',
@@ -991,10 +1023,7 @@ export class Tokens_Themes_Set extends AbstractTokens {
                         outline: linkOutline,
                         ui: linkUI,
                     },
-                    selection: overrides.selection ?? {
-                        background: 'Highlight',
-                        text: 'HighlightText',
-                    },
+                    selection,
                     text,
                     ui,
                     system: mergeArgs({

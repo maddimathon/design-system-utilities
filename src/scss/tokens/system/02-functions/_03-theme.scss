@@ -310,7 +310,7 @@ $_opacity_split_regex: '(?<=\\d%?)[,\\s]\\s*(?=\\d)';
     }
 
     @if $useSystemColorFallback == null {
-        $useSystemColorFallback: if($contrast == null and $opacity == null, true, false);
+        $useSystemColorFallback: $contrast == null;
     }
 
     $useSystemColorFallback: $useSystemColorFallback or $contrast == forced-colors;

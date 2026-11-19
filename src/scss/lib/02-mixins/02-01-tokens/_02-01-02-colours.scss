@@ -1162,19 +1162,50 @@ $_fn_var_clr_from_theme_token: meta.get-function('var-clr-from-theme-token');
             }
         }
 
+        $_selection_opacity: var-style(
+            selection-background-opacity-#{$contrast},
+            $value_failureReturn: 100%,
+            $value_warnOnFail: false
+        );
+
+        $_selection_opacity_button: if(
+            style-token-exists(button-selection-background-opacity-#{$contrast}),
+            var-style(button-selection-background-opacity-#{$contrast}),
+            $_selection_opacity
+        );
+
         $extra_tokens: map.set(
             $extra_tokens,
             selection-background,
             theme-token-value(
                 selection-background,
-                $opacity: var-style(
-                        selection-background-opacity-#{$contrast},
-                        $value_failureReturn: 100%,
-                        $value_warnOnFail: false
-                    ),
+                $opacity: $_selection_opacity,
                 $_themeTokenValueProps...
             )
         );
+
+        @each $variant in tokens.$themesMeta_buttonVariations {
+            $extra_tokens: map.merge(
+                $extra_tokens,
+                (
+                    button-#{$variant}-selection-background: theme-token-value(
+                            button-#{$variant}-selection-background,
+                            $opacity: $_selection_opacity_button,
+                            $_themeTokenValueProps...
+                        ),
+                    button-#{$variant}-selection-background-hover: theme-token-value(
+                            button-#{$variant}-selection-background-hover,
+                            $opacity: $_selection_opacity_button,
+                            $_themeTokenValueProps...
+                        ),
+                    button-#{$variant}-selection-background-active: theme-token-value(
+                            button-#{$variant}-selection-background-active,
+                            $opacity: $_selection_opacity_button,
+                            $_themeTokenValueProps...
+                        )
+                )
+            );
+        }
 
         $flattened_divided: if(
             $focusRing_setChildrenOnly == false,

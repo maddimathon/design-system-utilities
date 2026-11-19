@@ -6,9 +6,11 @@
  */
 
 /* import - types */
-import type { PartialExcept } from '@maddimathon/utility-typescript/types';
-import type { ElementProps } from '@maddimathon/utility-astro';
+import type { ComponentProps } from 'astro/types';
 
+import type { PartialExcept } from '@maddimathon/utility-typescript/types';
+
+import type { ElementProps } from '@maddimathon/utility-astro';
 import type { ToggleComponentType } from '@maddimathon/utility-astro/components';
 
 import type { RecursiveRecord } from '../../ts/01-utilities/@types.d.ts';
@@ -16,13 +18,14 @@ import type { TokenTypes } from '../../ts/02-tokens/@types.js';
 import type { Tokens } from '../../ts/02-tokens/Tokens.js';
 import type { Tokens_Themes_Set } from '../../ts/02-tokens/Themes/Themes_Set.js';
 
+import type {SingleButtonTokensVariation} from './ThemeModeSwatch/SingleButtonTokens.astro';
+
 import type { LoremIpsumComponentType, LoremIpsumProps } from './LoremIpsum.astro';
 
 /* import - functions */
-import { objectEntries, objectMap, toTitleCase } from '@maddimathon/utility-typescript';
+import { objectMap, toTitleCase } from '@maddimathon/utility-typescript';
 import { CssColours } from '@maddimathon/utility-sass';
 
-import { ColourUtilities } from '../../ts/01-utilities/ColourUtilities.js';
 import { objectGenerator } from '../../ts/01-utilities/objectGenerator.js';
 import { getColourCSS } from '../../ts/03-parsers/getColourCSS.js';
 
@@ -42,7 +45,7 @@ import ToggleComponent from './Toggle.astro';
 
 import ThemeModeSwatch_ShadesInUse from './ThemeModeSwatch_ShadesInUse.astro';
 import ThemeModeSwatch_ThemeSlug from './ThemeModeSwatch_ThemeSlug.astro';
-import type { ComponentProps } from 'astro/types';
+import SingleButtonTokens from './ThemeModeSwatch/SingleButtonTokens.astro';
 
 /* import - layouts */
 
@@ -140,30 +143,6 @@ const { Button, FormField, Heading, LoremIpsum } = components;
 
 /* TYPES ===================================== */
 
-type _DefClrParams<
-    T_ExtraColourLevels extends ColourUtilities.Levels.Optional = never,
-> = {
-    names: string;
-    extraLevels: T_ExtraColourLevels;
-};
-
-type _ButtonVariation = {
-    name: string;
-    states: {
-        [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<_DefClrParams>['background'] ]: {
-
-            [ K in keyof Tokens_Themes_Set.SingleMode.Data.Button<_DefClrParams> ]: undefined | {
-                state: null | Exclude<
-                    keyof Tokens_Themes_Set.SingleMode.Data.Button<_DefClrParams>['background'],
-                    '$'
-                >;
-                key: string;
-                value: string | string[];
-            };
-        };
-    };
-};
-
 type _ParsedInputField_Single = {
 
     [ State in "$" | "focus" | "hover" | "active" ]: {
@@ -191,7 +170,7 @@ export function getCssColourForThemePreview<T_Types extends TokenTypes.TypeParam
     brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>,
     clrSlug: string | string[],
     convertToVarFn: boolean = true,
-) {
+): string {
     if ( Array.isArray( clrSlug ) ) {
         clrSlug = clrSlug[0] ?? String( clrSlug );
     }
@@ -249,12 +228,12 @@ const headingHTML = Astro.slots.has('heading') && (await Astro.slots.render('hea
 
 
 const buttons: {
-    [ K in 'primary' | 'secondary' | 'disabled' ]: _ButtonVariation;
+    [ K in 'primary' | 'secondary' | 'disabled' ]: SingleButtonTokensVariation;
 } & {
-    [ key: string ]: _ButtonVariation;
+    [ key: string ]: SingleButtonTokensVariation;
 } = objectMap(
     theme.data.button,
-    ( [ variation, value ] ): _ButtonVariation => ( {
+    ( [ variation, value ] ) => ( {
         name: variation,
         states: objectGenerator(
             [ '$', 'hover', 'active' ],
@@ -265,6 +244,8 @@ const buttons: {
                 const keySuffix = key == '$' ? '' : `-${key}`;
                 
                 return {
+                    stateKey: state,
+
                     background: {
                         state,
                         key: `button-${variation}-background${keySuffix}`,
@@ -290,7 +271,18 @@ const buttons: {
                         key: `button-${variation}-ui${keySuffix}`,
                         value: typeof value.ui === 'object' ? value.ui[key] : value.ui,
                     },
-                };
+
+                    'selection-background': {
+                        state,
+                        key: `button-${variation}-selection-background${keySuffix}`,
+                        value: typeof value.selection.background === 'object' ? value.selection.background[key] : value.selection.background,
+                    },
+                    'selection-text': {
+                        state,
+                        key: `button-${variation}-selection-text${keySuffix}`,
+                        value: typeof value.selection.text === 'object' ? value.selection.text[key] : value.selection.text,
+                    },
+                } as const satisfies SingleButtonTokensVariation['states'][keyof SingleButtonTokensVariation['states']];
             }
         ),
     } ),
@@ -400,7 +392,7 @@ const inputField = {
         />
         {Object.entries(theme.data.background).map(([_bgSlug, _bgValue]) => (
             <p
-                class="theme-mode-swatch__sample"
+                class="theme-mode-swatch__sample | theme-mode-swatch__sample--has-background"
                 style={ [
                     `--background-color: ${getCssColourForThemePreview(tokens, brightness, _bgValue)} !important`,
                     `color: ${getCssColourForThemePreview(tokens, brightness, theme.data.text.$)} !important`,
@@ -408,10 +400,10 @@ const inputField = {
             ><samp set:text={ _bgSlug === '$' ? 'theme-background': `theme-background-${_bgSlug}` } /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: _bgValue}} /></p>
         ))}
         <p
-            class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
+            class="theme-mode-swatch__sample | theme-mode-swatch__sample--has-background theme-mode-swatch__sample--selection"
         ><samp set:text='theme-selection-background' /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: theme.data.selection.background}} /></p>
         <p
-            class="theme-mode-swatch__sample theme-mode-swatch__sample--selection"
+            class="theme-mode-swatch__sample | theme-mode-swatch__sample--has-background theme-mode-swatch__sample--selection"
         ><samp set:text='theme-selection-text' /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: theme.data.selection.text}} /></p>
         {/* <VariableDump
             components={components}
@@ -464,8 +456,8 @@ const inputField = {
                                 'theme-mode-swatch__sample',
                                 'theme-mode-swatch__sample--button',
                             ] }
-                            data-state-active={state.background?.state === 'active'}
-                            data-state-focus={state.background?.state === 'hover'}
+                            data-state-active={state.background?.state === 'active' ? 'true' : null}
+                            data-state-focus={state.background?.state === 'hover' ? 'true' : null}
                             disabled={variation.name === 'disabled'}
                             style={ [
                                 state.border?.value && `border-color: ${getCssColourForThemePreview(tokens, brightness, state.border.value)} !important`,
@@ -486,53 +478,31 @@ const inputField = {
             set:text='Button Token Values'
         />
         { Object.values( buttons ).map( ( variation ) => variation.name !== 'disabled' && (
-            <Heading
+            <SingleButtonTokens
+                {...{
+                    brightness,
+                    components: components as LoremIpsumProps.Components,
+                    equals,
+                    getCssColourForThemePreview,
+                    tokens,
+                    variation,
+                }}
                 heading={heading + 3}
                 displayHeading={displayHeading + 2}
-                set:text={`${toTitleCase(variation.name)} Button`}
             />
-            <Fragment>{ Object.values( variation.states ).map(
-                ( state ) => (['background', 'border', 'text', 'ui'] as const).map(
-                    (key) => (
-                        state[key] && ( key != 'border' || state.border?.value != state.background?.value ) && <p
-                            class="theme-mode-swatch__sample"
-                            style={ [
-                                key === 'background' && state.text
-                                    ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`
-                                    : (key == 'text' || key == 'ui') && state.background
-                                        ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`
-                                        : '',
-                                `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)} !important`,
-                            ].filter( v => v ).join(';') }
-                        ><samp set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state[key].value}} /></p>
-                    )
-                )
-            ) }</Fragment>
         ) ) }
-        <Heading
+        <SingleButtonTokens
+            {...{
+                brightness,
+                components: components as LoremIpsumProps.Components,
+                equals,
+                getCssColourForThemePreview,
+                tokens,
+                variation: buttons.disabled,
+            }}
             heading={heading + 3}
             displayHeading={displayHeading + 2}
-            set:text={`${toTitleCase(buttons.disabled.name)} Button`}
         />
-        { Object.values( buttons.disabled.states ).map(
-            ( state ) => objectEntries(state).map(
-                ([key]) => state[key] && ( 
-                    key != 'border' || state.border?.value != state.background?.value 
-                ) && (
-                    <p
-                        class="theme-mode-swatch__sample"
-                        style={ [
-                            key === 'background' && state.text
-                                ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.text.value)} !important`
-                                : (key == 'text' || key == 'ui') && state.background
-                                    ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`
-                                    : '',
-                            `color: ${getCssColourForThemePreview(tokens, brightness, state[key].value)} !important`,
-                        ].filter( v => v ).join(';') }
-                    ><samp set:text={`theme-button-${buttons.disabled.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state[key].value}} /></p>
-                )
-            )
-        ) }
 
         <Heading
             heading={heading + 1}
@@ -575,12 +545,15 @@ const inputField = {
                 ( state ) => (['accent', 'background', 'border', 'text'] as const).map(
                     (key) => (
                         state[key] && <p
-                            class="theme-mode-swatch__sample"
+                            class:list={[
+                                'theme-mode-swatch__sample',
+                                ((key == 'text' && state.background?.clrSlug) || (key == 'background' && state.text?.clrSlug)) && 'theme-mode-swatch__sample--has-background'
+                            ]}
                             style={ [
-                                ( key == 'text') && state.background?.clrSlug 
+                                key == 'text' && state.background?.clrSlug 
                                     ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.clrSlug)} !important`
                                     : '',
-                                (key == 'background') && state.text?.clrSlug 
+                                key == 'background' && state.text?.clrSlug 
                                     ? `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.text.clrSlug)} !important`
                                     : '',
                                 state[key].clrSlug && `color: ${getCssColourForThemePreview(tokens, brightness, state[key].clrSlug)} !important`,
@@ -639,6 +612,6 @@ const inputField = {
     ) }
 </article>
 
-<style lang='scss'>
+<style lang='scss' is:global>
     @forward '../scss/theme-mode-swatch';
 </style>

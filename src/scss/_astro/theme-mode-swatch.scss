@@ -25,11 +25,29 @@
     @include last-child-no-bottom-margin;
 
     .theme-mode-swatch__sample {
-        margin-block-start: var-mrg-soft('200');
+        margin-block-start: do-var(
+            theme-mode-swatch-sample-margin-block-start,
+            var-mrg-soft('200')
+        );
         line-height: var-line-height('200');
         font-size: var-fs(smaller-1);
 
         @include prop-background-inherit;
+
+        &.theme-mode-swatch__sample--has-background {
+            padding-block: var-style(theme-mode-swatch-sample-padding-block, 0);
+            padding-inline: var-style(
+                theme-mode-swatch-sample-padding-inline,
+                var-stroke-relative('600')
+            );
+
+            + .theme-mode-swatch__sample--has-background {
+                margin-block-start: do-var(
+                    theme-mode-swatch-sample-inner-margin-block-start,
+                    var-mrg-soft('100')
+                );
+            }
+        }
 
         %code,
         %kbd,
@@ -46,16 +64,16 @@
         font-size: var-fs(normal);
     }
 
-    :global(.table-wrapper):has(> table.theme-mode-swatch__shades-in-use) {
+    .table-wrapper:has(> table.theme-mode-swatch__shades-in-use) {
         margin-block-start: var-mrg-firm('100');
         width: 100%;
 
         @include prop-background-default;
 
-        > :global(table.theme-mode-swatch__shades-in-use) {
+        > table.theme-mode-swatch__shades-in-use {
             border-spacing: 0;
 
-            :global(th) {
+            th {
                 padding-inline: 0;
                 @include prop-background-default;
                 @include theme-set-color;

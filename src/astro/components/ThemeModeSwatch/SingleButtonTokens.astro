@@ -1,0 +1,120 @@
+---
+/**
+ * @since ___PKG_VERSION___
+ *
+ * @packageDocumentation
+ */
+
+/* import - types */
+import type {  } from '@maddimathon/utility-astro';
+
+import type { TokenTypes } from '../../../ts/02-tokens/@types.js';
+import type { Tokens } from '../../../ts/02-tokens/Tokens.js';
+import type { Tokens_Themes_Set } from '../../../ts/02-tokens/Themes/Themes_Set.js';
+
+import type { LoremIpsumProps } from '../LoremIpsum.astro';
+import type { getCssColourForThemePreview as getCssColourForThemePreviewType } from '../ThemeModeSwatch.astro';
+
+/* import - functions */
+import { toTitleCase } from '@maddimathon/utility-typescript';
+
+/* import - values */
+
+/* import - components */
+// import {} from '@maddimathon/utility-astro/components';
+
+import ThemeModeSwatch_ThemeSlug from '../ThemeModeSwatch_ThemeSlug.astro';
+
+/* import - layouts */
+// import {} from '@maddimathon/utility-astro/layouts';
+
+/* TYPES ===================================== */
+
+export type SingleButtonTokensVariation = {
+    name: string;
+    states: {
+        [ S in keyof Tokens_Themes_Set.SingleMode.Data.Button<TokenTypes.TypeParams['colour']>['background'] ]: {
+            stateKey: null | Exclude<
+                    keyof Tokens_Themes_Set.SingleMode.Data.Button<TokenTypes.TypeParams['colour']>['background'],
+                    '$'
+                >
+        } & {
+            [ K in Exclude<keyof Tokens_Themes_Set.SingleMode.Data.Button<TokenTypes.TypeParams['colour']>, 'selection'> | 'selection-background' | 'selection-text' ]: undefined | {
+                state: null | Exclude<
+                    keyof Tokens_Themes_Set.SingleMode.Data.Button<TokenTypes.TypeParams['colour']>['background'],
+                    '$'
+                >;
+                key: string;
+                value: string | string[];
+            };
+        };
+    };
+};
+
+/* PROPS ===================================== */
+
+export interface SingleButtonTokensProps<T_Types extends TokenTypes.TypeParams = TokenTypes.TypeParams> {
+
+    brightness: undefined | TokenTypes.Theme.GetBrightnessKeys<T_Types[ 'theme' ]>;
+    
+    components: LoremIpsumProps.Components;
+    equals: string;
+    getCssColourForThemePreview: typeof getCssColourForThemePreviewType;
+
+    displayHeading: number;
+    heading: number;
+
+    tokens: Tokens.JsonReturn<T_Types>;
+    variation: SingleButtonTokensVariation;
+}
+
+type Props = SingleButtonTokensProps;
+
+const { brightness, components: {Heading}, displayHeading,equals, getCssColourForThemePreview, heading,tokens, variation }: Props = Astro.props;
+
+/* CONSTANTS ===================================== */
+
+---
+
+<Heading
+    heading={heading}
+    displayHeading={displayHeading}
+    set:text={`${toTitleCase(variation.name)} Button`}
+/>
+{ Object.values( variation.states ).map(
+    ( {stateKey, ...state} ) => <Fragment>
+        {stateKey && <Heading
+            heading={heading + 1}
+            displayHeading={Math.max(6, displayHeading + 1)}
+        ><span class="screen-reader-text" set:text={`${toTitleCase(variation.name)} Button — `} />{`${toTitleCase(stateKey)} State`}</Heading>}
+
+        { ( ['background', 'border', 'text', 'ui'] as const ).map(
+            ( key ) => (
+                state[key] && ( key != 'border' || state.border?.value != state.background?.value ) && <p
+                    class="theme-mode-swatch__sample | theme-mode-swatch__sample--has-background"
+                    style={ [
+                        state.background?.value && `--background-color: ${getCssColourForThemePreview(tokens, brightness, state.background.value)} !important`,
+                        state.border?.value && `border-color: ${getCssColourForThemePreview(tokens, brightness, state.border.value)} !important`,
+                        (key === 'ui' || state.text?.value) && `color: ${getCssColourForThemePreview(tokens, brightness, key === 'ui' ? (state[key]?.value ?? state.text?.value) : (state.text?.value as string))} !important`,
+                    ].filter( v => v ).join(';') }
+                ><samp set:text={`theme-button-${variation.name}-${key}${state[key].state ? `-${state[key].state}`: '' }`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness, clrSlug: state[key].value}} /></p>
+            )
+        ) }
+        { state['selection-background'] && state['selection-text'] && (
+            <p
+                class="theme-mode-swatch__sample | theme-mode-swatch__sample--has-background"
+                style={ [
+                    `--background-color: ${getCssColourForThemePreview(tokens, brightness, state['selection-background'].value)} !important`,
+                    `color: ${getCssColourForThemePreview(tokens, brightness, state['selection-text'].value)} !important`,
+                ].filter( v => v ).join(';') }
+            ><samp set:text={`theme-button-${variation.name}-selection-background`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state['selection-background'].value}} /></p>
+            <p
+                class="theme-mode-swatch__sample | theme-mode-swatch__sample--has-background"
+                style={ [
+                    `--background-color: ${getCssColourForThemePreview(tokens, brightness, state['selection-background'].value)} !important`,
+                    `color: ${getCssColourForThemePreview(tokens, brightness, state['selection-text'].value)} !important`,
+                ].filter( v => v ).join(';') }
+            ><samp set:text={`theme-button-${variation.name}-selection-text`} /> {equals} <ThemeModeSwatch_ThemeSlug {...{brightness,  clrSlug: state['selection-text'].value}} /></p>
+        ) }
+    </Fragment>
+) }

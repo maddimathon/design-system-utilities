@@ -1028,6 +1028,7 @@ export namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-alpha
              * @since 0.1.0-beta — Moved to SingleMode.Data and renamed.
+             * @since ___PKG_VERSION___ — Added selection prop.
              */
             export type Button<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,
@@ -1038,6 +1039,10 @@ export namespace Tokens_Themes_Set {
                 background: __T_EachValue,
                 border: __T_EachValue,
                 outline: __T_OutlineValue,
+                selection: {
+                    background: __T_EachValue,
+                    text: __T_EachValue,
+                },
                 text: __T_EachValue,
                 ui: __T_EachValue,
             };
@@ -2206,6 +2211,19 @@ export namespace Tokens_Themes_Set {
                             active: clrOpt( _activeClr_outline, levels.text.accent ),
                         },
 
+                        selection: {
+                            background: {
+                                $: clrOpt( _hoverClr === variations.base ? variations.interactive.hover : _hoverClr, levels.background.accent ),
+                                hover: clrOpt( _primaryClr === variations.base ? variations.interactive.hover : _primaryClr, levels.background.accent ),
+                                active: clrOpt( _hoverClr === variations.base ? variations.interactive.hover : _primaryClr, levels.background.accent ),
+                            },
+                            text: {
+                                $: clrOpt( variations.base, levels.text.$ ),
+                                hover: clrOpt( variations.base, levels.text.$ ),
+                                active: clrOpt( variations.base, levels.text.$ ),
+                            },
+                        },
+
                         text: textOrBg,
                         ui: textOrBg,
                     };
@@ -2239,6 +2257,12 @@ export namespace Tokens_Themes_Set {
                         background: clrOpt( _primaryClr, levels.text.accent ),
                         border: clrOpt( _primaryClr, levels.text.accent ),
                         outline: clrOpt( _hoverClr_outline, levels.text.accent ),
+
+                        selection: {
+                            background: clrOpt( variations.interactive.hover, levels.background.$ ),
+                            text: clrOpt( _primaryClr, levels.text.$ ),
+                        },
+
                         text: textOrBg_clr,
                         ui: textOrBg_clr,
                     };
@@ -2443,6 +2467,11 @@ export namespace Tokens_Themes_Set {
                     ( num ) => overrides.heading?.[ num ] ?? text.primary,
                 );
 
+                const selection = overrides.selection ?? {
+                    background: 'Highlight',
+                    text: 'HighlightText',
+                } as const;
+
                 const singleButton: CompleteData[ 'button' ][ 'primary' ] = {
 
                     background: {
@@ -2475,6 +2504,19 @@ export namespace Tokens_Themes_Set {
                             'ButtonFace',
                             'ButtonBorder',
                         ],
+                    },
+
+                    selection: {
+                        background: {
+                            $: selection.background,
+                            hover: selection.background,
+                            active: selection.background,
+                        },
+                        text: {
+                            $: selection.text,
+                            hover: selection.text,
+                            active: selection.text,
+                        },
                     },
 
                     text: {
@@ -2558,10 +2600,7 @@ export namespace Tokens_Themes_Set {
                         ui: linkUI,
                     },
 
-                    selection: overrides.selection ?? {
-                        background: 'Highlight',
-                        text: 'HighlightText',
-                    },
+                    selection,
 
                     text,
                     ui,

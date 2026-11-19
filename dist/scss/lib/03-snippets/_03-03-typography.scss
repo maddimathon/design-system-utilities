@@ -2065,25 +2065,34 @@ $_mixin_heading: meta.get-mixin('snippet-heading');
 ///
 /// @since 0.1.0-alpha
 ///
-@mixin snippet-selection($contrast: null, $args...) {
+@mixin snippet-selection(
+    $contrast: null,
+    $useSystemColorFallback: not $contrast,
+    $args...
+) {
     background-color: do-var(
         selection-background,
         var-theme(
             selection-background,
             $contrast: $contrast,
             $opacity: if(
-                    $contrast and
-                        style-token-exists(
-                            selection-background-opacity-#{$contrast}
-                        ),
+                    style-token-exists(
+                        selection-background-opacity-#{$contrast}
+                    ),
                     var-style(selection-background-opacity-#{$contrast}),
                     null
                 ),
+            $useSystemColorFallback: $useSystemColorFallback,
             $args...
         )
     ) !important;
 
-    color: var-theme(selection-text, $contrast: $contrast, $args...) !important;
+    color: var-theme(
+        selection-text,
+        $contrast: $contrast,
+        $useSystemColorFallback: $useSystemColorFallback,
+        $args...
+    ) !important;
 }
 
 $_mixin_unstyled_heading: meta.get-mixin('snippet-unstyled-heading');

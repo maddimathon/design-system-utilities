@@ -38,6 +38,8 @@
     //
     $backgroundProp: null,
     $important: false,
+    $includeSelection: true,
+    $includeSelection_nested: false,
     $inheritColor: true,
     $inheritIconColor: true
 ) {
@@ -69,6 +71,41 @@
 
         @if $inheritColor and $stateSlug == '' {
             color: inherit !important;
+        }
+    }
+
+    @if $includeSelection {
+        @if $includeSelection_nested {
+            &::selection,
+            & ::selection {
+                background-color: do-var(
+                    button-#{$variation}-selection-background#{$stateSlug},
+                    var-theme(
+                        button-#{$variation}-selection-background#{$stateSlug},
+                        $useSystemColorFallback: true
+                    )
+                ) !important;
+
+                color: var-theme(
+                    button-#{$variation}-selection-text#{$stateSlug},
+                    $useSystemColorFallback: true
+                ) !important;
+            }
+        } @else {
+            &::selection {
+                background-color: do-var(
+                    button-#{$variation}-selection-background#{$stateSlug},
+                    var-theme(
+                        button-#{$variation}-selection-background#{$stateSlug},
+                        $useSystemColorFallback: true
+                    )
+                ) !important;
+
+                color: var-theme(
+                    button-#{$variation}-selection-text#{$stateSlug},
+                    $useSystemColorFallback: true
+                ) !important;
+            }
         }
     }
 }
@@ -379,6 +416,7 @@ $_mixin_button_colours: meta.get-mixin('snippet-button-colours');
     //
     $includeColours: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
+    $includeSelection: true,
     $includeVisited: true,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
@@ -420,6 +458,7 @@ $_mixin_button_colours: meta.get-mixin('snippet-button-colours');
                     $focus_fallbacksOnly: $focus_fallbacksOnly,
                     $focus_includeFallbacks: $focus_includeFallbacks,
                     $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
+                    $includeSelection: $includeSelection,
                     $includeVisited: $includeVisited
                 )
                 using ($location) {
@@ -474,6 +513,7 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
     $includeChildren: true,
     $includeColours: $variation != null,
     $includeDisabled: $includeColours,
+    $includeSelection: true,
     $multipleContentBlocks: false,
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
@@ -625,7 +665,8 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
                     $focusWithin: $focusWithin,
                     $focus_fallbacksOnly: $focus_fallbacksOnly,
                     $focus_includeFallbacks: $focus_includeFallbacks,
-                    $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback
+                    $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
+                    $includeSelection: $includeSelection
                 )
                 using ($location) {
                 @if $multipleContentBlocks {
@@ -643,7 +684,8 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
                             $focus_fallbacksOnly: $focus_fallbacksOnly,
                             $focus_includeFallbacks: $focus_includeFallbacks,
                             $focus_includeNoWhereSelectorFallback:
-                                $focus_includeNoWhereSelectorFallback
+                                $focus_includeNoWhereSelectorFallback,
+                            $includeSelection: $includeSelection
                         )
                         using ($location) {
                         @if $multipleContentBlocks {
@@ -760,6 +802,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $includePadding: true,
     $includePseudoIcons: not $asSimpleButton and config.$include_button_inlineIcons,
     $includePseudoIcons_disabled: $includePseudoIcons,
+    $includeSelection: true,
     $includeTextBasics: true,
     $includeVisited: true,
     $multipleContentBlocks: false,
@@ -843,17 +886,6 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     $_parentSelector_hasIs: string.match(#{&}, ':(has|is|where)\\(') != null;
 
     $_is_unpoppedParent: if(selector.is-multi(&), selector.unpopped-is(&), &);
-    // $_is_unpoppedParent: &;
-
-    // @if selector.is-multi(&) {
-    //     $_poppedParent: selector.popped(&);
-
-    //     @if selector.exists($_poppedParent) {
-    //         $_is_unpoppedParent: selector.nest($_poppedParent, ':is( #{selector.pop(&)} )');
-    //     } @else {
-    //         $_is_unpoppedParent: ':is(#{&})';
-    //     }
-    // }
 
     @include cx-prop(focus-ring-outline-offset, var-style(button-focus-offset));
 
@@ -974,6 +1006,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     $focus_includeFallbacks: $focus_includeFallbacks,
                     $focus_includeNoWhereSelectorFallback: $focus_includeNoWhereSelectorFallback,
 
+                    $includeSelection: $includeSelection,
                     $includeVisited: $includeVisited
                 )
                 using ($location) {
@@ -1111,6 +1144,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     $includeBaseProps: false,
                     $includeColours: $includeColours,
                     $includePseudoIcons: $includePseudoIcons_disabled,
+                    $includeSelection: $includeSelection,
 
                     $mixin_button_colours: $mixin_button_colours,
                     $useIconFont: $useIconFont
@@ -1135,6 +1169,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                         $includeBaseProps: false,
                         $includeColours: false,
                         $includeDisabled: $includeDisabled,
+                        $includeSelection: $includeSelection,
                         $multipleContentBlocks: true,
 
                         $mixin_button_colours: $mixin_button_colours,
@@ -1162,6 +1197,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                             $focus_includeNoWhereSelectorFallback:
                                 $focus_includeNoWhereSelectorFallback,
 
+                            $includeSelection: $includeSelection,
                             $includeVisited: $includeVisited
                         )
                         using ($location) {
@@ -1186,6 +1222,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                                     $focus_includeNoWhereSelectorFallback:
                                         $focus_includeNoWhereSelectorFallback,
 
+                                    $includeSelection: $includeSelection,
                                     $includeVisited: $includeVisited
                                 )
                                 using ($location) {
@@ -1312,6 +1349,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
     //
     $includeColours: true,
     $includeDisabled: true,
+    $includeSelection: true,
     $selector: '%file-selector-button',
     //
     $mixin_button: null,
@@ -1388,6 +1426,7 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                         '$',
                         $variation,
                         $buttonType: $buttonType,
+                        $includeSelection: $includeSelection,
                         $includeVisited: false
                     );
                     @content (root-colours);
@@ -1409,7 +1448,8 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                 $mixin_button_colour_single_state,
                 hover,
                 $variation,
-                $buttonType: $buttonType
+                $buttonType: $buttonType,
+                $includeSelection: $includeSelection
             );
         }
 
@@ -1430,7 +1470,8 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     $mixin_button_colour_single_state,
                     hover,
                     $variation,
-                    $buttonType: $buttonType
+                    $buttonType: $buttonType,
+                    $includeSelection: $includeSelection
                 );
             }
 
@@ -1445,7 +1486,8 @@ $_mixin_button_inline: meta.get-mixin('snippet-button-inline');
                     $mixin_button_colour_single_state,
                     active,
                     $variation,
-                    $buttonType: $buttonType
+                    $buttonType: $buttonType,
+                    $includeSelection: $includeSelection
                 );
             }
 
@@ -2503,6 +2545,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
     $includeFileSelector: true,
     $includeInline: true,
     $includePseudoIcons: config.$include_button_inlineIcons,
+    $includeSelection: true,
     $button_includePseudoIcons: $includePseudoIcons,
     //
     $selector_button: '%button',
@@ -2651,6 +2694,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
             @include meta.apply(
                 $mixin_button_colours,
                 $variation: tokens.$button_inline_variation_default,
+                $includeSelection: $includeSelection,
                 $mixin_button_colour_single_state: $mixin_button_colour_single_state
             );
         }
@@ -2670,6 +2714,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
                 @include meta.apply(
                     $mixin_button_colours,
                     $variation: $variation,
+                    $includeSelection: $includeSelection,
                     $mixin_button_colour_single_state: $mixin_button_colour_single_state
                 );
             }
@@ -2681,6 +2726,7 @@ $_mixin_addPseudoFileSelectorButton: meta.get-mixin('snippet-add-pseudo-file-sel
                     @include meta.apply(
                         $mixin_button_colours,
                         $variation: disabled,
+                        $includeSelection: $includeSelection,
                         $mixin_button_colour_single_state: $mixin_button_colour_single_state
                     );
                 }
