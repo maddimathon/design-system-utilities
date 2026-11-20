@@ -699,7 +699,11 @@ $_mixin_button_disabled: meta.get-mixin('snippet-button-disabled');
 
     @include set-font-style(
         $fontStyle,
-        $letterSpacing: $letterSpacing,
+        $letterSpacing: if(
+                $letterSpacing,
+                $letterSpacing,
+                var-style(button-letter-spacing)
+            ),
         $letterSpacing_includeCalc: true
     ) {
         @if $fontSize != false {

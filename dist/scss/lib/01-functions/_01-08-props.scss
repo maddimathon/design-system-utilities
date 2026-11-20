@@ -11,7 +11,7 @@
 @use '../../config';
 @use '../../tokens';
 
-// @use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
+@use 'pkg:@maddimathon/utility-astro/01-functions' as utils;
 
 // @use '01-00-utilities' as *;
 // @use '01-01-spacing' as *;
@@ -84,6 +84,13 @@
     // font size utilities
     @each $slug, $_value in tokens.$font_size {
         $sels: list.append($sels, ('.font-size-#{$slug}', font-size-#{$slug}));
+    }
+
+    @each $lvl in utils.token-all-heading-levels() {
+        $sels: list.append(
+            $sels,
+            ('.font-size-subheading-#{$lvl}', font-size-subheading-#{$lvl})
+        );
     }
 
     @return $sels;

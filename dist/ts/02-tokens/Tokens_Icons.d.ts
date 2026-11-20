@@ -57,6 +57,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         fail: 0xf115;
         forbidden: 0xf116;
         group: 0xf14d;
+        heart: 0xf169;
         hidden: 0xf117;
         hub: 0xf167;
         info: 0xf118;
@@ -183,7 +184,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta
      */
-    const optionalIconNames: readonly ["alarm", "alert", "attachment", "barricade", "biography", "book", "celebration", "clock", "code", "compass", "compass", "computer", "confetti", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "hidden", "hub", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "signpost", "singlecolumn", "star", "stopwatch", "success", "timer", "toolbox", "traffic-cone", "twocolumns", "unlock", "up", "warning", "wrench"];
+    const optionalIconNames: readonly ["alarm", "alert", "attachment", "barricade", "biography", "book", "celebration", "clock", "code", "compass", "compass", "computer", "confetti", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "heart", "hidden", "hub", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "signpost", "singlecolumn", "star", "stopwatch", "success", "timer", "toolbox", "traffic-cone", "twocolumns", "unlock", "up", "warning", "wrench"];
     /**
      * @since 0.1.0-beta
      */

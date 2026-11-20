@@ -7685,7 +7685,7 @@ a[disabled][href].button-grey {
     border-radius: 0;
     border-style: solid;
     font-weight: 500;
-    letter-spacing: var(--font-override-letter-spacing, inherit);
+    letter-spacing: var(--font-override-letter-spacing, normal);
     font-style: normal;
     font-size: 0.875em;
     line-height: 1.1875;
@@ -11521,6 +11521,46 @@ body
     font-size: 1.625rem !important;
 }
 
+.font-size-subheading-1 {
+    font-size: 1.25rem !important;
+}
+
+.font-size-subheading-2 {
+    font-size: 1.0625rem !important;
+}
+
+.font-size-subheading-3 {
+    font-size: 1.0625rem !important;
+}
+
+.font-size-subheading-4 {
+    font-size: 1.0625rem !important;
+}
+
+.font-size-subheading-5 {
+    font-size: 1.0625rem !important;
+}
+
+.font-size-subheading-6 {
+    font-size: 1.0625rem !important;
+}
+
+.font-size-subheading-7 {
+    font-size: 0.9375rem !important;
+}
+
+.font-size-subheading-8 {
+    font-size: 0.9375rem !important;
+}
+
+.font-size-subheading-9 {
+    font-size: 0.9375rem !important;
+}
+
+.font-size-subheading-10 {
+    font-size: 0.9375rem !important;
+}
+
 .font-size-unstyled-heading {
     font-size: 1.25rem !important;
 }
@@ -11756,6 +11796,7 @@ body
 .icon--info,
 .icon--hub,
 .icon--hidden,
+.icon--heart,
 .icon--group,
 .icon--forbidden,
 .icon--fail,
@@ -11839,6 +11880,7 @@ body
 .add-info-icon-after::after,
 .add-hub-icon-after::after,
 .add-hidden-icon-after::after,
+.add-heart-icon-after::after,
 .add-group-icon-after::after,
 .add-forbidden-icon-after::after,
 .add-fail-icon-after::after,
@@ -11947,6 +11989,7 @@ body
 .add-info-icon-before::before,
 .add-hub-icon-before::before,
 .add-hidden-icon-before::before,
+.add-heart-icon-before::before,
 .add-group-icon-before::before,
 .add-forbidden-icon-before::before,
 .add-fail-icon-before::before,
@@ -12148,6 +12191,11 @@ body
 .add-group-icon-before::before {
     content: "\f14d";
     content: "\f14d"/"Group icon";
+}
+.add-heart-icon-after::after,
+.add-heart-icon-before::before {
+    content: "\f169";
+    content: "\f169"/"Heart icon";
 }
 .add-hidden-icon-after::after,
 .add-hidden-icon-before::before {
@@ -13202,6 +13250,14 @@ body
     /* [template-content-blocks] @content( <S> alerts-alert-block--icon-group--icon ); */
 }
 
+.alert-block--heart {
+    /* [template-content-blocks] @content( <S> alerts-alert-block--icon-heart ); */
+}
+.alert-block--heart > .alert-block__icon,
+.alert-block--heart > .alert-block__headline > .alert-block__icon {
+    /* [template-content-blocks] @content( <S> alerts-alert-block--icon-heart--icon ); */
+}
+
 .alert-block--hidden {
     /* [template-content-blocks] @content( <S> alerts-alert-block--icon-hidden ); */
 }
@@ -13881,7 +13937,7 @@ body
 }
 .link-card .link-card__hgroup {
     align-content: start;
-    align-items: start;
+    align-items: stretch;
     justify-content: start;
     justify-items: start;
     /* [template-content-blocks] @content( <S> link-cards--hgroup ); */
@@ -14012,7 +14068,6 @@ body
     z-index: 1;
     /* [template-content-blocks] @content( <S> link-cards--link-backdrop-containers ); */
 }
-
 .link-card__body > .link-card__link--backdrop,
 .link-card > .link-card__link--backdrop,
 .link-card__date > .link-card__link--backdrop,

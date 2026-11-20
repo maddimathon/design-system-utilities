@@ -327,7 +327,7 @@
 
     #{$selector_hgroup} {
         align-content: start;
-        align-items: start;
+        align-items: stretch;
         justify-content: start;
         justify-items: start;
 
@@ -541,15 +541,7 @@
             @if $multipleContentBlocks {
                 @content (link-backdrop-containers);
             }
-        }
-        #{$selector_body},
-        #{$selector_card},
-        #{$selector_date},
-        #{$selector_footer},
-        #{$selector_heading},
-        #{$selector_hgroup},
-        #{$selector_subheading},
-        #{$selector_tagList} {
+
             #{selector.nest('>', (#{$selector_linkBackdrop}, #{selector.unify($selector_linkBackdrop, ':empty')}))} {
                 @include prop-display(block, $important_prop: true);
                 position: absolute;
