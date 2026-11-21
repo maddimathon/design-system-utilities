@@ -44,7 +44,7 @@ $_mixin_buttonColourSingle: meta.get-mixin(
 
     @include utils.snippet-support-skip-links(
             $focus_top: var-scroll-padding-top(),
-            $zIndex: var-z-index(skipLink),
+            $zIndex: var-z-index(skip-link),
             $includeBaseStyles: false
         )
         using ($location) {
@@ -52,6 +52,7 @@ $_mixin_buttonColourSingle: meta.get-mixin(
             @include meta.apply(
                 $mixin_button,
                 $asSimpleButton: true,
+                $transition: false,
                 $includePosition: false,
                 $includeColours: false
             );

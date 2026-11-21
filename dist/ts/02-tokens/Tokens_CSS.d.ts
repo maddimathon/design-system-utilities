@@ -57,7 +57,7 @@ export declare namespace Tokens_CSS {
             nav: number;
             popup: number;
             settings: number;
-            skipLink: number;
+            'skip-link': number;
             [key: string]: number;
         };
     };

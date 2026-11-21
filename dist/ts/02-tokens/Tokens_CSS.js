@@ -34,9 +34,9 @@ export class Tokens_CSS extends AbstractTokens {
         return {
             zIndex: {
                 nav: 9999,
-                popup: 999999,
+                popup: 99999,
                 settings: 1000,
-                skipLink: 99999,
+                'skip-link': 999999,
             },
         };
     }

@@ -11772,6 +11772,7 @@ body
 .icon--quote,
 .icon--question,
 .icon--private,
+.icon--pointer,
 .icon--plus,
 .icon--pinned,
 .icon--person,
@@ -11817,6 +11818,7 @@ body
 .icon--code,
 .icon--close,
 .icon--clock,
+.icon--click,
 .icon--check,
 .icon--celebration,
 .icon--caution,
@@ -11856,6 +11858,7 @@ body
 .add-quote-icon-after::after,
 .add-question-icon-after::after,
 .add-private-icon-after::after,
+.add-pointer-icon-after::after,
 .add-plus-icon-after::after,
 .add-pinned-icon-after::after,
 .add-person-icon-after::after,
@@ -11901,6 +11904,7 @@ body
 .add-code-icon-after::after,
 .add-close-icon-after::after,
 .add-clock-icon-after::after,
+.add-click-icon-after::after,
 .add-check-icon-after::after,
 .add-celebration-icon-after::after,
 .add-caution-icon-after::after,
@@ -11965,6 +11969,7 @@ body
 .add-quote-icon-before::before,
 .add-question-icon-before::before,
 .add-private-icon-before::before,
+.add-pointer-icon-before::before,
 .add-plus-icon-before::before,
 .add-pinned-icon-before::before,
 .add-person-icon-before::before,
@@ -12010,6 +12015,7 @@ body
 .add-code-icon-before::before,
 .add-close-icon-before::before,
 .add-clock-icon-before::before,
+.add-click-icon-before::before,
 .add-check-icon-before::before,
 .add-celebration-icon-before::before,
 .add-caution-icon-before::before,
@@ -12091,6 +12097,11 @@ body
 .add-check-icon-before::before {
     content: "\f103";
     content: "\f103"/"Checkmark icon";
+}
+.add-click-icon-after::after,
+.add-click-icon-before::before {
+    content: "\f16a";
+    content: "\f16a"/"Click icon";
 }
 .add-clock-icon-after::after,
 .add-clock-icon-before::before {
@@ -12316,6 +12327,11 @@ body
 .add-plus-icon-before::before {
     content: "\f132";
     content: "\f132"/"Plus icon";
+}
+.add-pointer-icon-after::after,
+.add-pointer-icon-before::before {
+    content: "\f16b";
+    content: "\f16b"/"Pointer icon";
 }
 .add-private-icon-after::after,
 .add-private-icon-before::before {
@@ -13090,6 +13106,14 @@ body
     /* [template-content-blocks] @content( <S> alerts-alert-block--icon-check--icon ); */
 }
 
+.alert-block--click {
+    /* [template-content-blocks] @content( <S> alerts-alert-block--icon-click ); */
+}
+.alert-block--click > .alert-block__icon,
+.alert-block--click > .alert-block__headline > .alert-block__icon {
+    /* [template-content-blocks] @content( <S> alerts-alert-block--icon-click--icon ); */
+}
+
 .alert-block--clock {
     /* [template-content-blocks] @content( <S> alerts-alert-block--icon-clock ); */
 }
@@ -13454,6 +13478,14 @@ body
 .alert-block--plus > .alert-block__icon,
 .alert-block--plus > .alert-block__headline > .alert-block__icon {
     /* [template-content-blocks] @content( <S> alerts-alert-block--icon-plus--icon ); */
+}
+
+.alert-block--pointer {
+    /* [template-content-blocks] @content( <S> alerts-alert-block--icon-pointer ); */
+}
+.alert-block--pointer > .alert-block__icon,
+.alert-block--pointer > .alert-block__headline > .alert-block__icon {
+    /* [template-content-blocks] @content( <S> alerts-alert-block--icon-pointer--icon ); */
 }
 
 .alert-block--private {
@@ -17367,7 +17399,7 @@ body > nav.toggle-nav-menu {
         .nav-primary[data-toggle-container][data-toggle-container="opening"],
     :where(.js)
         .nav-primary[data-toggle-container][data-toggle-container="closing"] {
-        z-index: 999999;
+        z-index: 99999;
     }
     :where(.js) .website-settings {
         margin-block-start: 0;
@@ -17736,7 +17768,7 @@ body > nav.toggle-nav-menu {
     }
     :where(.js) .website-settings[data-toggle-container="open"],
     :where(.js) .website-settings[data-toggle-container="opening"] {
-        z-index: 999999;
+        z-index: 99999;
         /* [template-content-blocks] @content( <S> siteSettingsMenu-js--settings-menu--opening-or-open ); */
     }
     :where(.js) .website-settings[data-toggle-container="opening"] {

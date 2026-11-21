@@ -351,6 +351,7 @@ $_mixin_button_colour_single_state: meta.get-mixin('snippet-button-colour-single
 /// @since 0.1.0-beta
 ///
 @mixin _snippet-button-base(
+    $transition: do-var(transition),
     $includePosition: true,
     $includeHeight: true,
     $includeTextBasics: true
@@ -369,7 +370,9 @@ $_mixin_button_colour_single_state: meta.get-mixin('snippet-button-colour-single
         text-wrap: pretty;
     }
 
-    transition: do-var(transition);
+    @if $transition != false {
+        transition: do-var(transition);
+    }
 
     appearance: button;
     cursor: pointer;

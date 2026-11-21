@@ -50,9 +50,9 @@ export class Tokens_CSS<T_StyleParams extends TokenTypes.Style.TypeParams> exten
         return {
             zIndex: {
                 nav: 9999,
-                popup: 999999,
+                popup: 99999,
                 settings: 1000,
-                skipLink: 99999,
+                'skip-link': 999999,
             },
         };
     }
@@ -113,7 +113,7 @@ export namespace Tokens_CSS {
             nav: number;
             popup: number;
             settings: number;
-            skipLink: number;
+            'skip-link': number;
             [ key: string ]: number;
         };
     };

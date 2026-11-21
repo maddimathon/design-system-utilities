@@ -37,6 +37,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         caution: 0xf102;
         celebration: 0xf162;
         check: 0xf103;
+        click: 0xf16a;
         clock: 0xf104;
         close: 0xf105;
         code: 0xf106;
@@ -82,6 +83,7 @@ export declare class Tokens_Icons<T_ExtraIconNames extends string> extends Abstr
         person: 0xf150;
         pinned: 0xf151;
         plus: 0xf132;
+        pointer: 0xf16b;
         private: 0xf133;
         question: 0xf134;
         quote: 0xf152;
@@ -184,7 +186,7 @@ export declare namespace Tokens_Icons {
     /**
      * @since 0.1.0-beta
      */
-    const optionalIconNames: readonly ["alarm", "alert", "attachment", "barricade", "biography", "book", "celebration", "clock", "code", "compass", "compass", "computer", "confetti", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "heart", "hidden", "hub", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "private", "question", "quote", "reading", "refresh", "right", "signpost", "singlecolumn", "star", "stopwatch", "success", "timer", "toolbox", "traffic-cone", "twocolumns", "unlock", "up", "warning", "wrench"];
+    const optionalIconNames: readonly ["alarm", "alert", "attachment", "barricade", "biography", "book", "celebration", "click", "clock", "code", "compass", "compass", "computer", "confetti", "contact", "dash", "discussion", "down", "draft", "error", "forbidden", "group", "heart", "hidden", "hub", "info", "left", "lightbulb", "lightning", "link", "location", "lock", "logo-circle-facebook", "logo-circle-instagram", "logo-circle-linkedin", "logo-facebook", "logo-instagram", "logo-linkedin", "minus", "no", "note", "paperclip", "person", "pinned", "plus", "pointer", "private", "question", "quote", "reading", "refresh", "right", "signpost", "singlecolumn", "star", "stopwatch", "success", "timer", "toolbox", "traffic-cone", "twocolumns", "unlock", "up", "warning", "wrench"];
     /**
      * @since 0.1.0-beta
      */
