@@ -6,7 +6,7 @@ children:
 ---
 
 <!--README_HEADER-->
-# Design System Utilities @ 0.4.1
+# Design System Utilities @ 0.4.2
 <!--/README_HEADER-->
 
 <!--README_DESC-->
@@ -31,7 +31,7 @@ or
 
 <!--README_INSTALL-->
 ```bash
-npm i -D github:maddimathon/design-system-utilities#semver:~0.4.1
+npm i -D github:maddimathon/design-system-utilities#semver:~0.4.2
 ```
 <!--/README_INSTALL-->
 

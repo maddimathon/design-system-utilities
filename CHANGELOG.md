@@ -19,6 +19,11 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.4.2** — 2026-11-25
+
+Added flow margin utility classes.
+
+
 ## **0.4.1** — 2026-11-25
 
 Quick fix to inline icon utility alt text.
