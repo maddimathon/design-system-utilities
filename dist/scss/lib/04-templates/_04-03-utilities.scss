@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.4.0-draft
+/// @package @maddimathon/design-system-utilities@0.4.0
 /// @since 0.1.0-beta
 ///
 
@@ -20,6 +20,7 @@
 /// @since 0.1.0-beta
 ///
 @mixin template-content-utilities-layout(
+    $print_alignment: true,
     $print_breakpoints: true,
     $print_forcedColorsModeOnly: true,
     $print_overflow: true,
@@ -47,6 +48,28 @@
         /* # UTILITIES - LAYOUT
          * ======================================================================== */
     }
+
+    @if $print_alignment {
+        %align-self-start {
+            align-self: start !important;
+        }
+        %align-self-center {
+            align-self: center !important;
+        }
+        %align-self-end {
+            align-self: end !important;
+        }
+        %justify-self-start {
+            justify-self: start !important;
+        }
+        %justify-self-center {
+            justify-self: center !important;
+        }
+        %justify-self-end {
+            justify-self: end !important;
+        }
+    }
+    @content (alignment);
 
     @if $print_forcedColorsModeOnly {
         %forced-colors-mode-only {

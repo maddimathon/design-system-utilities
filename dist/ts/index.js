@@ -9,7 +9,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.4.0-draft
+ * @maddimathon/design-system-utilities@0.4.0
  * @license MIT
  */
 export * from './01-utilities/ColourUtilities.js';

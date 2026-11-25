@@ -4,7 +4,7 @@
 modules.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/modules'` */
     /*
-        default vars is a map:
+        default vars =
         <:> (
             "breakpoints-attributeOverrides": <()> (),
             "breakpoints-attributeOverrides-includeRoot": </> false,
@@ -40,8 +40,8 @@ modules.config-vars {
             "demo-wrapOutput": </> false,
             "demo-wrapOutput-function": </> false,
             "demo-wrapOutput-function-withName": </> false,
-            "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true, ),
-            "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true, ),
+            "featureCheck-defaultToJS": <:> ( "touch": </> true, "whereSelector": </> true ),
+            "featureCheck-defaultToJS-supports": <:> ( "touch": </> true, "whereSelector": </> true ),
             "featureCheck-defaultToJS-supports-not": <:> (
                 "touch": </> true,
                 "whereSelector": </> true,
@@ -96,6 +96,7 @@ modules.config-vars {
             "math-clampFontSize-viewport-min": <#> 25,
             "math-fontSize-roundingFactor": <#> 16,
             "meta-varDump-maxWidth": <#> 76,
+            "meta-varDump-removeIndices": </> false,
             "selector-body": <S> body,
             "selector-body-aliases": <()> (
                 1: <S> "%layout-content-only",
@@ -149,7 +150,7 @@ modules.config-vars {
 lib.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/lib'` */
     /*
-        default vars is a map:
+        default vars =
         <:> (
             "config-validTokenLevels": <()> (
                 1: <S> "100",
@@ -198,9 +199,9 @@ lib.config-vars {
             "selector-a": <S> a[href],
             "selector-a-current": <S> [aria-current],
             "selector-a-disabled": <S> [aria-disabled=true],
-            "selector-button-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]", ),
+            "selector-button-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]" ),
             "selector-headingsByRole": </> false,
-            "selector-input-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]", ),
+            "selector-input-disabled": <()> ( 1: <S> "[aria-disabled=true]", 2: <S> "[disabled]" ),
             "selector-input-readonly": <S> [readonly],
             "template-docBlock": </> false,
         )
@@ -210,7 +211,7 @@ lib.config-vars {
 template.config-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/config/template'` */
     /*
-        default vars is a map:
+        default vars =
         <:> (
             "button-selector-icon": <S> %icon,
             "button-selector-logo": <S> %brand-logo,
@@ -243,7 +244,7 @@ template.config-vars {
             "fn-clampHighContrastBorderWidth-min": <#> 0.125,
             "fn-colourMode-selectorsAsChildren": </> false,
             "fn-colourMode-selectorsAsChildren-individual": </> false,
-            "fn-doVar-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", 2: <S> "icon-size", ),
+            "fn-doVar-allPrefixesSlugs": <()> ( 1: <S> "focus-ring-outline-color", 2: <S> "icon-size" ),
             "fn-firstChildNoTopMargin-includeListsFirstItem": </> true,
             "fn-firstChildNoTopMargin-includeScriptsFirstItem": </> false,
             "fn-firstChildNoTopMargin-includeSrTextFirstItem": </> false,
@@ -367,8 +368,8 @@ template.config-vars {
             "mx-tokensTheme-unifyActiveTheme": </> false,
             "nav-define-heightNavPrimary": </> true,
             "selector-bodyGrid-fullWidthExtender": <()> (),
-            "selector-interactiveState-active": <()> ( <()> ( <S> [data-state-active=true] ), ),
-            "selector-interactiveState-focus": <()> ( <()> ( <S> [data-state-focus=true] ), ),
+            "selector-interactiveState-active": <()> ( 1: <()> ( 1: <S> [data-state-active=true] ), ),
+            "selector-interactiveState-focus": <()> ( 1: <()> ( 1: <S> [data-state-focus=true] ), ),
             "subheading-fontSize-useRelative": </> false,
             "template-astro": </> false,
             "template-cssHeadings": </> false,

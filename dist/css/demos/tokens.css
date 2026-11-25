@@ -4,7 +4,7 @@
 tokens-vars {
     /* accessed via `@use 'pkg:@maddimathon/utility-sass/tokens'` */
     /* 
-        meta.module-variables(tokens) is a map:
+        meta.module-variables(tokens) =
      */
     /* <:> ( */
     /*   "activeTheme": <S> "default", */
@@ -34,8 +34,8 @@ tokens-vars {
     /*       "inherits": </> true, */
     /*       "initial-value": <#> 62.5%, */
     /*     ), */
-    /*     "background-color": <:> ( "syntax": <S> "<color>", "inherits": </> true, ), */
-    /*     "display": <:> ( "syntax": <S> "*", "inherits": </> false, ), */
+    /*     "background-color": <:> ( "syntax": <S> "<color>", "inherits": </> true ), */
+    /*     "display": <:> ( "syntax": <S> "*", "inherits": </> false ), */
     /*     "flow-margin": <:> ( */
     /*       "syntax": <S> "*", */
     /*       "inherits": </> true, */
@@ -217,30 +217,38 @@ tokens-vars {
     /*       "syntax": <S> "*", */
     /*       "inherits": </> true, */
     /*       "initial-value": <()> ( */
-    /*         1: <()> ( <S> accent-color <#> 250ms <S> ease-out ), */
-    /*         2: <()> ( <S> background-color <#> 250ms <S> ease-out ), */
-    /*         3: <()> ( <S> border-color <#> 250ms <S> ease-out ), */
-    /*         4: <()> ( <S> color <#> 250ms <S> ease-out ), */
-    /*         5: <()> ( <S> font-weight <#> 250ms <S> ease-out ), */
-    /*         6: <()> ( <S> opacity <#> 250ms <S> ease-out ), */
-    /*         7: <()> ( <S> text-decoration-color <#> 250ms <S> ease-out ), */
-    /*         8: <()> ( <S> text-shadow <#> 250ms <S> ease-out ), */
-    /*         9: <()> ( <S> visibility <#> 250ms <S> ease-out ), */
+    /*         1: <()> ( 1: <S> accent-color 2: <#> 250ms 3: <S> ease-out ), */
+    /*         2: <()> ( 1: <S> background-color 2: <#> 250ms 3: <S> ease-out ), */
+    /*         3: <()> ( 1: <S> border-color 2: <#> 250ms 3: <S> ease-out ), */
+    /*         4: <()> ( 1: <S> color 2: <#> 250ms 3: <S> ease-out ), */
+    /*         5: <()> ( 1: <S> font-weight 2: <#> 250ms 3: <S> ease-out ), */
+    /*         6: <()> ( 1: <S> opacity 2: <#> 250ms 3: <S> ease-out ), */
+    /*         7: <()> ( */
+    /*           1: <S> text-decoration-color */
+    /*           2: <#> 250ms */
+    /*           3: <S> ease-out */
+    /*         ), */
+    /*         8: <()> ( 1: <S> text-shadow 2: <#> 250ms 3: <S> ease-out ), */
+    /*         9: <()> ( 1: <S> visibility 2: <#> 250ms 3: <S> ease-out ), */
     /*       ), */
     /*     ), */
     /*     "transition-toggle": <:> ( */
     /*       "syntax": <S> "*", */
     /*       "inherits": </> true, */
     /*       "initial-value": <()> ( */
-    /*         1: <()> ( <S> accent-color <#> 500ms <S> ease-out ), */
-    /*         2: <()> ( <S> background-color <#> 500ms <S> ease-out ), */
-    /*         3: <()> ( <S> border-color <#> 500ms <S> ease-out ), */
-    /*         4: <()> ( <S> color <#> 500ms <S> ease-out ), */
-    /*         5: <()> ( <S> font-weight <#> 500ms <S> ease-out ), */
-    /*         6: <()> ( <S> opacity <#> 500ms <S> ease-out ), */
-    /*         7: <()> ( <S> text-decoration-color <#> 500ms <S> ease-out ), */
-    /*         8: <()> ( <S> text-shadow <#> 500ms <S> ease-out ), */
-    /*         9: <()> ( <S> visibility <#> 500ms <S> ease-out ), */
+    /*         1: <()> ( 1: <S> accent-color 2: <#> 500ms 3: <S> ease-out ), */
+    /*         2: <()> ( 1: <S> background-color 2: <#> 500ms 3: <S> ease-out ), */
+    /*         3: <()> ( 1: <S> border-color 2: <#> 500ms 3: <S> ease-out ), */
+    /*         4: <()> ( 1: <S> color 2: <#> 500ms 3: <S> ease-out ), */
+    /*         5: <()> ( 1: <S> font-weight 2: <#> 500ms 3: <S> ease-out ), */
+    /*         6: <()> ( 1: <S> opacity 2: <#> 500ms 3: <S> ease-out ), */
+    /*         7: <()> ( */
+    /*           1: <S> text-decoration-color */
+    /*           2: <#> 500ms */
+    /*           3: <S> ease-out */
+    /*         ), */
+    /*         8: <()> ( 1: <S> text-shadow 2: <#> 500ms 3: <S> ease-out ), */
+    /*         9: <()> ( 1: <S> visibility 2: <#> 500ms 3: <S> ease-out ), */
     /*       ), */
     /*     ), */
     /*   ), */
@@ -283,9 +291,9 @@ tokens-vars {
     /*     "sidebar": <#> 55.625, */
     /*     "indent": <#> 29.875, */
     /*   ), */
-    /*   "brightnessMode-all": <()> ( <S> light <S> dark ), */
+    /*   "brightnessMode-all": <()> ( 1: <S> light 2: <S> dark ), */
     /*   "brightnessMode-default": <S> light, */
-    /*   "brightnessMode-options": <()> ( <S> light <S> dark ), */
+    /*   "brightnessMode-options": <()> ( 1: <S> light 2: <S> dark ), */
     /*   "button-fileSelector-variation-default": <S> "grey", */
     /*   "button-inline-variation-default": <S> "grey", */
     /*   "button-variation-default": <S> "primary", */
@@ -358,9 +366,21 @@ tokens-vars {
     /*     "align-content": <S> start, */
     /*     "align-items": <S> start, */
     /*   ), */
-    /*   "contrastMode-all": <()> ( <S> average <S> low <S> high <S> max <S> forced-colors ), */
+    /*   "contrastMode-all": <()> ( */
+    /*     1: <S> average */
+    /*     2: <S> low */
+    /*     3: <S> high */
+    /*     4: <S> max */
+    /*     5: <S> forced-colors */
+    /*   ), */
     /*   "contrastMode-default": <S> average, */
-    /*   "contrastMode-options": <()> ( <S> average <S> low <S> high <S> max <S> forced-colors ), */
+    /*   "contrastMode-options": <()> ( */
+    /*     1: <S> average */
+    /*     2: <S> low */
+    /*     3: <S> high */
+    /*     4: <S> max */
+    /*     5: <S> forced-colors */
+    /*   ), */
     /*   "designSystem": <:> ( */
     /*     "name": <S> "Design System Utilities (Sample Brand Kit)", */
     /*     "spacing_multiplier": <#> 1.15625, */
@@ -394,7 +414,7 @@ tokens-vars {
     /*           "2": <#> -1.5, */
     /*           "3": <#> -2, */
     /*         ), */
-    /*         "bigger": <:> ( "1": <#> 1, "2": <#> 2, "3": <#> 3, ), */
+    /*         "bigger": <:> ( "1": <#> 1, "2": <#> 2, "3": <#> 3 ), */
     /*       ), */
     /*       "size_base": <#> 1.0625, */
     /*       "size_multiplier": <#> 1.15625, */
@@ -409,7 +429,7 @@ tokens-vars {
     /*             ), */
     /*             "icon": <:> ( */
     /*               "inline": <:> ( */
-    /*                 "buffer": <:> ( "start": <#> 1.5, ), */
+    /*                 "buffer": <:> ( "start": <#> 1.5 ), */
     /*               ), */
     /*               "size": <:> ( */
     /*                 "$": <#> 1.0625, */
@@ -592,7 +612,7 @@ tokens-vars {
     /*             "letter-spacing": <#> -0.05em, */
     /*             "icon": <:> ( */
     /*               "inline": <:> ( */
-    /*                 "buffer": <:> ( "start": <#> 1.5, ), */
+    /*                 "buffer": <:> ( "start": <#> 1.5 ), */
     /*               ), */
     /*               "size": <:> ( */
     /*                 "$": <#> 1.0625, */
@@ -674,7 +694,7 @@ tokens-vars {
     /*         ), */
     /*         "hyperlegible": <:> ( */
     /*           "contentWidthScale": <#> 1.035, */
-    /*           "css": <:> ( "letter-spacing": <S> normal, ), */
+    /*           "css": <:> ( "letter-spacing": <S> normal ), */
     /*           "lineHeightScale": <#> 1, */
     /*           "sizeAdjust": <#> 105%, */
     /*           "variable": <:> ( */
@@ -1070,7 +1090,7 @@ tokens-vars {
     /*         ), */
     /*         "hyperlegible-monospace": <:> ( */
     /*           "contentWidthScale": <#> 1.035, */
-    /*           "css": <:> ( "letter-spacing": <S> normal, ), */
+    /*           "css": <:> ( "letter-spacing": <S> normal ), */
     /*           "lineHeightScale": <#> 1.05, */
     /*           "sizeAdjust": <#> 96%, */
     /*           "variable": <:> ( */
@@ -1396,7 +1416,7 @@ tokens-vars {
     /*         ), */
     /*         "monospace": <:> ( */
     /*           "contentWidthScale": <#> 1.125, */
-    /*           "css": <:> ( "letter-spacing": <#> -0.015em, ), */
+    /*           "css": <:> ( "letter-spacing": <#> -0.015em ), */
     /*           "sizeAdjust": <#> 96.5%, */
     /*           "weights": <:> ( */
     /*             "100": <:> ( */
@@ -1878,7 +1898,7 @@ tokens-vars {
     /*           ), */
     /*         ), */
     /*         "icons": <:> ( */
-    /*           "css": <:> ( "letter-spacing": <#> 0.1em, ), */
+    /*           "css": <:> ( "letter-spacing": <#> 0.1em ), */
     /*           "weights": <:> ( */
     /*             "400": <:> ( */
     /*               "normal": <:> ( */
@@ -1997,12 +2017,12 @@ tokens-vars {
     /*         "color": <S> text-primary, */
     /*         "flow-margin": <:> ( */
     /*           "$": <S> 300, */
-    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*           "large": <S> 400, */
     /*           "self": <S> margins-flow-firm, */
     /*           "small": <S> 200, */
     /*         ), */
-    /*         "gap": <:> ( "block": <#> 0, "inline": <S> 300, ), */
+    /*         "gap": <:> ( "block": <#> 0, "inline": <S> 300 ), */
     /*         "heading": <:> ( */
     /*           "1": <:> ( */
     /*             "background-color": <S> background-primary, */
@@ -2112,37 +2132,37 @@ tokens-vars {
     /*           ), */
     /*           "line-height": <S> 200, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.1875, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.1875 ), */
     /*           ), */
     /*         ), */
     /*         "icon": <:> ( */
     /*           "color": <S> ui-primary, */
-    /*           "size": <:> ( "$": <#> 1.25em, "large": <#> 2em, ), */
+    /*           "size": <:> ( "$": <#> 1.25em, "large": <#> 2em ), */
     /*         ), */
     /*         "line-height": <S> 300, */
-    /*         "padding": <:> ( "block": <S> 300, "inline": <S> 300, ), */
+    /*         "padding": <:> ( "block": <S> 300, "inline": <S> 300 ), */
     /*       ), */
     /*       "backdrop": <:> ( */
     /*         "background": <:> ( */
-    /*           "after": <:> ( "$": <S> link, "hover": <S> link-hover, ), */
-    /*           "before": <:> ( "$": <S> background, ), */
+    /*           "after": <:> ( "$": <S> link, "hover": <S> link-hover ), */
+    /*           "before": <:> ( "$": <S> background ), */
     /*         ), */
     /*         "filter": <S> blur(1rem), */
-    /*         "opacity": <:> ( "after": <#> 18.75%, "before": <#> 62.5%, ), */
+    /*         "opacity": <:> ( "after": <#> 18.75%, "before": <#> 62.5% ), */
     /*       ), */
     /*       "blockquote": <:> ( */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm-large, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm-large ), */
     /*       ), */
     /*       "button": <:> ( */
     /*         "$": <:> ( */
-    /*           "focus": <:> ( "offset": <S> 400, ), */
+    /*           "focus": <:> ( "offset": <S> 400 ), */
     /*           "border": <:> ( */
     /*             "radius": <#> 0, */
     /*             "style": <S> solid, */
     /*             "width": <S> 100, */
     /*           ), */
     /*           "display": <S> block, */
-    /*           "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*           "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*           "font": <:> ( */
     /*             "size": <S> normal, */
     /*             "style": <S> normal, */
@@ -2154,9 +2174,9 @@ tokens-vars {
     /*               "end": <#> 0, */
     /*               "start": <#> 2, */
     /*             ), */
-    /*             "embedded": <:> ( "bottom": <#> 0.0625em, ), */
-    /*             "font": <:> ( "top": <#> 0.1875em, ), */
-    /*             "pseudo": <:> ( "top": <#> -0.0625em, ), */
+    /*             "embedded": <:> ( "bottom": <#> 0.0625em ), */
+    /*             "font": <:> ( "top": <#> 0.1875em ), */
+    /*             "pseudo": <:> ( "top": <#> -0.0625em ), */
     /*             "size": <:> ( */
     /*               "font": <#> 1em, */
     /*               "pseudo": <#> 1em, */
@@ -2165,19 +2185,19 @@ tokens-vars {
     /*           ), */
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 100, */
-    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*           "text-transform": <S> none, */
     /*           "width": <S> fit-content, */
     /*         ), */
     /*         "disabled": <:> ( */
-    /*           "border": <:> ( "radius": <#> 0, "style": <S> dashed, ), */
-    /*           "font": <:> ( "style": <S> italic, "weight": <S> 500, ), */
+    /*           "border": <:> ( "radius": <#> 0, "style": <S> dashed ), */
+    /*           "font": <:> ( "style": <S> italic, "weight": <S> 500 ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
     /*         "inline": <:> ( */
-    /*           "focus": <:> ( "offset": <S> 400, ), */
-    /*           "border": <:> ( "radius": <#> 0, "style": <S> solid, ), */
+    /*           "focus": <:> ( "offset": <S> 400 ), */
+    /*           "border": <:> ( "radius": <#> 0, "style": <S> solid ), */
     /*           "font": <:> ( */
     /*             "size": <S> smaller-1, */
     /*             "style": <S> normal, */
@@ -2189,9 +2209,9 @@ tokens-vars {
     /*               "end": <#> 0, */
     /*               "start": <#> 2, */
     /*             ), */
-    /*             "embedded": <:> ( "bottom": <#> 0.0625em, ), */
-    /*             "font": <:> ( "top": <#> 0.1875em, ), */
-    /*             "pseudo": <:> ( "top": <#> -0.0625em, ), */
+    /*             "embedded": <:> ( "bottom": <#> 0.0625em ), */
+    /*             "font": <:> ( "top": <#> 0.1875em ), */
+    /*             "pseudo": <:> ( "top": <#> -0.0625em ), */
     /*             "size": <:> ( */
     /*               "font": <#> 1em, */
     /*               "pseudo": <#> 1em, */
@@ -2200,7 +2220,7 @@ tokens-vars {
     /*           ), */
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 100, */
-    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*           "text-transform": <S> none, */
     /*           "vertical-align": <S> baseline, */
     /*           "width": <S> fit-content, */
@@ -2208,16 +2228,16 @@ tokens-vars {
     /*       ), */
     /*       "flow-margin": <:> ( */
     /*         "$": <S> 400, */
-    /*         "button": <:> ( "$": <S> 300, "touch": <S> 400, ), */
+    /*         "button": <:> ( "$": <S> 300, "touch": <S> 400 ), */
     /*         "large": <S> 600, */
     /*         "small": <S> 300, */
     /*       ), */
     /*       "form": <:> ( */
     /*         "$": <:> ( */
-    /*           "flow-margin": <:> ( "self": <S> margins-flow-large, ), */
+    /*           "flow-margin": <:> ( "self": <S> margins-flow-large ), */
     /*         ), */
     /*         "search": <:> ( */
-    /*           "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*           "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*         ), */
     /*       ), */
     /*       "heading": <:> ( */
@@ -2230,7 +2250,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <#> 1.1, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 800, ), */
+    /*             "block": <:> ( "start": <S> 800 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2249,7 +2269,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 100, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 800, ), */
+    /*             "block": <:> ( "start": <S> 800 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2268,7 +2288,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 200, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 800, ), */
+    /*             "block": <:> ( "start": <S> 800 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2287,7 +2307,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 200, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 600, ), */
+    /*             "block": <:> ( "start": <S> 600 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2306,7 +2326,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 200, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 600, ), */
+    /*             "block": <:> ( "start": <S> 600 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2325,7 +2345,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 200, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 600, ), */
+    /*             "block": <:> ( "start": <S> 600 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2344,7 +2364,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 400, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 600, ), */
+    /*             "block": <:> ( "start": <S> 600 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2363,7 +2383,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 400, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 600, ), */
+    /*             "block": <:> ( "start": <S> 600 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2382,7 +2402,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 400, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 500, ), */
+    /*             "block": <:> ( "start": <S> 500 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2401,7 +2421,7 @@ tokens-vars {
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 400, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 500, ), */
+    /*             "block": <:> ( "start": <S> 500 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2413,7 +2433,7 @@ tokens-vars {
     /*         ), */
     /*         "unstyled": <:> ( */
     /*           "color": <S> text-primary, */
-    /*           "flow-margin": <:> ( "self": <S> margins-flow-large, ), */
+    /*           "flow-margin": <:> ( "self": <S> margins-flow-large ), */
     /*           "font": <:> ( */
     /*             "family": <S> body, */
     /*             "size": <S> bigger-1, */
@@ -2432,13 +2452,13 @@ tokens-vars {
     /*         ), */
     /*       ), */
     /*       "hr": <:> ( */
-    /*         "border": <:> ( "width": <S> 200, ), */
+    /*         "border": <:> ( "width": <S> 200 ), */
     /*         "color": <S> ui-primary, */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*       ), */
     /*       "icon": <:> ( */
     /*         "color": <S> ui, */
-    /*         "font": <:> ( "top": <#> 0.1875em, ), */
+    /*         "font": <:> ( "top": <#> 0.1875em ), */
     /*         "inline": <:> ( */
     /*           "buffer": <:> ( */
     /*             "$": <#> 0.25em, */
@@ -2447,7 +2467,7 @@ tokens-vars {
     /*           ), */
     /*           "line-height": <#> 1, */
     /*         ), */
-    /*         "pseudo": <:> ( "top": <#> -0.0625em, ), */
+    /*         "pseudo": <:> ( "top": <#> -0.0625em ), */
     /*         "size": <:> ( */
     /*           "$": <#> 1.25em, */
     /*           "font": <#> 1em, */
@@ -2458,13 +2478,13 @@ tokens-vars {
     /*       ), */
     /*       "input": <:> ( */
     /*         "$": <:> ( */
-    /*           "focus": <:> ( "offset": <S> 400, ), */
+    /*           "focus": <:> ( "offset": <S> 400 ), */
     /*           "border": <:> ( */
     /*             "radius": <#> 0, */
     /*             "style": <S> solid, */
     /*             "width": <S> 100, */
     /*           ), */
-    /*           "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*           "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*           "icons": <:> ( */
     /*             "letter-spacing": <S> normal, */
     /*             "offset": <:> ( */
@@ -2482,9 +2502,9 @@ tokens-vars {
     /*             "line-height": <S> 200, */
     /*           ), */
     /*           "line-height": <S> 300, */
-    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*           "placeholder": <:> ( */
-    /*             "font": <:> ( "style": <S> italic, ), */
+    /*             "font": <:> ( "style": <S> italic ), */
     /*             "opacity": <:> ( */
     /*               "average": <#> 75%, */
     /*               "low": <#> 65%, */
@@ -2492,17 +2512,17 @@ tokens-vars {
     /*           ), */
     /*         ), */
     /*         "disabled": <:> ( */
-    /*           "border": <:> ( "radius": <#> 0, "style": <S> dashed, ), */
+    /*           "border": <:> ( "radius": <#> 0, "style": <S> dashed ), */
     /*         ), */
     /*         "readonly": <:> ( */
-    /*           "border": <:> ( "radius": <#> 0, "style": <S> solid, ), */
+    /*           "border": <:> ( "radius": <#> 0, "style": <S> solid ), */
     /*         ), */
     /*         "file": <:> ( */
-    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*           "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*         ), */
     /*       ), */
     /*       "label": <:> ( */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow ), */
     /*       ), */
     /*       "link-card": <:> ( */
     /*         "background": <:> ( */
@@ -2522,7 +2542,7 @@ tokens-vars {
     /*         ), */
     /*         "flow-margin": <:> ( */
     /*           "$": <S> 300, */
-    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*           "large": <S> 400, */
     /*           "self": <S> margins-flow-large, */
     /*           "small": <S> 200, */
@@ -2535,7 +2555,7 @@ tokens-vars {
     /*           ), */
     /*         ), */
     /*         "line-height": <S> 300, */
-    /*         "padding": <:> ( "block": <S> 400, "inline": <S> 400, ), */
+    /*         "padding": <:> ( "block": <S> 400, "inline": <S> 400 ), */
     /*         "subheading": <:> ( */
     /*           "color": <:> ( */
     /*             "$": <S> text-grey, */
@@ -2546,9 +2566,9 @@ tokens-vars {
     /*       ), */
     /*       "logo": <:> ( */
     /*         "color": <S> text-primary, */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*       ), */
-    /*       "presetOpacities": <()> ( 1: <#> 65%, 2: <#> 85%, 3: <#> 95%, ), */
+    /*       "presetOpacities": <()> ( 1: <#> 65%, 2: <#> 85%, 3: <#> 95% ), */
     /*       "selection": <:> ( */
     /*         "background": <:> ( */
     /*           "opacity": <:> ( */
@@ -2566,11 +2586,11 @@ tokens-vars {
     /*             "style": <S> italic, */
     /*             "weight": <S> 600, */
     /*           ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "line-height": <S> 200, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "start": <S> 200, ), */
+    /*             "block": <:> ( "start": <S> 200 ), */
     /*           ), */
     /*           "padding": <:> ( */
     /*             "block": <:> ( */
@@ -2582,36 +2602,36 @@ tokens-vars {
     /*         ), */
     /*         "2": <:> ( */
     /*           "color": <S> text-grey, */
-    /*           "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
     /*         "3": <:> ( */
     /*           "color": <S> text-grey, */
-    /*           "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
     /*         "4": <:> ( */
     /*           "color": <S> text-grey, */
-    /*           "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
     /*         "5": <:> ( */
     /*           "color": <S> text-grey, */
-    /*           "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
     /*         "6": <:> ( */
     /*           "color": <S> text-grey, */
-    /*           "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
@@ -2621,7 +2641,7 @@ tokens-vars {
     /*             "size": <S> smaller-1, */
     /*             "style": <S> italic, */
     /*           ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
@@ -2631,7 +2651,7 @@ tokens-vars {
     /*             "size": <S> smaller-1, */
     /*             "style": <S> italic, */
     /*           ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
@@ -2641,7 +2661,7 @@ tokens-vars {
     /*             "size": <S> smaller-1, */
     /*             "style": <S> italic, */
     /*           ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
@@ -2651,7 +2671,7 @@ tokens-vars {
     /*             "size": <S> smaller-1, */
     /*             "style": <S> italic, */
     /*           ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
@@ -2661,24 +2681,24 @@ tokens-vars {
     /*             "size": <S> smaller-1, */
     /*             "style": <S> italic, */
     /*           ), */
-    /*           "icon": <:> ( "color": <S> ui-grey, ), */
+    /*           "icon": <:> ( "color": <S> ui-grey ), */
     /*           "letter-spacing": <S> normal, */
     /*           "text-transform": <S> none, */
     /*         ), */
     /*       ), */
     /*       "table": <:> ( */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm-large, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm-large ), */
     /*       ), */
     /*       "toggle": <:> ( */
     /*         "content": <:> ( */
     /*           "background": <S> background-grey, */
     /*           "border": <:> ( */
-    /*             "radius": <:> ( "$": <#> 0, "top": <#> 0, ), */
-    /*             "style": <:> ( "$": <S> dotted, ), */
+    /*             "radius": <:> ( "$": <#> 0, "top": <#> 0 ), */
+    /*             "style": <:> ( "$": <S> dotted ), */
     /*             "width": <S> 200, */
     /*           ), */
     /*           "line-height": <S> 300, */
-    /*           "padding": <:> ( "block": <S> 400, "inline": <S> 400, ), */
+    /*           "padding": <:> ( "block": <S> 400, "inline": <S> 400 ), */
     /*         ), */
     /*         "control": <:> ( */
     /*           "$": <:> ( */
@@ -2698,74 +2718,74 @@ tokens-vars {
     /*           "heading": <:> ( */
     /*             "1": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "2": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "3": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "4": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "5": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "6": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "7": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "8": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "9": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*             "10": <:> ( */
     /*               "margin": <:> ( */
-    /*                 "block": <:> ( "end": <S> 100, ), */
+    /*                 "block": <:> ( "end": <S> 100 ), */
     /*               ), */
     /*             ), */
     /*           ), */
     /*         ), */
     /*         "flow-margin": <:> ( */
     /*           "$": <S> 300, */
-    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*           "large": <S> 500, */
     /*           "self": <S> margins-flow-firm, */
     /*           "small": <S> 200, */
     /*         ), */
     /*         "icon": <:> ( */
-    /*           "buffer": <:> ( "end": <#> 0.25em, "start": <#> 0, ), */
+    /*           "buffer": <:> ( "end": <#> 0.25em, "start": <#> 0 ), */
     /*           "size": <#> 1em, */
     /*           "vertical-align": <S> middle, */
     /*         ), */
     /*         "nav": <:> ( */
     /*           "content": <:> ( */
     /*             "background": <S> background, */
-    /*             "border": <:> ( "width": <S> 200, ), */
+    /*             "border": <:> ( "width": <S> 200 ), */
     /*           ), */
-    /*           "title": <:> ( "background": <S> background-grey, ), */
+    /*           "title": <:> ( "background": <S> background-grey ), */
     /*         ), */
     /*       ), */
     /*       "widget": <:> ( */
@@ -2778,12 +2798,12 @@ tokens-vars {
     /*         ), */
     /*         "flow-margin": <:> ( */
     /*           "$": <S> 300, */
-    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*           "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*           "large": <S> 500, */
     /*           "small": <S> 200, */
     /*         ), */
     /*         "line-height": <S> 300, */
-    /*         "padding": <:> ( "block": <S> 400, "inline": <S> 400, ), */
+    /*         "padding": <:> ( "block": <S> 400, "inline": <S> 400 ), */
     /*       ), */
     /*     ), */
     /*     "transition": <:> ( */
@@ -2882,7 +2902,7 @@ tokens-vars {
     /*         "fast": <#> 250ms, */
     /*         "normal": <#> 500ms, */
     /*         "slow": <#> 750ms, */
-    /*         "toggle": <:> ( "$": <#> 500ms, "motion": <#> 1200ms, ), */
+    /*         "toggle": <:> ( "$": <#> 500ms, "motion": <#> 1200ms ), */
     /*       ), */
     /*     ), */
     /*     "z_index": <:> ( */
@@ -3702,7 +3722,7 @@ tokens-vars {
     /*     ), */
     /*     "themes": <:> ( */
     /*       "_meta": <:> ( */
-    /*         "brightness": <()> ( 1: <S> light, 2: <S> dark, ), */
+    /*         "brightness": <()> ( 1: <S> light, 2: <S> dark ), */
     /*         "contrast": <()> ( */
     /*           1: <S> low, */
     /*           2: <S> average, */
@@ -3717,9 +3737,9 @@ tokens-vars {
     /*             3: <S> secondary, */
     /*             4: <S> "grey", */
     /*           ), */
-    /*           "button": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
-    /*           "text": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
-    /*           "textAndBackground": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
+    /*           "button": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
+    /*           "text": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
+    /*           "textAndBackground": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
     /*         ), */
     /*         "levelsInUse": <:> ( */
     /*           "light": <()> ( */
@@ -3766,14 +3786,14 @@ tokens-vars {
     /*                 "hover": <S> ButtonFace, */
     /*               ), */
     /*               "border": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "outline": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "selection": <:> ( */
     /*                 "background": <:> ( */
@@ -3805,14 +3825,14 @@ tokens-vars {
     /*                 "hover": <S> ButtonFace, */
     /*               ), */
     /*               "border": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "outline": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "selection": <:> ( */
     /*                 "background": <:> ( */
@@ -3844,14 +3864,14 @@ tokens-vars {
     /*                 "hover": <S> ButtonFace, */
     /*               ), */
     /*               "border": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "outline": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "selection": <:> ( */
     /*                 "background": <:> ( */
@@ -3878,8 +3898,8 @@ tokens-vars {
     /*             ), */
     /*             "disabled": <:> ( */
     /*               "background": <S> ButtonFace, */
-    /*               "border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               "text": <S> ButtonText, */
     /*               "ui": <S> ButtonText, */
     /*             ), */
@@ -3972,8 +3992,8 @@ tokens-vars {
     /*           ), */
     /*           "system": <:> ( */
     /*             "accent": <:> ( */
-    /*               "bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, ), */
-    /*               "text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, ), */
+    /*               "bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor ), */
+    /*               "text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText ), */
     /*             ), */
     /*             "background": <:> ( */
     /*               "$": <S> Canvas, */
@@ -3989,9 +4009,9 @@ tokens-vars {
     /*                 "active": <S> ButtonFace, */
     /*               ), */
     /*               "border": <:> ( */
-    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*                 "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*                 "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*               ), */
     /*               "text": <:> ( */
     /*                 "$": <S> ButtonText, */
@@ -6576,8 +6596,8 @@ tokens-vars {
     /*         "10": <#> -2, */
     /*       ), */
     /*       "normal": <#> 0, */
-    /*       "smaller": <:> ( "1": <#> -1, "2": <#> -1.5, "3": <#> -2, ), */
-    /*       "bigger": <:> ( "1": <#> 1, "2": <#> 2, "3": <#> 3, ), */
+    /*       "smaller": <:> ( "1": <#> -1, "2": <#> -1.5, "3": <#> -2 ), */
+    /*       "bigger": <:> ( "1": <#> 1, "2": <#> 2, "3": <#> 3 ), */
     /*     ), */
     /*     "size_base": <#> 1.0625, */
     /*     "size_multiplier": <#> 1.15625, */
@@ -6592,7 +6612,7 @@ tokens-vars {
     /*           ), */
     /*           "icon": <:> ( */
     /*             "inline": <:> ( */
-    /*               "buffer": <:> ( "start": <#> 1.5, ), */
+    /*               "buffer": <:> ( "start": <#> 1.5 ), */
     /*             ), */
     /*             "size": <:> ( */
     /*               "$": <#> 1.0625, */
@@ -6775,7 +6795,7 @@ tokens-vars {
     /*           "letter-spacing": <#> -0.05em, */
     /*           "icon": <:> ( */
     /*             "inline": <:> ( */
-    /*               "buffer": <:> ( "start": <#> 1.5, ), */
+    /*               "buffer": <:> ( "start": <#> 1.5 ), */
     /*             ), */
     /*             "size": <:> ( */
     /*               "$": <#> 1.0625, */
@@ -6857,7 +6877,7 @@ tokens-vars {
     /*       ), */
     /*       "hyperlegible": <:> ( */
     /*         "contentWidthScale": <#> 1.035, */
-    /*         "css": <:> ( "letter-spacing": <S> normal, ), */
+    /*         "css": <:> ( "letter-spacing": <S> normal ), */
     /*         "lineHeightScale": <#> 1, */
     /*         "sizeAdjust": <#> 105%, */
     /*         "variable": <:> ( */
@@ -7253,7 +7273,7 @@ tokens-vars {
     /*       ), */
     /*       "hyperlegible-monospace": <:> ( */
     /*         "contentWidthScale": <#> 1.035, */
-    /*         "css": <:> ( "letter-spacing": <S> normal, ), */
+    /*         "css": <:> ( "letter-spacing": <S> normal ), */
     /*         "lineHeightScale": <#> 1.05, */
     /*         "sizeAdjust": <#> 96%, */
     /*         "variable": <:> ( */
@@ -7579,7 +7599,7 @@ tokens-vars {
     /*       ), */
     /*       "monospace": <:> ( */
     /*         "contentWidthScale": <#> 1.125, */
-    /*         "css": <:> ( "letter-spacing": <#> -0.015em, ), */
+    /*         "css": <:> ( "letter-spacing": <#> -0.015em ), */
     /*         "sizeAdjust": <#> 96.5%, */
     /*         "weights": <:> ( */
     /*           "100": <:> ( */
@@ -8061,7 +8081,7 @@ tokens-vars {
     /*         ), */
     /*       ), */
     /*       "icons": <:> ( */
-    /*         "css": <:> ( "letter-spacing": <#> 0.1em, ), */
+    /*         "css": <:> ( "letter-spacing": <#> 0.1em ), */
     /*         "weights": <:> ( */
     /*           "400": <:> ( */
     /*             "normal": <:> ( */
@@ -8166,7 +8186,7 @@ tokens-vars {
     /*   "fontWeight-semibold-variable": <-> null, */
     /*   "fontWeight-variable": <-> null, */
     /*   "gap": <:> ( */
-    /*     "block": <:> ( "layout": <#> 5, "layout-half": <#> 2.5, ), */
+    /*     "block": <:> ( "layout": <#> 5, "layout-half": <#> 2.5 ), */
     /*     "inline": <:> ( */
     /*       "indent": <#> 9, */
     /*       "layout": <#> 8, */
@@ -8978,17 +8998,17 @@ tokens-vars {
     /*       "color": <S> text-primary, */
     /*       "flow-margin": <:> ( */
     /*         "$": <S> 300, */
-    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*         "large": <S> 400, */
     /*         "self": <S> margins-flow-firm, */
     /*         "small": <S> 200, */
     /*       ), */
-    /*       "gap": <:> ( "block": <#> 0, "inline": <S> 300, ), */
+    /*       "gap": <:> ( "block": <#> 0, "inline": <S> 300 ), */
     /*       "heading": <:> ( */
     /*         "1": <:> ( */
     /*           "background-color": <S> background-primary, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0 ), */
     /*           ), */
     /*         ), */
     /*         "2": <:> ( */
@@ -9003,7 +9023,7 @@ tokens-vars {
     /*         "3": <:> ( */
     /*           "background-color": <S> background-primary, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.0625, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.0625 ), */
     /*           ), */
     /*         ), */
     /*         "4": <:> ( */
@@ -9027,7 +9047,7 @@ tokens-vars {
     /*         "6": <:> ( */
     /*           "background-color": <S> background-primary, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.0625, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.0625 ), */
     /*           ), */
     /*         ), */
     /*         "7": <:> ( */
@@ -9051,7 +9071,7 @@ tokens-vars {
     /*         "9": <:> ( */
     /*           "background-color": <S> background-grey, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0 ), */
     /*           ), */
     /*         ), */
     /*         "10": <:> ( */
@@ -9066,7 +9086,7 @@ tokens-vars {
     /*         "unstyled": <:> ( */
     /*           "background-color": <S> background-primary, */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.1875, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0.1875 ), */
     /*           ), */
     /*         ), */
     /*       ), */
@@ -9078,37 +9098,37 @@ tokens-vars {
     /*         ), */
     /*         "line-height": <S> 200, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "end": <#> 0, "start": <#> 0.1875, ), */
+    /*           "block": <:> ( "end": <#> 0, "start": <#> 0.1875 ), */
     /*         ), */
     /*       ), */
     /*       "icon": <:> ( */
     /*         "color": <S> ui-primary, */
-    /*         "size": <:> ( "$": <#> 1.25em, "large": <#> 2em, ), */
+    /*         "size": <:> ( "$": <#> 1.25em, "large": <#> 2em ), */
     /*       ), */
     /*       "line-height": <S> 300, */
-    /*       "padding": <:> ( "block": <S> 300, "inline": <S> 300, ), */
+    /*       "padding": <:> ( "block": <S> 300, "inline": <S> 300 ), */
     /*     ), */
     /*     "backdrop": <:> ( */
     /*       "background": <:> ( */
-    /*         "after": <:> ( "$": <S> link, "hover": <S> link-hover, ), */
-    /*         "before": <:> ( "$": <S> background, ), */
+    /*         "after": <:> ( "$": <S> link, "hover": <S> link-hover ), */
+    /*         "before": <:> ( "$": <S> background ), */
     /*       ), */
     /*       "filter": <S> blur(1rem), */
-    /*       "opacity": <:> ( "after": <#> 18.75%, "before": <#> 62.5%, ), */
+    /*       "opacity": <:> ( "after": <#> 18.75%, "before": <#> 62.5% ), */
     /*     ), */
     /*     "blockquote": <:> ( */
-    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm-large, ), */
+    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm-large ), */
     /*     ), */
     /*     "button": <:> ( */
     /*       "$": <:> ( */
-    /*         "focus": <:> ( "offset": <S> 400, ), */
+    /*         "focus": <:> ( "offset": <S> 400 ), */
     /*         "border": <:> ( */
     /*           "radius": <#> 0, */
     /*           "style": <S> solid, */
     /*           "width": <S> 100, */
     /*         ), */
     /*         "display": <S> block, */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*         "font": <:> ( */
     /*           "size": <S> normal, */
     /*           "style": <S> normal, */
@@ -9120,27 +9140,27 @@ tokens-vars {
     /*             "end": <#> 0, */
     /*             "start": <#> 2, */
     /*           ), */
-    /*           "embedded": <:> ( "bottom": <#> 0.0625em, ), */
-    /*           "font": <:> ( "top": <#> 0.1875em, ), */
-    /*           "pseudo": <:> ( "top": <#> -0.0625em, ), */
-    /*           "size": <:> ( "font": <#> 1em, "pseudo": <#> 1em, ), */
+    /*           "embedded": <:> ( "bottom": <#> 0.0625em ), */
+    /*           "font": <:> ( "top": <#> 0.1875em ), */
+    /*           "pseudo": <:> ( "top": <#> -0.0625em ), */
+    /*           "size": <:> ( "font": <#> 1em, "pseudo": <#> 1em ), */
     /*           "vertical-align": <S> middle, */
     /*         ), */
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 100, */
-    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*         "text-transform": <S> none, */
     /*         "width": <S> fit-content, */
     /*       ), */
     /*       "disabled": <:> ( */
-    /*         "border": <:> ( "radius": <#> 0, "style": <S> dashed, ), */
-    /*         "font": <:> ( "style": <S> italic, "weight": <S> 500, ), */
+    /*         "border": <:> ( "radius": <#> 0, "style": <S> dashed ), */
+    /*         "font": <:> ( "style": <S> italic, "weight": <S> 500 ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "inline": <:> ( */
-    /*         "focus": <:> ( "offset": <S> 400, ), */
-    /*         "border": <:> ( "radius": <#> 0, "style": <S> solid, ), */
+    /*         "focus": <:> ( "offset": <S> 400 ), */
+    /*         "border": <:> ( "radius": <#> 0, "style": <S> solid ), */
     /*         "font": <:> ( */
     /*           "size": <S> smaller-1, */
     /*           "style": <S> normal, */
@@ -9152,15 +9172,15 @@ tokens-vars {
     /*             "end": <#> 0, */
     /*             "start": <#> 2, */
     /*           ), */
-    /*           "embedded": <:> ( "bottom": <#> 0.0625em, ), */
-    /*           "font": <:> ( "top": <#> 0.1875em, ), */
-    /*           "pseudo": <:> ( "top": <#> -0.0625em, ), */
-    /*           "size": <:> ( "font": <#> 1em, "pseudo": <#> 1em, ), */
+    /*           "embedded": <:> ( "bottom": <#> 0.0625em ), */
+    /*           "font": <:> ( "top": <#> 0.1875em ), */
+    /*           "pseudo": <:> ( "top": <#> -0.0625em ), */
+    /*           "size": <:> ( "font": <#> 1em, "pseudo": <#> 1em ), */
     /*           "vertical-align": <S> middle, */
     /*         ), */
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 100, */
-    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*         "text-transform": <S> none, */
     /*         "vertical-align": <S> baseline, */
     /*         "width": <S> fit-content, */
@@ -9174,10 +9194,10 @@ tokens-vars {
     /*     ), */
     /*     "form": <:> ( */
     /*       "$": <:> ( */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-large, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-large ), */
     /*       ), */
     /*       "search": <:> ( */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*       ), */
     /*     ), */
     /*     "heading": <:> ( */
@@ -9190,10 +9210,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <#> 1.1, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 800, ), */
+    /*           "block": <:> ( "start": <S> 800 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9206,10 +9226,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 100, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 800, ), */
+    /*           "block": <:> ( "start": <S> 800 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9222,10 +9242,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 200, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 800, ), */
+    /*           "block": <:> ( "start": <S> 800 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9238,10 +9258,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 200, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 600, ), */
+    /*           "block": <:> ( "start": <S> 600 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9254,10 +9274,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 200, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 600, ), */
+    /*           "block": <:> ( "start": <S> 600 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9270,10 +9290,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 200, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 600, ), */
+    /*           "block": <:> ( "start": <S> 600 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9286,10 +9306,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 400, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 600, ), */
+    /*           "block": <:> ( "start": <S> 600 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9302,10 +9322,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 400, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 600, ), */
+    /*           "block": <:> ( "start": <S> 600 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9318,10 +9338,10 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 400, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 500, ), */
+    /*           "block": <:> ( "start": <S> 500 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
@@ -9334,16 +9354,16 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 400, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 500, ), */
+    /*           "block": <:> ( "start": <S> 500 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "unstyled": <:> ( */
     /*         "color": <S> text-primary, */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-large, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-large ), */
     /*         "font": <:> ( */
     /*           "family": <S> body, */
     /*           "size": <S> bigger-1, */
@@ -9353,19 +9373,19 @@ tokens-vars {
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 300, */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*     ), */
     /*     "hr": <:> ( */
-    /*       "border": <:> ( "width": <S> 200, ), */
+    /*       "border": <:> ( "width": <S> 200 ), */
     /*       "color": <S> ui-primary, */
-    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*     ), */
     /*     "icon": <:> ( */
     /*       "color": <S> ui, */
-    /*       "font": <:> ( "top": <#> 0.1875em, ), */
+    /*       "font": <:> ( "top": <#> 0.1875em ), */
     /*       "inline": <:> ( */
     /*         "buffer": <:> ( */
     /*           "$": <#> 0.25em, */
@@ -9374,7 +9394,7 @@ tokens-vars {
     /*         ), */
     /*         "line-height": <#> 1, */
     /*       ), */
-    /*       "pseudo": <:> ( "top": <#> -0.0625em, ), */
+    /*       "pseudo": <:> ( "top": <#> -0.0625em ), */
     /*       "size": <:> ( */
     /*         "$": <#> 1.25em, */
     /*         "font": <#> 1em, */
@@ -9385,13 +9405,13 @@ tokens-vars {
     /*     ), */
     /*     "input": <:> ( */
     /*       "$": <:> ( */
-    /*         "focus": <:> ( "offset": <S> 400, ), */
+    /*         "focus": <:> ( "offset": <S> 400 ), */
     /*         "border": <:> ( */
     /*           "radius": <#> 0, */
     /*           "style": <S> solid, */
     /*           "width": <S> 100, */
     /*         ), */
-    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*         "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*         "icons": <:> ( */
     /*           "letter-spacing": <S> normal, */
     /*           "offset": <:> ( */
@@ -9402,28 +9422,28 @@ tokens-vars {
     /*           ), */
     /*         ), */
     /*         "label": <:> ( */
-    /*           "font": <:> ( "style": <S> normal, "weight": <S> 500, ), */
+    /*           "font": <:> ( "style": <S> normal, "weight": <S> 500 ), */
     /*           "line-height": <S> 200, */
     /*         ), */
     /*         "line-height": <S> 300, */
-    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*         "placeholder": <:> ( */
-    /*           "font": <:> ( "style": <S> italic, ), */
-    /*           "opacity": <:> ( "average": <#> 75%, "low": <#> 65%, ), */
+    /*           "font": <:> ( "style": <S> italic ), */
+    /*           "opacity": <:> ( "average": <#> 75%, "low": <#> 65% ), */
     /*         ), */
     /*       ), */
     /*       "disabled": <:> ( */
-    /*         "border": <:> ( "radius": <#> 0, "style": <S> dashed, ), */
+    /*         "border": <:> ( "radius": <#> 0, "style": <S> dashed ), */
     /*       ), */
     /*       "readonly": <:> ( */
-    /*         "border": <:> ( "radius": <#> 0, "style": <S> solid, ), */
+    /*         "border": <:> ( "radius": <#> 0, "style": <S> solid ), */
     /*       ), */
     /*       "file": <:> ( */
-    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300, ), */
+    /*         "padding": <:> ( "block": <S> 200, "inline": <S> 300 ), */
     /*       ), */
     /*     ), */
     /*     "label": <:> ( */
-    /*       "flow-margin": <:> ( "self": <S> margins-flow, ), */
+    /*       "flow-margin": <:> ( "self": <S> margins-flow ), */
     /*     ), */
     /*     "link-card": <:> ( */
     /*       "background": <:> ( */
@@ -9443,7 +9463,7 @@ tokens-vars {
     /*       ), */
     /*       "flow-margin": <:> ( */
     /*         "$": <S> 300, */
-    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*         "large": <S> 400, */
     /*         "self": <S> margins-flow-large, */
     /*         "small": <S> 200, */
@@ -9456,7 +9476,7 @@ tokens-vars {
     /*         ), */
     /*       ), */
     /*       "line-height": <S> 300, */
-    /*       "padding": <:> ( "block": <S> 400, "inline": <S> 400, ), */
+    /*       "padding": <:> ( "block": <S> 400, "inline": <S> 400 ), */
     /*       "subheading": <:> ( */
     /*         "color": <:> ( */
     /*           "$": <S> text-grey, */
@@ -9467,7 +9487,7 @@ tokens-vars {
     /*     ), */
     /*     "logo": <:> ( */
     /*       "color": <S> text-primary, */
-    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm, ), */
+    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm ), */
     /*     ), */
     /*     "selection": <:> ( */
     /*       "background": <:> ( */
@@ -9486,182 +9506,182 @@ tokens-vars {
     /*           "style": <S> italic, */
     /*           "weight": <S> 600, */
     /*         ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "line-height": <S> 200, */
     /*         "margin": <:> ( */
-    /*           "block": <:> ( "start": <S> 200, ), */
+    /*           "block": <:> ( "start": <S> 200 ), */
     /*         ), */
     /*         "padding": <:> ( */
-    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0, ), */
+    /*           "block": <:> ( "end": <#> 0.0625em, "start": <#> 0 ), */
     /*         ), */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "2": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "3": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "4": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "5": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "6": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> normal, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> normal, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "7": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "8": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "9": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "10": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*       "unstyled": <:> ( */
     /*         "color": <S> text-grey, */
-    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic, ), */
-    /*         "icon": <:> ( "color": <S> ui-grey, ), */
+    /*         "font": <:> ( "size": <S> smaller-1, "style": <S> italic ), */
+    /*         "icon": <:> ( "color": <S> ui-grey ), */
     /*         "letter-spacing": <S> normal, */
     /*         "text-transform": <S> none, */
     /*       ), */
     /*     ), */
     /*     "table": <:> ( */
-    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm-large, ), */
+    /*       "flow-margin": <:> ( "self": <S> margins-flow-firm-large ), */
     /*     ), */
     /*     "toggle": <:> ( */
     /*       "content": <:> ( */
     /*         "background": <S> background-grey, */
     /*         "border": <:> ( */
-    /*           "radius": <:> ( "$": <#> 0, "top": <#> 0, ), */
-    /*           "style": <:> ( "$": <S> dotted, ), */
+    /*           "radius": <:> ( "$": <#> 0, "top": <#> 0 ), */
+    /*           "style": <:> ( "$": <S> dotted ), */
     /*           "width": <S> 200, */
     /*         ), */
     /*         "line-height": <S> 300, */
-    /*         "padding": <:> ( "block": <S> 400, "inline": <S> 400, ), */
+    /*         "padding": <:> ( "block": <S> 400, "inline": <S> 400 ), */
     /*       ), */
     /*       "control": <:> ( */
     /*         "$": <:> ( */
     /*           "margin": <:> ( */
-    /*             "block": <:> ( "end": <S> 100, "start": <#> 0, ), */
+    /*             "block": <:> ( "end": <S> 100, "start": <#> 0 ), */
     /*           ), */
     /*           "padding": <:> ( */
-    /*             "block": <:> ( "end": <#> 0, "start": <#> 0, ), */
+    /*             "block": <:> ( "end": <#> 0, "start": <#> 0 ), */
     /*           ), */
     /*         ), */
     /*         "heading": <:> ( */
     /*           "1": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "2": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "3": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "4": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "5": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "6": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "7": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "8": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "9": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*           "10": <:> ( */
     /*             "margin": <:> ( */
-    /*               "block": <:> ( "end": <S> 100, ), */
+    /*               "block": <:> ( "end": <S> 100 ), */
     /*             ), */
     /*           ), */
     /*         ), */
     /*       ), */
     /*       "flow-margin": <:> ( */
     /*         "$": <S> 300, */
-    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*         "large": <S> 500, */
     /*         "self": <S> margins-flow-firm, */
     /*         "small": <S> 200, */
     /*       ), */
     /*       "icon": <:> ( */
-    /*         "buffer": <:> ( "end": <#> 0.25em, "start": <#> 0, ), */
+    /*         "buffer": <:> ( "end": <#> 0.25em, "start": <#> 0 ), */
     /*         "size": <#> 1em, */
     /*         "vertical-align": <S> middle, */
     /*       ), */
     /*       "nav": <:> ( */
     /*         "content": <:> ( */
     /*           "background": <S> background, */
-    /*           "border": <:> ( "width": <S> 200, ), */
+    /*           "border": <:> ( "width": <S> 200 ), */
     /*         ), */
-    /*         "title": <:> ( "background": <S> background-grey, ), */
+    /*         "title": <:> ( "background": <S> background-grey ), */
     /*       ), */
     /*     ), */
     /*     "widget": <:> ( */
@@ -9674,12 +9694,12 @@ tokens-vars {
     /*       ), */
     /*       "flow-margin": <:> ( */
     /*         "$": <S> 300, */
-    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300, ), */
+    /*         "button": <:> ( "$": <S> 200, "touch": <S> 300 ), */
     /*         "large": <S> 500, */
     /*         "small": <S> 200, */
     /*       ), */
     /*       "line-height": <S> 300, */
-    /*       "padding": <:> ( "block": <S> 400, "inline": <S> 400, ), */
+    /*       "padding": <:> ( "block": <S> 400, "inline": <S> 400 ), */
     /*     ), */
     /*     "flow-margin--small": <#> 0.5rem, */
     /*     "flow-margin--large": <#> 1.84375rem, */
@@ -10182,7 +10202,7 @@ tokens-vars {
     /*   ), */
     /*   "systemFontList-monospace-prepend": <()> (), */
     /*   "systemFontList-prepend": <()> (), */
-    /*   "themeOptions": <()> ( <S> "default", ), */
+    /*   "themeOptions": <()> ( 1: <S> "default", ), */
     /*   "themes": <:> ( */
     /*     "default": <:> ( */
     /*       "forced-colors": <:> ( */
@@ -10201,14 +10221,14 @@ tokens-vars {
     /*               "hover": <S> ButtonFace, */
     /*             ), */
     /*             "border": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "outline": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "selection": <:> ( */
     /*               "background": <:> ( */
@@ -10240,14 +10260,14 @@ tokens-vars {
     /*               "hover": <S> ButtonFace, */
     /*             ), */
     /*             "border": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "outline": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "selection": <:> ( */
     /*               "background": <:> ( */
@@ -10279,14 +10299,14 @@ tokens-vars {
     /*               "hover": <S> ButtonFace, */
     /*             ), */
     /*             "border": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "outline": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "selection": <:> ( */
     /*               "background": <:> ( */
@@ -10313,8 +10333,8 @@ tokens-vars {
     /*           ), */
     /*           "disabled": <:> ( */
     /*             "background": <S> ButtonFace, */
-    /*             "border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*             "outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*             "border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*             "outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             "text": <S> ButtonText, */
     /*             "ui": <S> ButtonText, */
     /*           ), */
@@ -10407,8 +10427,8 @@ tokens-vars {
     /*         ), */
     /*         "system": <:> ( */
     /*           "accent": <:> ( */
-    /*             "bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, ), */
-    /*             "text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, ), */
+    /*             "bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor ), */
+    /*             "text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText ), */
     /*           ), */
     /*           "background": <:> ( */
     /*             "$": <S> Canvas, */
@@ -10424,9 +10444,9 @@ tokens-vars {
     /*               "active": <S> ButtonFace, */
     /*             ), */
     /*             "border": <:> ( */
-    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*               "$": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*               "hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*             ), */
     /*             "text": <:> ( */
     /*               "$": <S> ButtonText, */
@@ -13005,12 +13025,12 @@ tokens-vars {
     /*         "button-primary-background": <S> ButtonFace, */
     /*         "button-primary-background-active": <S> ButtonFace, */
     /*         "button-primary-background-hover": <S> ButtonFace, */
-    /*         "button-primary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-primary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-primary-selection-background": <S> Highlight, */
     /*         "button-primary-selection-background-active": <S> Highlight, */
     /*         "button-primary-selection-background-hover": <S> Highlight, */
@@ -13026,12 +13046,12 @@ tokens-vars {
     /*         "button-secondary-background": <S> ButtonFace, */
     /*         "button-secondary-background-active": <S> ButtonFace, */
     /*         "button-secondary-background-hover": <S> ButtonFace, */
-    /*         "button-secondary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-secondary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-secondary-selection-background": <S> Highlight, */
     /*         "button-secondary-selection-background-active": <S> Highlight, */
     /*         "button-secondary-selection-background-hover": <S> Highlight, */
@@ -13047,12 +13067,12 @@ tokens-vars {
     /*         "button-grey-background": <S> ButtonFace, */
     /*         "button-grey-background-active": <S> ButtonFace, */
     /*         "button-grey-background-hover": <S> ButtonFace, */
-    /*         "button-grey-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-grey-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-grey-selection-background": <S> Highlight, */
     /*         "button-grey-selection-background-active": <S> Highlight, */
     /*         "button-grey-selection-background-hover": <S> Highlight, */
@@ -13066,8 +13086,8 @@ tokens-vars {
     /*         "button-grey-ui-active": <S> ButtonText, */
     /*         "button-grey-ui-hover": <S> ButtonText, */
     /*         "button-disabled-background": <S> ButtonFace, */
-    /*         "button-disabled-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-disabled-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-disabled-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-disabled-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-disabled-text": <S> ButtonText, */
     /*         "button-disabled-ui": <S> ButtonText, */
     /*         "heading-1": <S> CanvasText, */
@@ -13128,8 +13148,8 @@ tokens-vars {
     /*         "link-ui-disabled": <S> GrayText, */
     /*         "selection-background": <S> Highlight, */
     /*         "selection-text": <S> HighlightText, */
-    /*         "system-accent-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, ), */
-    /*         "system-accent-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, ), */
+    /*         "system-accent-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor ), */
+    /*         "system-accent-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText ), */
     /*         "system-background": <S> Canvas, */
     /*         "system-background-bright": <S> Canvas, */
     /*         "system-background-grey": <S> Canvas, */
@@ -13138,9 +13158,9 @@ tokens-vars {
     /*         "system-button-bg": <S> ButtonFace, */
     /*         "system-button-bg-hover": <S> ButtonFace, */
     /*         "system-button-bg-active": <S> ButtonFace, */
-    /*         "system-button-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "system-button-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "system-button-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "system-button-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "system-button-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "system-button-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "system-button-text": <S> ButtonText, */
     /*         "system-button-text-hover": <S> ButtonText, */
     /*         "system-button-text-active": <S> ButtonText, */
@@ -13157,8 +13177,8 @@ tokens-vars {
     /*         "system-link-active": <S> ActiveText, */
     /*         "system-link-hover": <S> ActiveText, */
     /*         "system-link-visited": <S> VisitedText, */
-    /*         "system-mark-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, 3: <S> Mark, ), */
-    /*         "system-mark-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, 3: <S> MarkText, ), */
+    /*         "system-mark-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, 3: <S> Mark ), */
+    /*         "system-mark-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, 3: <S> MarkText ), */
     /*         "system-selected-bg": <S> SelectedItem, */
     /*         "system-selected-text": <S> SelectedItemText, */
     /*         "system-selection-bg": <S> Highlight, */
@@ -14676,12 +14696,12 @@ tokens-vars {
     /*         "button-primary-background": <S> ButtonFace, */
     /*         "button-primary-background-active": <S> ButtonFace, */
     /*         "button-primary-background-hover": <S> ButtonFace, */
-    /*         "button-primary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-primary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-primary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-primary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-primary-selection-background": <S> Highlight, */
     /*         "button-primary-selection-background-active": <S> Highlight, */
     /*         "button-primary-selection-background-hover": <S> Highlight, */
@@ -14697,12 +14717,12 @@ tokens-vars {
     /*         "button-secondary-background": <S> ButtonFace, */
     /*         "button-secondary-background-active": <S> ButtonFace, */
     /*         "button-secondary-background-hover": <S> ButtonFace, */
-    /*         "button-secondary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-secondary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-secondary-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-secondary-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-secondary-selection-background": <S> Highlight, */
     /*         "button-secondary-selection-background-active": <S> Highlight, */
     /*         "button-secondary-selection-background-hover": <S> Highlight, */
@@ -14718,12 +14738,12 @@ tokens-vars {
     /*         "button-grey-background": <S> ButtonFace, */
     /*         "button-grey-background-active": <S> ButtonFace, */
     /*         "button-grey-background-hover": <S> ButtonFace, */
-    /*         "button-grey-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-grey-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-grey-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-outline-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-grey-outline-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-grey-selection-background": <S> Highlight, */
     /*         "button-grey-selection-background-active": <S> Highlight, */
     /*         "button-grey-selection-background-hover": <S> Highlight, */
@@ -14737,8 +14757,8 @@ tokens-vars {
     /*         "button-grey-ui-active": <S> ButtonText, */
     /*         "button-grey-ui-hover": <S> ButtonText, */
     /*         "button-disabled-background": <S> ButtonFace, */
-    /*         "button-disabled-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "button-disabled-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "button-disabled-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "button-disabled-outline": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "button-disabled-text": <S> ButtonText, */
     /*         "button-disabled-ui": <S> ButtonText, */
     /*         "heading-1": <S> CanvasText, */
@@ -14799,8 +14819,8 @@ tokens-vars {
     /*         "link-ui-disabled": <S> GrayText, */
     /*         "selection-background": <S> Highlight, */
     /*         "selection-text": <S> HighlightText, */
-    /*         "system-accent-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, ), */
-    /*         "system-accent-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, ), */
+    /*         "system-accent-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor ), */
+    /*         "system-accent-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText ), */
     /*         "system-background": <S> Canvas, */
     /*         "system-background-bright": <S> Canvas, */
     /*         "system-background-grey": <S> Canvas, */
@@ -14809,9 +14829,9 @@ tokens-vars {
     /*         "system-button-bg": <S> ButtonFace, */
     /*         "system-button-bg-hover": <S> ButtonFace, */
     /*         "system-button-bg-active": <S> ButtonFace, */
-    /*         "system-button-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "system-button-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
-    /*         "system-button-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder, ), */
+    /*         "system-button-border": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "system-button-border-active": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
+    /*         "system-button-border-hover": <()> ( 1: <S> ButtonFace, 2: <S> ButtonBorder ), */
     /*         "system-button-text": <S> ButtonText, */
     /*         "system-button-text-hover": <S> ButtonText, */
     /*         "system-button-text-active": <S> ButtonText, */
@@ -14828,8 +14848,8 @@ tokens-vars {
     /*         "system-link-active": <S> ActiveText, */
     /*         "system-link-hover": <S> ActiveText, */
     /*         "system-link-visited": <S> VisitedText, */
-    /*         "system-mark-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, 3: <S> Mark, ), */
-    /*         "system-mark-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, 3: <S> MarkText, ), */
+    /*         "system-mark-bg": <()> ( 1: <S> CanvasText, 2: <S> AccentColor, 3: <S> Mark ), */
+    /*         "system-mark-text": <()> ( 1: <S> Canvas, 2: <S> AccentColorText, 3: <S> MarkText ), */
     /*         "system-selected-bg": <S> SelectedItem, */
     /*         "system-selected-text": <S> SelectedItemText, */
     /*         "system-selection-bg": <S> Highlight, */
@@ -16337,7 +16357,7 @@ tokens-vars {
     /*     ), */
     /*   ), */
     /*   "themesMeta": <:> ( */
-    /*     "brightness": <()> ( 1: <S> light, 2: <S> dark, ), */
+    /*     "brightness": <()> ( 1: <S> light, 2: <S> dark ), */
     /*     "contrast": <()> ( */
     /*       1: <S> low, */
     /*       2: <S> average, */
@@ -16352,9 +16372,9 @@ tokens-vars {
     /*         3: <S> secondary, */
     /*         4: <S> "grey", */
     /*       ), */
-    /*       "button": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
-    /*       "text": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
-    /*       "textAndBackground": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
+    /*       "button": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
+    /*       "text": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
+    /*       "textAndBackground": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
     /*       "textOrBackground": <()> ( */
     /*         1: <S> bright, */
     /*         2: <S> primary, */
@@ -16390,8 +16410,8 @@ tokens-vars {
     /*       ), */
     /*     ), */
     /*   ), */
-    /*   "themesMeta-buttonVariations": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey", ), */
-    /*   "themesMeta-buttonVariations-extra": <()> ( 1: <S> secondary, 2: <S> "grey", ), */
+    /*   "themesMeta-buttonVariations": <()> ( 1: <S> primary, 2: <S> secondary, 3: <S> "grey" ), */
+    /*   "themesMeta-buttonVariations-extra": <()> ( 1: <S> secondary, 2: <S> "grey" ), */
     /*   "transition": <:> ( */
     /*     "properties": <:> ( */
     /*       "always": <()> ( */

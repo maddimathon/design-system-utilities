@@ -1028,7 +1028,7 @@ export namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-alpha
              * @since 0.1.0-beta — Moved to SingleMode.Data and renamed.
-             * @since ___PKG_VERSION___ — Added selection prop.
+             * @since 0.4.0 — Added selection prop.
              */
             export type Button<
                 T_ColourTypes extends TokenTypes.Colour.TypeParams,

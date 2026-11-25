@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.4.0-draft
+ * @maddimathon/design-system-utilities@0.4.0
  * @license MIT
  */
 import type { RequiredHeadingLevels, TokenTypes } from '../@types.js';
@@ -292,7 +292,7 @@ export declare namespace Tokens_Themes_Set {
             /**
              * @since 0.1.0-alpha
              * @since 0.1.0-beta — Moved to SingleMode.Data and renamed.
-             * @since 0.4.0-draft — Added selection prop.
+             * @since 0.4.0 — Added selection prop.
              */
             type Button<T_ColourTypes extends TokenTypes.Colour.TypeParams, __T_ColourOption extends TokenTypes.Theme.ColourOption<T_ColourTypes> = TokenTypes.Theme.ColourOption<T_ColourTypes>, __T_EachValue extends any = InteractiveStyles<__T_ColourOption>, __T_OutlineValue extends any = Omit<InteractiveStyles<__T_ColourOption>, '$'>> = {
                 background: __T_EachValue;

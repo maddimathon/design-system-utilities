@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.4.0-draft
+ * @maddimathon/design-system-utilities@0.4.0
  * @license MIT
  */
 import type { RecursivePartial } from '@maddimathon/utility-typescript/types';

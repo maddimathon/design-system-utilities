@@ -19,6 +19,22 @@ and this project adheres to
 <!--CHANGELOG_NEW-->
 
 
+## **0.4.0** — 2026-11-24
+
+### Misc. Breaking
+- Updated to utility-sass@0.3.1 and utility-astro@0.3.0
+
+### Added
+- Added tokens for button selection styles
+- New icons: click, heart, pointer
+
+### Changed
+- Improved theme mode swatch display
+
+### Fixed
+- Minor updates to link card styles
+
+
 ## **0.3.0** — 2026-11-13
 
 New LinkCard component, tokens, styles.
