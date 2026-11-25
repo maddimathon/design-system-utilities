@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 /*!
- * @maddimathon/design-system-utilities@0.4.0
+ * @maddimathon/design-system-utilities@0.4.1
  * @license MIT
  */
 import { isObjectEmpty, slugify, toTitleCase, } from '@maddimathon/utility-typescript';

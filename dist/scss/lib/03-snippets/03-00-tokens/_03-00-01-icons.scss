@@ -1,5 +1,5 @@
 ///
-/// @package @maddimathon/design-system-utilities@0.4.0
+/// @package @maddimathon/design-system-utilities@0.4.1
 /// @since 0.1.0-alpha
 ///
 
@@ -113,6 +113,7 @@ $_allUniqueIconAspectRatios: ();
 @mixin snippet-support-icons(
     $useIconFont: config.$fn_pseudoIconsUseFont and font-family-exists(icons),
     //
+    $includeAltText: false,
     $multipleContentBlocks: false,
     $args...
 ) {
@@ -138,6 +139,7 @@ $_allUniqueIconAspectRatios: ();
             @include snippet-icon-pseudo-element(
                 null,
                 after,
+                $includeAltText: $includeAltText,
                 $includeAspectRatio: false,
                 $includeBasePropsOnly: true
             );
@@ -149,6 +151,7 @@ $_allUniqueIconAspectRatios: ();
             @include snippet-icon-pseudo-element(
                 null,
                 before,
+                $includeAltText: $includeAltText,
                 $includeAspectRatio: false,
                 $includeBasePropsOnly: true
             );
@@ -173,7 +176,12 @@ $_allUniqueIconAspectRatios: ();
                     &-after::after,
                     &-before::before {
                         content: $glyph;
-                        content: $glyph / '#{icon-label-value($slug)}';
+                        content: $glyph /
+                            if(
+                                $includeAltText,
+                                '#{icon-label-value($slug)}',
+                                ''
+                            );
                     }
 
                     $slug: null;
@@ -199,6 +207,7 @@ $_allUniqueIconAspectRatios: ();
                     $slug,
                     null,
                     $important: true,
+                    $includeAltText: $includeAltText,
                     $includeAspectRatio: false,
                     $includeBaseProps: false,
                     $spacing: false,
