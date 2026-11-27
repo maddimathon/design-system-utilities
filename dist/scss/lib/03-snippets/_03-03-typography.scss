@@ -850,7 +850,7 @@ $_maxWidth_vw: 100vw - (gap-inline-value(layout, $returnAsNumber: true) * 2);
     }
 
     @if $includeMobileHyphens {
-        @include max-width(mobile) {
+        @include max-width(tokens.$typography_breakpoint_hyphens) {
             hyphens: auto;
         }
     }
@@ -909,7 +909,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     $includeMargin_lastChild: null,
     $includeMarginSiblings: $includeMargin,
     $includeMarginSiblings_inIs: null,
-    $includeMobileHyphens: true,
+    $includeMobileHyphens: $includeBase,
     $includePadding: true,
     $includeSubheading: $includeHGroup,
     $multipleContentBlocks: false,
@@ -1167,7 +1167,7 @@ $_mixin_subheading: meta.get-mixin('snippet-subheading');
     }
 
     @if $includeMobileHyphens {
-        @include max-width(mobile) {
+        @include max-width(tokens.$typography_breakpoint_hyphens) {
             hyphens: auto;
 
             @if $multipleContentBlocks {

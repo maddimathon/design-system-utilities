@@ -126,16 +126,16 @@ $_raw_font_size_flat: map.flatten(map.get(breakdown.$font, size));
 
     $size_max: math.pow(breakdown.$fontSize_multiplier, $num * $max_multi) * $max_multi_post;
 
-    $min_multi_post: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
-    $min_multi: if($num > 0, config.$math_clampFontSize_multiplier_min, 1) * $scale_multiplier;
-
-    $size_min: math.pow(breakdown.$fontSize_multiplier, $num * $min_multi) * $min_multi_post;
-
     $size_max: math.round-to-pixel(
         $size_max * $fontScale * $multiplier,
         $factor: $roundingFactor * 4,
         $method: ceil
     );
+
+    $min_multi_post: if($num > 0, config.$math_clampFontSize_multiplier_min, 1);
+    $min_multi: if($num >= 1, config.$math_clampFontSize_multiplier_min, 1) * $scale_multiplier;
+
+    $size_min: math.pow(breakdown.$fontSize_multiplier, $num * $min_multi) * $min_multi_post;
 
     $size_min: math.round-to-pixel(
         $size_min * $fontScale * $multiplier,

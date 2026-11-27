@@ -9,7 +9,7 @@
 
 @use 'pkg:@maddimathon/utility-astro/lib/mixins' as utils;
 
-// @use '../../config';
+@use '../../config';
 @use '../../tokens';
 
 @use '../01-functions' as *;
@@ -38,7 +38,10 @@
     }
 }
 
-@mixin typography-base($fontSizeMultiplier: 100%) {
+@mixin typography-base(
+    $fontSizeMultiplier: 100%,
+    $includeMobileHyphens: config.$include_html
+) {
     @include typography-base--font-size(
         $fontSizeMultiplier: $fontSizeMultiplier
     ) {
@@ -57,11 +60,17 @@
         } @else {
             @content;
         }
+    }
 
-        @if tokens.$fontWeight_variable {
-            @include feature-check.supports(variableFonts) {
-                font-weight: tokens.$fontWeight_variable;
-            }
+    @if tokens.$fontWeight_variable {
+        @include feature-check.supports(variableFonts) {
+            font-weight: tokens.$fontWeight_variable;
+        }
+    }
+
+    @if $includeMobileHyphens {
+        @include utils.max-width(tokens.$typography_breakpoint_hyphens) {
+            hyphens: auto;
         }
     }
 }
